@@ -258,142 +258,6 @@ SVN_REVISION_AUTHOR = $Author: sk51922 $
       <yloc>379</yloc>
       </entry>
     <entry>
-      <name>Adhoc Job Currently Running?</name>
-      <description/>
-      <type>EVAL_TABLE_CONTENT</type>
-      <connection>MAXDAT</connection>
-      <schemaname/>
-      <tablename>CC_A_ADHOC_JOB</tablename>
-      <success_condition>rows_count_equal</success_condition>
-      <limit>0</limit>
-      <is_custom_sql>Y</is_custom_sql>
-      <is_usevars>N</is_usevars>
-      <custom_sql>SELECT ADHOC_JOB_ID
-FROM PP_A_ADHOC_JOB
-WHERE IS_RUNNING = 1</custom_sql>
-      <add_rows_result>N</add_rows_result>
-      <clear_result_rows>Y</clear_result_rows>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>379</yloc>
-      </entry>
-    <entry>
-      <name>Scheduled Job Currently Running?</name>
-      <description/>
-      <type>EVAL_TABLE_CONTENT</type>
-      <connection>MAXDAT</connection>
-      <schemaname/>
-      <tablename>CC_A_ADHOC_JOB</tablename>
-      <success_condition>rows_count_equal</success_condition>
-      <limit>0</limit>
-      <is_custom_sql>Y</is_custom_sql>
-      <is_usevars>N</is_usevars>
-      <custom_sql>SELECT SCHEDULED_JOB_ID
-FROM PP_A_SCHEDULED_JOB
-WHERE IS_RUNNING = 1</custom_sql>
-      <add_rows_result>N</add_rows_result>
-      <clear_result_rows>Y</clear_result_rows>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>379</yloc>
-      </entry>
-    <entry>
-      <name>Abort job</name>
-      <description/>
-      <type>ABORT</type>
-      <message/>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>633</yloc>
-      </entry>
-    <entry>
-      <name>Abort job  </name>
-      <description/>
-      <type>ABORT</type>
-      <message/>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>633</yloc>
-      </entry>
-    <entry>
-      <name>Log Adhoc Job Running</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;log_to_PP_L_ERROR.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-            <parameter>            <name>errorMessage</name>
-            <stream_name/>
-            <value>&quot;Aborting Job: Adhoc Job currently running. [At least one record in CC_A_ADHOC_JOB has IS_RUNNING marked as true]&quot;</value>
-            </parameter>      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>499</yloc>
-      </entry>
-    <entry>
-      <name>Log Scheduled Job Running</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;log_to_PP_L_ERROR.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-            <parameter>            <name>errorMessage</name>
-            <stream_name/>
-            <value>&quot;Aborting Job: Scheduled Job currently running. [At least one record in CC_A_SCHEDULED_JOB has IS_RUNNING marked as true]&quot;</value>
-            </parameter>      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>501</yloc>
-      </entry>
-    <entry>
       <name> Abort job   </name>
       <description/>
       <type>ABORT</type>
@@ -468,33 +332,6 @@ WHERE IS_RUNNING = 1</custom_sql>
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>manage_adhoc_jobs_preprocessing</from>
-      <to>Adhoc Job Currently Running?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Adhoc Job Currently Running?</from>
-      <to>Scheduled Job Currently Running?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Scheduled Job Currently Running?</from>
-      <to>production planning</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>production planning</from>
       <to>execute_adhoc_production_planning</to>
       <from_nr>0</from_nr>
@@ -513,42 +350,6 @@ WHERE IS_RUNNING = 1</custom_sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Scheduled Job Currently Running?</from>
-      <to>Log Scheduled Job Running</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Adhoc Job Currently Running?</from>
-      <to>Log Adhoc Job Running</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Log Adhoc Job Running</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Log Scheduled Job Running</from>
-      <to>Abort job  </to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>production planning</from>
       <to> Abort job   </to>
       <from_nr>0</from_nr>
@@ -557,50 +358,16 @@ WHERE IS_RUNNING = 1</custom_sql>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>manage_adhoc_jobs_preprocessing</from>
+      <to>production planning</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
-    <notepad>
-      <note>Description:
-This job is designed to be executed by manage_all_adhoc_Jobs, which will pass in a set of parameters that it retrieves from CC_A_ADHOC_JOB. This job represents
-the actual adhoc processing of the Contact Center ETL.
-
-Input:
-A set of execution parameters passed-in from manage_all_adhoc_jobs.
-
-Output:
-N&#47;A
-
-Steps:
-01.   START
-02.   manage_adhoc_jobs_preprocessing - Sets execution variables per passed-in parameters.
-03.   Adhoc Job Currently Running? - Checks CC_A_ADHOC_JOB table for any records marked IS_RUNNING = 1
-03b. Log Adhoc Job Running - If any CC_A_ADHOC_JOB records are marked as running, log and abort execution.
-04.   Scheduled Job Currently Running? - Checks CC_A_SCHEDULED_JOB table for any records marked IS_RUNNING = 1
-04b. Log Scheduled Job Running - If any CC_A_SCHEDULED_JOB records are marked as running, log and abort execution.
-05.   load_contact_center? - If jobType of CC_A_ADHOC_JOB record is set to load_contact_center execute full Contact Center ETL. Else, check for other valid job types.
-06.   load_production_planning? - If jobType of CC_A_ADHOC_JOB record is set to load_production_planning execute Production Planning portion of Contact Center ETL. Else, check for other valid job types.
-07.   execute_adhoc_load_contact_center_job - Manages the adhoc execution of load_contact_center, including pre&#47;post processing.
-08.   execute_adhoc_load_production_planning_job - Manages the adhoc execution of load_production_planning, including pre&#47;post processing. 
-09.  Success
-</note>
-      <xloc>0</xloc>
-      <yloc>0</yloc>
-      <width>1212</width>
-      <heigth>339</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
 </job>

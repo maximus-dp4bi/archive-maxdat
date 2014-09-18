@@ -569,45 +569,5 @@ true;</script>
     </hop>
   </hops>
   <notepads>
-    <notepad>
-      <note>Description:
-This job is designed to be executed by manage_all_adhoc_Jobs, which will pass in a set of parameters that it retrieves from CC_A_ADHOC_JOB. This job represents
-the actual adhoc processing of the Contact Center ETL.
-
-Input:
-A set of execution parameters passed-in from execute_all_adhoc_jobs.
-
-Output:
-N&#47;A
-
-Steps:
-01.   START
-02.   adhoc_job_preprocessing - Sets execution variables per passed-in parameters.
-03.   load_contact_center - Actual Execution of full Contact Center ETL.
-04.   Set Error Var - Retrieves a system variable that counts the number of errors that have occurred within execution scope and sets it to an execution variable.
-05.   Errors? - Compares errorCount execution variable. If = 0, mark execution as success. Else, mark execution as fail.
-06.   adhoc_job_postprocessing [Success = False] - Marks relevant CC_A_ADHOC_JOB record as processed [ IS_RUNNING = 0 and SUCCESS = 0 ]
-06b. adhoc_job_postprocessing [Success = True] -  Marks relevant CC_A_ADHOC_JOB record as processed [ IS_RUNNING = 0 and SUCCESS = 1 ]
-07.   Success
-</note>
-      <xloc>0</xloc>
-      <yloc>0</yloc>
-      <width>970</width>
-      <heigth>294</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
 </job>

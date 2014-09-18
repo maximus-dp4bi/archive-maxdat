@@ -80,44 +80,6 @@ SVN_REVISION_AUTHOR = $Author: sk51922 $
   <modified_date>2013&#47;10&#47;04 19:18:17.880</modified_date>
   </info>
   <notepads>
-    <notepad>
-      <note>Description:
-This job performs pre-processing for an individual adhoc execution of load_contact_center, including updating relevant flags and marking the JOB_START date on CC_A_ADHOC_JOB record.
-
-Input:
-A set of execution variables.
-
-Output:
-N&#47;A
-
-Steps:
-01.   START
-02.   Get Variables - Pulls execution variables into datastream.
-02b. Get Execution Datetime - Retrieves current system time.
-03.   Join Rows (cartesian product) - Merges current system time in stream with execution variables.
-04.   Add Status Bits - Add constants for isPending and isRunning in preparation for updating CC_A_ADHOC_JOB record.
-05.   Mark job as running in CC_A_ADHOC_JOB - Update relevant CC_A_ADHOC_JOB record to IS_PENDING = 0 and IS_RUNNING = 1
-06.   Success
-</note>
-      <xloc>0</xloc>
-      <yloc>0</yloc>
-      <width>1120</width>
-      <heigth>264</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>ACD</name>

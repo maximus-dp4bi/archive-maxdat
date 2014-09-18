@@ -85,44 +85,6 @@ SVN_REVISION_AUTHOR = $Author: sk51922 $
   <modified_date>2013&#47;10&#47;04 19:12:37.010</modified_date>
   </info>
   <notepads>
-    <notepad>
-      <note>Description:
-This job performs post-processing for an individual adhoc execution of load_contact_center, including updating relevant flags and marking the JOB_END date on CC_A_ADHOC_JOB record.
-
-Input:
-A set of execution parameters passed-in from manage_all_adhoc_jobs.
-
-Output:
-N&#47;A
-
-Steps:
-01.   START
-02.   Get adhocJobId &amp; successBit - Pull relevant execution variables into datastream.
-02b. Get System Info - Get current system time. 
-03.   Join Rows (cartesian product) - Merge system time in stream with execution variables.
-04.   Add isRunning Bit - Add constant for isRunning in preparation for updating CC_A_ADHOC_JOB record.
-05.   Insert &#47; Update - Update relevant CC_A_ADHOC_JOB record to IS_RUNNING = 0 and SUCCESS = ${successBit}
-06.   Success
-</note>
-      <xloc>0</xloc>
-      <yloc>0</yloc>
-      <width>1110</width>
-      <heigth>264</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>ACD</name>
