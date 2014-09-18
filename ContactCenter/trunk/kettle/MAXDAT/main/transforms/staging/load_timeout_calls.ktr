@@ -239,7 +239,7 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
     </attributes>
   </connection>
   <order>
-  <hop> <from>Add constants</from><to>Drop column Time_To_Agent</to><enabled>Y</enabled> </hop>  <hop> <from>Get Timeout Calls</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Drop column Time_To_Agent</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Add constants</from><to>Select Values</to><enabled>Y</enabled> </hop>  <hop> <from>Get Timeout Calls</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Select Values</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants</name>
     <type>Constant</type>
@@ -306,6 +306,17 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
         <length>-1</length>
         <precision>-1</precision>
       </field>
+      <field>
+        <name>TIME_OUT_CALL</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -316,7 +327,7 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
     </step>
 
   <step>
-    <name>Drop column Time_To_Agent</name>
+    <name>Select Values</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -382,6 +393,18 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>RING_TIME_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TIME_OUT_CALL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CALL_TYPE_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Time_To_Agent</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -464,6 +487,7 @@ then &apos;EB FREW OUT English&apos;
 when rcd.CallTypeID in (&apos;6996&apos;,&apos;6997&apos;,&apos;6998&apos;,&apos;6999&apos;)
 then &apos;EB FREW OUT Spanish&apos;
 end as CallTypeID,
+rcd.CallTypeID CALL_TYPE_ID,
 tcd.DigitsDialed as DialedNumberString, tcd.ANI, rcd.Variable10 as IVRTime, rcd.RouterQueueTime, 
 (rcd.Variable10 + rcd.RouterQueueTime) as Time_To_Agent, 
 tcd.TalkTime, tcd.HoldTime from Termination_Call_Detail tcd, Route_Call_Detail rcd
@@ -590,6 +614,21 @@ and LEN(rcd.Variable10) &lt;= &apos;4&apos;
         <rename>CALL_SEGMENT_END_DT</rename>
         <update>N</update>
       </value>
+      <value>
+        <name>TIME_OUT_CALL</name>
+        <rename>TIME_OUT_CALL</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CALL_TYPE_ID</name>
+        <rename>CALL_TYPE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>TIME_TO_AGENT</name>
+        <rename>Time_To_Agent</rename>
+        <update>Y</update>
+      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -654,6 +693,15 @@ and LEN(rcd.Variable10) &lt;= &apos;4&apos;
         </field>
       <field>
         <name>RING_TIME_SECONDS</name>
+        </field>
+      <field>
+        <name>CALL_TYPE_ID</name>
+        </field>
+      <field>
+        <name>TIME_OUT_CALL</name>
+        </field>
+      <field>
+        <name>Time_To_Agent</name>
         </field>
       </fields>
      <cluster_schema/>
