@@ -1,0 +1,113 @@
+<project name="Main" basedir="." default="test" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<!-- check if a project or list of projects was specified -->
+	<condition property="project.set">
+		<isset property="project"/>
+	</condition>
+	<condition property="projects" value="${projects}" else="${project}">
+		<isset property="projects"/>
+	</condition> 
+	
+	<fail message="FATAL:  Neither 'projects' nor 'project' was specified by setting the corresponding property.  Please provide it in the ant command, \n
+				   eg:  ant -Dprojects=projecta,projectb,projectc -Denv=dev -Dmodules=agentperf,prodplanning" unless="projects"/>
+				   
+	<!-- check if a module or list of modules was specified -->
+	<condition property="module.set">
+		<isset property="module"/>
+	</condition>
+	<condition property="modules" value="${modules}" else="${module}">
+		<isset property="modules"/>
+	</condition>
+	
+	<fail message="FATAL:  Neither 'modules' nor 'module' was specified by setting the corresponding property.  Please provide it in the ant command, \n
+				   eg:  ant -Dprojects=projecta,projectb,projectc -Denv=dev -Dmodules=agentperf,prodplanning" unless="modules"/>
+	
+	<!-- check if running dev environment -->
+	<condition property="env.dev">
+		<equals arg1="${env}" arg2="dev"/>
+	</condition>
+
+	<!-- get build dependencies -->
+	<import file="common_build.xml"/>
+
+
+	<!-- run tests for each specified project and module -->
+	<target name="test" depends="ivy.resolve" if="env.dev">
+		<for list="${projects}" param="project">
+			<sequential>
+				<for list="${modules}" param="module">
+					<sequential>
+						<local name="builddir"/>
+						<local name="projectdir"/>
+						<dirname property="builddir" file="@{project}/@{module}/build_project.xml"/>
+						<echo>Compiling tests for @{project}:  @{module}</echo>
+						<ant antfile="@{project}/@{module}/build_project.xml" target="test" inheritAll="true" inheritRefs="true">
+							<property name="projectdir" value="${builddir}"/>
+						</ant>
+					</sequential>
+				</for>
+				
+			</sequential>
+		</for>
+	</target>
+	
+	
+	<!-- create test database(s)for each specified project and module -->
+	<target name="create-test-database" depends="ivy.resolve" if="env.dev">
+		<for list="${projects}" param="project">
+			<sequential>
+				<for list="${modules}" param="module">
+					<sequential>
+						<local name="builddir"/>
+						<local name="projectdir"/>
+						<dirname property="builddir" file="@{project}/@{module}/build_project.xml"/>
+						<echo>Creating test database objects for @{project}:  @{module}</echo>
+						<ant antfile="@{project}/@{module}/build_project.xml" target="create-test-database" inheritAll="true" inheritRefs="true">
+							<property name="projectdir" value="${builddir}"/>
+						</ant>
+					</sequential>
+				</for>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- create database(s) for each specified project and module -->
+	<target name="create-database" depends="ivy.resolve">
+		<for list="${projects}" param="project">
+			<sequential>
+				<for list="${modules}" param="module">
+					<sequential>
+						<local name="builddir"/>
+						<local name="projectdir"/>
+						<dirname property="builddir" file="@{project}/@{module}/build_project.xml"/>
+						<echo>Creating database objects for @{project}:  @{module}</echo>
+						<ant antfile="@{project}/@{module}/build_project.xml" target="create-database" inheritAll="true" inheritRefs="true">
+							<property name="projectdir" value="${builddir}"/>
+						</ant>
+					</sequential>
+				</for>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- drop and recreate tables for each specified project and module -->
+	<target name="create-tables" depends="ivy.resolve">
+		<for list="${projects}" param="project">
+			<sequential>
+				<for list="${modules}" param="module">
+					<sequential>
+						<local name="builddir"/>
+						<local name="projectdir"/>
+						<dirname property="builddir" file="@{project}/@{module}/build_project.xml"/>
+						<echo>Creating database objects for @{project}:  @{module}</echo>
+						<ant antfile="@{project}/@{module}/build_project.xml" target="create-tables" inheritAll="true" inheritRefs="true">
+							<property name="projectdir" value="${builddir}"/>
+						</ant>
+					</sequential>
+				</for>
+			</sequential>
+		</for>
+	</target>
+	
+	
+</project>

@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_CC_D_CONTACT_QUEUE" id="34E09040-2CA7-7CD4-3403-4A38A7056704" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-06-28 17:37:21 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_CONTACT_QUEUE_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_D_CONTACT_QUEUE.NEXTVAL INTO :NEW.D_CONTACT_QUEUE_ID FROM DUAL;      &lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>E902F6B5-9F7F-4FF6-EAA5-8BD8A9EE72DB</table>
+</TriggerOraclev10g>

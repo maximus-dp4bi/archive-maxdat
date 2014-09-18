@@ -1,0 +1,144 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="8CB7144B-9DEB-7E2B-FDC0-E39300EBB791" directorySegmentName="seg_0" name="CC_C_CONTACT_QUEUE">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 20:02:26 UTC</createdTime>
+<comment>CC_C_CONTACT_QUEUE is a project configuration table that contains the assignments of queues to units of work. &lt;br/&gt;&lt;br/&gt;This table will be initialized as a part of the project deployment process and the data will be managed by a Production Planning administrator outside of the normal ETL process.  The addition of queues to the ACD must be coordinated with the Production Planning administrator.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>CC_C_CONTACT_QUEUEv1_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="C_CONTACT_QUEUE_ID" id="B275AF95-9E87-6307-BD5C-70958C51CCF4">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 20:06:32 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACT_QUEUE_ID" id="735A554B-98DE-F2CF-2AED-2665A9A3D0E8">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 20:06:32 UTC</createdTime>
+<comment>FK to CC_C_CONTACT_QUEUE.  This column is the driver for the assigment of a contact queue to a unit of work.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>CC049BCB-DDE6-1AB7-232F-91EFCE2F4439</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="27FD3FF0-3DCB-5C0C-9CAA-1C92E99EB2EE" referredColumn="CC049BCB-DDE6-1AB7-232F-91EFCE2F4439"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UNIT_OF_WORK_NAME" id="A22E7DB0-B9C3-99EF-1FAF-1073868E0ED2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 20:06:32 UTC</createdTime>
+<comment>The natural key of the unit of work.  This value is used when loading the staging data into the dimensional model to lookup the correct unit of work dimension.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="A3FDBBA0-28DE-1C48-7D93-7373C29692DE">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 22:56:03 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;1900/01/01&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="741A0610-12C9-5C68-9B86-FFB49B11CBDF">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 22:56:03 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;2999/12/31&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="AC9A3B6C-D243-68EB-CB50-F7DFF5ADC088" name="CC_C_CONTACT_QUEUEv1_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 20:06:32 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="B275AF95-9E87-6307-BD5C-70958C51CCF4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="6DD72F78-1942-0A2D-93BD-16F46649EFDE" name="CC_C_CONTACT_QUEUE__IDXv1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 22:56:03 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="735A554B-98DE-F2CF-2AED-2665A9A3D0E8"/>
+<colUsage columnID="A3FDBBA0-28DE-1C48-7D93-7373C29692DE" sortOrder="DESC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="17400656-C22C-6583-8B87-909F6CFB6BB5" name="CC_C_CONTACT_QUEUE__IDXv2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-14 12:25:49 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="735A554B-98DE-F2CF-2AED-2665A9A3D0E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B4D5A1CB-7E27-A876-7653-6B314B489588" name="CC_C_CNTCT_Q_CC_S_CNTCT_Q_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-13 22:52:15 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="735A554B-98DE-F2CF-2AED-2665A9A3D0E8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

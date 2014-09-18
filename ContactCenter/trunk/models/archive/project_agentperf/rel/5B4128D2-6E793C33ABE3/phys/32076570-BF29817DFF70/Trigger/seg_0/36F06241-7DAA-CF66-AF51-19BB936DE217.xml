@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_S_EXTERNAL_INTERNAL" id="36F06241-7DAA-CF66-AF51-19BB936DE217" directorySegmentName="seg_0">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-14 19:10:59 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.EXTERNAL_INTERNAL_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_S_EXTERNAL_INTERNAL.NEXTVAL INTO :NEW.EXTERNAL_INTERNAL_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;IF INSERTING THEN &lt;br/&gt;          :NEW.EXTRACT_DT := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_UPDATE_DT := SYSDATE;&lt;br/&gt;:NEW.LAST_UPDATE_BY := USER;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>831BE328-3FC0-4134-3622-64984FFEEFFA</table>
+</TriggerOraclev10g>

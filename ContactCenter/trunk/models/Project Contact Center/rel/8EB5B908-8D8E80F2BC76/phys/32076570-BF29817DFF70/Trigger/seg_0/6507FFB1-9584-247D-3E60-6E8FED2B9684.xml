@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_C_PROJECT_CONFIG" id="6507FFB1-9584-247D-3E60-6E8FED2B9684" directorySegmentName="seg_0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN &lt;br/&gt;IF INSERTING AND :NEW.PROJECT_CONFIG_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_C_PROJECT_CONFIG.NEXTVAL INTO :NEW.PROJECT_CONFIG_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>B5F30D13-D0F1-DD3F-D8CE-5EE63D0B1CF9</table>
+</TriggerOraclev10g>

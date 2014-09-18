@@ -1,0 +1,1848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>LOAD_MW_SLA_GROUPS_v2</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>Y</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2012&#47;09&#47;07 05:43:50.853</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2012&#47;09&#47;07 05:43:50.853</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecdmsp</name>
+    <server>rsmxdb09z1.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECDMSP</database>
+    <port>1544</port>
+    <username>DH240464 </username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecmxdp</name>
+    <server>rsmxdb07.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>nyecmxdp</database>
+    <port>1544</port>
+    <username>dh24064</username>
+    <password>Encrypted 2be98afc86aa7f2a0ae0fb4258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECMXDU</name>
+    <server>rcmxdb01.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECMXDU</database>
+    <port>1544</port>
+    <username>dh24064</username>
+    <password>Encrypted 2be98afc86aa7f2a0ae0fb4258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecprd</name>
+    <server>rsmxdb09z1.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECPRD</database>
+    <port>1544</port>
+    <username>DH24064</username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>standby</name>
+    <server>resvamaxdb3</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECPRD</database>
+    <port>1544</port>
+    <username>DH24064</username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Filter NOCHANGE</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter NOCHANGE</from><to>Filter rows  DO NOT RUN THIS TREE</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows  DO NOT RUN THIS TREE</from><to>Filter rows  UPDATEs</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows  DO NOT RUN THIS TREE</from><to>Filter rows Days Type ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Days Type ADD</from><to>Filter rows DAys ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows DAys ADD</from><to>Filter rows Jeopardy ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Jeopardy ADD</from><to>Filter rows Target ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Target ADD</from><to>Filter rows Grp ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Grp ADD</from><to>Filter rows  UPDATEs</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Days Type ADD</from><to>Table output DaysType</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Grp ADD</from><to>Table output  Groups</to><enabled>Y</enabled> </hop>  <hop> <from>Table output DaysType</from><to>Filter rows DAys ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Table output  Groups</from><to>Filter rows  UPDATEs</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows DAys ADD</from><to>Table output Days</to><enabled>Y</enabled> </hop>  <hop> <from>Table output Days</from><to>Filter rows Jeopardy ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Jeopardy ADD</from><to>Table output Jeopardy</to><enabled>Y</enabled> </hop>  <hop> <from>Table output Jeopardy</from><to>Filter rows Target ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Target ADD</from><to>Table output target</to><enabled>Y</enabled> </hop>  <hop> <from>Table output target</from><to>Filter rows Grp ADD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows  UPDATEs</from><to>Filter rows days type upd</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows days type upd</from><to>Filter rows days UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows days UPD</from><to>Filter rows jeopardy UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows jeopardy UPD</from><to>Filter rows target UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows target UPD</from><to>Filter rows Group UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows  UPDATEs</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Group UPD</from><to>Dummy (do nothing) 3</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>Join Rows (cartesian product)</to><enabled>Y</enabled> </hop>  <hop> <from>Join Rows (cartesian product)</from><to>Filter NOCHANGE</to><enabled>Y</enabled> </hop>  <hop> <from>Microsoft Excel Input</from><to>Join Rows (cartesian product)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows days type upd</from><to>Insert &#47; Update days type</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update days type</from><to>Filter rows days UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows days UPD</from><to>Insert &#47; Update Days</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update Days</from><to>Filter rows jeopardy UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows Group UPD</from><to>Insert &#47; Update 3 task Groups</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows target UPD</from><to>Insert &#47; Update 2 Target days</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows jeopardy UPD</from><to>Insert &#47; Update Jeopardy</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update Jeopardy</from><to>Filter rows target UPD</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update 2 Target days</from><to>Filter rows Group UPD</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>412</xloc>
+      <yloc>72</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing) 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>842</xloc>
+      <yloc>182</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing) 3</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>609</xloc>
+      <yloc>818</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter NOCHANGE</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy (do nothing)</send_true_to>
+<send_false_to>Filter rows  DO NOT RUN THIS TREE</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ACTION</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>NOCHANGE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>72</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows  DO NOT RUN THIS TREE</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows Days Type ADD</send_true_to>
+<send_false_to>Filter rows  UPDATEs</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ACTION</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>DONT_RUN</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows  UPDATEs</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows days type upd</send_true_to>
+<send_false_to>Dummy (do nothing) 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ACTION</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>UPDATE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <leftvalue>ACTION</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>ADD</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>604</xloc>
+      <yloc>182</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows DAys ADD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output Days</send_true_to>
+<send_false_to>Filter rows Jeopardy ADD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_days</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>286</xloc>
+      <yloc>410</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows Days Type ADD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output DaysType</send_true_to>
+<send_false_to>Filter rows DAys ADD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_daysType</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>312</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows Group UPD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Insert &#47; Update 3 task Groups</send_true_to>
+<send_false_to>Dummy (do nothing) 3</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_grp</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>697</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows Grp ADD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output  Groups</send_true_to>
+<send_false_to>Filter rows  UPDATEs</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_grp</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>285</xloc>
+      <yloc>697</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows Jeopardy ADD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output Jeopardy</send_true_to>
+<send_false_to>Filter rows Target ADD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_jeop</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>504</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows Target ADD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output target</send_true_to>
+<send_false_to>Filter rows Grp ADD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_targt</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>597</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows days UPD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Insert &#47; Update Days</send_true_to>
+<send_false_to>Filter rows jeopardy UPD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_days</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>410</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows days type upd</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Insert &#47; Update days type</send_true_to>
+<send_false_to>Filter rows days UPD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_daysType</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>312</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows jeopardy UPD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Insert &#47; Update Jeopardy</send_true_to>
+<send_false_to>Filter rows target UPD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_jeop</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>504</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows target UPD</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Insert &#47; Update 2 Target days</send_true_to>
+<send_false_to>Filter rows Group UPD</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>chg_targt</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>597</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update 2 Target days</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>maxdat</schema>
+      <table>corp_etl_list_lkup</table>
+      <key>
+        <name>CMANAGEWORK_SLA_TARGET_DAYS</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>NAME</name>
+        <field>VALUE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>CMANAGEWORK_SLA_TARGET_DAYS</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LIST_TYPE</name>
+        <rename>CTASK_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>VALUE</name>
+        <rename>NAME</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>OUT_VAR</name>
+        <rename>nSLA_Target_Days</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REF_TYPE</name>
+        <rename>CREF_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>REF_ID</name>
+        <rename>STEP_DEFINITION_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>START_DATE</name>
+        <rename>CSTART_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>END_DATE</name>
+        <rename>CEND_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>COMMENTS</name>
+        <rename>CCOMMENTS</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>813</xloc>
+      <yloc>597</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update 3 task Groups</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>maxdat</schema>
+      <table>corp_etl_list_lkup</table>
+      <key>
+        <name>CTASK_MONITOR_TYPE</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>NAME</name>
+        <field>VALUE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>CTASK_MONITOR_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LIST_TYPE</name>
+        <rename>CLIST</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>VALUE</name>
+        <rename>NAME</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>OUT_VAR</name>
+        <rename>nOps_Group</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REF_TYPE</name>
+        <rename>CREF_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>REF_ID</name>
+        <rename>STEP_DEFINITION_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>START_DATE</name>
+        <rename>CSTART_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>END_DATE</name>
+        <rename>CEND_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>COMMENTS</name>
+        <rename>CCOMMENTS</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>813</xloc>
+      <yloc>697</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update Days</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>maxdat</schema>
+      <table>corp_etl_list_lkup</table>
+      <key>
+        <name>CMANAGEWORK_SLA_DAYS</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>NAME</name>
+        <field>VALUE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>CMANAGEWORK_SLA_DAYS</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LIST_TYPE</name>
+        <rename>CTASK_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>VALUE</name>
+        <rename>NAME</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>OUT_VAR</name>
+        <rename>nSLA_Days</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REF_TYPE</name>
+        <rename>CREF_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>REF_ID</name>
+        <rename>STEP_DEFINITION_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>START_DATE</name>
+        <rename>CSTART_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>END_DATE</name>
+        <rename>CEND_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>COMMENTS</name>
+        <rename>CCOMMENTS</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>813</xloc>
+      <yloc>410</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update Jeopardy</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>maxdat</schema>
+      <table>corp_etl_list_lkup</table>
+      <key>
+        <name>CMANAGEWORK_SLA_JEOPARDY_DAYS</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>NAME</name>
+        <field>VALUE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>CMANAGEWORK_SLA_JEOPARDY_DAYS</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LIST_TYPE</name>
+        <rename>CTASK_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>VALUE</name>
+        <rename>NAME</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>OUT_VAR</name>
+        <rename>nSLA_Jeopardy_Days</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REF_TYPE</name>
+        <rename>CREF_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>REF_ID</name>
+        <rename>STEP_DEFINITION_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>START_DATE</name>
+        <rename>CSTART_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>END_DATE</name>
+        <rename>CEND_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>COMMENTS</name>
+        <rename>CCOMMENTS</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>813</xloc>
+      <yloc>504</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update days type</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>maxdat</schema>
+      <table>corp_etl_list_lkup</table>
+      <key>
+        <name>CMANAGEWORK_SLA_DAYS_TYPE</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>NAME</name>
+        <field>VALUE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>NAME</name>
+        <rename>CMANAGEWORK_SLA_DAYS_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>LIST_TYPE</name>
+        <rename>CTASK_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>VALUE</name>
+        <rename>NAME</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>OUT_VAR</name>
+        <rename>nSLA_Days_Type</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REF_TYPE</name>
+        <rename>CREF_TYPE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>REF_ID</name>
+        <rename>STEP_DEFINITION_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>START_DATE</name>
+        <rename>CSTART_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>END_DATE</name>
+        <rename>CEND_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>COMMENTS</name>
+        <rename>CCOMMENTS</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>813</xloc>
+      <yloc>312</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Rows (cartesian product)</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue/>
+ <function>=</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>151</xloc>
+      <yloc>79</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Microsoft Excel Input</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>${ETL_LOG_DIRECTORY}&#47;NYEC_Task_Type_GroupsMAXDat_273.xls</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>Task Type</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nSLA_Days_Type</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nSLA_Days</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nSLA_Jeopardy_Days</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nSLA_Target_Days</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>nOps_Group</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>ACTION</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>chg_daysType</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>chg_days</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>chg_jeop</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>chg_targt</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>chg_grp</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>STEP_DEFINITION_ID</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NAME</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>STEP_TYPE_CD</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SLA_DAYS_TYPE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SLA_DAYS</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SLA_JEPARDY_DAYS</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SLA_TARGET_DAYS</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>TASK_GROUP</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>JXL</spreadsheet_type>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>45</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>select 
+trunc(sysdate) cstart_date,
+trunc(sysdate-1) ccancel_end_date,
+to_date(&apos;77770707&apos;,&apos;YYYYMMDD&apos;) cend_date,
+&apos;Updated for Maxdat-293 on &apos;||to_char(sysdate,&apos;mm-mm-yyyy&apos;)||&apos;!&apos; ccomments,
+&apos;ManageWork_SLA_Days&apos; as cManageWork_SLA_Days,
+&apos;ManageWork_SLA_Days_Type&apos; as cManageWork_SLA_Days_Type,
+&apos;ManageWork_SLA_Jeopardy_Days&apos; as cManageWork_SLA_Jeopardy_Days,
+&apos;ManageWork_SLA_Target_Days&apos; as cManageWork_SLA_Target_Days,
+&apos;STEP_DEFINITION_ID&apos; as cref_type,
+&apos;TASK_TYPE&apos; as cTASK_TYPE,
+&apos;TASK_MONITOR_TYPE&apos; as cTASK_MONITOR_TYPE,
+&apos;LIST&apos; as cLIST
+from dual</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>46</xloc>
+      <yloc>41</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output  Groups</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>MAXDAT</schema>
+    <table>CORP_ETL_LIST_LKUP</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>NAME</column_name>
+          <stream_name>CTASK_MONITOR_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>LIST_TYPE</column_name>
+          <stream_name>CLIST</stream_name>
+        </field>
+        <field>
+          <column_name>REF_TYPE</column_name>
+          <stream_name>CREF_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>COMMENTS</column_name>
+          <stream_name>CCOMMENTS</stream_name>
+        </field>
+        <field>
+          <column_name>END_DATE</column_name>
+          <stream_name>CEND_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>START_DATE</column_name>
+          <stream_name>CSTART_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>VALUE</column_name>
+          <stream_name>NAME</stream_name>
+        </field>
+        <field>
+          <column_name>REF_ID</column_name>
+          <stream_name>STEP_DEFINITION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>OUT_VAR</column_name>
+          <stream_name>nOps_Group</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>283</xloc>
+      <yloc>821</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output Days</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>maxdat</schema>
+    <table>corp_etl_list_lkup</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>LIST_TYPE</column_name>
+          <stream_name>CTASK_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>VALUE</column_name>
+          <stream_name>NAME</stream_name>
+        </field>
+        <field>
+          <column_name>REF_TYPE</column_name>
+          <stream_name>CREF_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>REF_ID</column_name>
+          <stream_name>STEP_DEFINITION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>START_DATE</column_name>
+          <stream_name>CSTART_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>END_DATE</column_name>
+          <stream_name>CEND_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>COMMENTS</column_name>
+          <stream_name>CCOMMENTS</stream_name>
+        </field>
+        <field>
+          <column_name>OUT_VAR</column_name>
+          <stream_name>nSLA_Days</stream_name>
+        </field>
+        <field>
+          <column_name>NAME</column_name>
+          <stream_name>CMANAGEWORK_SLA_DAYS</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>100</xloc>
+      <yloc>410</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output DaysType</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>maxdat</schema>
+    <table>corp_etl_list_lkup</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>NAME</column_name>
+          <stream_name>CMANAGEWORK_SLA_DAYS_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>LIST_TYPE</column_name>
+          <stream_name>CTASK_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>VALUE</column_name>
+          <stream_name>NAME</stream_name>
+        </field>
+        <field>
+          <column_name>OUT_VAR</column_name>
+          <stream_name>nSLA_Days_Type</stream_name>
+        </field>
+        <field>
+          <column_name>REF_TYPE</column_name>
+          <stream_name>CREF_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>REF_ID</column_name>
+          <stream_name>STEP_DEFINITION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>START_DATE</column_name>
+          <stream_name>CSTART_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>END_DATE</column_name>
+          <stream_name>CEND_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>COMMENTS</column_name>
+          <stream_name>CCOMMENTS</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>100</xloc>
+      <yloc>312</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output Jeopardy</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>maxdat</schema>
+    <table>corp_etl_list_lkup</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>LIST_TYPE</column_name>
+          <stream_name>CTASK_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>VALUE</column_name>
+          <stream_name>NAME</stream_name>
+        </field>
+        <field>
+          <column_name>REF_TYPE</column_name>
+          <stream_name>CREF_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>REF_ID</column_name>
+          <stream_name>STEP_DEFINITION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>START_DATE</column_name>
+          <stream_name>CSTART_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>END_DATE</column_name>
+          <stream_name>CEND_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>COMMENTS</column_name>
+          <stream_name>CCOMMENTS</stream_name>
+        </field>
+        <field>
+          <column_name>NAME</column_name>
+          <stream_name>CMANAGEWORK_SLA_JEOPARDY_DAYS</stream_name>
+        </field>
+        <field>
+          <column_name>OUT_VAR</column_name>
+          <stream_name>nSLA_Jeopardy_Days</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>100</xloc>
+      <yloc>504</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output target</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>maxdat</schema>
+    <table>corp_etl_list_lkup</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>LIST_TYPE</column_name>
+          <stream_name>CTASK_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>VALUE</column_name>
+          <stream_name>NAME</stream_name>
+        </field>
+        <field>
+          <column_name>REF_TYPE</column_name>
+          <stream_name>CREF_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>REF_ID</column_name>
+          <stream_name>STEP_DEFINITION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>START_DATE</column_name>
+          <stream_name>CSTART_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>END_DATE</column_name>
+          <stream_name>CEND_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>COMMENTS</column_name>
+          <stream_name>CCOMMENTS</stream_name>
+        </field>
+        <field>
+          <column_name>NAME</column_name>
+          <stream_name>CMANAGEWORK_SLA_TARGET_DAYS</stream_name>
+        </field>
+        <field>
+          <column_name>OUT_VAR</column_name>
+          <stream_name>nSLA_Target_Days</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>101</xloc>
+      <yloc>597</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

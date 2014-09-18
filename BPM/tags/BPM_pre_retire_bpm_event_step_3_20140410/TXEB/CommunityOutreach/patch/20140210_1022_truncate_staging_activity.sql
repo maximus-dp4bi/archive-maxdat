@@ -1,0 +1,1 @@
+truncate table CORP_ETL_COMMUNITY_ACTIVITIES;

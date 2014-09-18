@@ -1,0 +1,106 @@
+---------------------------------------------------------------------------------------------------------
+ PROJECT_NAME -> NYEC MAXDAT
+ RELEASE_NUMBER -> 2
+ ENVIRONMENT -> rcmxdb01.maximus.com (UAT NYECMXDU)
+ DEPLOYMENT START_TIME_DATE ->  Anytime
+ DEPLOYMENT COMPLETE_BY_TIME -> 
+ CONTACT_NAME: Raj A. (FULL NAME: PRITHVI RAZ ADHIKARLA)
+ CONTACT_NUMBER: 361-228-5588-Cell
+
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/MissingInfo
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/MissingInfo/BugFix_1
+
+ MSTR Object Path: n/a
+
+This release consists of the following updates:
+1.y - ETL scripts
+2.y - SQL scripts
+3.n - MicroStrategy Object
+4.n - Configuration
+5.y - Special Instructions:
+
+Special Instructions:
+Please do NOT deploy when the NYECSTBY is being refreshed.
+
+	
+This release consists of the following updates:
+1. Disable the cron job, run_bpm.sh, until the deployment is complete.
+
+2. Download the below file 
+   from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database/ProcessMI_Truncate_BPM_tables.sql
+   and deploy to  /u01/maximus/maxbi-uat/ETL/Database
+   
+3.1 Run thE file /u01/maximus/maxbi-uat/ETL/Database/ProcessMI_Truncate_BPM_tables.sql
+   in NYECMXDU (UAT) database.
+
+3.2 Run svn://rcmxapp1d.maximus.com/maxdat/BPM/NYEC/ProcessMissingInfo/patch/20121024_1016_rm_process_mi_bpm_events.sql
+
+
+4. Download the below listed ktr(kettle transformation files) files
+    from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/MissingInfo and 
+    deploy to /u01/maximus/maxbi-uat/ETL/scripts/MissingInfo    
+  
+   4.1 Open_MIs_on_App.ktr 
+   4.2 Process_MI_XRM.ktr
+
+5. Run the file /u01/maximus/maxbi-uat/ETL/Database/ProcessMI_ONE-TIME_Global_Control_value_change31.sql
+   in the NYECMXDU (UAT) database.
+
+6.1 Download Run_onetime_ProcessMI.sh from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts and 
+    deploy to /u01/maximus/maxbi-uat/ETL/scripts 
+6.2 Run Run_onetime_ProcessMI.sh in the UAT App Server (rcsvap01.maximus.com) THREE TIMES. 
+
+7. Run the file /u01/maximus/maxbi-uat/ETL/Database/ProcessMI_ONE-TIME_Global_Control_value_change.sql
+   in the NYECMXDU (UAT) database.
+
+8.  Create a folder "BugFix_1" in /u01/maximus/maxdat-prd/ETL/scripts/MissingInfo
+    Download the below listed ktr(kettle transformation files) and kjb(Kettle job files) files
+    from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/MissingInfo/BugFix_1 and 
+    deploy to /u01/maximus/maxbi-uat/ETL/scripts/MissingInfo/BugFix_1
+
+ProcessMI_Runall_BugFix.kjb
+Get_MI_Campaigns.ktr
+NYEC_ETL_Process_MI_Inserts.ktr
+NYEC_ETL_Process_MI_Updates.ktr
+ONETIME_Load_App_MIs.ktr
+Open_MIs_on_App.ktr
+Process_MI_XRM.ktr
+ProcessMI_CDC.kjb
+ProcessMI_Runall_BugFix.kjb
+ProcessMI_UPD6_30.ktr
+ProcessMI_UPD6_40_50.ktr
+ProcessMI_UPD7_10.ktr
+ProcessMI_UPD8_10.ktr
+ProcessMI_UPD9_10.ktr
+ProcessMI_UPD10_10.ktr
+ProcessMI_UPD11_10.ktr
+ProcessMI_UPD_5_20.ktr
+ProcessMI_UPD_6.ktr
+QC_Task_Update.ktr
+Research_Task_Update.ktr
+Set_Process_MI_StartTime.ktr   
+State_Review_Task_Update.ktr
+
+9. Download the below file 
+   from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database/ProcessMI_Volume_of_impacted_recs.sql
+   and deploy to  /u01/maximus/maxbi-uat/ETL/Database/
+
+    Run the file /u01/maximus/maxbi-uat/ETL/Database/ProcessMI_Volume_of_impacted_recs.sql 
+    in the NYECMXDU (UAT) database.
+
+10. Download the below file 
+    from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database/ProcessMI_Clear_BPM_fields.sql
+    and deploy to  /u01/maximus/maxbi-uat/ETL/Database
+
+11. Run the file /u01/maximus/maxbi-uat/ETL/Database/ProcessMI_Clear_BPM_fields.sql
+    in the NYECMXDU (UAT) database.
+
+12.1 Download Run_BugFix_ProcessMI.sh from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts and 
+    deploy to /u01/maximus/maxbi-uat/ETL/scripts 
+12.2 Run Run_BugFix_ProcessMI.sh THREE TIMES
+
+13. Enable the cron job, run_bpm.sh 
+	
+--------------------------------------------------------------------------------------------------------------------------

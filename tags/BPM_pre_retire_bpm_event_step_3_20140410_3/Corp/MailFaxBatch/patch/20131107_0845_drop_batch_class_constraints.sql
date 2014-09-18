@@ -1,0 +1,5 @@
+alter table CORP_ETL_MFB_BATCH_STG drop constraint CHECK_MFB_BS_BATCH_CLASS;
+alter table CORP_ETL_MFB_BATCH_WIP drop constraint CHECK_MFB_BW_BATCH_CLASS;
+alter table CORP_ETL_MFB_BATCH drop constraint CHECK_MFB_BATCH_BATCH_CLASS;
+
+

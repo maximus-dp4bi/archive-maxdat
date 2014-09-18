@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_S_APPRVD_EXCPTN" id="0BC23D8B-CC8A-EDA2-9D58-66B7AEF5063F" directorySegmentName="seg_0">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-14 19:06:11 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.CC_S_APPRVD_EXCPTN_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_S_APPRVD_EXCPTN.NEXTVAL INTO :NEW.CC_S_APPRVD_EXCPTN_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;IF INSERTING THEN &lt;br/&gt;          :NEW.EXTRACT_DT := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_UPDATE_DT := SYSDATE;&lt;br/&gt;:NEW.LAST_UPDATE_BY := USER;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<owner>E7B94AF4-394C-0DA9-35D7-D1D58B96FD28</owner>
+<state>ENABLE</state>
+<table>C2CC9677-0292-15A7-0D50-47E38DFC7DC2</table>
+</TriggerOraclev10g>

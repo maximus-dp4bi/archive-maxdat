@@ -1,0 +1,12 @@
+alter table D_PI_INSTANCE_STATUS noparallel;
+alter table D_PI_INCIDENT_ABOUT noparallel;
+alter table D_PI_INCIDENT_REASON noparallel;
+drop sequence SEQ_DPIID_ID;
+alter table D_PI_INCIDENT_STATUS noparallel;
+alter table D_PI_JEOPARDY_STATUS noparallel;
+alter table D_PI_ENROLLMENT_STATUS noparallel;
+alter table D_PI_LAST_UPDATE_BY noparallel;
+alter table D_PI_LAST_UPDATE_BY rename constraint DPIUB_PK to DPILUB_PK;
+alter table D_PI_TASK_ID noparallel;
+create index FPIBD_IXL2 on F_PI_BY_DATE (PI_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FPIBD_IXL3 on F_PI_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;

@@ -1,0 +1,12 @@
+1. Run script to compile new procedure
+   PRC_BPM_ETL_BIA v3.sql
+
+2. Run scripts to compile triggers:
+   TRG_AI_CORP_ETL_MANAGE_WORK v7.sql
+   TRG_AU_CORP_ETL_MANAGE_WORK v7.sql
+
+3. Run script to recreate views and materialized views included in change:
+   manage_work_data_reduction_patch v4.sql
+   
+4. Run script to remove 6 materialized views from the refresh lookup:
+   delete from corp_bpm_mv_refresh.sql

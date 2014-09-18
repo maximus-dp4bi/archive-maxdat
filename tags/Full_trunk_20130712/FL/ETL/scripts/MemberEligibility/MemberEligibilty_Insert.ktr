@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>MemberEligibilty_Insert</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>150000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit/>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2012&#47;04&#47;26 13:00:07.765</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2012&#47;04&#47;26 13:00:07.765</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Insert only the the rows for any new coverage request into the BPM stage table and those with new cov_rqst_id&apos;s. </note>
+      <xloc>250</xloc>
+      <yloc>400</yloc>
+      <width>562</width>
+      <heigth>22</heigth>
+      <fontname>Microsoft Sans Serif</fontname>
+      <fontsize>8</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME} </server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Unique rows</from><to>Dummy (duplicates)</to><enabled>Y</enabled> </hop>  <hop> <from>output to FLHK_ETL_MEMBER_ELIGIBILITY</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>output to FLHK_ETL_MEMBER_ELIGIBILITY</from><to>Dummy - finished</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Eligibility</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Table lookup - income</from><to>Lookup Member Income</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>Lookup Member Income</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Member Income</from><to>Lookup Relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Relationship</from><to>Lookup Relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Relationship</from><to>Stream lookup - Childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Childcare expense</from><to>Stream lookup - Childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - PROGRAM</from><to>lookup - PROGRAM</to><enabled>Y</enabled> </hop>  <hop> <from>Stream lookup - Childcare expense</from><to>lookup - PROGRAM</to><enabled>Y</enabled> </hop>  <hop> <from>lookup - PROGRAM</from><to>output to FLHK_ETL_MEMBER_ELIGIBILITY</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Dummy (duplicates)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>160</xloc>
+      <yloc>330</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy - finished</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1020</xloc>
+      <yloc>40</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Member Income</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Table lookup - income</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>MEMBER_ID</name>
+        <field>MEMBER_ID</field>
+      </key>
+      <value>
+        <name>TOTAL_MEMBER_INCOME_AMT</name>
+        <rename>TOTAL_MEMBER_INCOME_AMT</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+      <value>
+        <name>INCOME_VERIF_STATUS</name>
+        <rename>INCOME_VERIF_STATUS</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>INCOME_VERIF_STATUS_DATE</name>
+        <rename>INCOME_VERIF_STATUS_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>280</xloc>
+      <yloc>170</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Relationship</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Table input - Relationship</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>MEMBER_ID</name>
+        <field>MEMBER_ID</field>
+      </key>
+      <value>
+        <name>RELATIONSHIP_TO_PARENT_1</name>
+        <rename>RELATIONSHIP_TO_PARENT_1</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>RELATIONSHIP_TO_PARENT_2</name>
+        <rename>RELATIONSHIP_TO_PARENT_2</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>420</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Stream lookup - Childcare expense</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Table input - Childcare expense</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>PERSON_NUMBER</name>
+        <field>PERSON_NUMBER</field>
+      </key>
+      <value>
+        <name>CHILDCARE_EXPENSE</name>
+        <rename>CHILDCARE_EXPENSE</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+      <value>
+        <name>PERSON_NUMBER</name>
+        <rename>PERSON_NUMBER</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>560</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Childcare expense</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select nvl(sum(ace.monthly_amount),0) as CHILDCARE_EXPENSE,
+       person_number  PERSON_NUMBER
+from applicant_info ai, applicant_care_expense ace
+where ai.applicant_info_id = ace.applicant_info_id 
+group by  person_number </sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>560</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Eligibility</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select distinct
+       cr.coverage_request_id 	COV_RQST_ID, 
+       cr.insert_date           CREATE_DATE, 
+       er.schip_status          ELIG_STATUS, 
+       nvl(esr.insert_date,&apos;01-JAN-1900&apos;)          ELIG_STATUS_DATE,
+       CASE WHEN schip_status = &apos;PENDING&apos; THEN esr.status_reason 
+             else NULL
+        END PENDING_REASON,
+       CASE WHEN schip_status = &apos;NOT_ELIGIBLE&apos; THEN esr.status_reason
+            else NULL
+        END NOT_ELIG_REASON,
+       CASE WHEN schip_status = &apos;NOT_APPLYING&apos; THEN esr.status_reason
+            else NULL
+        END NOT_APPLYING_REASON, 
+       er.program_short_name    PROGRAM_SHORT_NAME,
+       ap.application_id        APPLICATION_ID,    
+       a.account_id             ACCOUNT_ID,
+       am.account_membership_id MEMBER_ID,
+       p.person_number          PERSON_NUMBER,
+       p.ssn_application_date   SSN_APPLY_DATE,
+       p.race_1                 RACE_1,
+       p.race_2                 RACE_2,
+       p.ethnicity              ETHNICITY,
+       aci.mailing_postal_code  MEMBER_ZIP_CODE,
+       aci.mailing_county       COUNTY,
+       aci.mailing_state        MEMBER_STATE,
+       a.pregnancy_due_date     UNBORN_CHILD_DUE_DATE,
+       decode(ins.provider_other_flag, &apos;1&apos;, &apos;Y&apos;, &apos;0&apos;,&apos;N&apos;)            OTHER_INSURANCE_ANSWER,
+       decode(ins.ins_voluntarily_cancelled_ind, &apos;1&apos;, &apos;Y&apos;, &apos;0&apos;, &apos;N&apos;) VOUNTARY_CANCEL_ANSWER,
+       decode(p.limited_in_any_way_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             LIMITED_IN_ANY_WAY,
+       decode(p.needs_special_therapy_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)          NEEDS_SPECIAL_THERAPY,
+       decode(p.uses_more_med_care_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             USES_MORE_MED_CARE,
+       decode(am.cms_opt_out_flag, &apos;0&apos;,&apos;In&apos;,&apos;1&apos;,&apos;Out&apos;)               CMSN_OPT_ANSWER,
+       decode(ame.dental_opt_out_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)              DENTAL_COVERAGE_FLAG, 
+       decode(p.citizenship_verified_type, 
+                 NULL, &apos;N&apos;, 
+                &apos;CITIZEN&apos;,&apos;Y&apos;,
+                &apos;QUALIFIED_NON_CITIZEN&apos;,&apos;Y&apos;,
+                &apos;NOT_QUALIFIED_NON_CITIZEN&apos;,&apos;Y&apos;,
+                &apos;QUALIFIED_NON_CITIZEN_LPR&apos;,&apos;Y&apos;)
+                 CITIZENSHIP_VERIFIED,
+       p.citizenship_verified_date CITIZENSHIP_VERIF_DATE,
+       p.citizenship_verified_source CITIZENSHIP_VERIF_SOURCE_DOC,
+       p.citiz_verif_insuff_reason CITIZENSHIP_INSUFF_REASON,
+       decode(p.identity_verified_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;) IDENTITY_VERIFIED,
+       p.identity_verified_date IDENTITY_VERIF_DATE,
+       p.identity_verification_source IDENTITY_VERIF_SOURCE_DOC,
+       p.ident_verif_insuff_reason IDENTITY_INSUFF_REASON,
+       decode(p.tribal_mbrshp_verif_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;) TRIBAL_MBRSHIP_VERIFIED,
+       p.tribal_verif_insuff_reason TRIBAL_MBRSHIP_INSUFF_REASON,
+       er.eligibility_result_id ELIG_RESULT_ID,
+       ed.determination_date ELIG_RESULT_DATE,
+       cr.coverage_request_status_date PRE_ELIG_RUN_DATE,
+       sysdate as stg_extract_date,
+	     &apos;ACTIVE&apos; as  INSTANCE_STATUS,
+       &apos;Member Eligibility&apos; as process_name,
+       &apos;Member Eligibility Create&apos; as job_name,
+        cr.coverage_request_id as driver_key_number, 
+        sysdate as system_date,
+       &apos;FLHK_ETL_MEMBER_ELIGIBILITY&apos; as driver_table_name,
+       &apos;CRITICAL&apos; as ERROR_LEVEL           
+from account a, account_membership am, person p, coverage_request cr, 
+     application ap, eligibility_result er, eligibility_status_reason esr,
+     applicant_info ai, insurance ins, account_contact_info aci,
+     program_ref pr, acct_member_enrollment_attrs ame, 
+     eligibility_determination ed
+where cr.account_membership_id = am.account_membership_id
+ and am.account_id = a.account_id 
+ and am.person_id = p.person_id 
+ and cr.application_id = ap.application_id 
+ and a.account_id = aci.account_id
+ and am.account_membership_id = er.account_membership_id 
+ and er.eligibility_determination_id = ed.eligibility_determination_id
+ and p.person_number = ai.person_number (+)
+ and er.eligibility_result_id = esr.eligibility_result_id (+)
+ and am.account_membership_id = ins.account_membership_id (+)
+ and am.account_membership_id = ame.account_membership_id (+)
+ and cr.coverage_request_id &gt; ${MAX_COV_RQST_ID}
+ and er.eligibility_result_id = (
+     select max(eligibility_result_id)  
+      from eligibility_result  er
+      where er.account_membership_id = am.account_membership_id
+      group by er.account_membership_id)
+order by COV_RQST_ID</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>60</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Relationship</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT prChildParent1.RELATIONSHIP_TYPE as RELATIONSHIP_TO_PARENT_1
+     , prChildParent2.RELATIONSHIP_TYPE as RELATIONSHIP_TO_PARENT_2
+     , amChild.ACCOUNT_MEMBERSHIP_ID as MEMBER_ID
+FROM PERSON p
+JOIN ACCOUNT_MEMBERSHIP amChild ON p.PERSON_ID = amChild.PERSON_ID AND amChild.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
+JOIN ACCOUNT aChild ON amChild.ACCOUNT_ID = aChild.ACCOUNT_ID
+LEFT JOIN PERSON_RELATIONSHIP prChildParent1
+  JOIN ACCOUNT_MEMBERSHIP am1 ON prChildParent1.PERSON_ID = am1.PERSON_ID AND am1.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
+  JOIN PERSON pParent1 ON prChildParent1.RELATED_TO_PERSON_ID  = pParent1.PERSON_ID
+  JOIN ACCOUNT_MEMBERSHIP amParent1 ON pParent1.PERSON_ID = amParent1.PERSON_ID AND am1.ACCOUNT_ID = amParent1.ACCOUNT_ID AND amParent1.PARENT_TYPE = &apos;PARENT1&apos;
+ON p.PERSON_ID = prChildParent1.PERSON_ID
+LEFT JOIN PERSON_RELATIONSHIP prChildParent2
+  JOIN ACCOUNT_MEMBERSHIP am2 ON prChildParent2.PERSON_ID = am2.PERSON_ID AND am2.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
+  JOIN PERSON pParent2 ON prChildParent2.RELATED_TO_PERSON_ID  = pParent2.PERSON_ID
+  JOIN ACCOUNT_MEMBERSHIP amParent2 ON pParent2.PERSON_ID = amParent2.PERSON_ID AND am2.ACCOUNT_ID = amParent2.ACCOUNT_ID AND amParent2.PARENT_TYPE = &apos;PARENT2&apos;
+ON prChildParent1.PERSON_ID = prChildParent2.PERSON_ID
+WHERE amChild.CHILD_FLAG = 1
+ORDER BY amChild.ACCOUNT_ID</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>420</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table lookup - income</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select nvl(sum(verified_monthly_amount),0) as total_member_income_amt, 
+VERIFICATION_STATUS as INCOME_VERIF_STATUS, 
+SYSDATE as INCOME_VERIF_STATUS_DATE,
+i.account_membership_id MEMBER_ID
+from income i 
+group by i.account_membership_id, verification_status
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>280</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output OLTP - error</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>FLCDM0_MAXDAT</schema>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>DRIVER_KEY_NUMBER</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>900</xloc>
+      <yloc>310</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Unique rows</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <count_rows>N</count_rows>
+      <count_field/>
+      <reject_duplicate_row>Y</reject_duplicate_row>
+      <error_description/>
+    <fields>      <field>        <name>COV_RQST_ID</name>
+        <case_insensitive>N</case_insensitive>
+        </field>      </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>160</xloc>
+      <yloc>170</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>output to FLHK_ETL_MEMBER_ELIGIBILITY</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>${DB_MAXDAT_SCHEMA}</schema>
+    <table>FLHK_ETL_MEMBER_ELIGIBILITY</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field>MW_ID</return_field>
+    <fields>
+        <field>
+          <column_name>COV_RQST_ID</column_name>
+          <stream_name>COV_RQST_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ELIG_STATUS</column_name>
+          <stream_name>ELIG_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>ELIG_STATUS_DATE</column_name>
+          <stream_name>ELIG_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>PENDING_REASON</column_name>
+          <stream_name>PENDING_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICATION_ID</column_name>
+          <stream_name>APPLICATION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>PROGRAM</column_name>
+          <stream_name>PROGRAM</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>MEMBER_ID</column_name>
+          <stream_name>MEMBER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>SSN_APPLY_DATE</column_name>
+          <stream_name>SSN_APPLY_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RACE_1</column_name>
+          <stream_name>RACE_1</stream_name>
+        </field>
+        <field>
+          <column_name>RACE_2</column_name>
+          <stream_name>RACE_2</stream_name>
+        </field>
+        <field>
+          <column_name>ETHNICITY</column_name>
+          <stream_name>ETHNICITY</stream_name>
+        </field>
+        <field>
+          <column_name>MEMBER_ZIP_CODE</column_name>
+          <stream_name>MEMBER_ZIP_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>COUNTY</column_name>
+          <stream_name>COUNTY</stream_name>
+        </field>
+        <field>
+          <column_name>MEMBER_STATE</column_name>
+          <stream_name>MEMBER_STATE</stream_name>
+        </field>
+        <field>
+          <column_name>UNBORN_CHILD_DUE_DATE</column_name>
+          <stream_name>UNBORN_CHILD_DUE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>OTHER_INSURANCE_ANSWER</column_name>
+          <stream_name>OTHER_INSURANCE_ANSWER</stream_name>
+        </field>
+        <field>
+          <column_name>LIMITED_IN_ANY_WAY</column_name>
+          <stream_name>LIMITED_IN_ANY_WAY</stream_name>
+        </field>
+        <field>
+          <column_name>NEEDS_SPECIAL_THERAPY</column_name>
+          <stream_name>NEEDS_SPECIAL_THERAPY</stream_name>
+        </field>
+        <field>
+          <column_name>USES_MORE_MED_CARE</column_name>
+          <stream_name>USES_MORE_MED_CARE</stream_name>
+        </field>
+        <field>
+          <column_name>CMSN_OPT_ANSWER</column_name>
+          <stream_name>CMSN_OPT_ANSWER</stream_name>
+        </field>
+        <field>
+          <column_name>DENTAL_COVERAGE_FLAG</column_name>
+          <stream_name>DENTAL_COVERAGE_FLAG</stream_name>
+        </field>
+        <field>
+          <column_name>CITIZENSHIP_VERIFIED</column_name>
+          <stream_name>CITIZENSHIP_VERIFIED</stream_name>
+        </field>
+        <field>
+          <column_name>CITIZENSHIP_VERIF_DATE</column_name>
+          <stream_name>CITIZENSHIP_VERIF_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CITIZENSHIP_VERIF_SOURCE_DOC</column_name>
+          <stream_name>CITIZENSHIP_VERIF_SOURCE_DOC</stream_name>
+        </field>
+        <field>
+          <column_name>CITIZENSHIP_INSUFF_REASON</column_name>
+          <stream_name>CITIZENSHIP_INSUFF_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>IDENTITY_VERIFIED</column_name>
+          <stream_name>IDENTITY_VERIFIED</stream_name>
+        </field>
+        <field>
+          <column_name>IDENTITY_VERIF_DATE</column_name>
+          <stream_name>IDENTITY_VERIF_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>IDENTITY_VERIF_SOURCE_DOC</column_name>
+          <stream_name>IDENTITY_VERIF_SOURCE_DOC</stream_name>
+        </field>
+        <field>
+          <column_name>IDENTITY_INSUFF_REASON</column_name>
+          <stream_name>IDENTITY_INSUFF_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>TRIBAL_MBRSHIP_VERIFIED</column_name>
+          <stream_name>TRIBAL_MBRSHIP_VERIFIED</stream_name>
+        </field>
+        <field>
+          <column_name>TRIBAL_MBRSHIP_INSUFF_REASON</column_name>
+          <stream_name>TRIBAL_MBRSHIP_INSUFF_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>ELIG_RESULT_ID</column_name>
+          <stream_name>ELIG_RESULT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>PRE_ELIG_RUN_DATE</column_name>
+          <stream_name>PRE_ELIG_RUN_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>TOTAL_MEMBER_INCOME_AMT</column_name>
+          <stream_name>TOTAL_MEMBER_INCOME_AMT</stream_name>
+        </field>
+        <field>
+          <column_name>INCOME_VERIF_STATUS</column_name>
+          <stream_name>INCOME_VERIF_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>INCOME_VERIF_STATUS_DATE</column_name>
+          <stream_name>INCOME_VERIF_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CHILDCARE_EXPENSE</column_name>
+          <stream_name>CHILDCARE_EXPENSE</stream_name>
+        </field>
+        <field>
+          <column_name>RELATIONSHIP_PARENT1</column_name>
+          <stream_name>RELATIONSHIP_TO_PARENT_1</stream_name>
+        </field>
+        <field>
+          <column_name>RELATIONSHIP_PARENT2</column_name>
+          <stream_name>RELATIONSHIP_TO_PARENT_2</stream_name>
+        </field>
+        <field>
+          <column_name>VOLUNTARY_CANCEL_ANSWER</column_name>
+          <stream_name>VOUNTARY_CANCEL_ANSWER</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>900</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - PROGRAM</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT PROGRAM_SHORT_NAME, DESCRIPTION
+from program_ref
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>700</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>lookup - PROGRAM</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Table input - PROGRAM</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>Y</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>PROGRAM_SHORT_NAME</name>
+        <field>PROGRAM_SHORT_NAME</field>
+      </key>
+      <value>
+        <name>DESCRIPTION</name>
+        <rename>PROGRAM</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>700</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Unique rows</source_step>
+        <target_step>Dummy (duplicates)</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>output to FLHK_ETL_MEMBER_ELIGIBILITY</source_step>
+        <target_step>Table output OLTP - error</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
+        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
+        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
+        <max_errors>10000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

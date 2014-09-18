@@ -1,0 +1,542 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="0D3006A7-5D34-F74E-805E-8E12980A0FA3" directorySegmentName="seg_0" name="CC_F_AGENT_BY_DATE">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:29:51 UTC</createdTime>
+<comment>F_AGENT_BY_DATE captures metrics relevant to the time that the agent spent on calls as well as information on the agent&apos;s scheduland work day.  Call metrics include client calls, internal calls and external calls.  Internal calls are defined as those that are with parties inside of the contact center, e.g. an agent calls their supervisor.  External calls are defined as those that are with parties outside of the contact center, e.g. an agent calls home.  The information captured related to the schedule and work day are the amount of time the agent was scheduled to work for the day, how much time they actually worked and how much time they worked above and beyond the normal work day.  This information is recorded by Date, Agent, Supervisor, Manager, Project, Group and Site.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<pkName>F_AGENT_CALLS_BY_DATE_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_AGENT_BY_DATE_ID" id="D8E4E4B8-BBCE-59F9-534D-95DDA8966FE0">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:31:31 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE" id="42C4B3F8-31F0-5E19-5C91-BC851F313EC3">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:33:11 UTC</createdTime>
+<comment>FK to D_DATE.  This field indicates the day the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<delegate>A9164C36-E47A-F56E-06EA-06BF0B2F2217</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F91BAC3D-D1D3-27C1-C2FD-5F738503488C" referredColumn="A9164C36-E47A-F56E-06EA-06BF0B2F2217"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_AGENT_ID" id="06839D64-7B89-4B08-8A2D-9AE3714A1C0E">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:33:11 UTC</createdTime>
+<comment>FK to D_AGENT.  This field indicates which agent the metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>8CDD83C8-D048-18C9-627F-C1C28D4C81C1</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0E57375D-6C8A-2607-DEAB-7FC921D289F2" referredColumn="8CDD83C8-D048-18C9-627F-C1C28D4C81C1"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SUPERVISOR_D_AGENT_ID" id="F2AE13AB-B7F9-D63D-AF2F-5D36508D8301">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-26 20:02:59 UTC</createdTime>
+<comment>FK to D_AGENT.  This field indicates the supervisor of the agent the metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>8CDD83C8-D048-18C9-627F-C1C28D4C81C1</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B4DD13C6-7330-2CDA-0ACC-9B9B353F5C5F" referredColumn="8CDD83C8-D048-18C9-627F-C1C28D4C81C1"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MANAGER_D_AGENT_ID" id="6D3B6A5B-3920-D076-20C6-73EC02CE3DA7">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-26 20:04:05 UTC</createdTime>
+<comment>FK to D_AGENT.  This field indicates the manager of the agent the metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>8CDD83C8-D048-18C9-627F-C1C28D4C81C1</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="546EA585-1FDB-8723-1B6A-F0BEDF0B1703" referredColumn="8CDD83C8-D048-18C9-627F-C1C28D4C81C1"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROJECT_TARGETS_ID" id="B8957315-B472-2318-721B-C2D1B5B9A384">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 19:51:29 UTC</createdTime>
+<comment>FK to CC_D_PROJECT_TARGETS.  This field associates the agent&apos;s metrics to the agent&apos;s project targets that were current for that particular day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>B79453B3-0D20-EEC0-68F8-7EFFD0C072C7</delegate>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6314ACB9-6538-3D78-56B1-0AD430CE84D4" referredColumn="B79453B3-0D20-EEC0-68F8-7EFFD0C072C7"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROGRAM_ID" id="54482FF8-17B2-01D4-4F92-A1D6FB1DF494">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 18:54:42 UTC</createdTime>
+<comment>FK to D_PROGRAM.  This field indicates which program the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>057B4F56-F1B1-AB8F-4D5A-899EBB13AB58</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="59FA540C-CEAC-9EB8-C5B8-981C90FDCCF4" referredColumn="057B4F56-F1B1-AB8F-4D5A-899EBB13AB58"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GEOGRAPHY_MASTER_ID" id="B6B677E2-DC82-9672-6AED-5D29C670C9B0">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>DD56149</createdBy>
+<createdTime>2013-04-02 14:46:07 UTC</createdTime>
+<comment>FK to the D_GEOGRAPHY_MASTER.  This field indicates which geographical location the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>6648FEF1-36E0-FE44-FDBB-5AE39852CD5F</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="10127D25-5C3E-EEE1-D147-BB5849D4E553" referredColumn="6648FEF1-36E0-FE44-FDBB-5AE39852CD5F"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GROUP_ID" id="1F10C4C7-366B-22D7-393E-91D08130D121">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:33:11 UTC</createdTime>
+<comment>FK to D_GROUP.  This field indicates which group the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>73522A1B-BA5C-01D6-5DC3-4077D47838D4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6AC5AACB-554A-26E1-028B-205C5E2E20A0" referredColumn="73522A1B-BA5C-01D6-5DC3-4077D47838D4"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_CALLS_COUNT" id="E656766F-024E-489B-5975-4762DE305001">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of calls handled by the agent for the day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME" id="50BB8300-6954-77D9-2E9E-C1C47B4B76DF">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of seconds the agent spent handling calls for the day.  Handle time = Talk time + Hold Time + After Call Work Time.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERNAL_CALLS_COUNT" id="C48D1F07-4A39-C766-BE2B-3F985F1A0C9A">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>The number of calls with a party inside of the contact center.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERNAL_SECONDS" id="4E1D7729-9333-5C2D-B683-9B96B0A1B9B2">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>The duration of all calls with a party inside of the contact center.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTERNAL_CALLS_COUNT" id="09BAD828-AFB0-B569-0850-E609C994C041">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>The number of calls with a party outside of the contact center.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTERNAL_SECONDS" id="0AB7EC42-7B58-A2F3-78E9-CB4825AFC080">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>The duration of all calls with a party outside of the contact center.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HOLD_TIME" id="8DFE0392-D547-B9F9-E6EE-BBE379CC124A">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of seconds the agent had callers on hold for the day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RING_TIME" id="4362B682-0C66-1BD8-DA5C-D5E9C86AC36B">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of seconds the agent allowed their phone to ring for the day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TALK_TIME" id="844CB831-9767-080C-4E72-C7AFD8FA3E9B">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of seconds the agent was talking to clients for the day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="WRAP_TIME" id="03BD311D-B2E1-3CBD-FD81-FA53D3C16B57">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:45:46 UTC</createdTime>
+<comment>Number of seconds the agent spent doing work to support calls after talking to clients for the day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FIRST_LOGIN" id="441674DE-1561-CBAC-7B54-C21817EE6FDE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-03 13:02:17 UTC</createdTime>
+<comment>The date and time of the agent&apos;s initial login to the ACD.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_LOGOUT" id="9314A7C9-6A17-5715-793D-D5A53259AAFF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-03 13:02:17 UTC</createdTime>
+<comment>The date and time of the agent&apos;s initial login to the ACD.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LOGIN_SECONDS" id="7D5CC965-A61C-C273-6C35-801E7EF203B4">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-03 13:02:17 UTC</createdTime>
+<comment>The total number of seconds that the agent was logged into the ACD for the day.  This should equal the last logout - first login.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SCHEDULED_SHIFT_MINUTES" id="036AF137-B69B-92AE-A140-D38B0C1FFE3F">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-05-07 14:23:49 UTC</createdTime>
+<comment>The duration of time in minutes that the agent is expected to work for a given day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTUAL_SHIFT_MINUTES" id="5C73FEB6-0CA1-FD22-DC9F-E645301FE6BD">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-05-08 16:05:19 UTC</createdTime>
+<comment>The duration of time in minutes that an agent actually worked on a given day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTUAL_OVERTIME_MINUTES" id="3F2BC05B-5E47-6377-F151-86A76F795F67">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-05-08 16:05:19 UTC</createdTime>
+<comment>The duration that an agent worked beyond normal workings hours for a given day.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="614BB9BF-C995-81F5-E519-88D75853407E" name="CC_F_AGENT_CALLS_BY_DATE_PK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:31:31 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="D8E4E4B8-BBCE-59F9-534D-95DDA8966FE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="515D4529-8D9A-E524-5811-ACAB046DB6EE" name="CC_F_AGENT_BY_DATE__UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 20:08:53 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="42C4B3F8-31F0-5E19-5C91-BC851F313EC3"/>
+<colUsage columnID="06839D64-7B89-4B08-8A2D-9AE3714A1C0E"/>
+<colUsage columnID="F2AE13AB-B7F9-D63D-AF2F-5D36508D8301"/>
+<colUsage columnID="6D3B6A5B-3920-D076-20C6-73EC02CE3DA7"/>
+<colUsage columnID="B8957315-B472-2318-721B-C2D1B5B9A384"/>
+<colUsage columnID="54482FF8-17B2-01D4-4F92-A1D6FB1DF494"/>
+<colUsage columnID="B6B677E2-DC82-9672-6AED-5D29C670C9B0"/>
+<colUsage columnID="1F10C4C7-366B-22D7-393E-91D08130D121"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="658FF0EF-253B-1B13-7002-B4B83D94325C" name="CC_F_AGNT_BY_DT_D_DT_ID_IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 17:10:15 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AGENT_CALLS_BY_DATE_ID).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="D8E4E4B8-BBCE-59F9-534D-95DDA8966FE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="FB1958B3-4BE3-18F4-FC42-E5352CE2FF2F" name="CC_F_AGNT_BY_DT_D_AGNT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="06839D64-7B89-4B08-8A2D-9AE3714A1C0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D27ACF9E-406B-E85E-65DB-7F31533DF9AF" name="CC_F_AGNT_BY_DT_SPRVSR_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="F2AE13AB-B7F9-D63D-AF2F-5D36508D8301"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="91824F57-C3CF-2197-A8BE-29831D7E3A2D" name="CC_F_AGNT_BY_DT_MNGR_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="6D3B6A5B-3920-D076-20C6-73EC02CE3DA7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="FACBAB36-EA47-B2C0-883E-92EDB287DA23" name="CC_F_AGNT_BY_DT_PRJ_TRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="B8957315-B472-2318-721B-C2D1B5B9A384"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="6FE18323-8B76-795D-F8EC-A8A29B19D32E" name="CC_F_AGNT_BY_DT_D_PRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="54482FF8-17B2-01D4-4F92-A1D6FB1DF494"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1440672C-31FB-94E7-B1EE-C91949CD6978" name="CC_F_AGNT_BY_DT_D_GEO_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="B6B677E2-DC82-9672-6AED-5D29C670C9B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EC468982-14F6-FDAE-AE20-AE6AF6217027" name="CC_F_AGNT_BY_DT_D_GRP_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:20:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="1F10C4C7-366B-22D7-393E-91D08130D121"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EA58A58D-D37C-0145-FD9B-1539E1ECA7DF" name="CC_F_AGENT_DATE_D_AGENT_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 14:00:59 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="06839D64-7B89-4B08-8A2D-9AE3714A1C0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="A7CDFF49-DB50-A74F-5554-27505FE086EA" name="CC_F_AGENT_DATE_D_GROUP_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 14:04:31 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="1F10C4C7-366B-22D7-393E-91D08130D121"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="93147BAB-235F-A2F9-5321-2EAAF939B96B" name="CC_F_AGENT_DATE_D_AGENT_SUP_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 14:20:53 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="F2AE13AB-B7F9-D63D-AF2F-5D36508D8301"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D119D91C-95D5-A819-1B0A-A8421648C55C" name="CC_F_AGENT_DATE_D_AGENT_MGR_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 14:21:32 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="6D3B6A5B-3920-D076-20C6-73EC02CE3DA7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9760911D-5EC2-B7CF-0D87-2848D6605111" name="CC_F_AGENT_DATE_D_PRJ_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 14:25:28 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B8957315-B472-2318-721B-C2D1B5B9A384"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C7A262AB-9F0D-0CA1-796E-FA591C24EA8C" name="CC_F_AGENT_DATE_D_DATES_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 18:52:53 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="42C4B3F8-31F0-5E19-5C91-BC851F313EC3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D567F01F-4046-5EDC-1889-CEA57F01D1B0" name="CC_F_AGENT_DATE_D_GEO_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 19:27:43 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B6B677E2-DC82-9672-6AED-5D29C670C9B0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="452FEA78-2187-4E7F-267F-2869CF0F9EEA" name="CC_F_AGENT_DATE_D_PROGRAM_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 20:06:54 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="54482FF8-17B2-01D4-4F92-A1D6FB1DF494"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

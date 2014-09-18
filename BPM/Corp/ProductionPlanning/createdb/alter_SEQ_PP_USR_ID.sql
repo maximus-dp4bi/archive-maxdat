@@ -1,0 +1,11 @@
+drop sequence SEQ_PP_USR_ID;
+
+commit;
+
+CREATE SEQUENCE SEQ_PP_USR_ID
+ START WITH     147
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
+ 
+ 

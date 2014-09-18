@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_L_PATCH_LOG" id="D4076EFA-6C9F-F87F-D4AC-00009F5A0F56" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 18:52:18 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;  IF INSERTING AND :NEW.PATCH_LOG_ID IS NULL THEN &lt;br/&gt;    SELECT SEQ_CC_L_PATCH_LOG.NEXTVAL INTO :NEW.PATCH_LOG_ID FROM DUAL;&lt;br/&gt;  END IF;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>121E47B0-4607-F854-4177-B0944DA2579F</table>
+</TriggerOraclev10g>

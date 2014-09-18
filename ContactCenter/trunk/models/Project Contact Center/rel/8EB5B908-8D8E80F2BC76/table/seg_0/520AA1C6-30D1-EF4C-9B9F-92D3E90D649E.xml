@@ -1,0 +1,245 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="520AA1C6-30D1-EF4C-9B9F-92D3E90D649E" directorySegmentName="seg_0" name="CC_S_IVR_SELF_SERVICE_USAGE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>CC_S_IVR_SELF_SERVICE_USAGE records the number of contacts that completed in a self service node for a given IVR interval.&lt;br/&gt;&lt;br/&gt;The source for this table is the IVR system.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>01673798-2C7B-A4A5-C091-D59D9C5E27A0</importedID>
+<pkName>CC_S_IVR_SELF_SERVICE_USAGE_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="IVR_SELF_SERVICE_USAGE_ID" id="F6C1AE64-25DC-E351-D9EC-3FA1F36A7C20">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>4C144F62-6E01-2F7F-788A-2CDB9FEB8CF0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_CONFIG_ID" id="36676B71-F147-10CD-72D8-E0179E886604">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-03 19:18:17 UTC</createdTime>
+<comment>FK to CC_C_PROJECT_CONFIG.  This column indicates which project, program and site the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>38B120BF-AD35-AA1D-5D23-65076DCF6724</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="31D57596-9C98-CDF8-6C0A-BF664974D799" referredColumn="38B120BF-AD35-AA1D-5D23-65076DCF6724"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_ID" id="8DB5B5C7-14D4-BCC6-F3CA-E5FDD5DFC835">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>FK to CC_S_IVR_INTERVAL.    This field identifies for which interval the metric is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>11CD619A-2E69-3B4C-33C7-3A27C10E7D7A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>AA071C14-7D78-FD1B-38C7-27F9B90AF3D1</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B091C0F6-4C31-ACA9-5D3D-56432F2DF392" referredColumn="AA071C14-7D78-FD1B-38C7-27F9B90AF3D1"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="IVR_SELF_SERVICE_PATH_ID" id="4DC81FBC-4060-316B-1127-800D1DEFC2A8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>FK to CC_S_IVR_SELF_SERVICE_NODE.  This field identifies for which node the metric is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>D121E384-488E-7DEF-3E9A-D7482567AF6A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>B155E0F6-71F5-45BF-72E3-AC68D7C626A9</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B6BEB85E-54C6-A752-5A71-C764A8ABB0C2" referredColumn="B155E0F6-71F5-45BF-72E3-AC68D7C626A9"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_ENTERING" id="A50096E6-630F-42B5-F849-84867F16CE29">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>Number of contacts ending up at a given self service action.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A6E68784-9764-740B-0818-893DCAB74D95</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_TRANSFERRED" id="1175ABFB-FE9A-C83D-DFCD-2533427FDE7C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The number of contacts that entered the self service path and subsequently chose to move to another path in the IVR.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>90726E7B-D789-BD7D-A7B9-B817A3EACBF3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_COMPLETED" id="B8DB1450-D0EB-0133-D287-2D4AF4B9909D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The number of contacts that entered the self service path and subsequently exited the IVR.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AAEF9CD3-18A3-B725-8FA7-1AE64B66B8F4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MINUTES_IN_IVR_TRANSFERRED" id="40C3A7C5-C36E-CB33-1016-67E9B95FF16C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The total number of minutes that a contact spent within the IVR that entered the self service path and subsequently chose to move to another path in the IVR.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F3605BC7-93DE-36C9-8059-B8F339DCBB79</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MINUTES_IN_IVR_COMPLETED" id="F3ABF968-6543-0D39-EB30-04C7AC6687B4">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The total number of minutes that a contact spent within the IVR entered the self service path and subsequently exited the IVR.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>15843ECF-30CA-1B7C-A855-0AFD171BAC1F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D1D8BC0A-C6D1-1F21-B792-33AB1F691D4D" name="CC_S_IVR_SELF_SERVICE_USAGE_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>552E9A56-066A-476E-1C21-74DD6053B60F</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="F6C1AE64-25DC-E351-D9EC-3FA1F36A7C20"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0F4A397F-11C5-8AF1-99C2-2A18DE16BDF4" name="CC_S_IVR_SELF_SVC_USAGE__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A4821FE8-3504-C805-3813-83EE58C3C1AD</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="8DB5B5C7-14D4-BCC6-F3CA-E5FDD5DFC835"/>
+<colUsage columnID="4DC81FBC-4060-316B-1127-800D1DEFC2A8"/>
+<colUsage columnID="36676B71-F147-10CD-72D8-E0179E886604"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E938FB42-2854-2B48-CEE1-14A18EFFF29F" name="CC_S_IVR_SELF_SVC_USAGE__IDXv1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>64828DEF-403C-C66F-F685-BDF14421FFD7</importedID>
+<indexColumnUsage>
+<colUsage columnID="8DB5B5C7-14D4-BCC6-F3CA-E5FDD5DFC835"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9C83594F-B7F2-7794-8A20-D3DF647AE778" name="CC_S_IVR_SELF_SVC_USAGE__IDXv2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>7B7F2126-E465-ABD9-0FCF-7802BCE46B52</importedID>
+<indexColumnUsage>
+<colUsage columnID="4DC81FBC-4060-316B-1127-800D1DEFC2A8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="55147E98-5EC1-CCDF-CD1F-02F66842396C" name="CC_S_IVR_SVC_CC_S_SVC_PATH_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="4DC81FBC-4060-316B-1127-800D1DEFC2A8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0AF3AEEE-2009-7274-4BCB-3A4FDCB034AA" name="CC_S_IVR_USAGE_C_PRJ_CNFG_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-03 19:18:17 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="36676B71-F147-10CD-72D8-E0179E886604"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0450015D-EA7F-11C0-B985-502D70FA87FE" name="CC_S_IVR_USAGE_S_INTERVAL_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-04 13:22:19 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="8DB5B5C7-14D4-BCC6-F3CA-E5FDD5DFC835"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

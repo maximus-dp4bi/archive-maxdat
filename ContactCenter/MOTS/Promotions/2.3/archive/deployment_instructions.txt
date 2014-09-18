@@ -1,0 +1,74 @@
+
+PROJECT_NAME-----> MOTS 
+RELEASE_NUMBER---> 2.3
+ENVIRONMENT------> rcmxdb07.maximus.com (UAT DB Server) RCOTAP01UA.maximus.com ( UAT App server ) 
+
+DEPLOYMENT START_TIME_DATE -- 04/16/2014 
+DEPLOYMENT COMPLETE_BY_TIME -- 5PM PST, 04/17/2014 
+
+CONTACT_NAME: Clay Rowland 
+CONTACT_NUMBER: (O) 843-408-1358 
+
+What this deployment fixes: 
+MOTS v2.3
+------------------------------------------------------------------------------------------------- 
+
+This release consists of the following updates: 
+1.Y - ETL scripts 
+2.Y - SQL scripts 
+3.N - MicroStrategy Object 
+4.N - Configuration 
+5.Y - Special Instructions 
+
+If there are error in any one of the following scripts, please stop and notify. 
+
+******************************************************************************** 
+Instructions to install MOTS v2.3 to UAT 
+******************************************************************************** 
+
+----------------------- 
+1. EXECUTE DB SCRIPTS 
+---------------------- 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/MOTS/Promotions/2.3/DB_MOTS_20140414_Clay_v2.3.zip
+
+001_ALTER_METRIC_TABLES.sql
+002_CREATE_SLA_STAGING_TABLES.sql
+003_CREATE_SLA_DIM_TABLES.sql
+004_INSERT_MONTHLY_REPORTING_PERIODS.sql
+005_ALTER_STAGING_TABLES.sql
+
+Please attach database output to this ticket. 
+
+
+
+----------------------- 
+2. CREATE NEW MOTS DIRECTORIES
+---------------------- 
+
+mkdir /u01/maximus/maxdat-dev/mots/files/template/Inbound/v2
+mkdir /u01/maximus/maxdat-uat/mots/files/template/Processing/v2
+
+----------------------- 
+3. GRANT maxbiuat GROUP ACCESS TO WRITE TO NEW INBOUND DIRECTORY
+---------------------- 
+
+/u01/maximus/maxdat-uat/mots/files/template/Inbound/v2
+
+
+---------------------------- 
+4. DEPLOY KETTLE SCRIPTS 
+---------------------------- 
+
+-- All files can be found at: 
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/MOTS/Promotions/2.3/AS_MOTS_20140414_Clay_v2.3.zip
+
+Upload and unzip application server deployment bundle, AS_MOTS_20140414_Clay_v2.3.zip
+
+# Unzip kettle bundle 
+unzip AS_MOTS_20140414_Clay_v2.3.zip -d /u01/maximus/maxdat-uat/mots/ETL/scripts/ContactCenter 
+
+# Change access permissions on shell scripts to be executable 
+find /u01/maximus/maxdat-uat/mots/ETL/scripts/ContactCenter -type f -name "*.sh" -exec chmod 755 '{}' \; 
+

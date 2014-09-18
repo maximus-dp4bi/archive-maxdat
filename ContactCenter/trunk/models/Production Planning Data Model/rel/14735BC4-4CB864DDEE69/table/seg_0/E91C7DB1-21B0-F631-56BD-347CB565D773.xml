@@ -1,0 +1,173 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="E91C7DB1-21B0-F631-56BD-347CB565D773" directorySegmentName="seg_0" name="PP_D_UOW_SOURCE_REF">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:55:16 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<pkName>PP_D_UOW_SOURCE_REF_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="USR_ID" id="573B3E05-5AE2-0E18-1EFB-1AC58333104A">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:56:57 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UOW_ID" id="967C0E6B-9993-EF66-25F2-CFAB4DB2A5E1">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:59:56 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<delegate>27962F0F-8DBA-3977-8D37-CAA03565137F</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="44ED2D5C-D94D-A80D-913E-B3EAD1DA35DE" referredColumn="27962F0F-8DBA-3977-8D37-CAA03565137F"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SOURCE_REF_TYPE_ID" id="14172838-1ED7-104B-925E-7E070B4FAB6F">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:57:39 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<delegate>F86C63FC-F016-8685-BCBA-51C3060CC1F4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="63417A19-3E62-73F2-1C5E-683C333403B8" referredColumn="F86C63FC-F016-8685-BCBA-51C3060CC1F4"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SOURCE_REF_VALUE" id="35BDB3D7-0F97-21A7-0235-C07100C43BA7">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:58:08 UTC</createdTime>
+<comment>This is the value in the source system of the data identified as the source reference type. For example, if the source_ref_type_name is &quot;Task Type&quot;, one value for the Task Type may be &quot;Data Entry&quot;. The values identified as the source_ref_value enable mapping from specific data fields within the source system to units of work within MAXDAT.</comment>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>EAAB4190-A4C4-4570-65B6-12243717362D</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SOURCE_REF_DETAIL_IDENTIFIER" id="95547D3C-40AE-9327-5DA4-40F50905A6C2">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 22:10:03 UTC</createdTime>
+<comment>The SOURCE_REF_DETAIL_IDENTIFIER provides the end-user of reports with a label identifying the type of identifier stored within the SOURCE_DETAIL_ID. For example, if the SOURCE_DETAIL_ID contains a Task ID, the SOURCE_REF_DETAIL_IDENTIFIER may contain a value of &quot;Task ID&quot;.</comment>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>3B176E54-97A5-A27A-8877-F399192ED38C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EFFECTIVE_DATE" id="901BCDF5-6339-CC9D-B0AC-024C2676E201">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:58:28 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="END_DATE" id="9F66D22F-9CE6-3952-09E8-EF0A9BB099DE">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:58:54 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="7A07C855-9A8E-E1B2-852E-43106BFB228D" name="PP_D_UOW_SOURCE_REF_PK">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:56:57 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="573B3E05-5AE2-0E18-1EFB-1AC58333104A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F3ACFA63-CABB-A2A4-169F-27675F0F5AC9" name="PP_D_UOW_SOURCE_REF__UN">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 21:59:29 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="967C0E6B-9993-EF66-25F2-CFAB4DB2A5E1"/>
+<colUsage columnID="14172838-1ED7-104B-925E-7E070B4FAB6F"/>
+<colUsage columnID="35BDB3D7-0F97-21A7-0235-C07100C43BA7"/>
+<colUsage columnID="901BCDF5-6339-CC9D-B0AC-024C2676E201"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="24C0BD16-A042-8616-9419-1A6F72B17E42" name="PP_D_UOW_SOURCE_REF__UNv1">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 22:01:17 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="967C0E6B-9993-EF66-25F2-CFAB4DB2A5E1"/>
+<colUsage columnID="14172838-1ED7-104B-925E-7E070B4FAB6F"/>
+<colUsage columnID="35BDB3D7-0F97-21A7-0235-C07100C43BA7"/>
+<colUsage columnID="9F66D22F-9CE6-3952-09E8-EF0A9BB099DE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5E703438-2FF4-A0FD-6239-D6809098FE89" name="PP_D_UOW_SOURCE_REF_PP_D_REF_TYPE_FK">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 22:01:39 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="14172838-1ED7-104B-925E-7E070B4FAB6F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1B7797A4-5144-DF33-0C71-03FFF5F55D9C" name="PP_D_UOW_SOURCE_REF_PP_D_UNIT_OF_WORK_FK">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-10 22:02:07 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="967C0E6B-9993-EF66-25F2-CFAB4DB2A5E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

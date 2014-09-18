@@ -1,0 +1,1 @@
+TRUNCATE TABLE emrs_s_enrollment_Stg_adhoc;

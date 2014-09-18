@@ -1,0 +1,40 @@
+create_database_bpmaindb.sql
+load_blue_pumpkin.kjb
+
+drop cc staging tables, sequences, indexes
+create cc tables, sequences, indexes
+insert_cc_s_interval.sql
+initialize_staging_configuration.sql
+load_cc_s_acd_interval_period.ktr
+load_cc_c_unit_of_work.ktr
+load_cc_s_contact_queue.ktr
+load_cc_c_contact_queue.ktr
+load_cc_c_activity_type.ktr	
+load_stg_acd_interval.kjb
+
+load_cc_s_agent.ktr
+load_cc_s_agent_absence.ktr
+load_cc_s_agent_activity.ktr
+load_cc_s_agent_supervisor.ktr
+load_cc_s_agent_work_day.ktr
+
+load_cc_s_wfm_interval.kjb
+load_cc_s_external_internal.ktr
+
+
+
+drop dim tables, sequences, indexes
+create dim tables, sequences, indexes
+insert_cc_d_dates.sql
+insert_cc_d_interval.sql
+initialize_configuration_data.sql
+
+manage_cc_d_contact_queue.kjb
+
+create_project_daily_call_facts.kjb
+create_project_daily_availability.kjb
+
+create_fact_pp_f_actuals_queue_interval.ktr
+
+
+

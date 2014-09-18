@@ -1,0 +1,87 @@
+***** MODIFICATION HISTORY ****************************************************************************
+Instructions to install TXEB  Promotions week of 07/14/2014
+----------------
+Date       Developer           PHONE         Jira      Reason/Description
+---------- ------------------- ------------- --------- ---------------------------------------------
+2014/07/14 Brian Thai          210-722-3895  TXEB-2875 Maxdat UAT- Move indexes into MAXDAT_INDX tablespace - Master ticket (TESTED IN UAT)
+***** MODIFICATION HISTORY ****************************************************************************
+
+-----------------------
+0. Turn off Cron
+-----------------------
+Disable cron - cron_tx_run_bpm.sh
+
+-----------------------
+1. DB SCRIPTS SECTION
+-----------------------
+**SEND LOGS FOR ALL DB SCRIPTS **
+** Run these SQL scripts below as the the Oracle user MAXDAT
+
+execute PROCESS_BPM_QUEUE_JOB_CONTROL.SHUTDOWN_JOBS;	
+
+       *******************************************************************************************	
+        B. Thai (Maxdat Indexes)
+        ------------------------------------------------------------------------------------
+	** Unzip DB_Maxdat_20140714_Brian_1.zip
+        ** Run in the order specified below.
+
+        ** First script for APT only
+        20140711_1305_TXEB_apt_rebuild_indexes.sql
+
+        ** Second script for all environments
+        20140711_0853_TXEB_prd_rebuild_indexes.sql
+        
+        ------------------------------------------------------------------------------------
+       *******************************************************************************************	        
+
+
+
+execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
+        
+-----------------------
+2. KETTLE FILES SECTION
+-----------------------
+
+
+       *******************************************************************************************	
+        (Developer create this block for each AS zip)
+	--------------------------------------------------------------------
+	Download AS_{SYSTEM}_{YYMMDD}20131118_{DEVELOPER_NAME}_{NUM}.zip
+	Deploy the follow files to the appropriate path
+	  UAT      DEPLOY TO PATH dtxe4t/ETL_Scripts/scripts/{Your Direcortory} 
+	  ProdSupp DEPLOY TO PATH ttxe4t/ETL_Scripts/scripts/{Your Direcortory} 
+	  PROD     DEPLOY TO PATH ptxe4t/ETL_Scripts/scripts/{Your Direcortory} 
+
+	file1.ktr
+	file2.kjb
+	file3.ktr
+	etc
+	--------------------------------------------------------------------
+       *******************************************************************************************
+
+-----------------------
+3. UNIX SCRIPT SECTION
+----------------------
+
+   None		
+
+                
+----------------------------
+4. ADHOC SH SCRIPT SECTION
+----------------------------
+  None
+
+----------------------------
+5. SPECIAL INSTRUCTIONS 
+----------------------------
+     SEND DB LOGS TO DEVELOPERS at maxdatsystem@maximus.com
+     
+     SEND NOTICE TO CONTACT CENTER TEAM TO REVIEW ADHOC JOB RESULTS
+     -- Send an email to MAXDATContactCenter@maximus.com when adhoc job is complete for review before proceeding to step 5.
+
+
+----------------------------
+6. Enable Cron Jobs 
+----------------------------
+
+Enable cron - cron_tx_run_bpm.sh

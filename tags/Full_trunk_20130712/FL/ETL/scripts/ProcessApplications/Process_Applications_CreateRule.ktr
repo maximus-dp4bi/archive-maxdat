@@ -1,0 +1,2189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>Process_Applications_CreateRule</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;11 12:28:47.165</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;11 12:28:47.165</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TASK_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_TASK_USER}</username>
+    <password>${DB_TASK_USER}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>APP_CLEARANCE_DATE</from><to>create_date_lookupssd</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - FLHK_ETL_PROCESS_APP</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL</from><to>channel_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>VIDA_SELECT</from><to>channel_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_ID</from><to>applicant_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DISTINCTS</from><to>incomplete_reason_lookup_dist</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DUPS</from><to>incomplete_reason_lookup dups</to><enabled>Y</enabled> </hop>  <hop> <from>incomplete_reason_lookup_dist</from><to>incomplete_reason_lookup dups</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>applicant_id_lookup 2</to><enabled>Y</enabled> </hop>  <hop> <from>applicant_id_lookup</from><to>applicant_id_lookup 2</to><enabled>Y</enabled> </hop>  <hop> <from>applicant_id_lookup 2</from><to>incomplete_reason_lookup_dist</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DISTINCTS</from><to>comflct_reason_lookup_dist</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DUPS</from><to>conflict_reason_lookup_dups</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>num_children_app_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>create_date_lookupssd</from><to>num_children_app_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>GWF_CHANNEL_INS1_20</from><to>gwf_channel_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10</from><to>INS1_30_10_LOOKUP</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>gwf_channel_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>Filter rows 3</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 3</from><to>INS1_30_10_LOOKUP</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10_LOOKUP</from><to>Table output - FLHK_ETL_PROCESS_APP 2</to><enabled>Y</enabled> </hop>  <hop> <from>gwf_channel_lookup</from><to>INS1_20_ELSE</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_20_ELSE</from><to>Table output - FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - FLHK_ETL_PROCESS_APP 2</from><to>Table output - Update  Error 2</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_30</from><to>INS1_30_10_LOOKUP 2</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10_LOOKUP 2</from><to>Table output - FLHK_ETL_PROCESS_APP 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 3 2</from><to>INS1_30_10_LOOKUP 2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 3</from><to>Filter rows 3 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - FLHK_ETL_PROCESS_APP 2 2</from><to>Table output - Update  Error 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>incomplete_reason_lookup dups</from><to>INCOMPLETE_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>comflct_reason_lookup_dist</to><enabled>Y</enabled> </hop>  <hop> <from>comflct_reason_lookup_dist</from><to>conflict_reason_lookup_dups</to><enabled>Y</enabled> </hop>  <hop> <from>num_children_app_lookup</from><to>inbound_doc_source_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>INBOUND_DOCUMENT_SOURCE</from><to>inbound_doc_source_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>conflict_reason_lookup_dups</from><to>CONFLICT_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON</from><to>create_date_lookupssd</to><enabled>Y</enabled> </hop>  <hop> <from>inbound_doc_source_lookup</from><to>CHANNEL = NULL</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>Filter rows 2</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>Table output - FLHK_ETL_PROCESS_APP 2 3</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - FLHK_ETL_PROCESS_APP 2 3</from><to>Table output - Update  Error 2 3</to><enabled>Y</enabled> </hop>  <hop> <from>channel_lookup</from><to>applicant_id_lookup</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>APPLICANT_ID</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT 
+	A.ACCOUNT_MEMBERSHIP_ID AS APPLICANT_ID,
+	B.APPLICATION_ID AS APP_ID
+FROM
+	ACCOUNT_MEMBERSHIP A,
+	APPLICATION B,
+	ACCOUNT C
+WHERE
+	A.ACCOUNT_ID = C.ACCOUNT_ID AND
+	C.ACCOUNT_ID = B.ACCOUNT_ID
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>435</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>APP_CLEARANCE_DATE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT 
+	A.STATUS_DATE AS APP_CLEARANCE_DATE, 
+	A.APPLICATION_ID AS APP_ID
+FROM 
+	APPLICATION A
+WHERE
+	STATUS=&apos;CLEARED&apos;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>315</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CHANNEL</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT
+	A.INBOUND_DOCUMENT_SOURCE AS CHANNEL, 
+	A.APPLICATION_ID  AS APP_ID
+FROM
+	INBOUND_DOCUMENT A,
+	APPLICATION B
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>270</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CHANNEL = NULL</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Table output - FLHK_ETL_PROCESS_APP 2 3</send_true_to>
+<send_false_to>Filter rows 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>INBOUND_DOCUMENT_SOURCE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Web;Medicaid Closure</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>555</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CONFLICT_REASON</name>
+    <type>Janino</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <formula><field_name>CONFLICT_REASON</field_name>
+<formula_string>CONFLICT_REASON_DIST != null ? CONFLICT_REASON = CONFLICT_REASON_DIST : CONFLICT_REASON_DUPS != null ? CONFLICT_REASON = CONFLICT_REASON_DUPS : null</formula_string>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<replace_field/>
+</formula>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1770</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CONFLICT_REASON_DISTINCTS</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	max(A.STATUS_REASON) AS CONFLICT_REASON_DIST,
+	B.APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION_STATUS_REASON A,
+	APPLICATION B,
+	APP_STATUS_REASON_REF C
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID AND
+	A.STATUS_REASON = C.APP_STATUS_REASON AND
+	C.REASON_CODE = &apos;CONFLICT&apos;
+GROUP BY 
+	B.APPLICATION_ID HAVING COUNT(*)=1
+ORDER BY B.APPLICATION_ID
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1395</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CONFLICT_REASON_DUPS</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	max(A.STATUS_REASON) AS CONFLICT_REASON_DUPS,
+	B.APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION_STATUS_REASON A,
+	APPLICATION B,
+	APP_STATUS_REASON_REF C
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID AND
+	A.STATUS_REASON = C.APP_STATUS_REASON AND
+	C.REASON_CODE = &apos;CONFLICT&apos;
+GROUP BY 
+	B.APPLICATION_ID HAVING COUNT(*)&gt;1
+ORDER BY B.APPLICATION_ID
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1590</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CURRENT_TASK_ID</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>TASK_SOURCE</connection>
+    <sql>SELECT 
+	WR.TASK_ID AS CURRENT_TASK_ID,
+	WR.DRIVER_KEY AS APP_ID
+FROM
+	WORK_REQUESTS WR,
+	WR_TYPES WRT
+WHERE
+	WR.WRT_ID = WRT.WRT_ID AND
+	WRT.DRIVER = &apos;APPLICATION&apos;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>585</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>gwf_channel_lookup</send_true_to>
+<send_false_to>Filter rows 3</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>INBOUND_DOCUMENT_SOURCE</leftvalue>
+ <function>IN LIST</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>MAIL;FAX;EMAIL</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>765</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>INS1_30_10_LOOKUP</send_true_to>
+<send_false_to>Filter rows 3 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>INBOUND_DOCUMENT_SOURCE</leftvalue>
+   <function>IN LIST</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Web;Medicaid Closure</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>INCOMPLETE_REASON</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>960</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 3 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>INBOUND_DOCUMENT_SOURCE</leftvalue>
+   <function>IN LIST</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Web;Medicaid Closure</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>INCOMPLETE_REASON</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>1185</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>GWF_CHANNEL_INS1_20</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>TASK_SOURCE</connection>
+    <sql>select 
+	&apos;Document&apos;  AS GWF_CHANNEL,
+	WR.STATUS_DATE AS PRE_ASSD_DATA_ENTRY,
+	WR.DRIVER_KEY AS APP_ID 
+FROM
+	WORK_REQUESTS WR,
+	WR_TYPES WRT
+WHERE
+	WR.WRT_ID = WRT.WRT_ID AND
+	WRT.DRIVER = &apos;APPLICATION&apos; AND
+	WR.STATUS = &apos;UNASSIGNED&apos; AND EXISTS
+	(SELECT &apos;X&apos; FROM flschip_vida.INBOUND_DOCUMENT@DVORASM1 A, flschip_vida.APPLICATION@DVORASM1 B WHERE
+		A.APPLICATION_ID = B.APPLICATION_ID AND
+		WR.DRIVER_KEY = B.APPLICATION_ID
+	)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>660</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INBOUND_DOCUMENT_SOURCE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT 
+	A.INBOUND_DOCUMENT_SOURCE,
+	B.APPLICATION_ID AS APP_ID 
+FROM
+	INBOUND_DOCUMENT A,
+	APPLICATION B
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID AND EXISTS
+(SELECT &apos;X&apos; FROM ${DB_TASK_USER}.WORK_REQUESTS WR, ${DB_TASK_USER}.WR_TYPES WRT
+	WHERE
+	WR.WRT_ID = WRT.WRT_ID AND
+	WRT.DRIVER = &apos;APPLICATION&apos; AND
+	WR.DRIVER_KEY = B.APPLICATION_ID)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>750</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INCOMPLETE_REASON</name>
+    <type>Janino</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <formula><field_name>INCOMPLETE_REASON</field_name>
+<formula_string>INCOMPLETE_REASON_DIST != null ? INCOMPLETE_REASON = INCOMPLETE_REASON_DIST : INCOMPLETE_REASON_DUPS != null ? INCOMPLETE_REASON = INCOMPLETE_REASON_DUPS : null</formula_string>
+<value_type>String</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<replace_field/>
+</formula>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1215</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INCOMPLETE_REASON_DISTINCTS</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	max(A.STATUS_REASON) AS INCOMPLETE_REASON_DIST,
+	B.APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION_STATUS_REASON A,
+	APPLICATION B,
+	APP_STATUS_REASON_REF C
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID AND
+	A.STATUS_REASON = C.APP_STATUS_REASON AND
+	C.REASON_CODE = &apos;INCOMPLETE&apos;
+GROUP BY 
+	B.APPLICATION_ID HAVING COUNT(*)=1
+ORDER BY B.APPLICATION_ID
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>810</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INCOMPLETE_REASON_DUPS</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	max(A.STATUS_REASON) AS INCOMPLETE_REASON_DUPS,
+	B.APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION_STATUS_REASON A,
+	APPLICATION B,
+	APP_STATUS_REASON_REF C
+WHERE
+	A.APPLICATION_ID = B.APPLICATION_ID AND
+	A.STATUS_REASON = C.APP_STATUS_REASON AND
+	C.REASON_CODE = &apos;INCOMPLETE&apos;
+GROUP BY 
+	B.APPLICATION_ID HAVING COUNT(*)&gt;1
+ORDER BY B.APPLICATION_ID
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1035</xloc>
+      <yloc>165</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INS1_20_ELSE</name>
+    <type>Janino</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <formula><field_name>ASSD_DATA_ENTRY</field_name>
+<formula_string>PRE_ASSD_DATA_ENTRY != null ? ASSD_DATA_ENTRY = PRE_ASSD_DATA_ENTRY : CREATE_DATE != null ? ASSD_DATA_ENTRY = CREATE_DATE : null</formula_string>
+<value_type>-</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<replace_field/>
+</formula>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1200</xloc>
+      <yloc>765</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INS1_30_10</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	&apos;Web&apos;  AS GWF_CHANNEL,
+	&apos;Y&apos; AS GWF_MISSING_INFO,
+	STATUS_DATE AS ASSD_RECEIVE_PROCESS_MI,
+	APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION
+WHERE
+	STATUS=&apos;Incomplete&apos;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>855</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INS1_30_10_LOOKUP</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>INS1_30_10</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>GWF_CHANNEL</name>
+        <rename>GWF_CHANNEL</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>GWF_MISSING_INFO</name>
+        <rename>GWF_MISSING_INFO</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>ASSD_RECEIVE_PROCESS_MI</name>
+        <rename>ASSD_RECEIVE_PROCESS_MI</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>960</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INS1_30_10_LOOKUP 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>INS1_30_30</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>GWF_CHANNEL</name>
+        <rename>GWF_CHANNEL</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>GWF_MISSING_INFO</name>
+        <rename>GWF_MISSING_INFO</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>ASSD_ACCOUNT_CREATE_UPDATE</name>
+        <rename>ASSD_ACCOUNT_CREATE_UPDATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>1185</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>INS1_30_30</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select
+	&apos;Web&apos;  AS GWF_CHANNEL,
+	&apos;N&apos; AS GWF_MISSING_INFO,
+	B.INSERT_DATE AS ASSD_ACCOUNT_CREATE_UPDATE,
+	A.ACCOUNT_ID,
+	A.APPLICATION_ID AS APP_ID
+FROM
+	APPLICATION A,
+	ACCOUNT B
+WHERE
+	A.ACCOUNT_ID = B.ACCOUNT_ID
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>1080</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>NUM_CHILDREN_APP</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT 
+SUM(CHILD_FLAG) AS NUM_CHILDREN_APP, 
+B.APPLICATION_ID AS APP_ID,
+A.ACCOUNT_ID 
+FROM 
+ACCOUNT_MEMBERSHIP A,
+APPLICATION B
+WHERE
+APPLYING_FOR_BENEFITS_IND=&apos;1&apos; AND CHILD_FLAG=&apos;1&apos;
+AND A.ACCOUNT_ID=B.ACCOUNT_ID 
+ GROUP BY B.APPLICATION_ID, A.ACCOUNT_ID
+ORDER BY A.ACCOUNT_ID</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>510</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - FLHK_ETL_PROCESS_APP</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_PROCESS_APP</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_TYPE</column_name>
+          <stream_name>APP_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RECEIPT_DATE</column_name>
+          <stream_name>RECEIPT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS</column_name>
+          <stream_name>APP_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS_DATE</column_name>
+          <stream_name>APP_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_DATE</column_name>
+          <stream_name>RENEWAL_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICANT_ID</column_name>
+          <stream_name>APPLICANT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CURRENT_TASK_ID</column_name>
+          <stream_name>CURRENT_TASK_ID</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON</column_name>
+          <stream_name>INCOMPLETE_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON_1</column_name>
+          <stream_name>INCOMPLETE_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON</column_name>
+          <stream_name>CONFLICT_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON_1</column_name>
+          <stream_name>CONFLICT_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>APP_CLEARANCE_DATE</column_name>
+          <stream_name>APP_CLEARANCE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NUM_CHILDREN_APP</column_name>
+          <stream_name>NUM_CHILDREN_APP</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_CHANNEL</column_name>
+          <stream_name>GWF_CHANNEL</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>765</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - FLHK_ETL_PROCESS_APP 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_PROCESS_APP</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_TYPE</column_name>
+          <stream_name>APP_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RECEIPT_DATE</column_name>
+          <stream_name>RECEIPT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS</column_name>
+          <stream_name>APP_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS_DATE</column_name>
+          <stream_name>APP_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_DATE</column_name>
+          <stream_name>RENEWAL_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICANT_ID</column_name>
+          <stream_name>APPLICANT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CURRENT_TASK_ID</column_name>
+          <stream_name>CURRENT_TASK_ID</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON</column_name>
+          <stream_name>INCOMPLETE_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON_1</column_name>
+          <stream_name>INCOMPLETE_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON</column_name>
+          <stream_name>CONFLICT_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON_1</column_name>
+          <stream_name>CONFLICT_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>APP_CLEARANCE_DATE</column_name>
+          <stream_name>APP_CLEARANCE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NUM_CHILDREN_APP</column_name>
+          <stream_name>NUM_CHILDREN_APP</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_CHANNEL</column_name>
+          <stream_name>GWF_CHANNEL</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>960</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - FLHK_ETL_PROCESS_APP 2 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_PROCESS_APP</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_TYPE</column_name>
+          <stream_name>APP_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RECEIPT_DATE</column_name>
+          <stream_name>RECEIPT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS</column_name>
+          <stream_name>APP_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS_DATE</column_name>
+          <stream_name>APP_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_DATE</column_name>
+          <stream_name>RENEWAL_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICANT_ID</column_name>
+          <stream_name>APPLICANT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CURRENT_TASK_ID</column_name>
+          <stream_name>CURRENT_TASK_ID</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON</column_name>
+          <stream_name>INCOMPLETE_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON_1</column_name>
+          <stream_name>INCOMPLETE_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON</column_name>
+          <stream_name>CONFLICT_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON_1</column_name>
+          <stream_name>CONFLICT_REASON_1</stream_name>
+        </field>
+        <field>
+          <column_name>APP_CLEARANCE_DATE</column_name>
+          <stream_name>APP_CLEARANCE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NUM_CHILDREN_APP</column_name>
+          <stream_name>NUM_CHILDREN_APP</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_CHANNEL</column_name>
+          <stream_name>GWF_CHANNEL</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>1185</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - FLHK_ETL_PROCESS_APP 2 3</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_PROCESS_APP</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_TYPE</column_name>
+          <stream_name>APP_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RECEIPT_DATE</column_name>
+          <stream_name>RECEIPT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS</column_name>
+          <stream_name>APP_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS_DATE</column_name>
+          <stream_name>APP_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_DATE</column_name>
+          <stream_name>RENEWAL_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICANT_ID</column_name>
+          <stream_name>APPLICANT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CURRENT_TASK_ID</column_name>
+          <stream_name>CURRENT_TASK_ID</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON</column_name>
+          <stream_name>INCOMPLETE_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON</column_name>
+          <stream_name>CONFLICT_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>APP_CLEARANCE_DATE</column_name>
+          <stream_name>APP_CLEARANCE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NUM_CHILDREN_APP</column_name>
+          <stream_name>NUM_CHILDREN_APP</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>555</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - Update  Error</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>645</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - Update  Error 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>855</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - Update  Error 2 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>1080</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - Update  Error 2 3</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1380</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>VIDA_SELECT</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT DISTINCT
+	&apos;ProcessApplications&apos; as PROCESS_NAME,
+	&apos;ProcessApplications_CreateRule&apos; as JOB_NAME,
+	&apos;FLHK_ETL_PROCESS_APPLICATIONS&apos; as DRIVER_TABLE_NAME,
+	sysdate as ERR_DATE,
+	&apos;CRITICAL&apos; as ERR_LEVEL,
+	A.APPLICATION_ID AS APP_ID,
+	A.APP_TYPE,
+	A.INSERT_DATE AS CREATE_DATE,
+	A.RECEIVED_DATE AS RECEIPT_DATE,
+	&apos;Received&apos; as APP_STATUS,
+	A.STATUS_DATE AS APP_STATUS_DATE,
+	A.ACCOUNT_ID,
+	A.RENEWAL_DATE,
+	&apos;ACTIVE&apos; as INSTANCE_STATUS
+FROM
+	APPLICATION A
+WHERE
+	(
+		(
+		A.STATUS NOT IN (&apos;CLEARED&apos;,&apos;EXPIRED&apos;)
+		)
+	OR
+		(
+		A.STATUS IN (&apos;CLEARED&apos;,&apos;EXPIRED&apos;) AND
+		NVL(TRUNC(A.UPDATE_DATE),SYSDATE) &gt; TRUNC(SYSDATE)-60
+		)
+	)
+AND
+	A.APPLICATION_ID &gt; ${NEW_MAX_APPLICATION_APPID}
+AND
+	ROWNUM&lt;50000</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>150</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>applicant_id_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>APPLICANT_ID</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>APPLICANT_ID</name>
+        <rename>APPLICANT_ID</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>435</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>applicant_id_lookup 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CURRENT_TASK_ID</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>CURRENT_TASK_ID</name>
+        <rename>CURRENT_TASK_ID</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>585</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>channel_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CHANNEL</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>CHANNEL</name>
+        <rename>CHANNEL</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>270</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>comflct_reason_lookup_dist</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CONFLICT_REASON_DISTINCTS</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>CONFLICT_REASON_DIST</name>
+        <rename>CONFLICT_REASON_DIST</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1395</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>conflict_reason_lookup_dups</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CONFLICT_REASON_DUPS</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>CONFLICT_REASON_DUPS</name>
+        <rename>CONFLICT_REASON_DUPS</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1590</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>create_date_lookupssd</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>APP_CLEARANCE_DATE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>APP_CLEARANCE_DATE</name>
+        <rename>APP_CLEARANCE_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>315</xloc>
+      <yloc>555</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>gwf_channel_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>GWF_CHANNEL_INS1_20</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>GWF_CHANNEL</name>
+        <rename>GWF_CHANNEL</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>ASSD_DATA_ENTRY</name>
+        <rename>ASSD_DATA_ENTRY</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>765</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>inbound_doc_source_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>INBOUND_DOCUMENT_SOURCE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>INBOUND_DOCUMENT_SOURCE</name>
+        <rename>INBOUND_DOCUMENT_SOURCE</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>750</xloc>
+      <yloc>555</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>incomplete_reason_lookup dups</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>INCOMPLETE_REASON_DUPS</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>INCOMPLETE_REASON_DUPS</name>
+        <rename>INCOMPLETE_REASON_DUPS</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1035</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>incomplete_reason_lookup_dist</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>INCOMPLETE_REASON_DISTINCTS</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>INCOMPLETE_REASON_DIST</name>
+        <rename>INCOMPLETE_REASON_DIST</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>810</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>num_children_app_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>NUM_CHILDREN_APP</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+      </key>
+      <value>
+        <name>NUM_CHILDREN_APP</name>
+        <rename>NUM_CHILDREN_APP</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>510</xloc>
+      <yloc>555</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Table output - FLHK_ETL_PROCESS_APP</source_step>
+        <target_step>Table output - Update  Error</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>nr_err_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
+        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
+        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
+        <max_errors>1000000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table output - FLHK_ETL_PROCESS_APP 2</source_step>
+        <target_step>Table output - Update  Error 2</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table output - FLHK_ETL_PROCESS_APP 2 2</source_step>
+        <target_step>Table output - Update  Error 2 2</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table output - FLHK_ETL_PROCESS_APP 2 3</source_step>
+        <target_step>Table output - Update  Error 2 3</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>nr_err_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
+        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
+        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
+        <max_errors>1000000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

@@ -1,0 +1,33 @@
+/*
+Created by Raj A. on 23-Aug-2012.
+Description:
+After the One-time run of the ETL, run this script to set the Global control table
+to fetch completed Apps from past two days(just in case we missed to run the ETL in a day).
+This is as per Devin H.
+*/
+/*  --------COMMENTED-------
+insert into corp_etl_control
+(
+name,
+value_type,
+value,
+description,
+created_ts,
+updated_ts
+)
+values
+(
+'PRO_MI_CDC_MI_TASKS',
+'N',
+2,
+'This global control value can be used to fetch completed MI tasks from OLTP going back few days from sysdate. This is used by Process MI Change Data Capture Get MI Tasks step.If for some reason the Process MI fails, set this variable to the date and time when it failed and restart.',
+sysdate,
+sysdate
+);
+*/
+
+update corp_etl_control
+   set value = 2,
+       updated_ts = sysdate      	
+ where name = 'PRO_MI_CDC_MI_TASKS';
+commit;

@@ -1,0 +1,34 @@
+###############################################################################
+# .bash_profile
+# Updated 10/18/2006 by Steve Falconer
+#
+# Wrapper for /home/maxutil/env/shared_bash_profile
+#
+# Located in user's $HOME directory
+#
+###############################################################################
+# DO NOT EDIT THIS SECTION!
+#
+# # User specific customizations are highly discouraged, but can be made in the
+# customizations section below
+###############################################################################
+
+# If /home/maxutil/env/shared_bash_profile exists, source it
+if [ -f /home/maxutil/env/shared_bash_profile ]
+then
+. /home/maxutil/env/shared_bash_profile
+fi
+
+###############################################################################
+# USER SPECIFIC CUSTOMIZATIONS (Try to incorporate into Standard Files)
+###############################################################################
+# HCCHIX-148
+export STCODE='HCCHIX'
+export ENV_CODE='uat'
+# HCCHIX-158
+export MAXDAT_KETTLE_DIR="/u01/app/appadmin/product/pentaho/data-integration"
+# HCCHIX-164
+export MAXDAT_ETL_PATH="/u01/maximus/maxdat-uat/HCCHIX/ETL/scripts"
+export MAXDAT_ETL_LOGS="/u01/maximus/maxdat-uat/HCCHIX/ETL/logs"
+export ECHOPASS_PATH="/u01/maximus/maxdat-uat/HCCHIX/Echopass"
+export MAXDAT_FORECAST_PATH="/u01/maximus/maxdat-uat/HCCHIX/forecasts"

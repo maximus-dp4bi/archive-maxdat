@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_D_MANAGER" id="5EE36A1E-D891-2D0E-FFA7-814E9A248120" directorySegmentName="seg_0">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-15 14:45:55 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.MANAGER_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_D_MANAGER.NEXTVAL INTO :NEW.MANAGER_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>2DC1C1D8-59AF-2DE2-BEE9-2C6E8B14324F</table>
+</TriggerOraclev10g>

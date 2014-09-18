@@ -1,0 +1,77 @@
+-- For MicroStrategy MASH reporting.
+
+create or replace view D_BPM_SOURCE_LKUP_SV as 
+select 
+  BSL_ID,
+  NAME,
+  BSTL_ID
+from BPM_SOURCE_LKUP
+with read only;
+
+
+create or replace view D_BPM_DATA_MODEL_SV as 
+select 
+  BDM_ID,
+  CODE,
+  NAME
+from BPM_DATA_MODEL
+with read only;
+
+create or replace view D_BPM_UPDATE_EVENT_QUEUE_SV as 
+select 
+  BUEQ_ID,
+  BSL_ID,
+  BIL_ID,
+  IDENTIFIER,
+  EVENT_DATE,
+  QUEUE_DATE,
+  PROCESS_BUEQ_ID,
+  BUE_ID,
+  WROTE_BPM_EVENT_DATE,
+  WROTE_BPM_SEMANTIC_DATE,
+  DATA_VERSION,
+  OLD_DATA,
+  NEW_DATA 
+from BPM_UPDATE_EVENT_QUEUE
+with read only;
+
+create or replace view D_PROCESS_BPM_QUEUE_JOB_SV as
+select
+  PBQJ_ID,
+  JOB_NAME,
+  BSL_ID,
+  BDM_ID,
+  BATCH_SIZE,
+  START_DATE,
+  END_DATE,
+  STATUS,
+  STATUS_DATE,
+  ENABLED,
+  START_REASON_ID,
+  STOP_REASON_ID
+from PROCESS_BPM_QUEUE_JOB
+with read only;
+
+create or replace view D_PROCESS_BPM_QUEUE_JOB_BAT_SV as 
+select
+  PBQJB_ID,
+  PBQJ_ID,
+  BATCH_ID,
+  PROCESS_BUEQ_ID,
+  BATCH_START_DATE,
+  BATCH_END_DATE,
+  LOCKING_START_DATE,
+  LOCKING_END_DATE,
+  RESERVE_START_DATE,
+  RESERVE_END_DATE,
+  PROC_XML_START_DATE,
+  PROC_XML_END_DATE,
+  NUM_SLEEP_SECONDS,
+  NUM_QUEUE_ROWS_IN_BATCH,
+  NUM_BPM_EVENT_INSERT,
+  NUM_BPM_EVENT_UPDATE,
+  NUM_BPM_SEMANTIC_INSERT,
+  NUM_BPM_SEMANTIC_UPDATE,
+  STATUS_DATE
+from PROCESS_BPM_QUEUE_JOB_BATCH
+with read only;

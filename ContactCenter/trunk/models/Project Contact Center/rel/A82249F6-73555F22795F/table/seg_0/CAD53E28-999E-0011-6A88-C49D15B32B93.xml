@@ -1,0 +1,1458 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="CAD53E28-999E-0011-6A88-C49D15B32B93" directorySegmentName="seg_0" name="CC_F_ACTUALS_QUEUE_INTERVAL">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>PP_F_ACTUALS_QUEUE_INTERVAL is the fact table for interval metrics actuals related to a contact queue.  This table allows for variable intervals depending on the configuration of the ACD (e.g. 15, 30, or 60 minute intervals).  &lt;br/&gt;&lt;br/&gt;The data source for this table are the CC_S_ACD_INTERVAL and CC_S_WFM_INTERVAL staging tables.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>D70015F1-E957-3C16-B893-67DCB6275E24</importedID>
+<pkName>CC_F_ACTUALS_QUEUE_INTERVAL_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_CALL_CENTER_ACTLS_INTRVL_ID" id="89EDAFAD-9324-0DD3-76D3-B1B9D6DC95A3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key for interval records</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>80C71AE5-1440-3064-E8A0-B9BD1D7D6057</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A0D2765A-68C3-C83A-C22A-C67464CCC648</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE_ID" id="C5B2377F-3221-3B6F-BDD0-FB188C3AF226">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_DATES.  This column identifies which date the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>45F96F16-C45A-46F2-BE31-8D5E15231307</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0F22F570-5924-7BD3-29C5-828D5CBC2F9A</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="851E6696-B0CF-4030-09DF-C14DB71E61A6" referredColumn="0F22F570-5924-7BD3-29C5-828D5CBC2F9A"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROJECT_ID" id="5724BCEC-2A7D-B586-79CA-2769F268E072">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_PROJECT.  This column indicates which project and segment the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>D4F270B3-0E61-B4B7-F661-1B59677B9C4F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>7DC7CEC0-F100-930C-C43E-D91569B88469</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D66052CB-407D-5EB1-887D-555FB92B9DA9" referredColumn="7DC7CEC0-F100-930C-C43E-D91569B88469"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROGRAM_ID" id="11C25F25-118E-98F5-D33D-9D5FCB70F739">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_PROGRAM.  This column indicates which program the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A2E2953C-2730-7031-2A0C-ED80C7E2C287</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9C6DCF64-5EE0-A25B-BA4C-A63ED5BA7585" referredColumn="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GEOGRAPHY_MASTER_ID" id="B5FD870C-F511-9056-CE99-9D9FDBD8907D">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_GEOGRAPHY_MASTER.  This column indicates the site and  geographical location of the interval data.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C63CE607-7035-4FD5-8DA6-9074BD00C59D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3454E2DE-E6FD-89CC-3E04-34F2B1633774</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9623CA33-2B2B-92C6-9DBA-14699CFBB808" referredColumn="3454E2DE-E6FD-89CC-3E04-34F2B1633774"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_UNIT_OF_WORK_ID" id="12EF6FCB-293B-8830-AD0E-F6BDF017C283">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_UNIT_OF_WORK table. This column identifies which unit of work the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>82380AFB-56CB-6CAD-E655-0412561F0303</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>355CA8C1-E749-0418-63FA-EE67B0EF89B4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D52A1EC4-58E4-9A41-08B2-24DA5CD6B5CF" referredColumn="355CA8C1-E749-0418-63FA-EE67B0EF89B4"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_CONTACT_QUEUE_ID" id="93762FF9-1565-1CEF-C81F-5035AFFF2E8A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_CONTACT_QUEUE table. This column identifies which contact queue the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>94B445A3-4724-450F-CB01-B4E0D2226B3D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>94E928F8-B257-7698-FB54-14C3D5835C5C</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D4FD38B5-0D59-527D-84C7-A29F1FC44AA8" referredColumn="94E928F8-B257-7698-FB54-14C3D5835C5C"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_INTERVAL_ID" id="2CE6FE93-BDC2-16CB-C81F-1F0EF29F05AF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_INTERVAL.  This column identifies which time span the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>34FF53A8-76CE-239C-5049-472220027AE6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>A0CCBF53-A3F9-EAA1-1CF4-923FE885793B</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EC973F60-515E-30BC-B29D-B93DA53B1415" referredColumn="A0CCBF53-A3F9-EAA1-1CF4-923FE885793B"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_AGENT_ID" id="032CC9FF-901F-B4BF-C29A-347353CA7F40">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to D_AGENT.  This field indicates which agent the metrics are associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>8475E153-12A7-1C33-0AA1-9DF7B5878B33</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FDB0ECE2-A92A-87E7-4EB7-4FEFE4A13491" referredColumn="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_RECEIVED_FROM_IVR" id="F2592BCD-F1A4-F6DB-35DC-44AC4B5A5774">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The total number of contacts received from the IVR for this contact queue during the interval.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>CF34D5BD-6FEB-8CA0-D4F6-24C1332DEDD2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_OFFERED" id="9422DAF4-0446-B31B-FCFA-6034AECA0D52">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The total number of contacts transferred to this queue during the interval.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A0FA00C0-4261-547F-44C9-9CE97DA7A696</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_HANDLED" id="D208E3ED-CF14-EEFC-0A74-182DCBDA7D55">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts that were responded by an agent.  Contacts Handled + Contacts Abandoned = Contacts Offered.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>6D51423D-F611-9801-F2F0-1107FBDB2630</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_ABANDONED" id="1DD9F6D7-40D7-D53C-3E99-52E24997D84C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered by the ACD system then disconnected by the caller or incorrectly dropped by the system.  Abandonment Rate = Contacts Abandoned / Contacts Offered.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AA99251D-EB77-1F54-515E-34E25D69E284</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_HANDLE_TIME" id="911D1C2F-C73A-8A24-31AB-3108F0C0E50A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Shortest length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>53E477E0-3AF1-FDA8-7912-0049D85F3711</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_HANDLE_TIME" id="4A614DC3-47EC-8C91-33C1-28D335B67237">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Longest length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F1A7E94A-CF9D-9A66-AEF7-6CE5CC0B8CD8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_HANDLE_TIME" id="F4B28F1E-3133-E1AB-4817-2C47551C2D83">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Average length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>4BF751C0-1182-8307-2AEF-948F9543BC65</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_HANDLE_TIME" id="0276B091-2C59-9970-BCB8-195C303390A1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Middle length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>20FEF3FC-B5A0-6B43-BFAD-ED7D4BB0C857</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_HANDLE_TIME" id="5055BA15-B7CA-BD29-D3DB-DCFBC2DBDD7E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Variation from the average length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5815440A-2A16-CF64-D431-37D1BED32966</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_SPEED_TO_HANDLE" id="E65F9F68-07F0-50EB-1185-984E9D9636CE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Shortest length of time a contact stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C5DE863F-1518-308E-37D2-DF708EBBC946</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_SPEED_TO_HANDLE" id="83C061F3-A698-8598-4752-B57140D7B8AB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Longest length of time a contact stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>02C4A461-086B-BAB1-0199-2837132262F2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_SPEED_TO_HANDLE" id="4E3C4B69-5BFC-47F8-7008-51A6C9128FE8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Average length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>350D4FBF-6EBD-00A1-6B72-27EB707903F4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_SPEED_TO_HANDLE" id="52F85AFA-3500-0CDA-B144-A0A194D3D0DD">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Middle length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>DBBD3025-4225-950B-6A1A-37D0D944F698</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_SPEED_TO_HANDLE" id="4978EB7C-9B46-F63F-D332-D92EC44F4B88">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Variation from the average length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AD232C9B-4C48-E7AA-FBD5-CAAD8D17C6DB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_SPEED_OF_ANSWER" id="FCAB6C42-5C34-23F1-0588-135562384F94">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Shortest length of time a contact spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5A611A99-D174-2A33-8E60-A5EB86151790</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_SPEED_OF_ANSWER" id="45EAC05E-C45E-6B54-CC75-39AB5BDBBAB7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Longest length of time a contact spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>3A226E9C-D74A-E8A5-7570-03EE8D457D6C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_SPEED_OF_ANSWER" id="7B75B9A2-1D4D-9C68-E387-7A24803C9A17">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Average length of time the contacts spent in the queue before talking to an agent.  Typically high abandonment rate is associated with long wait time (Speed of Answer).   </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>726A4337-2592-EAAD-9AC0-8A6A6A75DFB2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_SPEED_OF_ANSWER" id="2C2999D8-B4B9-C87C-2913-3677F8CB1FC3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Middle length of time the contacts spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).   </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A4F8668B-3319-D74F-29F5-76CAD50CB692</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_SPEED_OF_ANSWER" id="11676B73-C11F-DF48-B214-5648BB11C7BE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Variation from the average length of time the contacts spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>EB9D2E47-A0CD-2863-B765-ECE4CBDE0192</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_1" id="92845DA3-097C-771A-0428-D9C31E6D768F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 1 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>2F6F48B6-CC9F-017B-FB14-C9C8B0C2EB4A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_2" id="D681237A-F740-5D50-F58E-17325A4DA3F5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 2 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>2596E965-625A-CA4F-CF5A-69C7DBA70C6B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_3" id="C710312D-5D72-A632-6C63-532A15B62D5B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 3 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0D0E9CD0-1594-899D-C06F-C247D9E63076</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_4" id="2F6BBA60-F70A-243B-8EC7-A77D6306669E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 4 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>BEE28943-F8BD-A102-F9F2-9E4F5C957966</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_5" id="4B934D4B-91B1-BE05-20F8-5AB29629A39E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 5 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>B23EDC9E-E1F9-DF9C-F676-1906B2324692</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_6" id="5F0E691B-489C-3F7C-662A-0D4F9090C72E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 6 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>EA3D1FFE-ECBD-46EC-7154-9B01DB228B2D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_7" id="DD215C06-0EC5-D0EE-F6DB-5AAE7B6E57D0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 7 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A7179A1C-7A43-52B8-F1D1-DA6AAE70D5DA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_8" id="50D79489-7B15-5751-BCA6-2B85C74F0DD8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 8 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AF6F7922-2F52-46A7-F79D-293CE821551B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_9" id="66044890-ABC1-E8F2-8B79-26B18375B9AD">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 9 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>4E85E2BC-5669-4B1D-A953-831A4604457E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_OF_ANSWER_PERIOD_10" id="2C5E1F77-17AE-714A-10A1-41DF6EA0A34A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts answered within speed of answer period 10 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A500FE0A-4B92-7F69-1D80-DD6F3A1372E1</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_1" id="2AC696A9-8EF0-141C-9DE8-92A5073BC9A7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 1 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C6E953CF-0CDC-269F-04D7-70036F2D8078</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_2" id="F6150033-CB1F-7765-81F5-732CE7D31306">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 2 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F98A66EB-52AA-BE0A-C555-12FD67F1626B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_3" id="F0DE8FB1-78EE-471B-9111-B597FC013CD9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 3 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>6F9B6D1D-B7EF-CDD0-2A11-81E17DFBBE25</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_4" id="504D0B4D-EE67-BBDD-117A-0F23004567C9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 4 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>8A8EAEDA-031E-73AC-64DE-B6EBB838478B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_5" id="A00D75A8-234C-6D9F-3CD6-0BC9666CC913">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 5 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>42865296-5784-3753-9B9C-2A6D769CEFE7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_6" id="F1794142-362D-6DDC-0785-31721B7F8C9B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 6 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A1EEC68F-AF72-6DBF-E29B-572A61F98110</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_7" id="40ED32DE-EDB8-DB97-87D3-1C5B47C4EEA4">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 7 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C462694C-8EE3-117A-3425-42C3C10288C7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_8" id="EAFF5908-4820-154A-82BB-27AA46C17544">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 8 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C20EAE9B-68A3-AA56-9274-525F3B10B45E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_9" id="A79DF0CC-CD04-9D88-7B49-9CFB9A38DDE3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 9 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>B5BF4B52-DA3A-46D6-83E7-4C7FA7933072</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABANDONED_PERIOD_10" id="694477E7-A98C-063F-5BF5-6AFC1B920F21">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts abandoned within abandoned period 10 during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>816788F0-C77B-642B-7EF9-DFBDE973011E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_TOTAL" id="D5611C04-9449-5EAB-CD89-78B62A73FEDF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total staff minutes at work, including all staff on the payroll.  At any time instance, Labor Minutes Total = Labor Minutes Available + Labor Minutes Unavailable. &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>3ED2750D-D8B9-77E9-39CB-075C1A17E521</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_AVAILABLE" id="8E9237FD-EFED-0C91-1252-456DD6ACCF37">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total staff logged on time (minutes), or time spent in available state waiting for a customer contact.  Also called ready time. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>30369559-E943-62AB-FFBA-4ED23D0BD4D3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>9</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_WAITING" id="88C945CF-C6A8-7838-BEDB-0B2D11934961">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total minutes that staff logged on but not handling contacts.  The percent of labor wait time (among total paid time) may indicate how effective the staff are scheduled at each time interval (daily, hourly, or 15 minutes interval).  However, the service target will set a limit on the total minimum wait time, i.e., a very good service level requires “more wait time” to be built into the schedule in order for that service level to be achievable.  &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>4AE4801C-0057-CA2F-4652-813DB1929C89</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_TOTAL" id="F142F659-793B-943F-11DC-77718D04128C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of staff on payroll, regardless of status.  At any time instance, Total Headcount = Headcount Available + Headcount Unavailable.  However, the above equation may not hold for a time interval.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>3AE7C64C-8C1A-E85E-8746-293E4AD70363</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_AVAILABLE" id="3B4F6900-40FC-F79A-21B5-F626DECEC58C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of staff who logged on.  Headcount Available / Total Headcount indicates how well staff is utilized. &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>62F1D04E-7101-5D61-7097-EFF4F442FB54</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_UNAVAILABLE" id="8ACED5A8-FB12-29D4-489A-57F69DAE8A9E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of staff who logged out for any reason, e.g., headcount in vacation, FMLA, trainings and meetings. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>95F59238-A7AF-7B2C-3BA8-E594B6736119</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACT_INVENTORY" id="FFCED88D-D370-78D6-FE60-76E58EFDF699">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Items received/tasks created but is either work in progress or has not been started. &lt;br/&gt;&lt;br/&gt;This column is applicable only if items/tasks are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>27DAF800-41BF-0CEE-6B3A-4F0A52A0690D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACT_INVENTORY_JEOPARDY" id="56AD3982-D38A-4D71-2310-29C198940C4B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of work items that are at risk of missing service target. &lt;br/&gt;&lt;br/&gt;This column is applicable only if work items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AAE002C6-402B-8236-ABB8-4109A94D3346</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_CONTACT_INVENTORY_AGE" id="C63FD309-B989-E192-6586-4DD5573802F0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Lowest number of days an item (task) has been received (created) but has not been completed or cancelled&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FACE3B6E-2FE0-59CC-57AA-BFAD55AA22A8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_CONTACT_INVENTORY_AGE" id="AA87B6C1-5702-7D0E-3C15-89A606E4B217">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Highest number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>96D81BAE-12CE-93F1-2D49-0348180157FB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_CONTACT_INVENTORY_AGE" id="72AE3894-2B32-0597-EC2C-05103D89EC9B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Average number of days an item (task) has been received (created) but has not been completed or cancelled. &lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C129B632-7F84-BE74-078E-9D8451E65E73</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_CONTACT_INVENTORY_AGE" id="CA353CDC-C244-DF0A-E89F-1967B3D4ECC7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Middle number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>880695A3-6179-1F4C-591F-78A996855506</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_CONTACT_INVENTORY_AGE" id="49C7B8DF-F967-C388-08CC-C098C58C2A3B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Variation from the average number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>17719479-E432-C8C2-7A29-3F769BA4F94F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_TRANSFERRED" id="7B116F5D-5378-A21B-A48B-5AC07914105E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Contacts that were rerouted or escalated to another agent or skill group.  Examples include calls that start in a sales queue but really need to be handled by technical support.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>42FAEA59-47D9-0091-8D26-44BC50EB2EB1</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="OUTFLOW_CONTACTS" id="B1211817-A270-0AEB-6DB9-9F3DFBC9CE19">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts queued to multiple skill group or applications</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>8EBA981B-2186-9C0F-FC3A-E4C2C2D42577</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ANSWER_WAIT_TIME_TOTAL" id="FF4E8956-D5B0-DC3A-D038-112275A7AC85">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total wait time spent in a queue for all calls that were answered in the reporting interval.  This is used to calculate the average speed of answer.   </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>9EAB31FE-94AA-C6E0-6685-5E3AC2BCBC3F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABANDON_TIME_TOTAL" id="DC7787BE-4BE7-4885-D704-892576E45157">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total time spent in agent queues for all calls that were abandoned in a reporting interval. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>264E9765-BA2E-2C0F-72F9-1775BAD37A4A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TALK_TIME_TOTAL" id="CDF9DFD0-D0C2-F036-7B49-A2DE21325C8D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The time agents spend with a customer.  Does not include hold time or ACW time.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5C622A1E-CE21-A2A5-9844-96D974F6F6B9</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AFTER_CALL_WORK_TIME_TOTAL" id="8A02EDBA-9AB4-EB13-661E-F3327F544525">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Time spent completing the transaction after the customer has been released or disconnected.  Time spent after a customer call or chat until the agent state changes places them in idle or ready.  This is a component of Average Handle Time. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5F63C663-D8E4-1FD6-8D11-F3256CAFA675</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_LEVEL_ANSWERED_PERCENT" id="A7789803-55A4-B85B-1C56-A47A4FF29408">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Percent of calls answered within answer time threshold.  Examples include the wait times for an inbound call to get answered, a web chat to be responded to, or a service dispatch to be initiated.  It indicates what percent of the transactions begin processing on or before a defined wait time (usually expressed in seconds). E.g., for service level 75/120, the first number is the target for the percent of transactions handled and the second number is the cycle time target, typically expressed in seconds.  So 75/120 means the target is 75% of the transactions are processed on or before 120 seconds.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>32243939-4B4F-0610-8D48-DA4CA4AFF565</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_LEVEL_ANSWERED_COUNT" id="BA9D62A9-705B-37FC-1FF7-3DA7E77045E0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of calls answered within the service level threshold during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0C9CEDDB-C752-93AC-EECF-FD468CBB862A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_LEVEL_ABANDONED" id="4D77EFB9-CD22-D7C9-3C8F-E6B3AEA98426">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Abandonment Rate = Calls Abandon / Calls Offered.  Reflects customer patience level for wait and how adequately a contact center is staffed. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>97E3519E-0737-5531-412F-056641DA19AB</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ON_HOLD" id="B2CC0F0D-B0F2-A4AD-4713-418EC344D1DB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of contacts put on hold at least once during the reporting interval. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A0BE274C-7CC9-0DD2-D5C0-C509516E3ECF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HOLD_TIME_TOTAL" id="8D77F19E-0D87-2884-195B-7F289D55F11D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total time for all calls being on hold during the reporting interval.  Used to calculate average hold time (and indirectly, average handle time) for a reporting interval. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5C067443-E623-69E9-643C-8DB27EEF2100</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>12</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SHORT_ABANDONS" id="6CD05FD4-3766-46C9-7A0D-131D53B6A2AE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of calls to the route that were too short to be considered abandoned during the reporting interval</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>E21F4B26-05CD-107D-539C-509E1B3AAE92</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_BLOCKED" id="27AEA5AF-C476-7F4E-AD4D-DD4CCDF7A1B0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of contacts that are not allowed into the system due to trunk capacity or system issues.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>7ABAFCC6-22B6-A320-4782-5D2EF40003F6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ICR_DEFAULT_ROUTED" id="3E2070B3-8F06-4946-949D-E79499C6A48B">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-17 03:04:49 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="NETWORK_DEFAULT_ROUTED" id="5D6BC2DB-A56F-07A1-EE0B-C6E29166C564">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RETURN_BUSY" id="DFE9DAD9-48FD-41F5-8CC3-F281BA7E1B7C">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_RONA" id="9283F55A-35EF-E7BF-E4A2-BD5AA6908B6E">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RETURN_RELEASE" id="439B4A93-4CCC-8B7E-30E7-78482C269F8E">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ROUTED_NON_AGENT" id="0291FDAF-3A85-4083-FFA1-EE2244D68F05">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ERROR_COUNT" id="E8AB59D6-2DCC-32CD-B29F-F7E3744D41AF">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ERROR_COUNT" id="AA3FD717-F59C-5989-2F81-48C859E2D896">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-22 16:57:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RETURN_RING" id="971E0DCE-1F8C-26B6-9ED8-1101C5880E77">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-21 18:13:24 UTC</createdTime>
+<comment>Number of calls of this type that were routed to the Ring target during the reporting interval.&lt;br/&gt;&lt;br/&gt;In a Cisco environment, this is a component of SYS_OUT_CALLS.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INCOMPLETE_CALLS" id="4F758BC7-585F-D95B-03F2-D57354C20B44">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-21 18:13:24 UTC</createdTime>
+<comment>During the reporting interval, the number of calls that were routed to an agent but failed to arrive&lt;br/&gt;&lt;br/&gt;In a Cisco environment, this is a component of SYS_OUT_CALLS.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_GIVEN_FORCE_DISCONNECT" id="D96FA7A2-A6CD-5B51-27EA-F8D6FD5956D6">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-04-15 18:53:42 UTC</createdTime>
+<comment>Avaya specific field.  The number of local Contact Center Manager calls SIP calls, and multimedia contacts and incoming NSBR calls given Force Disconnect treatment for this application. This statistic also includes Contact Center Outbound contacts removed from the system when an outbound campaign ends.&lt;br/&gt;&lt;br/&gt;In an Avaya environment, this is a component of SYS_OUT_CALLS.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_GIVEN_ROUTE_TO" id="439B008B-7D12-ADD9-FC34-A0D2847892AA">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-04-15 18:53:42 UTC</createdTime>
+<comment>Avaya specific field.  The number of local Contact Center Manager calls SIP calls, and multimedia contacts and incoming NSBR calls given Force Disconnect treatment for this application. This statistic also includes Contact Center Outbound contacts removed from the system when an outbound campaign ends.&lt;br/&gt;&lt;br/&gt;In an Avaya environment, this is a component of SYS_OUT_CALLS.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="A9754428-A371-49E5-58CF-48CFC64B15FF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>2F2530AB-45BD-CFBC-F798-1E1F97BCA5EC</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="15ED7CA5-AAD7-42F3-FD17-70799B4594E1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Date this record was last updated.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>7E31E7B4-FF0A-63B6-22F5-5FCCE80ABBD9</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="79047266-45FF-184F-476F-EDE58084B515" name="CC_F_ACTUALS_QUEUE_INTERVAL_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>DBC9C94B-09FF-FA78-9C83-CD3ED7E915D0</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="89EDAFAD-9324-0DD3-76D3-B1B9D6DC95A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B2B1EF2B-65CF-571D-4038-47D8934C0DE9" name="CC_F_ACTUALS_Q_INTERVAL__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0456005B-5060-5186-BF44-1A9450853162</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="C5B2377F-3221-3B6F-BDD0-FB188C3AF226"/>
+<colUsage columnID="5724BCEC-2A7D-B586-79CA-2769F268E072"/>
+<colUsage columnID="11C25F25-118E-98F5-D33D-9D5FCB70F739"/>
+<colUsage columnID="B5FD870C-F511-9056-CE99-9D9FDBD8907D"/>
+<colUsage columnID="12EF6FCB-293B-8830-AD0E-F6BDF017C283"/>
+<colUsage columnID="2CE6FE93-BDC2-16CB-C81F-1F0EF29F05AF"/>
+<colUsage columnID="93762FF9-1565-1CEF-C81F-5035AFFF2E8A"/>
+<colUsage columnID="032CC9FF-901F-B4BF-C29A-347353CA7F40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="BB464FE1-9B96-9325-7D79-C325B66000E7" name="F_ACTLS_Q_INT_D_DATE_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>07D9A8B1-99D7-AA46-8AB8-DC3E266B1E11</importedID>
+<indexColumnUsage>
+<colUsage columnID="C5B2377F-3221-3B6F-BDD0-FB188C3AF226"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="4461C013-A422-4D3A-0471-A1B07DA396B9" name="F_ACTLS_Q_INT_D_PRJ_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AE3E46FC-8FAA-0D51-6960-673D8919E252</importedID>
+<indexColumnUsage>
+<colUsage columnID="5724BCEC-2A7D-B586-79CA-2769F268E072"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F1B7F8A2-A556-5C3E-D319-D9C5AFF64CBC" name="F_ACTLS_Q_INT_D_PRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>6F8A792A-DAB3-270F-1E01-9242A4EC722D</importedID>
+<indexColumnUsage>
+<colUsage columnID="11C25F25-118E-98F5-D33D-9D5FCB70F739"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="BAF357AB-5DC6-FD9B-F0BD-C248471A5DA5" name="F_ACTLS_Q_INT_D_GEO_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FEE0B1D4-384D-B440-556A-95C568C65C40</importedID>
+<indexColumnUsage>
+<colUsage columnID="B5FD870C-F511-9056-CE99-9D9FDBD8907D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="DD211AB6-5237-39B8-9D44-B552288A2635" name="F_ACTLS_Q_INT_D_UOW_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>89BD2940-7AEE-5E45-BFF3-A53A199677E9</importedID>
+<indexColumnUsage>
+<colUsage columnID="12EF6FCB-293B-8830-AD0E-F6BDF017C283"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E13B5F9F-E205-3E31-FBA3-26F65E259F92" name="F_ACTLS_Q_INT_D_CNTCT_Q_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>8A6DB64C-BC9C-6728-7A5B-9F3966D9AF7C</importedID>
+<indexColumnUsage>
+<colUsage columnID="93762FF9-1565-1CEF-C81F-5035AFFF2E8A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="FDDE91E3-C9EE-43E2-3D35-3FFAD100F15E" name="F_ACTLS_Q_INT_D_INT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>CF92D86F-62CF-F54E-7544-C0D37E0EAF10</importedID>
+<indexColumnUsage>
+<colUsage columnID="2CE6FE93-BDC2-16CB-C81F-1F0EF29F05AF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0DC08D54-9DCD-17FA-278F-F47BFCE5FF7D" name="F_ACTLS_Q_INT_D_AGENT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>829AA9B3-E026-F505-31FF-3BFB45FC4F27</importedID>
+<indexColumnUsage>
+<colUsage columnID="032CC9FF-901F-B4BF-C29A-347353CA7F40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0C62C0A8-5062-38F0-1B2A-D1E3A74AE211" name="F_ACTLS_Q_INTRVL_D_DATES_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="C5B2377F-3221-3B6F-BDD0-FB188C3AF226"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0CF32AE5-687A-C7BE-9D3F-63C916BF3646" name="F_ACTLS_Q_INTRVL_D_UOW_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="12EF6FCB-293B-8830-AD0E-F6BDF017C283"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="03EF367D-BC67-044A-412A-1F47F5CBFC37" name="F_ACTLS_Q_INTRVL_D_PRG_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="11C25F25-118E-98F5-D33D-9D5FCB70F739"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5FBA5CF2-EA4C-4E11-2567-EEC0CA9A7048" name="F_ACTLS_Q_INTRVL_D_INT_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="2CE6FE93-BDC2-16CB-C81F-1F0EF29F05AF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="57C8BDAC-71E7-7837-F428-85ABCD21EF5E" name="F_ACTLS_Q_INTRVL_D_AGENT_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="032CC9FF-901F-B4BF-C29A-347353CA7F40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F969FE76-88C2-BA05-8B13-A6FFA9759B14" name="F_ACTLS_Q_INTRVL_D_PRJ_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="5724BCEC-2A7D-B586-79CA-2769F268E072"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="5D6B6A0D-B64A-E316-5D7D-9BD924F11CEA" name="F_ACTLS_Q_INTRVL_D_CNTCT_Q_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="93762FF9-1565-1CEF-C81F-5035AFFF2E8A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="782A0F9D-B079-C36D-66B3-498E42BFF83E" name="F_ACTLS_Q_INTRVL_D_GEO_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:51 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B5FD870C-F511-9056-CE99-9D9FDBD8907D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

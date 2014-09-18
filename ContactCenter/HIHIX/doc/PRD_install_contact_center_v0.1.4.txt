@@ -1,0 +1,69 @@
+PROJECT_NAME----->MAXDAT - HIHIX 
+RELEASE_NUMBER--->N/A 
+ENVIRONMENT------> rsmxdb07.maximus.com (HIHXMXDP - PROD)  rshxap28.maximus.com ( App server )  
+
+DEPLOYMENT START_TIME_DATE--> 11/13/2013
+DEPLOYMENT COMPLETE_BY_TIME-> 5PM PST, 11/13/2013
+
+CONTACT_NAME: Clay Rowland. 
+CONTACT_NUMBER: (O) 843-408-1358 
+
+What this deployment fixes: 
+PRD DB and Kettle deployment for HIHIX Contact Center patch v0.1.4
+------------------------------------------------------------------------------------------------- 
+
+This release consists of the following updates: 
+1.Y - ETL scripts 
+2.Y - SQL scripts 
+3.N - MicroStrategy Object 
+4.N - Configuration 
+5.N - Special Instructions: 
+
+If there are error in any one of the following scripts, please stop and notify. 
+
+These instructions can be found here: 
+
+svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/doc/PRD_install_contact_center_v0.1.4.txt
+
+
+********************************************************************************
+Instructions to install HIHIX v0.1.4 to PRD
+
+********************************************************************************
+
+	
+-----------------------
+1. DEPLOY DB PATCH 0.1.4
+----------------------
+
+	-- All files can be found at:					
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131112_Clay_v0.1.4.zip
+	
+	-- 0.1.3 missing scripts
+	006_DROP_ADD_CC_S_TMP_CISCO_C_T_INTERVAL.sql
+	007_MODIFY_CC_S_ACD_INTERVAL.sql
+	008_ALTER_CC_F_ACTUALS_QUEUE_INTERVAL.sql
+
+	-- 0.1.4 scripts
+	001_ALTER_CALL_DETAIL.sql
+	002_Increase_Precision.sql
+	003_CREATE_CC_S_TMP_AGENT_SKILL_GROUP.sql
+	004_CREATE_TARGET_VIEWS.sql
+	
+
+
+----------------------------
+2. DEPLOY KETTLE PATCH 
+----------------------------
+	
+	-- All files can be found at:
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/AS_PATCH_CONTACT_CENTER_20131112_Clay_v0.1.4.zip  
+
+	Upload application server deployment bundle, AS_PATCH_CONTACT_CENTER_20131112_Clay_v0.1.4.zip  
+	
+	# Unzip to ContactCenter directory.
+	unzip -o AS_PATCH_CONTACT_CENTER_20131112_Clay_v0.1.4.zip -d $MAXDAT_ETL_PATH/ContactCenter
+	
+	# MAKE SCRIPTS EXECUTABLE
+	chmod 755 $MAXDAT_ETL_PATH/ContactCenter/implementation/HIHIX/bin/*.sh
+

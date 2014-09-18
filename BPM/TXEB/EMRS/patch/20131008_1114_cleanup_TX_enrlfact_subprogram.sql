@@ -1,0 +1,13 @@
+  UPDATE emrs_f_enrollment
+  SET sub_program_id = 313
+  WHERE enrollment_id IN(45041003,45087537,45085504,45098354,45058134,45071617,45064222,45105207,45104837,45065970);
+  
+  UPDATE emrs_f_enrollment
+  SET sub_program_id = 312
+  WHERE enrollment_id IN(45136977,45132741,45139930,45083680,45042759,45081408,45038694,45118993,45047137);
+  
+  UPDATE emrs_f_enrollment
+  SET sub_program_id = 324
+  WHERE enrollment_id = 38964017;
+  
+  COMMIT;

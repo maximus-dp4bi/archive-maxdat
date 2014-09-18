@@ -1,0 +1,1 @@
+create index FNSITPBD_IXL3 on F_NYEC_SITP_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;

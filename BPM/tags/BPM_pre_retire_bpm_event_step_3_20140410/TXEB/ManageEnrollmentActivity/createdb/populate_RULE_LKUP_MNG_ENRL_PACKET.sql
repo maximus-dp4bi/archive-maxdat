@@ -1,0 +1,198 @@
+/*
+Created on 19-Aug-2013 by Raj A.
+Team: MAXDAT.
+Business Process: Manage Enrollment Activity.
+
+Description:
+Inserts global controls into the Rule_lkup_mng_enrl_sla table.
+Used by the Semantic layer code, i.e., the MANAGE_ENROLL_pkg.sql
+*/
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STAR',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STAR',
+'VLM',
+SYSDATE,
+sysdate
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARDUAL',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARDUAL',
+'VLM',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARH',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARH',
+'VLM',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARHDUAL',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARHDUAL',
+'VLM',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARP',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARP',
+'VLM',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARPDUAL',
+'IAM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'MEDICAID',
+'STARPDUAL',
+'VLM',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'DENTAL',
+'MEDICAID',
+'DENTAL',
+'IAD',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'DENTAL',
+'MEDICAID',
+'DENTAL',
+'VLD',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+SEQ_MEP.NEXTVAL,
+'BEHAVIORAL',
+'MEDICAID',
+'NS',
+'IAN',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'BEHAVIORAL',
+'MEDICAID',
+'NS',
+'IND',
+SYSDATE,
+SYSDATE
+);
+
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'MEDICAL',
+'CHIP',
+'CHIP',
+'EPM',
+SYSDATE,
+sysdate
+);
+INSERT INTO RULE_LKUP_MNG_ENRL_PACKET
+VALUES(
+seq_mep.nextval,
+'DENTAL',
+'CHIP',
+'CHIP-DEN',
+'EPM',
+SYSDATE,
+SYSDATE
+);
+commit;

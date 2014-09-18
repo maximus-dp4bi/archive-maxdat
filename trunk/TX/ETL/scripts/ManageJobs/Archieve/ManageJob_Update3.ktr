@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>ManageJob_Update3</name>
+    <description/>
+    <extended_description>---------------------------------------------------------------- 
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code. 
+---------------------------------------------------------------- 
+
+--------------------------------- 
+SVN_FILE_URL        = $URL$ 
+SVN_REVISION        = $Revision$ 
+SVN_REVISION_DATE   = $Date$ 
+SVN_REVISION_AUTHOR = $Author$ 
+---------------------------------</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;10 16:37:25.531</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;10 16:37:25.531</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>EMRS</name>
+    <server>${DB_EMRS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>EMRS</database>
+    <port>${DB_EMRS_PORT}</port>
+    <username>${DB_EMRS_USER}</username>
+    <password>Encrypted 2be98afc86aa7f2e49a0daf7dccc1a39b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>MAXDAT_DEV_Schema</database>
+    <port>-1</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>EBSchema</database>
+    <port>-1</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Set field value-UPD2_10</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy - NO Update</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Update3</to><enabled>Y</enabled> </hop>  <hop> <from>Add Error Level_Processname</from><to>Get transformation name</to><enabled>Y</enabled> </hop>  <hop> <from>Get Error_date</from><to>Add Error Level_Processname</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - CORP_ETL_MANAGE_JOBS_WIP_BPM</from><to>Get Error_date</to><enabled>Y</enabled> </hop>  <hop> <from>Get transformation name</from><to>Set field value-UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Update3</from><to>Table output-CORP_ETL_ERROR_LOG </to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add Error Level_Processname</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ERR_LEVEL</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CRITICAL</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>EB Manage Job Processing</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>348</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy - NO Update</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>909</xloc>
+      <yloc>166</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-Update needed?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update3</send_true_to>
+<send_false_to>Dummy - NO Update</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>O_UPDATED</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>631</xloc>
+      <yloc>275</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Error_date</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>error_date</name>
+        <type>system date (variable)</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>174</xloc>
+      <yloc>139</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get transformation name</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>JOBS_NAME</name>
+        <variable>${Internal.Transformation.Filename.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>168</xloc>
+      <yloc>278</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD2_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>O_ASSD_PROCESS_JOB</name>
+        <replaceby>JOB_START_DT</replaceby>
+        </field>
+      <field>
+        <name>O_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>380</xloc>
+      <yloc>277</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - CORP_ETL_MANAGE_JOBS_WIP_BPM</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT 
+&apos;Y&apos;		IN_YES
+,&apos;N&apos;	IN_NO
+
+,OLTP.CEMFR_ID
+,JOB_ID
+,CREATE_DT
+,CREATED_BY
+,JOB_NAME
+,JOB_DETAIL
+,JOB_GROUP
+,JOB_TYPE
+,JOB_START_DT
+,JOB_END_DT
+,JOB_STATUS
+,FILE_NAME
+,RECEIPT_DT
+,TRANSMIT_DT
+,FILE_TYPE
+,FILE_SOURCE
+,FILE_DESTINATION
+,PLAN_NAME
+,RESPONSE_FILE_REQ
+,RECORD_COUNT
+,RECORD_ERROR_COUNT
+,RESPONSE_FILE_NAME
+,LAST_UPDATE_BY_NAME
+,LAST_UPDATE_BY_DT
+,ASSD_IDENTIFY_JOB
+,ASED_IDENTIFY_JOB
+,ASSD_PROCESS_JOB
+,ASED_PROCESS_JOB
+,ASSD_CREATE_RESPONSE_FILE
+,ASED_CREATE_RESPONSE_FILE
+,ASSD_CREATE_OUTBOUND_FILE
+,ASED_CREATE_OUTBOUND_FILE
+,ASF_IDENTIFY_JOB
+,ASF_PROCESS_JOB
+,ASF_CREATE_RESPONSE_FILE
+,ASF_CREATE_OUTBOUND_FILE
+,GWF_PROCESSED_OK
+,GWF_JOB_TYPE
+,GWF_RESPONSE_FILE
+,COMPLETE_DT
+,INSTANCE_STATUS
+,CANCEL_DT
+,STG_EXTRACT_DATE
+,STG_LAST_UPDATE_DATE
+,STAGE_DONE_DATE
+
+,BPM.CEMFR_ID
+,O_JOB_ID
+,O_CREATE_DT
+,O_CREATED_BY
+,O_JOB_NAME
+,O_JOB_DETAIL
+,O_JOB_GROUP
+,O_JOB_TYPE
+,O_JOB_START_DT
+,O_JOB_END_DT
+,O_JOB_STATUS
+,O_FILE_NAME
+,O_RECEIPT_DT
+,O_TRANSMIT_DT
+,O_FILE_TYPE
+,O_FILE_SOURCE
+,O_FILE_DESTINATION
+,O_PLAN_NAME
+,O_RESPONSE_FILE_REQ
+,O_RECORD_COUNT
+,O_RECORD_ERROR_COUNT
+,O_RESPONSE_FILE_NAME
+,O_LAST_UPDATE_BY_NAME
+,O_LAST_UPDATE_BY_DT
+,O_ASSD_IDENTIFY_JOB
+,O_ASED_IDENTIFY_JOB
+,O_ASSD_PROCESS_JOB
+,O_ASED_PROCESS_JOB
+,O_ASSD_CREATE_RESPONSE_FILE
+,O_ASED_CREATE_RESPONSE_FILE
+,O_ASSD_CREATE_OUTBOUND_FILE
+,O_ASED_CREATE_OUTBOUND_FILE
+,O_ASF_IDENTIFY_JOB
+,O_ASF_PROCESS_JOB
+,O_ASF_CREATE_RESPONSE_FILE
+,O_ASF_CREATE_OUTBOUND_FILE
+,O_GWF_PROCESSED_OK
+,O_GWF_JOB_TYPE
+,O_GWF_RESPONSE_FILE
+,O_COMPLETE_DT
+,O_INSTANCE_STATUS
+,O_CANCEL_DT
+,O_STG_EXTRACT_DATE
+,O_STG_LAST_UPDATE_DATE
+,O_STAGE_DONE_DATE
+,O_UPDATED
+
+FROM CORP_ETL_MANAGE_JOBS_OLTP OLTP
+JOIN 
+(SELECT 
+CEMFR_ID CEMFR_ID
+,JOB_ID O_JOB_ID
+,CREATE_DT O_CREATE_DT
+,CREATED_BY O_CREATED_BY
+,JOB_NAME O_JOB_NAME
+,JOB_DETAIL O_JOB_DETAIL
+,JOB_GROUP O_JOB_GROUP
+,JOB_TYPE O_JOB_TYPE
+,JOB_START_DT O_JOB_START_DT
+,JOB_END_DT O_JOB_END_DT
+,JOB_STATUS O_JOB_STATUS
+,FILE_NAME O_FILE_NAME
+,RECEIPT_DT O_RECEIPT_DT
+,TRANSMIT_DT O_TRANSMIT_DT
+,FILE_TYPE O_FILE_TYPE
+,FILE_SOURCE O_FILE_SOURCE
+,FILE_DESTINATION O_FILE_DESTINATION
+,PLAN_NAME O_PLAN_NAME
+,RESPONSE_FILE_REQ O_RESPONSE_FILE_REQ
+,RECORD_COUNT O_RECORD_COUNT
+,RECORD_ERROR_COUNT O_RECORD_ERROR_COUNT
+,RESPONSE_FILE_NAME O_RESPONSE_FILE_NAME
+,LAST_UPDATE_BY_NAME O_LAST_UPDATE_BY_NAME
+,LAST_UPDATE_BY_DT O_LAST_UPDATE_BY_DT
+,ASSD_IDENTIFY_JOB O_ASSD_IDENTIFY_JOB
+,ASED_IDENTIFY_JOB O_ASED_IDENTIFY_JOB
+,ASSD_PROCESS_JOB O_ASSD_PROCESS_JOB
+,ASED_PROCESS_JOB O_ASED_PROCESS_JOB
+,ASSD_CREATE_RESPONSE_FILE O_ASSD_CREATE_RESPONSE_FILE
+,ASED_CREATE_RESPONSE_FILE O_ASED_CREATE_RESPONSE_FILE
+,ASSD_CREATE_OUTBOUND_FILE O_ASSD_CREATE_OUTBOUND_FILE
+,ASED_CREATE_OUTBOUND_FILE O_ASED_CREATE_OUTBOUND_FILE
+,ASF_IDENTIFY_JOB O_ASF_IDENTIFY_JOB
+,ASF_PROCESS_JOB O_ASF_PROCESS_JOB
+,ASF_CREATE_RESPONSE_FILE O_ASF_CREATE_RESPONSE_FILE
+,ASF_CREATE_OUTBOUND_FILE O_ASF_CREATE_OUTBOUND_FILE
+,GWF_PROCESSED_OK O_GWF_PROCESSED_OK
+,GWF_JOB_TYPE O_GWF_JOB_TYPE
+,GWF_RESPONSE_FILE O_GWF_RESPONSE_FILE
+,COMPLETE_DT O_COMPLETE_DT
+,INSTANCE_STATUS O_INSTANCE_STATUS
+,CANCEL_DT O_CANCEL_DT
+,STG_EXTRACT_DATE O_STG_EXTRACT_DATE
+,STG_LAST_UPDATE_DATE O_STG_LAST_UPDATE_DATE
+,STAGE_DONE_DATE O_STAGE_DONE_DATE
+,UPDATED O_UPDATED
+from CORP_ETL_MANAGE_JOBS_WIP_BPM
+where INSTANCE_STATUS = &apos;Active&apos;
+and CANCEL_DT is null
+and ASSD_IDENTIFY_JOB is not null
+and ASED_IDENTIFY_JOB is not null
+and ASSD_PROCESS_JOB is null
+)BPM
+ON OLTP.CEMFR_ID= BPM.CEMFR_ID
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>174</xloc>
+      <yloc>21</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output-CORP_ETL_ERROR_LOG </name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>error_date</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOBS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>JOB_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>868</xloc>
+      <yloc>485</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update3</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>Y</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>CORP_ETL_MANAGE_JOBS_WIP_BPM</table>
+      <key>
+        <name>CEMFR_ID</name>
+        <field>CEMFR_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>ASSD_PROCESS_JOB</name>
+        <rename>O_ASSD_PROCESS_JOB</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>919</xloc>
+      <yloc>348</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Update3</source_step>
+        <target_step>Table output-CORP_ETL_ERROR_LOG </target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>99999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

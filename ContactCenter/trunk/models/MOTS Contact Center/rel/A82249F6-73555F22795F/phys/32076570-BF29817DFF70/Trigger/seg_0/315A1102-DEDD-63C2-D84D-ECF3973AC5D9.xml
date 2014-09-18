@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_D_GEOGRAPHY_MASTER" id="315A1102-DEDD-63C2-D84D-ECF3973AC5D9" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 19:19:23 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_GEOGRAPHY_MASTER_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_D_GEO_MASTER.NEXTVAL INTO :NEW.D_GEOGRAPHY_MASTER_ID FROM DUAL;&lt;br/&gt;	:NEW.CREATE_DATE := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_MODIFIED_DATE := SYSDATE;&lt;br/&gt;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>DD415D10-A549-D183-A30B-39214BC339A0</table>
+</TriggerOraclev10g>

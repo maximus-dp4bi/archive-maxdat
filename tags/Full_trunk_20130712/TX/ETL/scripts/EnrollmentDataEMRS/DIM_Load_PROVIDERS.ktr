@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>DIM_Load_PROVIDERS</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;16 09:57:06.984</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;16 09:57:06.984</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>EMRS</name>
+    <server>${DB_EMRS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_EMRS_NAME}</database>
+    <port>${DB_EMRS_PORT}</port>
+    <username>${DB_EMRS_USER}</username>
+    <password>Encrypted 2be98afc86aa7f2e49a0daf7dccc1a39b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Get DATE_CREATED</from><to>constants CREATED_BY</to><enabled>Y</enabled> </hop>  <hop> <from>constants CREATED_BY</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Specialty Group 2</from><to>Database join - Get Specialty Group Id</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - PROVIDERS from EB</from><to>Database join - Get Specialty Group 2</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Specialty Group Id</from><to>Get DATE_CREATED</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update</from><to>Dimension lookup&#47;update - PROVIDERS</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Database join - Get Specialty Group 2</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>SELECT specialty_type_cd, group_count
+ FROM (SELECT network_id
+              ,specialty_type_cd             
+              ,COUNT(1) OVER (PARTITION BY network_id) group_count
+       FROM network_specialty nws )         
+WHERE network_id = ?</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>SOURCE_RECORD_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>187</xloc>
+      <yloc>206</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get Specialty Group Id</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <rowlimit>1</rowlimit>
+    <sql>SELECT specialty_group_id
+FROM emrs_d_provider_specialty_code psc
+ INNER JOIN emrs_d_specialty_group sg
+   ON psc.provider_specialty_code_id = sg.provider_specialty_code_id
+WHERE group_count = ?
+AND provider_specialty_code = ?
+</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>GROUP_COUNT</name>
+        <type>Number</type>
+      </field>
+      <field>
+        <name>SPECIALTY_TYPE_CD</name>
+        <type>String</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>377</xloc>
+      <yloc>206</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dimension lookup&#47;update - PROVIDERS</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>EMRS_D_PROVIDER</table>
+      <connection>EMRS</connection>
+      <commit>100</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>SOURCE_RECORD_ID</name>
+          <lookup>SOURCE_RECORD_ID</lookup>
+        </key>
+        <key>
+          <name>MANAGED_CARE_PROGRAM</name>
+          <lookup>MANAGED_CARE_PROGRAM</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>DATE_OF_VALIDITY_START</from>
+          <to>DATE_OF_VALIDITY_END</to>
+        </date>
+        <field>
+          <name>PROVIDER_NUMBER</name>
+          <lookup>PROVIDER_NUMBER</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>ADDRESS_1</name>
+          <lookup>ADDRESS_1</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>ADDRESS_2</name>
+          <lookup>ADDRESS_2</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>AGE_HIGH</name>
+          <lookup>AGE_HIGH</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>AGE_LOW</name>
+          <lookup>AGE_LOW</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>CITY</name>
+          <lookup>CITY</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>STATE</name>
+          <lookup>STATE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>COUNTY_ID</name>
+          <lookup>COUNTY_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>ZIP</name>
+          <lookup>ZIP</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>CSDA_ID</name>
+          <lookup>CSDA_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>LANGUAGE_SERVED_1</name>
+          <lookup>LANGUAGE_SERVED_1</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>LANGUAGE_SERVED_2</name>
+          <lookup>LANGUAGE_SERVED_2</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>LANGUAGE_SERVED_3</name>
+          <lookup>LANGUAGE_SERVED_3</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>NPI_BENEFIT_CODE</name>
+          <lookup>NPI_BENEFIT_CODE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PHONE</name>
+          <lookup>PHONE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PLAN_ID</name>
+          <lookup>PLAN_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_CODE</name>
+          <lookup>PROVIDER_CODE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_TYPE</name>
+          <lookup>PROVIDER_TYPE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_FIRST_NAME</name>
+          <lookup>PROVIDER_FIRST_NAME</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_LAST_NAME</name>
+          <lookup>PROVIDER_LAST_NAME</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_LICENSE_NATIONAL_ID</name>
+          <lookup>PROVIDER_LICENSE_NATIONAL_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_LICENSE_NUMBER</name>
+          <lookup>PROVIDER_LICENSE_NUMBER</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>PROVIDER_SEX_RESTRICTIONS</name>
+          <lookup>PROVIDER_SEX_RESTRICTIONS</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>RACE_ID</name>
+          <lookup>RACE_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>SOURCE_RECORD_DATE</name>
+          <lookup>SOURCE_RECORD_DATE</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>SOURCE_RECORD_NAME</name>
+          <lookup>SOURCE_RECORD_NAME</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>SOURCE_RECORD_TIME</name>
+          <lookup>SOURCE_RECORD_TIME</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>TOTAL_CLIENTS_ALLOWED</name>
+          <lookup>TOTAL_CLIENTS_ALLOWED</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>OFC_HR_OPEN_FROM</name>
+          <lookup>OFC_HR_OPEN_FROM</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>OFC_HR_CLOSE_AT</name>
+          <lookup>OFC_HR_CLOSE_AT</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>OFC_HR_DAYS_OF_WEEK</name>
+          <lookup>OFC_HR_DAYS_OF_WEEK</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>SPECIALTY_GROUP_ID</name>
+          <lookup>SPECIALTY_GROUP_ID</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name>CREATED_BY</name>
+          <lookup>CREATED_BY</lookup>
+          <update>Insert</update>
+        </field>
+        <field>
+          <name/>
+          <lookup>DATE_CREATED</lookup>
+          <update>DateInserted</update>
+        </field>
+        <field>
+          <name/>
+          <lookup>CURRENT_FLAG</lookup>
+          <update>LastVersion</update>
+        </field>
+        <return>
+          <name>PROVIDER_ID</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>VERSION</version>
+        </return>
+      </fields>
+      <sequence>EMRS_SEQ_PROVIDER_ID</sequence>
+      <min_year>1995</min_year>
+      <max_year>2050</max_year>
+      <cache_size>5000</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>Y</use_start_date_alternative>
+      <start_date_alternative>column_value</start_date_alternative>
+      <start_date_field_name>START_DATE</start_date_field_name>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>600</xloc>
+      <yloc>575</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get DATE_CREATED</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DATE_CREATED</name>
+        <type>system date (variable)</type>
+        </field>
+      <field>
+        <name>DATE_UPDATED</name>
+        <type>system date (variable)</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>249</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <commit>100</commit>
+    <update_bypassed>Y</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>EMRS_D_PROVIDER_REF</table>
+      <key>
+        <name>PROVIDER_NUMBER</name>
+        <field>PROVIDER_NUMBER</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROVIDER_NUMBER</name>
+        <rename>PROVIDER_NUMBER</rename>
+        <update>N</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>532</xloc>
+      <yloc>481</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>SOURCE_RECORD_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ADDRESS_1</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ADDRESS_2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AGE_HIGH</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AGE_LOW</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CITY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COUNTY_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ZIP</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>START_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CSDA_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LANGUAGE_SERVED_1</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LANGUAGE_SERVED_2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LANGUAGE_SERVED_3</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_CARE_PROGRAM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NPI_BENEFIT_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PHONE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PLAN_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_TYPE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_FIRST_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_LAST_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_LICENSE_NATIONAL_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_LICENSE_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROVIDER_SEX_RESTRICTIONS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RACE_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_RECORD_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_RECORD_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_RECORD_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TOTAL_CLIENTS_ALLOWED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_CREATED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_UPDATED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CREATED_BY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>UPDATED_BY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>OFC_HR_OPEN_FROM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>OFC_HR_CLOSE_AT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>OFC_HR_DAYS_OF_WEEK</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SPECIALTY_GROUP_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>TOTAL_CLIENTS_ALLOWED</name>
+        <rename>TOTAL_CLIENTS_ALLOWED</rename>
+        <type>Integer</type>
+        <length>18</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>404</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - PROVIDERS from EB</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT nw.network_id source_record_id
+              ,nw.network_id provider_number
+              , nw.office_addr_1 address_1
+               , nw.office_addr_2 address_2
+               , nw.age_high_limit  age_high
+               , nw.age_low_limit age_low
+               , nw.office_city city
+               , nw.office_state state
+               , nw.office_county county_id
+               , nw.office_zip zip
+               , nw.start_date 
+               , ec.attrib_district_cd csda_id
+               , nwl1.language_type_cd language_served_1
+               , nwl2.language_type_cd language_served_2               
+               , nwl3.language_type_cd language_served_3               
+               , nw.program_type_cd managed_care_program
+               , nw.network_generic_field6_txt npi_benefit_code
+               , nw.office_phone phone
+               , nw.plan_id_ext plan_id
+               , nw.provider_id_ext provider_code
+               , nw.first_name provider_first_name
+               , nw.last_name provider_last_name
+               , nw.network_generic_field5_txt provider_license_national_id
+               , nw.license_number provider_license_number
+               , nw.sex_limits_cd provider_sex_restrictions
+          --     , nws.specialty_type_cd provider_specialty
+               , nwp.provider_type_cd provider_type
+               , nw.network_generic_field7_txt race_id
+               , nw.create_ts source_record_date
+               , nw.created_by source_record_name
+               , TO_CHAR(nw.create_ts, &apos;HH24MI&apos;) source_record_time
+               , pl.panel_size total_clients_allowed
+               , noh.open_from ofc_hr_open_from
+               , noh.close_at ofc_hr_close_at
+               , noh.day_of_week ofc_hr_days_of_week
+FROM NETWORK nw
+  INNER JOIN enum_county ec
+     ON nw.office_county = ec.value
+ INNER JOIN network_provider_type nwp
+    ON nw.network_id = nwp.network_id
+  LEFT OUTER JOIN network_language nwl1
+     ON nw.network_id = nwl1.network_id
+     AND nwl1.language_ext_cd = 1
+  LEFT OUTER JOIN network_language nwl2
+     ON nw.network_id = nwl2.network_id   
+      AND nwl2.language_ext_cd = 2
+  LEFT OUTER JOIN network_language nwl3    
+    ON nw.network_id = nwl3.network_id       
+     AND nwl3.language_ext_cd = 3    
+  LEFT OUTER JOIN panel_limit pl
+    ON nw.provider_id = pl.provider_id
+    AND nw.plan_id = pl.plan_id
+  LEFT OUTER JOIN network_office_hours noh
+    ON nw.network_id = noh.network_id
+WHERE nw.update_ts &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>134</xloc>
+      <yloc>124</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>constants CREATED_BY</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATED_BY</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>EMRS_ETL_OPS</nullif>
+        <length>18</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>UPDATED_BY</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>EMRS_ETL_OPS</nullif>
+        <length>18</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>394</xloc>
+      <yloc>305</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

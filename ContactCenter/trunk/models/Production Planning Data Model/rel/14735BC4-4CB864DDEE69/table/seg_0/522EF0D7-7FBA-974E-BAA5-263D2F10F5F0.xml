@@ -1,0 +1,424 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="522EF0D7-7FBA-974E-BAA5-263D2F10F5F0" directorySegmentName="seg_0" name="PP_STG_FORECAST">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<notes>PP_STG_FORECAST is the standardized forecast &quot;input&quot; table to the MAXDAT Production Planning module. This is where data from the forecasting source initially enters into MAXDAT after all forecast metrics have been calculated. When new or updated data is detected in this table, a MAXDAT job then processes the data and updates the related facts and dimensions.</notes>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>9D629552-0953-DF0F-6B1E-0BC15C10882D</importedID>
+<pkName>SPPF_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPPF_ID" id="E09B02E7-33ED-FE19-60F3-BC3123B43DA6">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>EA70AE9B-2BA8-472A-E98C-ABA720364914</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PP_ID" id="3F5143E7-E90A-FCF6-D391-1DE560CEE27B">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>27EEAE81-D230-04E6-4755-B6BF0CD77B36</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<delegate>BE871FF1-C527-3FC0-3DB8-A926EC664206</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="68FB9D3E-7EC8-3E0A-7B90-362D3A8FD646" referredColumn="BE871FF1-C527-3FC0-3DB8-A926EC664206"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_START_DATE" id="26EC67D7-2966-4680-2BEE-EDEB791EB057">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>1290540B-C627-901B-300A-7EED651130E4</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_END_DATE" id="C58B4B95-5C27-5E4C-A3D1-9291FFF39713">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>739ADB30-2522-1F7C-080F-638B415BC9FC</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FORECAST_DATE" id="02523A8B-AA31-807E-027A-026B77298A5F">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>31F293EB-7A1D-1BD8-F7BE-8666C9234B51</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FORECAST_HOUR" id="0E541669-9CA0-6E26-3B33-F805A90F6CBD">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 17:59:00 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>DD5C45B0-E48D-6A3D-AFBA-343CDC03851B</domain>
+<usesDefaultValue>true</usesDefaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+<listOfRanges>
+<rangeDef class="oracle.dbtools.crest.model.design.constraint.AVT">
+<beginValue>0</beginValue>
+<endValue>23</endValue>
+</rangeDef>
+</listOfRanges>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UOW_ID" id="750C6AE9-BF91-938C-F2F2-EC2F9D31AAC2">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>9B8F35AC-81B8-8919-1F23-019E683C9F36</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<delegate>27962F0F-8DBA-3977-8D37-CAA03565137F</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5F4CFBF1-6354-9560-D13F-14E39D3431D1" referredColumn="27962F0F-8DBA-3977-8D37-CAA03565137F"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ARRIVAL" id="FBF4403A-A53B-22A3-17C2-C065551ED831">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>0A9D4E8F-3585-5EB5-B711-52E388F0CD71</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="COMPLETION" id="46B42B79-3860-66A7-0991-9256ECADD605">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>51A0F6C9-5016-5094-0950-CECAEED0D331</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY" id="C8696398-6E75-67F9-5A6D-1E0A97D9C4D4">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>FDC1303A-D54F-F05C-0469-FEA525119D26</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_AVG" id="E5C8C6EE-BE94-32F3-58B1-81FAA5161600">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>DB21753B-563B-617C-C329-E3414CCC3F59</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_MIN" id="0579BFAF-7BAB-4A44-DCA6-F147BA9C34F2">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>9400B9AF-907A-B9DA-1BD9-EEED50576E26</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_MAX" id="9EC280A7-45E1-8C72-F801-303E14689423">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>E3FBF549-F6A2-4304-BF48-4E0D460496A6</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_MEAN" id="67449521-6215-F5EC-22B9-5E589FD475DF">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>69A7985F-C54E-930B-F8BD-3F38F67C2317</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_MEDIAN" id="0892A4CB-9556-78E7-577D-44FA1DF4F199">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>CE64D621-734B-7E88-4705-F58E59A67AA1</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_AGE_SD" id="7F1FBCB9-784D-0DD1-D588-9E6BC6760514">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>CE9A630E-F123-DA97-B0FF-66B0BE28E978</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INVENTORY_JEOPARDY" id="7331A5DF-2F95-3F55-0B1F-82234978E15B">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>D276CA4B-9708-C253-34FB-7BF77F59C12A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_AVG" id="C79152C3-DD3C-5925-F85D-94EA41F1C4DE">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>F6EA7338-AC12-F8E0-5885-390C3ECE7EA0</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MIN" id="C86EE9C2-7C95-DADC-E718-98B7A26D5968">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>D98304AA-6358-1686-B4E0-D7B30E6EF28A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MAX" id="94C3E778-9DC0-3EED-A973-D931A7A791C5">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>4BBB4724-3124-68FC-D673-235727D2C614</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MEAN" id="140B22A5-9713-B384-0265-45F9F2085C41">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>462D910A-124E-AD53-582A-BF508BBBCAEF</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MEDIAN" id="7E57883B-C828-EAF8-707C-71EDB2C9AAFE">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>65C65BBA-FD12-19FE-CE7A-30AD6724EBA1</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_SD" id="9D03B886-5D66-505D-57E0-6617275DEAA4">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>A560F4A6-7021-29E6-E9C8-BF7CE1987BD1</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STAFF_HOURS" id="51BB70F8-AF1C-BCBC-AD72-9BC6E63AF361">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>0DB5A8A8-16B3-8386-B1BE-6095C80DA5BD</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>71174A0E-2F82-6F26-2DD5-9657FF4121C1</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="30740B72-EB52-549B-56B1-52DCF17CF59D">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>CB1AD7CC-B002-74F1-6D1A-A87203954AF3</importedID>
+<defaultValue>sysdate</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<usesDefaultValue>true</usesDefaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="7BAA2992-7C3C-8D03-D70A-E53233A9BDC8">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 18:16:28 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>8E1B7CAF-2424-3F25-79BC-7C1B3F75651C</domain>
+<usesDefaultValue>true</usesDefaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C8AFC3CB-3C1C-441E-9990-5447EDB405AF" name="SPPF_PK">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>89CFC149-38F3-8D0B-A87F-53BBCCFB76D5</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="E09B02E7-33ED-FE19-60F3-BC3123B43DA6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="563CA2DD-F0A6-8D02-0F6F-F464050560B7" name="PP_STG_FORECAST__UN">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 18:14:41 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="3F5143E7-E90A-FCF6-D391-1DE560CEE27B"/>
+<colUsage columnID="26EC67D7-2966-4680-2BEE-EDEB791EB057"/>
+<colUsage columnID="C58B4B95-5C27-5E4C-A3D1-9291FFF39713"/>
+<colUsage columnID="02523A8B-AA31-807E-027A-026B77298A5F"/>
+<colUsage columnID="0E541669-9CA0-6E26-3B33-F805A90F6CBD"/>
+<colUsage columnID="750C6AE9-BF91-938C-F2F2-EC2F9D31AAC2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="694F80DA-479F-1632-9F53-2B7EA2957D08" name="SPPF_PK">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 15:56:30 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<importedID>B3A82E98-56DA-2335-9C75-D36977D1A84F</importedID>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="E09B02E7-33ED-FE19-60F3-BC3123B43DA6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="046BA636-0BB3-4A2C-012A-ABC115D37AD6" name="PP_STG_FORECAST_PP_D_UNIT_OF_WORK_FK">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 16:14:33 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="750C6AE9-BF91-938C-F2F2-EC2F9D31AAC2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="4FE107E1-1819-5E46-B08D-7CE6C63E00A2" name="PP_STG_FORECAST_PP_D_PRODUCTION_PLAN_FK">
+<createdBy>34601</createdBy>
+<createdTime>2013-06-12 16:14:46 UTC</createdTime>
+<ownerDesignName>Production Planning Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="3F5143E7-E90A-FCF6-D391-1DE560CEE27B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

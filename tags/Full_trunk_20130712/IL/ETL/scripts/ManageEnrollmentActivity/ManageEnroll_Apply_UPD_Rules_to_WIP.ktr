@@ -1,0 +1,4493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>ManageEnroll_Apply_UPD_Rules_to_WIP</name>
+    <description/>
+    <extended_description>----------------------------------------------------------------
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+----------------------------------------------------------------
+
+---------------------------------
+SVN_FILE_URL        = $URL$ 
+SVN_REVISION        = $Revision$ 
+SVN_REVISION_DATE   = $Date$
+SVN_REVISION_AUTHOR = $Author$
+---------------------------------</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;05&#47;31 14:26:32.617</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;05&#47;31 14:26:32.617</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_OLTP_SOURCE}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>UPD1_10</from><to>Set- UPD1_10</to><enabled>Y</enabled> </hop>  <hop> <from>Table input-OLTP and WIP Stage tables</from><to>UPD1_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_20</from><to>Set- UPD1_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_10</from><to>UPD1_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_10</from><to>UPD1_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_30</from><to>Set- UPD1_30</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_20</from><to>UPD1_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_20</from><to>UPD1_30</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_40</from><to>Set- UPD1_40</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_30</from><to>UPD1_40</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_30</from><to>UPD1_40</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_50</from><to>Set- UPD1_50</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_40</from><to>UPD1_50</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_40</from><to>UPD1_50</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_80</from><to>Set- UPD1_80</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_50</from><to>UPD1_80</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_90</from><to>Set- UPD1_90</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_80</from><to>UPD1_90</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_80</from><to>UPD1_90</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_50</from><to>UPD1_80</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_140</from><to>Set- UPD1_140</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_90</from><to>UPD1_140</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_90</from><to>UPD1_140</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_150</from><to>Set- UPD1_150</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_140</from><to>UPD1_150</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_140</from><to>UPD1_150</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_160</from><to>Set- UPD1_160</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_150</from><to>UPD1_160</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_150</from><to>UPD1_160</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_230</from><to>Set- UPD1_230</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_240</from><to>Set- UPD1_240</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_230</from><to>UPD1_240</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_230</from><to>UPD1_240</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_250</from><to>Set- UPD1_250</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_240</from><to>UPD1_250</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_240</from><to>UPD1_250</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_260</from><to>Set- UPD1_260</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_250</from><to>UPD1_260</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_250</from><to>UPD1_260</to><enabled>Y</enabled> </hop>  <hop> <from>UPD3</from><to>UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD3_10</from><to>Set- UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4</from><to>UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>Set- UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD3</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>UPD3_10</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD3_10</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_20</from><to>Set- UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD4_10</from><to>UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5</from><to>UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>Set- UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4</from><to>UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_20</from><to>UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD4_20</from><to>UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6</from><to>UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>Set- UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD6_10</from><to>UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_20</from><to>Set- UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5</from><to>UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD5_10</from><to>UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD7</from><to>UPD7_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD7_10</from><to>Set- UPD7_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6</from><to>UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_20</from><to>UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD6_20</from><to>UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8</from><to>UPD8_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8_10</from><to>Set- UPD8_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8_10</from><to>UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD8_10</from><to>UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8_20</from><to>Set- UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD7</from><to>UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>UPD7_10</from><to>UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD7_10</from><to>UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>UPD9</from><to>UPD9_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD9_10</from><to>Set- UPD9_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8</from><to>UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>UPD8_20</from><to>UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD8_20</from><to>UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>UPD9</from><to>UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD9_10</from><to>UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD9_10</from><to>UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10_10</from><to>Set- UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10_10</from><to>UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD10_10</from><to>UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10_20</from><to>Set- UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10</from><to>UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD11</from><to>UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD11_10</from><to>Set- UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10</from><to>UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>UPD10_20</from><to>UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD10_20</from><to>UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>UPD11</from><to>UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>UPD11_10</from><to>UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD11_10</from><to>UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>UPD12</from><to>Set- UPD12_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD12</from><to>UPD13</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD12_10</from><to>UPD13</to><enabled>Y</enabled> </hop>  <hop> <from>UPD13</from><to>UPD13_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD13_10</from><to>Set- UPD13_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD16</from><to>UPD16_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD16_10</from><to>Set- UPD16_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17</from><to>UPD17_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17_10</from><to>Set- UPD17_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD16</from><to>UPD17</to><enabled>Y</enabled> </hop>  <hop> <from>UPD16_10</from><to>UPD17</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD16_10</from><to>UPD17</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17_20</from><to>Set- UPD17_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17_10</from><to>UPD17_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD17_10</from><to>UPD17_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17</from><to>UPD18</to><enabled>Y</enabled> </hop>  <hop> <from>UPD17_20</from><to>UPD18</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD17_20</from><to>UPD18</to><enabled>Y</enabled> </hop>  <hop> <from>UPD18</from><to>UPD18_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD18_10</from><to>Set- UPD18_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD18</from><to>UPD19</to><enabled>Y</enabled> </hop>  <hop> <from>UPD18_10</from><to>UPD19</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD18_10</from><to>UPD19</to><enabled>Y</enabled> </hop>  <hop> <from>UPD19</from><to>Set- UPD19_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD19</from><to>Update WIP table ?</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD19_20</from><to>Update WIP table ?</to><enabled>Y</enabled> </hop>  <hop> <from>Update WIP table ?</from><to>Dummy - NO Update</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_270</from><to>Set- UPD1_270</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_260</from><to>UPD1_270</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_270</from><to>UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_260</from><to>UPD1_270</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD14_10</from><to>UPD14_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14</from><to>UPD14_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14_10</from><to>Set- UPD14_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14_10</from><to>UPD14_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14_20</from><to>Set- UPD14_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD13</from><to>UPD14</to><enabled>Y</enabled> </hop>  <hop> <from>UPD13_10</from><to>UPD14</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD13_10</from><to>UPD14</to><enabled>Y</enabled> </hop>  <hop> <from>UPD15</from><to>UPD15_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD15_10</from><to>Set- UPD15_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14</from><to>UPD15</to><enabled>Y</enabled> </hop>  <hop> <from>UPD14_20</from><to>UPD15</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD14_20</from><to>UPD15</to><enabled>Y</enabled> </hop>  <hop> <from>UPD15</from><to>UPD16</to><enabled>Y</enabled> </hop>  <hop> <from>UPD15_10</from><to>UPD16</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD15_10</from><to>UPD16</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_270</from><to>UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Update WIP table ?</from><to>Dummy 2</to><enabled>Y</enabled> </hop>  <hop> <from>Update-WIP table</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Get transformation name</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Get transformation name</from><to>Table input-OLTP and WIP Stage tables</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy 2</from><to>Update-WIP table</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_170</from><to>Set- UPD1_170</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_160</from><to>UPD1_170</to><enabled>Y</enabled> </hop>  <hop> <from>UPD1_170</from><to>UPD1_230</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_160</from><to>UPD1_170</to><enabled>Y</enabled> </hop>  <hop> <from>Set- UPD1_170</from><to>UPD1_230</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ERR_LEVEL</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CRITICAL</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>MANAGE_ENROLLMENT</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CORP_ETL_MANAGE_ENROLL_WIP</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>167</xloc>
+      <yloc>5</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy - NO Update</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5211</xloc>
+      <yloc>52</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5216</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>error_date</name>
+        <type>system date (variable)</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>319</xloc>
+      <yloc>5</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get transformation name</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>8</xloc>
+      <yloc>5</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD10_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_FOURTH_FOLLOWUP_REQ</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_FOURTH_FOLLOWUP</name>
+        <replaceby>W_ASED_THIRD_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3242</xloc>
+      <yloc>370</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD10_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_FOURTH_FOLLOWUP_REQ</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_AUTO_ASSIGN</name>
+        <replaceby>W_ASED_THIRD_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3346</xloc>
+      <yloc>371</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD11_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_FOURTH_FOLLOWUP</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_FOURTH_FOLLOWUP</name>
+        <replaceby>ASED_FOURTH_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3509</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD12_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASSD_AUTO_ASSIGN</name>
+        <replaceby>W_ASED_FOURTH_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3655</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD13_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_AUTO_ASSIGN</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_AUTO_ASSIGN</name>
+        <replaceby>SLCT_LAST_UPDATE_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3808</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD14_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_REQUIRED_FEE_PAID</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>W_COMPLETE_DT</name>
+        <replaceby>W_ASED_AUTO_ASSIGN</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3961</xloc>
+      <yloc>363</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD14_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_REQUIRED_FEE_PAID</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_WAIT_FOR_FEE</name>
+        <replaceby>W_ASED_AUTO_ASSIGN</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4082</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD15_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_WAIT_FOR_FEE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_WAIT_FOR_FEE</name>
+        <replaceby>ENROLL_FEE_PAID_DT</replaceby>
+        </field>
+      <field>
+        <name>W_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>W_COMPLETE_DT</name>
+        <replaceby>ENROLL_FEE_PAID_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4272</xloc>
+      <yloc>376</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD16_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_SELECTION_RECD</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_SELECTION_RECD</name>
+        <replaceby>SLCT_CREATE_DT</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_SELECTION_RECD</name>
+        <replaceby>CALC_SLCT_LAST_UPD_CRT_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4487</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD17_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_REQUIRED_FEE_PAID</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>W_COMPLETE_DT</name>
+        <replaceby>W_ASED_SELECTION_RECD</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4618</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD17_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_REQUIRED_FEE_PAID</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_WAIT_FOR_FEE</name>
+        <replaceby>W_ASED_SELECTION_RECD</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4738</xloc>
+      <yloc>369</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD18_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_FOURTH_FOLLOWUP</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_WAIT_FOR_FEE</name>
+        <replaceby>ENROLL_FEE_PAID_DT</replaceby>
+        </field>
+      <field>
+        <name>W_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>W_COMPLETE_DT</name>
+        <replaceby>ENROLL_FEE_PAID_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4919</xloc>
+      <yloc>376</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD19_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_CANCEL_ENRL_ACTIVITY</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_CANCEL_DT</name>
+        <replaceby>CANCEL_DT</replaceby>
+        </field>
+      <field>
+        <name>W_CANCEL_REASON</name>
+        <replaceby>CANCEL_REASON</replaceby>
+        </field>
+      <field>
+        <name>W_CANCEL_METHOD</name>
+        <replaceby>CANCEL_METHOD</replaceby>
+        </field>
+      <field>
+        <name>W_CANCEL_BY</name>
+        <replaceby>CANCEL_BY</replaceby>
+        </field>
+      <field>
+        <name>W_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>W_COMPLETE_DT</name>
+        <replaceby>CANCEL_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5082</xloc>
+      <yloc>380</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SERVICE_AREA</name>
+        <replaceby>SERVICE_AREA</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>0</xloc>
+      <yloc>267</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_140</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SLCT_METHOD</name>
+        <replaceby>SLCT_METHOD</replaceby>
+        </field>
+      <field>
+        <name>W_SLCT_CREATE_BY_NAME</name>
+        <replaceby>SLCT_CREATE_BY_NAME</replaceby>
+        </field>
+      <field>
+        <name>W_SLCT_CREATE_DT</name>
+        <replaceby>SLCT_CREATE_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>760</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_150</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SLCT_LAST_UPDATE_BY_NAME</name>
+        <replaceby>SLCT_LAST_UPDATE_BY_NAME</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>865</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_160</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SLCT_LAST_UPDATE_DT</name>
+        <replaceby>SLCT_LAST_UPDATE_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>975</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_170</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SLCT_AUTO_PROC</name>
+        <replaceby>SLCT_AUTO_PROC</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1086</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_COUNTY_CODE</name>
+        <replaceby>COUNTY_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>78</xloc>
+      <yloc>263</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_230</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_FIRST_FOLLOWUP_ID</name>
+        <replaceby>FIRST_FOLLOWUP_ID</replaceby>
+        </field>
+      <field>
+        <name>W_FIRST_FOLLOWUP_TYPE_CODE</name>
+        <replaceby>FIRST_FOLLOWUP_TYPE_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1209</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_240</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_SECOND_FOLLOWUP_ID</name>
+        <replaceby>SECOND_FOLLOWUP_ID</replaceby>
+        </field>
+      <field>
+        <name>W_SECOND_FOLLOWUP_TYPE_CODE</name>
+        <replaceby>SECOND_FOLLOWUP_TYPE_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1331</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_250</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_THIRD_FOLLOWUP_ID</name>
+        <replaceby>THIRD_FOLLOWUP_ID</replaceby>
+        </field>
+      <field>
+        <name>W_THIRD_FOLLOWUP_TYPE_CODE</name>
+        <replaceby>THIRD_FOLLOWUP_TYPE_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1454</xloc>
+      <yloc>257</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_260</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_FOURTH_FOLLOWUP_ID</name>
+        <replaceby>FOURTH_FOLLOWUP_ID</replaceby>
+        </field>
+      <field>
+        <name>W_FOURTH_FOLLOWUP_TYPE_CODE</name>
+        <replaceby>FOURTH_FOLLOWUP_TYPE_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1577</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_270</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_AGE_IN_CALENDAR_DAYS</name>
+        <replaceby>AGE_IN_CALENDAR_DAYS</replaceby>
+        </field>
+      <field>
+        <name>W_AGE_IN_BUSINESS_DAYS</name>
+        <replaceby>AGE_IN_BUSINESS_DAYS</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1704</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ZIP_CODE</name>
+        <replaceby>ZIP_CODE</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>171</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_40</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_NEWBORN_FLG</name>
+        <replaceby>NEWBORN_FLG</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>296</xloc>
+      <yloc>266</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_50</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ENROLLMENT_STATUS_CODE</name>
+        <replaceby>ENROLLMENT_STATUS_CODE</replaceby>
+        </field>
+      <field>
+        <name>W_ENROLLMENT_STATUS_DT</name>
+        <replaceby>ENROLLMENT_STATUS_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>416</xloc>
+      <yloc>266</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_80</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ENRL_PACK_ID</name>
+        <replaceby>ENRL_PACK_ID</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>533</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD1_90</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ENRL_PACK_REQUEST_DT</name>
+        <replaceby>ENRL_PACK_REQUEST_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>643</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD3_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_SEND_ENROLL_PACKET</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_SEND_ENROLL_PACKET</name>
+        <replaceby>W_ENRL_PACK_REQUEST_DT</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1821</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD4_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_FIRST_FOLLOWUP_REQ</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_FIRST_FOLLOWUP</name>
+        <replaceby>W_ASED_SEND_ENROLL_PACKET</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1975</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD4_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_FIRST_FOLLOWUP_REQ</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_AUTO_ASSIGN</name>
+        <replaceby>W_ASED_SEND_ENROLL_PACKET</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2079</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD5_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_FIRST_FOLLOWUP</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_FIRST_FOLLOWUP</name>
+        <replaceby>ASED_FIRST_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2240</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD6_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_SECOND_FOLLOWUP_REQ</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_SECOND_FOLLOWUP</name>
+        <replaceby>W_ASED_FIRST_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2404</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD6_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_SECOND_FOLLOWUP_REQ</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_AUTO_ASSIGN</name>
+        <replaceby>W_ASED_FIRST_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2508</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD7_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_SECOND_FOLLOWUP</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_SECOND_FOLLOWUP</name>
+        <replaceby>ASED_SECOND_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2665</xloc>
+      <yloc>370</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD8_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_THIRD_FOLLOWUP_REQ</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_THIRD_FOLLOWUP</name>
+        <replaceby>W_ASED_SECOND_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2820</xloc>
+      <yloc>370</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD8_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_GWF_THIRD_FOLLOWUP_REQ</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>W_ASSD_AUTO_ASSIGN</name>
+        <replaceby>W_ASED_SECOND_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2924</xloc>
+      <yloc>371</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set- UPD9_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>W_ASF_THIRD_FOLLOWUP</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>W_ASED_THIRD_FOLLOWUP</name>
+        <replaceby>ASED_THIRD_FOLLOWUP</replaceby>
+        </field>
+      <field>
+        <name>F_UPDATED</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3073</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input-OLTP and WIP Stage tables</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>select 
+       &apos;Y&apos;     as IN_YES,
+       &apos;N&apos;     as IN_NO,
+       &apos;Active&apos; as IN_ACTIVE,
+       &apos;Complete&apos; as IN_COMPLETE,
+        &apos;N&apos;    as f_updated,
+       --flag the changed attributes for an update.
+       case when nvl(SERVICE_AREA,&apos;X&apos;) &lt;&gt; nvl(W_SERVICE_AREA,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_SERVICE_AREA,
+       case when nvl(COUNTY_CODE,&apos;X&apos;) &lt;&gt; nvl(W_COUNTY_CODE,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_COUNTY_CODE,
+       case when nvl(ZIP_CODE,&apos;X&apos;) &lt;&gt; nvl(W_ZIP_CODE,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_ZIP_CODE,
+       case when nvl(NEWBORN_FLG,&apos;X&apos;) &lt;&gt; nvl(W_NEWBORN_FLG,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_NEWBORN_FLG,
+       case when nvl(ENROLLMENT_STATUS_CODE,&apos;X&apos;) &lt;&gt; nvl(W_ENROLLMENT_STATUS_CODE,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_ENROL_STAT_CODE,
+       case when nvl(ENRL_PACK_ID,9) &lt;&gt; nvl(W_ENRL_PACK_ID,9) then &apos;Y&apos; else &apos;N&apos; end as f_ENRL_PACK_ID,
+       case when nvl(ENRL_PACK_REQUEST_DT,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(W_ENRL_PACK_REQUEST_DT,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos; else &apos;N&apos; end as f_ENRL_PACK_REQ_DT,
+       case when nvl(SLCT_METHOD,&apos;X&apos;) &lt;&gt; nvl(W_SLCT_METHOD,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_SLCT_METHOD,
+       case when nvl(SLCT_LAST_UPDATE_BY_NAME,&apos;X&apos;) &lt;&gt; nvl(W_SLCT_LAST_UPDATE_BY_NAME,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_SLCT_LAST_UPDATE_BY_NAME,
+       case when nvl(SLCT_LAST_UPDATE_DT,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(W_SLCT_LAST_UPDATE_DT,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos; else &apos;N&apos; end as f_SLCT_LAST_UPDATE_DT,
+       case when nvl(SLCT_AUTO_PROC,&apos;X&apos;) &lt;&gt; nvl(W_SLCT_AUTO_PROC,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as f_SLCT_AUTO_PROC,
+
+       case when nvl(AGE_IN_CALENDAR_DAYS,9999) &lt;&gt; nvl(W_AGE_IN_CALENDAR_DAYS,9999) then &apos;Y&apos; else &apos;N&apos; end as f_AGE_IN_CAL_DAYS,
+       case when W_FIRST_FOLLOWUP_ID is null
+            and nvl(F1.FOLLOWUP_TYPE_CODE,&apos;X&apos;) = nvl(FIRST_FOLLOWUP_TYPE_CODE,&apos;X&apos;)
+            and nvl(F1.FOLLOWUP_NAME,&apos;X&apos;) = &apos;FIRST&apos;
+            and nvl(F1.FOLLOWUP_REQ,&apos;X&apos;)  = &apos;Y&apos;
+            and nvl(F1.Plan_Type,&apos;X&apos;)     = &apos;MEDICAL&apos;
+            and nvl(F1.Program_Type,&apos;X&apos;)  = &apos;MEDICAID&apos;
+            and nvl(F1.FOLLOWUP_CAL_DAYS,9999) &lt;= AGE_IN_CALENDAR_DAYS
+       then &apos;Y&apos; else &apos;N&apos; end as f_first_followup_id,
+       case when W_SECOND_FOLLOWUP_ID is null
+            and nvl(F2.FOLLOWUP_TYPE_CODE,&apos;X&apos;) = nvl(SECOND_FOLLOWUP_TYPE_CODE,&apos;X&apos;)
+            and nvl(F2.FOLLOWUP_NAME,&apos;X&apos;) = &apos;SECOND&apos;
+            and nvl(F2.FOLLOWUP_REQ,&apos;X&apos;)  = &apos;Y&apos;
+            and nvl(F2.Plan_Type,&apos;X&apos;)     = &apos;MEDICAL&apos;
+            and nvl(F2.Program_Type,&apos;X&apos;)  = &apos;MEDICAID&apos;
+            and nvl(F2.FOLLOWUP_CAL_DAYS,9999) &lt;= AGE_IN_CALENDAR_DAYS
+       then &apos;Y&apos; else &apos;N&apos; end as f_second_followup_id,      
+       case when W_THIRD_FOLLOWUP_ID is null
+            and nvl(F3.FOLLOWUP_TYPE_CODE,&apos;X&apos;) = nvl(THIRD_FOLLOWUP_TYPE_CODE,&apos;X&apos;)
+            and nvl(F3.FOLLOWUP_NAME,&apos;X&apos;) = &apos;THIRD&apos;
+            and nvl(F3.FOLLOWUP_REQ,&apos;X&apos;)  = &apos;Y&apos;
+            and nvl(F3.Plan_Type,&apos;X&apos;)     = &apos;MEDICAL&apos;
+            and nvl(F3.Program_Type,&apos;X&apos;)  = &apos;MEDICAID&apos;
+            and nvl(F3.FOLLOWUP_CAL_DAYS,9999) &lt;= AGE_IN_CALENDAR_DAYS
+       then &apos;Y&apos; else &apos;N&apos; end as f_THIRD_followup_id,
+        case when W_FOURTH_FOLLOWUP_ID is null
+            and nvl(F4.FOLLOWUP_TYPE_CODE,&apos;X&apos;) = nvl(fourth_FOLLOWUP_TYPE_CODE,&apos;X&apos;)
+            and nvl(F4.FOLLOWUP_NAME,&apos;X&apos;) = &apos;FOURTH&apos;
+            and nvl(F4.FOLLOWUP_REQ,&apos;X&apos;)  = &apos;Y&apos;
+            and nvl(F4.Plan_Type,&apos;X&apos;)     = &apos;MEDICAL&apos;
+            and nvl(F4.Program_Type,&apos;X&apos;)  = &apos;MEDICAID&apos;
+            and nvl(F4.FOLLOWUP_CAL_DAYS,9999) &lt;= AGE_IN_CALENDAR_DAYS
+       then &apos;Y&apos; else &apos;N&apos; end as f_fourth_followup_id,
+       
+--followups required flags.
+       (case when exists (select 1 from Rule_lkup_mng_enrl_followup where followup_name = &apos;FIRST&apos;) then &apos;Y&apos; else &apos;N&apos; end) as f_first_followup_req,
+       (case when exists (select 1 from Rule_lkup_mng_enrl_followup where followup_name = &apos;SECOND&apos;) then &apos;Y&apos; else &apos;N&apos; end) as f_second_followup_req,
+       (case when exists (select 1 from Rule_lkup_mng_enrl_followup where followup_name = &apos;THIRD&apos;) then &apos;Y&apos; else &apos;N&apos; end) as f_third_followup_req,
+       (case when exists (select 1 from Rule_lkup_mng_enrl_followup where followup_name = &apos;FOURTH&apos;) then &apos;Y&apos; else &apos;N&apos; end) as f_fourth_followup_req,
+       (case when enrollment_status_code in (&apos;G&apos;, &apos;H&apos;, &apos;J&apos;, &apos;L&apos;) then &apos;Y&apos; end) as f_auto_assign,
+       (case when slct_method in (&apos;Phone&apos;, &apos;Mail&apos;, &apos;Fax&apos;, &apos;Online&apos;) then &apos;Y&apos; end) as f_slct_method_PMFO,
+        nvl(SLCT_LAST_UPDATE_DT, SLCT_CREATE_DT) as calc_slct_last_upd_crt_dt,
+
+ 
+       CEME_ID,
+       CLIENT_ENROLL_STATUS_ID,
+       CLIENT_ID,
+       CREATE_DT,
+       CASE_ID,
+       CLIENT_CIN,
+       NEWBORN_FLG,
+       --case when trunc(CREATE_DT)-cl.clnt_dob &lt;= 60 then &apos;Y&apos; else &apos;N&apos; end as NEWBORN_FLG,
+       SERVICE_AREA,
+       COUNTY_CODE,
+       ZIP_CODE,
+       ENROLLMENT_STATUS_CODE,
+       ENROLLMENT_STATUS_DT,
+       AA_DUE_DT,
+       ENRL_PACK_ID,
+       ENRL_PACK_REQUEST_DT,
+       ENROLL_FEE_AMNT_DUE,
+       ENROLL_FEE_AMNT_PAID,
+       ENROLL_FEE_PAID_DT,
+       --CHIP_HPC_ID,
+       ---CHIP_HPC_MAILED_DT,
+       --CHIP_EMI_ID,
+       --CHIP_EMI_MAILED_DT,
+       oltp.PLAN_TYPE,
+       oltp.PROGRAM_TYPE,
+       SLCT_METHOD,
+       SLCT_CREATE_BY_NAME,
+       SLCT_CREATE_DT,
+       SLCT_LAST_UPDATE_BY_NAME,
+       SLCT_LAST_UPDATE_DT,
+       SLCT_AUTO_PROC,
+       ASSD_SELECTION_RECD,
+       ASED_SELECTION_RECD,
+       ASSD_SEND_ENROLL_PACKET,
+       ASED_SEND_ENROLL_PACKET,
+       FIRST_FOLLOWUP_ID,
+       FIRST_FOLLOWUP_TYPE_CODE,
+       ASSD_FIRST_FOLLOWUP,
+       ASED_FIRST_FOLLOWUP,
+       SECOND_FOLLOWUP_ID,
+       SECOND_FOLLOWUP_TYPE_CODE,
+       ASSD_SECOND_FOLLOWUP,
+       ASED_SECOND_FOLLOWUP,
+       THIRD_FOLLOWUP_ID,
+       THIRD_FOLLOWUP_TYPE_CODE,
+       ASSD_THIRD_FOLLOWUP,
+       ASED_THIRD_FOLLOWUP,
+       FOURTH_FOLLOWUP_ID,
+       FOURTH_FOLLOWUP_TYPE_CODE,
+       ASSD_FOURTH_FOLLOWUP,
+       ASED_FOURTH_FOLLOWUP,
+       ASSD_AUTO_ASSIGN,
+       ASED_AUTO_ASSIGN,
+       ASSD_WAIT_FOR_FEE,
+       ASED_WAIT_FOR_FEE,
+       asf_cancel_enrl_activity,       
+       ASF_SEND_ENROLL_PACKET,
+       ASF_SELECTION_RECD,
+       ASF_FIRST_FOLLOWUP,
+       ASF_SECOND_FOLLOWUP,
+       ASF_THIRD_FOLLOWUP,
+       ASF_FOURTH_FOLLOWUP,
+       ASF_AUTO_ASSIGN,
+       ASF_WAIT_FOR_FEE,
+       GWF_ENRL_PACK_REQ,
+       GWF_FIRST_FOLLOWUP_REQ,
+       GWF_SECOND_FOLLOWUP_REQ,
+       GWF_THIRD_FOLLOWUP_REQ,
+       GWF_FOURTH_FOLLOWUP_REQ,
+       GWF_REQUIRED_FEE_PAID,
+       INSTANCE_STATUS,
+       COMPLETE_DT,
+       CANCEL_DT,
+       CANCEL_REASON,
+       CANCEL_METHOD,
+       CANCEL_BY,
+       STG_EXTRACT_DATE,
+       STG_LAST_UPDATE_DATE,
+       STAGE_DONE_DATE,
+       age_in_calendar_days,
+       age_in_business_days,
+       --------------------
+       W_ceme_id,
+       W_CLIENT_ENROLL_STATUS_ID,
+       W_CLIENT_ID,
+       W_CREATE_DT,
+       W_CASE_ID,
+       W_CLIENT_CIN,
+       W_NEWBORN_FLG,
+       W_SERVICE_AREA,
+       W_COUNTY_CODE,
+       W_ZIP_CODE,
+       W_ENROLLMENT_STATUS_CODE,
+       W_ENROLLMENT_STATUS_DT,
+       W_AA_DUE_DT,
+       W_ENRL_PACK_ID,
+       W_ENRL_PACK_REQUEST_DT,
+       W_ENROLL_FEE_AMNT_DUE,
+       W_ENROLL_FEE_AMNT_PAID,
+       W_ENROLL_FEE_PAID_DT, 
+       W_PLAN_TYPE,
+       W_PROGRAM_TYPE,
+       W_SLCT_AUTO_PROC,
+       W_SLCT_METHOD,
+       W_SLCT_CREATE_BY_NAME,
+       W_SLCT_CREATE_DT,
+       W_SLCT_LAST_UPDATE_BY_NAME,
+       W_SLCT_LAST_UPDATE_DT,
+       W_ASSD_SELECTION_RECD,
+       W_ASED_SELECTION_RECD,
+       W_ASSD_SEND_ENROLL_PACKET,
+       W_ASED_SEND_ENROLL_PACKET,
+       W_FIRST_FOLLOWUP_ID,
+       W_FIRST_FOLLOWUP_TYPE_CODE,
+       W_ASSD_FIRST_FOLLOWUP,
+       W_ASED_FIRST_FOLLOWUP,
+       W_SECOND_FOLLOWUP_ID,
+        W_SECOND_FOLLOWUP_TYPE_CODE,
+        W_ASSD_SECOND_FOLLOWUP,
+        W_ASED_SECOND_FOLLOWUP,
+        W_THIRD_FOLLOWUP_ID,
+        W_THIRD_FOLLOWUP_TYPE_CODE,
+        W_ASSD_THIRD_FOLLOWUP,
+        W_ASED_THIRD_FOLLOWUP,
+        W_FOURTH_FOLLOWUP_ID,
+        W_FOURTH_FOLLOWUP_TYPE_CODE,
+        W_ASSD_FOURTH_FOLLOWUP,
+        W_ASED_FOURTH_FOLLOWUP,
+        W_ASSD_AUTO_ASSIGN,
+        W_ASED_AUTO_ASSIGN,
+        W_ASSD_WAIT_FOR_FEE,
+        W_ASED_WAIT_FOR_FEE,
+        w_asf_cancel_enrl_activity,
+        W_ASF_SEND_ENROLL_PACKET,
+        W_ASF_SELECTION_RECD,
+        W_ASF_FIRST_FOLLOWUP,
+        W_ASF_SECOND_FOLLOWUP,
+        W_ASF_THIRD_FOLLOWUP,
+        W_ASF_FOURTH_FOLLOWUP,
+        W_ASF_AUTO_ASSIGN,
+        W_ASF_WAIT_FOR_FEE, 
+        W_GWF_ENRL_PACK_REQ,
+        W_GWF_FIRST_FOLLOWUP_REQ,
+        W_GWF_SECOND_FOLLOWUP_REQ,
+        W_GWF_THIRD_FOLLOWUP_REQ,
+        W_GWF_FOURTH_FOLLOWUP_REQ,
+        W_GWF_REQUIRED_FEE_PAID,
+        W_INSTANCE_STATUS,
+        W_COMPLETE_DT,
+        W_CANCEL_DT,
+        W_CANCEL_REASON,
+        W_CANCEL_METHOD,
+        W_CANCEL_BY,
+        W_STG_EXTRACT_DATE,
+        W_STG_LAST_UPDATE_DATE,
+        W_STAGE_DONE_DATE,
+        W_AGE_IN_CALENDAR_DAYS,
+        W_AGE_IN_BUSINESS_DAYS,
+        -------------F1
+        F1.FOLLOWUP_NAME      as F1_FOLLOWUP_NAME,
+        F1.FOLLOWUP_REQ       as F1_FOLLOWUP_REQ,
+        F1.FOLLOWUP_TYPE_CODE as F1_FOLLOWUP_TYPE_CODE,
+        F1.PLAN_TYPE          as F1_plan_type,
+        F1.Program_Type       as F1_program_type,
+        F1.FOLLOWUP_CAL_DAYS  as F1_FOLLOWUP_CAL_DAYS        
+        
+  from corp_etl_manage_enroll_oltp oltp
+ join  (select 
+       CEME_ID                   as W_ceme_id,
+       CLIENT_ENROLL_STATUS_ID   as W_CLIENT_ENROLL_STATUS_ID,
+       CLIENT_ID                 as W_CLIENT_ID,
+       CREATE_DT                 as W_CREATE_DT,
+       CASE_ID                   as W_CASE_ID,
+       CLIENT_CIN                as W_CLIENT_CIN,
+       NEWBORN_FLG               as W_NEWBORN_FLG,
+       SERVICE_AREA              as W_SERVICE_AREA,
+       COUNTY_CODE               as W_COUNTY_CODE,
+       ZIP_CODE                  as W_ZIP_CODE,
+       ENROLLMENT_STATUS_CODE    as W_ENROLLMENT_STATUS_CODE,
+       ENROLLMENT_STATUS_DT      as W_ENROLLMENT_STATUS_DT,
+       AA_DUE_DT                 as W_AA_DUE_DT,
+       ENRL_PACK_ID              as W_ENRL_PACK_ID,
+       ENRL_PACK_REQUEST_DT      as W_ENRL_PACK_REQUEST_DT,
+       ENROLL_FEE_AMNT_DUE       as W_ENROLL_FEE_AMNT_DUE,
+       ENROLL_FEE_AMNT_PAID      as W_ENROLL_FEE_AMNT_PAID,
+       ENROLL_FEE_PAID_DT        as W_ENROLL_FEE_PAID_DT,
+       --CHIP_HPC_ID,
+       --CHIP_HPC_MAILED_DT,
+       --CHIP_EMI_ID,
+       --CHIP_EMI_MAILED_DT,
+       PLAN_TYPE                 as W_PLAN_TYPE,
+       PROGRAM_TYPE              as W_PROGRAM_TYPE,
+       SLCT_METHOD               as W_SLCT_METHOD,
+       SLCT_CREATE_BY_NAME       as W_SLCT_CREATE_BY_NAME,
+       SLCT_CREATE_DT            as W_SLCT_CREATE_DT,
+       SLCT_LAST_UPDATE_BY_NAME  as W_SLCT_LAST_UPDATE_BY_NAME,
+       SLCT_LAST_UPDATE_DT       as W_SLCT_LAST_UPDATE_DT,
+       SLCT_AUTO_PROC 	         as W_SLCT_AUTO_PROC,
+       ASSD_SELECTION_RECD       as W_ASSD_SELECTION_RECD,
+       ASED_SELECTION_RECD       as W_ASED_SELECTION_RECD,
+       ASSD_SEND_ENROLL_PACKET   as W_ASSD_SEND_ENROLL_PACKET,
+       ASED_SEND_ENROLL_PACKET   as W_ASED_SEND_ENROLL_PACKET,
+       FIRST_FOLLOWUP_ID         as W_FIRST_FOLLOWUP_ID,
+       FIRST_FOLLOWUP_TYPE_CODE  as W_FIRST_FOLLOWUP_TYPE_CODE,
+       ASSD_FIRST_FOLLOWUP       as W_ASSD_FIRST_FOLLOWUP,
+       ASED_FIRST_FOLLOWUP       as W_ASED_FIRST_FOLLOWUP,
+       SECOND_FOLLOWUP_ID        as W_SECOND_FOLLOWUP_ID,
+       SECOND_FOLLOWUP_TYPE_CODE  as W_SECOND_FOLLOWUP_TYPE_CODE,
+       ASSD_SECOND_FOLLOWUP       as W_ASSD_SECOND_FOLLOWUP,
+       ASED_SECOND_FOLLOWUP       as W_ASED_SECOND_FOLLOWUP,
+       THIRD_FOLLOWUP_ID          as W_THIRD_FOLLOWUP_ID,
+       THIRD_FOLLOWUP_TYPE_CODE   as W_THIRD_FOLLOWUP_TYPE_CODE,
+       ASSD_THIRD_FOLLOWUP        as W_ASSD_THIRD_FOLLOWUP,
+       ASED_THIRD_FOLLOWUP        as W_ASED_THIRD_FOLLOWUP,
+       FOURTH_FOLLOWUP_ID         as W_FOURTH_FOLLOWUP_ID,
+       FOURTH_FOLLOWUP_TYPE_CODE  as W_FOURTH_FOLLOWUP_TYPE_CODE,
+       ASSD_FOURTH_FOLLOWUP       as W_ASSD_FOURTH_FOLLOWUP,
+       ASED_FOURTH_FOLLOWUP       as W_ASED_FOURTH_FOLLOWUP,
+       ASSD_AUTO_ASSIGN           as W_ASSD_AUTO_ASSIGN,
+       ASED_AUTO_ASSIGN           as W_ASED_AUTO_ASSIGN,
+       ASSD_WAIT_FOR_FEE          as W_ASSD_WAIT_FOR_FEE,
+       ASED_WAIT_FOR_FEE          as W_ASED_WAIT_FOR_FEE,
+       asf_cancel_enrl_activity   as w_asf_cancel_enrl_activity,     
+       ASF_SEND_ENROLL_PACKET     as W_ASF_SEND_ENROLL_PACKET,
+       ASF_SELECTION_RECD         as W_ASF_SELECTION_RECD,
+       ASF_FIRST_FOLLOWUP         as W_ASF_FIRST_FOLLOWUP,
+       ASF_SECOND_FOLLOWUP        as W_ASF_SECOND_FOLLOWUP,
+       ASF_THIRD_FOLLOWUP         as W_ASF_THIRD_FOLLOWUP,
+       ASF_FOURTH_FOLLOWUP        as W_ASF_FOURTH_FOLLOWUP,
+       ASF_AUTO_ASSIGN            as W_ASF_AUTO_ASSIGN,
+       ASF_WAIT_FOR_FEE           as W_ASF_WAIT_FOR_FEE,
+       GWF_ENRL_PACK_REQ          as W_GWF_ENRL_PACK_REQ,
+       GWF_FIRST_FOLLOWUP_REQ     as W_GWF_FIRST_FOLLOWUP_REQ,
+       GWF_SECOND_FOLLOWUP_REQ    as W_GWF_SECOND_FOLLOWUP_REQ,
+       GWF_THIRD_FOLLOWUP_REQ     as W_GWF_THIRD_FOLLOWUP_REQ,
+       GWF_FOURTH_FOLLOWUP_REQ    as W_GWF_FOURTH_FOLLOWUP_REQ,
+       GWF_REQUIRED_FEE_PAID      as W_GWF_REQUIRED_FEE_PAID,
+       INSTANCE_STATUS            as W_INSTANCE_STATUS,
+       COMPLETE_DT                as W_COMPLETE_DT,
+       CANCEL_DT                  as W_CANCEL_DT,
+       CANCEL_REASON              as W_CANCEL_REASON,
+       CANCEL_METHOD              as W_CANCEL_METHOD,
+       CANCEL_BY                  as W_CANCEL_BY,
+       STG_EXTRACT_DATE           as W_STG_EXTRACT_DATE,
+       STG_LAST_UPDATE_DATE       as W_STG_LAST_UPDATE_DATE,
+       STAGE_DONE_DATE            as W_STAGE_DONE_DATE,
+       AGE_IN_CALENDAR_DAYS       AS W_AGE_IN_CALENDAR_DAYS,
+       AGE_IN_BUSINESS_DAYS       AS W_AGE_IN_BUSINESS_DAYS       
+    from corp_etl_manage_enroll_wip) wip 
+ on oltp.ceme_id = wip.W_ceme_id
+ left join Rule_lkup_mng_enrl_followup F1 on FIRST_FOLLOWUP_TYPE_CODE  = F1.FOLLOWUP_TYPE_CODE
+ left join Rule_lkup_mng_enrl_followup F2 on SECOND_FOLLOWUP_TYPE_CODE = F2.FOLLOWUP_TYPE_CODE
+ left join Rule_lkup_mng_enrl_followup F3 on THIRD_FOLLOWUP_TYPE_CODE  = F3.FOLLOWUP_TYPE_CODE
+ left join Rule_lkup_mng_enrl_followup F4 on FOURTH_FOLLOWUP_TYPE_CODE = F4.FOLLOWUP_TYPE_CODE
+ where 1=1 
+-- and ceme_id = 83421</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>Y</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4</xloc>
+      <yloc>77</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output-CORP_ETL_ERROR_LOG</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>error_date</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>CEME_ID</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5220</xloc>
+      <yloc>503</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD10_10</send_true_to>
+<send_false_to>UPD11</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_THIRD_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_FOURTH_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3241</xloc>
+      <yloc>159</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD10_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD10_10</send_true_to>
+<send_false_to>UPD10_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_FOURTH_FOLLOWUP_REQ</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3242</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD10_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD10_20</send_true_to>
+<send_false_to>UPD11</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_FOURTH_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3346</xloc>
+      <yloc>263</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD11</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD11_10</send_true_to>
+<send_false_to>UPD12</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_FOURTH_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_FOURTH_FOLLOWUP</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3509</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD11_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD11_10</send_true_to>
+<send_false_to>UPD12</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_FOURTH_FOLLOWUP_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3509</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD12</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD12_10</send_true_to>
+<send_false_to>UPD13</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_FOURTH_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_AUTO_ASSIGN</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3655</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD13</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD13_10</send_true_to>
+<send_false_to>UPD14</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_AUTO_ASSIGN</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_AUTO_ASSIGN</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3806</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD13_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD13_10</send_true_to>
+<send_false_to>UPD14</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_SLCT_METHOD</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Auto-Assigned</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>F_AUTO_ASSIGN</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3807</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD14</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD14_10</send_true_to>
+<send_false_to>UPD15</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_AUTO_ASSIGN</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_REQUIRED_FEE_PAID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3962</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD14_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD14_10</send_true_to>
+<send_false_to>UPD14_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_ENROLL_FEE_AMNT_DUE</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Number</type><text>0.0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.#</mask></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&gt;=</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3962</xloc>
+      <yloc>263</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD14_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD14_20</send_true_to>
+<send_false_to>UPD15</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_ENROLL_FEE_AMNT_DUE</leftvalue>
+   <function>&gt;</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Number</type><text>0.0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.#</mask></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&lt;</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4082</xloc>
+      <yloc>264</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD15</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD15_10</send_true_to>
+<send_false_to>UPD16</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_WAIT_FOR_FEE</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_WAIT_FOR_FEE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4273</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD15_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD15_10</send_true_to>
+<send_false_to>UPD16</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_PAID_DT</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&lt;</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4270</xloc>
+      <yloc>260</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD16</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD16_10</send_true_to>
+<send_false_to>UPD17</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASF_SEND_ENROLL_PACKET</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4489</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD16_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD16_10</send_true_to>
+<send_false_to>UPD17</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_AUTO_ASSIGN</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>F_SLCT_METHOD_PMFO</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4488</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD17</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD17_10</send_true_to>
+<send_false_to>UPD18</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_SELECTION_RECD</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_REQUIRED_FEE_PAID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4619</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD17_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD17_10</send_true_to>
+<send_false_to>UPD17_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_ENROLL_FEE_AMNT_DUE</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Number</type><text>0.0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.#</mask></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&gt;=</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4619</xloc>
+      <yloc>266</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD17_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD17_20</send_true_to>
+<send_false_to>UPD18</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_ENROLL_FEE_AMNT_DUE</leftvalue>
+   <function>&gt;</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Number</type><text>0.0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.#</mask></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&lt;</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4739</xloc>
+      <yloc>267</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD18</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD18_10</send_true_to>
+<send_false_to>UPD19</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_WAIT_FOR_FEE</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_WAIT_FOR_FEE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4920</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD18_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD18_10</send_true_to>
+<send_false_to>UPD19</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENROLL_FEE_AMNT_PAID</leftvalue>
+   <function>&gt;=</function>
+   <rightvalue>W_ENROLL_FEE_AMNT_DUE</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4920</xloc>
+      <yloc>266</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD19</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD19_20</send_true_to>
+<send_false_to>Update WIP table ?</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CANCEL_DT</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5082</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_10</send_true_to>
+<send_false_to>UPD1_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SERVICE_AREA</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>0</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_140</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_140</send_true_to>
+<send_false_to>UPD1_150</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SLCT_METHOD</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>761</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_150</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_150</send_true_to>
+<send_false_to>UPD1_160</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SLCT_LAST_UPDATE_BY_NAME</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>866</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_160</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_160</send_true_to>
+<send_false_to>UPD1_170</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SLCT_LAST_UPDATE_DT</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>976</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_170</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_170</send_true_to>
+<send_false_to>UPD1_230</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SLCT_METHOD</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1086</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_20</send_true_to>
+<send_false_to>UPD1_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_COUNTY_CODE</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>82</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_230</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_230</send_true_to>
+<send_false_to>UPD1_240</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_FIRST_FOLLOWUP_ID</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1210</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_240</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_240</send_true_to>
+<send_false_to>UPD1_250</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_SECOND_FOLLOWUP_ID</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1332</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_250</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_250</send_true_to>
+<send_false_to>UPD1_260</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_THIRD_FOLLOWUP_ID</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1455</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_260</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_260</send_true_to>
+<send_false_to>UPD1_270</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_FOURTH_FOLLOWUP_ID</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1578</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_270</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_270</send_true_to>
+<send_false_to>UPD3</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_AGE_IN_CAL_DAYS</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1705</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_30</send_true_to>
+<send_false_to>UPD1_40</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_ZIP_CODE</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>172</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_40</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_40</send_true_to>
+<send_false_to>UPD1_50</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_NEWBORN_FLG</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>297</xloc>
+      <yloc>161</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_50</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_50</send_true_to>
+<send_false_to>UPD1_80</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_ENROL_STAT_CODE</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>417</xloc>
+      <yloc>161</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_80</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_80</send_true_to>
+<send_false_to>UPD1_90</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_ENRL_PACK_ID</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>534</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD1_90</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD1_90</send_true_to>
+<send_false_to>UPD1_140</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_ENRL_PACK_REQ_DT</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>644</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD3_10</send_true_to>
+<send_false_to>UPD4</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_ENRL_PACK_REQ</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SEND_ENROLL_PACKET</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_SEND_ENROLL_PACKET</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1819</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD3_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD3_10</send_true_to>
+<send_false_to>UPD4</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_ENRL_PACK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ENRL_PACK_REQUEST_DT</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1822</xloc>
+      <yloc>257</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD4</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD4_10</send_true_to>
+<send_false_to>UPD5</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_SEND_ENROLL_PACKET</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_FIRST_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1975</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD4_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD4_10</send_true_to>
+<send_false_to>UPD4_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_FIRST_FOLLOWUP_REQ</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1975</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD4_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD4_20</send_true_to>
+<send_false_to>UPD5</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_FIRST_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2079</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD5</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD5_10</send_true_to>
+<send_false_to>UPD6</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_FIRST_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_FIRST_FOLLOWUP</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2240</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD5_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD5_10</send_true_to>
+<send_false_to>UPD6</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_FIRST_FOLLOWUP_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2240</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD6</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD6_10</send_true_to>
+<send_false_to>UPD7</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_FIRST_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_SECOND_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2404</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD6_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD6_10</send_true_to>
+<send_false_to>UPD6_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_SECOND_FOLLOWUP_REQ</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2404</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD6_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD6_20</send_true_to>
+<send_false_to>UPD7</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_SECOND_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2508</xloc>
+      <yloc>260</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD7</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD7_10</send_true_to>
+<send_false_to>UPD8</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SECOND_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_SECOND_FOLLOWUP</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2665</xloc>
+      <yloc>157</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD7_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD7_10</send_true_to>
+<send_false_to>UPD8</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_SECOND_FOLLOWUP_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2665</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD8</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD8_10</send_true_to>
+<send_false_to>UPD9</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_SECOND_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_GWF_THIRD_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2820</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD8_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD8_10</send_true_to>
+<send_false_to>UPD8_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_THIRD_FOLLOWUP_REQ</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2820</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD8_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD8_20</send_true_to>
+<send_false_to>UPD9</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>F_THIRD_FOLLOWUP_REQ</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2924</xloc>
+      <yloc>263</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD9</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>UPD9_10</send_true_to>
+<send_false_to>UPD10</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_INSTANCE_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_ACTIVE</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_SELECTION_RECD</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASSD_THIRD_FOLLOWUP</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>W_ASED_THIRD_FOLLOWUP</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3073</xloc>
+      <yloc>158</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UPD9_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set- UPD9_10</send_true_to>
+<send_false_to>UPD10</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>W_THIRD_FOLLOWUP_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3073</xloc>
+      <yloc>260</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update WIP table ?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy 2</send_true_to>
+<send_false_to>Dummy - NO Update</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>F_UPDATED</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5215</xloc>
+      <yloc>159</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update-WIP table</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>MAXDAT</schema>
+      <table>corp_etl_manage_enroll_wip</table>
+      <key>
+        <name>CEME_ID</name>
+        <field>CEME_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>UPDATE_FLG</name>
+        <rename>IN_YES</rename>
+        </value>
+      <value>
+        <name>SERVICE_AREA</name>
+        <rename>W_SERVICE_AREA</rename>
+        </value>
+      <value>
+        <name>COUNTY_CODE</name>
+        <rename>W_COUNTY_CODE</rename>
+        </value>
+      <value>
+        <name>ZIP_CODE</name>
+        <rename>W_ZIP_CODE</rename>
+        </value>
+      <value>
+        <name>ENROLLMENT_STATUS_CODE</name>
+        <rename>W_ENROLLMENT_STATUS_CODE</rename>
+        </value>
+      <value>
+        <name>ENROLLMENT_STATUS_DT</name>
+        <rename>W_ENROLLMENT_STATUS_DT</rename>
+        </value>
+      <value>
+        <name>AA_DUE_DT</name>
+        <rename>W_AA_DUE_DT</rename>
+        </value>
+      <value>
+        <name>ENRL_PACK_ID</name>
+        <rename>W_ENRL_PACK_ID</rename>
+        </value>
+      <value>
+        <name>ENRL_PACK_REQUEST_DT</name>
+        <rename>W_ENRL_PACK_REQUEST_DT</rename>
+        </value>
+      <value>
+        <name>ENROLL_FEE_AMNT_DUE</name>
+        <rename>W_ENROLL_FEE_AMNT_DUE</rename>
+        </value>
+      <value>
+        <name>ENROLL_FEE_AMNT_PAID</name>
+        <rename>W_ENROLL_FEE_AMNT_PAID</rename>
+        </value>
+      <value>
+        <name>ENROLL_FEE_PAID_DT</name>
+        <rename>W_ENROLL_FEE_PAID_DT</rename>
+        </value>
+      <value>
+        <name>SLCT_METHOD</name>
+        <rename>W_SLCT_METHOD</rename>
+        </value>
+      <value>
+        <name>SLCT_CREATE_BY_NAME</name>
+        <rename>SLCT_CREATE_BY_NAME</rename>
+        </value>
+      <value>
+        <name>SLCT_CREATE_DT</name>
+        <rename>SLCT_CREATE_DT</rename>
+        </value>
+      <value>
+        <name>SLCT_LAST_UPDATE_BY_NAME</name>
+        <rename>W_SLCT_LAST_UPDATE_BY_NAME</rename>
+        </value>
+      <value>
+        <name>SLCT_LAST_UPDATE_DT</name>
+        <rename>W_SLCT_LAST_UPDATE_DT</rename>
+        </value>
+      <value>
+        <name>SLCT_AUTO_PROC</name>
+        <rename>W_SLCT_AUTO_PROC</rename>
+        </value>
+      <value>
+        <name>ASSD_SELECTION_RECD</name>
+        <rename>W_ASSD_SELECTION_RECD</rename>
+        </value>
+      <value>
+        <name>ASED_SELECTION_RECD</name>
+        <rename>W_ASED_SELECTION_RECD</rename>
+        </value>
+      <value>
+        <name>ASSD_SEND_ENROLL_PACKET</name>
+        <rename>W_ASSD_SEND_ENROLL_PACKET</rename>
+        </value>
+      <value>
+        <name>ASED_SEND_ENROLL_PACKET</name>
+        <rename>W_ASED_SEND_ENROLL_PACKET</rename>
+        </value>
+      <value>
+        <name>FIRST_FOLLOWUP_ID</name>
+        <rename>W_FIRST_FOLLOWUP_ID</rename>
+        </value>
+      <value>
+        <name>FIRST_FOLLOWUP_TYPE_CODE</name>
+        <rename>W_FIRST_FOLLOWUP_TYPE_CODE</rename>
+        </value>
+      <value>
+        <name>ASSD_FIRST_FOLLOWUP</name>
+        <rename>W_ASSD_FIRST_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASED_FIRST_FOLLOWUP</name>
+        <rename>W_ASED_FIRST_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>SECOND_FOLLOWUP_ID</name>
+        <rename>W_SECOND_FOLLOWUP_ID</rename>
+        </value>
+      <value>
+        <name>SECOND_FOLLOWUP_TYPE_CODE</name>
+        <rename>W_SECOND_FOLLOWUP_TYPE_CODE</rename>
+        </value>
+      <value>
+        <name>ASSD_SECOND_FOLLOWUP</name>
+        <rename>W_ASSD_SECOND_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASED_SECOND_FOLLOWUP</name>
+        <rename>W_ASED_SECOND_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>THIRD_FOLLOWUP_ID</name>
+        <rename>W_THIRD_FOLLOWUP_ID</rename>
+        </value>
+      <value>
+        <name>THIRD_FOLLOWUP_TYPE_CODE</name>
+        <rename>W_THIRD_FOLLOWUP_TYPE_CODE</rename>
+        </value>
+      <value>
+        <name>ASSD_THIRD_FOLLOWUP</name>
+        <rename>W_ASSD_THIRD_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASED_THIRD_FOLLOWUP</name>
+        <rename>W_ASED_THIRD_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>FOURTH_FOLLOWUP_ID</name>
+        <rename>W_FOURTH_FOLLOWUP_ID</rename>
+        </value>
+      <value>
+        <name>FOURTH_FOLLOWUP_TYPE_CODE</name>
+        <rename>W_FOURTH_FOLLOWUP_TYPE_CODE</rename>
+        </value>
+      <value>
+        <name>ASSD_FOURTH_FOLLOWUP</name>
+        <rename>W_ASSD_FOURTH_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASED_FOURTH_FOLLOWUP</name>
+        <rename>W_ASED_FOURTH_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASSD_AUTO_ASSIGN</name>
+        <rename>W_ASSD_AUTO_ASSIGN</rename>
+        </value>
+      <value>
+        <name>ASED_AUTO_ASSIGN</name>
+        <rename>W_ASED_AUTO_ASSIGN</rename>
+        </value>
+      <value>
+        <name>ASSD_WAIT_FOR_FEE</name>
+        <rename>W_ASSD_WAIT_FOR_FEE</rename>
+        </value>
+      <value>
+        <name>ASED_WAIT_FOR_FEE</name>
+        <rename>W_ASED_WAIT_FOR_FEE</rename>
+        </value>
+      <value>
+        <name>ASF_CANCEL_ENRL_ACTIVITY</name>
+        <rename>W_ASF_CANCEL_ENRL_ACTIVITY</rename>
+        </value>
+      <value>
+        <name>ASF_SEND_ENROLL_PACKET</name>
+        <rename>W_ASF_SEND_ENROLL_PACKET</rename>
+        </value>
+      <value>
+        <name>ASF_SELECTION_RECD</name>
+        <rename>W_ASF_SELECTION_RECD</rename>
+        </value>
+      <value>
+        <name>ASF_FIRST_FOLLOWUP</name>
+        <rename>W_ASF_FIRST_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASF_SECOND_FOLLOWUP</name>
+        <rename>W_ASF_SECOND_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASF_THIRD_FOLLOWUP</name>
+        <rename>W_ASF_THIRD_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASF_FOURTH_FOLLOWUP</name>
+        <rename>W_ASF_FOURTH_FOLLOWUP</rename>
+        </value>
+      <value>
+        <name>ASF_AUTO_ASSIGN</name>
+        <rename>W_ASF_AUTO_ASSIGN</rename>
+        </value>
+      <value>
+        <name>ASF_WAIT_FOR_FEE</name>
+        <rename>W_ASF_WAIT_FOR_FEE</rename>
+        </value>
+      <value>
+        <name>GWF_ENRL_PACK_REQ</name>
+        <rename>W_GWF_ENRL_PACK_REQ</rename>
+        </value>
+      <value>
+        <name>GWF_FIRST_FOLLOWUP_REQ</name>
+        <rename>W_GWF_FIRST_FOLLOWUP_REQ</rename>
+        </value>
+      <value>
+        <name>GWF_SECOND_FOLLOWUP_REQ</name>
+        <rename>W_GWF_SECOND_FOLLOWUP_REQ</rename>
+        </value>
+      <value>
+        <name>GWF_THIRD_FOLLOWUP_REQ</name>
+        <rename>W_GWF_THIRD_FOLLOWUP_REQ</rename>
+        </value>
+      <value>
+        <name>GWF_FOURTH_FOLLOWUP_REQ</name>
+        <rename>W_GWF_FOURTH_FOLLOWUP_REQ</rename>
+        </value>
+      <value>
+        <name>GWF_REQUIRED_FEE_PAID</name>
+        <rename>W_GWF_REQUIRED_FEE_PAID</rename>
+        </value>
+      <value>
+        <name>INSTANCE_STATUS</name>
+        <rename>W_INSTANCE_STATUS</rename>
+        </value>
+      <value>
+        <name>COMPLETE_DT</name>
+        <rename>W_COMPLETE_DT</rename>
+        </value>
+      <value>
+        <name>CANCEL_DT</name>
+        <rename>W_CANCEL_DT</rename>
+        </value>
+      <value>
+        <name>CANCEL_REASON</name>
+        <rename>W_CANCEL_REASON</rename>
+        </value>
+      <value>
+        <name>CANCEL_METHOD</name>
+        <rename>W_CANCEL_METHOD</rename>
+        </value>
+      <value>
+        <name>CANCEL_BY</name>
+        <rename>W_CANCEL_BY</rename>
+        </value>
+      <value>
+        <name>STG_LAST_UPDATE_DATE</name>
+        <rename>W_STG_LAST_UPDATE_DATE</rename>
+        </value>
+      <value>
+        <name>STAGE_DONE_DATE</name>
+        <rename>W_STAGE_DONE_DATE</rename>
+        </value>
+      <value>
+        <name>AGE_IN_CALENDAR_DAYS</name>
+        <rename>W_AGE_IN_CALENDAR_DAYS</rename>
+        </value>
+      <value>
+        <name>AGE_IN_BUSINESS_DAYS</name>
+        <rename>W_AGE_IN_BUSINESS_DAYS</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5220</xloc>
+      <yloc>385</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Update-WIP table</source_step>
+        <target_step>Table output-CORP_ETL_ERROR_LOG</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>9999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

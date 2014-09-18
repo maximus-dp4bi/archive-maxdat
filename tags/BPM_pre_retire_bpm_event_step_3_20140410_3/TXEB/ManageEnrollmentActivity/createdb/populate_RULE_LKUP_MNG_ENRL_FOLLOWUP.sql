@@ -1,0 +1,74 @@
+/*
+Created on 19-Aug-2013 by Raj A. 
+Team: MAXDAT.
+Business Process: Manage Enrollment Activity.
+
+Description:
+Inserts global controls into the RULE_LKUP_MNG_ENRL_FOLLOWUP table.
+Used by the ManageEnroll_Apply_UPD_Rules_to_WIP.ktr
+*/
+DECLARE 
+ v_rec        Rule_lkup_mng_enrl_followup%ROWTYPE;
+ --
+     PROCEDURE ins_rec IS
+        v_cnt INTEGER := 0;
+        v_id INTEGER;
+     BEGIN     
+                   
+           SELECT  COUNT(*) 
+             INTO v_cnt
+             FROM Rule_lkup_mng_enrl_followup  a
+            WHERE a.followup_type_code = v_rec.followup_type_code
+              and a.plan_type = v_rec.plan_type
+              and a.program_type = v_rec.program_type;
+                 
+           IF v_cnt = 0 THEN
+              SELECT seq_mefr.nextval 
+                INTO v_id FROM dual;
+                
+              v_rec.mefr_id:= v_id;
+              INSERT INTO Rule_lkup_mng_enrl_followup VALUES v_rec;
+              
+           END IF;
+     END;
+BEGIN
+    v_rec.START_DATE := Trunc(SYSDATE);
+    v_rec.END_DATE := to_date('07/07/7777','mm/dd/yyyy');
+    v_rec.CREATED_TS := SYSDATE;
+    v_rec.UPDATED_TS := SYSDATE;
+
+V_REC.FOLLOWUP_NAME := 'FIRST'; 
+V_REC.FOLLOWUP_REQ := 'N';  
+v_rec.followup_type_code := null; 
+V_REC.FOLLOWUP_TYPE := NULL; 
+v_rec.followup_cal_days := null;  
+v_rec.plan_type := 'MEDICAL'; 
+v_rec.program_type :=  'MEDICAID'; 
+ins_rec;
+
+V_REC.FOLLOWUP_NAME := 'FIRST'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'FIRST'; V_REC.FOLLOWUP_REQ := 'N'; v_rec.followup_type_code := null; V_REC.FOLLOWUP_TYPE := NULL; v_rec.followup_cal_days := null; v_rec.plan_type := 'BEHAVIORAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; ins_rec;
+v_rec.followup_name := 'FIRST'; V_REC.FOLLOWUP_REQ := 'Y'; v_rec.followup_type_code := 'E1R'; V_REC.FOLLOWUP_TYPE := '(E1R) Enrollment Reminder'; v_rec.followup_cal_days := '15'; v_rec.plan_type := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; ins_rec;
+V_REC.FOLLOWUP_NAME := 'FIRST'; V_REC.FOLLOWUP_REQ := 'Y';  V_REC.FOLLOWUP_TYPE_CODE := 'E1R'; V_REC.FOLLOWUP_TYPE := '(E1R) Enrollment Reminder'; V_REC.FOLLOWUP_CAL_DAYS := '15'; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+
+V_REC.FOLLOWUP_NAME := 'SECOND'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'SECOND'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'SECOND'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'BEHAVIORAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'SECOND'; V_REC.FOLLOWUP_REQ := 'Y';  V_REC.FOLLOWUP_TYPE_CODE := 'LPD'; V_REC.FOLLOWUP_TYPE := '(LPD) 2nd Enrollment Reminder'; V_REC.FOLLOWUP_CAL_DAYS := '75';  V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+v_rec.followup_name := 'SECOND'; v_rec.followup_req := 'Y';  v_rec.followup_type_code := 'LPD'; v_rec.followup_type := '(LPD) 2nd Enrollment Reminder'; v_rec.followup_cal_days := '75';  v_rec.plan_type := 'DENTAL'; v_rec.program_type :=  'CHIP'; ins_rec;
+
+V_REC.FOLLOWUP_NAME := 'THIRD'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'THIRD'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'THIRD'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'BEHAVIORAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'THIRD'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'THIRD'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+
+V_REC.FOLLOWUP_NAME := 'FOURTH'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'FOURTH'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'FOURTH'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'BEHAVIORAL'; V_REC.PROGRAM_TYPE :=  'MEDICAID'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'FOURTH'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'MEDICAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+V_REC.FOLLOWUP_NAME := 'FOURTH'; V_REC.FOLLOWUP_REQ := 'N'; V_REC.FOLLOWUP_TYPE_CODE := NULL; V_REC.FOLLOWUP_TYPE := NULL; V_REC.FOLLOWUP_CAL_DAYS := NULL; V_REC.PLAN_TYPE := 'DENTAL'; V_REC.PROGRAM_TYPE :=  'CHIP'; INS_REC;
+
+COMMIT;      
+END;
+/

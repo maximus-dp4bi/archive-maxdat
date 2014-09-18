@@ -1,0 +1,6 @@
+alter trigger TRG_AI_NYEC_ETL_PROCESS_APP disable;
+alter trigger TRG_AU_NYEC_ETL_PROCESS_APP disable;
+alter trigger TRG_AI_NYEC_ETL_PROCESS_MI disable;
+alter trigger TRG_AU_NYEC_ETL_PROCESS_MI disable;
+alter trigger TRG_AI_NYEC_ETL_INIT_RENEWAL disable;
+alter trigger TRG_AU_NYEC_ETL_INIT_RENEWAL disable;

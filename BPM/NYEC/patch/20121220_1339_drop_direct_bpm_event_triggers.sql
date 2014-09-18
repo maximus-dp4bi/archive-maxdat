@@ -1,0 +1,14 @@
+drop trigger TRG_AI_CORP_ETL_MANAGE_WORK;
+drop trigger TRG_AU_CORP_ETL_MANAGE_WORK;
+
+drop trigger TRG_AI_NYEC_ETL_PROCESS_APP;
+drop trigger TRG_AU_NYEC_ETL_PROCESS_APP;
+
+drop trigger TRG_AI_NYEC_ETL_PROCESS_APP_MI;
+drop trigger TRG_AU_NYEC_ETL_PROCESS_APP_MI;
+
+drop trigger TRG_AI_NYEC_ETL_PROCESS_MI;
+drop trigger TRG_AU_NYEC_ETL_PROCESS_MI;
+
+drop trigger TRG_AI_NYEC_ETL_INIT_RENEWAL;
+drop trigger TRG_AU_NYEC_ETL_INIT_RENEWAL;

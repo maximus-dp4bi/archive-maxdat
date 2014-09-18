@@ -1,0 +1,2 @@
+alter trigger TRG_AI_CORP_ETL_MANAGE_WORK enable;
+alter trigger TRG_AU_CORP_ETL_MANAGE_WORK enable;

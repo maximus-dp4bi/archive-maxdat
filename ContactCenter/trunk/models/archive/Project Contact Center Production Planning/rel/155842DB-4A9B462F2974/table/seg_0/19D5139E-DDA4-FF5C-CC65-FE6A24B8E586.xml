@@ -1,0 +1,265 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="19D5139E-DDA4-FF5C-CC65-FE6A24B8E586" directorySegmentName="seg_0" name="CC_S_AGENT">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>CC_S_AGENT contains a record for every agent known to the call center.  This table holds a history of agents&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to an agent&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The data source for this table should be the Workforce Management System.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>ST_AGENT_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ID" id="0C536B93-3537-1B82-67E6-0C8327B80B45">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LOGIN_ID" id="80DE48CF-F8BF-589E-9370-D55DA414F983">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>This field contains the ID that the agent uses to access the phone system.  This is the natural key of an agent and shall never be updated.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_CONFIG_ID" id="57D7C286-4EE4-CB10-9742-F3C56A697C80">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-12 17:30:00 UTC</createdTime>
+<comment>FK to CC_C_PROJECT_CONFIG.  This column indicates which project, program and site the agent is associated with.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>641C1C76-9CB6-CBC8-66C3-D385CD09968D</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C7A2493A-702F-D993-3D8F-10ADE744E03D" referredColumn="641C1C76-9CB6-CBC8-66C3-D385CD09968D"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FIRST_NAME" id="C0FD6630-11A0-3680-27C0-5724C68BBD71">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>An agent&apos;s given name used to identify an agent.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_NAME" id="F5BDF0FB-5DF5-2231-FB72-B70CB81A6FEB">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>An agent&apos;s surname used to identify an agent.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIDDLE_INITIAL" id="AF14ED90-04F1-E4FF-3908-966BB58CA9E9">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>The first character of the agent&apos;s middle name used to identify an agent.  This field is used to differentiate between like names.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="JOB_TITLE" id="C6AAC02E-E46C-4961-1086-900E90E43517">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>The agents job title or role, e.g. CSR, SEU CSR, Supervisor, QC.  This field can be used to identify managers and supervisors for reporting purposes.&lt;br/&gt;</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LANGUAGE" id="4BD2DC9C-0395-CDB3-5C87-00D22710240D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>Language the agent is skilled for, e.g. English, Spanish, Bilingual</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HOURLY_RATE" id="D30EA1DA-047C-6266-707C-1755D89EB7D2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>Agent&apos;s hourly pay rate.  This column should be used in conjunction with the RATE_CURRENCY column</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RATE_CURRENCY" id="7CDDF89A-E9A4-95CE-97D7-DEC19CAC35E5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 13:43:06 UTC</createdTime>
+<comment>The currency in which the agent is paid as identified by the country&apos;s ISO 4217 code.  E.g. the Euro = EUR, the U.S. Dollar = USD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_GROUP" id="EB9274C2-11FA-3790-CD44-6F78C7E29F81">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>A logical grouping of agents for reporting purposes.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="266BF8A5-C24C-2868-74E4-2EDC2BB59A8B">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DT" id="15BAB21C-7FF3-5D58-88F7-D09881596620">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-26 20:03:22 UTC</createdTime>
+<comment>Date this record was last updated.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_BY" id="14D51568-22D5-EAF4-E298-9C7CB5AAB0F7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-26 20:03:22 UTC</createdTime>
+<comment>Which user last updated this record.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="FCDE95CC-2B8B-E229-EE24-F68D5365727E">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="7E602CC3-E97C-46E1-15DC-339D3E9BE672">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="15F8ED10-E963-9CDE-F388-34B101703097" name="ST_AGENT_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0C536B93-3537-1B82-67E6-0C8327B80B45"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="350D7D83-3E34-B34D-D3A5-9A0CC03FF442" name="CC_S_AGENT_UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="80DE48CF-F8BF-589E-9370-D55DA414F983"/>
+<colUsage columnID="7E602CC3-E97C-46E1-15DC-339D3E9BE672"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="7F14EDFA-C17D-0054-5105-0FE5B84EA53A" name="CC_S_AGENT_CC_C_PRJCT_CC_C_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-12 17:30:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="57D7C286-4EE4-CB10-9742-F3C56A697C80"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_S_AGENT_REC_DATE_CK" id="BD7F2F2B-9B29-7185-50AA-7E27DB5CB3F0" directorySegmentName="seg_1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:17:30 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<rule>RECORD_EFF_DT &lt;= RECORD_END_DT</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

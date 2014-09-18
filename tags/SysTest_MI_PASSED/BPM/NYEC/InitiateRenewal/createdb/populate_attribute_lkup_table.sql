@@ -1,0 +1,24 @@
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	253	,	3	,'Renewal File Received Date','This is the date that MAXIMUS receives the file with all cases who have entered renewal.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	254	,	3	,'Shell App Create Date','This is the date that the renewal shell is created in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	255	,	2	,'Shell App Create Source','Inidcates the method or orginal source of the request to begin the renewal cycle');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	256	,	3	,'Renewal_Receipt Date','The receipt date is set when the application is received.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	257	,	3	,'Authorization Change Date','This is the day the authorization date was changed');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	258	,	3	,'Authorization End Date','MAXe Authorization End Date.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	259	,	3	,'Close Date','The date that the renewal can no longer be processed and the client has not responded after being notified');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	260	,	2	,'State Case Identifier','Unique identifier of the HEART Case (family) which is receiving the renewal application.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	261	,	3	,'Notice 1 Due Date','This is the date that the nofication is due to be completed.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	262	,	3	,'Notice 1 Create Date','This is the date that the notification request is created in MAXe. ');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	263	,	3	,'Notice 1 Complete Date','This is the date that the notification was completed. ');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	264	,	2	,'Notice 1 Type','This is the type of outbound notification. For NYEC, Notification 1 is an outbound call.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	265	,	1	,'Notice 1 Source ID','This is the letter ID or the outbound call ID created for the notification.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	266	,	3	,'Notice 2 Due Date','This is the date that the nofication is due to be completed.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	267	,	3	,'Notice 2 Create Date','This is the date that the notification request is created in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	268	,	3	,'Notice 2 Complete Date','This is the date that the notification was completed. ');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	269	,	2	,'Notice 2 Type','This is the type of outbound notification.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	270	,	1	,'Notice 2 Source ID','This is the letter ID or the outbound call ID created for the notification.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	271	,	3	,'Notice 3 Due Date','This is the date that the nofication is due to be completed.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	272	,	3	,'Notice 3 Create Date','This is the date that the notification request is created in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	273	,	3	,'Notice 3 Complete Date','This is the date that the notification was completed.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	274	,	2	,'Notice 3 Type','This is the type of outbound notification.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	275	,	1	,'Notice 3 Source ID','This is the letter ID or the outbound call ID created for the notification.');
+

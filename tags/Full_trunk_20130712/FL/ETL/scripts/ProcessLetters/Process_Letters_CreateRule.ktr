@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>ProcessLetters_CreateRule</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+        <parameter>
+            <name>schema_name</name>
+            <default_value>SKODALI_LETTERS</default_value>
+            <description/>
+        </parameter>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;11 12:28:47.165</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;11 12:28:47.165</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>LETTERS_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_LM_USER}</username>
+    <password>${DB_LM_USER}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>VIDA_SELECT</from><to>status_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>STATUS_DATE</from><to>status_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>status_date_lookup</from><to>create_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CREATE_DATE</from><to>create_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CREATED_BY_NAME</from><to>created_by_name_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>LANGUAGE</from><to>language_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>language_lookup</from><to>account_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT_ID</from><to>account_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>account_id_lookup</from><to>member_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>member_id_lookup</from><to>app_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>MEMBER_ID</from><to>member_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>APP_ID</from><to>app_id_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>app_id_lookup</from><to>last_update_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>LAST_UPDATE_DATE</from><to>last_update_date_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>LAST_UPDATE_BY_NAME</from><to>created_by_name_lookup 2</to><enabled>Y</enabled> </hop>  <hop> <from>last_update_date_lookup</from><to>created_by_name_lookup 2</to><enabled>Y</enabled> </hop>  <hop> <from>created_by_name_lookup 2</from><to>Table output - FLHK_ETL_PROCESS_LETTERS</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - FLHK_ETL_PROCESS_LETTERS</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>USERNAME</from><to>created_by_username</to><enabled>Y</enabled> </hop>  <hop> <from>created_by_name_lookup</from><to>created_by_username</to><enabled>Y</enabled> </hop>  <hop> <from>created_by_username</from><to>language_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>create_date_lookup</from><to>create_date_lookup 2</to><enabled>Y</enabled> </hop>  <hop> <from>create_date_lookup 2</from><to>created_by_name_lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CANCEL DATE</from><to>create_date_lookup 2</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>ACCOUNT_ID</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.DRIVER_PRIMARY_KEY AS ACCOUNT_ID
+FROM 
+	LM_LETTER_REQUESTS A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_DEFINITIONS B WHERE A.LMDEF_ID=B.LMDEF_ID AND
+	B.DRIVER_TYPE=&apos;ACCOUNT&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>APP_ID</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.DRIVER_PRIMARY_KEY AS APP_ID
+FROM 
+	LM_LETTER_REQUESTS A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_DEFINITIONS B WHERE A.LMDEF_ID=B.LMDEF_ID AND
+	B.DRIVER_TYPE=&apos;APPLICATION&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1170</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CREATED_BY_NAME</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.USERNAME AS CREATED_BY_NAME
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;GEN&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>540</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CREATE_DATE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.STATUS_DATE AS CREATE_DATE
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;GEN&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>270</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>LANGUAGE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.VALUE AS LANGUAGE
+FROM 
+	LM_VARIABLE_VALUES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.REF_TYPE=&apos;LANGUAGE&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>825</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>LAST_UPDATE_BY_NAME</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.USERNAME AS LAST_UPDATE_BY_NAME
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;GEN&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1470</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>LAST_UPDATE_DATE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.STATUS_DATE AS LAST_UPDATE_DATE
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;GEN&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1305</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>MEMBER_ID</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.DRIVER_PRIMARY_KEY AS MEMBER_ID
+FROM 
+	LM_LETTER_REQUESTS A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_DEFINITIONS B WHERE A.LMDEF_ID=B.LMDEF_ID AND
+	B.DRIVER_TYPE=&apos;MEMBER&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>STATUS_DATE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.STATUS_DATE AS STATUS_DATE
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;REQ&apos; 
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>150</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - FLHK_ETL_PROCESS_LETTERS</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>${DB_MAXDAT_SCHEMA}</schema>
+    <table>FLHK_ETL_PROCESS_LETTERS</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>LETTER_REQ_ID</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>REQUESTED_ON_DATE</column_name>
+          <stream_name>REQUESTED_ON_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>TYPE</column_name>
+          <stream_name>TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>STATUS</column_name>
+          <stream_name>STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>TRIGGERING_METHOD</column_name>
+          <stream_name>TRIGGERING_METHOD</stream_name>
+        </field>
+        <field>
+          <column_name>BATCH_ID</column_name>
+          <stream_name>BATCH_ID</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TYPE</column_name>
+          <stream_name>DRIVER_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY</column_name>
+          <stream_name>DRIVER_PRIMARY_KEY</stream_name>
+        </field>
+        <field>
+          <column_name>SOURCE</column_name>
+          <stream_name>SOURCE</stream_name>
+        </field>
+        <field>
+          <column_name>INSTANCE_STATUS</column_name>
+          <stream_name>INSTANCE_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>STG_EXTRACT_DATE</column_name>
+          <stream_name>STG_EXTRACT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ASSD_PROCESS_LETTER_REQUEST</column_name>
+          <stream_name>ASSD_PROCESS_LETTER_REQUEST</stream_name>
+        </field>
+        <field>
+          <column_name>STATUS_DATE</column_name>
+          <stream_name>STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>CREATED_BY_NAME</column_name>
+          <stream_name>CREATED_BY_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>LANGUAGE</column_name>
+          <stream_name>LANGUAGE</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>MEMBER_ID</column_name>
+          <stream_name>MEMBER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_UPDATE_DATE</column_name>
+          <stream_name>LAST_UPDATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_UPDATE_BY_NAME</column_name>
+          <stream_name>LAST_UPDATE_BY_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>USER_NAME</column_name>
+          <stream_name>USERNAME</stream_name>
+        </field>
+        <field>
+          <column_name>CANCEL_DATE</column_name>
+          <stream_name>CANCEL_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>615</xloc>
+      <yloc>435</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - Update  Error</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>615</xloc>
+      <yloc>600</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>USERNAME</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT
+	B.USERNAME, 
+	A.LMREQ_ID AS LETTER_REQ_ID
+FROM 
+	LM_LETTER_REQUESTS A,
+	LM_LTR_RQST_STATUSES B
+WHERE
+	A.LMREQ_ID = B.LMREQ_ID
+AND EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;GEN&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>690</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>VIDA_SELECT</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT DISTINCT
+	&apos;ProcessLetters&apos; as PROCESS_NAME,
+	&apos;ProcessLetters_CreateRule&apos; as JOB_NAME,
+	&apos;FLHK_ETL_PROCESS_LETTERS&apos; as DRIVER_TABLE_NAME,
+	sysdate as ERROR_DATE,
+	&apos;CRITICAL&apos; as ERR_LEVEL,
+	A.LMREQ_ID AS LETTER_REQ_ID,
+	A.REQUESTED_ON AS REQUESTED_ON_DATE,
+	B.DESCRIPTION AS TYPE,
+	&apos;REQ&apos; AS STATUS,
+	B.TRIGERRING_METHOD AS TRIGGERING_METHOD,  -- THIS WILL COLUMN IS MISPELLED IN HER SCHEMA, WILL NEED TO CHANGE ONCE WE GO LIVE,
+	A.BATCH_ID AS BATCH_ID,
+	B.DRIVER_TYPE,
+	A.DRIVER_PRIMARY_KEY,
+	A.SOURCE,
+	&apos;ACTIVE&apos; AS INSTANCE_STATUS,
+	SYSDATE AS STG_EXTRACT_DATE,
+	A.REQUESTED_ON AS ASSD_PROCESS_LETTER_REQUEST
+FROM
+    LM_LETTER_REQUESTS A,
+	LM_LETTER_DEFINITIONS B 
+WHERE 
+	A.LMDEF_ID = B.LMDEF_ID (+)
+AND	
+	(
+		(A.STATUS NOT IN (&apos;Mailed&apos;))
+	OR
+		(A.STATUS IN (&apos;Mailed&apos;) AND TRUNC(STATUS_DATE) &gt; TRUNC(SYSDATE)-60)
+	)
+AND
+	LMREQ_ID &gt; ${MAX_LETTER_REQID}
+
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>30</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>account_id_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>ACCOUNT_ID</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>ACCOUNT_ID</name>
+        <rename>ACCOUNT_ID</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>app_id_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>APP_ID</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>APP_ID</name>
+        <rename>APP_ID</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1170</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>create_date_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CREATE_DATE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>CREATE_DATE</name>
+        <rename>CREATE_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>270</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>created_by_name_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CREATED_BY_NAME</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>CREATED_BY_NAME</name>
+        <rename>CREATED_BY_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>540</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>created_by_name_lookup 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>LAST_UPDATE_BY_NAME</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>LAST_UPDATE_BY_NAME</name>
+        <rename>LAST_UPDATE_BY_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1470</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>created_by_username</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>USERNAME</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>USERNAME</name>
+        <rename>USERNAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>690</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>language_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>LANGUAGE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>LANGUAGE</name>
+        <rename>LANGUAGE</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>825</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>last_update_date_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>LAST_UPDATE_DATE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>LAST_UPDATE_DATE</name>
+        <rename>LAST_UPDATE_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1305</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>member_id_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>MEMBER_ID</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>MEMBER_ID</name>
+        <rename>MEMBER_ID</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1065</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>status_date_lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>STATUS_DATE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>STATUS_DATE</name>
+        <rename>STATUS_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>150</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CANCEL DATE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS_SOURCE</connection>
+    <sql>SELECT 
+	A.LMREQ_ID AS LETTER_REQ_ID, 
+	A.STATUS_DATE AS CANCEL_DATE
+FROM 
+	LM_LTR_RQST_STATUSES A 
+WHERE EXISTS
+	(SELECT &apos;X&apos; FROM LM_LETTER_REQUESTS B WHERE A.LMREQ_ID=B.LMREQ_ID)
+AND
+	A.STATUS=&apos;CANCEL&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>405</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>create_date_lookup 2</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>CANCEL DATE</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+      </key>
+      <value>
+        <name>CANCEL_DATE</name>
+        <rename>CANCEL_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>405</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Table output - FLHK_ETL_PROCESS_LETTERS</source_step>
+        <target_step>Table output - Update  Error</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>nr_err_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
+        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
+        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
+        <max_errors>1000000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

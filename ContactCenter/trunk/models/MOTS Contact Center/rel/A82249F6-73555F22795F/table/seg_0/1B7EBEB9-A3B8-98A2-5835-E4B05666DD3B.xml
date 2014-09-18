@@ -1,0 +1,486 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="1B7EBEB9-A3B8-98A2-5835-E4B05666DD3B" directorySegmentName="seg_0" name="CC_F_PROJECT_BY_DATE">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:28:53 UTC</createdTime>
+<comment>This table contains similar information to the CC_F_AGENT_BY_DATE table, except that it lacks agent specific attributes and is rolled up by project.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pkName>CC_F_PROJECT_BY_DATE_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_PROJECT_BY_DATE_ID" id="C67FF652-4834-DC3E-E705-8808CFF8C3D8">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:29:54 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE_ID" id="7078DA21-DB52-F6DE-D43A-3435B915DFF2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:32:28 UTC</createdTime>
+<comment>FK to D_DATE.  This field indicates the day the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0F22F570-5924-7BD3-29C5-828D5CBC2F9A</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="73BCF5CE-58A9-C05A-262D-0FC3E72C4086" referredColumn="0F22F570-5924-7BD3-29C5-828D5CBC2F9A"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROJECT_TARGETS_ID" id="1198C314-C542-AFD0-0C69-5CAC5E00F458">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:32:28 UTC</createdTime>
+<comment>FK to CC_D_PROJECT_TARGETS.  This field associates the agent&apos;s metrics to the agent&apos;s project targets that were current for that particular day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0FF8CC84-92AF-7244-9474-C83635F06C25</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B83FB631-84FE-386B-2BEA-C32E4F1C5F6E" referredColumn="0FF8CC84-92AF-7244-9474-C83635F06C25"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROGRAM_ID" id="CAAAD16B-2624-95E6-197F-89B2CE61C5B7">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:32:28 UTC</createdTime>
+<comment>FK to D_PROGRAM.  This field indicates which program the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="746D0C3F-E8E1-6DEB-BAE0-095CA6302A02" referredColumn="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GEOGRAPHY_MASTER_ID" id="23F028B9-8370-FC91-5A28-418D3BA3F413">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:32:28 UTC</createdTime>
+<comment>FK to the D_GEOGRAPHY_MASTER.  This field indicates which geographical location the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3454E2DE-E6FD-89CC-3E04-34F2B1633774</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B9544B20-4A6B-ED32-A9BC-04FF62503E7F" referredColumn="3454E2DE-E6FD-89CC-3E04-34F2B1633774"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_CALLS_COUNT" id="6FDC1273-3E30-ED39-DE6F-2BB819C3E906">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of calls handled by the agent for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_SECONDS" id="381A0CA2-2D45-BF3F-2227-36F8BF8C1E41">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of seconds the agent spent handling calls for the day.  Handle time = Talk time + Hold Time + After Call Work Time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERNAL_CALLS_COUNT" id="6A2C3A7C-6826-F8D5-BAA8-2CF952EF856D">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The number of calls with a party inside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERNAL_SECONDS" id="72D0C13B-B0FF-009B-FC07-5EBCC8FFE03C">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The duration of all calls with a party inside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTERNAL_CALLS_COUNT" id="F31C8CF8-7F3C-DED5-5BB1-0A6CA7387186">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The number of calls with a party outside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTERNAL_SECONDS" id="757CF8BE-9B00-A615-1FBB-6B230F8B5521">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The duration of all calls with a party outside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HOLD_SECONDS" id="6F4B7FAF-3E0F-7BE8-4385-1219FD667675">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of seconds the agent had callers on hold for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RING_SECONDS" id="790419BB-99A4-B3DD-7301-E58DB5D6140D">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of seconds the agent allowed their phone to ring for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>710</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TALK_SECONDS" id="0C67119E-6CCE-99D3-5098-618A3006E3AA">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of seconds the agent was talking to clients for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="WRAP_SECONDS" id="B36F44C8-423F-9F5D-F3AC-FDD5578C57A3">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>Number of seconds the agent spent doing work to support calls after talking to clients for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LOGIN_SECONDS" id="85C03B85-3A17-747F-A8E4-1328868F03C7">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The total number of seconds that the agent was logged into the ACD for the day.  This should equal the last logout - first login.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SCHEDULED_SHIFT_MINUTES" id="9DCBAB8B-3469-2BD9-C4BF-E22BAD73065D">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:39:48 UTC</createdTime>
+<comment>The duration of time in minutes that the agent is expected to work for a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTUAL_SHIFT_MINUTES" id="40CED8C7-9481-B55A-2B81-482B715D17EF">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration of time in minutes that an agent actually worked on a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTUAL_OVERTIME_MINUTES" id="7A126D47-C780-78D2-81AC-DD206B9F6565">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration that an agent worked beyond normal workings hours for a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="IDLE_SECONDS" id="19A281BE-2E66-1D88-1FBE-BB092DFD159B">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration of time an agent was in a not active state and ready to take calls.  &lt;br/&gt;&lt;br/&gt;Idle time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="NOT_READY_SECONDS" id="4157DCD7-CB19-E7EE-6D9B-A38FF1F289C4">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration of time an agent was in a not ready state and unavailable to handle calls.  &lt;br/&gt;&lt;br/&gt;Not ready time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TALK_RESERVE_SECONDS" id="700C82ED-6ECC-D2A6-62C4-7765EF368A8F">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration of time an agent spent talking while handling reservation calls.&lt;br/&gt;&lt;br/&gt;Talk reserve time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PREDICTIVE_TALK_SECONDS" id="891667B1-2EDF-9E9C-F66F-92BC742BE483">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration an agent spent talking on AutoOut/Predictive calls during the reporting interval. &lt;br/&gt;&lt;br/&gt;Predictive talk time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PREVIEW_TALK_SECONDS" id="1B6B4C9E-F877-ACA5-B4E6-85FF87CAE955">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The duration an agent spent talking on outbound Preview calls during the reporting interval.&lt;br/&gt;&lt;br/&gt;Preview talk time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PREDICTIVE_CALLS_COUNT" id="40B3E3D1-923C-AE3B-A914-45CE8AAC3EB3">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>The total number of AutoOut (predictive) calls made by an agent.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PREVIEW_CALLS_COUNT" id="08F40A97-CE42-F92F-7A5D-0E87489C2CCB">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>Total number of outbound Preview calls made by an agent.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="D5A8B6B5-4638-6FB9-C683-BD0986BA044D">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:49:26 UTC</createdTime>
+<comment>the record&apos;s creation date.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="3FD8BD92-E76B-FC80-675F-C86D59A21BF8">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:50:11 UTC</createdTime>
+<comment>date the record was last updated.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="ED9E5F1D-5BB2-22A5-D786-866AA256A75B" name="CC_F_PROJECT_BY_DATE_PK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 20:29:54 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="C67FF652-4834-DC3E-E705-8808CFF8C3D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="6041FB25-A014-A011-3077-82C499EF7FA3" name="CC_F_PROJECT_BY_DATE__UN">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 21:04:54 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="7078DA21-DB52-F6DE-D43A-3435B915DFF2"/>
+<colUsage columnID="1198C314-C542-AFD0-0C69-5CAC5E00F458"/>
+<colUsage columnID="CAAAD16B-2624-95E6-197F-89B2CE61C5B7"/>
+<colUsage columnID="23F028B9-8370-FC91-5A28-418D3BA3F413"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="7CA57D8B-AD20-79A6-8D53-0CBA399DB4F6" name="CC_F_PROJECT_BY_DATE__IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:13:33 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="C67FF652-4834-DC3E-E705-8808CFF8C3D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="170853D0-2267-D359-85BD-C7E9B5967616" name="CC_F_PROJECT_BY_DATE__IDX2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:13:33 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="7078DA21-DB52-F6DE-D43A-3435B915DFF2"/>
+<colUsage columnID="1198C314-C542-AFD0-0C69-5CAC5E00F458"/>
+<colUsage columnID="CAAAD16B-2624-95E6-197F-89B2CE61C5B7"/>
+<colUsage columnID="23F028B9-8370-FC91-5A28-418D3BA3F413"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C2E5FD71-E885-0D97-54B1-9605A04857CF" name="CC_F_PRJ_BY_DT_CC_D_PRJ_TG_FK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:22:33 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="1198C314-C542-AFD0-0C69-5CAC5E00F458"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="91AEED6C-D3BA-5D4B-BE21-B8726D4F5A15" name="CC_F_PRJ_BY_DT_CC_D_DT_FK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:23:23 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="7078DA21-DB52-F6DE-D43A-3435B915DFF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3655A556-63C6-8F6F-F894-14644CEE1C93" name="CC_F_PRJ_BY_DT_CC_D_PRGM_FK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:27:03 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="CAAAD16B-2624-95E6-197F-89B2CE61C5B7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="47AFA93F-520C-3668-F536-9F9D4F3AB8D5" name="CC_F_PRJ_BY_DT_CC_D_GEO_M_FK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-11 13:27:03 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="23F028B9-8370-FC91-5A28-418D3BA3F413"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

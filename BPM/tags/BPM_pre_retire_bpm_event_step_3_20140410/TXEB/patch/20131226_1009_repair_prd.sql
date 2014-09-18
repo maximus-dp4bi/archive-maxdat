@@ -1,0 +1,75 @@
+update BPM_UPDATE_EVENT_QUEUE
+set PROCESS_BUEQ_ID = null
+where PROCESS_BUEQ_ID is not null;
+        
+commit;
+
+alter table BPM_UPDATE_EVENT_QUEUE_ARCHIVE add constraint BUEQA_PK primary key (BUEQ_ID) using index tablespace MAXDAT_INDX;
+
+alter table BPM_INSTANCE_ATTRIBUTE rename to BIA_BCK_20131224_SMALL;
+alter table BIA_BCK_20131224_SMALL drop primary key;
+alter table BIA_BCK_20131224_SMALL drop constraint BIA_BI_FK;
+alter table BIA_BCK_20131224_SMALL drop constraint BIA_BUE_FK;
+
+alter table BIA_BACKUP rename to BPM_INSTANCE_ATTRIBUTE;
+
+create table BPM_INSTANCE_ATTRIBUTE_TEMP
+  (BIA_ID       number not null,
+   BI_ID        number not null,
+   BA_ID        number not null,
+   VALUE_NUMBER number,
+   VALUE_DATE   date,
+   VALUE_CHAR   varchar2(4000),
+   START_DATE   date not null,
+   END_DATE     date,
+   BUE_ID       number not null)
+partition by range (BA_ID)
+interval(1)
+  (partition PT_BIA_BA_LT_0 values less than (0))
+tablespace MAXDAT_DATA parallel;
+
+insert into BPM_INSTANCE_ATTRIBUTE_TEMP
+select * 
+from BPM_INSTANCE_ATTRIBUTE 
+where BA_ID in
+  (select BA_ID
+   from BPM_ATTRIBUTE 
+   where BEM_ID != 15);
+   
+commit;
+
+alter table BPM_INSTANCE_ATTRIBUTE drop constraint BIA_BA_FK;
+alter table BPM_INSTANCE_ATTRIBUTE drop constraint BIA_BI_FK;
+alter table BPM_INSTANCE_ATTRIBUTE drop constraint BIA_BUE_FK;
+alter table BPM_INSTANCE_ATTRIBUTE drop constraint BPM_INSTANCE_ATTRIBUTE_PK;
+
+drop index BPM_INSTANCE_ATTRIBUTE_UNK1;
+drop index BPM_INSTANCE_ATTRIBUTE_IX1;
+drop index BPM_INSTANCE_ATTRIBUTE_IX2;
+drop index BPM_INSTANCE_ATTRIBUTE_LX1;
+
+alter table BPM_INSTANCE_ATTRIBUTE rename to BIA_BACKUP_20131226;
+alter table BPM_INSTANCE_ATTRIBUTE_TEMP rename to BPM_INSTANCE_ATTRIBUTE;
+
+create or replace public synonym BPM_INSTANCE_ATTRIBUTE for BPM_INSTANCE_ATTRIBUTE;
+grant select on BPM_INSTANCE_ATTRIBUTE to MAXDAT_READ_ONLY;
+
+alter table BPM_INSTANCE_ATTRIBUTE add constraint BPM_INSTANCE_ATTRIBUTE_PK primary key (BIA_ID) using index tablespace MAXDAT_INDX;
+create unique index BPM_INSTANCE_ATTRIBUTE_UNK1 on BPM_INSTANCE_ATTRIBUTE (BI_ID,BA_ID,START_DATE,END_DATE,BUE_ID) online tablespace MAXDAT_INDX parallel compute statistics; 
+create index BPM_INSTANCE_ATTRIBUTE_IX1 on BPM_INSTANCE_ATTRIBUTE (BI_ID,BA_ID,END_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
+create index BPM_INSTANCE_ATTRIBUTE_IX2 on BPM_INSTANCE_ATTRIBUTE (BUE_ID) online tablespace MAXDAT_INDX parallel compute statistics; 
+create index BPM_INSTANCE_ATTRIBUTE_LX1 on BPM_INSTANCE_ATTRIBUTE (BI_ID) online tablespace MAXDAT_INDX parallel compute statistics;
+
+alter table BPM_INSTANCE_ATTRIBUTE add constraint BPM_INSTANCE_ATTRIBUTE_PK primary key (BIA_ID) using index tablespace MAXDAT_INDX;
+alter table BPM_INSTANCE_ATTRIBUTE add constraint BIA_BUE_FK foreign key (BUE_ID) references BPM_UPDATE_EVENT (BUE_ID);
+alter table BPM_INSTANCE_ATTRIBUTE add constraint BIA_BI_FK foreign key (BI_ID) references BPM_INSTANCE (BI_ID);
+
+insert into BPM_INSTANCE_ATTRIBUTE select * from BIA_BCK_20131224_SMALL;
+commit;
+
+exec DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => 'MAXDAT',TABNAME => 'BPM_UPDATE_EVENT_QUEUE',CASCADE => TRUE,DEGREE  => 16,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+exec DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => 'MAXDAT',TABNAME => 'BPM_INSTANCE_ATTRIBUTE',CASCADE => TRUE,DEGREE  => 16,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+exec DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => 'MAXDAT',TABNAME => 'BPM_INSTANCE',CASCADE => TRUE,DEGREE  => 16,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+exec DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => 'MAXDAT',TABNAME => 'BPM_UPDATE_EVENT',CASCADE => TRUE,DEGREE  => 16,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+exec DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => 'MAXDAT',TABNAME => 'BPM_UPDATE_EVENT_QUEUE_ARCHIVE',CASCADE => TRUE,DEGREE  => 16,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+

@@ -1,0 +1,70 @@
+------------------------------------
+ProcessApp Deployment Instructions:
+------------------------------------
+
+Database nyecmxdu
+----------------------------------
+Download the following from svn://rcmxapp1d.maximus.com/maxdat/ETL/Database
+and run in the following order on nyecmxdu database
+	1.nyec_etl_process_app ddl_v8-1.sql
+	2.process_app_stg_ddl.sql
+	3.TRG_R_NYEC_ETL_PROCESS_APP.trg
+	4.STEP_INSTANCE_STG_indx.tab
+	5.seq_cepa_id.sqs
+	6.ins_CORP_ETL_LIST_LKUP_AP1.sql
+	7.ins_corp_etl_control_records_maxdat_2.sql
+
+Kettle test app server(rcsvap01)
+----------------------------------
+Download the following from  svn://rcmxapp1d.maximus.com/maxdat/ETL/ProcessApplication
+and copy to Kettle test app server(rcsvap01)  script directory (/u01/maximus/maxbi-uat/ETL/scripts)
+	ProcessApp_BPM_Insert.ktr
+	ProcessApp_BPM_Ins_Upd_Xfrm_Run.kjb
+	ProcessApp_BPM_Update.ktr
+	ProcessApp_BPM_Upd_Errors.txt
+	ProcessApp_BPM_XFRM.ktr
+	ProcessApp_CaptureNewApp_OLTP.ktr
+	ProcessApp_Get_LastAppID_CntrlVariable.ktr
+	ProcessApp_Get_OLTP_Updates.ktr
+	ProcessApp_Get_SLA_CntrlVariables.ktr
+	ProcessApp_Get_Step_Instance_Updates.ktr
+	ProcessApp_Get_Tasks_AuditDetails_Updates.ktr
+	ProcessApp_IdentifyNew_InProcess_Applications.ktr
+	ProcessApp_InsertChangeDataCapture.kjb
+	ProcessApp_OLTP_Fetch_Errors.txt
+	ProcessApp_OLTP_Upd_StgTbl_Errors.txt
+	ProcessApp_Set_LastAppID_CntrlVariable.ktr
+	ProcessApp_StepInstance_Fetch_Errors.txt
+	ProcessApp_StepInstance_Upd_StgTbl_Errors.txt
+	ProcessApp_TaskAuditDetails_Fetch_Errors.txt
+	ProcessApp_TaskAuditDetails_Upd_StgTbl_Errors.txt
+	ProcessApp_UPD1.ktr
+	ProcessApp_UPD1_10_Err.txt
+	ProcessApp_UPD2.ktr
+	ProcessApp_UPD2_10_Err.txt
+	ProcessApp_UPD2_20_Err.txt
+	ProcessApp_UPD3.ktr
+	ProcessApp_UPD4.ktr
+	ProcessApp_UPD4_10_Err.txt
+	ProcessApp_upd4_20_err.txt
+	ProcessApp_UPD4_30_Err.txt
+	ProcessApp_UPD4_40_Err.txt
+	ProcessApp_UPD4_50_Err.txt
+	ProcessApp_UPD5.ktr
+	ProcessApp_UPD5_10_Err.txt
+	ProcessApp_UPD5_20_Err.txt
+	ProcessApp_UPD5_30_Err.txt
+	ProcessApp_UPD6.ktr
+	ProcessApp_UPD6_10_Err.txt
+	ProcessApp_UpdateChangeDataCapture.kjb
+	ProcessApp_Upd_Stage_Extract_Complete.ktr
+	ProccessApp_InitLoad_StepInstanceStg_1.ktr (For Initail Load Only)
+	ProcessApp_Inital_Load.kjb (For Initial Load only)
+	ProcessApp_Initial_LoadApp_OLTP.ktr (For Initial Load only)
+
+	
+Download from svn://rcmxapp1d.maximus.com/maxdat/ETL/common_kettle
+and copy to Kettle test app server(rcsvap01)  script directory (/u01/maximus/maxbi-uat/ETL/scripts)
+	run_ProcApp_bpm.sh
+	run_ProcApp_init_load.sh
+	

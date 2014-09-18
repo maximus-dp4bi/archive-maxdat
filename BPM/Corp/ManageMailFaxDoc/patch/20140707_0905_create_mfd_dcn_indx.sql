@@ -1,0 +1,1 @@
+create index dcn_dmfdoc_curr on D_MFDOC_CURRENT (Dcn) tablespace MAXDAT_INDX;

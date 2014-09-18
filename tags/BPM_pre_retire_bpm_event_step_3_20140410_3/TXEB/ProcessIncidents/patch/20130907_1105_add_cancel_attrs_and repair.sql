@@ -1,0 +1,33 @@
+insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (1767,576,10,'BOTH',sysdate,BPM_COMMON.GET_MAX_DATE,'N'); -- Cancel By
+insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (1768,722,10,'BOTH',sysdate,BPM_COMMON.GET_MAX_DATE,'N'); -- Cancel Method
+insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (1769,547,10,'BOTH',sysdate,BPM_COMMON.GET_MAX_DATE,'N'); -- Cancel Reason
+
+commit;
+
+update BPM_UPDATE_EVENT_QUEUE
+set 
+  PROCESS_BUEQ_ID = null,
+  BUE_ID = null,
+  WROTE_BPM_EVENT_DATE = null
+where BSL_ID = 10;
+  
+commit;
+
+delete from BPM_INSTANCE_ATTRIBUTE
+where BI_ID in 
+  (select BI_ID 
+   from BPM_INSTANCE
+   where BSL_ID = 10);
+
+delete from BPM_UPDATE_EVENT
+where BI_ID in 
+  (select bi_id 
+   from BPM_INSTANCE
+   where BSL_ID = 10);
+
+delete from BPM_INSTANCE
+where BSL_ID = 10;
+
+commit;
+
+

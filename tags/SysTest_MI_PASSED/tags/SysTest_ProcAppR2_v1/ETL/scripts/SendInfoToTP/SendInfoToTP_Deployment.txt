@@ -1,0 +1,53 @@
+Deployment Instructions of UAT Send Info To Trading Partners
+-----------------------------------------------------------------------------------------------------------------------------------
+1. Download and run nyec_etl_sendinfotradpart.sql in NYECMXDU Maxdat Schema to generate the NYEC_ETL_SENDINFOTRADPART table
+Location : svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database
+
+2. Download and run sendinfotradpart_stg.sql in NYECMXDU Maxdat Schema to generate the SENDINFOTRADPART_STG table
+Location : svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database
+
+3. Download and run SendInfoToTP_corpCtlValues.sql in NYECMXDU Maxdat Schema to add rows to the CORP_ETL_CONTROL table
+Location : svn://rcmxapp1d.maximus.com/maxdat/ETL/Database
+
+4. Download and run SendInfoToTP_corpetl_list_lkup_values.sql in NYECMXDU Maxdat Schema to add rows to the CORP_ETL_LIST_LKUP table
+Location : svn://rcmxapp1d.maximus.com/maxdat/ETL/Database
+
+6. commit;
+
+7. Deploy kettle scripts to the Kettle respository on rcsvap01.maximus.com App Server
+New Location for scripts : /u01/app/appadmin/product/pentaho/data_integration/????
+Location : svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/SendInfoToTP
+List of Send Info to Tradinging Partners ETL files:
+   SendInfoToTP_AddCalcAttrib.ktr
+   SendInfoToTP_BPM_Insert.ktr
+   SendInfoToTP_CaptureNewReq.ktr
+   SendInfoToTP_ChangeDataCapture.kjb
+   SendInfoToTP_Get_Missing_Events.ktr
+   SendInfoToTP_Get_OLTP_Updates.ktr
+   SendInfoToTP_GetSLA_Vars.ktr
+   SendInfoToTP_Insert.ktr
+   SendInfoToTP_InsertDtaCapture.kjb
+   SendInfoToTP_Run.kjb
+   SendInfoToTP_SetLastIds.ktr
+   SendInfoToTP_SetNewInd.ktr
+   SendInfoToTP_Transform.ktr
+   SendInfoToTP_Upd_Stage_Extract_Complete.ktr
+   SendInfoToTP_UPD1.ktr
+   SendInfoToTP_UPD2.ktr
+   SendInfoToTP_UPD3.ktr
+   SendInfoToTP_UPD4.ktr
+   SendInfoToTP_UPD5.ktr
+   SendInfoToTP_UPD6.ktr
+   SendInfoToTP_UPD7.ktr
+   SendInfoToTP_UPD8.ktr
+   SendInfoToTP_UpdateCalcAttrib.ktr
+   SendInfoToTP_UpdateTrans.kjb
+
+${Internal.Job.Filename.Directory} - Must be set to point to location of kettle scripts
+
+8. Verify shared.xml and Kettle.properties
+Named connection in Shared.xml called MAXDAT points to nyecmxdu
+Named connection in Shared.xml called OLTP_SOURCE points to nyecuat
+Named connection in Shared.xml called NYECDMS points to points to nyecdmsu
+
+

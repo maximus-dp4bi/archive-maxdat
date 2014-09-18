@@ -1,0 +1,1 @@
+alter table D_NYEC_PA_STOP_APP_REASON  modify ("Stop Application Reason" VARCHAR2(256));

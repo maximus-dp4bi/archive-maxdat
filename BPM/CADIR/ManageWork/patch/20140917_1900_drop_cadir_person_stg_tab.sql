@@ -1,0 +1,1 @@
+drop table MAXDAT.CADIR_PERSON_STG;

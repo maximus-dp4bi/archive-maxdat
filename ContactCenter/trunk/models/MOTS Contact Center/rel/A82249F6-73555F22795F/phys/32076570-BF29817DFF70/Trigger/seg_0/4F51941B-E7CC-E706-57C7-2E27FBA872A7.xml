@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_CC_D_GROUP" id="4F51941B-E7CC-E706-57C7-2E27FBA872A7" directorySegmentName="seg_0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_GROUP_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_D_GROUP.NEXTVAL INTO :NEW.D_GROUP_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>D444236E-D925-A74A-77F8-328D03FD4DE8</table>
+</TriggerOraclev10g>

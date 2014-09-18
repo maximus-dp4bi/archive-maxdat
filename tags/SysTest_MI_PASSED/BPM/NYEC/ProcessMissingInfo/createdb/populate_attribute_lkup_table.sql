@@ -1,0 +1,37 @@
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	222	,	3	,'Complete MI Task End Date','Date work ended for the Complete MI Task activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	223	,	3	,'Create State Accept Task End Date','Date work ended for the Create State MI Reprocess Task  activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	224	,	3	,'Determine MI Outcome End Date','Date work ended for the Determine MI Outcome activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	225	,	3	,'Receive MI End Date','Date work ended for the Receive MI activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	226	,	3	,'Request MI End Date','Date work ended for the Request  MI activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	227	,	2	,'Complete MI Task Performed By','Name of the staff member that completed the "Complete MI Task " activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	228	,	2	,'Create State Accept Task Performed By','Name of the staff member that completed the "Create State MI Reprocess Task " activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	229	,	2	,'Determine MI Outcome Performed By','Name of the staff member that completed the "Determine MI Outcome" activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	230	,	2	,'Receive MI Performed By','Name of the staff member that completed the "Receive MI" activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	231	,	2	,'Request MI Performed By','Name of the staff member that completed the "Request  MI" activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	232	,	3	,'Complete MI Task Start Date','Date work started for the Complete MI Task  activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	233	,	3	,'Create State Accept Task Start Date','Date work started for the Create State MI Reprocess Task activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	234	,	3	,'Determine MI Outcome Start Date','Date work started for the Determine MI Outcome activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	235	,	3	,'Receive MI Start Date','Date work started for the Receive MI activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	236	,	3	,'Request MI Start Date','Date work started for the Request MI activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	237	,	1	,'Manual Letter ID','This is the Manual Letter ID created in MAXe when MI is invalid');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	238	,	3	,'Manual Letter Sent Date','This is the date that the manual letter was requested.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	239	,	2	,'MI Call Campaign','This is used to monitor if the result of processing MI initiated a request for a MI Call Campaign or not. ');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	240	,	2	,'MI Channel','This is the channel through which the Missing Information (document or data) was received by Maximus. For MI "processed" from the manual reprocess report the channel will be null.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	241	,	1	,'MI Cycle Business Days','This is the number of days excluding weekends and project holidays from the MI Cycle Start Dt to the MI Complete Dt for MI instances that have completed the MI Cycle. For applications with a timeliness status of "Not Complete", the Current Date is used in place of a null MI Complete Dt for calculation. If an MI instance completes the business process without completing the MI Processing Cycle, then this value is null');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	242	,	3	,'MI Cycle End Date','When instance is completed');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	243	,	3	,'MI Cycle Start Date','The earliest of MI receipt date or MI create date  for purpose of determining MI processing Internal compliance.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	244	,	1	,'MI Letter Request ID','Unique identifyer of the letter requested to notify client of additional MI');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	245	,	2	,'MI Letter Status','This is used to monitor the status of a MI letter requested as a result of processing MI and new MI is identified.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	246	,	3	,'MI Receipt Date','The receipt date is set when the MI is received.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	247	,	3	,'MI Task Complete Date','The MI Task Completed Date is the date the instance is completed, terminated, or deleted in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	248	,	3	,'MI Task Create Date','The MI Task Create Date is the date the task is created in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	249	,	1	,'MI Task ID','The MI task ID is the unique ID associated to the task in MAXe.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	250	,	2	,'MI Task Type','This is the name of the task type for the instance.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	251	,	2	,'Inbound MI Type','This is the type (document, data or both) of Missing Information provided. ');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	252	,	2	,'Pending MI Type','This indicates if the application is currently pending for Missing Data, Missing Documentation, or Both');
+
+--Included the below attributes as per Pamela ketchum's confirmation email dated 09/04/12
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	65	,	3	,'Instance Complete Date','Date the instance reached a terminal point in the process.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	66	,	2	,'Instance Status','Indicates if the instances is active in the process or reached a terminal end point in the process.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	83	,	3	,'Perform QC End Date','Date work ended for the Perform QC activity step.');
+Insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (	88	,	3	,'Perform Research End Date','Date work ended for the Perform Research activity step.');

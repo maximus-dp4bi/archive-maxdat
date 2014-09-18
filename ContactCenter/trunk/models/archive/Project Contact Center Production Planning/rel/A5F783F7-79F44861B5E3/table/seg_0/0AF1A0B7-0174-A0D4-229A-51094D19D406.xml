@@ -1,0 +1,259 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="0AF1A0B7-0174-A0D4-229A-51094D19D406" directorySegmentName="seg_0" name="CC_D_PRODUCTION_PLAN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:22 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>D_PRODUCTION_PLAN_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_ID" id="F893D242-C8C0-9692-66FE-90B181B3F3EE">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PLAN_TYPE" id="4C9079D6-7961-473C-A00D-3C6F02A11B6D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-24 12:41:53 UTC</createdTime>
+<comment>This field indicates which business context the production plan is associated with, e.g. Contact Center or Operations.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_NAME" id="0E95A988-9F52-03EA-0547-EB9E9859C30A">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_DESCRIPTION" id="C40E1CB5-3DC4-D4E6-2923-771F302822AA">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_ID" id="FE85D002-3F69-B19C-2C05-E54651190DE5">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>F7403234-ED4B-625D-1D83-7B22357256AE</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="86A07CD3-70DC-C65E-61D6-C113B35F81C5" referredColumn="F7403234-ED4B-625D-1D83-7B22357256AE"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROGRAM_ID" id="B5890E88-86E7-66FB-D40A-66FB518519EA">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>F23924EE-4C17-92E7-4432-849E4CAEF954</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="92F96E64-0C85-2B6C-5344-846DD6F1EAEF" referredColumn="F23924EE-4C17-92E7-4432-849E4CAEF954"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="GEOGRAPHY_MASTER_ID" id="0CFFA696-729E-B415-45C6-03BDAD46EE6B">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>BF4A2685-F02B-8A0E-27FD-6D0B43DD3763</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C56440F2-8F7D-E9DA-5C45-0C4695597995" referredColumn="BF4A2685-F02B-8A0E-27FD-6D0B43DD3763"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EFFECTIVE_DATE" id="F89942C1-8BD5-842F-FC5C-C204719FD1DA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="END_DATE" id="136D16E8-3931-898B-5646-436C61439E4D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="83402EA5-FF3E-88B5-A7DE-DC38F52C454B">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>sysdate</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<usesDefaultValue>true</usesDefaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="084FD7C6-6A31-5B49-0742-970F1A59BE0B">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>sysdate</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<usesDefaultValue>true</usesDefaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="71D7FCCE-6F09-964D-C35D-51F54E62139A" name="CC_D_PRODUCTION_PLAN_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="F893D242-C8C0-9692-66FE-90B181B3F3EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="32607959-47E8-6E14-1B50-D7987254AF38" name="CC_D_PRODUCTION_PLAN__UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0E95A988-9F52-03EA-0547-EB9E9859C30A"/>
+<colUsage columnID="F89942C1-8BD5-842F-FC5C-C204719FD1DA"/>
+<colUsage columnID="FE85D002-3F69-B19C-2C05-E54651190DE5"/>
+<colUsage columnID="B5890E88-86E7-66FB-D40A-66FB518519EA"/>
+<colUsage columnID="0CFFA696-729E-B415-45C6-03BDAD46EE6B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C6ECB9BD-42DD-ECB0-BC4A-BA7BF645438A" name="CC_D_PROD_PLAN_D_PRJ_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-17 20:45:13 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="FE85D002-3F69-B19C-2C05-E54651190DE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0977119B-AECD-DD11-502E-77363C947D38" name="CC_D_PROD_PLAN_D_PRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-17 20:45:13 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="B5890E88-86E7-66FB-D40A-66FB518519EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9F6927C7-3C5E-CF71-007C-C6847F699268" name="CC_D_PROD_PLAN_D_GEO_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-17 20:45:13 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="0CFFA696-729E-B415-45C6-03BDAD46EE6B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9402C1A2-04A4-1C35-0478-7BB97B8A899E" name="CC_D_PROD_PLAN_D_PRJ_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="FE85D002-3F69-B19C-2C05-E54651190DE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="08F6B16F-8DB2-9921-1C6B-0684518606D9" name="CC_D_PROD_PLAN_D_GEO_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="0CFFA696-729E-B415-45C6-03BDAD46EE6B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3CD73E01-2AF0-C7CB-798E-1ED2BE226C2F" name="CC_D_PROD_PLAN_D_PRG_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:32:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B5890E88-86E7-66FB-D40A-66FB518519EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

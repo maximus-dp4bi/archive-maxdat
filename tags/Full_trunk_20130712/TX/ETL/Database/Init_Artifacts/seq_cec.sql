@@ -1,0 +1,5 @@
+CREATE SEQUENCE seq_cec
+/
+
+
+CREATE OR REPLACE PUBLIC SYNONYM seq_cec FOR seq_cec;

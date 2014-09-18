@@ -1,0 +1,16 @@
+delete from bpm_instance_attribute where bi_id in (select bi_id from bpm_instance where bsl_id=16);
+commit;
+delete from bpm_update_event_queue where bsl_id=16;
+commit;
+delete from bpm_update_event_queue_archive where bsl_id=16;
+commit;
+delete from bpm_update_event where bi_id in (select bi_id from bpm_instance where bsl_id=16);
+commit;
+delete from bpm_logging where bsl_id=16;
+commit;
+delete from bpm_instance where bsl_id=16;
+commit;
+truncate table F_MFB_BY_HOUR;
+commit;
+delete from d_mfb_current;
+commit;

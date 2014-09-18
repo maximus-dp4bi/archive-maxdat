@@ -1,0 +1,7 @@
+update BPM_UPDATE_EVENT_QUEUE
+set PROCESS_BUEQ_ID = null
+where 
+  BSL_ID = 6 
+  and PROCESS_BUEQ_ID in (1716728,1716729,1716730,1716734);
+
+commit;

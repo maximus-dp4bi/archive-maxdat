@@ -1,0 +1,12 @@
+update PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+set 
+  CONTROL_JOB_SLEEP_SECONDS = 60,
+  STOP_DELAY_SECONDS = 30;
+
+update PROCESS_BPM_QUEUE_JOB_CONFIG
+set MAX_NUM_JOBS = 24
+where 
+  BSL_ID = 0 
+  and BDM_ID = 0;
+
+commit;

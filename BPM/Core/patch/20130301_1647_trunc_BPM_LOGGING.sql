@@ -1,0 +1,1 @@
+truncate table BPM_LOGGING;

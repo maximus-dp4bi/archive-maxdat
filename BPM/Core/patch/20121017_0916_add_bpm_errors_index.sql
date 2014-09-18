@@ -1,0 +1,1 @@
+create index BPM_ERRORS_IX1 on BPM_ERRORS (ERROR_DATE) tablespace MAXDAT_INDX parallel compute statistics;

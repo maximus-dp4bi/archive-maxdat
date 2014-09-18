@@ -1,0 +1,11 @@
+grant advisor to MAXDAT;
+grant alter any materialized view to MAXDAT;
+grant create job to MAXDAT;
+grant create materialized view to MAXDAT;
+grant create table to MAXDAT;
+grant create view to MAXDAT;
+grant debug any procedure to MAXDAT;
+grant debug connect session to MAXDAT;
+grant unlimited tablespace to MAXDAT;
+grant execute on SYS.DBMS_SNAPSHOT to MAXDAT;
+grant DEVELOPER to MAXDAT;

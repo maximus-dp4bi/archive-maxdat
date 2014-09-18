@@ -1,0 +1,1 @@
+drop materialized view V_D_STATE_REVIEW_TASK_COUNT;

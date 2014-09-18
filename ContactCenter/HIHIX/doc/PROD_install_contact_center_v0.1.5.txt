@@ -1,0 +1,75 @@
+PROJECT_NAME----->MAXDAT - HIHIX 
+RELEASE_NUMBER--->N/A 
+ENVIRONMENT------> rsmxdb07.maximus.com (HIHXMXDP - Prod) rshxap28.maximus.com - App server
+ 
+DEPLOYMENT START_TIME_DATE--> 12/10/2013 
+DEPLOYMENT COMPLETE_BY_TIME-> 5PM PST, 12/10/2013 
+
+CONTACT_NAME: John Woodhull
+CONTACT_NUMBER: (O) 843-408-8793
+
+What this deployment fixes: 
+PROD DB and Kettle deployment for HIHIX Contact Center patch v0.1.5
+------------------------------------------------------------------------------------------------- 
+
+This release consists of the following updates: 
+1.Y - ETL scripts 
+2.Y - SQL scripts 
+3.N - MicroStrategy Object 
+4.N - Configuration 
+5.Y - Special Instructions: 
+
+If there are error in any one of the following scripts, please stop and notify. 
+
+These instructions can be found here: 
+
+svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/doc/PROD_install_contact_center_v0.1.5.txt
+
+
+********************************************************************************
+Instructions to install HIHIX v0.1.5 to PROD
+
+********************************************************************************
+
+----------------------------
+1. DEPLOY KETTLE SCRIPTS 
+----------------------------
+	
+	-- All files can be found at:
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/
+
+	Upload and unzip application server deployment bundle, AS_PATCH_CONTACT_CENTER_20131120_John_v0.1.5.zip
+
+	# Unzip to ContactCenter directory.
+	unzip -o AS_PATCH_CONTACT_CENTER_20131120_John_v0.1.5.zip -d $MAXDAT_ETL_PATH/ContactCenter
+	
+	# MAKE SCRIPTS EXECUTABLE
+	chmod 755 $MAXDAT_ETL_PATH/ContactCenter/implementation/HIHIX/bin/*.sh
+	
+	
+-----------------------
+2. DEPLOY DB PATCH 0.1.5
+----------------------
+
+	-- All files can be found at:					
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131120_John_v0.1.5.zip
+
+	0.1.5/000_DUPLICATE_CONTACT_QUEUE_CLEANUP_20131118.sql
+	
+	Please attach database output to this ticket.
+
+	
+	
+-------------
+3. SCHEDULE CRON JOBS
+-------------
+	
+	As per HCCHIX-218, we need to swap the ETL jobs so the run_load_contact_center.sh script is run on the half hour.  
+	
+	crontab -e
+	00 */1 * * * /u01/maximus/maxdat-prd/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center_forecast.sh
+	30 */1 * * * /u01/maximus/maxdat-prd/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center.sh
+
+	
+
+

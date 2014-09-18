@@ -1,0 +1,18 @@
+alter table d_pl_current modify letter_type varchar2(100);
+alter table d_pl_current modify sla_category varchar2(100);
+
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days_Type','TASK_TYPE','STAR+PLUS Manadatory Reminder letter','C','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'Indicates if the SLA DAYS should be measured in Business Days or Calendar Days for letter XMR.',SYSDATE,SYSDATE);
+--Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days_Type','TASK_TYPE','MDCP Reminder letter','C','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'Indicates if the SLA DAYS should be measured in Business Days or Calendar Days for letter  MRD.',SYSDATE,SYSDATE);
+
+
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Jeopardy_Days','TASK_TYPE','STAR+PLUS Manadatory Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'Age at which time the letter request is determined to be in jeopardy of becoming untimely',SYSDATE,SYSDATE);
+--Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Jeopardy_Days','TASK_TYPE','MDCP Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'Age at which time the letter request is determined to be in jeopardy of becoming untimely',SYSDATE,SYSDATE);
+
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days','TASK_TYPE','STAR+PLUS Manadatory Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'The number of days after which the letter request is determined to be processed untimely after create month',SYSDATE,SYSDATE);
+--Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days','TASK_TYPE','MDCP Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'The number month after which the letter request is determined to be processed untimely after create month',SYSDATE,SYSDATE);
+
+
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Target_Days','TASK_TYPE','STAR+PLUS Manadatory Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'The number of days in which the letter request should be completed, as defined by the project',SYSDATE,SYSDATE);
+--Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Target_Days','TASK_TYPE','MDCP Reminder letter','12','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-77','DD-MON-RR'),'The number of days in which the letter request should be completed, as defined by the project',SYSDATE,SYSDATE);
+
+commit;

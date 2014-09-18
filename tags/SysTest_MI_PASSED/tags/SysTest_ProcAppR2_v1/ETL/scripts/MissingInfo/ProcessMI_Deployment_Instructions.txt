@@ -1,0 +1,97 @@
+--------------------------------------------------------------------
+PROJECT_NAME:	MAXDAT – NYEC
+RELEASE_NUMBER:	N/A
+ENVIRONMENT:	rcmxdb01.maximus.com (UAT)
+NYECMXDD
+	
+DEPLOYMENT START_TIME_DATE:	
+DEPLOYMENT COMPLETE_BY_TIME:	
+	
+CONTACT_NAME:	Raj A.
+CONTACT_NUMBER:	361-228-5588
+ 	
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts
+	
+	
+This release consists of the following updates:
+1.	Application War file: - N 
+
+2.	SQL Updates: - 
+   Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database and deploy to NYECMXDU
+   1.ProcessMI_Tables_DDL.sql
+   2.ProcessMI_Step_Instance_stg_DDL.sql
+   3.ProcessMI_Sequences.sql
+   4.ProcessMI_Pro_MI_STG_TRG.sql
+   5.ProcessMI_Indexes.sql
+   6.ProcessMI_DML.sql		
+  
+3.	Configuration file updates: - N/A
+
+4.Special Instructions: -Y – 
+  4.1. Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/MissingInfo and deploy to /u01/maximus/maxbi-uat/ETL/scripts/MissingInfo
+Please promote the below kettle scripts.
+
+   Run_ProcessMI.kjb
+
+        Letters_STG.kjb
+        3_CDC_Letters_stg.ktr
+	Set_letters_Last_Upd_Dt.ktr
+
+        1_ProcessMI_CDC.kjb
+	4_ONETIME_Load_App_MIs.ktr
+	Set_Process_MI_StartTime.ktr	
+	2_Load_MI_Documents.ktr
+	4_Get_MI_Campaigns.ktr
+
+        2_ProcessMI_INS_UPD_XFRM_BPM_Run.kjb
+  	ProcessMI_INS_1.ktr
+  	ProcessMI_UPD_1.ktr
+	ProcessMI_UPD_2.ktr
+	MI Task Update.ktr
+	State Acceptance Task.ktr
+	State Acceptance Task Update.ktr
+	ProcessMI_UPD_3.ktr
+	ProcessMI_UPD_4.ktr
+	ProcessMI_UPD5_10.ktr
+	ProcessMI_UPD_5_20.ktr
+	QC Task Update.ktr
+	Research Task Update.ktr
+  	State Review Task Update.ktr
+  	ProcessMI_UPD_6.ktr
+  	ProcessMI_UPD6_30.ktr
+  	ProcessMI_UPD6_40_50.ktr
+  	Open MIs on App.ktr
+  	ProcessMI_UPD7_10.ktr
+  	ProcessMI_UPD8_10.ktr
+  	ProcessMI_UPD9_10.ktr
+  	ProcessMI_UPD10_10.ktr
+  	ProcessMI_UPD11_10.ktr
+  	Process_MI_XRM.ktr
+  	NYEC_ETL_Process_MI_Inserts.ktr
+  	NYEC_ETL_Process_MI_Updates.ktr
+
+One time Run Kettle Jobs and transformations.
+   ONE_TIME_Run_ProcessMI.kjb
+	SETUP Letters_STG.kjb
+	CDC_Letters_stg_One_Time.ktr
+        ProcessMI_InitLoad_StepInstance_Stg.ktr    
+
+IMPORTANT: Run sequence of the Scripts.
+______________________________________
+4.2  
+     1.Run the C:\MAXMIUS Projects\MAXData\trunk\ETL\Database\ProcessMI_CleanupTables_ResetSeq.sql
+     2.Run the  ONE_TIME_Run_ProcessMI.kjb 
+     3.Run the 	C:\MAXMIUS Projects\MAXData\trunk\ETL\Database\ProcessMI_ONE-TIME_Global_Control_value_change.txt
+     4.Schedule the Run_ProcessMI.kjb to run every hour.
+
+
+/*******
+4.3.	--Download from SVN (svn://rcmxapp1d.maximus.com/maxdat/ETL/scripts and Deploy to UAT Kettle App Server (/u01/maximus/maxbi-uat/ETL/scripts)
+    --run_InitateRenewal.sh Does not exists yet
+*******/
+
+ROLLBACK PLAN:	
+Applicable:	N
+Trigger time:	MM/DD/YYYY HH:MM
+Considerations: 	
+--------------------------------------------------------------------

@@ -1,0 +1,197 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="410BD507-8FE0-8BC0-1E5E-B8AC01A4E95B" directorySegmentName="seg_0" name="CC_S_AGENT_SUPERVISOR">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>CC_S_AGENT_SUPERVISOR contains records describing the relationship of the agent to their direct supervisor.  This is not necessarily related to the specific role of Supervisor but to the person to whom the agent reports.  The data in this table could be queried recursively to determine the supervisor of an agent&apos;s supervisor.&lt;br/&gt;&lt;br/&gt;The source for this data will be the Workforce Management system.</comment>
+<commentInRDBMS>This staging table stores the different superiors of a given agent.  e.g. a record for the agent&apos;s manager, a record for the agent&apos;s supervisor, etc...</commentInRDBMS>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>5B774EF7-3AFF-4329-5EEC-95D787D49B8A</importedID>
+<pkName>ST_AGENT_SUPERVISOR_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_SUPERVISOR_ID" id="71464DF1-8E7E-287F-F513-A06A6E63DC6D">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 15:26:26 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ID" id="FFE37797-2FC3-1496-FB54-7A70A70CC150">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>The AGENT_ID of the agent from CC_S_AGENT</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>2072FA7A-E08A-D1CF-60D7-AF3D6E596D98</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>C100BA38-5C23-40FE-588B-9CA1DFF13CFC</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="23D99E4F-BC7F-B93E-13D8-BA729CE5BC92" referredColumn="C100BA38-5C23-40FE-588B-9CA1DFF13CFC"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SUPERVISOR_AGENT_ID" id="29A3F847-6A6B-F4E5-CF0E-4925BAF85485">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>The AGENT_ID from CC_S_AGENT corresponding to the person to whom this agent reports.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>F8CE260D-FF74-D3F6-C7A2-E3732E34B8CC</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>C100BA38-5C23-40FE-588B-9CA1DFF13CFC</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9434A8C5-9809-80B6-E451-8A450ABBDC90" referredColumn="C100BA38-5C23-40FE-588B-9CA1DFF13CFC"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="B3D4860C-EB1A-AD21-DF0D-86A0CCCF8A3A">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>73EC0FDB-B7DA-A662-E1E9-0BB335E0D1FE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="CD9B4321-4412-2B44-1F6A-95218C3266CF">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Inclusive applicability start date for superior&lt;br/&gt;If not in system equals CC_S_extract_dt&lt;br/&gt;</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>89B76E41-F476-548D-2F64-1F84B1F2BD8E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="1552498A-EF3B-A152-F437-87F36AE54280">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Inclusive applicability end date for superior&lt;br/&gt;If not in system, equals stg_extract_dt of new agent relationship record</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>D3A44184-09D0-E186-1D18-90D6A4A2C593</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1CB629A3-DD4E-7D70-9C22-93472D4D616A" name="ST_AGENT_SUPERVISOR_PK">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>E87A44D9-EB47-E3B9-2B3E-FD3460922AC6</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="71464DF1-8E7E-287F-F513-A06A6E63DC6D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E0F43CCD-7266-E360-5E52-FBAD54F0FED3" name="CC_S_AGENT_SUPERVISOR_UN">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-11 16:16:15 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="FFE37797-2FC3-1496-FB54-7A70A70CC150"/>
+<colUsage columnID="29A3F847-6A6B-F4E5-CF0E-4925BAF85485"/>
+<colUsage columnID="1552498A-EF3B-A152-F437-87F36AE54280"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EE90B511-EDAF-483C-3C71-E8A44BA4DF3F" name="CC_S_AGENT_SUPERVISOR__IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:06:17 UTC</createdTime>
+<notes>B-tree index on the primary key constraint (SAS_ID).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="71464DF1-8E7E-287F-F513-A06A6E63DC6D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B0CCF506-C6FB-292D-BA6C-646586EF86E1" name="CC_S_AGENT_SUPERVISOR__IDX2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:06:17 UTC</createdTime>
+<notes>B-tree index on the composite constraint (AGENT_ID, RECORD_EFF_DT).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="FFE37797-2FC3-1496-FB54-7A70A70CC150"/>
+<colUsage columnID="CD9B4321-4412-2B44-1F6A-95218C3266CF" sortOrder="DESC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="BF4D39EB-3760-6B24-6DA8-7A0721E5ECAD" name="CC_S_AGT_SUP_CC_S_AGT_AGENT_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 13:55:10 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="FFE37797-2FC3-1496-FB54-7A70A70CC150"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1B2FB754-65D4-FC54-EE78-AFF9DF8EE936" name="CC_S_AGT_SUP_CC_S_AGT_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 13:55:10 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="29A3F847-6A6B-F4E5-CF0E-4925BAF85485"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_S_AGENT_SPRVSR_REC_DT_CK" id="D1962AF8-772D-5114-623E-C844FE6838C0" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 19:19:59 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<rule>RECORD_EFF_DT &lt;= RECORD_END_DT</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

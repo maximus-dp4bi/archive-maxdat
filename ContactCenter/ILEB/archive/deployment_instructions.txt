@@ -1,0 +1,250 @@
+PROJECT_NAME----->MAXDAT - HIHIX 
+RELEASE_NUMBER--->N/A 
+ENVIRONMENT------> kil-scan-01.maximus.com (HIHXMXDU - UAT) rchxap13ua.maximus.com ( App server ) 
+
+DEPLOYMENT START_TIME_DATE--> 10/21/2013 
+DEPLOYMENT COMPLETE_BY_TIME-> 5PM PST, 10/21/2013 
+
+CONTACT_NAME: Clay Rowland. 
+CONTACT_NUMBER: (O) 843-408-1358 
+
+What this deployment fixes: 
+UAT DB and Kettle deployment for HIHIX Contact Center patch v0.1.3 
+------------------------------------------------------------------------------------------------- 
+
+This release consists of the following updates: 
+1.Y - ETL scripts 
+2.Y - SQL scripts 
+3.N - MicroStrategy Object 
+4.Y - Configuration 
+5.Y - Special Instructions: 
+
+If there are error in any one of the following scripts, please stop and notify. 
+
+These instructions can be found here: 
+
+svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/doc/UAT_install_contact_center_v0.1.3.txt 
+
+
+******************************************************************************** 
+Instructions to install HIHIX v0.1.3 to UAT 
+
+******************************************************************************** 
+Prerequisites: 
+1. Database install with Maxdat schema and users created 
+
+-- Run these SQL scripts below in your new database as the the Oracle user MAXDAT: 
+-- (or as a proxy login to MAXDAT - Example: rk50472[maxdat]) 
+
+
+----------------------- 
+1. CREATE INITIAL SET OF DATABASE TABLES, SEQUENCES, TRIGGERS AND VIEWS 
+----------------------- 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_INITIAL_LOAD_CONTACT_CENTER_20130912_Clay_v0.1.zip 
+
+scripts/create_staging_tables_sequences_triggers.sql 
+scripts/create_dimensional_tables_sequences_triggers.sql 
+scripts/grant_select_on_views_to_maxdat_read_only.sql 
+
+---------------------------- 
+2. DEPLOY CONFIGURATION FILES 
+---------------------------- 
+
+     a. Add following to /home/appadmin/.bash_profile 
+export MAXDAT_ETL_PATH="/u01/maximus/maxdat-uat/HCCHIX/ETL/scripts" 
+export MAXDAT_ETL_LOGS="/u01/maximus/maxdat-uat/HCCHIX/ETL/logs" 
+           export ECHOPASS_PATH="/u01/maximus/maxdat-uat/HCCHIX/Echopass" 
+           export MAXDAT_FORECAST_PATH="/u01/maximus/maxdat-uat/HCCHIX/forecasts"	
+
+     b. Add following to /u01/maximus/maxdat-uat/HCCHIX/config/.kettle/kettle.properties 
+
+############################ 
+### CONTACT CENTER PROPERTIES 
+############################# 
+cc.project.completedFiles.directory=/u01/maximus/maxdat-uat/HCCHIX/Echopass/Inbound_archive 
+cc.project.processingFiles.directory=/u01/maximus/maxdat-uat/HCCHIX/Echopass/Processing 
+cc.project.newFiles.directory=/u01/maximus/maxdat-uat/HCCHIX/Echopass/Inbound 
+cc.project.errorFiles.directory=/u01/maximus/maxdat-uat/HCCHIX/Echopass/Error 
+cc.project.implementation.directory=/u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX 
+cc.project.main.directory=/u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/main 
+cc.project.test.directory=/u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/test 
+cc.project.forecast.directory=/u01/maximus/maxdat-uat/HCCHIX/forecasts 
+cc.project.loadTimeZoneAm=false 
+cc.project.name=HIHIX 
+cc.project.config.id=100 
+cc.program.name=HIX 
+cc.geomaster= 
+cc.timezone=America/Hawaii 
+
+
+---------------------------- 
+3. DEPLOY KETTLE SCRIPTS 
+---------------------------- 
+
+-- All files can be found at: 
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/ 
+
+Upload application server deployment bundle, AS_PATCH_CONTACT_CENTER_20131015_Clay_v0.1.3.zip 
+Upload install script, uat_install_and_initialize_contact_center_20131018_v0.1.3.sh 
+
+Run uat_install_and_initialize_contact_center_20131018_v0.1.3.sh (contents below for review) in the same directory as AS_PATCH_CONTACT_CENTER_20131015_Clay_v0.1.3.zip. 
+
+Attach initialize_Contact_Center log from /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/logs/ContactCenter/initialize_Contact_Center(date +%Y%m%d_%H%M%S).log 
+
+
+------------- 
+4. SMOKE TEST 
+------------- 
+
+-- Files can be found at: 
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/AS_PATCH_CONTACT_CENTER_20131015_Clay_v0.1.3.zip 
+
+nohup /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_smoke_test.sh & 
+
+Attach smoke_test log from /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/logs/ContactCenter/smoke_test(date +%Y%m%d_%H%M%S).log 
+
+------------- 
+5. SCHEDULE CRON JOBS 
+------------- 
+
+Schedule the jobs to be run on the hour at alternating halves of the hour. 
+
+crontab -e 
+00 */1 * * * /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center.sh 
+30 */1 * * * /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center_forecast.sh 
+
+
+----------------------- 
+6. DEPLOY DB PATCH 0.1.1 
+---------------------- 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20130925_Clay_v0.1.1.zip 
+
+0.1.1/000_CREATE_CC_L_PATCH_LOG.sql 
+0.1.1/001_ALTER_CC_S_CALL_DETAIL.sql 
+0.1.1/002_CREATE_SEQ_CC_S_IVR_SS_USAGE.sql 
+0.1.1/003_CREATE_SEQ_CC_S_IVR_SELF_SERVICE_PATH.sql 
+0.1.1/004_CREATE_CC_S_CALL_DETAIL_SV.sql 
+0.1.1/005_ALTER_CC_D_IVR_SELF_SERVICE_PATH_VERSION.sql 
+0.1.1/006_CREATE_BIU_CC_C_CONTACT_QUEUE.sql 
+0.1.1/007_INSERT_IVR_CC_D_UNIT_OF_WORK.sql 
+0.1.1/008_ALTER_CC_S_SELF_SERVICE_NODE__UN.sql 
+0.1.1/009_ALTER_CC_D_SELF_SERVICE_NODE__UN.sql 
+0.1.1/010_ALTER_CC_F_AGENT_BY_DATE_PRECISION.sql 
+0.1.1/011_ALTER_CC_S_ACD_AGENT_ACTIVITY_PRECISION.sql 
+0.1.1/012_INSERT_CC_L_PATCH.sql 
+
+
+----------------------- 
+7. DEPLOY DB PATCH 0.1.2 
+----------------------- 
+
+THIS ZIP FILE WAS UPDATED ON 10/22/2013 08:19 PT. PLEASE MAKE SURE THAT YOU HAVE THE LATEST VERSION 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131001_John_v0.1.2.zip 
+
+0.1.2/014_CREATE_CC_S_AGENT_SV.sql 
+0.1.2/100_ALTER_CC_F_AGENT_BY_DATE_MODIFY_WFM_FIELDS.sql 
+
+----------------------- 
+8. UPLOAD FILES FOR PROCESSING 
+----------------------- 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/Echopass/MAXDAT_Echopass_20131002.zip 
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/forecast/MAXDAT_forecast_20131014.zip 
+
+Upload and unzip .zip files into their respective inbound directories. 
+
+unzip MAXDAT_Echopass_20131002.zip -d /u01/maximus/maxdat-uat/HCCHIX/Echopass/Inbound 
+unzip MAXDAT_forecast_20131014.zip -d /u01/maximus/maxdat-uat/HCCHIX/forecasts/Inbound 
+
+
+----------------------- 
+9. LOAD ECHOPASS FILES 
+----------------------- 
+
+nohup /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_batch_load_contact_center.sh 2013/10/01 2013/10/02 & 
+
+Attach load_Contact_Center log from /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/logs/ContactCenter/load_Contact_Center(date +%Y%m%d_%H%M%S).log 
+
+----------------------- 
+10. LOAD FORECAST FILES 
+-----------------------	
+
+nohup /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center_forecast.sh & 
+
+Attach load_Contact_Center_Forecast log from /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/logs/ContactCenter/load_Contact_Center_Forecast(date +%Y%m%d_%H%M%S).log 
+
+----------------------- 
+11. DEPLOY DB PATCH 0.1.2.1 
+----------------------- 
+
+PLEASE DO NOT RUN STEP 11 UNTIL AFTER STEPS 9 AND 10. 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131014_John_v0.1.2.1.zip 
+
+100_UPDATE_CONTACT_QUEUE_TYPE.sql 
+
+----------------------- 
+12. DEPLOY DB PATCH 0.1.2.2 
+----------------------- 
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131017_John_v0.1.2.2.zip 
+
+001_ALTER CC_S_CALL_DETAIL.sql 
+
+----------------------- 
+13. DEPLOY DB PATCH 0.1.3 
+-----------------------	
+
+-- All files can be found at:	
+-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/DB_PATCH_CONTACT_CENTER_20131015_Clay_v0.1.3.zip 
+
+000_ALTER_CC_L_PATCH_LOG__UNv1.sql 
+001_ALTER_CC_D_DATES__DROP_CC_D_DATES_UNV1.sql 
+002_UPDATE_CC_D_DATES__D_WEEK_OF_YEAR.sql 
+003_Add_CC_A_ADHOC_JOB_table.sql 
+004_Add_CC_A_SCHEDULED_JOB_table.sql 
+005_CREATE_REPLACE_CC_S_TMP_IVR_STEP_SV.sql 
+101_UPDATE_UNIT_OF_WORK.sql 
+102_DELETE_PROD_PLAN_TMP_IVR_STEP.sql 
+103_UPDATE_CONTACT_QUEUE_INBOUND.sql 
+200_UPDATE_FORECAST_DATE_ID.sql 
+
+
+
+
+----------------------- 
+14. GRANT WRITE PERMISSIONS FOR UPLOAD OF DATA FILES 
+-----------------------	
+
+Please grant hihixuat group permission to write to the following directories. 
+
+/u01/maximus/maxdat-uat/HCCHIX/Echopass/Inbound 
+/u01/maximus/maxdat-uat/HCCHIX/forecasts 
+
+
+----------------------- 
+15. ENSURE THAT KITCHEN HAS BEEN ALLOCATED 4GB OF MEMORY 
+-----------------------	
+
+Please allocate 4GB of memory to kitchen by modifying kitchen.sh 
+
+set JAVAMAXMEM="4096" 
+
+
+----------------------- 
+16. RELOAD FORECAST FILES 
+-----------------------	
+
+Please move the forecast files from the Error directory to the Inbound directory and rerun the forecast script. 
+
+mv /u01/maximus/maxdat-uat/HCCHIX/forecasts/Error/*.csv /u01/maximus/maxdat-uat/HCCHIX/forecasts/Inbound 
+nohup /u01/maximus/maxdat-uat/HCCHIX/ETL/scripts/ContactCenter/implementation/HIHIX/bin/run_load_contact_center_forecast.sh & 

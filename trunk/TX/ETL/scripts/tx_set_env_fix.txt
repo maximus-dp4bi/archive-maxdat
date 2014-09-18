@@ -1,0 +1,28 @@
+# Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN
+#     and used later to identify deployed code.
+# $URL$
+# $Revision$
+# $Date$
+# $Author$
+
+# Setting Location Vars
+export STCODE='TX'
+export EVN_CODE='PSP'
+export MAXDAT_ETL_PATH='/ttxe4t/3rdparty/ETL_Scripts/scripts'
+export MAXDAT_ETL_LOGS='/ttxe4t/3rdparty/ETL_Logs/logs'
+export MAXDAT_KETTLE_DIR='/ttxe4t/3rdparty/app/product/kettle/4.2/data-integration'
+export KTR_LOG_LEVEL='Basic'
+export KJB_LOG_LEVEL='Detailed'
+export INIT_OK="$MAXDAT_ETL_PATH/${STCODE}_run_check.txt"
+export CHILD_FAIL="/tmp/${STCODE}_child_task_fail.txt"
+export EMAIL="MAXDatSystem@maximus.com"
+export EMAIL_MESSAGE="/tmp/${STCODE}_run_bpm-ERROR-LOG.txt"
+export EMAIL_SUBJECT="Errors With ${STCODE}_run_bpm.sh in $ENV_CODE"
+export ENIT_OK="$MAXDAT_ETL_PATH/${STCODE}_emrs_init_check.txt"
+export EMRS_DATA_DIR="$MAXDAT_ETL_PATH/EnrollmentDataEMRS"
+export EMRS_EMAIL_MESSAGE="/tmp/${STCODE}_run_emrs-ERROR-LOG.txt"
+export EMRS_EMAIL_SUBJECT="Errors With ${STCODE}_run_emrs.sh in $ENV_CODE"
+export LOG_LIFE_DAYS=30
+
+
+export "PATH=$MAXDAT_KETTLE_DIR:/usr/bin:.:/usr/X11/lib:/usr/X11/bin/:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin:/ttxe4t/3rdparty:/usr/X/bin"

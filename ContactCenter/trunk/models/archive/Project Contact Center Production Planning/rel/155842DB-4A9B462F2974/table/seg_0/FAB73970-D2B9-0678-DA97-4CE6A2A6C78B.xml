@@ -1,0 +1,197 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="FAB73970-D2B9-0678-DA97-4CE6A2A6C78B" directorySegmentName="seg_0" name="CC_S_PRODUCTION_PLAN_HORIZON">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:22:57 UTC</createdTime>
+<comment>CC_C_HORIZON is the staging table for planning horizons.  Planning horizons will be created via a read/write report and subsequently loaded into the PP_D_PRODUCTION_PLAN_HORIZON table.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>CC_C_HORIZON_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_HORIZON_ID" id="CF0058D6-4219-8C62-C566-6869365A9C42">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:23:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>5DEA525E-813E-66AB-FDA8-9A060B9A5F03</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_ID" id="775D32D2-2A41-6471-8893-A4FF9C346D7C">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:31:04 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>37F34E4A-F1AB-A226-257E-271336A3C003</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8EAA7803-DD9F-5DEF-9B15-11E624FBB66B" referredColumn="37F34E4A-F1AB-A226-257E-271336A3C003"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_START_DATE" id="FE0BB241-9D56-7557-0CC1-BA2888B28DF5">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:31:04 UTC</createdTime>
+<comment>This field represents the first day of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_START_HOUR" id="000F79FF-35BE-F0A0-9184-603864BDCC4D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:31:23 UTC</createdTime>
+<comment>This field represents the hour of the first day of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>to_char(SYSDATE, &apos;HH24&apos;)</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>D24CC007-01A0-737E-33D6-FEAA3591E85D</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_END_DATE" id="F1F2C43B-16C2-4F58-955A-36FE221907B1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:31:42 UTC</createdTime>
+<comment>This field represents the last day of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_END_HOUR" id="7F87EDBE-5EA4-C6F4-11BA-3408D8110D22">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:31:42 UTC</createdTime>
+<comment>This field represents the hour of the last day of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>to_char(SYSDATE, &apos;HH24&apos;)</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>D24CC007-01A0-737E-33D6-FEAA3591E85D</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_NAME" id="12E23254-1AEF-6491-93A2-42D3E32CD243">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:32:27 UTC</createdTime>
+<comment>This field is a short descriptor of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>619C78C1-FFC8-87CF-678E-659D18864001</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_DESCRIPTION" id="DDC1159E-1294-9ADC-DCCF-1FCB0558754C">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:32:27 UTC</createdTime>
+<comment>This field is an explanation of the purpose of the planning horizon.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>48C72ACC-A63E-97AB-603A-8AADDA4F9C5A</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="35E644F0-93BE-1D27-281D-1B725106653D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:32:27 UTC</createdTime>
+<comment>This field indicates the date and time on which the planning horizon was created.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="939A2CC7-363A-C988-AEBB-7D4C953F42A1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:32:27 UTC</createdTime>
+<comment>This field indicates the date and time on which the planning horizon was udpated.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F6ABC167-2CA6-DF04-8B5B-F0B01EE419BF" name="CC_C_HORIZON_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:23:23 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="CF0058D6-4219-8C62-C566-6869365A9C42"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C6753DEA-BD50-71BF-C8A9-824BAE3F4C66" name="CC_C_HORIZON__UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 21:07:32 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="775D32D2-2A41-6471-8893-A4FF9C346D7C"/>
+<colUsage columnID="FE0BB241-9D56-7557-0CC1-BA2888B28DF5"/>
+<colUsage columnID="000F79FF-35BE-F0A0-9184-603864BDCC4D"/>
+<colUsage columnID="F1F2C43B-16C2-4F58-955A-36FE221907B1"/>
+<colUsage columnID="7F87EDBE-5EA4-C6F4-11BA-3408D8110D22"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="50070CB8-BF0F-1E85-E55D-9960BF98FB50" name="CC_C_HRZN_CC_C_PROD_PLN_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-19 20:32:38 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="775D32D2-2A41-6471-8893-A4FF9C346D7C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

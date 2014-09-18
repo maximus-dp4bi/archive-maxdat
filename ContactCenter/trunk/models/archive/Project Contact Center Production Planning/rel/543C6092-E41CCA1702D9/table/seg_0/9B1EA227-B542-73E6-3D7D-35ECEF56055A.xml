@@ -1,0 +1,248 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="9B1EA227-B542-73E6-3D7D-35ECEF56055A" directorySegmentName="seg_0" name="CC_S_FCST_VOLUME">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<comment>The table CC_S_FCST_VOLUME is used as an initial and temporary staging table for data extracted from a formatted text file. This staging table is only used when the implemented solution for extracting data from the forecast data source (such as ARENA) is by export the data to a &quot;flat file&quot;. The file is then saved by the production planner to a share drive location where it is processed into this staging table, transformed, and then processed to the CC_S_FORECAST table. CC_S_FCST_VOLUME contains forecast metrics by plan, unit of work, forecast day and hour.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>756A9D59-FB4C-AAFB-EEA6-485EB7CF126B</importedID>
+<schemaObject>2BF14561-4905-56E3-D09E-7FFA52022DD7</schemaObject>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_NAME" id="3BEEBD73-3D8D-FDD0-A08B-CCF9120D213B">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>0A284579-7E78-7DD2-F615-6C9A6AE891C3</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>619C78C1-FFC8-87CF-678E-659D18864001</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATION_TYPE" id="D6E112AD-6B3F-C97A-1583-C9378599CB73">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>2BEE1C3A-C529-A7B6-23D8-C25CBF4194CB</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>619C78C1-FFC8-87CF-678E-659D18864001</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_START_DATE" id="917AB730-562A-C15B-1318-33928740676B">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>163C6F10-2310-F492-60B7-0878BF51AC46</importedID>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HORIZON_END_DATE" id="63FBD27D-2260-DBA5-EACB-3E25A839A90F">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>D61064EF-2002-274E-4618-0964A0738026</importedID>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DAY_OF_PLAN" id="D0F6945C-B361-B0F6-C0E4-C0343BA56C02">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>F833CC2C-2FC5-529E-1521-373BB748F6A0</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FORECAST_DATE" id="1057EC3A-5851-0D5C-0C3C-51EDC6057D60">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>1870B172-5FF3-7758-4F8E-8CBC8651DA99</importedID>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FORECAST_HOUR" id="085A5B53-4F3F-FF5D-1845-9670F1BE91E8">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>7A6B36F6-E285-EC65-6DA7-F8FD178F994B</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UNIT_OF_WORK_NAME" id="97961A9F-C3DD-002C-D768-31C3BB2A6DA4">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>C7CB39F1-1F4A-3BEF-26BB-FEB71BEFBEE3</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>619C78C1-FFC8-87CF-678E-659D18864001</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ARRIVAL_VOLUME" id="A6752B00-7325-CCF5-5F16-C174A47D26CD">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>53433F17-A1F8-658E-DDC2-8788F5518577</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="COMPLETION_VOLUME" id="C068D32B-D3B0-CBBE-76AE-C0E54E09707E">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>06C2E5D1-9EC9-C190-04DF-BF5EABDDEB9E</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STAFF_HOURS" id="CF6FBD23-9519-3410-0431-5A08D832AFE5">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>2ACD80E3-9D45-4047-9627-985ECEAD1D73</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_AVG" id="B7B4005D-F40E-62B0-A3B0-AF06F738B341">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>B998DB22-33B7-4890-9020-B9F490FF9268</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MIN" id="B9A8ADE9-8CA1-F07C-6F33-29E0897E36AC">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>FEFBBDC9-012E-90DD-975B-684324652748</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MAX" id="106AFDF7-59DC-BD77-47F8-0BEE4988CB4A">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>3C507474-3498-40E8-3186-58A43A3479D9</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MEAN" id="FB1C9F97-8F5F-9E4B-D055-EBFE51248BAE">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>E28680CC-F4ED-116F-D3F6-01CC51493B6E</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_MEDIAN" id="24D20217-2908-1DEC-D873-D1E0CD1EAB68">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>3E13DF1D-FFCA-E3BF-8D05-72F90EAE40A0</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HANDLE_TIME_SD" id="27D41AB6-AF07-D792-9986-9D93849E75E9">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>5A575A2A-3675-41DE-F5FE-1E9C947F297E</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>4CB9DA79-71C9-835C-A6F4-A937C5D211BC</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATION_DATE" id="6CA4B383-B04F-76C6-1F89-DC6F33398642">
+<sourceDDLFile>pp_staging_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:26:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<importedID>4C3472AF-3328-0BF5-F15D-85595C1E8100</importedID>
+<defaultValue>SYSDATE</defaultValue>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>9C96F610-9D2D-1C1D-3FBC-F4184403A766</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+</Table>

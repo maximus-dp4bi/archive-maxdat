@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>emp_work_time_fact_prod</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2009&#47;06&#47;12 15:20:38.101</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>bp</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>ODBC</access>
+    <database>bp</database>
+    <port>1521</port>
+    <username>pfrederickson</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb14af68d79fbac9</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo_dev</name>
+    <server>165.184.39.3</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>perdevr1</database>
+    <port>1555</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2befddcba0fd79dbbbb1cbc74db84bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1555</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo_prod</name>
+    <server>&#47;&#47;10.235.130.18</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;mxrepo1_discoverer</database>
+    <port>1521</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>HSD</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>ODBC</access>
+    <database>AWDB</database>
+    <port>1521</port>
+    <username>WFM</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb0eab72c89baacd</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>Sage3</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>ODBC</access>
+    <database>Sage</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Table input</from><to>Table output</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>esrepo_prod</connection>
+    <sql>SELECT 
+    ACTIVITY_DATE_ID  AS DIM_DATE_ID,
+    AGENT_ID,
+	SUM(DECODE(ispaid,&apos;Y&apos;,duration_min,0)) login_time,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Technical Problems (Cisco Code 31)&apos;, DURATION_MIN,0)) 
+	+ 	SUM(DECODE(ACTIVITY_NAME,&apos;Technical Problems (Cisco Code 11)&apos;, DURATION_MIN,0))
+	AS TECHNICAL_DIFFICULTY_TIME, 
+	SUM(DECODE(ACTIVITY_NAME,&apos;Ready&apos;, DURATION_MIN,0)) AS READY,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Break (Cisco Code 1)&apos;, DURATION_MIN,0)) AS BREAK,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Lunch (Cisco Code 3)&apos;, DURATION_MIN,0)) AS LUNCH,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Training (Cisco Code 8)&apos;, DURATION_MIN,0)) AS TRAINING,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Meeting (Cisco Code 4)&apos;, DURATION_MIN,0)) AS MEETING,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Supervisor Meeting (Cisco Code 2)&apos;, DURATION_MIN,0)) AS SUPERVISOR_MEETING_2,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Personal - Restroom (Cisco Code 30)&apos;, DURATION_MIN,0)) AS PERSONAL_RESTROOM,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Special Projects (Cisco Code 6)&apos;, DURATION_MIN,0)) AS SPECIAL_PROJECTS,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Technical Problems (Cisco Code 31)&apos;, DURATION_MIN,0)) AS TECHNICAL_PROBLEMS_31,
+	SUM(DECODE(ACTIVITY_NAME,&apos;ACW (Cisco Code 32)&apos;, DURATION_MIN,0)) AS ACW,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Coaching&apos;, DURATION_MIN,0)) AS COACHING,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Extra Hours&apos;, DURATION_MIN,0)) AS EXTRA_HOURS,
+	SUM(DECODE(ACTIVITY_NAME,&apos;OJT&apos;, DURATION_MIN,0)) AS OJT,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Talking&apos;, DURATION_MIN,0)) AS TALKING,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Technical Problems (Cisco Code 11)&apos;, DURATION_MIN,0)) AS TECHNICAL_PROBLEMS_11,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Supervisor Meeting (Cisco Code 22)&apos;, DURATION_MIN,0)) AS SUPERVISOR_MEETING_22,
+	SUM(DECODE(ACTIVITY_NAME,&apos;Not ready&apos;, DURATION_MIN,0)) AS NOT_READY,
+    SYSDATE AS LOAD_DATE
+  FROM ST_AGENT_ACTIVITY
+  WHERE CALL_DAY = TRUNC(SYSDATE)-1
+--    AND 
+--TRUNC(CALL_DAY) &gt;= &apos;1-MAY-2010&apos; AND   TRUNC(CALL_DAY) &lt; &apos;14-MAY-2010&apos;
+  GROUP BY AGENT_ID, ACTIVITY_DATE_ID </sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>Y</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>136</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>esrepo_prod</connection>
+    <schema>ESREPO</schema>
+    <table>DM_CC_AGENT_ACTIVITY_FACT_D</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>442</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

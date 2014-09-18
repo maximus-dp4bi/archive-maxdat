@@ -1,0 +1,235 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="603C26C1-2450-9235-687E-172E0FE5F559" directorySegmentName="seg_0" name="D_SLA_DEFINITION">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:21:55 UTC</createdTime>
+<comment>D_SLA_DEFINITION contains the SLAs that projects report to MOTS.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pkName>D_SLA_DEFINITION_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_SLA_DEFINITION_ID" id="0B49C34A-E344-0FA9-D826-6D150DB579BE">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:22:23 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SLA_NAME" id="961187EF-8971-1C38-AF34-494857A7F597">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field contains the natural key for a given service level agreement (SLA).  This is a text field that is the technical name for the SLA.  It must be unique and should remain unchanged after creation.  For display purposes, the SLA_LABEL field should be used.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SLA_LABEL" id="7B748EDB-5C29-09D8-246C-0E3B77518E7F">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field contains the user friendly text that should be displayed on reports and data collection templates to describe an SLA.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CATEGORY" id="89733C47-3E46-9030-8433-0BE9C68E23C3">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field contains the high level grouping of a given SLA.  &lt;br/&gt;&lt;br/&gt;Valid values are AB RATE, SERVICE LEVEL, OCCUPANCY.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FUNCTIONAL_AREA" id="8E16D337-A859-C44E-EBCC-B6966791E2CE">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field contains the functional area of the business that this metric is related to.  &lt;br/&gt;&lt;br/&gt;Valid values are Contact Center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="REFERENCE_VALUE_DISPLAY_FORMAT" id="F429162A-6BAA-436F-F045-6B7B5F21BEF9">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field indicates how the presentation objects should format the display of the reference value for this SLA.  &lt;br/&gt;&lt;br/&gt;The valid values are Default (display as decimal), Percentage (display with % suffix), Time (display with format mask MM:SS).</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERSION" id="A4639CE8-F357-644E-F852-931A41816D84">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field tracks the version of a given metric as a type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="E279F4DD-0711-50B5-67A7-AA7C639E5BA2">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>Effective date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="47FEF270-D6B8-FED0-28B0-0E1DDBE8ADE2">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>End date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="4E50DF75-00CD-77A1-751E-437A8A17D5E6">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>The date the record was created.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATED_BY" id="ED7F6F0A-FB5B-6A53-52A4-B9504E072066">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field identifies which user created this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_MODIFIED_DATE" id="B5C7E989-06B3-4C91-851A-F5E6D410426E">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>The date the record was last modified.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UPDATED_BY" id="7048326B-03C6-83C1-22D9-3D1750D85CFE">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:23:12 UTC</createdTime>
+<comment>This field identifies which user last updated this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0619E48E-36A2-A791-B313-3246364B68E6" name="D_SLA_DEFINITION_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:22:23 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0B49C34A-E344-0FA9-D826-6D150DB579BE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="BD375867-2B04-B015-00E2-FD475B2DAD5A" name="D_SLA_DEFINITION_SLA_NAME__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 22:40:16 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="961187EF-8971-1C38-AF34-494857A7F597"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D4BE62CE-7F8D-1F75-EA2D-63BF1F2ADECA" name="D_SLA_DEFINITION__IDXv2">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-28 20:31:44 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="89733C47-3E46-9030-8433-0BE9C68E23C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D8F28A1C-739E-1242-726E-5C4CEC99B320" name="D_SLA_DEFINITION__IDXv3">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-28 20:31:44 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="8E16D337-A859-C44E-EBCC-B6966791E2CE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
