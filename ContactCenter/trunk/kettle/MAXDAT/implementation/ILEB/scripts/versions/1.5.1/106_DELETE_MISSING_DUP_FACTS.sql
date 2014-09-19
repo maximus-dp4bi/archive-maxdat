@@ -24,7 +24,7 @@ and a.D_PROJECT_TARGETS_ID=b.D_PROJECT_TARGETS_ID
 and a.MANAGER_D_AGENT_ID=b.MANAGER_D_AGENT_ID
 and a.d_agent_id=b.d_agent_id
 and a.D_GEOGRAPHY_MASTER_ID =b.D_GEOGRAPHY_MASTER_ID
-and b.d_group_id=0
+and b.d_group_id=0;
 
 
 commit;
