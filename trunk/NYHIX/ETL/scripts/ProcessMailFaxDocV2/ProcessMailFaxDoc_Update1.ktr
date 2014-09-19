@@ -484,6 +484,13 @@
    <function>&lt;&gt;</function>
    <rightvalue>OLD_FORM_TYPE</rightvalue>
    </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_LAST_EVENT_DATE</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>OLD_LAST_EVENT_DATE</rightvalue>
+   </condition>
   </conditions>
  </condition>
     </compare>
@@ -1001,6 +1008,7 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
 	ostg.COMPLETE_DT NEW_COMPLETE_DT,
 	ostg.UPDATED NEW_UPDATED,
 	ostg.ENV_STATUS NEW_ENV_STATUS,
+	ostg.LAST_EVENT_DATE NEW_LAST_EVENT_DATE,
 	wstg.DCN,
 	wstg.RECEIVED_DT OLD_RECEIVED_DT,
 	wstg.ECN OLD_ECN,
@@ -1042,6 +1050,7 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
 	wstg.COMPLETE_DT OLD_COMPLETE_DT,
 	wstg.ENV_STATUS OLD_ENV_STATUS,
 	wstg.UPDATED OLD_UPDATED,
+	wstg.LAST_EVENT_DATE OLD_LAST_EVENT_DATE,
 	csc.CSC_PROC_STATUS_CD,
 	csc.CSC_PROC_DT
 FROM NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 ostg
@@ -1321,6 +1330,10 @@ LEFT OUTER JOIN NYHIX_ETL_MAIL_FAX_DOC_CSC_V2 csc ON wstg.KOFAX_DCN = csc.KOFAX_
       <value>
         <name>UPDATED</name>
         <rename>OLD_UPDATED</rename>
+        </value>
+      <value>
+        <name>LAST_EVENT_DATE</name>
+        <rename>OLD_LAST_EVENT_DATE</rename>
         </value>
       </lookup>
      <cluster_schema/>
