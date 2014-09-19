@@ -62,14 +62,20 @@ else
 
       #ensure the directory structure matches and the desired kjb/ktr files are specified
       $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageWork/ManageWork_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageWork_RUNALL_$(date +%Y%m%d_%H%M%S).log &
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessMailFaxDoc/Process_mail_fax_doc_runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_mail_fax_doc_runall_$(date +%Y%m%d_%H%M%S).log &
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessIncidents/Process_Incidents_RUN_ALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Incidents_RUN_ALL_$(date +%Y%m%d_%H%M%S).log &
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageJobs/ManageJobs_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageJobs_RunAll_$(date +%Y%m%d_%H%M%S).log &
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessMailFaxDoc/Process_mail_fax_doc_runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_mail_fax_doc_runall_$(date +%Y%m%d_%H%M%S).log &
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessIncidents/Process_Incidents_RUN_ALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Incidents_RUN_ALL_$(date +%Y%m%d_%H%M%S).log &
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageJobs/ManageJobs_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageJobs_RunAll_$(date +%Y%m%d_%H%M%S).log &
       #$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessLetters/Process_Letters_runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Letters_runall_$(date +%Y%m%d_%H%M%S).log &
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/SupportClientInquiry/ClientInquiry_Main_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ClientInquiry_Main_RUNALL_$(date +%Y%m%d_%H%M%S).log &	
-      #$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageEnrollmentActivity/ProcessManageEnroll_RUNALL_ONCE_A_DAY.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageEnroll_RUNALL_ONCE_A_DAY_$(date +%Y%m%d_%H%M%S).log &	
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ClientOutreach/ClientOutreach_runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ClientOutreach_runall_$(date +%Y%m%d_%H%M%S).log &	
-      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/CommunityOutreach/CommunityOutreach_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/CommunityOutreach_RunAll_$(date +%Y%m%d_%H%M%S).log &	
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/SupportClientInquiry/ClientInquiry_Main_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ClientInquiry_Main_RUNALL_$(date +%Y%m%d_%H%M%S).log &	
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageEnrollmentActivity/ProcessManageEnroll_RUNALL_ONCE_A_DAY.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageEnroll_RUNALL_ONCE_A_DAY_$(date +%Y%m%d_%H%M%S).log &	
+      #$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ClientOutreach/ClientOutreach_runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ClientOutreach_runall_$(date +%Y%m%d_%H%M%S).log &	
+      sleep 5
+	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/CommunityOutreach/CommunityOutreach_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/CommunityOutreach_RunAll_$(date +%Y%m%d_%H%M%S).log &	
 
 	  wait
       if [[ -e $CHILD_FAIL ]]
