@@ -1,28 +1,3 @@
-delete from cc_f_agent_by_date a
-where rowid > ( select min(rowid) from cc_f_agent_by_date b
-where a.d_date_id=b.d_date_id
-and a.d_program_id=b.d_program_id
-and a.D_GROUP_ID!=b.D_GROUP_ID
-and a.SUPERVISOR_D_AGENT_ID=b.SUPERVISOR_D_AGENT_ID
-and a.D_PROJECT_TARGETS_ID=b.D_PROJECT_TARGETS_ID
-and a.MANAGER_D_AGENT_ID=b.MANAGER_D_AGENT_ID
-and a.d_agent_id=b.d_agent_id
-and a.D_GEOGRAPHY_MASTER_ID =b.D_GEOGRAPHY_MASTER_ID
-and b.d_group_id in (1,5,8,10,13,14,15,16,17,18));
-
-
-delete from cc_f_agent_activity_by_date a
-where rowid > ( select min(rowid) from cc_f_agent_activity_by_date b
-where a.d_date_id=b.d_date_id
-and a.d_agent_id=b.d_agent_id
-and a.D_ACTIVITY_TYPE_ID=b.D_ACTIVITY_TYPE_ID
-and a.d_program_id=b.d_program_id
-and a.D_GEOGRAPHY_MASTER_ID =b.D_GEOGRAPHY_MASTER_ID
-and a.D_GROUP_ID!=b.D_GROUP_ID
-and a.D_PROJECT_ID=b.D_PROJECT_ID)
-and b.d_group_id in (1,3,4,5,7,8,10,13,14,15,16,17,18));
-
-
 delete from cc_f_agent_by_date where f_agent_by_date_id in(
 with driver as( 
 select D_DATE_ID
