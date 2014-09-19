@@ -747,7 +747,6 @@ commit;
    FOR r_Row IN (SELECT task_id
                    FROM corp_etl_manage_work
                   WHERE Parent_task_id IS NULL
-                    AND Stage_done_date IS NULL
                     AND source_reference_id in ( select distinct source_reference_id from corp_etl_manage_work_tmp)
                  )
    LOOP
