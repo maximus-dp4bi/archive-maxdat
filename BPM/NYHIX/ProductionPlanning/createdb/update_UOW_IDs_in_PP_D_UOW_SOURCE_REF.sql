@@ -1,6 +1,7 @@
 update PP_D_UOW_SOURCE_REF
 set UOW_ID=19
 where end_date>=sysdate
+and source_ref_detail_identifier!='PIPKINS EVENTS'
 and source_ref_value in 
 (
 'APPEAL'
@@ -24,6 +25,7 @@ and source_ref_value in
 update PP_D_UOW_SOURCE_REF
 set UOW_ID=18
 where end_date>=sysdate
+and source_ref_detail_identifier!='PIPKINS EVENTS'
 and source_ref_value in 
 (
 'Data Entry-Verification Document Task'
@@ -32,6 +34,7 @@ and source_ref_value in
 update PP_D_UOW_SOURCE_REF
 set UOW_ID=9
 where end_date>=sysdate
+and source_ref_detail_identifier!='PIPKINS EVENTS'
 and source_ref_value in 
 (
 'DPR - Other'
