@@ -391,7 +391,11 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
   d.LAST_TRASHED_BY TRASHED_BY,
   d.LAST_TRASHED_TS TRASHED_DT,
   d.DOCUMENT_SET_ID,
-  case when d.UPDATE_TS &gt; ad.UPDATE_TS then d.UPDATE_TS else ad.UPDATE_TS end as LAST_EVENT_DATE
+  case when d.UPDATE_TS &gt; ad.UPDATE_TS and d.UPDATE_TS &gt; o.last_event_date then d.UPDATE_TS 
+       when ad.UPDATE_TS &gt; d.UPDATE_TS and ad.UPDATE_TS &gt; o.last_event_date then ad.UPDATE_TS
+       else o.last_event_date end as LAST_EVENT_DATE,
+  d.UPDATE_TS doc_update_ts,
+  ad.UPDATE_TS app_update_ts
 FROM
   DOCUMENT_STG d
 INNER JOIN APP_DOC_DATA_STG ad
