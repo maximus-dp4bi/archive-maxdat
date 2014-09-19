@@ -321,24 +321,31 @@ Steps:
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -1227,7 +1234,7 @@ WHERE INTERVAL_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&
       </value>
       <value>
         <name>SHORT_ABANDONS</name>
-        <rename>SHORT_ABANDONS</rename>
+        <rename>CALLS_ABANDONED_PERIOD_1</rename>
         <update>Y</update>
       </value>
       <value>
@@ -1349,6 +1356,11 @@ WHERE INTERVAL_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&
         <name>CALLS_GIVEN_ROUTE_TO</name>
         <rename>CALLS_GIVEN_ROUTE_TO</rename>
         <update>Y</update>
+      </value>
+      <value>
+        <name>SHORT_CALLS</name>
+        <rename>SHORT_ABANDONS</rename>
+        <update>N</update>
       </value>
     </lookup>
      <cluster_schema/>
@@ -1709,6 +1721,53 @@ WHERE INTERVAL_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&
     </step>
 
   <step>
+    <name>Lookup D_INTERVAL</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_INTERVAL</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>INTERVAL_START_DATE</name>
+        <field>INTERVAL_START_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>INTERVAL_END_DATE</name>
+        <field>INTERVAL_END_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>D_INTERVAL_ID</name>
+        <rename>D_INTERVAL_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1231</xloc>
+      <yloc>451</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Lookup D_PROGRAM</name>
     <type>DBLookup</type>
     <description/>
@@ -1950,53 +2009,6 @@ WHERE INTERVAL_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>748</xloc>
       <yloc>551</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup D_INTERVAL</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <cache>Y</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>CC_D_INTERVAL</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>INTERVAL_START_DATE</name>
-        <field>INTERVAL_START_DATE</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>INTERVAL_END_DATE</name>
-        <field>INTERVAL_END_DATE</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>D_INTERVAL_ID</name>
-        <rename>D_INTERVAL_ID</rename>
-        <default/>
-        <type>BigNumber</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1231</xloc>
-      <yloc>451</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
