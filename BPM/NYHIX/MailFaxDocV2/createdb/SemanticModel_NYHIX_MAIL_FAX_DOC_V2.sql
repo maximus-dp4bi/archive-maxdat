@@ -419,8 +419,11 @@ alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_DNMFDTS_FK foreign key 
 alter table D_NYHIX_MFD_HISTORY_V2  add constraint DMFDBD_DNMFDIS_FK foreign key (DNMFDIS_ID) references D_NYHIX_MFD_INS_STATUS_V2(DNMFDIS_ID);
 alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_NYHIX_MFD_BI_ID_FK foreign key (NYHIX_MFD_BI_ID) references D_NYHIX_MFD_CURRENT_V2(NYHIX_MFD_BI_ID);
 
-create unique index DMFDBD_UIX1 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DMFDBD_UIX1 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,LAST_EVENT_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
 create unique index DMFDBD_UIX2 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+
+create index DMFDBD_IX1 on D_NYHIX_MFD_HISTORY_V2 (DOC_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics; 
+create index DMFDBD_IX2 on D_NYHIX_MFD_HISTORY_V2 (ENV_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics; 
 
 create index DMFDBD_IXL2 on D_NYHIX_MFD_HISTORY_V2 (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index DMFDBD_IXL3 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
