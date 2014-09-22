@@ -4,6 +4,7 @@ Instructions to install TXEB  Promotions week of 09/22/2014
 Date       Developer           PHONE         Jira       Reason/Description
 ---------- ------------------- ------------- --------- ---------------------------------------------
 2014/09/21 Sara                571.294.6487 TXEB-3262  Short Abandons <> Short Calls 
+2014/09/19 Mayuresh B.         201.328.5695  TXEB-3582  Error occurred during init of VM on PROD.
 
 ***** MODIFICATION HISTORY ****************************************************************************
 
@@ -145,7 +146,29 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
 	chmod 755 file3.sh
 	etc
 	--------------------------------------------------------------------
-       *******************************************************************************************			
+       *******************************************************************************************
+
+
+	*******************************************************************************************	
+        Mayuresh B.(Run Initialization)
+        --------------------------------------------------------------------
+	Download AS_20140919_Run_BPM_Mayuresh_1.zip
+	Deploy the follow files to the appropriate path
+	  
+	  ProdSupp DEPLOY TO PATH ttxe4t/ETL_Scripts/scripts
+	  PROD     DEPLOY TO PATH ptxe4t/ETL_Scripts/scripts
+
+	tx_run_bpm.sh
+	
+	
+	**Run dos2unix for the following List
+	dos2unix tx_run_bpm.sh
+	
+	** chmod 755
+	chmod 755 tx_run_bpm.sh
+	
+	--------------------------------------------------------------------
+       *******************************************************************************************				
                 
 ----------------------------
 4. ADHOC SH SCRIPT SECTION
