@@ -9,9 +9,6 @@ Date       Developer           PHONE         Reason/Description
 -----------------------
 0. Turn off Cron
 -----------------------
-Disable cron - cron_tx_run_bpm.sh
-Disable cron - cron_tx_run_contcent.sh
-Disable cron - cron_tx_run_emrs.sh
 
 
 -----------------------
@@ -54,7 +51,3 @@ Disable cron - cron_tx_run_emrs.sh
 6. Enable Cron Jobs 
 ----------------------------
 
-Enable cron - cron_tx_run_bpm.sh
-Enable cron - cron_tx_run_contcent.sh
-Enable cron - cron_tx_run_emrs.sh
-Enable cron - cron_tx_run_emrs_medenrl.sh
