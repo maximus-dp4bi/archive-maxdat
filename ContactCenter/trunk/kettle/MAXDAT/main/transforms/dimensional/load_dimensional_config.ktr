@@ -1002,6 +1002,9 @@ This transform loads several dimensional tables with configuration data</note>
         <field>
           <name>PROGRAM_NAME</name>
         </field>
+        <field>
+          <name>INCLUDE_IN_REPORTS_FLAG</name>
+        </field>
       </group>
       <fields>
       </fields>
@@ -1037,6 +1040,9 @@ This transform loads several dimensional tables with configuration data</note>
         </field>
         <field>
           <name>SEGMENT_ID</name>
+        </field>
+        <field>
+          <name>INCLUDE_IN_REPORTS_FLAG</name>
         </field>
       </group>
       <fields>
@@ -1262,6 +1268,11 @@ This transform loads several dimensional tables with configuration data</note>
         <rename>PROGRAM_NAME</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>INCLUDE_IN_REPORTS_FLAG</name>
+        <rename>INCLUDE_IN_REPORTS_FLAG</rename>
+        <update>Y</update>
+      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -1306,6 +1317,11 @@ This transform loads several dimensional tables with configuration data</note>
       <value>
         <name>SEGMENT_ID</name>
         <rename>SEGMENT_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>INCLUDE_IN_REPORTS_FLAG</name>
+        <rename>INCLUDE_IN_REPORTS_FLAG</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -1651,6 +1667,18 @@ This transform loads several dimensional tables with configuration data</note>
         <decimal/>
         <group/>
       </field>
+      <field>
+        <name>INCLUDE_IN_REPORTS_FLAG</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
     </fields>
     <sheets>
       <sheet>
@@ -1768,6 +1796,10 @@ This transform loads several dimensional tables with configuration data</note>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>INCLUDE_IN_REPORTS_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -1792,6 +1824,10 @@ This transform loads several dimensional tables with configuration data</note>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>SEGMENT_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INCLUDE_IN_REPORTS_FLAG</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -1937,6 +1973,11 @@ This transform loads several dimensional tables with configuration data</note>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
       </field>
+      <field>
+        <name>INCLUDE_IN_REPORTS_FLAG</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -1971,6 +2012,11 @@ This transform loads several dimensional tables with configuration data</note>
       </field>
       <field>
         <name>SEGMENT_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>INCLUDE_IN_REPORTS_FLAG</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
       </field>
