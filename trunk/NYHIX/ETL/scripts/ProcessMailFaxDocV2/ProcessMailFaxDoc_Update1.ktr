@@ -225,6 +225,52 @@
     </step>
 
   <step>
+    <name>Dummy (do nothing) 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1009</xloc>
+      <yloc>298</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Updated = Y</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update - NYHIX_ETL_MAIL_FAX_DOC_WIP_V2</send_true_to>
+<send_false_to>Dummy (do nothing) 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>OLD_UPDATED</leftvalue>
+ <function>=</function>
+ <rightvalue>CON_Y</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>991</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Filter rows - UPD1_10 - UPD1_370</name>
     <type>FilterRows</type>
     <description/>
@@ -741,20 +787,12 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
            </partitioning>
     <fields>
       <field>
-        <name>OLD_RECEIVED_DT</name>
-        <replaceby>NEW_RECEIVED_DT</replaceby>
+        <name>OLD_APP_DOC_DATA_ID</name>
+        <replaceby>NEW_APP_DOC_DATA_ID</replaceby>
         </field>
       <field>
-        <name>OLD_ECN</name>
-        <replaceby>NEW_ECN</replaceby>
-        </field>
-      <field>
-        <name>OLD_MAXE_ORIGINATION_DT</name>
-        <replaceby>NEW_MAXE_ORIGINATION_DT</replaceby>
-        </field>
-      <field>
-        <name>OLD_DOC_TYPE_CD</name>
-        <replaceby>NEW_DOC_TYPE_CD</replaceby>
+        <name>OLD_APP_DOC_TRACKER_ID</name>
+        <replaceby>NEW_APP_DOC_TRACKER_ID</replaceby>
         </field>
       <field>
         <name>OLD_DOC_STATUS_CD</name>
@@ -765,96 +803,24 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
         <replaceby>NEW_DOC_STATUS_DT</replaceby>
         </field>
       <field>
-        <name>OLD_FORM_TYPE_CD</name>
-        <replaceby>NEW_FORM_TYPE_CD</replaceby>
-        </field>
-      <field>
-        <name>OLD_FORM_TYPE</name>
-        <replaceby>NEW_FORM_TYPE</replaceby>
-        </field>
-      <field>
-        <name>OLD_DOC_UPDATE_DT</name>
-        <replaceby>NEW_DOC_UPDATE_DT</replaceby>
+        <name>OLD_DOC_TYPE_CD</name>
+        <replaceby>NEW_DOC_TYPE_CD</replaceby>
         </field>
       <field>
         <name>OLD_DOC_UPDATED_BY_STAFF_ID</name>
         <replaceby>NEW_DOC_UPDATED_BY_STAFF_ID</replaceby>
         </field>
       <field>
-        <name>OLD_PRIORITY</name>
-        <replaceby>NEW_PRIORITY</replaceby>
+        <name>OLD_DOC_UPDATE_DT</name>
+        <replaceby>NEW_DOC_UPDATE_DT</replaceby>
         </field>
       <field>
-        <name>OLD_FREE_FORM_TXT_IND</name>
-        <replaceby>NEW_FREE_FORM_TXT_IND</replaceby>
+        <name>OLD_ECN</name>
+        <replaceby>NEW_ECN</replaceby>
         </field>
       <field>
-        <name>OLD_KOFAX_DCN</name>
-        <replaceby>NEW_KOFAX_DCN</replaceby>
-        </field>
-      <field>
-        <name>OLD_PREVIOUS_KOFAX_DCN</name>
-        <replaceby>NEW_PREVIOUS_KOFAX_DCN</replaceby>
-        </field>
-      <field>
-        <name>OLD_SCAN_DT</name>
-        <replaceby>NEW_SCAN_DT</replaceby>
-        </field>
-      <field>
-        <name>OLD_RELEASE_DT</name>
-        <replaceby>NEW_RELEASE_DT</replaceby>
-        </field>
-      <field>
-        <name>OLD_RESCANNED_IND</name>
-        <replaceby>NEW_RESCANNED_IND</replaceby>
-        </field>
-      <field>
-        <name>OLD_RETURNED_MAIL_IND</name>
-        <replaceby>NEW_RETURNED_MAIL_IND</replaceby>
-        </field>
-      <field>
-        <name>OLD_RETURNED_MAIL_REASON</name>
-        <replaceby>NEW_RETURNED_MAIL_REASON</replaceby>
-        </field>
-      <field>
-        <name>OLD_RESCAN_COUNT</name>
-        <replaceby>NEW_RESCAN_COUNT</replaceby>
-        </field>
-      <field>
-        <name>OLD_NOTE_ID</name>
-        <replaceby>NEW_NOTE_ID</replaceby>
-        </field>
-      <field>
-        <name>OLD_EXPEDIATED_IND</name>
-        <replaceby>NEW_EXPEDIATED_IND</replaceby>
-        </field>
-      <field>
-        <name>OLD_RESEARCH_REQ_IND</name>
-        <replaceby>NEW_RESEARCH_REQ_IND</replaceby>
-        </field>
-      <field>
-        <name>OLD_ORIG_DOC_TYPE_CD</name>
-        <replaceby>NEW_ORIG_DOC_TYPE_CD</replaceby>
-        </field>
-      <field>
-        <name>OLD_ORIG_DOC_FORM_TYPE_CD</name>
-        <replaceby>NEW_ORIG_DOC_FORM_TYPE_CD</replaceby>
-        </field>
-      <field>
-        <name>OLD_TRASHED_IND</name>
-        <replaceby>NEW_TRASHED_IND</replaceby>
-        </field>
-      <field>
-        <name>OLD_TRASHED_BY</name>
-        <replaceby>NEW_TRASHED_BY</replaceby>
-        </field>
-      <field>
-        <name>OLD_TRASHED_DT</name>
-        <replaceby>NEW_TRASHED_DT</replaceby>
-        </field>
-      <field>
-        <name>OLD_APP_DOC_TRACKER_ID</name>
-        <replaceby>NEW_APP_DOC_TRACKER_ID</replaceby>
+        <name>OLD_ENV_STATUS</name>
+        <replaceby>NEW_ENV_STATUS</replaceby>
         </field>
       <field>
         <name>OLD_ENV_STATUS_CD</name>
@@ -865,28 +831,108 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
         <replaceby>NEW_ENV_STATUS_DT</replaceby>
         </field>
       <field>
-        <name>OLD_ENV_UPDATE_DT</name>
-        <replaceby>NEW_ENV_UPDATE_DT</replaceby>
-        </field>
-      <field>
         <name>OLD_ENV_UPDATED_BY_STAFF_ID</name>
         <replaceby>NEW_ENV_UPDATED_BY_STAFF_ID</replaceby>
         </field>
       <field>
-        <name>OLD_UPDATED</name>
-        <replaceby>CON_Y</replaceby>
+        <name>OLD_ENV_UPDATE_DT</name>
+        <replaceby>NEW_ENV_UPDATE_DT</replaceby>
         </field>
       <field>
-        <name>OLD_APP_DOC_DATA_ID</name>
-        <replaceby>NEW_APP_DOC_DATA_ID</replaceby>
+        <name>OLD_EXPEDIATED_IND</name>
+        <replaceby>NEW_EXPEDIATED_IND</replaceby>
         </field>
       <field>
-        <name>OLD_ENV_STATUS</name>
-        <replaceby>NEW_ENV_STATUS</replaceby>
+        <name>OLD_FORM_TYPE</name>
+        <replaceby>NEW_FORM_TYPE</replaceby>
+        </field>
+      <field>
+        <name>OLD_FORM_TYPE_CD</name>
+        <replaceby>NEW_FORM_TYPE_CD</replaceby>
+        </field>
+      <field>
+        <name>OLD_FREE_FORM_TXT_IND</name>
+        <replaceby>NEW_FREE_FORM_TXT_IND</replaceby>
+        </field>
+      <field>
+        <name>OLD_KOFAX_DCN</name>
+        <replaceby>NEW_KOFAX_DCN</replaceby>
         </field>
       <field>
         <name>OLD_LAST_EVENT_DATE</name>
         <replaceby>NEW_LAST_EVENT_DATE</replaceby>
+        </field>
+      <field>
+        <name>OLD_MAXE_ORIGINATION_DT</name>
+        <replaceby>NEW_MAXE_ORIGINATION_DT</replaceby>
+        </field>
+      <field>
+        <name>OLD_NOTE_ID</name>
+        <replaceby>NEW_NOTE_ID</replaceby>
+        </field>
+      <field>
+        <name>OLD_ORIG_DOC_FORM_TYPE_CD</name>
+        <replaceby>NEW_ORIG_DOC_FORM_TYPE_CD</replaceby>
+        </field>
+      <field>
+        <name>OLD_ORIG_DOC_TYPE_CD</name>
+        <replaceby>NEW_ORIG_DOC_TYPE_CD</replaceby>
+        </field>
+      <field>
+        <name>OLD_PREVIOUS_KOFAX_DCN</name>
+        <replaceby>NEW_PREVIOUS_KOFAX_DCN</replaceby>
+        </field>
+      <field>
+        <name>OLD_PRIORITY</name>
+        <replaceby>NEW_PRIORITY</replaceby>
+        </field>
+      <field>
+        <name>OLD_RECEIVED_DT</name>
+        <replaceby>NEW_RECEIVED_DT</replaceby>
+        </field>
+      <field>
+        <name>OLD_RELEASE_DT</name>
+        <replaceby>NEW_RELEASE_DT</replaceby>
+        </field>
+      <field>
+        <name>OLD_RESCANNED_IND</name>
+        <replaceby>NEW_RESCANNED_IND</replaceby>
+        </field>
+      <field>
+        <name>OLD_RESCAN_COUNT</name>
+        <replaceby>NEW_RESCAN_COUNT</replaceby>
+        </field>
+      <field>
+        <name>OLD_RESEARCH_REQ_IND</name>
+        <replaceby>NEW_RESEARCH_REQ_IND</replaceby>
+        </field>
+      <field>
+        <name>OLD_RETURNED_MAIL_IND</name>
+        <replaceby>NEW_RETURNED_MAIL_IND</replaceby>
+        </field>
+      <field>
+        <name>OLD_RETURNED_MAIL_REASON</name>
+        <replaceby>NEW_RETURNED_MAIL_REASON</replaceby>
+        </field>
+      <field>
+        <name>OLD_SCAN_DT</name>
+        <replaceby>NEW_SCAN_DT</replaceby>
+        </field>
+      <field>
+        <name>OLD_TRASHED_BY</name>
+        <replaceby>NEW_TRASHED_BY</replaceby>
+        </field>
+      <field>
+        <name>OLD_TRASHED_DT</name>
+        <replaceby>NEW_TRASHED_DT</replaceby>
+        </field>
+      <field>
+        <name>OLD_TRASHED_IND</name>
+        <replaceby>NEW_TRASHED_IND</replaceby>
+        </field>
+      <field>
+        <name>OLD_UPDATED</name>
+        <replaceby>CON_Y</replaceby>
         </field>
       </fields>
      <cluster_schema/>
@@ -1344,52 +1390,6 @@ LEFT OUTER JOIN NYHIX_ETL_MAIL_FAX_DOC_CSC_V2 csc ON wstg.KOFAX_DCN = csc.KOFAX_
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>1258</xloc>
       <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter Updated = Y</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Update - NYHIX_ETL_MAIL_FAX_DOC_WIP_V2</send_true_to>
-<send_false_to>Dummy (do nothing) 2</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>OLD_UPDATED</leftvalue>
- <function>=</function>
- <rightvalue>CON_Y</rightvalue>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>991</xloc>
-      <yloc>155</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing) 2</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1009</xloc>
-      <yloc>298</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
