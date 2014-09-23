@@ -190,5 +190,36 @@ INNER JOIN cc_d_activity_type ATC ON ATC.d_activity_type_id  = f.d_activity_type
 where ATC.activity_type_name='Awaiting Validity Check' and ATC.activity_type_category ='Unknown'
 );
 
+update cc_f_agent_activity_by_date set d_activity_type_id=(select d_activity_type_id from cc_d_activity_type where activity_type_name='Eligibility Specialist C ' and activity_type_category !='Unknown')
+where f_agent_activity_by_date_id in(
+SELECT F.f_agent_activity_by_date_id
+FROM CC_F_AGENT_ACTIVITY_BY_DATE F
+INNER JOIN cc_d_activity_type ATC ON ATC.d_activity_type_id  = f.d_activity_type_id 
+where ATC.activity_type_name='Eligibility Specialist C ' and ATC.activity_type_category ='Unknown'
+);
+
+update cc_f_agent_activity_by_date set d_activity_type_id=(select d_activity_type_id from cc_d_activity_type where activity_type_name='Document Problem Resolution' and activity_type_category !='Unknown')
+where f_agent_activity_by_date_id in(
+SELECT F.f_agent_activity_by_date_id
+FROM CC_F_AGENT_ACTIVITY_BY_DATE F
+INNER JOIN cc_d_activity_type ATC ON ATC.d_activity_type_id  = f.d_activity_type_id 
+where ATC.activity_type_name='Document Problem Resolution' and ATC.activity_type_category ='Unknown'
+);
+
+update cc_f_agent_activity_by_date set d_activity_type_id=(select d_activity_type_id from cc_d_activity_type where activity_type_name='Idle Time' and activity_type_category !='Unknown')
+where f_agent_activity_by_date_id in(
+SELECT F.f_agent_activity_by_date_id
+FROM CC_F_AGENT_ACTIVITY_BY_DATE F
+INNER JOIN cc_d_activity_type ATC ON ATC.d_activity_type_id  = f.d_activity_type_id 
+where ATC.activity_type_name='Idle Time' and ATC.activity_type_category ='Unknown'
+);
+
+update cc_f_agent_activity_by_date set d_activity_type_id=(select d_activity_type_id from cc_d_activity_type where activity_type_name='Newborn - UPK' and activity_type_category !='Unknown')
+where f_agent_activity_by_date_id in(
+SELECT F.f_agent_activity_by_date_id
+FROM CC_F_AGENT_ACTIVITY_BY_DATE F
+INNER JOIN cc_d_activity_type ATC ON ATC.d_activity_type_id  = f.d_activity_type_id 
+where ATC.activity_type_name='Newborn - UPK' and ATC.activity_type_category ='Unknown'
+);
 
 commit;
