@@ -5,6 +5,7 @@ Date       Developer           PHONE         Jira       Reason/Description
 ---------- ------------------- ------------- --------- ---------------------------------------------
 2014/09/21 Sara                571.294.6487 TXEB-3262  Short Abandons <> Short Calls 
 2014/09/19 Mayuresh B.         201.328.5695  TXEB-3582  Error occurred during init of VM on PROD.
+2014/09/22 Brian Thai          210-722-3895  TXEB-3622 Client Outreach Not Completing Invalid Requests
 
 ***** MODIFICATION HISTORY ****************************************************************************
 
@@ -116,6 +117,19 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
                   	
                -------------------------------------------------------------------------------------------
     *******************************************************************************************
+
+       *******************************************************************************************	
+        B.Thai (Client Outreach UPD25)
+        --------------------------------------------------------------------
+	Download AS_20140922_CO_Brian_1.zip
+	Deploy the follow files to the appropriate path
+	  ProdSupp DEPLOY TO PATH ttxe4t/ETL_Scripts/scripts/ClientOutreach 
+	  PROD     DEPLOY TO PATH ptxe4t/ETL_Scripts/scripts/ClientOutreach
+
+        Client_Outreach_UPD25.ktr
+
+	--------------------------------------------------------------------
+       *******************************************************************************************	
 
 -----------------------
 3. UNIX SCRIPT SECTION
