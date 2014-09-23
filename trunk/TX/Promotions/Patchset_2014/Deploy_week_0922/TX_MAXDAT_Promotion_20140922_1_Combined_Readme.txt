@@ -3,7 +3,8 @@ Instructions to install TXEB  Promotions week of 09/22/2014
 ----------------
 Date       Developer           PHONE         Jira       Reason/Description
 ---------- ------------------- ------------- --------- ---------------------------------------------
-2014/09/21 Sara                571.294.6487 TXEB-3262  Short Abandons <> Short Calls 
+2014/09/21 Sara                571.294.6487  
+                                             TXEB-3092  Scorecard - Add Time to Agent and Timeout Calls to MAXdat
 2014/09/19 Mayuresh B.         201.328.5695  TXEB-3582  Error occurred during init of VM on PROD.
 2014/09/22 Brian Thai          210-722-3895  TXEB-3622 Client Outreach Not Completing Invalid Requests
 
@@ -31,22 +32,6 @@ Disable cron - cron_tx_run_bpm_daily.sh
 
 execute PROCESS_BPM_QUEUE_JOB_CONTROL.SHUTDOWN_JOBS;	
 
-       *******************************************************************************************	
-        (Developer create this block for each DB zip)
-        ------------------------------------------------------------------------------------
-	** Unzip DB_{SYSTEM}_{YYMMDD}20131118_{DEVELOPER_NAME}_{NUM}.zip
-        ** Run in the order specified below.
-
-        File1.sql
-        File2.sql
-        File3.sql
-        etc
-        
-        ------------------------------------------------------------------------------------
-       *******************************************************************************************	        
-
-
-
 execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
 
 
@@ -56,7 +41,7 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
        	** Unzip DB_ContactCenter_20140919_Sara_1.zip
         ** Run in the order specified below.
        
- 		 001_ADD_SHORT_CALLS_TO_CC_F_ACTUALS.sql
+ 		 001_UPDATE_EXISTING_TIME_OUT_CALLS_FLAG.sql
         
         ------------------------------------------------------------------------------------
        *******************************************************************************************	
@@ -65,58 +50,8 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
 2. KETTLE FILES SECTION
 -----------------------
 
-       *******************************************************************************************	
-        (Developer create this block for each AS zip)
-	--------------------------------------------------------------------
-	Download AS_{SYSTEM}_{YYMMDD}20131118_{DEVELOPER_NAME}_{NUM}.zip
-	Deploy the follow files to the appropriate path
-	  UAT      DEPLOY TO PATH dtxe4t/ETL_Scripts/scripts/{Your Direcortory} 
-	  ProdSupp DEPLOY TO PATH ttxe4t/ETL_Scripts/scripts/{Your Direcortory} 
-	  PROD     DEPLOY TO PATH ptxe4t/ETL_Scripts/scripts/{Your Direcortory} 
 
-	file1.ktr
-	file2.kjb
-	file3.ktr
-	etc
-	--------------------------------------------------------------------
-       *******************************************************************************************	
-       
-       
-           *******************************************************************************************	
-                         Sara(Contact Center)
-                -------------------------------------------------------------------------------------------
-           
-                ****Download AS_ContactCenter_20140919_Sara_1.zip
-                  	Deploy the following files to the appropriate path****
-               UAT   	 dtxe4t/ETL_Scripts/scripts/ContactCenter/main/transforms/dimensional/
-               ProdSupp  ttxe4t/ETL_Scripts/scripts/ContactCenter/main/transforms/dimensional/
-               PROD      ptxe4t/ETL_Scripts/scripts/ContactCenter/main/transforms/dimensional/
-       		
-                load_CC_F_ACTUALS_QUEUE_INTERVAL.ktr
-                
-                       UAT           DEPLOY TO PATH dtxe4t/3rdparty/cron_files    
-                       ProdSupp      DEPLOY TO PATH ttxe4t/3rdparty/cron_files
-		       PROD          DEPLOY TO PATH ptxe4t/3rdparty/cron_files
-		         
-		         
-		         cron_tx_run_contcent.sh 
-		         cron_tx_run_load_timeout_calls.sh  
-		         
-		          
-			 **Run dos2unix for the following List	      
-			 
-		   
-		         cron_tx_run_contcent.sh 
-		         cron_tx_run_load_timeout_calls.sh	
-			  			      
-			** chmod 755	      
 
-		          chmod 755  cron_tx_run_contcent.sh 
-                 	  chmod 755  cron_tx_run_load_timeout_calls.sh	     
-                      	
-                  	
-               -------------------------------------------------------------------------------------------
-    *******************************************************************************************
 
        *******************************************************************************************	
         B.Thai (Client Outreach UPD25)
@@ -134,33 +69,7 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
 -----------------------
 3. UNIX SCRIPT SECTION
 -----------------------
-       *******************************************************************************************	
-        (Developer create this block for each AS zip)
-        --------------------------------------------------------------------
-	Download AS_{SYSTEM}_{YYMMDD}20131118_{DEVELOPER_NAME}_{NUM}.zip
-	Deploy the follow files to the appropriate path
-	  UAT      DEPLOY TO PATH dtxe4t/ETL_Scripts/scripts
-	  ProdSupp DEPLOY TO PATH ttxe4t/ETL_Scripts/scripts
-	  PROD     DEPLOY TO PATH ptxe4t/ETL_Scripts/scripts
 
-	file1.sh
-	file2.sh
-	file3.sh
-	etc
-	
-	**Run dos2unix for the following List
-	dos2unix file1.sh
-	dos2unix file2.sh
-	dos2unix file3.sh
-	etc
-	
-	** chmod 755
-	chmod 755 file1.sh
-	chmod 755 file2.sh
-	chmod 755 file3.sh
-	etc
-	--------------------------------------------------------------------
-       *******************************************************************************************
 
 
 	*******************************************************************************************	
@@ -182,20 +91,46 @@ execute PROCESS_BPM_QUEUE_JOB_CONTROL.STARTUP_JOBS;
 	chmod 755 tx_run_bpm.sh
 	
 	--------------------------------------------------------------------
-       *******************************************************************************************				
+       *******************************************************************************************	
+       
+              
+              
+     *******************************************************************************************	
+                                Sara(Contact Center)
+                       -------------------------------------------------------------------------------------------
+                  
+                       ****Download AS_ContactCenter_20140919_Sara_1.zip
+                         	Deploy the following files to the appropriate path****
+       
+                       
+                              UAT           DEPLOY TO PATH dtxe4t/3rdparty/cron_files    
+                              ProdSupp      DEPLOY TO PATH ttxe4t/3rdparty/cron_files
+       		       PROD          DEPLOY TO PATH ptxe4t/3rdparty/cron_files
+       		         
+       		         
+       		         cron_tx_run_contcent.sh 
+       		         cron_tx_run_load_timeout_calls.sh  
+       		         
+       		          
+       			 **Run dos2unix for the following List	      
+       			 
+       		   
+       		         cron_tx_run_contcent.sh 
+       		         cron_tx_run_load_timeout_calls.sh	
+       			  			      
+       			** chmod 755	      
+       
+       		          chmod 755  cron_tx_run_contcent.sh 
+                        	  chmod 755  cron_tx_run_load_timeout_calls.sh	     
+                             	
+                         	
+                      -------------------------------------------------------------------------------------------
+    *******************************************************************************************
                 
 ----------------------------
 4. ADHOC SH SCRIPT SECTION
 ----------------------------
-       *******************************************************************************************	
-       (Developer create this block AS NEEDED)
-        --------------------------------------------------------------------------------------------
-        --Execute tx_emrs_load_aaclient_onetime.sh which will populate the new EMRS AA_CLIENt table
-	UAT             nohup /dtxe4t/ETL_Scripts/scripts/tx_emrs_load_aaclient_onetime.sh &
-	PROD SUPP       nohup /ttxe4t/ETL_Scripts/scripts/tx_emrs_load_aaclient_onetime.sh &
-	PROD            nohup /ptxe4t/ETL_Scripts/scripts/tx_emrs_load_aaclient_onetime.sh &
-	--------------------------------------------------------------------------------------------
-       *******************************************************************************************	
+
 
 ----------------------------
 5. SPECIAL INSTRUCTIONS 
