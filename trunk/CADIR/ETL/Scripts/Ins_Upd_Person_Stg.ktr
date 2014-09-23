@@ -492,7 +492,7 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${OLTP_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = etk_maximus_wc_uatest;</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ${OLTP_DB_SCHEMA};</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -535,7 +535,7 @@ SVN_REVISION_AUTHOR = $Author$
     <commit>100</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>
-      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <schema/>
       <table>D_PERSON</table>
       <key>
         <name>PERSON_ID</name>
