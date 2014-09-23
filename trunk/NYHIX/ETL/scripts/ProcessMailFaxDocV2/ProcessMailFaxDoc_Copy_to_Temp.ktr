@@ -366,7 +366,8 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
     <connection>MAXDAT</connection>
     <sql>SELECT 
 	stg.*,
-	&apos;N&apos;	NEW_UPDATED 
+	&apos;N&apos;	NEW_UPDATED,
+	&apos;N&apos; NEW_INSERTED
 FROM NYHIX_ETL_MAIL_FAX_DOC_V2 stg
 WHERE INSTANCE_STATUS = &apos;Active&apos;
 </sql>
@@ -528,12 +529,20 @@ WHERE INSTANCE_STATUS = &apos;Active&apos;
           <stream_name>EXPEDIATED_IND</stream_name>
         </field>
         <field>
+          <column_name>FORM_TYPE</column_name>
+          <stream_name>FORM_TYPE</stream_name>
+        </field>
+        <field>
           <column_name>FORM_TYPE_CD</column_name>
           <stream_name>FORM_TYPE_CD</stream_name>
         </field>
         <field>
           <column_name>FREE_FORM_TXT_IND</column_name>
           <stream_name>FREE_FORM_TXT_IND</stream_name>
+        </field>
+        <field>
+          <column_name>INSERTED</column_name>
+          <stream_name>NEW_INSERTED</stream_name>
         </field>
         <field>
           <column_name>INSTANCE_END_DATE</column_name>
