@@ -1,5 +1,5 @@
 create table D_PI_CURRENT
-  ("PI_BI_ID"                      number,
+  ("PI_BI_ID"                      number not null,
    "Incident ID"                   number,
    "Incident Tracking Number"      varchar2(32),
    "Receipt Date"                  date,
@@ -72,11 +72,11 @@ create table D_PI_CURRENT
     CANCEL_BY                      varchar2(80),
     CANCEL_METHOD                  varchar2(80),
     CANCEL_REASON                  varchar2(80),
-	"COUNTY_CODE"                  varchar2(32),
-    "COUNTY_NAME"    			   varchar2(64),
+    "COUNTY_CODE"                  varchar2(32),
+    "COUNTY_NAME"    	           varchar2(64),
     "ACTION_COMMENTS"              varchar2(4000),
-	"INCIDENT_DESCRIPTION"         varchar2(4000),
-	"RESOLUTION_DESCRIPTION"       varchar2(4000)
+    "INCIDENT_DESCRIPTION"         varchar2(4000),
+    "RESOLUTION_DESCRIPTION"       varchar2(4000)
 )
 tablespace MAXDAT_DATA parallel;
 
@@ -84,15 +84,29 @@ alter table D_PI_CURRENT add constraint DPICUR_PK primary key (PI_BI_ID) using i
 
 create unique index DPICUR_UIX1 on D_PI_CURRENT ("Incident ID") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_CURRENT for D_PI_CURRENT;
 grant select on D_PI_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_CURRENT_SV as
 select * from D_PI_CURRENT
 with read only;
 
-create or replace public synonym D_PI_CURRENT_SV for D_PI_CURRENT_SV;
 grant select on D_PI_CURRENT_SV to MAXDAT_READ_ONLY;
+
+create or replace view INCIDENT_DESC_SV as
+select 
+  "Incident ID" INCIDENT_ID not null,
+  "INCIDENT_DESCRIPTION" INCIDENT_DESCRIPTION
+from D_PI_CURRENT;
+
+grant select on INCIDENT_DESC_SV to MAXDAT_READ_ONLY;
+
+create or replace view RESOLUTION_DESC_SV as
+select 
+  "Incident ID" INCIDENT_ID not null,
+  "RESOLUTION_DESCRIPTION" RESOLUTION_DESCRIPTION
+from D_PI_CURRENT;
+
+grant select on RESOLUTION_DESC_SV to MAXDAT_READ_ONLY;
 
 
 -- D_PI_INSTANCE_STATUS    DPIIS_ID  "Instance Status"           VARCHAR2(10),
@@ -104,7 +118,7 @@ increment by 1
 cache 20;
 
 create table D_PI_INSTANCE_STATUS 
-  (DPIIS_ID number,
+  (DPIIS_ID number not null,
    "Instance Status" varchar2(10))
 tablespace MAXDAT_DATA;
 
@@ -112,15 +126,12 @@ alter table D_PI_INSTANCE_STATUS add constraint DPIIS_PK primary key (DPIIS_ID) 
 
 create unique index DPIIS_UIX1 on D_PI_INSTANCE_STATUS ("Instance Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_INSTANCE_STATUS for D_PI_INSTANCE_STATUS;
 grant select on D_PI_INSTANCE_STATUS to MAXDAT_READ_ONLY;
-
 
 create or replace view D_PI_INSTANCE_STATUS_SV as
 select * from D_PI_INSTANCE_STATUS
 with read only;
 
-create or replace public synonym D_PI_INSTANCE_STATUS_SV for D_PI_INSTANCE_STATUS_SV;
 grant select on D_PI_INSTANCE_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_INSTANCE_STATUS (DPIIS_ID ,"Instance Status") values (SEQ_DPIIS_ID.NEXTVAL,null);
@@ -136,7 +147,7 @@ increment by 1
 cache 20;
 
 create table D_PI_INCIDENT_ABOUT 
-  (DPIIA_ID number,
+  (DPIIA_ID number not null,
    "Incident About" varchar2(80))
 tablespace MAXDAT_DATA;
 
@@ -144,7 +155,6 @@ alter table D_PI_INCIDENT_ABOUT add constraint DPIIA_PK primary key (DPIIA_ID) u
 
 create unique index DPIIA_UIX1 on D_PI_INCIDENT_ABOUT ("Incident About") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_INSTANCE_ABOUT for D_PI_INSTANCE_ABOUT;
 grant select on D_PI_INCIDENT_ABOUT to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_INCIDENT_ABOUT_SV as
@@ -154,8 +164,8 @@ with read only;
 insert into D_PI_INCIDENT_ABOUT (DPIIA_ID ,"Incident About") values (SEQ_DPIIA_ID.NEXTVAL,null);
 commit;
 
-create or replace public synonym D_PI_INCIDENT_ABOUT_SV for D_PI_INCIDENT_ABOUT_SV;
 grant select on D_PI_INCIDENT_ABOUT_SV to MAXDAT_READ_ONLY;
+
 
 -- D_PI_INCIDENT_REASON    DPIIR_ID  "Incident Reason"           VARCHAR2(80),
 create sequence SEQ_DPIIR_ID
@@ -166,7 +176,7 @@ increment by 1
 cache 20;
 
 create table D_PI_INCIDENT_REASON 
-  (DPIIR_ID number,
+  (DPIIR_ID number not null,
    "Incident Reason" varchar2(80))
 tablespace MAXDAT_DATA parallel;
 
@@ -174,14 +184,12 @@ alter table D_PI_INCIDENT_REASON add constraint DPIIR_PK primary key (DPIIR_ID) 
 
 create unique index DPIIR_UIX1 on D_PI_INCIDENT_REASON ("Incident Reason") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_INCIDENT_REASON for D_PI_INCIDENT_REASON;
 grant select on D_PI_INCIDENT_REASON to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_INCIDENT_REASON_SV as
 select * from D_PI_INCIDENT_REASON
 with read only;
 
-create or replace public synonym D_PI_INCIDENT_REASON_SV for D_PI_INCIDENT_REASON_SV;
 grant select on D_PI_INCIDENT_REASON_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_INCIDENT_REASON (DPIIR_ID ,"Incident Reason") values (SEQ_DPIIR_ID.NEXTVAL,null);
@@ -197,7 +205,7 @@ increment by 1
 cache 20;
 
 create table D_PI_INCIDENT_STATUS 
-  (DPIISS_ID number,
+  (DPIISS_ID number not null,
    "Incident Status" varchar2(80))
 tablespace MAXDAT_DATA;
 
@@ -205,15 +213,12 @@ alter table D_PI_INCIDENT_STATUS add constraint DPIISS_PK primary key (DPIISS_ID
 
 create unique index DPIISS_UIX1 on D_PI_INCIDENT_STATUS ("Incident Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_INCIDENT_STATUS for D_PI_INCIDENT_STATUS;
 grant select on D_PI_INCIDENT_STATUS to MAXDAT_READ_ONLY;
-
 
 create or replace view D_PI_INCIDENT_STATUS_SV as
 select * from D_PI_INCIDENT_STATUS
 with read only;
 
-create or replace public synonym D_PI_INCIDENT_STATUS_SV for D_PI_INCIDENT_STATUS_SV;
 grant select on D_PI_INCIDENT_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_INCIDENT_STATUS (DPIISS_ID ,"Incident Status") values (SEQ_DPIISS_ID.NEXTVAL,null);
@@ -229,7 +234,7 @@ increment by 1
 cache 20;
 
 create table D_PI_JEOPARDY_STATUS 
-  (DPIJS_ID number,
+  (DPIJS_ID number not null,
    "Jeopardy Status" varchar(2))
 tablespace MAXDAT_DATA;
 
@@ -237,14 +242,12 @@ alter table D_PI_JEOPARDY_STATUS add constraint DPIJS_PK primary key (DPIJS_ID) 
 
 create unique index DPIJS_UIX1 on D_PI_JEOPARDY_STATUS ("Jeopardy Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_JEOPARDY_STATUS for D_PI_JEOPARDY_STATUS;
 grant select on D_PI_JEOPARDY_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_JEOPARDY_STATUS_SV as
 select * from D_PI_JEOPARDY_STATUS
 with read only;
 
-create or replace public synonym D_PI_JEOPARDY_STATUS_SV for D_PI_JEOPARDY_STATUS_SV;
 grant select on D_PI_JEOPARDY_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_JEOPARDY_STATUS (DPIJS_ID ,"Jeopardy Status") values (SEQ_DPIJS_ID.NEXTVAL,null);
@@ -260,7 +263,7 @@ increment by 1
 cache 20;
 
 create table D_PI_ENROLLMENT_STATUS 
-  (DPIES_ID number,
+  (DPIES_ID number not null,
    "Enrollment Status" varchar2(32))
 tablespace MAXDAT_DATA;
 
@@ -268,14 +271,12 @@ alter table D_PI_ENROLLMENT_STATUS add constraint DPIES_PK primary key (DPIES_ID
 
 create unique index DPIES_UIX1 on D_PI_ENROLLMENT_STATUS ("Enrollment Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_ENROLLMENT_STATUS for D_PI_ENROLLMENT_STATUS;
 grant select on D_PI_ENROLLMENT_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_ENROLLMENT_STATUS_SV as
 select * from D_PI_ENROLLMENT_STATUS
 with read only;
 
-create or replace public synonym D_PI_ENROLLMENT_STATUS_SV for D_PI_ENROLLMENT_STATUS_SV;
 grant select on D_PI_ENROLLMENT_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_ENROLLMENT_STATUS (DPIES_ID ,"Enrollment Status") values (SEQ_DPIES_ID.NEXTVAL,null);
@@ -291,7 +292,7 @@ increment by 1
 cache 20;
 
 create table D_PI_LAST_UPDATE_BY 
-  (DPIUB_ID number,
+  (DPIUB_ID number not null,
    "Last Update By Name" varchar2(100))
 tablespace MAXDAT_DATA;
 
@@ -299,14 +300,12 @@ alter table D_PI_LAST_UPDATE_BY add constraint DPILUB_PK primary key (DPIUB_ID) 
 
 create unique index DPIUB_UIX1 on D_PI_LAST_UPDATE_BY ("Last Update By Name") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_LAST_UPDATE_BY for D_PI_LAST_UPDATE_BY;
 grant select on D_PI_LAST_UPDATE_BY to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_LAST_UPDATE_BY_SV as
 select * from D_PI_LAST_UPDATE_BY
 with read only;
 
-create or replace public synonym D_PI_LAST_UPDATE_BY_SV for D_PI_LAST_UPDATE_BY_SV;
 grant select on D_PI_LAST_UPDATE_BY_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_LAST_UPDATE_BY (DPIUB_ID ,"Last Update By Name") values (SEQ_DPIUB_ID.NEXTVAL,null);
@@ -322,7 +321,7 @@ increment by 1
 cache 20;
 
 create table D_PI_TASK_ID 
-  (DPITI_ID number, 
+  (DPITI_ID number not null, 
 	 "Task ID" number)
 tablespace MAXDAT_DATA parallel;
 
@@ -330,20 +329,19 @@ alter table D_PI_TASK_ID add constraint DPITI_PK primary key (DPITI_ID) using in
 
 create unique index DPITI_UIX1 on D_PI_TASK_ID ("Task ID") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_PI_TASK_ID for D_PI_TASK_ID;
 grant select on D_PI_TASK_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_PI_TASK_ID_SV as
 select * from D_PI_TASK_ID
 with read only;
 
-create or replace public synonym D_PI_TASK_ID_SV for D_PI_TASK_ID_SV;
 grant select on D_PI_TASK_ID_SV to MAXDAT_READ_ONLY;
 
 insert into D_PI_TASK_ID (DPITI_ID ,"Task ID") values (SEQ_DPITI_ID.NEXTVAL,null);
 commit;
 
 
+-- Fact F_PI_BY_DATE
 create sequence SEQ_FPIBD_ID
 minvalue 1
 maxvalue 999999999999999999999999999
@@ -398,7 +396,6 @@ create index FPIBD_IXL2 on F_PI_BY_DATE (PI_BI_ID) local online tablespace MAXDA
 create index FPIBD_IXL3 on F_PI_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FPIBD_IXL4 on F_PI_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_PI_BY_DATE for F_PI_BY_DATE;
 grant select on F_PI_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_PI_BY_DATE_SV as
@@ -505,25 +502,4 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_PI_BY_DATE_SV for F_PI_BY_DATE_SV;
 grant select on F_PI_BY_DATE_SV to MAXDAT_READ_ONLY;
-
-create or replace view INCIDENT_DESC_SV as
-select 
-  INCIDENT_ID,
-  INCIDENT_DESCRIPTION 
-from CORP_ETL_PROCESS_INCIDENTS
-with read only;
-
-create or replace public synonym INCIDENT_DESC_SV for INCIDENT_DESC_SV;
-grant select on INCIDENT_DESC_SV to MAXDAT_READ_ONLY;
-
-create or replace view RESOLUTION_DESC_SV as
-select 
-  INCIDENT_ID,
-  RESOLUTION_DESCRIPTION 
-from CORP_ETL_PROCESS_INCIDENTS
-with read only;
-
-create or replace public synonym RESOLUTION_DESC_SV for RESOLUTION_DESC_SV;
-grant select on RESOLUTION_DESC_SV to MAXDAT_READ_ONLY;

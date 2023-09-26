@@ -15,7 +15,7 @@ create table MAXDAT_ADMIN_AUDIT_LOGGING
 tablespace MAXDAT_DATA;
 
 alter table MAXDAT_ADMIN_AUDIT_LOGGING add constraint MAXDAT_ADMIN_AUDIT_LOGGING_PK primary key (MAAL_ID);
-alter index MAXDAT_ADMIN_AUDIT_LOGGING_PK rebuild tablespace MAXDAT_INDX parallel;
+alter index MAXDAT_ADMIN_AUDIT_LOGGING_PK rebuild tablespace MAXDAT_INDX;
 
 create index MAXDAT_ADMIN_AUDIT_LOGGING_IX1 on MAXDAT_ADMIN_AUDIT_LOGGING (LOG_DATE) online tablespace MAXDAT_INDX compute statistics;
 

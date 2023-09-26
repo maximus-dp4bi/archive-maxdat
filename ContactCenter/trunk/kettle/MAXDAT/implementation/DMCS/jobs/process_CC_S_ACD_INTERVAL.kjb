@@ -2,7 +2,20 @@
 <job>
   <name>process_CC_S_ACD_INTERVAL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
   <directory>&#47;</directory>
   <created_user>-</created_user>
@@ -13,11 +26,11 @@
     </parameters>
   <connection>
     <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <server/>
     <type>ORACLE</type>
     <access>Native</access>
     <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
+    <port>1521</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
@@ -34,7 +47,7 @@
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
@@ -465,8 +478,8 @@ Steps:
 *Suggestion to refine the Move to Error step so that only the file which errors out is moved.  Currently if files from multiple dates are being processed and one errors out, all the files will be moved.</note>
       <xloc>15</xloc>
       <yloc>486</yloc>
-      <width>1126</width>
-      <heigth>324</heigth>
+      <width>1470</width>
+      <heigth>421</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

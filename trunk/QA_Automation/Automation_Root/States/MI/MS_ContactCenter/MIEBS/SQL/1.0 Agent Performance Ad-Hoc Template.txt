@@ -1,0 +1,975 @@
+select	distinct coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME, pa13.D_DAY_NAME, pa14.D_DAY_NAME, pa15.D_DAY_NAME)  D_DAY_NAME,
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH, pa13.D_DAY_OF_MONTH, pa14.D_DAY_OF_MONTH, pa15.D_DAY_OF_MONTH)  D_DAY_OF_MONTH,
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK, pa13.D_DAY_OF_WEEK, pa14.D_DAY_OF_WEEK, pa15.D_DAY_OF_WEEK)  D_DAY_OF_WEEK,
+--	 a16.D_YEAR||a16.D_MONTH_NUM  D_MONTH,
+	a16.D_MONTH_NAME  D_MONTH_NAME,
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM, pa13.D_MONTH_NUM, pa14.D_MONTH_NUM, pa15.D_MONTH_NUM)  D_MONTH_NUMBER,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID, pa13.LOGIN_ID0, pa14.LOGIN_ID, pa15.LOGIN_ID0)  SUPERVISOR_LOGIN_ID,
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH, pa13.D_WEEK_OF_MONTH, pa14.D_WEEK_OF_MONTH, pa15.D_WEEK_OF_MONTH)  D_WEEK_OF_MONTH,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG, pa13.WEEKEND_FLAG, pa14.WEEKEND_FLAG, pa15.WEEKEND_FLAG)  WEEKEND_FLAG,
+	a16.D_YEAR  D_YEAR,
+--	coalesce(pa11.CustCol_170, pa12.CustCol_170, pa13.CustCol_17, pa14.CustCol_170, pa15.CustCol_17)  CustCol_17,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' ' || a17.MIDDLE_INITIAL   AGENT_NAME,
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0, pa13.LOGIN_ID, pa14.LOGIN_ID0, pa15.LOGIN_ID) AGENT_LOGIN_ID,
+	a16.D_DAY  D_DAY,
+--	coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE)  D_DATE,
+--	coalesce(pa11.CustCol_17, pa12.CustCol_17, pa13.CustCol_170, pa14.CustCol_17, pa15.CustCol_170)  CustCol_170,
+--	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' ' || a18.MIDDLE_INITIAL    CustCol_180,
+    pa11.WJXBFS1  HANDLE_CALLS_CNT,
+	pa11.ABD_Login_Seconds  ABD_Login_Seconds,
+	pa11.WJXBFS2  INTERNAL_SECONDS,
+	pa11.WJXBFS3  INTERNAL_CALLS_CNT,
+	pa11.WJXBFS4  IDLE_SECONDS,
+	pa11.WJXBFS5  HOLD_SECONDS,
+	pa11.WJXBFS6  HANDLE_TIME_SECONDS,
+	pa11.WJXBFS7  EXTERNAL_SECONDS,
+	pa11.WJXBFS8  EXTERNAL_CALLS_CNT,
+--	pa12.WJXBFS1  TALK_SECONDS,
+--	pa13.WJXBFS1  WRAP_SECONDS,
+--	pa13.WJXBFS2  TALK_RESERVE_SECONDS,
+	pa11.WJXBFSa  PREDICTIVE_TALK_SECONDS,
+	pa11.WJXBFS9  PREVIEW_TALK_SECONDS,
+	pa11.WJXBFSe  RING_SECONDS,
+	pa11.WJXBFSf  NOT_READY_SECONDS
+--	pa12.WJXBFS2  WRAP_SECONDS_SUM,
+--	pa14.WJXBFS1  TALK_SECONDS_SUM,
+--	pa15.WJXBFS2  HOLD_SECONDS_SUM,
+--	pa12.WJXBFS3  IDLE_SECONDS_SUM,
+--	pa12.WJXBFS4  IDLE_SECONDS_2,
+--	pa14.WJXBFS2  INTERNAL_SECONDS_2
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a17.LOGIN_ID  LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a11.AGENT_LOGIN_ID  LOGIN_ID0,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'   CustCol_170,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS1,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS2,
+	sum(a11.INTERNAL_CALLS_COUNT)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.HOLD_SECONDS)  WJXBFS5,
+	sum(a11.HANDLE_TIME_SECONDS)  WJXBFS6,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS7,
+	sum(a11.EXTERNAL_CALLS_COUNT)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFSb,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFSc,
+	sum(a11.PREVIEW_TALK_SECONDS)  WJXBFSd,
+	sum(a11.RING_SECONDS)  WJXBFSe,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSf,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS11,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS12,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS13
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(a11.D_AGENT_ID = a13.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a14
+	  on 	(a11.D_PROGRAM_ID = a14.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a15
+	  on 	(a11.D_PROJECT_TARGETS_ID = a15.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a15.PROJECT_ID = a16.PROJECT_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a17
+	  on 	(a11.SUPERVISOR_D_AGENT_ID = a17.D_AGENT_ID)
+where	(a16.PROJECT_NAME in ('MIEB')
+and a17.LOGIN_ID in ('0073676')
+-- critical line above
+ --and a14.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy'))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a17.LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a11.AGENT_LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'  
+)	pa11
+	full outer join	
+	(
+	select	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG)  WEEKEND_FLAG,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH)  D_WEEK_OF_MONTH,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID0)  LOGIN_ID,
+	coalesce(pa11.CustCol_17, pa12.CustCol_170)  CustCol_17,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM)  D_MONTH_NUM,
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK)  D_DAY_OF_WEEK,
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH)  D_DAY_OF_MONTH,
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME)  D_DAY_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID)  LOGIN_ID0,
+	coalesce(pa11.CustCol_170, pa12.CustCol_17)  CustCol_170,
+	NVL((((((((((((((NVL(pa11.WJXBFS9, 0) + NVL(pa11.WJXBFS5, 0)) + NVL(pa11.WJXBFSa, 0)) + NVL(pa11.WJXBFS7, 0)) + NVL(pa11.WJXBFS2, 0)) + NVL(pa11.WJXBFSb, 0)) + NVL(pa11.WJXBFSc, 0)) + NVL(pa11.WJXBFSd, 0)) + NVL(pa11.WJXBFSe, 0)) + NVL(pa11.WJXBFS4, 0)) + NVL(pa12.WJXBFS1, 0)) / 24.0) / 60.0) / 60.0), 0)  WJXBFS1,
+	(NVL(pa11.WJXBFS6, 0) + NVL(pa12.WJXBFS1, 0))  WJXBFS2,
+	pa11.WJXBFS1  WJXBFS3,
+	((((NVL((((pa11.WJXBFS10 * 24.0) * 60.0) * 60.0), 0) + NVL((((pa11.WJXBFS11 * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFS12 * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFS13 * 24.0) * 60.0) * 60.0), 0)) + NVL((pa12.WJXBFS2 * 60.0), 0))  WJXBFS4
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a17.LOGIN_ID  LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a11.AGENT_LOGIN_ID  LOGIN_ID0,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'   CustCol_170,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS1,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS2,
+	sum(a11.INTERNAL_CALLS_COUNT)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.HOLD_SECONDS)  WJXBFS5,
+	sum(a11.HANDLE_TIME_SECONDS)  WJXBFS6,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS7,
+	sum(a11.EXTERNAL_CALLS_COUNT)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFSb,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFSc,
+	sum(a11.PREVIEW_TALK_SECONDS)  WJXBFSd,
+	sum(a11.RING_SECONDS)  WJXBFSe,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSf,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS11,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS12,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS13
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(a11.D_AGENT_ID = a13.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a14
+	  on 	(a11.D_PROGRAM_ID = a14.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a15
+	  on 	(a11.D_PROJECT_TARGETS_ID = a15.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a15.PROJECT_ID = a16.PROJECT_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a17
+	  on 	(a11.SUPERVISOR_D_AGENT_ID = a17.D_AGENT_ID)
+where	(a16.PROJECT_NAME in ('MIEB')
+ --and a14.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy'))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a17.LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a11.AGENT_LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'  
+)	pa11
+	full outer join	
+	(
+	select	pa01.CustCol_170  CustCol_17,
+	pa01.LOGIN_ID0  LOGIN_ID,
+	pa01.D_DATE  D_DATE,
+	pa01.D_DAY_NAME  D_DAY_NAME,
+	pa01.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa01.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa01.D_MONTH_NUM  D_MONTH_NUM,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.CustCol_17  CustCol_170,
+	pa01.LOGIN_ID  LOGIN_ID0,
+	pa01.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa01.WJXBFS1  WJXBFS1,
+	pa01.WJXBFS2  WJXBFS2
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a18.LOGIN_ID  LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a14.LOGIN_ID  LOGIN_ID0,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')'   CustCol_170,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG2_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end)) / 1440.0)  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG5_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE  	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	 a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a14
+	  on 	(a11.D_AGENT_ID = a14.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a15
+	  on 	(a11.D_PROGRAM_ID = a15.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a11.D_PROJECT_ID = a16.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE 	a17
+	  on 	(a11.D_AGENT_ID = a17.D_AGENT_ID and 
+	a11.D_DATE_ID = a17.D_DATE_ID and 
+	a11.D_GEOGRAPHY_MASTER_ID = a17.D_GEOGRAPHY_MASTER_ID and 
+	a11.D_GROUP_ID = a17.D_GROUP_ID and 
+	a11.D_PROGRAM_ID = a17.D_PROGRAM_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(a17.SUPERVISOR_D_AGENT_ID = a18.D_AGENT_ID)
+where	(a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and a16.PROJECT_NAME in ('MIEB')
+ and a14.LOGIN_ID in ('0073676')
+ --and a15.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')
+ or (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break')
+ and a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ and a13.IS_PAID_FLAG in ('0'))))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a18.LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a14.LOGIN_ID,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')' 
+)	pa01
+where	(pa01.GODWFLAG2_1 = 1
+ and pa01.GODWFLAG2_1 = 1) 
+)	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_170 and 
+	pa11.CustCol_170 = pa12.CustCol_17 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_DAY_NAME = pa12.D_DAY_NAME and 
+	pa11.D_DAY_OF_MONTH = pa12.D_DAY_OF_MONTH and 
+	pa11.D_DAY_OF_WEEK = pa12.D_DAY_OF_WEEK and 
+	pa11.D_MONTH_NUM = pa12.D_MONTH_NUM and 
+	pa11.D_WEEK_OF_MONTH = pa12.D_WEEK_OF_MONTH and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID0 and 
+	pa11.LOGIN_ID0 = pa12.LOGIN_ID and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.WEEKEND_FLAG = pa12.WEEKEND_FLAG)
+where	(coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) in ('MIEB')
+ and pa11.LOGIN_ID in ('0073676')
+ and coalesce(pa11.D_DATE, pa12.D_DATE) between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')) 
+)	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_17 and 
+	pa11.CustCol_170 = pa12.CustCol_170 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_DAY_NAME = pa12.D_DAY_NAME and 
+	pa11.D_DAY_OF_MONTH = pa12.D_DAY_OF_MONTH and 
+	pa11.D_DAY_OF_WEEK = pa12.D_DAY_OF_WEEK and 
+	pa11.D_MONTH_NUM = pa12.D_MONTH_NUM and 
+	pa11.D_WEEK_OF_MONTH = pa12.D_WEEK_OF_MONTH and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID and 
+	pa11.LOGIN_ID0 = pa12.LOGIN_ID0 and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.WEEKEND_FLAG = pa12.WEEKEND_FLAG)
+	full outer join	
+	(
+	select	pa01.CustCol_170  CustCol_17,
+	pa01.LOGIN_ID0  LOGIN_ID,
+	pa01.D_DATE  D_DATE,
+	pa01.D_DAY_NAME  D_DAY_NAME,
+	pa01.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa01.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa01.D_MONTH_NUM  D_MONTH_NUM,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.CustCol_17  CustCol_170,
+	pa01.LOGIN_ID  LOGIN_ID0,
+	pa01.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa01.WJXBFS3  WJXBFS1,
+	pa01.WJXBFS4  WJXBFS2
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a18.LOGIN_ID  LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a14.LOGIN_ID  LOGIN_ID0,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')'   CustCol_170,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG2_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end)) / 1440.0)  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG5_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a14
+	  on 	(a11.D_AGENT_ID = a14.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a15
+	  on 	(a11.D_PROGRAM_ID = a15.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a11.D_PROJECT_ID = a16.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a17
+	  on 	(a11.D_AGENT_ID = a17.D_AGENT_ID and 
+	a11.D_DATE_ID = a17.D_DATE_ID and 
+	a11.D_GEOGRAPHY_MASTER_ID = a17.D_GEOGRAPHY_MASTER_ID and 
+	a11.D_GROUP_ID = a17.D_GROUP_ID and 
+	a11.D_PROGRAM_ID = a17.D_PROGRAM_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(a17.SUPERVISOR_D_AGENT_ID = a18.D_AGENT_ID)
+where	(a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and a16.PROJECT_NAME in ('MIEB')
+ and a14.LOGIN_ID in ('0073676')
+ --and a15.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')
+ or (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break')
+ and a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ and a13.IS_PAID_FLAG in ('0'))))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a18.LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a14.LOGIN_ID,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')' 
+)	pa01
+where	pa01.GODWFLAG4_1 = 1 
+)	pa13
+	  on 	(coalesce(pa11.CustCol_17, pa12.CustCol_17) = pa13.CustCol_170 and 
+	coalesce(pa11.CustCol_170, pa12.CustCol_170) = pa13.CustCol_17 and 
+	coalesce(pa11.D_DATE, pa12.D_DATE) = pa13.D_DATE and 
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME) = pa13.D_DAY_NAME and 
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH) = pa13.D_DAY_OF_MONTH and 
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK) = pa13.D_DAY_OF_WEEK and 
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM) = pa13.D_MONTH_NUM and 
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH) = pa13.D_WEEK_OF_MONTH and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR) = pa13.D_WEEK_OF_YEAR and 
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID) = pa13.LOGIN_ID0 and 
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0) = pa13.LOGIN_ID and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) = pa13.PROJECT_NAME and 
+	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG) = pa13.WEEKEND_FLAG)
+	full outer join	
+	(
+	select	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG)  WEEKEND_FLAG,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH)  D_WEEK_OF_MONTH,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID)  LOGIN_ID,
+	coalesce(pa11.CustCol_17, pa12.CustCol_17)  CustCol_17,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM)  D_MONTH_NUM,
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK)  D_DAY_OF_WEEK,
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH)  D_DAY_OF_MONTH,
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME)  D_DAY_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0)  LOGIN_ID0,
+	coalesce(pa11.CustCol_170, pa12.CustCol_170)  CustCol_170,
+	pa11.WJXBFS1  WJXBFS1,
+	pa12.WJXBFS1  WJXBFS2
+from	
+(
+select	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG)  WEEKEND_FLAG,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH)  D_WEEK_OF_MONTH,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID)  LOGIN_ID,
+	coalesce(pa11.CustCol_17, pa12.CustCol_17)  CustCol_17,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM)  D_MONTH_NUM,
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK)  D_DAY_OF_WEEK,
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH)  D_DAY_OF_MONTH,
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME)  D_DAY_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0)  LOGIN_ID0,
+	coalesce(pa11.CustCol_170, pa12.CustCol_170)  CustCol_170,
+	(NVL(pa11.ABD_Login_Seconds, 0) - NVL((((pa12.WJXBFS1 * 24.0) * 60.0) * 60.0), 0))  WJXBFS1
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a17.LOGIN_ID  LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a11.AGENT_LOGIN_ID  LOGIN_ID0,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'   CustCol_170,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS1,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS2,
+	sum(a11.INTERNAL_CALLS_COUNT)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.HOLD_SECONDS)  WJXBFS5,
+	sum(a11.HANDLE_TIME_SECONDS)  WJXBFS6,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS7,
+	sum(a11.EXTERNAL_CALLS_COUNT)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFSb,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFSc,
+	sum(a11.PREVIEW_TALK_SECONDS)  WJXBFSd,
+	sum(a11.RING_SECONDS)  WJXBFSe,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSf,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS11,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS12,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS13
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(a11.D_AGENT_ID = a13.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a14
+	  on 	(a11.D_PROGRAM_ID = a14.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a15
+	  on 	(a11.D_PROJECT_TARGETS_ID = a15.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a15.PROJECT_ID = a16.PROJECT_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a17
+	  on 	(a11.SUPERVISOR_D_AGENT_ID = a17.D_AGENT_ID)
+where	(a16.PROJECT_NAME in ('MIEB')
+ --and a14.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and a17.LOGIN_ID in ('0073676')
+ and a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy'))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a17.LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a11.AGENT_LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'  
+)	pa11
+	full outer join	
+	(
+	select	pa11.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa11.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa11.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa11.LOGIN_ID  LOGIN_ID,
+	pa11.CustCol_17  CustCol_17,
+	pa11.PROJECT_NAME  PROJECT_NAME,
+	pa11.D_MONTH_NUM  D_MONTH_NUM,
+	pa11.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa11.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa11.D_DAY_NAME  D_DAY_NAME,
+	pa11.D_DATE  D_DATE,
+	pa11.LOGIN_ID0  LOGIN_ID0,
+	pa11.CustCol_170  CustCol_170,
+	NVL((NVL((pa11.WJXBFS5 * 60.0), 0) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END)), 0)  WJXBFS1
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a18.LOGIN_ID  LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a14.LOGIN_ID  LOGIN_ID0,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')'   CustCol_170,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG2_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end)) / 1440.0)  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG5_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a14
+	  on 	(a11.D_AGENT_ID = a14.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a15
+	  on 	(a11.D_PROGRAM_ID = a15.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a11.D_PROJECT_ID = a16.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a17
+	  on 	(a11.D_AGENT_ID = a17.D_AGENT_ID and 
+	a11.D_DATE_ID = a17.D_DATE_ID and 
+	a11.D_GEOGRAPHY_MASTER_ID = a17.D_GEOGRAPHY_MASTER_ID and 
+	a11.D_GROUP_ID = a17.D_GROUP_ID and 
+	a11.D_PROGRAM_ID = a17.D_PROGRAM_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(a17.SUPERVISOR_D_AGENT_ID = a18.D_AGENT_ID)
+where	(a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and a16.PROJECT_NAME in ('MIEB')
+ --and a14.D_AGENT_ID in ('0073676')
+ and a14.LOGIN_ID in ('0073676')
+ --and a15.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')
+ or (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break')
+ and a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ and a13.IS_PAID_FLAG in ('0'))))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a18.LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a14.LOGIN_ID,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')' 
+)	pa11
+where	(pa11.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and pa11.GODWFLAG5_1 = 1) 
+)	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_17 and 
+	pa11.CustCol_170 = pa12.CustCol_170 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_DAY_NAME = pa12.D_DAY_NAME and 
+	pa11.D_DAY_OF_MONTH = pa12.D_DAY_OF_MONTH and 
+	pa11.D_DAY_OF_WEEK = pa12.D_DAY_OF_WEEK and 
+	pa11.D_MONTH_NUM = pa12.D_MONTH_NUM and 
+	pa11.D_WEEK_OF_MONTH = pa12.D_WEEK_OF_MONTH and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID and 
+	pa11.LOGIN_ID0 = pa12.LOGIN_ID0 and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.WEEKEND_FLAG = pa12.WEEKEND_FLAG)
+where	(coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) in ('MIEB')
+ and coalesce(pa11.D_DATE, pa12.D_DATE) between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')) 
+)	pa11
+	full outer join	
+	(
+	select	pa11.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa11.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa11.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa11.LOGIN_ID  LOGIN_ID,
+	pa11.CustCol_17  CustCol_17,
+	pa11.PROJECT_NAME  PROJECT_NAME,
+	pa11.D_MONTH_NUM  D_MONTH_NUM,
+	pa11.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa11.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa11.D_DAY_NAME  D_DAY_NAME,
+	pa11.D_DATE  D_DATE,
+	pa11.LOGIN_ID0  LOGIN_ID0,
+	pa11.CustCol_170  CustCol_170,
+	NVL((pa11.WJXBFS1 * 24.0), 0)  WJXBFS1
+from	
+(
+select	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG)  WEEKEND_FLAG,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH)  D_WEEK_OF_MONTH,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID0)  LOGIN_ID,
+	coalesce(pa11.CustCol_17, pa12.CustCol_170)  CustCol_17,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM)  D_MONTH_NUM,
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK)  D_DAY_OF_WEEK,
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH)  D_DAY_OF_MONTH,
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME)  D_DAY_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID)  LOGIN_ID0,
+	coalesce(pa11.CustCol_170, pa12.CustCol_17)  CustCol_170,
+	NVL((((((((((((((NVL(pa11.WJXBFS9, 0) + NVL(pa11.WJXBFS5, 0)) + NVL(pa11.WJXBFSa, 0)) + NVL(pa11.WJXBFS7, 0)) + NVL(pa11.WJXBFS2, 0)) + NVL(pa11.WJXBFSb, 0)) + NVL(pa11.WJXBFSc, 0)) + NVL(pa11.WJXBFSd, 0)) + NVL(pa11.WJXBFSe, 0)) + NVL(pa11.WJXBFS4, 0)) + NVL(pa12.WJXBFS1, 0)) / 24.0) / 60.0) / 60.0), 0)  WJXBFS1,
+	(NVL(pa11.WJXBFS6, 0) + NVL(pa12.WJXBFS1, 0))  WJXBFS2,
+	pa11.WJXBFS1  WJXBFS3,
+	((((NVL((((pa11.WJXBFS10 * 24.0) * 60.0) * 60.0), 0) + NVL((((pa11.WJXBFS11 * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFS12 * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFS13 * 24.0) * 60.0) * 60.0), 0)) + NVL((pa12.WJXBFS2 * 60.0), 0))  WJXBFS4
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a17.LOGIN_ID  LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a11.AGENT_LOGIN_ID  LOGIN_ID0,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'   CustCol_170,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS1,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS2,
+	sum(a11.INTERNAL_CALLS_COUNT)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.HOLD_SECONDS)  WJXBFS5,
+	sum(a11.HANDLE_TIME_SECONDS)  WJXBFS6,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS7,
+	sum(a11.EXTERNAL_CALLS_COUNT)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFSb,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFSc,
+	sum(a11.PREVIEW_TALK_SECONDS)  WJXBFSd,
+	sum(a11.RING_SECONDS)  WJXBFSe,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSf,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS11,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS12,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS13
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(a11.D_AGENT_ID = a13.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a14
+	  on 	(a11.D_PROGRAM_ID = a14.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a15
+	  on 	(a11.D_PROJECT_TARGETS_ID = a15.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a15.PROJECT_ID = a16.PROJECT_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a17
+	  on 	(a11.SUPERVISOR_D_AGENT_ID = a17.D_AGENT_ID)
+where	(a16.PROJECT_NAME in ('MIEB')
+ --and a14.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy'))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a17.LOGIN_ID,
+	 a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a11.AGENT_LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'  
+)	pa11
+	full outer join	
+	(
+	select	pa01.CustCol_170  CustCol_17,
+	pa01.LOGIN_ID0  LOGIN_ID,
+	pa01.D_DATE  D_DATE,
+	pa01.D_DAY_NAME  D_DAY_NAME,
+	pa01.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa01.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa01.D_MONTH_NUM  D_MONTH_NUM,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.CustCol_17  CustCol_170,
+	pa01.LOGIN_ID  LOGIN_ID0,
+	pa01.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa01.WJXBFS1  WJXBFS1,
+	pa01.WJXBFS2  WJXBFS2
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a18.LOGIN_ID  LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a14.LOGIN_ID  LOGIN_ID0,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')'   CustCol_170,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG2_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end)) / 1440.0)  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG5_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a14
+	  on 	(a11.D_AGENT_ID = a14.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a15
+	  on 	(a11.D_PROGRAM_ID = a15.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a11.D_PROJECT_ID = a16.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a17
+	  on 	(a11.D_AGENT_ID = a17.D_AGENT_ID and 
+	a11.D_DATE_ID = a17.D_DATE_ID and 
+	a11.D_GEOGRAPHY_MASTER_ID = a17.D_GEOGRAPHY_MASTER_ID and 
+	a11.D_GROUP_ID = a17.D_GROUP_ID and 
+	a11.D_PROGRAM_ID = a17.D_PROGRAM_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(a17.SUPERVISOR_D_AGENT_ID = a18.D_AGENT_ID)
+where	(a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and a16.PROJECT_NAME in ('MIEB')
+ --and a15.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')
+ or (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break')
+ and a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ and a13.IS_PAID_FLAG in ('0'))))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a18.LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a14.LOGIN_ID,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')' 
+)	pa01
+where	(pa01.GODWFLAG2_1 = 1
+ and pa01.GODWFLAG2_1 = 1) 
+)	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_170 and 
+	pa11.CustCol_170 = pa12.CustCol_17 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_DAY_NAME = pa12.D_DAY_NAME and 
+	pa11.D_DAY_OF_MONTH = pa12.D_DAY_OF_MONTH and 
+	pa11.D_DAY_OF_WEEK = pa12.D_DAY_OF_WEEK and 
+	pa11.D_MONTH_NUM = pa12.D_MONTH_NUM and 
+	pa11.D_WEEK_OF_MONTH = pa12.D_WEEK_OF_MONTH and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID0 and 
+	pa11.LOGIN_ID0 = pa12.LOGIN_ID and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.WEEKEND_FLAG = pa12.WEEKEND_FLAG)
+where	(coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) in ('MIEB')
+  and coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID) in ('0073676')
+ and coalesce(pa11.D_DATE, pa12.D_DATE) between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')) 
+)	pa11
+where	(pa11.PROJECT_NAME in ('MIEB')
+ and pa11.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')) 
+)	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_17 and 
+	pa11.CustCol_170 = pa12.CustCol_170 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_DAY_NAME = pa12.D_DAY_NAME and 
+	pa11.D_DAY_OF_MONTH = pa12.D_DAY_OF_MONTH and 
+	pa11.D_DAY_OF_WEEK = pa12.D_DAY_OF_WEEK and 
+	pa11.D_MONTH_NUM = pa12.D_MONTH_NUM and 
+	pa11.D_WEEK_OF_MONTH = pa12.D_WEEK_OF_MONTH and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID and 
+	pa11.LOGIN_ID0 = pa12.LOGIN_ID0 and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.WEEKEND_FLAG = pa12.WEEKEND_FLAG) 
+)	pa14
+	  on 	(coalesce(pa11.CustCol_17, pa12.CustCol_17, pa13.CustCol_170) = pa14.CustCol_17 and 
+	coalesce(pa11.CustCol_170, pa12.CustCol_170, pa13.CustCol_17) = pa14.CustCol_170 and 
+	coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE) = pa14.D_DATE and 
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME, pa13.D_DAY_NAME) = pa14.D_DAY_NAME and 
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH, pa13.D_DAY_OF_MONTH) = pa14.D_DAY_OF_MONTH and 
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK, pa13.D_DAY_OF_WEEK) = pa14.D_DAY_OF_WEEK and 
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM, pa13.D_MONTH_NUM) = pa14.D_MONTH_NUM and 
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH, pa13.D_WEEK_OF_MONTH) = pa14.D_WEEK_OF_MONTH and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR) = pa14.D_WEEK_OF_YEAR and 
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID, pa13.LOGIN_ID0) = pa14.LOGIN_ID and 
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0, pa13.LOGIN_ID) = pa14.LOGIN_ID0 and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME) = pa14.PROJECT_NAME and 
+	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG, pa13.WEEKEND_FLAG) = pa14.WEEKEND_FLAG)
+	full outer join	
+	(
+	select	pa01.CustCol_170  CustCol_17,
+	pa01.LOGIN_ID0  LOGIN_ID,
+	pa01.D_DATE  D_DATE,
+	pa01.D_DAY_NAME  D_DAY_NAME,
+	pa01.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	pa01.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	pa01.D_MONTH_NUM  D_MONTH_NUM,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.CustCol_17  CustCol_170,
+	pa01.LOGIN_ID  LOGIN_ID0,
+	pa01.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WEEKEND_FLAG  WEEKEND_FLAG,
+	pa01.WJXBFS1  WJXBFS1,
+	pa01.WJXBFS2  WJXBFS2
+from	
+(
+select	a12.WEEKEND_FLAG  WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH  D_WEEK_OF_MONTH,
+	a18.LOGIN_ID  LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')'   CustCol_17,
+	a16.PROJECT_NAME  PROJECT_NAME,
+	a12.D_MONTH_NUM  D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK  D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH  D_DAY_OF_MONTH,
+	a12.D_DAY_NAME  D_DAY_NAME,
+	a12.D_DATE  D_DATE,
+	a14.LOGIN_ID  LOGIN_ID0,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')'   CustCol_170,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG2_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end)) / 1440.0)  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG5_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a14
+	  on 	(a11.D_AGENT_ID = a14.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROGRAM	a15
+	  on 	(a11.D_PROGRAM_ID = a15.PROGRAM_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a16
+	  on 	(a11.D_PROJECT_ID = a16.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a17
+	  on 	(a11.D_AGENT_ID = a17.D_AGENT_ID and 
+	a11.D_DATE_ID = a17.D_DATE_ID and 
+	a11.D_GEOGRAPHY_MASTER_ID = a17.D_GEOGRAPHY_MASTER_ID and 
+	a11.D_GROUP_ID = a17.D_GROUP_ID and 
+	a11.D_PROGRAM_ID = a17.D_PROGRAM_ID)
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(a17.SUPERVISOR_D_AGENT_ID = a18.D_AGENT_ID)
+where	(a12.D_DATE between To_Date('03-09-2020', 'dd-mm-yyyy') and To_Date('03-09-2020', 'dd-mm-yyyy')
+ and a16.PROJECT_NAME in ('MIEB')
+ --and a15.PROGRAM_NAME in ('Unemployment Insurance Helpline')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')
+ or (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break')
+ and a13.ACTIVITY_TYPE_NAME in ('Lunch')
+-- and a11.D_AGENT_ID in '0073676'
+ and a13.IS_PAID_FLAG in ('0'))))
+group by	a12.WEEKEND_FLAG,
+	a12.D_WEEK_OF_YEAR,
+	a12.D_WEEK_OF_MONTH,
+	a18.LOGIN_ID,
+	 a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' ,
+	a16.PROJECT_NAME,
+	a12.D_MONTH_NUM,
+	a12.D_DAY_OF_WEEK,
+	a12.D_DAY_OF_MONTH,
+	a12.D_DAY_NAME,
+	a12.D_DATE,
+	a14.LOGIN_ID,
+	 a14.LAST_NAME ||', ' || a14.FIRST_NAME || ' '|| a14.MIDDLE_INITIAL || '(' || a14.LOGIN_ID|| ')' 
+)	pa01
+where	(pa01.GODWFLAG2_1 = 1
+ and pa01.GODWFLAG2_1 = 1) 
+)	pa15
+	  on 	(coalesce(pa11.CustCol_17, pa12.CustCol_17, pa13.CustCol_170, pa14.CustCol_17) = pa15.CustCol_170 and 
+	coalesce(pa11.CustCol_170, pa12.CustCol_170, pa13.CustCol_17, pa14.CustCol_170) = pa15.CustCol_17 and 
+	coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE) = pa15.D_DATE and 
+	coalesce(pa11.D_DAY_NAME, pa12.D_DAY_NAME, pa13.D_DAY_NAME, pa14.D_DAY_NAME) = pa15.D_DAY_NAME and 
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH, pa13.D_DAY_OF_MONTH, pa14.D_DAY_OF_MONTH) = pa15.D_DAY_OF_MONTH and 
+	coalesce(pa11.D_DAY_OF_WEEK, pa12.D_DAY_OF_WEEK, pa13.D_DAY_OF_WEEK, pa14.D_DAY_OF_WEEK) = pa15.D_DAY_OF_WEEK and 
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM, pa13.D_MONTH_NUM, pa14.D_MONTH_NUM) = pa15.D_MONTH_NUM and 
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH, pa13.D_WEEK_OF_MONTH, pa14.D_WEEK_OF_MONTH) = pa15.D_WEEK_OF_MONTH and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR) = pa15.D_WEEK_OF_YEAR and 
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID, pa13.LOGIN_ID0, pa14.LOGIN_ID) = pa15.LOGIN_ID0 and 
+	coalesce(pa11.LOGIN_ID0, pa12.LOGIN_ID0, pa13.LOGIN_ID, pa14.LOGIN_ID0) = pa15.LOGIN_ID and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME) = pa15.PROJECT_NAME and 
+	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG, pa13.WEEKEND_FLAG, pa14.WEEKEND_FLAG) = pa15.WEEKEND_FLAG)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_DATES	a16
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE) = a16.D_DATE and 
+	coalesce(pa11.D_DAY_OF_MONTH, pa12.D_DAY_OF_MONTH, pa13.D_DAY_OF_MONTH, pa14.D_DAY_OF_MONTH, pa15.D_DAY_OF_MONTH) = a16.D_DAY_OF_MONTH and 
+	coalesce(pa11.D_MONTH_NUM, pa12.D_MONTH_NUM, pa13.D_MONTH_NUM, pa14.D_MONTH_NUM, pa15.D_MONTH_NUM) = a16.D_MONTH_NUM and 
+	coalesce(pa11.D_WEEK_OF_MONTH, pa12.D_WEEK_OF_MONTH, pa13.D_WEEK_OF_MONTH, pa14.D_WEEK_OF_MONTH, pa15.D_WEEK_OF_MONTH) = a16.D_WEEK_OF_MONTH and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR) = a16.D_WEEK_OF_YEAR and 
+	coalesce(pa11.WEEKEND_FLAG, pa12.WEEKEND_FLAG, pa13.WEEKEND_FLAG, pa14.WEEKEND_FLAG, pa15.WEEKEND_FLAG) = a16.WEEKEND_FLAG)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a17
+	  on 	(coalesce(pa11.CustCol_170, pa12.CustCol_170, pa13.CustCol_17, pa14.CustCol_170, pa15.CustCol_17) =  a17.LAST_NAME ||', ' || a17.FIRST_NAME || ' '|| a17.MIDDLE_INITIAL || '(' || a17.LOGIN_ID|| ')' )
+	left outer join	(select distinct d."D_AGENT_ID",d."LOGIN_ID",d."FIRST_NAME",d."MIDDLE_INITIAL",d."LAST_NAME",d."JOB_TITLE",d."LANGUAGE",d."SITE_NAME",d."HOURLY_RATE",d."RATE_CURRENCY",d."HIRE_DATE",d."TERMINATION_DATE",d."VERSION",d."RECORD_EFF_DT",d."RECORD_END_DT"
+ from CISCO_ENTERPRISE_CC.cc_s_agent_supervisor sup
+ inner join CISCO_ENTERPRISE_CC.cc_s_agent a on sup.supervisor_agent_id = a.agent_id
+ inner join CISCO_ENTERPRISE_CC.cc_d_agent d on a.login_id = d.login_id)	a18
+	  on 	(coalesce(pa11.CustCol_17, pa12.CustCol_17, pa13.CustCol_170, pa14.CustCol_17, pa15.CustCol_170) =  a18.LAST_NAME ||', ' || a18.FIRST_NAME || ' '|| a18.MIDDLE_INITIAL || '(' || a18.LOGIN_ID|| ')' )
+--and coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID, pa13.LOGIN_ID0, pa14.LOGIN_ID, pa15.LOGIN_ID0) in ('0073676') -- for Tills, Ann 

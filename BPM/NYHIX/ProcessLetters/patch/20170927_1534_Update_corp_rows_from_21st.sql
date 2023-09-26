@@ -1,0 +1,6 @@
+Update MAXDAT.CORP_ETL_PROC_LETTERS
+set program = program
+WHERE TRUNC(REQUEST_DT) = to_date('21-SEP-2017', 'dd-MON-yyyy')
+AND REQUEST_DRIVER_TABLE = 'MATERIAL_REQUEST';
+
+commit;

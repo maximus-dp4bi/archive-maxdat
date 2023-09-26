@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_Move_Updates</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -201,14 +214,6 @@ Where ME_PROCESSED = &apos;Y&apos;</sql>
           <stream_name>nr_err_codes_fieldname</stream_name>
         </field>
         <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
           <column_name>ERROR_FIELD</column_name>
           <stream_name>nr_err_fields_fieldname</stream_name>
         </field>
@@ -235,6 +240,14 @@ Where ME_PROCESSED = &apos;Y&apos;</sql>
         <field>
           <column_name>DRIVER_TABLE_NAME</column_name>
           <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>number_of_errors</stream_name>
         </field>
     </fields>
      <cluster_schema/>
@@ -696,6 +709,10 @@ Where ME_PROCESSED = &apos;Y&apos;</sql>
         <name>VOLUNTARY_CANCEL_ANSWER</name>
         <rename>VOLUNTARY_CANCEL_ANSWER</rename>
         </value>
+      <value>
+        <name>ELIG_TYPE</name>
+        <rename>ELIG_TYPE</rename>
+        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -710,7 +727,7 @@ Where ME_PROCESSED = &apos;Y&apos;</sql>
         <source_step>Update - FLHK_ETL_MEMBER_ELIGIBILITY</source_step>
         <target_step>Table output OLTP - error</target_step>
         <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
+        <nr_valuename>number_of_errors</nr_valuename>
         <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>

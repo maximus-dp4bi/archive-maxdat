@@ -78,14 +78,14 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
-    <name>EMRS</name>
-    <server>${DB_EMRS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_EMRS_NAME}</database>
-    <port>${DB_EMRS_PORT}</port>
-    <username>${DB_EMRS_USER}</username>
-    <password>${DB_EMRS_PASSWORD}</password>
+    <name>ACD</name>
+    <server/>
+    <type>CACHE</type>
+    <access>JNDI</access>
+    <database>${JNDI_ACD_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -93,7 +93,124 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>DMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>DP_SCORECARD</name>
+    <server>${DB_SCORECARD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_SCORECARD_NAME}</database>
+    <port>${DB_SCORECARD_PORT}</port>
+    <username>${DB_SCORECARD_USER}</username>
+    <password>${DB_SCORECARD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SCORECARD_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_SCORECARD_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_ARS</name>
+    <server>${DB_KOFAX_ARS_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_ARS_DB}</database>
+    <port>${DB_KOFAX_ARS_PORT}</port>
+    <username>${DB_KOFAX_ARS_USER}</username>
+    <password>${DB_KOFAX_ARS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_ARS_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_ARS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_CENTRAL</name>
+    <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_CENTRAL_DB}</database>
+    <port>${DB_KOFAX_CENTRAL_PORT}</port>
+    <username>${DB_KOFAX_CENTRAL_USER}</username>
+    <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_CENTRAL_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_CENTRAL_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_REMOTE</name>
+    <server>${DB_KOFAX_REMOTE_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_REMOTE_DB}</database>
+    <port>${DB_KOFAX_REMOTE_PORT}</port>
+    <username>${DB_KOFAX_REMOTE_USER}</username>
+    <password>${DB_KOFAX_REMOTE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_REMOTE_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_REMOTE_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -103,8 +220,8 @@ SVN_REVISION_AUTHOR = $Author$
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
@@ -123,49 +240,22 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
+    <name>OLTP</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server/>
-    <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_OLTP_SOURCE}</database>
-    <port>1521</port>
-    <username>28085</username>
-    <password>Encrypted 2be98afc86aa79d96aa1aa2759fc3fd89</password>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -180,10 +270,66 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXHIX;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXHIX;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>WFM</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_WFM_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
@@ -510,6 +656,18 @@ NEPA_ID		   	          AS        WIP_NEPA_ID
 --,COMPLETE_DT               AS 	WIP_COMPLETE_DT   
 ,CURRENT_STEP              AS   WIP_CURRENT_STEP
 ,MAX_INCI_STAT_HIST_ID
+,APL_PRIMARY_MEMBER_ID	   AS  WIP_APL_PRIMARY_MEMBER_ID
+,ACCOUNT_ID				   AS  WIP_ACCOUNT_ID
+,NYHIX_ID				   AS  WIP_NYHIX_ID
+,PREF_LANGUAGE             AS  WIP_PREF_LANGUAGE
+,DECISION_DETAILS		   AS  WIP_DECISION_DETAILS
+,SPECIALIZED_FLAG          AS  WIP_SPECIALIZED_FLAG
+,APL_OUTRCH_IND            AS  WIP_APL_OUTRCH_IND
+,APL_OUTRCH_DATE           AS  WIP_APL_OUTRCH_DATE
+,APL_OUTRCH_OUTCM          AS  WIP_APL_OUTRCH_OUTCM
+,OUTRCH_OUTCM_DATE         AS  WIP_OUTRCH_OUTCM_DATE
+,APL_RSN_FR_WTHDRWL        AS  WIP_APL_RSN_FR_WTHDRWL
+,UNBL_CNTCT_START_DATE     AS  WIP_UNBL_CNTCT_START_DATE
 , CASE WHEN COMPLETE_DT &lt;&gt; COALESCE((SELECT MAX(ostg.complete_dt) FROM NYHBE_PROCESS_APPEALS_OLTP ostg WHERE ostg.incident_id = wstg.incident_id),complete_dt) THEN
      GREATEST(COMPLETE_DT, COALESCE((SELECT MAX(ostg.complete_dt) FROM NYHBE_PROCESS_APPEALS_OLTP ostg WHERE ostg.incident_id = wstg.incident_id),complete_dt))
   ELSE
@@ -527,16 +685,6 @@ NEPA_ID		   	          AS        WIP_NEPA_ID
 																									 FROM NYHBE_PROCESS_APPEALS_OLTP ostg 
 																									 WHERE ostg.incident_id = wstg.incident_id)) 
     ELSE INCIDENT_STATUS_DT  END     AS 	WIP_INCIDENT_STATUS_DT	
-&#47;*, CASE WHEN incident_status IN(${PA_UPD18_10},${PA_UPD18_20},${PA_UPD18_30},${PA_UPD18_40},${PA_UPD6_20},${PA_UPD9_10},${PA_UPD13_10}) THEN incident_status
-   ELSE CASE WHEN (SELECT incident_status FROM NYHBE_PROCESS_APPEALS_OLTP ostg
-                   WHERE ostg.incident_id = wstg.incident_id AND incident_header_stat_hist_id =(SELECT MAX(incident_header_stat_hist_id) 
-		 										 						 		                FROM NYHBE_PROCESS_APPEALS_OLTP ostg 
-																					            WHERE ostg.incident_id = wstg.incident_id)) IN(${PA_EXCLUDE_STATUS})
-            THEN (SELECT incident_status FROM NYHBE_PROCESS_APPEALS_OLTP ostg
-                  WHERE ostg.incident_id = wstg.incident_id AND incident_header_stat_hist_id =(SELECT MAX(incident_header_stat_hist_id) 
-		     										 						 		     FROM NYHBE_PROCESS_APPEALS_OLTP ostg 
-			 									 									     WHERE ostg.incident_id = wstg.incident_id))
-         ELSE incident_status END END as WIP_INCIDENT_STATUS*&#47;
 from NYHBE_PROCESS_APPEALS_WIP_BPM wstg
 where UPDATED=&apos;Y&apos;</sql>
     <limit>0</limit>
@@ -958,6 +1106,18 @@ where UPDATED=&apos;Y&apos;</sql>
         <rename>WIP_CURRENT_STEP</rename>
         </value>
       <value>
+        <name>ACCOUNT_ID</name>
+        <rename>WIP_ACCOUNT_ID</rename>
+        </value>
+      <value>
+        <name>NYHIX_ID</name>
+        <rename>WIP_NYHIX_ID</rename>
+        </value>
+      <value>
+        <name>APL_PRIMARY_MEMBER_ID</name>
+        <rename>WIP_APL_PRIMARY_MEMBER_ID</rename>
+        </value>
+      <value>
         <name>RESOLUTION_DESCRIPTION</name>
         <rename>WIP_RESOLUTION_DESCRIPTION</rename>
         </value>
@@ -969,11 +1129,47 @@ where UPDATED=&apos;Y&apos;</sql>
         <name>ACTION_COMMENTS</name>
         <rename>WIP_ACTION_COMMENTS</rename>
         </value>
+      <value>
+        <name>PREF_LANGUAGE</name>
+        <rename>WIP_PREF_LANGUAGE</rename>
+        </value>
+      <value>
+        <name>DECISION_DETAILS</name>
+        <rename>WIP_DECISION_DETAILS</rename>
+        </value>
+      <value>
+        <name>SPECIALIZED_FLAG</name>
+        <rename>WIP_SPECIALIZED_FLAG</rename>
+        </value>
+      <value>
+        <name>APL_OUTRCH_IND</name>
+        <rename>WIP_APL_OUTRCH_IND</rename>
+        </value>
+      <value>
+        <name>APL_OUTRCH_OUTCM</name>
+        <rename>WIP_APL_OUTRCH_OUTCM</rename>
+        </value>
+      <value>
+        <name>OUTRCH_OUTCM_DATE</name>
+        <rename>WIP_OUTRCH_OUTCM_DATE</rename>
+        </value>
+      <value>
+        <name>APL_RSN_FR_WTHDRWL</name>
+        <rename>WIP_APL_RSN_FR_WTHDRWL</rename>
+        </value>
+      <value>
+        <name>UNBL_CNTCT_START_DATE</name>
+        <rename>WIP_UNBL_CNTCT_START_DATE</rename>
+        </value>
+      <value>
+        <name>APL_OUTRCH_DATE</name>
+        <rename>WIP_APL_OUTRCH_DATE</rename>
+        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>893</xloc>
-      <yloc>168</yloc>
+      <xloc>890</xloc>
+      <yloc>170</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

@@ -3,7 +3,20 @@
   <info>
     <name>Load_CC_S_ACD_INTERVAL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -71,8 +84,8 @@
       <note>Using JNDI</note>
       <xloc>35</xloc>
       <yloc>20</yloc>
-      <width>76</width>
-      <heigth>25</heigth>
+      <width>96</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -121,8 +134,8 @@ Steps:
 *Consider switching this to the Processing directory</note>
       <xloc>2</xloc>
       <yloc>493</yloc>
-      <width>1288</width>
-      <heigth>458</heigth>
+      <width>1682</width>
+      <heigth>596</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -327,6 +340,7 @@ Steps:
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -1356,6 +1370,174 @@ Steps:
 <grouping_symbol/>
 <currency_symbol/>
 </calculation>
+       <calculation><field_name>ICR_DEFAULT_ROUTED</field_name>
+<calc_type>NVL</calc_type>
+<field_a>ICR_DEFAULT_ROUTED</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>RETURN_RELEASE</field_name>
+<calc_type>NVL</calc_type>
+<field_a>RETURN_RELEASE</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>INCOMPLETE_CALLS</field_name>
+<calc_type>NVL</calc_type>
+<field_a>INCOMPLETE_CALLS</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>CALLS_RONA</field_name>
+<calc_type>NVL</calc_type>
+<field_a>CALLS_RONA</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>AGENT_ERROR_COUNT</field_name>
+<calc_type>NVL</calc_type>
+<field_a>AGENT_ERROR_COUNT</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>CALLS_GIVEN_FORCE_DISCONNECT</field_name>
+<calc_type>NVL</calc_type>
+<field_a>CALLS_GIVEN_FORCE_DISCONNECT</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>CALLS_GIVEN_ROUTE_TO</field_name>
+<calc_type>NVL</calc_type>
+<field_a>CALLS_GIVEN_ROUTE_TO</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>CALLS_ROUTED_NON_AGENT</field_name>
+<calc_type>NVL</calc_type>
+<field_a>CALLS_ROUTED_NON_AGENT</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>ERROR_COUNT</field_name>
+<calc_type>NVL</calc_type>
+<field_a>ERROR_COUNT</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>NETWORK_DEFAULT_ROUTED</field_name>
+<calc_type>NVL</calc_type>
+<field_a>NETWORK_DEFAULT_ROUTED</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>RETURN_BUSY</field_name>
+<calc_type>NVL</calc_type>
+<field_a>RETURN_BUSY</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>RETURN_RING</field_name>
+<calc_type>NVL</calc_type>
+<field_a>RETURN_RING</field_a>
+<field_b>const_number</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>832</xloc>
@@ -1749,7 +1931,7 @@ Steps:
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>C:\MAXDAT_old\Contact_Center\DMCS\Files\Inbound\ACD\MAXDMCS_CC_S_ACD_INTERVAL_071214000000.csv</filename>
+    <filename>C:\MAXDAT_old\Contact_Center\DMCS\test_files\02-02-15\MAXDMCS_CC_S_ACD_INTERVAL_020915152115\MAXDMCS_CC_S_ACD_INTERVAL_020915152115.csv</filename>
     <filename_field>path</filename_field>
     <rownum_field/>
     <include_filename>Y</include_filename>
@@ -3004,6 +3186,66 @@ Steps:
         <rename>IVR_TIME_TOTAL</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>CALLS_RONA</name>
+        <rename>CALLS_RONA</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ICR_DEFAULT_ROUTED</name>
+        <rename>ICR_DEFAULT_ROUTED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RETURN_RELEASE</name>
+        <rename>RETURN_RELEASE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>INCOMPLETE_CALLS</name>
+        <rename>INCOMPLETE_CALLS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>AGENT_ERROR_COUNT</name>
+        <rename>AGENT_ERROR_COUNT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CALLS_GIVEN_FORCE_DISCONNECT</name>
+        <rename>CALLS_GIVEN_FORCE_DISCONNECT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CALLS_GIVEN_ROUTE_TO</name>
+        <rename>CALLS_GIVEN_ROUTE_TO</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CALLS_ROUTED_NON_AGENT</name>
+        <rename>CALLS_ROUTED_NON_AGENT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ERROR_COUNT</name>
+        <rename>ERROR_COUNT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>NETWORK_DEFAULT_ROUTED</name>
+        <rename>NETWORK_DEFAULT_ROUTED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RETURN_BUSY</name>
+        <rename>RETURN_BUSY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RETURN_RING</name>
+        <rename>RETURN_RING</rename>
+        <update>Y</update>
+      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -3389,52 +3631,52 @@ Steps:
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ICR_DEFAULT_ROUTED</name>
-        <rename/>
+      </field>      <field>        <name>ICR_DEFAULT_ROUTED_1</name>
+        <rename>ICR_DEFAULT_ROUTED</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>NETWORK_DEFAULT_ROUTED</name>
-        <rename/>
+      </field>      <field>        <name>NETWORK_DEFAULT_ROUTED_1</name>
+        <rename>NETWORK_DEFAULT_ROUTED</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>RETURN_BUSY</name>
-        <rename/>
+      </field>      <field>        <name>RETURN_BUSY_1</name>
+        <rename>RETURN_BUSY</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CALLS_RONA</name>
-        <rename/>
+      </field>      <field>        <name>CALLS_RONA_1</name>
+        <rename>CALLS_RONA</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>RETURN_RELEASE</name>
-        <rename/>
+      </field>      <field>        <name>RETURN_RELEASE_1</name>
+        <rename>RETURN_RELEASE</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CALLS_ROUTED_NON_AGENT</name>
-        <rename/>
+      </field>      <field>        <name>CALLS_ROUTED_NON_AGENT_1</name>
+        <rename>CALLS_ROUTED_NON_AGENT</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ERROR_COUNT</name>
-        <rename/>
+      </field>      <field>        <name>ERROR_COUNT_1</name>
+        <rename>ERROR_COUNT</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>AGENT_ERROR_COUNT</name>
-        <rename/>
+      </field>      <field>        <name>AGENT_ERROR_COUNT_1</name>
+        <rename>AGENT_ERROR_COUNT</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>RETURN_RING</name>
-        <rename/>
+      </field>      <field>        <name>RETURN_RING_1</name>
+        <rename>RETURN_RING</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>INCOMPLETE_CALLS</name>
-        <rename/>
+      </field>      <field>        <name>INCOMPLETE_CALLS_1</name>
+        <rename>INCOMPLETE_CALLS</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CALLS_GIVEN_FORCE_DISCONNECT</name>
-        <rename/>
+      </field>      <field>        <name>CALLS_GIVEN_FORCE_DISCONNECT_1</name>
+        <rename>CALLS_GIVEN_FORCE_DISCONNECT</rename>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CALLS_GIVEN_ROUTE_TO</name>
-        <rename/>
+      </field>      <field>        <name>CALLS_GIVEN_ROUTE_TO_1</name>
+        <rename>CALLS_GIVEN_ROUTE_TO</rename>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>EXTRACT_DT</name>
@@ -3815,7 +4057,7 @@ Steps:
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <loglevel>log_level_debug</loglevel>
+      <loglevel>log_level_basic</loglevel>
       <displayHeader>Y</displayHeader>
       <logmessage>load_interval_rows_facts</logmessage>
     <fields>
@@ -4110,7 +4352,7 @@ Steps:
            </partitioning>
       <loglevel>log_level_basic</loglevel>
       <displayHeader>Y</displayHeader>
-      <logmessage/>
+      <logmessage>Writing log with values</logmessage>
     <fields>
       <field>
         <name>ACD_INTERVAL_ID</name>

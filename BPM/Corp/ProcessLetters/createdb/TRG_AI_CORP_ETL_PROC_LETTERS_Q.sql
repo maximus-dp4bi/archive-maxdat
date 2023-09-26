@@ -62,10 +62,10 @@ begin
         <CREATE_BY><![CDATA[' || :new.CREATE_BY || ']]></CREATE_BY>
         <CREATE_DT>' || to_char(:new.CREATE_DT,BPM_COMMON.GET_DATE_FMT) || '</CREATE_DT>
         <ERROR_REASON><![CDATA[' || :new.ERROR_REASON || ']]></ERROR_REASON>
-        <GWF_OUTCOME><![CDATA[' || :new.GWF_OUTCOME || ']]></GWF_OUTCOME>
-        <GWF_VALID><![CDATA[' || :new.GWF_VALID || ']]></GWF_VALID>
-        <GWF_WORK_REQUIRED><![CDATA[' || :new.GWF_WORK_REQUIRED || ']]></GWF_WORK_REQUIRED>
         <FAMILY_MEMBER_COUNT>' || :new.FAMILY_MEMBER_COUNT || '</FAMILY_MEMBER_COUNT>
+		<GWF_OUTCOME><![CDATA[' || :new.GWF_OUTCOME || ']]></GWF_OUTCOME>
+        <GWF_VALID><![CDATA[' || :new.GWF_VALID || ']]></GWF_VALID>
+        <GWF_WORK_REQUIRED><![CDATA[' || :new.GWF_WORK_REQUIRED || ']]></GWF_WORK_REQUIRED>        
         <INSTANCE_STATUS><![CDATA[' || :new.INSTANCE_STATUS || ']]></INSTANCE_STATUS>
         <LANGUAGE><![CDATA[' || :new.LANGUAGE || ']]></LANGUAGE>
         <LAST_UPDATE_BY_NAME><![CDATA[' || :new.LAST_UPDATE_BY_NAME || ']]></LAST_UPDATE_BY_NAME>

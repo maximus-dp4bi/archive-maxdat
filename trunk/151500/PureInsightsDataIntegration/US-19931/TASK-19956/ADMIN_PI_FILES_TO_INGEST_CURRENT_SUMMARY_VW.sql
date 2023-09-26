@@ -1,0 +1,22 @@
+use role SYSADMIN;
+use warehouse PUREINSIGHTS_DEV_LOAD_DAILY_WH;
+use database PUREINSIGHTS_DEV;
+use schema PUBLIC;
+
+create or replace view ADMIN_PI_FILES_TO_INGEST_CURRENT_SUMMARY_VW(
+	NUM_FILES,
+	NUM_IN_PROGRESS,
+	NUM_COMPLETE,
+	NUM_FAILED
+) as
+SELECT 	
+	count(*) AS num_files,
+	count(CASE WHEN status = 'IN PROGRESS' THEN 1 ELSE null END) num_in_progress,
+	count(CASE WHEN status = 'COMPLETE' THEN 1 ELSE null END) num_complete,
+	count(CASE WHEN status = 'FAILED' THEN 1 ELSE null END) num_failed
+FROM  
+	PI_FILES_TO_INGEST_CURRENT_VW	s;
+	
+GRANT SELECT ON ADMIN_PI_FILES_TO_INGEST_CURRENT_SUMMARY_VW TO PI_DATA_INGEST_DEV_ALERT_USER;
+
+

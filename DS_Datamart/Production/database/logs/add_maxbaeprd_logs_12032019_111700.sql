@@ -1,0 +1,132 @@
+﻿/*
+Created: 11/7/2019
+Modified: 12/3/2019
+Model: maxbae_maxbaeprd
+Database: MS SQL Server 2016
+*/
+
+use MAXBAE
+go
+
+-- Create tables section -------------------------------------------------
+
+-- Table maxbaeprd.LOG_PDI_JOB
+
+CREATE TABLE [maxbaeprd].[LOG_PDI_JOB]
+(
+ [ID_JOB] Int NULL,
+ [CHANNEL_ID] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [JOBNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [STATUS] Varchar(15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LINES_READ] Bigint NULL,
+ [LINES_WRITTEN] Bigint NULL,
+ [LINES_UPDATED] Bigint NULL,
+ [LINES_INPUT] Bigint NULL,
+ [LINES_OUTPUT] Bigint NULL,
+ [LINES_REJECTED] Bigint NULL,
+ [ERRORS] Bigint NULL,
+ [STARTDATE] Datetime NULL,
+ [ENDDATE] Datetime NULL,
+ [LOGDATE] Datetime NULL,
+ [DEPDATE] Datetime NULL,
+ [REPLAYDATE] Datetime NULL,
+ [LOG_FIELD] Varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+)
+ON [PRIMARY]
+TEXTIMAGE_ON [PRIMARY]
+go
+
+-- Create indexes for table maxbaeprd.LOG_PDI_JOB
+
+CREATE INDEX [IDX_LOG_PDI_JOB_1] ON [maxbaeprd].[LOG_PDI_JOB] ([ID_JOB])
+ ON [PRIMARY]
+go
+
+CREATE INDEX [IDX_LOG_PDI_JOB_2] ON [maxbaeprd].[LOG_PDI_JOB] ([ERRORS],[STATUS],[JOBNAME])
+ ON [PRIMARY]
+go
+
+-- Table maxbaeprd.LOG_PDI_JOB_ENTRY
+
+CREATE TABLE [maxbaeprd].[LOG_PDI_JOB_ENTRY]
+(
+ [ID_BATCH] Int NULL,
+ [CHANNEL_ID] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LOG_DATE] Datetime NULL,
+ [TRANSNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [STEPNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LINES_READ] Bigint NULL,
+ [LINES_WRITTEN] Bigint NULL,
+ [LINES_UPDATED] Bigint NULL,
+ [LINES_INPUT] Bigint NULL,
+ [LINES_OUTPUT] Bigint NULL,
+ [LINES_REJECTED] Bigint NULL,
+ [ERRORS] Bigint NULL,
+ [RESULT] Bit NULL,
+ [NR_RESULT_ROWS] Bigint NULL,
+ [NR_RESULT_FILES] Bigint NULL,
+ [LOG_FIELD] Varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+)
+ON [PRIMARY]
+TEXTIMAGE_ON [PRIMARY]
+go
+
+-- Table maxbaeprd.LOG_PDI_TRANS
+
+CREATE TABLE [maxbaeprd].[LOG_PDI_TRANS]
+(
+ [ID_BATCH] Int NULL,
+ [CHANNEL_ID] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [TRANSNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [STATUS] Varchar(15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LINES_READ] Bigint NULL,
+ [LINES_WRITTEN] Bigint NULL,
+ [LINES_INPUT] Bigint NULL,
+ [LINES_OUTPUT] Bigint NULL,
+ [LINES_REJECTED] Bigint NULL,
+ [ERRORS] Bigint NULL,
+ [STARTDATE] Datetime NULL,
+ [ENDDATE] Datetime NULL,
+ [LOGDATE] Datetime NULL,
+ [DEPDATE] Datetime NULL,
+ [REPLAYDATE] Datetime NULL,
+ [LOG_FIELD] Varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LINES_UPDATED] Bigint NULL
+)
+ON [PRIMARY]
+TEXTIMAGE_ON [PRIMARY]
+go
+
+-- Create indexes for table maxbaeprd.LOG_PDI_TRANS
+
+CREATE INDEX [IDX_LOG_PDI_TRANS_1] ON [maxbaeprd].[LOG_PDI_TRANS] ([ID_BATCH])
+ ON [PRIMARY]
+go
+
+CREATE INDEX [IDX_LOG_PDI_TRANS_2] ON [maxbaeprd].[LOG_PDI_TRANS] ([ERRORS],[STATUS],[TRANSNAME])
+ ON [PRIMARY]
+go
+
+-- Table maxbaeprd.LOG_PDI_TRANS_STEP
+
+CREATE TABLE [maxbaeprd].[LOG_PDI_TRANS_STEP]
+(
+ [ID_BATCH] Int NULL,
+ [CHANNEL_ID] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LOG_DATE] Datetime NULL,
+ [TRANSNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [STEPNAME] Varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [STEP_COPY] Int NULL,
+ [LOG_FIELD] Varchar(max) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+ [LINES_READ] Bigint NULL,
+ [LINES_WRITTEN] Bigint NULL,
+ [LINES_UPDATED] Bigint NULL,
+ [LINES_INPUT] Bigint NULL,
+ [LINES_OUTPUT] Bigint NULL,
+ [LINES_REJECTED] Bigint NULL,
+ [ERRORS] Bigint NULL
+)
+ON [PRIMARY]
+TEXTIMAGE_ON [PRIMARY]
+go
+

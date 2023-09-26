@@ -1,16 +1,24 @@
 #!/bin/ksh
-. ~/.bash_profile
+# ================================================================================
+# Do not edit these four SVN_* variable values.  They are populated when you
+#     commit code to SVN and used later to identify deployed code.
+#   SVN_FILE_URL varchar2(200) := '$URL$'; 
+#   SVN_REVISION varchar2(20) := '$Revision$'; 
+#   SVN_REVISION_DATE varchar2(60) := '$Date$'; 
+#   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
+# ================================================================================
 #nyhix_run_MFD.sh
 PROGNAME=$(basename $0 .sh)
+. ~/.bash_profile
+. $MAXDAT_ETL_PATH/.setenv_var.sh
+
 function error_exit
 {
-
 #             ----------------------------------------------------------------
 #             Function for exit due to fatal program error
 #                             Accepts 1 argument:
 #                                             string containing descriptive error message
 #             ----------------------------------------------------------------
-
 
                 echo "${PROGNAME}: ${1:-'Unknown Error'}" 1>&2
                 exit 1
@@ -50,9 +58,20 @@ if [[ $rc != 0 ]] ; then
                 cat $EMAIL_MESSAGE
                 exit $rc
 else
+   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/Run_Initialization_MFD.kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/Run_Initialization_MFD_$(date +%Y%m%d_%H%M%S).log
+   rc=$?
+   if [[ $rc != 0 ]] ; then
+                echo "Exited with status: $rc - ${STCODE} Run_Initialization_MFD.kjb, aborting run" >> $EMAIL_MESSAGE
+                rm -f $MFD_OK
+                mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+                cat $EMAIL_MESSAGE
+                exit $rc
+else
 #   if [[ $? -eq 0 ]]
 #  then
-   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/MailFaxDoc/Process_mail_fax_doc_runall.kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/Process_mail_fax_doc_runall_$(date +%Y%m%d_%H%M%S).log
+   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/MailFaxDocV2/ProcessMailFaxDoc_Runall.Kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/ProcessMailFaxDoc_Runall_v2_$(date +%Y%m%d_%H%M%S).log
+#   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/MailFaxDoc/Process_mail_fax_doc_runall.kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/ProcessMailFaxDoc_Runall_v1_$(date +%Y%m%d_%H%M%S).log
+   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/ProcessDocNotifications/ProcessDocNotifications_Runall.Kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/ProcessDocNotifications_Runall_$(date +%Y%m%d_%H%M%S).log &
    rc=$?
    if [[ $rc != 0 ]] ; then
                                 #a child process failed, abort mission
@@ -62,7 +81,7 @@ else
                                 cat $EMAIL_MESSAGE
                                 #exit
                                 error_exit "$LINENO: $STCODE - MFD error has occurred."
-   else
+else
                                 #success, move on
                                 echo "$STCODE - MFD processes completed successfully."
                                 rm -f $MFD_OK

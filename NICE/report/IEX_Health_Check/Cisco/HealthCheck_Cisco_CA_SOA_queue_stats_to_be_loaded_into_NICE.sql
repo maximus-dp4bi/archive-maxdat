@@ -1,0 +1,38 @@
+/* Get yesterday's Cisco CA SOA queue stats */
+/* Cisco Enterprise PRD DB: 10.150.114.40 */
+
+/* Get list of queues from NICE db to add into this query. */
+/* NICE PRD DB: 10.150.140.20 */
+/*
+select substring(q.C_QTAG,2,4) + ','
+from nice_wfm_customer1.dbo.R_QUEUE q
+inner join nice_wfm_customer1.dbo.R_ENTITY e on q.C_OID = e.C_OID and e.C_TYPE = 'Q'
+inner join nice_wfm_customer1.dbo.R_ACD acd on q.C_ACD = acd.C_OID and acd.C_Name = 'Cisco Enterprise'  
+where 
+  and e.C_ID >= 21000 and e.C_ID <= 21018
+  and e.C_DTIME is null
+order by 1;
+*/
+
+select
+  cast(switchoffset(todatetimeoffset(si.DateTime,-360),'-07:00') as date) as Date,
+  pq.PrecisionQueueID,
+  pq.EnterpriseName as QName,
+  sum(si.CallsAnswered + si.RouterCallsAbandQ + si.RouterCallsAbandToAgent + si.ShortCalls) Received,
+  sum(si.AnsInterval1 + si.AnsInterval2) HandledBeforeThresh, 
+  sum(si.CallsHandled - (si.AnsInterval1 + si.AnsInterval2)) HandledAftThresh,
+  sum(si.CallsHandled) Handled,
+  sum(si.ShortCalls + si.AbandInterval1 + si.AbandInterval2) AbanBeforeThresh, 
+  sum(si.AbandInterval3 + si.AbandInterval4 + si.AbandInterval5 + si.AbandInterval6 + si.AbandInterval7 + si.AbandInterval8 + si.AbandInterval9 + si.AbandInterval10) AbanAftThresh,
+  sum(si.ShortCalls + si.AbandInterval1 + si.AbandInterval2 + si. AbandInterval3 + si.AbandInterval4 + si.AbandInterval5 + si.AbandInterval6 + si.AbandInterval7 + si.AbandInterval8 + si.AbandInterval9 + si.AbandInterval10) Abandoned
+from maxco_awdb.dbo.Call_Type_SG_Interval si
+inner join maxco_awdb.dbo.Call_Type_Interval cti on si.DateTime = cti.DateTime and si.CallTypeID = cti.CallTypeID
+inner join maxco_awdb.dbo.Precision_Queue pq on si.PrecisionQueueID = pq.PrecisionQueueID
+where 
+  si.PrecisionQueueID in (5436, 5429, 5434, 5432, 5435, 5430, 5431, 5433, 5428, 5425, 5418, 5427, 5423, 5421, 5426, 5424, 5419, 5420, 5422, 5500, 5501, 5502, 5503, 5504, 5505, 5506, 5507, 5508)
+  and cast(switchoffset(todatetimeoffset(si.DateTime,-360),'-07:00') as date) = cast(dateadd(DAY,-1,getDate()) as date)
+group by 
+  cast(switchoffset(todatetimeoffset(si.DateTime, -360), '-07:00') as date),
+  pq.EnterpriseName,
+  pq.PrecisionQueueID
+order by 3;

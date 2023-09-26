@@ -1,6 +1,6 @@
 #!/bin/bash
 . ~/.bash_profile
-source $BOS_SETENV
+source $MD_SETENV
 # Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN
 #    and used later to identify deployed code. 
 # $URL: svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/main/bin/test_contact_center_connections.sh $
@@ -9,7 +9,7 @@ source $BOS_SETENV
 # $Author: jh44463 $
 #PROGNAME=$(basename $0 .sh)
 #function error_exit
-#{
+##{
 #	----------------------------------------------------------------
 #	Function for exit due to fatal program error
 #		Accepts 1 argument:

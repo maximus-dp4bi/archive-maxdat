@@ -1,0 +1,52 @@
+#CADIR-473 - temp comment
+#0,30 4-22 * * * /u01/maximus/maxdat-prd/CADIR/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/cadir_run_bpm.log
+#CADIR-473 for the following 2 lines
+#55 23 * * * /u01/maximus/maxdat-prd/CADIR/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/cadir_run_bpm.log
+#0 1 * * * /u01/maximus/maxdat-prd/CADIR/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/cadir_run_bpm.log
+#CADIR-283
+#02 1-7 * * * /u01/maximus/maxdat-prd/CADIR/scripts/cadir_run_batch.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/cadir_run_batch.log
+#CADIR-381
+#CADIR-532
+#0 23 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_crs_imr_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_crs_imr_runall.log
+#CADIR-473
+#10,25,40,55 * * * * /u01/maximus/maxdat-prd/CADIR/scripts/cronfiles/cron_cadir_run_planning.sh 2>&1 |sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/cron_cadir_run_planning.log
+#0 09-19 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_deltek_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_deltek_runall.log
+#CADIR-640
+#0 21 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_crs_imr_er_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_crs_imr_er_runall.log
+#CADIR-738
+#30 23 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_cadir_trending.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_cadir_trending.log
+#CADIR-1038
+#00 02 29 8 * /u01/maximus/maxdat-prd/CADIR/scripts/run_crs_imr_dispositions_backfill.sh 2>&1 |sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_crs_imr_backfill_sh_cron.log
+#CADIR-1124
+#00 01 24 11 2 /u01/maximus/maxdat-prd/CADIR/scripts/run_crs_imr_dispositions_backfill.sh 2>&1 |sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_crs_imr_backfill_sh_cron.log
+#CADIR-1320
+#0 4 * * * /bin/find /u01/maximus/maxdat-prd/CADIR/logs -type f -mtime +30 -exec rm {} \; > /dev/null 2>&1
+#Ansible: log_purge
+#0 3 * * * /u01/app/appadmin/scripts/log_purge.sh
+#CADIR-1493
+#15 15,19 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_generate_dwc_file.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_generate_dwc_file.log
+#CADIR-1541
+#0 16 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_generate_m_dwc_file.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_generate_m_dwc_file.log
+#CADIR-1565
+#15 1,3,5,7,9,11,13,15,17,19,21 * * * /u01/maximus/maxdat-prd/CADIR/scripts/run_adhoc_cadir_trending.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR/logs/run_adhoc_cadir_trending.log
+
+#MAXDAT-10688 - 20191113
+#0,30 4-22 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/cadir_run_bpm_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#55 23 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/cadir_run_bpm_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 1 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/cronfiles/cron_cadir_run_bpm.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/cadir_run_bpm_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+0 4 * * * /bin/find /u01/maximus/maxdat-prd/CADIR8/logs -type f -mtime +30 -exec rm {} \; > /dev/null 2>&1
+#15 15,19 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_generate_dwc_file.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_generate_dwc_file_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 16 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_generate_m_dwc_file.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_generate_m_dwc_file_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#10,25,40,55 * * * * /u01/maximus/maxdat-prd/CADIR8/scripts/cronfiles/cron_cadir_run_planning.sh 2>&1 |sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/cron_cadir_run_planning_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 09-19 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_deltek_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_deltek_runall_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 21 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_crs_imr_er_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_crs_imr_er_runall_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 23 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_crs_imr_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_crs_imr_runall_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#30 23 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_cadir_trending.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_cadir_trending_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#15 1,3,5,7,9,11,13,15,17,19,21 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_adhoc_cadir_trending.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_adhoc_cadir_trending_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#MAXDAT-10885
+#0 22 * * * /u01/maximus/maxdat-prd/CADIR8/scripts/run_ibr_runall.sh 2>&1|sed "s/^/$(date)/" >> /u01/maximus/maxdat-prd/CADIR8/logs/run_ibr_runall_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * bash /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+00 02 * * * find /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/CADIR8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log

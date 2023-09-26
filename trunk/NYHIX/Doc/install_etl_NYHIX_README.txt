@@ -5,6 +5,8 @@ Instructions to install NYHIX Unix and Kettle Scripts
 2013/08/09 Devin       - Modified for NYHIX (after Tx was completed, made it more uniform)
 2013/09/09 Dave D      - Updated the Profile section (Section 1)
 2013/09/28 S.Pagadrai  - Updated NYHIX Mail Fax Doc Project Files
+2014/10/1 S.Pagadrai - Updated NYHIX Mail Fax Doc V2 Project Files
+2014/10/22 S.Pagadrai - Updated Doc Notifications Project Files
 
 ******************************************************************************************************
 
@@ -267,7 +269,61 @@ MailFaxBatch_Stg_OLTP_All.kjb                   MailFaxBatch_Updates_ARS.kjb
 MailFaxBatch_Stg_Remote_OLTP_BATCH_EVENTS.ktr   MailFaxBatch_Updates.kjb
 
 
+------------------------------
+6. Mail Fax Doc V2 SECTION
+------------------------------
+
+set_global_variables.ktr
+ProcessMailFaxDoc_Variables.kjb
+ProcessMailFaxDoc_Updates.kjb
+ProcessMailFaxDoc_Update_Job_Log.ktr
+ProcessMailFaxDoc_Update_Job_Error.ktr
+ProcessMailFaxDoc_Update_Control.ktr
+ProcessMailFaxDoc_Update3.ktr
+ProcessMailFaxDoc_Update2.ktr
+ProcessMailFaxDoc_Update1.ktr
+ProcessMailFaxDoc_Setup_Job_Log.ktr
+ProcessMailFaxDoc_Runall.Kjb
+ProcessMailFaxDoc_MoveUpdates.ktr
+ProcessMailFaxDoc_lookbackVariable.ktr
+ProcessMailFaxDoc_Insert_MAXe.ktr
+ProcessMailFaxDoc_Insert_DMS.ktr
+ProcessMailFaxDoc_Insert.kjb
+ProcessMailFaxDoc_Copy_to_WIP.ktr
+ProcessMailFaxDoc_Copy_to_Temp.ktr
+ProcessMailFaxDoc_CheckConnections.kjb
+ProcessMailFaxDoc_CDC_MAXe5.ktr
+ProcessMailFaxDoc_CDC_MAXe4.ktr
+ProcessMailFaxDoc_CDC_MAXe3.ktr
+ProcessMailFaxDoc_CDC_MAXe2.ktr
+ProcessMailFaxDoc_CDC_MAXe.ktr
+ProcessMailFaxDoc_CDC.kjb
+ProcessMailFaxDoc_Capture_indv.ktr
+ProcessMailFaxDoc_Capture_CSC_Errors.ktr
 
 
+------------------------------
+7. Doc Notification SECTION
+------------------------------
 
-
+set_global_variables.ktr
+ProcessDocNotifications_Variables.kjb
+ProcessDocNotifications_Updates.kjb
+ProcessDocNotifications_Update_Job_Log.ktr
+ProcessDocNotifications_Update_Job_Error.ktr
+ProcessDocNotifications_Update_Control.ktr
+ProcessDocNotifications_Update3.ktr
+ProcessDocNotifications_Update2.ktr
+ProcessDocNotifications_Update1.ktr
+ProcessDocNotifications_Setup_Job_Log.ktr
+ProcessDocNotifications_Runall.Kjb
+ProcessDocNotifications_MoveUpdates.ktr
+ProcessDocNotifications_lookbackVariable.ktr
+ProcessDocNotifications_Insert_DocNotif.ktr
+ProcessDocNotifications_Insert.kjb
+ProcessDocNotifications_Copy_to_WIP.ktr
+ProcessDocNotifications_Copy_to_Temp.ktr
+ProcessDocNotifications_CheckConnections.kjb
+ProcessDocNotifications_CDC_STAFF.ktr
+ProcessDocNotifications_CDC_MAXe.ktr
+ProcessDocNotifications_CDC.kjb

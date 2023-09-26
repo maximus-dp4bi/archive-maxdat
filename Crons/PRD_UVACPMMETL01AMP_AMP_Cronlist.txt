@@ -1,0 +1,13 @@
+1 0 * * * /u01/maximus/maxdat-prd/mots/ETL/scripts/ContactCenter/main/bin/run_log_clean_up.sh
+
+00 15 * * * /u01/maximus/maxdat/AMP_ETL/ETL/scripts/ContactCenter/main/bin/run_load_control_chart_parameters.sh
+
+*/5 * * * * /u01/maximus/maxdat/AMP_ETL/ETL/scripts/ContactCenter/main/bin/run_process_project_report_trend_indicator.sh
+
+*/5 * * * * /u01/maximus/maxdat/AMP_ETL/ETL/scripts/ContactCenter/main/bin/run_exec_load_Metric_Xml.sh > /u01/maximus/maxdat/AMP_ETL/ETL/logs/ContactCenter/cron_run_load_metric_xml.log 2>&1
+
+12,27,42,57 * * * * /u01/maximus/maxdat/AMP_ADC/bin/amp_adc_job.bash ADHOC > /u01/maximus/maxdat/AMP_ADC/logs/amp_adc_job_ADHOC.log 2>&1
+
+35 6 * * 1 /u01/maximus/maxdat/AMP_ADC/bin/amp_adc_job.bash WEEKLY > /u01/maximus/maxdat/AMP_ADC/logs/amp_adc_job_WEEKLY.log 2>&1
+
+40 6 2 * * /u01/maximus/maxdat/AMP_ADC/bin/amp_adc_job.bash MONTHLY > /u01/maximus/maxdat/AMP_ADC/logs/amp_adc_job_MONTHLY.log 2>&1

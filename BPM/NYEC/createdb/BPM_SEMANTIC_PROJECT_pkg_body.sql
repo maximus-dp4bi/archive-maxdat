@@ -30,6 +30,8 @@ create or replace package body BPM_SEMANTIC_PROJECT as
       NYEC_PROCESS_STATE_REVIEW.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);
     elsif p_bueq_row.BSL_ID = 22 then 
       PROCESS_COMPLAINTS_INCIDENTS.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);
+	elsif p_bueq_row.BSL_ID = 2001 then 
+      MW_V2.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);  
     else
       v_log_message := 'Unexpected BPM_UPDATE_EVENT_QUEUE.BSL_ID value "' || p_bueq_row.BSL_ID || '" in procedure ' || v_procedure_name || '.';
       v_error_number := -20012;
@@ -63,6 +65,8 @@ create or replace package body BPM_SEMANTIC_PROJECT as
       NYEC_PROCESS_STATE_REVIEW.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);
     elsif p_bueq_row.BSL_ID = 22 then 
       PROCESS_COMPLAINTS_INCIDENTS.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);
+	elsif p_bueq_row.BSL_ID = 2001 then 
+      MW_V2.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);  
     else
       v_log_message := 'Unexpected BPM_UPDATE_EVENT_QUEUE.BSL_ID value "' || p_bueq_row.BSL_ID || '" in procedure ' || v_procedure_name || '.';
       v_error_number := -20012;

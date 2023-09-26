@@ -1,0 +1,41 @@
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6108 , '7');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6109 , '1');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6110 , 'H');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6111 , 'I');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6112 , 'D');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6113 , '2');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6114 , 'N');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6115 , 'V');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6117 , 'R');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6118 , '4');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6119 , 'B');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6120 , '5');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6121 , 'E');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_LANGUAGE_CODE', 6122 , 'U');
+
+commit;
+
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 1 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 2 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 3 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 4 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 5 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 6 , 'ABANDONED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 21 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 22 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 23 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 24 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 25 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 26 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 27 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 60 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 61 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 62 , 'ERROR');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 30 , 'CONFERENCED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 19 , 'RING NO ANSWER');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 28 , 'TRANSFERRED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 29 , 'TRANSFERRED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 13 , 'HANDLED');
+insert into cc_c_lookup (lookup_type, lookup_key, lookup_value) values ('CAHCO_DISPOSITION_CODE', 52 , 'CALL PARTY DISCONNECT');
+
+commit;

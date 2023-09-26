@@ -102,6 +102,7 @@ grant select on CORP_ETL_ERROR_LOG to MAXDAT_READ_ONLY;
 
 create table CORP_ETL_JOB_STATISTICS 
   (JOB_ID number not null, 
+   PARENT_JOB_ID NUMBER,
    JOB_NAME varchar2(80) not null, 
    JOB_STATUS_CD varchar2(20) not null, 
    FILE_NAME varchar2(512), 
@@ -140,7 +141,7 @@ comment on table CORP_ETL_LIST_LKUP is 'Used to create list of values to used wh
 
 comment on column CORP_ETL_LIST_LKUP.NAME is 'LIST(lookup rule name for list of values)/IFTHEN(IF VALUE THEN OUT_VAR)/ID(REFERENCE AND ID)';
 comment on column CORP_ETL_LIST_LKUP.VALUE is 'Either a list or reference value - Secondary lookup value';
-comment on column CORP_ETL_LIST_LKUP.OUT_VAR is 'Value to be extacted from table';
+comment on column CORP_ETL_LIST_LKUP.OUT_VAR is 'Value to be extracted from table';
 comment on column CORP_ETL_LIST_LKUP.REF_TYPE is 'Table name if ref id is prim key';
 comment on column CORP_ETL_LIST_LKUP.REF_ID is 'Prim key when ref_type has table name';
 comment on column CORP_ETL_LIST_LKUP.START_DATE is 'used to turn on value';
@@ -215,7 +216,9 @@ tablespace MAXDAT_DATA;
 alter table HOLIDAYS add constraint HOLIDAYS_PK primary key (HOLIDAY_ID)
 using index tablespace MAXDAT_INDX;
 
-alter table HOLIDAYS add constraint HOLIDAYS_UK1 unique (HOLIDAY_YEAR,HOLIDAY_DATE)
+alter table HOLIDAYS add constraint HOLIDAYS_UK1 unique (HOLIDAY_DATE) 
 using index tablespace MAXDAT_INDX;
+
+alter index HOLIDAYS_UK1 invisible;
 
 grant select on HOLIDAYS to MAXDAT_READ_ONLY; 

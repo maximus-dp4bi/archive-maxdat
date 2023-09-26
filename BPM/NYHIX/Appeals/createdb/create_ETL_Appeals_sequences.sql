@@ -23,3 +23,21 @@ CREATE SEQUENCE SEQ_NEAR_ID
 
 
 CREATE OR REPLACE PUBLIC SYNONYM SEQ_NEAR_ID FOR SEQ_NEAR_ID;
+
+declare  c int;
+begin
+   select count(*) into c from user_objects where object_type = 'SEQUENCE' and object_name ='SEQ_NEPAS_ID';
+   if c = 1 then
+      execute immediate 'DROP SEQUENCE SEQ_NEPAS_ID';
+   end if;
+end;
+/
+
+CREATE SEQUENCE SEQ_NEPAS_ID -- FOR NYHBE_ETL_APPEALS_SCHEDULER
+    START WITH 10
+    INCREMENT BY 1
+    NOMINVALUE
+    NOMAXVALUE
+    NOCYCLE
+    NOORDER
+    CACHE 20;

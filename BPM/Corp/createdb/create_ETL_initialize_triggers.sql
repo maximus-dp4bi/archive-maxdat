@@ -36,4 +36,22 @@ BEGIN
 END;
 /
 
+/*
+Added on 07-May-2013 by Raj A.
+Description:
+Originally added by Brian Thai by the patch file, 20140226_1533_OC_create_oltp_temp_tabs. Backfilled by Raj A.
+*/
+CREATE OR REPLACE TRIGGER TRG_BIU_ETL_E_DIALER_RUN_STG
+BEFORE INSERT OR UPDATE ON ETL_E_DIALER_RUN_STG
+FOR EACH ROW
+BEGIN
+  IF INSERTING and :NEW.stage_create_ts IS NULL
+  THEN :NEW.stage_create_ts := SYSDATE;    
+  END IF;
+
+  :NEW.stage_update_ts := SYSDATE;
+
+END TRG_BIU_ETL_E_DIALER_RUN_STG;
+/
+
 alter session set plsql_code_type = interpreted;

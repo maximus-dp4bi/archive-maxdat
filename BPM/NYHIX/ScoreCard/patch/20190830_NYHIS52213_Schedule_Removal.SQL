@@ -1,0 +1,7 @@
+Delete FROM DP_SCORECARD.Sc_Lag_Time
+WHERE (AGENT_ID IN ('127148') AND TRUNC(LAG_DATE) in ('05-Aug-19'))
+OR (AGENT_ID IN ('254299') AND TRUNC(LAG_DATE) in ('08-Aug-19'))
+OR (AGENT_ID IN ('254299') AND TRUNC(LAG_DATE) in ('12-Aug-19'))
+OR (AGENT_ID IN ('254299') AND TRUNC(LAG_DATE) in ('14-Aug-19'));
+
+-- Commit only if 4 rows Deleted.

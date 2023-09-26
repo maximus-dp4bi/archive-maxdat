@@ -1,0 +1,12 @@
+create table BPM_D_OPS_GROUP_TASK
+(
+  ops_group VARCHAR2(50) not null,
+  task_type VARCHAR2(100) not null
+)
+;
+alter table BPM_D_OPS_GROUP_TASK
+  add constraint BPM_D_OPS_GROUP_TASK_PK primary key (OPS_GROUP, TASK_TYPE);
+grant select, insert, update on BPM_D_OPS_GROUP_TASK to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on BPM_D_OPS_GROUP_TASK to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on BPM_D_OPS_GROUP_TASK to MAXDAT_MITRAN_READ_ONLY;
+

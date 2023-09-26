@@ -2,7 +2,20 @@
 <job>
   <name>load_production_planning_staging_tables</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+---------------------------------
+
+SVN_FILE_URL        = $URL$ 
+
+SVN_REVISION        = $Revision$ 
+
+SVN_REVISION_DATE   = $Date$
+
+SVN_REVISION_AUTHOR = $Author$
+
+---------------------------------
+</extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -71,24 +84,31 @@
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -96,7 +116,7 @@
     <server>${DB_MOTS_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>${DB_MOTS_NAME}</database>
+    <database>${DB_MOTS_DATABASENAME}</database>
     <port>${DB_MOTS_PORT}</port>
     <username>${DB_MOTS_USER}</username>
     <password>${DB_MOTS_PASSWORD}</password>
@@ -108,6 +128,58 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -176,15 +248,25 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>37</xloc>
-      <yloc>375</yloc>
+      <yloc>360</yloc>
       </entry>
     <entry>
-      <name>load_production_planning_avaya_staging</name>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1292</xloc>
+      <yloc>354</yloc>
+      </entry>
+    <entry>
+      <name>load_ACD_STAGING</name>
       <description/>
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename>${cc.project.main.directory}\jobs\staging\Avaya\load_production_planning_avaya_staging.kjb</filename>
+      <filename>${cc.project.main.directory}\jobs\staging\Cisco\load_production_planning_cisco_staging.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -205,26 +287,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1067</xloc>
-      <yloc>375</yloc>
+      <xloc>1110</xloc>
+      <yloc>354</yloc>
       </entry>
     <entry>
-      <name>Success</name>
-      <description/>
-      <type>SUCCESS</type>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>1254</xloc>
-      <yloc>375</yloc>
-      </entry>
-    <entry>
-      <name>Check MAXDAT connection</name>
+      <name>Check ACD connection</name>
       <description/>
       <type>CHECK_DB_CONNECTIONS</type>
       <connections>
         <connection>
-          <name>MAXDAT</name>
+          <name>ACD</name>
           <waitfor>0</waitfor>
           <waittime>millisecond</waittime>
         </connection>
@@ -232,47 +304,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>195</xloc>
-      <yloc>375</yloc>
+      <xloc>928</xloc>
+      <yloc>354</yloc>
       </entry>
     <entry>
-      <name>Log MAXDAT unavailable Error</name>
-      <description/>
-      <type>WRITE_TO_LOG</type>
-      <logmessage>The MAXDAT DB connection is unavailable.  Aborting Job.</logmessage>
-      <loglevel>Basic</loglevel>
-      <logsubject>!!!!!!  MAXDAT DB CONNECTION UNAVAILABLE  !!!!!!!</logsubject>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>195</xloc>
-      <yloc>484</yloc>
-      </entry>
-    <entry>
-      <name>Abort job</name>
-      <description/>
-      <type>ABORT</type>
-      <message>Aborting due to MAXDAT DB unavailable.</message>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>195</xloc>
-      <yloc>583</yloc>
-      </entry>
-    <entry>
-      <name>Check Avaya connection   </name>
-      <description/>
-      <type>CHECK_DB_CONNECTIONS</type>
-      <connections>
-      </connections>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>404</xloc>
-      <yloc>375</yloc>
-      </entry>
-    <entry>
-      <name>job_log_to_CC_L_ERROR (3)</name>
+      <name>Log ACD unavailable Error </name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -299,12 +335,105 @@
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
             <parameter>            <name>errorMessage</name>
             <stream_name/>
-            <value>&quot;Aborting Job: Avaya DB connection is unavailable.&quot;</value>
+            <value>&quot;ACD DB connection is unavailable&quot;</value>
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>404</xloc>
-      <yloc>484</yloc>
+      <xloc>928</xloc>
+      <yloc>520</yloc>
+      </entry>
+    <entry>
+      <name>Check MAXDAT connection</name>
+      <description/>
+      <type>CHECK_DB_CONNECTIONS</type>
+      <connections>
+        <connection>
+          <name>MAXDAT</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+      </connections>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>225</xloc>
+      <yloc>360</yloc>
+      </entry>
+    <entry>
+      <name>Log MAXDAT unavailable Error</name>
+      <description/>
+      <type>WRITE_TO_LOG</type>
+      <logmessage>The MAXDAT DB connection is unavailable.  Aborting Job.</logmessage>
+      <loglevel>Basic</loglevel>
+      <logsubject>!!!!!!  MAXDAT DB CONNECTION UNAVAILABLE  !!!!!!!</logsubject>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>225</xloc>
+      <yloc>526</yloc>
+      </entry>
+    <entry>
+      <name>Abort job</name>
+      <description/>
+      <type>ABORT</type>
+      <message>Aborting due to MAXDAT DB unavailable.</message>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>225</xloc>
+      <yloc>691</yloc>
+      </entry>
+    <entry>
+      <name>Check ACD connection  </name>
+      <description/>
+      <type>CHECK_DB_CONNECTIONS</type>
+      <connections>
+        <connection>
+          <name>ACD</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+      </connections>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>406</xloc>
+      <yloc>360</yloc>
+      </entry>
+    <entry>
+      <name>Log ACD unavailable Error</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${cc.project.main.directory}&#47;transforms&#47;utility&#47;job_log_to_CC_L_ERROR.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+            <parameter>            <name>errorMessage</name>
+            <stream_name/>
+            <value>&quot;Aborting Job: ACD DB connection is unavailable.&quot;</value>
+            </parameter>      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>407</xloc>
+      <yloc>443</yloc>
       </entry>
     <entry>
       <name>Abort job  </name>
@@ -314,16 +443,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>404</xloc>
-      <yloc>583</yloc>
+      <xloc>407</xloc>
+      <yloc>691</yloc>
       </entry>
     <entry>
-      <name>load_CC_S_TMP_Avaya_ALL</name>
+      <name>load_CC_S_TMP_CISCO_ALL</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${cc.project.main.directory}\transforms\staging\Avaya\load_CC_S_TMP_Avaya_ALL.ktr</filename>
+      <filename>${cc.project.main.directory}&#47;transforms&#47;staging&#47;Cisco&#47;load_CC_S_TMP_CISCO_ALL.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -352,11 +481,11 @@
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>831</xloc>
-      <yloc>375</yloc>
+      <xloc>681</xloc>
+      <yloc>354</yloc>
       </entry>
     <entry>
-      <name>job_log_to_CC_L_ERROR</name>
+      <name>Log load_CC_S_TMP_CISCO_ALL Error</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -383,12 +512,12 @@
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
             <parameter>            <name>errorMessage</name>
             <stream_name/>
-            <value>&quot;Aborting Job: Error processing load_CC_S_TMP_Avaya_ALL&quot;</value>
+            <value>&quot;Aborting Job: Error processing load_CC_S_TMP_CISCO_ALL&quot;</value>
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>831</xloc>
-      <yloc>484</yloc>
+      <xloc>681</xloc>
+      <yloc>519</yloc>
       </entry>
     <entry>
       <name> Abort job   </name>
@@ -398,16 +527,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>831</xloc>
-      <yloc>583</yloc>
+      <xloc>681</xloc>
+      <yloc>684</yloc>
       </entry>
     <entry>
-      <name>validate_datetime_parameters</name>
+      <name>Set_Control_Variables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${cc.project.main.directory}&#47;transforms&#47;utility&#47;validate_datetime_parameters.ktr</filename>
+      <filename>${cc.project.main.directory}&#47;transforms&#47;staging&#47;Cisco&#47;Set_Control_Variables.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -427,60 +556,65 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>614</xloc>
-      <yloc>375</yloc>
-      </entry>
-    <entry>
-      <name>Abort Job      </name>
-      <description/>
-      <type>ABORT</type>
-      <message>Invalid date parameters.  Expecting two arguments supplying these values in the format of yyyy&#47;MM&#47;dd HH:mm:ss.</message>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>614</xloc>
-      <yloc>583</yloc>
-      </entry>
-    <entry>
-      <name>job_log_to_CC_L_ERROR (2)</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${cc.project.main.directory}&#47;transforms&#47;utility&#47;job_log_to_CC_L_ERROR.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-            <parameter>            <name>errorMessage</name>
+            <parameter>            <name>startDateTime</name>
             <stream_name/>
-            <value>&quot;Aborting Job:  Error processing startDateTime and endDateTime parameters&quot;</value>
+            <value>${startDateTime}</value>
+            </parameter>            <parameter>            <name>endDateTime</name>
+            <stream_name/>
+            <value>${endDateTime}</value>
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>614</xloc>
-      <yloc>484</yloc>
+      <xloc>540</xloc>
+      <yloc>356</yloc>
       </entry>
   </entries>
   <hops>
+    <hop>
+      <from>load_ACD_STAGING</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Check ACD connection</from>
+      <to>load_ACD_STAGING</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Check ACD connection</from>
+      <to>Log ACD unavailable Error </to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Log ACD unavailable Error </from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Check MAXDAT connection</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
     <hop>
       <from>Check MAXDAT connection</from>
       <to>Log MAXDAT unavailable Error</to>
@@ -500,7 +634,25 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_log_to_CC_L_ERROR (3)</from>
+      <from>Check MAXDAT connection</from>
+      <to>Check ACD connection  </to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Check ACD connection  </from>
+      <to>Log ACD unavailable Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Log ACD unavailable Error</from>
       <to>Abort job  </to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -509,16 +661,16 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_log_to_CC_L_ERROR (2)</from>
-      <to>Abort Job      </to>
+      <from>load_CC_S_TMP_CISCO_ALL</from>
+      <to>Log load_CC_S_TMP_CISCO_ALL Error</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_log_to_CC_L_ERROR</from>
+      <from>Log load_CC_S_TMP_CISCO_ALL Error</from>
       <to> Abort job   </to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -527,8 +679,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Check MAXDAT connection</from>
-      <to>Check Avaya connection   </to>
+      <from>load_CC_S_TMP_CISCO_ALL</from>
+      <to>Check ACD connection</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -536,8 +688,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Check Avaya connection   </from>
-      <to>validate_datetime_parameters</to>
+      <from>Check ACD connection  </from>
+      <to>Set_Control_Variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -545,62 +697,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>validate_datetime_parameters</from>
-      <to>load_CC_S_TMP_Avaya_ALL</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Check Avaya connection   </from>
-      <to>job_log_to_CC_L_ERROR (3)</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>validate_datetime_parameters</from>
-      <to>job_log_to_CC_L_ERROR (2)</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load_CC_S_TMP_Avaya_ALL</from>
-      <to>job_log_to_CC_L_ERROR</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>Check MAXDAT connection</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>load_CC_S_TMP_Avaya_ALL</from>
-      <to>load_production_planning_avaya_staging</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load_production_planning_avaya_staging</from>
-      <to>Success</to>
+      <from>Set_Control_Variables</from>
+      <to>load_CC_S_TMP_CISCO_ALL</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -611,7 +709,7 @@
   <notepads>
     <notepad>
       <note>Description:
-This job loads the staging area from the source Avaya tables
+This job loads all staging tables related to the Production Planning segment of Contact Center ETL.
 
 Input:
 N&#47;A
@@ -620,16 +718,21 @@ Output:
 N&#47;A
 
 Steps:
-1.  START
-2.  Check MAXDAT connection - check the database connection to the data mart
-3.  Check Avaya connection - check the database connection to the source system
-4.  validate_datetime_parameters - format check of date parameters
-5.  load_production_planning_avaya_staging - job containing the transforms to load the ACD staging tables
-6.  Success</note>
+01.   START
+02.   Check MAXDAT Connection - Check to ensure a valid MAXDAT connection can be successfully created.
+02b. Log MAXDAT Unavailable Error - Log MAXDAT unavailable error and abort execution.  
+03.   Check ACD Connection - Check to ensure a valid ACD connection can be successfully created.
+03b. Log ACD Unavailable Error - Log ACD unavailable error and abort execution.
+04.   load_CC_S_TMP_CISCO_ALL - Load all landing tables for the CISCO source system.
+04b. Log load_CC_S_TMP_CISCO_ALL Error - Log that error occurred during execution of load_CC_S_TMP_CISCO_ALL and abort execution.
+05.   Check ACD Connection - Check to ensure a valid ACD connection can be successfully created. 
+05b. Log ACD Unavailable Error - Log ACD unavailable error and abort execution.    
+06.   load_ACD_STAGING - Load all Production Planning staging tables related to the ACD system.
+07.   Success</note>
       <xloc>0</xloc>
       <yloc>0</yloc>
-      <width>633</width>
-      <heigth>249</heigth>
+      <width>846</width>
+      <heigth>324</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

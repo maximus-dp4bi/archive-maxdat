@@ -1,7 +1,7 @@
 #!/bin/bash
-. ~/.bash_profile
+. /home/appadmin/.bash_profile
 
-. $MAXDAT_ETL_PATH/set_maxdat_env_variables.sh
+. $MAXDAT_ETL_PATH/DMCS/config/set_maxdat_env_variables.sh
 
 # tx_run_cc.sh
 # This program will run the Kettle job necessary to initialize the Contact Center data mart
@@ -20,7 +20,7 @@ BASIC_LOG_LEVEL="Basic"
 DETAIL_LOG_LEVEL="Detailed"
 
 # email-related variables
-EMAIL="ClayRowland@maximus.com"
+EMAIL="SaraswathiKonidena@maximus.com"
 EMAIL_MESSAGE="$ERR_DIR/$INIT_JOB_ERROR_LOG.log"
 EMAIL_SUBJECT="Errors with $INIT_JOB"
 

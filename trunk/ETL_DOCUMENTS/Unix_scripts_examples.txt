@@ -1,0 +1,357 @@
+Devin Testing 1
+
+Overview of unix scripts (This is the newest version, please note not all projects were converted to this methodology)
+
+Calling script:
+/u01/maximus/maxdat-prd/CADIR/scripts/cronfiles/ cron_cadir_run_bpm.sh
+Added once and never changed (dev/uat/prod specific)
+
+Environment script (Sets up all variables needed to run for a specific project) If this does not exist, then the variables are set in bash profile and in the run script below. to see what is in the bash profile, you will need to create a jira ticket and submit to infrastructure support group
+/u01/maximus/maxdat-prd/CADIR/scripts/.set_env
+Added once and never  or seldom changed 
+
+Run Script ( calls specific modules):
+/u01/maximus/maxdat-prd/CADIR/scripts/cadir_run_bpm.sh
+Occasional updates, same in Dev, uat, prod( if same modules, could be used in multiple projects)
+
+Examples we will walk thru
+
+--------------------------------------------------------------------------------------------------------------
+Script called by cron job:
+--------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+export MD_SETENV=/u01/maximus/maxdat-prd/CADIR/scripts/.set_env
+source $MD_SETENV
+#cron_cadir_run_bpm.sh
+# ================================================================================
+# Do not edit these four SVN_* variable values.  They are populated when you
+#     commit code to SVN and used later to identify deployed code.
+# $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/CADIR/ETL/Scripts/cronfiles/prd_cron_cadir_run_bpm.sh $
+# $Revision: 14761 $
+# $Date: 2015-07-13 15:37:34 -0700 (Mon, 13 Jul 2015) $
+# $Author: pa28085 $
+# ================================================================================
+# This is a cron job shell that will run the bpm process
+# ================================================================================
+$MAXDAT_ETL_PATH/cadir_run_bpm.sh > $MAXDAT_ETL_LOGS/${STCODE}_bpm_cron_$(date +%Y%m%d_%H%M%S).log
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+.set_env
+--------------------------------------------------------------------------------------------------------------
+# .set_env - [SITE]
+# corp_set_env.txt
+# =======================================================================
+# Do not edit these four SVN_* variable values.  They are populated when
+#    you commit code to SVN and used later to identify deployed code.
+# $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/CADIR/ETL/Scripts/set_env_prd.txt $
+# $Revision: 11077 $
+# $Date: 2014-07-23 17:10:53 -0400 (Wed, 23 Jul 2014) $
+# $Author: fm18957 $
+# =======================================================================
+#
+# Set all of the exported environment variables in this file
+# All lines marked with a "->" need to be set for the local server (and the "->" removed)
+# -----  MAXDAT VARIABLES  ----
+export PENTAHO_JAVA_HOME='/u01/app/appadmin/product/java/jdk1.6.0_45/'
+export ENV_CODE=prd
+export STCODE=CADIR
+#export MAXDAT_KETTLE_DIR='/u01/app/appadmin/product/pentaho_5.0.1/data-integration'
+export MAXDAT_KETTLE_DIR='/u01/app/appadmin/product/pentaho/data-integration'
+export MAXDAT_ETL_PATH="/u01/maximus/maxdat-$ENV_CODE/$STCODE/scripts"
+export MAXDAT_ETL_LOGS="/u01/maximus/maxdat-$ENV_CODE/$STCODE/logs"
+export KETTLE_HOME="/u01/maximus/maxdat-$ENV_CODE/$STCODE/config"
+export KTR_LOG_LEVEL='Basic'
+export KJB_LOG_LEVEL='Detailed'
+export INIT_OK="$MAXDAT_ETL_PATH/${STCODE}_run_check.txt"
+export CHILD_FAIL="/tmp/${STCODE}_child_task_fail.txt"
+#PATH="$KETTLE_HOME/.kettle/kettle.properties:.:/u01/app/appadmin/product/pentaho_5.0.1/data-integration:/usr/bin:$PATH"
+PATH="$KETTLE_HOME/.kettle/kettle.properties:.:/u01/app/appadmin/product/pentaho/data-integration:/usr/bin:$PATH"
+export PATH
+#
+# ----  EMRS VARIABLES  -----
+#export EINIT_OK="$MAXDAT_ETL_PATH/${STCODE}_emrs_init_check.txt"
+#export EMRS_DATA_DIR=$MAXDAT_ETL_PATH/EnrollmentDataEMRS
+#
+# ----  MAIL VARIABLES  -----
+#mail related variables
+export EMAIL='MAXDatSystem@maximus.com'
+export EMAIL_MESSAGE="/tmp/${STCODE}_run_bpm-ERROR-LOG.txt"
+export EMAIL_SUBJECT="Errors With ${STCODE}_run_bpm.sh in $ENV_CODE"
+#
+# ----  P-PLANNING VARIABLES  ----
+export PLANNING_OK="$MAXDAT_ETL_PATH/${STCODE}_run_planning_check.txt"
+export PLANNING_FAIL="$MAXDAT_ETL_PATH/${STCODE}_child_planning_fail.txt"
+#
+# ----  OTHER VARIABLES  ----
+export LOG_LIFE_DAYS=30 # Number of days to keep log files in the log directory before deleteing
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+cadir_run_bpm.sh
+--------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+#set -x
+source $MD_SETENV
+
+#corp_run_bpm.sh
+# ================================================================================
+# Do not edit these four SVN_* variable values.  They are populated when you
+#     commit code to SVN and used later to identify deployed code.
+# $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/CADIR/ETL/Scripts/cadir_run_bpm.sh $
+# $Revision: 14762 $
+# $Date: 2015-07-13 16:05:43 -0700 (Mon, 13 Jul 2015) $
+# $Author: pa28085 $
+# =================================================================================
+# This is the BPM Shell - it is setup to call all of the most common modules.  You
+#   may delete what modules you don't want or you simply uncomment what you do want.
+# =================================================================================
+# ----------------------------------------------------------------
+# Function for exit due to fatal program error
+#    Accepts 1 argument: string containing descriptive error message
+# ----------------------------------------------------------------
+PROGNAME=$(basename $0 .sh)
+function error_exit
+{
+   echo "${PROGNAME}: ${1:-'Unknown Error'}" 1>&2
+   rm -f $INIT_OK
+   exit 1
+}
+
+# Checking for run file - Abort if it exists, otherwise create it
+if [[ -e $INIT_OK ]] ; then
+   echo "Run Aborted - $INIT_OK exists"
+   exit;
+else
+   echo "Starting ${STCODE}_run_bpm.sh in ${ENV_CODE}."
+   rm -f $EMAIL_MESSAGE $CHILD_FAIL
+   touch $INIT_OK
+fi
+
+# Run the Init Check to see if resources are available
+$MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/bpm_Init_check.kjb" -level="$KJB_LOG_LEVEL"  > $MAXDAT_ETL_LOGS/${STCODE}_bpm_init_check_$(date +%Y%m%d_%H%M%S).log
+#
+# Check the return value from Init Check - if it's not good (not 0), email error
+rc=$?
+if [[ $rc != 0 ]] ; then
+   echo "exited with status: $rc - ${STCODE}_BPM_Init_check.kjb in ${ENV_CODE}, aborting run" >> $EMAIL_MESSAGE
+   rm -f $INIT_OK
+   mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+   cat $EMAIL_MESSAGE
+   exit $rc
+else
+   # When the return code is 0, then run the Run Intailization
+   $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/Run_Initialization.kjb $KJB_LOG_LEVEL > $MAXDAT_ETL_LOGS/${STCODE}_Run_Initialization_$(date +%Y%m%d_%H%M%S).log
+   # Checking the return value from Run Intialization - if 0, run rest of code.  If not 0, email error
+   if [[ $? -eq 0 ]]
+   then
+# NOTE: The callable modules are marked with "#->".  Remove the "#->" to call the module. You may chose to delete
+#       the lines you do not want entirely. Do not leave any "->" without a "#" or the script will error.
+      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageWork/ManageWork_RUNALL.kjb  $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/ManageWork_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/Load_ACTS_Cases_Stg.kjb  $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Load_ACTS_Cases_$(date +%Y%m%d_%H%M%S).log &
+
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessMailFaxDoc/Process_mail_fax_doc_runall.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Process_mail_fax_doc_runall_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessIncidents/Process_Incidents_RUN_ALL.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Process_Incidents_RUN_ALL_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageJobs/ManageJobs_RunAll.kjb   $KJB_LOG_LEVEL    > $MAXDAT_ETL_LOGS/ManageJobs_RunAll_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessLetters/Process_Letters_runall.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Process_Letters_runall_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/SupportClientInquiry/ClientInquiry_Main_RUNALL.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/ClientInquiry_Main_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageEnrollmentActivity/ProcessManageEnroll_RUNALL_ONCE_A_DAY.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/ManageEnroll_RUNALL_ONCE_A_DAY_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ClientOutreach/ClientOutreach_runall.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/ClientOutreach_runall_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/CommunityOutreach/CommunityOutreach_RunAll.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/CommunityOutreach_RunAll_$(date +%Y%m%d_%H%M%S).log &
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/MissingInfo/ProcessMI_RUNALL.kjb   $KJB_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessMI_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessApplication/ProcessApp_RUNALL.kjb   $KTR_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessApp_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
+#->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/StateReview/ProcessStateReview_RUNALL.kjb   $KJB_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessStateReview_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
+        wait  #You only need this wait if you are running Prod Planning
+        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProductionPlanning/PP_Actuals_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/PP_Actuals_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+        wait  #PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL needs to wait for PP_Actuals_RUNALL to complete
+	    $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProductionPlanning/PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+      wait
+      if [[ -e $CHILD_FAIL ]]
+         then
+            #a child process failed, abort mission
+            rm -f $INIT_OK
+            mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+            cat $EMAIL_MESSAGE
+            error_exit "$LINENO: An error has occurred."
+         else
+            #success, move on
+            echo "$STCODE - Child processes completed successfully."
+            rm -f $INIT_OK
+            exit 0
+      fi	
+   else
+      # Mail that something went wrong with the init and remove run check file
+      echo "Run_Initialization.kjb failed in ${STCODE}EB, review error log for additional detail." >> $EMAIL_MESSAGE
+      rm -f $INIT_OK
+      mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+      cat $EMAIL_MESSAGE
+      error_exit "$LINENO: An error has occurred."
+   fi 
+fi
+
+#pan status codes
+# 0 	The transformation ran without a problem.
+# 1 	Errors occurred during processing
+# 2 	An unexpected error occurred during loading / running of the transformation
+# 3 	Unable to prepare and initialize this transformation
+# 7 	The transformation couldn't be loaded from XML or the Repository
+# 8 	Error loading steps or plugins (error in loading one of the plugins mostly)
+# 9 	Command line usage printing
+
+#kitchen status codes
+# 0 	The job ran without a problem.
+# 1 	Errors occurred during processing
+# 2 	An unexpected error occurred during loading or running of the job
+# 7 	The job couldn't be loaded from XML or the Repository
+# 8 	Error loading steps or plugins (error in loading one of the plugins mostly)
+# 9 	Command line usage printing
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+run_kjb.sh
+--------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+#corp_run_kjb.sh
+# ============================================================================
+# Do not edit these four SVN_* variable values.  They are populated when you
+#    commit code to SVN and used later to identify deployed code.
+# $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/CADIR/ETL/Scripts/run_kjb.sh $
+# $Revision: 10933 $
+# $Date: 2014-07-15 19:24:10 -0400 (Tue, 15 Jul 2014) $
+# $Author: dd27179 $
+# ===========================================================================
+PROGNAME=$(basename $0)
+kitchen_status()
+{
+   #kitchen status codes
+   kitchenStatusDefs[1]="Errors occurred during processing"
+   kitchenStatusDefs[2]="An unexpected error occurred during loading or running of the job"
+   kitchenStatusDefs[7]="The job couldn't be loaded from XML or the Repository"
+   kitchenStatusDefs[8]="Error loading steps or plugins (error in loading one of the plugins mostly)"
+   kitchenStatusDefs[9]="Command line usage printing"
+   kitchenStatusDefs[0]="Success"
+   echo ${kitchenStatusDefs[$1]}
+}
+#	----------------------------------------------------------------
+#	Function for exit due to fatal program error
+#		Accepts 1 argument:
+#			string containing descriptive error message
+#	----------------------------------------------------------------
+function error_exit
+{
+	echo "see: $LOG_FILE for details."
+	echo "${PROGNAME}: ${1:-'Unknown Error'}" 1>&2
+	exit 1
+}
+#
+LOG_LEVEL=$2
+LOG_NAME=`echo $1|awk -F"/" '{print substr($NF,1,length($NF)-4)}'`_$(date +%Y%m%d_%H%M%S)
+LOG_FILE="${MAXDAT_ETL_LOGS}/${LOG_NAME}.log"
+ERRORS_FOUND="/tmp/$STCODE_child_task_fail.txt"
+
+# EMAIL Values
+EMAIL_MESSAGE="/tmp/${LOG_NAME}-${STCODE}-ERROR-LOG.txt"
+EMAIL_SUBJECT="${STCODE}-Errors With $LOG_NAME in $ENV_CODE"
+
+rm -f $EMAIL_MESSAGE
+
+# Check for any arguments  
+# first arg is the Kettle Job file name
+if [[ $# -ne 2 ]]
+then
+        echo 'Usage: run_kjb.sh <path><filename> <logging level>'
+        echo 'Example: run_kjb.sh ManageWork/Run_ManageWork.kjb Detailed'
+        exit  1
+else
+   $MAXDAT_KETTLE_DIR/kitchen.sh -file="$1"  -level="$LOG_LEVEL"
+   kjbrc=$?
+      if [[ $kjbrc != 0 ]]
+      then
+          #failure
+          echo "$kjbrc ${1/\//}" >> $ERRORS_FOUND
+          echo "${STCODE}-ERROR IN $1, See $LOG_NAME for details." >> $EMAIL_MESSAGE
+          kitchen_status $kjbrc >> $EMAIL_MESSAGE
+          mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+          cat $EMAIL_MESSAGE
+          error_exit "$LINENO: An error has occurred in $STCODE. run_kjb.sh"
+       else
+          #success
+          echo "$(date +%Y%m%d_%H%M%S) $1 $STCODE Completed Successfully"
+          kitchen_status $kjbrc
+      fi
+fi
+exit 0
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+run_ktr.sh
+--------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+#corp_run_ktr.sh
+# ==========================================================================
+# Do not edit these four SVN_* variable values.  They are populated when
+#    you commit code to SVN and used later to identify deployed code.
+# $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/CADIR/ETL/Scripts/run_ktr.sh $
+# $Revision: 10933 $
+# $Date: 2014-07-15 19:24:10 -0400 (Tue, 15 Jul 2014) $
+# $Author: dd27179 $
+# =========================================================================
+PROGNAME=$(basename $0)
+pan_status()
+{
+   panStatusDefs[1]="Errors occurred during processing"
+   panStatusDefs[2]="An unexpected error occurred during loading or running of the transformation"
+   panStatusDefs[3]="Unable to prepare and initialize this transformation"
+   panStatusDefs[7]="The transformation couldn't be loaded from XML or the Repository"
+   panStatusDefs[8]="Error loading steps or plugins (error in loading one of the plugins mostly)"
+   panStatusDefs[9]="Command line usage printing"
+   panStatusDefs[0]="success"
+   echo ${panStatusDefs[$1]}
+}
+#
+#	----------------------------------------------------------------
+#	Function for exit due to fatal program error
+#		Accepts 1 argument:
+#			string containing descriptive error message
+#	----------------------------------------------------------------
+function error_exit
+{
+	echo "see: $LOG_FILE for details."
+	echo "${PROGNAME}: ${1:-'Unknown Error'}" 1>&2
+	exit 1
+}
+
+LOG_LEVEL=$2
+ERRORS_FOUND="/tmp/${STCODE}_child_task_fail.txt"
+echo "ERRORS FOUND = $ERRORS_FOUND"
+
+#mail related variables
+EMAIL_MESSAGE="/tmp/${1/\//}-$STCODE-ERROR-LOG.txt"
+EMAIL_SUBJECT="${STCODE}-Errors With ${1/\//} in $ENV_CODE"
+
+LOG_NAME=`echo $1|awk -F"/" '{print substr($NF,1,length($NF)-4)}'`_$(date +%Y%m%d_%H%M%S)
+LOG_FILE="${MAXDAT_ETL_LOGS}/${LOG_NAME}.log"
+
+#if the message already exists from a prior run, delete it
+rm -f $EMAIL_MESSAGE
+
+# Check for correct number of arguments  
+if [[ $# -ne 2 ]]
+then
+	echo 'Usage: run_ktr.sh <path><filename> <logging level>'
+	echo 'Example: run_ktr.sh ManageWork/Run_ManageWork.kjb Detailed'
+	exit  1
+else
+	$MAXDAT_KETTLE_DIR/pan.sh -file="$1"  -level="$LOG_LEVEL" 
+	ktrrc=$?
+	if [[ $ktrrc != 0 ]]
+	then #failure
+		echo "$ktrrc ${1/\//}" >> $ERRORS_FOUND
+		echo "${STCODE}-ERROR IN $1, See $LOG_FILE for details." >> $EMAIL_MESSAGE
+		pan_status $ktrrc >> $EMAIL_MESSAGE
+		mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+		cat $EMAIL_MESSAGE
+		error_exit "$LINENO: An error has occurred in ${STCODE}. run_ktr.sh"
+	else
+	#success
+		echo "$(date +%Y%m%d_%H%M%S) $1 ${STCODE} Completed Successfully"
+		pan_status $ktrrc
+	fi 
+fi
+exit 0

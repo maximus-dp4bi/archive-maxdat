@@ -200,9 +200,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'Extra Effort Referral Form (Form H1093)'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type Extra Effort Referral Form (Form H1093)'
@@ -214,9 +214,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'Checkup verifications (Form H1087)'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry Task'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type Checkup verifications (Form H1087)'
@@ -228,9 +228,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'Missed Appointment Referral'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type Missed Appointment Referral'
@@ -242,9 +242,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'Other provider referral'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type Other provider referral'
@@ -256,9 +256,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'High Lead Level Referrals'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type High Lead Level Referrals'
@@ -270,9 +270,9 @@ values (SEQ_CELL_ID.nextval
   ,'ProcessMail_work_expected'
   ,'DOC_TYPE'
   ,'Case Management Informing Referrals'
-  ,'Outreach Request Data Entry Task'
+  ,'Outreach Req Data Entry'
   ,'STEP_DEFINITION_ID'
-  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Request Data Entry Task' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
   ,trunc(sysdate)
   ,to_date('7777-07-07','YYYY-MM-DD')
   ,'TX final work task type expected for doc type Case Management Informing Referrals'
@@ -1247,9 +1247,9 @@ insert into corp_etl_list_lkup (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,RE
 					,'ProcessMail_work_expected'
 					,'DOC_TYPE'
 					,'Client Request for Home Visit'
-					,'Outreach Request Data Entry Task'
+					,'Outreach Req Data Entry'
 					,'STEP_DEFINITION_ID'    
-					,(select step_definition_id from step_definition_stg where name = 'Outreach Request Data Entry Task' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK') )  --ref_id
+					,(select step_definition_id from step_definition_stg where name = 'Outreach Req Data Entry' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK') )  --ref_id
 					,trunc(SYSDATE)
 					,to_date('7777-07-07','YYYY-MM-DD')
 					,'TX final work task type expected for doc type Client Request for Home Visit'
@@ -1332,9 +1332,9 @@ insert into corp_etl_list_lkup (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,RE
 					,'ProcessMail_work_expected'
 					,'DOC_TYPE'
 					,'Outreach Request'
-					,'Outreach Request Data Entry Task'
+					,'Outreach Req Data Entry'
 					,'STEP_DEFINITION_ID'    
-					,(select step_definition_id from step_definition_stg where name = 'Outreach Request Data Entry Task' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+					,(select step_definition_id from step_definition_stg where name = 'Outreach Req Data Entry' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
 					,trunc(SYSDATE)
 					,to_date('7777-07-07','YYYY-MM-DD')
 					,'TX final work task type expected for doc type Outreach Request'
@@ -1346,9 +1346,9 @@ insert into corp_etl_list_lkup (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,RE
 					,'ProcessMail_work_expected'
 					,'DOC_TYPE'
 					,'Provider Outreach Referral'
-					,'Outreach Request Data Entry Task'
+					,'Outreach Req Data Entry'
 					,'STEP_DEFINITION_ID'    
-					,(select step_definition_id from step_definition_stg where name = 'Outreach Request Data Entry Task' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
+					,(select step_definition_id from step_definition_stg where name = 'Outreach Req Data Entry' and step_type_cd in ('HUMAN_TASK', 'VIRTUAL_HUMAN_TASK')  ) --ref_id
 					,trunc(SYSDATE)
 					,to_date('7777-07-07','YYYY-MM-DD')
 					,'TX final work task type expected for doc type Provider Outreach Referral'
@@ -1677,6 +1677,104 @@ insert into corp_etl_list_lkup (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,RE
 					,SYSDATE
 					,SYSDATE);
 
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE1'
+  ,'Case Maintenance'
+  ,'Medical Payment Form'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Medical Payment Form' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Case Maintenance'
+  ,sysdate
+  ,sysdate);
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE1'
+  ,'Enrollment'
+  ,'CHIP Enrollment MI'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'CHIP Enrollment MI' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+  
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE2'
+  ,'Enrollment'
+  ,'Medicaid Enrollment MI'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Medicaid Enrollment MI' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+  
+    insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE3'
+  ,'Enrollment'
+  ,'NorthSTAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'NorthSTAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+  
+    insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE4'
+  ,'Enrollment'
+  ,'STAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+  
+      insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE5'
+  ,'Enrollment'
+  ,'STAR+PLUS Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR+PLUS Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE6'
+  ,'Enrollment'
+  ,'TP40 STAR Enrollment'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'TP40 STAR Enrollment' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Enrollment'
+  ,sysdate
+  ,sysdate);
+
 update corp_etl_list_lkup set value = 'CHIP Disenrollment Requests'
 where name in ( 'ProcessMail_jeop_threshold','ProcessMail_timeli_threshold')
 and   list_type = 'DOC_TYPE'
@@ -1696,5 +1794,273 @@ update corp_etl_list_lkup set value = 'Medicaid Disenrollment Requests'
 where name in ( 'ProcessMail_jeop_threshold','ProcessMail_timeli_threshold')
 and   list_type = 'DOC_TYPE'
 and   value = 'Medicaid Disenrollment Request';
+
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE1'
+  ,'Outreach Request'
+  ,'General Correspondence Data Entry Task'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'General Correspondence Data Entry Task' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Outreach Request'
+  ,sysdate
+  ,sysdate);
+  
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE2'
+  ,'Outreach Request'
+  ,'STAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Outreach Request'
+  ,sysdate
+  ,sysdate);
+  
+  
+ insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE1'
+  ,'UNKNOWN'
+  ,'CHIP Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'CHIP Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE2'
+  ,'UNKNOWN'
+  ,'CHIP Enrollment MI'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'CHIP Enrollment MI' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE3'
+  ,'UNKNOWN'
+  ,'Complaint Data entry Task'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Complaint Data entry Task' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE4'
+  ,'UNKNOWN'
+  ,'Demo Change'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Demo Change' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE5'
+  ,'UNKNOWN'
+  ,'Disenrollment'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Disenrollment' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE6'
+  ,'UNKNOWN'
+  ,'General Correspondence Data Entry Task'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'General Correspondence Data Entry Task' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE7'
+  ,'UNKNOWN'
+  ,'Medicaid Enrollment MI'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Medicaid Enrollment MI' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE8'
+  ,'UNKNOWN'
+  ,'Medical Payment Form'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Medical Payment Form' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);  
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE9'
+  ,'UNKNOWN'
+  ,'NorthSTAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'NorthSTAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);  
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE10'
+  ,'UNKNOWN'
+  ,'Outreach Req Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'Outreach Req Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);  
+ 
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE11'
+  ,'UNKNOWN'
+  ,'STAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);   
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE12'
+  ,'UNKNOWN'
+  ,'STAR+PLUS Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR+PLUS Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate);  
+
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE13'
+  ,'UNKNOWN'
+  ,'TP40 STAR Enrollment'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'TP40 STAR Enrollment' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type UNKNOWN'
+  ,sysdate
+  ,sysdate); 
+  
+insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE1'
+  ,'Unidentifiable'
+  ,'CHIP Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'CHIP Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Unidentifiable'
+  ,sysdate
+  ,sysdate);  
+  
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE2'
+  ,'Unidentifiable'
+  ,'CHIP Enrollment MI'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'CHIP Enrollment MI' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Unidentifiable'
+  ,sysdate
+  ,sysdate);  
+
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE3'
+  ,'Unidentifiable'
+  ,'STAR Enrollment Data Entry'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'STAR Enrollment Data Entry' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Unidentifiable'
+  ,sysdate
+  ,sysdate); 
+
+  insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS)
+values (SEQ_CELL_ID.nextval
+  ,'ProcessMail_work_expected'
+  ,'DOC_TYPE4'
+  ,'Unidentifiable'
+  ,'TP40 STAR Enrollment'
+  ,'STEP_DEFINITION_ID'
+  ,(select STEP_DEFINITION_ID from STEP_DEFINITION_STG where NAME = 'TP40 STAR Enrollment' and STEP_TYPE_CD in ('VIRTUAL_HUMAN_TASK') )
+  ,trunc(sysdate)
+  ,to_date('7777-07-07','YYYY-MM-DD')
+  ,'TX final work task type expected for doc type Unidentifiable'
+  ,sysdate
+  ,sysdate); 
 
 commit;

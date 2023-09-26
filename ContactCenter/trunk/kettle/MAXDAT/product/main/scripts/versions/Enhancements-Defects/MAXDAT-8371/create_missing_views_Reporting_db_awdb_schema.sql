@@ -1,0 +1,898 @@
+-- awdb:
+
+CREATE VIEW [awdb].[Agent_Logout] as 
+(select  
+ LogoutDateTime
+,SkillTargetID
+,TimeZone
+,MRDomainID
+,LoginDuration
+,RecoveryKey
+,ReasonCode
+,NetworkTargetID
+,Extension
+,PhoneType
+,RemotePhoneNumber
+,DbDateTime
+from maxco_awdb.dbo.[Agent_Logout] 
+union 
+select 
+ LogoutDateTime
+,SkillTargetID
+,TimeZone
+,MRDomainID
+,LoginDuration
+,RecoveryKey
+,ReasonCode
+,NetworkTargetID
+,Extension
+,PhoneType
+,RemotePhoneNumber
+,null as DbDateTime
+from maxco_awdb_old.dbo.[Agent_Logout]
+);
+
+
+CREATE VIEW [awdb].[Route_Call_Detail] as 
+(select  
+ RecoveryKey
+,DialedNumberID
+,RouterCallKeyDay
+,RouterCallKey
+,RouteID
+,DateTime
+,RequestType
+,RoutingClientID
+,OriginatorType
+,Unused
+,RoutingClientCallKey
+,Priority
+,MsgOrigin
+,Variable1
+,Variable2
+,Variable3
+,Variable4
+,Variable5
+,UserToUser
+,ANI
+,CDPD
+,CED
+,ScriptID
+,FinalObjectID
+,CallSegmentTime
+,NetQTime
+,CallTypeID
+,RouterErrorCode
+,CAST(CallTrace AS VARBINARY(MAX)) AS CallTrace -- Image datatype was causing issue creating the view
+,RecoveryDay
+,TimeZone
+,NetworkTargetID
+,LabelID
+,Originator
+,Variable6
+,Variable7
+,Variable8
+,Variable9
+,Variable10
+,TargetLabelID
+,RouterCallKeySequenceNumber
+,RouterQueueTime
+,VruScripts
+,Label
+,TargetLabel
+,DialedNumberString
+,BeganRoutingDateTime
+,BeganCallTypeDateTime
+,TargetType
+,MRDomainID
+,RequeryResult
+,VruProgress
+,DbDateTime
+,ECCPayloadID
+,ContactShareRuleID
+,ContactShareQueueID
+,ContactShareGroupID
+,ApplicationGatewayID
+,ContactShareErrorCode
+,ContactShareResult
+from maxco_awdb.dbo.[Route_Call_Detail] 
+union 
+select 
+ RecoveryKey
+,DialedNumberID
+,RouterCallKeyDay
+,RouterCallKey
+,RouteID
+,DateTime
+,RequestType
+,RoutingClientID
+,OriginatorType
+,Unused
+,RoutingClientCallKey
+,Priority
+,MsgOrigin
+,Variable1
+,Variable2
+,Variable3
+,Variable4
+,Variable5
+,UserToUser
+,ANI
+,CDPD
+,CED
+,ScriptID
+,FinalObjectID
+,CallSegmentTime
+,NetQTime
+,CallTypeID
+,RouterErrorCode
+,CAST(CallTrace AS VARBINARY(MAX)) AS CallTrace  -- Image datatype was causing issue creating the view
+,RecoveryDay
+,TimeZone
+,NetworkTargetID
+,LabelID
+,Originator
+,Variable6
+,Variable7
+,Variable8
+,Variable9
+,Variable10
+,TargetLabelID
+,RouterCallKeySequenceNumber
+,RouterQueueTime
+,VruScripts
+,Label
+,TargetLabel
+,DialedNumberString
+,BeganRoutingDateTime
+,BeganCallTypeDateTime
+,TargetType
+,MRDomainID
+,RequeryResult
+,VruProgress
+,DbDateTime
+,ECCPayloadID
+,null as ContactShareRuleID
+,null as ContactShareQueueID
+,null as ContactShareGroupID
+,null as ApplicationGatewayID
+,null as ContactShareErrorCode
+,null as ContactShareResult
+from maxco_awdb_old.dbo.[Route_Call_Detail]
+);  
+
+
+CREATE VIEW [awdb].[Dialer_Detail] as 
+(select  
+ RecoveryKey
+,DateTime
+,TimeZone
+,CustomerTimeZone
+,DbDateTime
+,CampaignID
+,CallResult
+,CallResultDetail
+,CallStatusZone1
+,CallStatusZone2
+,QueryRuleID
+,DialingListID
+,Phone
+,PhoneExt
+,SkillGroupSkillTargetID
+,PhoneIndex
+,PhoneID
+,ZoneIndex
+,AgentPeripheralNumber
+,PeripheralID
+,PeripheralCallKey
+,CallDuration
+,AccountNumber
+,FirstName
+,LastName
+,CallbackPhone
+,CallbackDateTime
+,DialingMode
+,DialerID
+,PortNumber
+,ImportRuleDateTime
+,InternalUse1
+,InternalUse2
+,InternalUse3
+,InternalUse4
+,InternalUse5
+,InternalUse6
+,InternalUse7
+,InternalUse8
+,InternalUse9
+,InternalUse10
+,InternalUse11
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseInt6
+,FutureUseInt7
+,FutureUseInt8
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseVarchar4
+,RouterCallKey
+,CallGUID
+,RouterCallKeyDay
+,WrapupData
+,PickupTime
+,MaxActiveGlitchTime
+,NumOfActiveGlitches
+,ValidSpeechTime
+,MaxPostSpeechSilenceGlitchTime
+,NumOfPostSpeechSilenceGlitches
+,SilencePeriod
+,TermToneDetectionTime
+,MaxZCRstdev
+,NoiseThreshold
+,ActiveThreshold
+,ReservationCallDuration
+,PreviewTime
+,CampaignReportingDateTime
+,ProtocolID
+,IdleTime 
+from maxco_awdb.dbo.[Dialer_Detail] 
+union 
+select 
+ RecoveryKey
+,DateTime
+,TimeZone
+,CustomerTimeZone
+,DbDateTime
+,CampaignID
+,CallResult
+,CallResultDetail
+,CallStatusZone1
+,CallStatusZone2
+,QueryRuleID
+,DialingListID
+,Phone
+,PhoneExt
+,SkillGroupSkillTargetID
+,PhoneIndex
+,PhoneID
+,ZoneIndex
+,AgentPeripheralNumber
+,PeripheralID
+,PeripheralCallKey
+,CallDuration
+,AccountNumber
+,FirstName
+,LastName
+,CallbackPhone
+,CallbackDateTime
+,DialingMode
+,DialerID
+,PortNumber
+,ImportRuleDateTime
+,InternalUse1
+,InternalUse2
+,InternalUse3
+,InternalUse4
+,InternalUse5
+,InternalUse6
+,InternalUse7
+,InternalUse8
+,InternalUse9
+,InternalUse10
+,InternalUse11
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseInt6
+,FutureUseInt7
+,FutureUseInt8
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseVarchar4
+,RouterCallKey
+,CallGUID
+,RouterCallKeyDay
+,WrapupData
+,PickupTime
+,MaxActiveGlitchTime
+,NumOfActiveGlitches
+,ValidSpeechTime
+,MaxPostSpeechSilenceGlitchTime
+,NumOfPostSpeechSilenceGlitches
+,SilencePeriod
+,TermToneDetectionTime
+,MaxZCRstdev
+,NoiseThreshold
+,ActiveThreshold
+,ReservationCallDuration
+,PreviewTime
+,CampaignReportingDateTime
+,ProtocolID
+,null as IdleTime 
+from maxco_awdb_old.dbo.[Dialer_Detail]
+);
+
+
+##################################################################################################################################################################
+
+
+-- hds:
+
+CREATE VIEW [hds].[Agent_Logout] as 
+(select  
+ LogoutDateTime
+,SkillTargetID
+,TimeZone
+,MRDomainID
+,LoginDuration
+,RecoveryKey
+,ReasonCode
+,NetworkTargetID
+,Extension
+,PhoneType
+,RemotePhoneNumber
+,DbDateTime
+from maxco_hds.dbo.[Agent_Logout] 
+union 
+select 
+ LogoutDateTime
+,SkillTargetID
+,TimeZone
+,MRDomainID
+,LoginDuration
+,RecoveryKey
+,ReasonCode
+,NetworkTargetID
+,Extension
+,PhoneType
+,RemotePhoneNumber
+,null as DbDateTime
+from maxco_hds_old.dbo.[Agent_Logout]
+);
+
+
+CREATE VIEW [hds].[Person] as 
+(select  
+ PersonID
+ ,FirstName
+ ,LastName
+ ,LoginName
+ ,LoginNameShadow
+ ,Password
+ ,PasswordChangeRequired
+ ,PasswordLastChangedTime
+ ,LoginEnabled
+ ,Description
+ ,Deleted
+ ,ChangeStamp
+ ,DepartmentID
+ ,DateTimeStamp
+ ,VerificationStatus
+ ,SSOEnabled
+from maxco_hds.dbo.[Person] 
+union 
+select 
+ PersonID
+ ,FirstName
+ ,LastName
+ ,LoginName
+ ,LoginNameShadow
+ ,Password
+ ,PasswordChangeRequired
+ ,PasswordLastChangedTime
+ ,LoginEnabled
+ ,Description
+ ,Deleted
+ ,ChangeStamp
+ ,DepartmentID
+ ,DateTimeStamp
+ ,null as VerificationStatus
+ ,null as SSOEnabled
+from maxco_hds_old.dbo.[Person]
+);
+
+
+CREATE VIEW [hds].[Precision_Queue] as 
+(select  
+ PrecisionQueueID
+,BucketIntervalID
+,EnterpriseName
+,AgentOrdering
+,CallOrdering
+,Description
+,ServiceLevelThreshold
+,ServiceLevelType
+,ForceExpandingQueue
+,Deleted
+,ChangeStamp
+,DepartmentID
+,DateTimeStamp
+,MRDomainID
+from maxco_hds.dbo.[Precision_Queue] 
+union 
+select 
+ PrecisionQueueID
+,BucketIntervalID
+,EnterpriseName
+,AgentOrdering
+,CallOrdering
+,Description
+,ServiceLevelThreshold
+,ServiceLevelType
+,ForceExpandingQueue
+,Deleted
+,ChangeStamp
+,DepartmentID
+,DateTimeStamp
+,null as MRDomainID
+from maxco_hds_old.dbo.[Precision_Queue]
+);
+
+
+CREATE VIEW [hds].[Route_Call_Detail] as 
+(select  
+ RecoveryKey
+,DialedNumberID
+,RouterCallKeyDay
+,RouterCallKey
+,RouteID
+,DateTime
+,RequestType
+,RoutingClientID
+,OriginatorType
+,Unused
+,RoutingClientCallKey
+,Priority
+,MsgOrigin
+,Variable1
+,Variable2
+,Variable3
+,Variable4
+,Variable5
+,UserToUser
+,ANI
+,CDPD
+,CED
+,ScriptID
+,FinalObjectID
+,CallSegmentTime
+,NetQTime
+,CallTypeID
+,RouterErrorCode
+,CAST(CallTrace AS VARBINARY(MAX)) AS CallTrace -- Image datatype was causing issue creating the view
+,RecoveryDay
+,TimeZone
+,NetworkTargetID
+,LabelID
+,Originator
+,Variable6
+,Variable7
+,Variable8
+,Variable9
+,Variable10
+,TargetLabelID
+,RouterCallKeySequenceNumber
+,RouterQueueTime
+,VruScripts
+,Label
+,TargetLabel
+,DialedNumberString
+,BeganRoutingDateTime
+,BeganCallTypeDateTime
+,TargetType
+,MRDomainID
+,RequeryResult
+,VruProgress
+,DbDateTime
+,ECCPayloadID
+,ContactShareRuleID
+,ContactShareQueueID
+,ContactShareGroupID
+,ApplicationGatewayID
+,ContactShareErrorCode
+,ContactShareResult
+from maxco_hds.dbo.[Route_Call_Detail] 
+union 
+select 
+ RecoveryKey
+,DialedNumberID
+,RouterCallKeyDay
+,RouterCallKey
+,RouteID
+,DateTime
+,RequestType
+,RoutingClientID
+,OriginatorType
+,Unused
+,RoutingClientCallKey
+,Priority
+,MsgOrigin
+,Variable1
+,Variable2
+,Variable3
+,Variable4
+,Variable5
+,UserToUser
+,ANI
+,CDPD
+,CED
+,ScriptID
+,FinalObjectID
+,CallSegmentTime
+,NetQTime
+,CallTypeID
+,RouterErrorCode
+,CAST(CallTrace AS VARBINARY(MAX)) AS CallTrace  -- Image datatype was causing issue creating the view
+,RecoveryDay
+,TimeZone
+,NetworkTargetID
+,LabelID
+,Originator
+,Variable6
+,Variable7
+,Variable8
+,Variable9
+,Variable10
+,TargetLabelID
+,RouterCallKeySequenceNumber
+,RouterQueueTime
+,VruScripts
+,Label
+,TargetLabel
+,DialedNumberString
+,BeganRoutingDateTime
+,BeganCallTypeDateTime
+,TargetType
+,MRDomainID
+,RequeryResult
+,VruProgress
+,DbDateTime
+,ECCPayloadID
+,null as ContactShareRuleID
+,null as ContactShareQueueID
+,null as ContactShareGroupID
+,null as ApplicationGatewayID
+,null as ContactShareErrorCode
+,null as ContactShareResult
+from maxco_hds_old.dbo.[Route_Call_Detail]
+);  
+
+
+CREATE VIEW [hds].[Campaign] as 
+(select  
+ CampaignID
+,CampaignName
+,Enabled
+,Deleted
+,AbandonEnabled
+,AbandonPercent
+,NoAnswerCallback
+,BusyCallback
+,NoAnswerRingLimit
+,MaximumLineAgent
+,LinesPerAgent
+,LeaveMessageEnabled
+,MaxAttempts
+,WorkStartHours
+,WorkStartMinutes
+,WorkEndHours
+,WorkEndMinutes
+,HomeStartHours
+,HomeStartMinutes
+,HomeEndHours
+,HomeEndMinutes
+,HomeEnabled
+,WorkEnabled
+,Description
+,BusyRetryEnabled
+,MaxBusyAttempts
+,AnswerDetectEnabled
+,CallbackTimeLimit
+,MinimumCallDuration
+,ExhaustedCallsEnabled
+,EdgeDetectEnabled
+,QuickDetectEnabled
+,SPClosedRecordEnabled
+,SPClosedRecordCount
+,PersonalizedCallbackEnabled
+,ReleaseCallbackEnabled
+,RescheduleCallbackMode
+,IPTerminatingBeepDetect
+,CampaignPurposeType
+,IPAMDEnabled
+,AMDTreatmentMode
+,UseGMTFromRegionPrefix
+,ConfigParam
+,AbandonCustomerCallback
+,AbandonedDialerCallback
+,AnsweringMachineCallback
+,PrefixDigits
+,WaitForBusyRetry
+,DisableCPA
+,CustomerNotHomeCallback
+,DSTLocation
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseFloat1
+,FutureUseFloat2
+,FutureUseFloat3
+,CloseAbandonedToIVR
+,CancelledCallRetryTime
+,CPAAnalysisPeriod
+,CPAMaxTermToneAnalysis
+,PredictiveCorrectionPace
+,PredictiveGain
+,PredictiveHistoricGain
+,PredictiveLowAbandonGain
+,CancelRinging
+,EnableRecordWaveFile
+,EnableMediaTermination
+,CPAMinSilencePeriod
+,CPAMinimumValidSpeech
+,CPAMaxTimeAnalysis
+,DepartmentID
+,ChangeStamp
+,DateTimeStamp
+,DSTLocationName
+,APIGenerated
+,StartDate
+,EndDate
+from maxco_hds.dbo.[Campaign] 
+union 
+select 
+ CampaignID
+,CampaignName
+,Enabled
+,Deleted
+,AbandonEnabled
+,AbandonPercent
+,NoAnswerCallback
+,BusyCallback
+,NoAnswerRingLimit
+,MaximumLineAgent
+,LinesPerAgent
+,LeaveMessageEnabled
+,MaxAttempts
+,WorkStartHours
+,WorkStartMinutes
+,WorkEndHours
+,WorkEndMinutes
+,HomeStartHours
+,HomeStartMinutes
+,HomeEndHours
+,HomeEndMinutes
+,HomeEnabled
+,WorkEnabled
+,Description
+,BusyRetryEnabled
+,MaxBusyAttempts
+,AnswerDetectEnabled
+,CallbackTimeLimit
+,MinimumCallDuration
+,ExhaustedCallsEnabled
+,EdgeDetectEnabled
+,QuickDetectEnabled
+,SPClosedRecordEnabled
+,SPClosedRecordCount
+,PersonalizedCallbackEnabled
+,ReleaseCallbackEnabled
+,RescheduleCallbackMode
+,IPTerminatingBeepDetect
+,CampaignPurposeType
+,IPAMDEnabled
+,AMDTreatmentMode
+,UseGMTFromRegionPrefix
+,ConfigParam
+,AbandonCustomerCallback
+,AbandonedDialerCallback
+,AnsweringMachineCallback
+,PrefixDigits
+,WaitForBusyRetry
+,DisableCPA
+,CustomerNotHomeCallback
+,DSTLocation
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseFloat1
+,FutureUseFloat2
+,FutureUseFloat3
+,CloseAbandonedToIVR
+,CancelledCallRetryTime
+,CPAAnalysisPeriod
+,CPAMaxTermToneAnalysis
+,PredictiveCorrectionPace
+,PredictiveGain
+,PredictiveHistoricGain
+,PredictiveLowAbandonGain
+,CancelRinging
+,EnableRecordWaveFile
+,EnableMediaTermination
+,CPAMinSilencePeriod
+,CPAMinimumValidSpeech
+,CPAMaxTimeAnalysis
+,DepartmentID
+,ChangeStamp
+,DateTimeStamp
+,null as DSTLocationName
+,null as APIGenerated
+,null as StartDate
+,null as EndDate
+from maxco_hds_old.dbo.[Campaign]
+);
+
+
+CREATE VIEW [hds].[Dialer_Detail] as 
+(select  
+ RecoveryKey
+,DateTime
+,TimeZone
+,CustomerTimeZone
+,DbDateTime
+,CampaignID
+,CallResult
+,CallResultDetail
+,CallStatusZone1
+,CallStatusZone2
+,QueryRuleID
+,DialingListID
+,Phone
+,PhoneExt
+,SkillGroupSkillTargetID
+,PhoneIndex
+,PhoneID
+,ZoneIndex
+,AgentPeripheralNumber
+,PeripheralID
+,PeripheralCallKey
+,CallDuration
+,AccountNumber
+,FirstName
+,LastName
+,CallbackPhone
+,CallbackDateTime
+,DialingMode
+,DialerID
+,PortNumber
+,ImportRuleDateTime
+,InternalUse1
+,InternalUse2
+,InternalUse3
+,InternalUse4
+,InternalUse5
+,InternalUse6
+,InternalUse7
+,InternalUse8
+,InternalUse9
+,InternalUse10
+,InternalUse11
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseInt6
+,FutureUseInt7
+,FutureUseInt8
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseVarchar4
+,RouterCallKey
+,CallGUID
+,RouterCallKeyDay
+,WrapupData
+,PickupTime
+,MaxActiveGlitchTime
+,NumOfActiveGlitches
+,ValidSpeechTime
+,MaxPostSpeechSilenceGlitchTime
+,NumOfPostSpeechSilenceGlitches
+,SilencePeriod
+,TermToneDetectionTime
+,MaxZCRstdev
+,NoiseThreshold
+,ActiveThreshold
+,ReservationCallDuration
+,PreviewTime
+,CampaignReportingDateTime
+,ProtocolID
+,IdleTime 
+from maxco_hds.dbo.[Dialer_Detail] 
+union 
+select 
+ RecoveryKey
+,DateTime
+,TimeZone
+,CustomerTimeZone
+,DbDateTime
+,CampaignID
+,CallResult
+,CallResultDetail
+,CallStatusZone1
+,CallStatusZone2
+,QueryRuleID
+,DialingListID
+,Phone
+,PhoneExt
+,SkillGroupSkillTargetID
+,PhoneIndex
+,PhoneID
+,ZoneIndex
+,AgentPeripheralNumber
+,PeripheralID
+,PeripheralCallKey
+,CallDuration
+,AccountNumber
+,FirstName
+,LastName
+,CallbackPhone
+,CallbackDateTime
+,DialingMode
+,DialerID
+,PortNumber
+,ImportRuleDateTime
+,InternalUse1
+,InternalUse2
+,InternalUse3
+,InternalUse4
+,InternalUse5
+,InternalUse6
+,InternalUse7
+,InternalUse8
+,InternalUse9
+,InternalUse10
+,InternalUse11
+,FutureUseInt1
+,FutureUseInt2
+,FutureUseInt3
+,FutureUseInt4
+,FutureUseInt5
+,FutureUseInt6
+,FutureUseInt7
+,FutureUseInt8
+,FutureUseVarchar1
+,FutureUseVarchar2
+,FutureUseVarchar3
+,FutureUseVarchar4
+,RouterCallKey
+,CallGUID
+,RouterCallKeyDay
+,WrapupData
+,PickupTime
+,MaxActiveGlitchTime
+,NumOfActiveGlitches
+,ValidSpeechTime
+,MaxPostSpeechSilenceGlitchTime
+,NumOfPostSpeechSilenceGlitches
+,SilencePeriod
+,TermToneDetectionTime
+,MaxZCRstdev
+,NoiseThreshold
+,ActiveThreshold
+,ReservationCallDuration
+,PreviewTime
+,CampaignReportingDateTime
+,ProtocolID
+,null as IdleTime 
+from maxco_hds_old.dbo.[Dialer_Detail]
+);
+
+

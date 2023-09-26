@@ -82,24 +82,24 @@ create table D_MFB_CURRENT
    CURRENT_BATCH_MODULE_ID varchar2(38) null,
    GWF_QC_REQUIRED varchar2(1) null,
    CURRENT_STEP varchar2(100) null,
-   SOURCE_SERVER varchar2(255) null)
-tablespace MAXDAT_DATA parallel;
+   SOURCE_SERVER varchar2(255) null,
+   BATCH_DESCRIPTION varchar2(80) null,
+   REPROCESSED_FLAG varchar2(1) default 'N')
+tablespace MAXDAT_DATA parallel 4;
 
 alter table D_MFB_CURRENT add constraint DMFBCUR_PK primary key (MFB_BI_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DMFBCUR_UIX1 on D_MFB_CURRENT (BATCH_GUID) online tablespace MAXDAT_INDX parallel compute statistics;
-CREATE INDEX DMFBCUR_IX1 ON D_MFB_CURRENT (BATCH_CLASS) online tablespace MAXDAT_INDX parallel compute statistics;
-CREATE INDEX DMFBCUR_IX2 ON D_MFB_CURRENT (BATCH_TYPE) online tablespace MAXDAT_INDX parallel compute statistics;
-CREATE INDEX DMFBCUR_IX3 ON D_MFB_CURRENT (BATCH_COMPLETE_DT) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index DMFBCUR_UIX1 on D_MFB_CURRENT (BATCH_GUID) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMFBCUR_IX1 ON D_MFB_CURRENT (BATCH_CLASS) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMFBCUR_IX2 ON D_MFB_CURRENT (BATCH_TYPE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMFBCUR_IX3 ON D_MFB_CURRENT (BATCH_COMPLETE_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym D_MFB_CURRENT for D_MFB_CURRENT;
 grant select on D_MFB_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_MFB_CURRENT_SV as
 select * from D_MFB_CURRENT
 with read only;
 
-create or replace public synonym D_MFB_CURRENT_SV for D_MFB_CURRENT_SV;
 grant select on D_MFB_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -140,23 +140,21 @@ create table F_MFB_BY_HOUR
 	 INVENTORY_COUNT number,
 	 COMPLETION_COUNT number)
 partition by range (BUCKET_START_DATE)
-interval (NUMTODSINTERVAL(1,'hour'))
-(partition PT_BUCKET_START_DATE_LT_2013 values less than (TO_DATE('20130101','YYYYMMDD')))   
-tablespace MAXDAT_DATA parallel;
+interval (NUMTODSINTERVAL(1,'day'))
+(partition PT_BUCKET_START_DATE_LT_2013 values less than (to_date('20130101','YYYYMMDD')))   
+tablespace MAXDAT_DATA parallel 4;
 
 alter table F_MFB_BY_HOUR add constraint FMFBBH_PK primary key (FMFBBH_ID) using index tablespace MAXDAT_INDX;
 
 alter table F_MFB_BY_HOUR add constraint FMFBBH_DMFBCUR_FK foreign key (MFB_BI_ID)references D_MFB_CURRENT (MFB_BI_ID);
 
-create unique index FMFBBH_UIX1 on F_MFB_BY_HOUR (MFB_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index FMFBBH_UIX2 on F_MFB_BY_HOUR (MFB_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index FMFBBH_UIX1 on F_MFB_BY_HOUR (MFB_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics; 
+create unique index FMFBBH_UIX2 on F_MFB_BY_HOUR (MFB_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics; 
 
-create index FMFBBH_IXL1 on F_MFB_BY_HOUR (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FMFBBH_IXL2 on F_MFB_BY_HOUR (MFB_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FMFBBH_IXL3 on F_MFB_BY_HOUR (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FMFBBH_IXL4 on F_MFB_BY_HOUR (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FMFBBH_IXL1 on F_MFB_BY_HOUR (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FMFBBH_IXL2 on F_MFB_BY_HOUR (MFB_BI_ID) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FMFBBH_IXL4 on F_MFB_BY_HOUR (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym F_MFB_BY_HOUR for F_MFB_BY_HOUR;
 grant select on F_MFB_BY_HOUR to MAXDAT_READ_ONLY;
 
 create or replace view F_MFB_BY_HOUR_SV as
@@ -223,7 +221,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_MFB_BY_HOUR_SV for F_MFB_BY_HOUR_SV;
 grant select on F_MFB_BY_HOUR_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_MFFORM_CURRENT_SV as
@@ -242,7 +239,6 @@ select
 from CORP_ETL_MFB_FORM
 with read only;
 
-create or replace public synonym D_MFFORM_CURRENT_SV for D_MFFORM_CURRENT_SV;
 grant select on D_MFFORM_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_MFENV_CURRENT_SV as
@@ -256,7 +252,6 @@ select
 from CORP_ETL_MFB_ENVELOPE
 with read only;
 
-create or replace public synonym D_MFENV_CURRENT_SV for D_MFENV_CURRENT_SV;
 grant select on D_MFENV_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_MFBDOC_CURRENT_SV as
@@ -278,7 +273,6 @@ select
 from CORP_ETL_MFB_DOCUMENT
 with read only;
 
-create or replace public synonym D_MFBDOC_CURRENT_SV for D_MFBDOC_CURRENT_SV;
 grant select on D_MFBDOC_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_MFBBATCH_EVENTS_CURRENT_SV as
@@ -304,11 +298,11 @@ select
   DOCS_CREATED as DOCUMENTS_CREATED,
   DOCS_DELETED as DOCUMENTS_DELETED,
   PAGES_REPLACED,
-  SOURCE_SERVER
+  SOURCE_SERVER,
+  ERROR_TEXT
 from CORP_ETL_MFB_BATCH_EVENTS
 with read only;
 
-create or replace public synonym D_MFBBATCH_EVENTS_CURRENT_SV for D_MFBBATCH_EVENTS_CURRENT_SV;
 grant select on D_MFBBATCH_EVENTS_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -333,10 +327,11 @@ SELECT c.CURRENT_BATCH_MODULE_ID,
   e.PAGES_DELETED, 
   e.DOCS_CREATED AS DOCUMENTS_CREATED, 
   e.DOCS_DELETED AS DOCUMENTS_DELETED, 
-  e.PAGES_REPLACED ,e.SOURCE_SERVER
+  e.PAGES_REPLACED ,
+  e.SOURCE_SERVER,
+  e.ERROR_TEXT
 FROM CORP_ETL_MFB_BATCH_EVENTS e, D_MFB_CURRENT c 
 WHERE e.BATCH_MODULE_ID = c.CURRENT_BATCH_MODULE_ID 
 WITH READ ONLY;
 
-create or replace public synonym D_MFBBATCH_EVENTS_CURMOD_SV for D_MFBBATCH_EVENTS_CURMOD_SV;
 grant select on D_MFBBATCH_EVENTS_CURMOD_SV to MAXDAT_READ_ONLY;

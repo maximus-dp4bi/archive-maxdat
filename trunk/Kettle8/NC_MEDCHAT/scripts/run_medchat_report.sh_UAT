@@ -1,0 +1,171 @@
+#!/bin/bash
+. /u01/maximus/maxdat/NCUI/config/.set_env
+#set -x
+#set -v
+# run_medchat_report.sh
+# Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN
+#    and used later to identify deployed code.
+# $URL$
+# $Revision$
+# $Date$
+# $Author$
+# calls the daily load script for kettel
+PROGNAME=$(basename $0 .sh)
+function error_exit
+{
+
+#       ----------------------------------------------------------------
+#       Function for exit due to fatal program error
+#               Accepts 1 argument:
+#                       string containing descriptive error message
+#       ----------------------------------------------------------------
+
+
+        echo "${PROGNAME}: ${1:-\"Unknown Error\"}" 1>&2
+        exit 1
+}
+
+
+MCDATADIR=$MAXDAT_ETL_PATH/../processing/unprocessed
+BASIC_LOG_LEVEL="Basic"
+DETAIL_LOG_LEVEL="Detailed"
+DEBUG_LOG_LEVEL="Debug"
+
+#mail related variables
+EMAIL="MAXDatSystem@maximus.com"
+#EMAIL="guydthibodeau@maximus.com,patpcrider@maximus.com,SYEDHUSSAINI@maximus.com"
+#EMAIL_TO="jeanette.canady@nccommerce.com,kevin.carlson@nccommerce.com,robert.collins@nccommerce.com,raju.gadiraju@nccommerce.com,Nitya.Ganapathy@nc.gov,robert.hanes@nccommerce.com,michael.jackson@nccommerce.com,antwon.keith@nccommerce.com,larry.parker@nccommerce.com,kerry.mccomber@nccommerce.com,PAbbott@rsimail.com,cheri.arthur@nc.gov,TennilleHutson@maximus.com,AmandaSCaldwell@maximus.com,DonnaBruce@maximus.com"
+#EMAIL_CC="HelenAAustin@maximus.com,MukundDubey@maximus.com,JoeEstes@maximus.com,TiffanyFisher@maximus.com,ToddAMarker@maximus.com,GinaMPadilla@maximus.com,JohnPalumbo@maximus.com,EricRubin@maximus.com,AnnRusso@maximus.com,RobStupar@maximus.com,GuyDThibodeau@maximus.com,ShannonKWindle@maximus.com,JessicaDosev@maximus.com,CharlesMendoza@maximus.com,JonahGadbois@maximus.com,MaraihGhee@maximus.com,EricKnapp@maximus.com,SitaSathiraju@maximus.com,PatPCrider@maximus.com,SYEDHUSSAINI@maximus.com"
+#EMAIL="guydthibodeau@maximus.com"
+EMAIL_TO="guydthibodeau@maximus.com"
+EMAIL_CC="patpcrider@maximus.com,SYEDHUSSAINI@maximus.com"
+EMAIL_ADMIN_TO="guydthibodeau@maximus.com,patpcrider@maximus.com,SYEDHUSSAINI@maximus.com"
+EMAIL_MESSAGE="/tmp/run_medchat_report-ERROR-LOG.txt"
+EMAIL_SUBJECT="$ENV_CODE $STCODE Errors With run_medchat_report.sh"
+export REPLYTO="MAXDatSystem@maximus.com"
+
+# Calculate the number of days in the report xlsx
+STRT=$(date -d "`date +%Y%m01`" +%Y-%m-%d);START=`date --date $STRT +%s`
+CURRENT=`date --date yesterday +%s`
+((diff=$CURRENT-$START))
+((days=$diff/(60*60*24)))
+
+# Convert the dates to epoc seconds and check to see if the end of the month(s) have passed to rollover the report spreadsheet
+END_DATE=`date --file=$MAXDAT_ETL_PATH/$MODULE_MC/date_of_report_period_start +%s`
+CURRENT=`date --date yesterday +%s`
+ROLLOVER=$(($CURRENT <= $END_DATE)) # is current report date <= end of month
+
+#init check
+
+$MAXDAT_KETTLE_DIR/kitchen.sh -file="$MAXDAT_ETL_PATH/$MODULE_INIT/bpm_Init_check.kjb" -level="$KJB_LOG_LEVEL"  >> $MAXDAT_ETL_LOGS/$MODULE_INIT/${STCODE}_bpm_init_check_$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+        echo "exited with status: $rc - ${STCODE}_BPM_Init_check.kjb, aborting run" > $EMAIL_MESSAGE
+        mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+        cat $EMAIL_MESSAGE
+        exit $rc
+else
+
+#run queries
+$MAXDAT_ETL_PATH/Query_Chat_Metric_Totals.sh > $MAXDAT_ETL_LOGS/$MODULE_MC/Query_Chat_Metric_Totals.sh_$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "$ENV_CODE $STCODE exited with status: $rc - run_medchat_report.sh: Query_Chat_Metric_Totals.sh failed, review error log for additional detail." > $EMAIL_MESSAGE
+    mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+    cat $EMAIL_MESSAGE
+    error_exit "$LINENO: An error has occurred in Query_Chat_Metric_Totals.sh"
+fi
+$MAXDAT_ETL_PATH/Query_Topic_Metrics.sh > $MAXDAT_ETL_LOGS/$MODULE_MC/Query_Topic_Metrics.sh_$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "$ENV_CODE $STCODE exited with status: $rc - run_medchat_report.sh: Query_Topic_Metrics.sh failed, review error log for additional detail." > $EMAIL_MESSAGE
+    mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+    cat $EMAIL_MESSAGE
+    error_exit "$LINENO: An error has occurred in Query_Topic_Metrics.sh"
+fi
+$MAXDAT_ETL_PATH/Query_Chats_by_Day_Totals.sh > $MAXDAT_ETL_LOGS/$MODULE_MC/Query_Chats_by_Day_Totals.sh$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "$ENV_CODE $STCODE exited with status: $rc - run_medchat_report.sh: Query_Chats_by_Day_Totals.sh failed, review error log for additional detail." > $EMAIL_MESSAGE
+    mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+    cat $EMAIL_MESSAGE
+    error_exit "$LINENO: An error has occurred in Query_Chats_by_Day_Totals.sh"
+fi
+$MAXDAT_ETL_PATH/Query_Agent_Chat_Metrics.sh > $MAXDAT_ETL_LOGS/$MODULE_MC/Query_Agent_Chat_Metrics.sh$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "$ENV_CODE $STCODE exited with status: $rc - run_medchat_report.sh: Query_Agent_Chat_Metrics.sh failed, review error log for additional detail." > $EMAIL_MESSAGE
+    mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+    cat $EMAIL_MESSAGE
+    error_exit "$LINENO: An error has occurred in Query_Agent_Chat_Metrics.sh"
+fi
+$MAXDAT_ETL_PATH/Query_Virtual_Agent_Metrics.sh > $MAXDAT_ETL_LOGS/$MODULE_MC/Query_Virtual_Agent_Metrics.sh$(date +%Y%m%d_%H%M%S).log
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "$ENV_CODE $STCODE exited with status: $rc - run_medchat_report.sh: Query_Virtual_Agent_Metrics.sh failed, review error log for additional detail." > $EMAIL_MESSAGE
+    mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+    cat $EMAIL_MESSAGE
+    error_exit "$LINENO: An error has occurred in Query_Virtual_Agent_Metrics.sh"
+fi
+
+# Check to see if ETL has already been run for today
+Report_Current="$MEDCHAT_REPORT_DIR/NC DES Live Chat Metrics $(date --date yesterday +%m.%d.%Y).xlsx"
+if [[ -e $Report_Current ]] ; then
+    Report_Exists=1
+    if [[ $ROLLOVER -eq 0 ]] ; then
+        Report_Exists=0
+    fi
+else
+    Report_Exists=0
+	REPORT_YESTERDAY="$MEDCHAT_REPORT_DIR/NC DES Live Chat Metrics $(date --date '-2 day' +%m.%d.%Y).xlsx"
+	if [[ -e $REPORT_YESTERDAY ]] ; then
+	    cp "$MEDCHAT_REPORT_DIR/NC DES Live Chat Metrics $(date --date '-2 day' +%m.%d.%Y).xlsx" "$MEDCHAT_REPORT_DIR/NC DES Live Chat Metrics $(date --date yesterday +%m.%d.%Y).xlsx"
+    fi
+fi
+
+# Run ETL to Process data files 
+   LOG_FILE=$MAXDAT_ETL_LOGS/$MODULE_MC/Parent_Process_MedChat_Reports_$(date +%Y%m%d_%H%M%S).log
+   $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/$MODULE_MC/Parent_Process_MedChat_Reports.kjb $DEBUG_LOG_LEVEL >> $LOG_FILE
+   if [[ $? != 0 ]]
+   then
+        #mail something went wrong with the MedChat ETL 
+        echo "Parent_Process_MedChat_Reports.kjb failed in ${STCODE}, review error log for additional detail." > $EMAIL_MESSAGE
+        mail -s "$EMAIL_SUBJECT" "$EMAIL" < $EMAIL_MESSAGE
+        cat $EMAIL_MESSAGE
+        error_exit "$LINENO: An error has occurred."
+   else
+        cd $MEDCHAT_PROCESSED_DIR
+        find ./ -name "*_$(date --date yesterday +%m.%d.%Y).xlsx" | sed 's%^./%%' | zip ./Report_Files_$(date --date "yesterday" "+%m_%d_%Y") -q -@
+        rm ./*_$(date --date yesterday +%m.%d.%Y).xlsx
+        chmod 666 ./*
+        cd $MEDCHAT_REPORT_DIR
+        chmod 666 *
+
+        # Email the normal daily MedChat report
+        echo 'Please see attached report of Live Chat and Virtual Agent metrics for '$(date --date "yesterday" "+%B %d, %Y")'.' > $EMAIL_MESSAGE
+         mail -s "NC DES Live Chat Metrics" -r "$EMAIL" -a "NC DES Live Chat Metrics $(date --date yesterday +%m.%d.%Y).xlsx" -c "$EMAIL_CC" "$EMAIL_TO" < $EMAIL_MESSAGE
+
+        # Email the normal, NEW daily MedChat report and the source data to Admins to put into Sharepoint/EDI ** this is temporary until moveit job is set-up **
+        echo 'Please see attached Live Chat reports and the source data zip file for '$(date --date "yesterday" "+%B %d, %Y")' to manually upload to Sharepoint and EDI until the MoveIt job is put in place.' > $EMAIL_MESSAGE
+         mail -s "NC DES Live Chat Metrics and Source Data" -r "$EMAIL" -a "NC DES Live Chat Metrics $(date --date yesterday +%m.%d.%Y).xlsx" -a "NC DES Live Chat Metrics $(date --date yesterday +%m.%d.%Y) NEW.xlsx" -a "$MEDCHAT_PROCESSED_DIR/Report_Files_$(date --date "yesterday" "+%m_%d_%Y").zip" "$EMAIL_ADMIN_TO" < $EMAIL_MESSAGE
+ 
+
+# Set-up for multiple tabs and initialize after the set period of time
+        if [[ $Report_Exists -eq 1 ]] ; then
+            echo "File for today already exists, overwriting existing report" >> $LOG_FILE
+            exit
+        else
+           if [[ $ROLLOVER -eq 1 ]] ; then
+               echo "Days:$days in current report, using copy of previous day for today's report" >> $LOG_FILE
+           else
+               echo "Days:$days in current report, resetting report to start at " $(date --date "yesterday" "+%m/%d/%Y") >> $LOG_FILE
+               cp $MAXDAT_ETL_PATH/$MODULE_MC/"NC DES Live Chat Metrics Template.xlsx" $MEDCHAT_REPORT_DIR/"NC DES Live Chat Metrics $(date +%m.%d.%Y).xlsx"
+               chmod 666 $MEDCHAT_REPORT_DIR/"NC DES Live Chat Metrics $(date +%m.%d.%Y).xlsx"
+               # now in new month set end date to last day of current or future months based on REP_MONTH
+               date -d "`date +%Y%m01` +$REP_MONTHS month -1 day" +%Y-%m-%d > $MAXDAT_ETL_PATH/$MODULE_MC/date_of_report_period_start
+               exit
+           fi   
+        fi
+   fi
+fi
+

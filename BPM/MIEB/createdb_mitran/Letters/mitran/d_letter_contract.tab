@@ -1,0 +1,31 @@
+create table D_LETTER_CONTRACT
+(
+  letter_program_group             VARCHAR2(32) not null,
+  letter_program_group_label       VARCHAR2(100),
+  letter_program_group_order       NUMBER,
+  contract_reference_level_1_code  VARCHAR2(32),
+  contract_reference_level_1_desc  VARCHAR2(100),
+  contract_reference_level_1_order NUMBER,
+  contract_reference_level_2_code  VARCHAR2(32),
+  contract_reference_level_2_desc  VARCHAR2(100),
+  contract_reference_level_2_order NUMBER,
+  contract_reference_level_3_code  VARCHAR2(32),
+  contract_reference_level_3_desc  VARCHAR2(100),
+  contract_reference_level_3_order NUMBER,
+  contract_reference_level_4_code  VARCHAR2(32),
+  contract_reference_level_4_desc  VARCHAR2(100),
+  contract_reference_level_4_order NUMBER,
+  contract_reference_level_5_code  VARCHAR2(32),
+  contract_reference_level_5_desc  VARCHAR2(100),
+  contract_reference_level_5_order NUMBER,
+  project_code                     VARCHAR2(32) not null,
+  program_code                     VARCHAR2(32) not null,
+  effective_from_date              DATE,
+  effective_thru_date              DATE
+)
+;
+alter table D_LETTER_CONTRACT
+  add constraint D_LETTER_CONTRACT_PK primary key (LETTER_PROGRAM_GROUP, PROJECT_CODE, PROGRAM_CODE);
+grant select on D_LETTER_CONTRACT to MAXDAT_MITRAN_READ_ONLY;
+grant select on D_LETTER_CONTRACT to MAXDAT_REPORTS;
+

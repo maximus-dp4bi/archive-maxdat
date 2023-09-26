@@ -22,6 +22,31 @@ SVN_REVISION_AUTHOR = $Author$
     <parameters>
     </parameters>
   <connection>
+    <name>ACTS</name>
+    <server>${DB_ACTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_ACTS_NAME}</database>
+    <port>${DB_ACTS_PORT}</port>
+    <username>${DB_ACTS_USER}</username>
+    <password>${DB_ACTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_ACTS_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_ACTS_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ACTS;</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>DMS</name>
     <server>${DB_DMS_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -68,10 +93,10 @@ SVN_REVISION_AUTHOR = $Author$
   <connection>
     <name>KOFAX_ARS</name>
     <server>${DB_KOFAX_ARS_HOSTNAME}</server>
-    <type>MSSQLNATIVE</type>
+    <type>MSSQL</type>
     <access>Native</access>
     <database>${DB_KOFAX_ARS_DB}</database>
-    <port>1433</port>
+    <port>${DB_KOFAX_ARS_PORT}</port>
     <username>${DB_KOFAX_ARS_USER}</username>
     <password>${DB_KOFAX_ARS_PASSWORD}</password>
     <servername/>
@@ -82,21 +107,20 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_ARS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
     <name>KOFAX_CENTRAL</name>
     <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
-    <type>MSSQLNATIVE</type>
+    <type>MSSQL</type>
     <access>Native</access>
     <database>${DB_KOFAX_CENTRAL_DB}</database>
-    <port>1433</port>
+    <port>${DB_KOFAX_CENTRAL_PORT}</port>
     <username>${DB_KOFAX_CENTRAL_USER}</username>
     <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
     <servername/>
@@ -107,9 +131,8 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_CENTRAL_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -154,18 +177,35 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =MAXDAT_CADR</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATCADIRPRD</name>
+    <server>${DB_MAXDATCADIRPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATCADIRPRD_NAME}</database>
+    <port>${DB_MAXDATCADIRPRD_PORT}</port>
+    <username>${DB_MAXDATCADIRPRD_USER}</username>
+    <password>${DB_MAXDATCADIRPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATCADIRPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =MAXDAT_CADR</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -358,12 +398,133 @@ SVN_REVISION_AUTHOR = $Author$
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
-      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${OLTP_DB_SCHEMA}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ${OLTP_DB_SCHEMA};</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =etk_maximus_wc_prod2;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>QA</name>
+    <server>${DB_QA_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_QA_NAME}</database>
+    <port>${DB_QA_PORT}</port>
+    <username>${DB_QA_USER}</username>
+    <password>${DB_QA_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>maxcorp</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_QA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>QA_CALLCENTER</name>
+    <server>${DB_QA_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_QA_CALLCENTER_NAME}</database>
+    <port>${DB_QA_PORT}</port>
+    <username>${DB_QA_USER}</username>
+    <password>${DB_QA_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>maxcorp</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_QA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>QCHKPRD</name>
+    <server>${DB_QCHKPRD_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_QCHK_NAME}</database>
+    <port>${DB_QCHK_PORT}</port>
+    <username>${DB_QCHKPRD_USER}</username>
+    <password>${DB_QCHK_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>cahco</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_QCHK_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>QCHKUAT</name>
+    <server>${DB_QCHKUAT_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_QCHK_NAME}</database>
+    <port>${DB_QCHK_PORT}</port>
+    <username>${DB_QCHK_USER}</username>
+    <password>${DB_QCHK_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>maxcorp</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_QCHK_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>SQID</name>
+    <server>${DB_SQID_HOSTNAME}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${DB_SQID_NAME}</database>
+    <port>${DB_SQID_PORT}</port>
+    <username>${DB_SQID_USER}</username>
+    <password>${DB_SQID_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SQID_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -440,7 +601,7 @@ SVN_REVISION_AUTHOR = $Author$
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>70</xloc>
-      <yloc>301</yloc>
+      <yloc>290</yloc>
       </entry>
     <entry>
       <name>Load Person User Role Stg</name>
@@ -469,8 +630,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>366</xloc>
-      <yloc>159</yloc>
+      <xloc>355</xloc>
+      <yloc>70</yloc>
       </entry>
     <entry>
       <name>Load_Maxdat_Stg</name>
@@ -499,8 +660,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>366</xloc>
-      <yloc>456</yloc>
+      <xloc>355</xloc>
+      <yloc>378</yloc>
       </entry>
     <entry>
       <name>Load_D_Supervisor </name>
@@ -529,8 +690,38 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>361</xloc>
-      <yloc>289</yloc>
+      <xloc>355</xloc>
+      <yloc>224</yloc>
+      </entry>
+    <entry>
+      <name>Load_QA_Audit_Stg</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;Load_QA_Audits_Stg.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>356</xloc>
+      <yloc>532</yloc>
       </entry>
   </entries>
   <hops>
@@ -581,6 +772,24 @@ SVN_REVISION_AUTHOR = $Author$
     </hop>
     <hop>
       <from>Load_D_Supervisor </from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Load_QA_Audit_Stg</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Load_QA_Audit_Stg</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>

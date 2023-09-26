@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_CDC_MAXe2</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -366,13 +388,16 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
     <connection>MAXDAT</connection>
     <sql>select
   O.DCN,
-  case when ADE.FREE_FORM_TEXT_IND = 0 then &apos;N&apos; else &apos;Y&apos; end as FREE_FORM_TXT_IND,
+  coalesce(decode(ADE.FREE_FORM_TEXT_IND,0,&apos;N&apos;,1,&apos;Y&apos;),&apos;N&apos;) as FREE_FORM_TXT_IND,
   ADE.KOFAX_DCN,
-  ADE.PREVIOUS_KOFAX_DCN,
-  case when O.LAST_EVENT_DATE &gt; ADE.UPDATED_TS then O.LAST_EVENT_DATE else ADE.UPDATED_TS end as LAST_EVENT_DATE
+  ADE.PREVIOUS_KOFAX_DCN
 from
   NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 O
-inner join APP_DOC_DATA_EXT_STG ADE on ADE.APP_DOC_DATA_ID = O.APP_DOC_DATA_ID</sql>
+inner join APP_DOC_DATA_EXT_STG ADE on ADE.APP_DOC_DATA_ID = O.APP_DOC_DATA_ID
+where 
+coalesce(ADE.KOFAX_DCN,&apos;X&apos;) &lt;&gt; coalesce(O.KOFAX_DCN,&apos;X&apos;) or 
+coalesce(ADE.PREVIOUS_KOFAX_DCN,&apos;X&apos;) &lt;&gt; coalesce(O.PREVIOUS_KOFAX_DCN,&apos;X&apos;) or
+coalesce(decode(ADE.FREE_FORM_TEXT_IND,0,&apos;N&apos;,1,&apos;Y&apos;),&apos;N&apos;) &lt;&gt; coalesce(O.FREE_FORM_TXT_IND,&apos;N&apos;)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -499,10 +524,6 @@ inner join APP_DOC_DATA_EXT_STG ADE on ADE.APP_DOC_DATA_ID = O.APP_DOC_DATA_ID</
       <value>
         <name>PREVIOUS_KOFAX_DCN</name>
         <rename>PREVIOUS_KOFAX_DCN</rename>
-        </value>
-      <value>
-        <name>LAST_EVENT_DATE</name>
-        <rename>LAST_EVENT_DATE</rename>
         </value>
       </lookup>
      <cluster_schema/>

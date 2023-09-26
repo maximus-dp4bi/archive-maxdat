@@ -1,0 +1,44 @@
+CREATE or replace PROCEDURE checkAllTablesForDups()
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'PI_DATA_CHECK_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+     
+function log(msg){
+    snowflake.createStatement( { sqlText: `call do_log(:1)`, binds:[msg] } ).execute();
+}   
+
+log("Beginning");
+
+  //get list of active tables
+    var table_array=[];
+    var sqlCommand = "select ta.table_name from public.d_pi_tables ta where ta.s3_sourced = true and ta.active = true order by ta.table_name; "; 
+    
+    var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var table_name = rs.getColumnValue(1);
+     table_array.push(table_name);
+    }
+  
+  //check tables in list
+  var rowCount=0;
+  var stmt="";
+  for (const table_name of table_array) {
+
+        sqlCommand = "call checkDups('"+ table_name + "');";
+        snowflake.execute ({sqlText: sqlCommand});
+  }   
+
+log("Finished checking tables for duplicates.");
+return "Finished checking tables for duplicates.";
+$$;
+

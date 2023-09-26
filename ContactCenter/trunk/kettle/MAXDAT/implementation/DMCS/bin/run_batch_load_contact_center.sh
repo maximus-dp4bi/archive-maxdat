@@ -1,7 +1,7 @@
 #!/bin/bash
-. ~/.bash_profile
+. /home/appadmin/.bash_profile
 
-. $MAXDAT_ETL_PATH/set_maxdat_env_variables.sh
+. $MAXDAT_ETL_PATH/DMCS/config/set_maxdat_env_variables.sh
 
 # tx_run_cc.sh
 # This program will run the Kettle job necessary to initialize the Contact Center data mart

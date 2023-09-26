@@ -303,6 +303,28 @@ If number of observations used for the initial calculation is less than&#47;equa
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Temp NYHIX</name>
+    <server>${DB_TEMP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_TEMP_NAME}</database>
+    <port>1557</port>
+    <username>${DB_TEMP_USER}</username>
+    <password>${DB_TEMP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
   <hop> <from>Table input</from><to>Database join - Get calc start and end dates</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - get range of data</from><to>Mapping (sub-transformation)</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get calc start and end dates</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Database join - get range of data</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  </order>
   <step>
@@ -416,8 +438,8 @@ GROUP BY d_process_group_metric_id
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>338</xloc>
-      <yloc>116</yloc>
+      <xloc>297</xloc>
+      <yloc>117</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -464,8 +486,8 @@ AND rp.end_date &lt;= ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>711</xloc>
-      <yloc>106</yloc>
+      <xloc>704</xloc>
+      <yloc>118</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -482,8 +504,8 @@ AND rp.end_date &lt;= ?</sql>
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>275</yloc>
+      <xloc>702</xloc>
+      <yloc>193</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -510,8 +532,8 @@ AND rp.end_date &lt;= ?</sql>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>529</xloc>
-      <yloc>173</yloc>
+      <xloc>493</xloc>
+      <yloc>118</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -562,8 +584,8 @@ AND rp.end_date &lt;= ?</sql>
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>904</xloc>
-      <yloc>186</yloc>
+      <xloc>916</xloc>
+      <yloc>118</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -601,8 +623,8 @@ AND SYSDATE BETWEEN parameter_eff_dt and parameter_end_dt</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>131</xloc>
-      <yloc>206</yloc>
+      <xloc>61</xloc>
+      <yloc>117</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

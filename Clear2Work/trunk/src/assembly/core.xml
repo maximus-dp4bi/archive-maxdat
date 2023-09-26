@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+ 
+	<id>${project.version}_core_${build.timestamp}</id>
+  
+  	<formats>
+		<format>zip</format>
+  	</formats>
+
+  	<fileSets>
+  <!--
+		<fileSet>
+			<includes>
+				<include>README*</include>
+      		</includes>
+		</fileSet>
+   --> 
+		<fileSet>
+      		<outputDirectory>Archive</outputDirectory>
+      		<excludes>
+				<exclude>**/*</exclude>
+			</excludes>
+		</fileSet>
+
+		<fileSet>
+      		<directory>src/bin</directory>
+      		<outputDirectory>bin</outputDirectory>
+      		<includes>
+				<include>*.bash</include>
+      		</includes>
+      		<lineEnding>unix</lineEnding>
+      		<fileMode>0755</fileMode>
+		</fileSet>
+    
+		<fileSet>
+      		<directory>src/db-scripts</directory>
+      		<outputDirectory>bin</outputDirectory>
+      		<includes>
+				<include>*.ctl</include>
+				<include>*.sql</include>
+      		</includes>
+      		<lineEnding>unix</lineEnding>
+      		<fileMode>0755</fileMode>
+		</fileSet>
+    <!--
+		<fileSet>
+      		<directory>src/schema</directory>
+      		<outputDirectory>bin</outputDirectory>
+      		<includes>
+      			<include>*.xsd</include>
+      		</includes>
+      		<lineEnding>unix</lineEnding>
+      		<fileMode>0755</fileMode>
+		</fileSet>
+    
+		<fileSet>
+      		<directory>src/transform</directory>
+      		<outputDirectory>bin</outputDirectory>
+      		<includes>
+      			<include>*.xsl</include>
+      		</includes>
+      		<lineEnding>unix</lineEnding>
+      		<fileMode>0755</fileMode>
+		</fileSet>
+    -->
+	
+		<fileSet>
+      		<outputDirectory>Completed</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+      		</excludes>
+		</fileSet>
+		
+		<fileSet>
+      		<outputDirectory>config</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+      		</excludes>
+		</fileSet>
+		
+		<fileSet>
+      		<outputDirectory>Error</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+      		</excludes>
+		</fileSet>
+		
+		<fileSet>
+      		<outputDirectory>Inbound</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+      		</excludes>
+		</fileSet>
+    
+		<fileSet>
+      		<outputDirectory>logs</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+			</excludes>
+		</fileSet>
+    
+		<fileSet>
+      		<outputDirectory>Processing</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+			</excludes>
+		</fileSet>
+		
+		<fileSet>
+      		<outputDirectory>Test</outputDirectory>
+      		<excludes>
+      			<exclude>**/*</exclude>
+      		</excludes>
+		</fileSet>
+    
+  	</fileSets>
+  
+</assembly>

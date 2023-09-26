@@ -1,3 +1,9 @@
+/*
+v1 Creation.
+v2 Raj A. 11/3/2015 Changed column size for Letter_Type and SLA_Category to 4000 to match source system column size, Letter_Definition.Description
+v3 Raj A. 11/5/2015 (1) Modified Letter_Status to 256 Bytes to match the source system field, ENUM_LM_STATUS.description. 
+                    (2) Also, modified the column in the dimension, D_PL_LETTER_STATUS.letter_status
+*/
 --PROCESS LETTERS
 create table D_PL_CURRENT
   (PL_BI_ID                       number,
@@ -6,7 +12,7 @@ create table D_PL_CURRENT
 	 created_by							        varchar2(50),
 	 request_date						        date,
 	 instance_status						    varchar2(10) not null,
-	 letter_type							      varchar2(100),
+	 letter_type							      varchar2(4000),
 	 program								        varchar2(50),
 	 case_id								        number,
 	 county_code							      varchar2(64),
@@ -15,7 +21,7 @@ create table D_PL_CURRENT
 	 reprint								        varchar2(1),
 	 request_driver_type					  varchar2(10),
 	 request_driver_table				    varchar2(32),
-	 letter_status				          varchar2(32) not null,
+	 letter_status				          varchar2(256) not null,
 	 letter_status_date					    date not null,
 	 sent_date							        date,
 	 print_date							        date,
@@ -47,7 +53,7 @@ create table D_PL_CURRENT
 	 age_in_calendar_days           number,
 	 timeliness_status					    varchar2(20),
 	 jeopardy_status				        varchar2(1),
-	 sla_category				            varchar2(32),
+	 sla_category				            varchar2(4000),
 	 sla_days                		    varchar2(20),
 	 sla_days_type				          varchar2(1),
 	 sla_jeopardy_date					    date,
@@ -63,20 +69,18 @@ create table D_PL_CURRENT
    material_request_id            number(18,0),
    family_member_count            number(18,0),
    AIAN_MEMBER_COUNT              number(18,0))
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA;
 
 alter table D_PL_CURRENT add constraint DPICUR_PK primary key (PL_BI_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DPLCUR_UIX1 on D_PL_CURRENT (LETTER_REQUEST_ID) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index DPLCUR_UIX1 on D_PL_CURRENT (LETTER_REQUEST_ID) online tablespace MAXDAT_INDX compute statistics;
 
-create or replace public synonym D_PL_CURRENT for D_PL_CURRENT;
 grant select on D_PL_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_PL_CURRENT_SV as
 select * from D_PL_CURRENT
 with read only;
 
-create or replace public synonym D_PL_CURRENT_SV for D_PL_CURRENT_SV;
 grant select on D_PL_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -90,25 +94,31 @@ cache 20;
 
 create table D_PL_LETTER_STATUS
   (DPLLS_ID number not null, 
-   LETTER_STATUS varchar2(50))
+   LETTER_STATUS varchar2(256))
 tablespace MAXDAT_DATA;
 
 alter table D_PL_LETTER_STATUS add constraint DPLLS_PK primary key (DPLLS_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DPLLS_UIX1 on D_PL_LETTER_STATUS (LETTER_STATUS) tablespace MAXDAT_INDX parallel compute statistics;
+create unique index DPLLS_UIX1 on D_PL_LETTER_STATUS (LETTER_STATUS) tablespace MAXDAT_INDX compute statistics;
 
-create or replace public synonym D_PL_LETTER_STATUS for D_PL_LETTER_STATUS;
 grant select on D_PL_LETTER_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_PL_LETTER_STATUS_SV as
 select * from D_PL_LETTER_STATUS
 with read only;
 
-create or replace public synonym D_PL_LETTER_STATUS_SV for D_PL_LETTER_STATUS_SV;
-grant select on D_PL_LETTER_STATUS_SV to MAXDAT_READ_ONLY;
-
 insert into D_PL_LETTER_STATUS (DPLLS_ID ,LETTER_STATUS) values (SEQ_DPLLS_ID.NEXTVAL,null);
 commit;
+
+grant select on D_PL_LETTER_STATUS_SV to MAXDAT_READ_ONLY;
+
+
+create or replace view D_PL_CLIENT_SUB_SV as
+select * 
+from CORP_ETL_PROC_LETTERS_CHD
+with read only;
+
+grant select on D_PL_CLIENT_SUB_SV to MAXDAT_READ_ONLY;
 
 
 create sequence SEQ_FPLBD_ID
@@ -132,24 +142,23 @@ create table F_PL_BY_DATE
 partition by range (BUCKET_START_DATE)
 interval (NUMTODSINTERVAL(1,'day'))
 (partition PT_BUCKET_START_DATE_LT_2012 values less than (TO_DATE('20120101','YYYYMMDD')))   
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA parallel 4;
 
 alter table F_PL_BY_DATE add constraint FPLBD_PK primary key (FPLBD_ID) using index tablespace MAXDAT_INDX;
 
 alter table F_PL_BY_DATE add constraint FPLBD_DPLLS_FK foreign key (DPLLS_ID) references D_PL_LETTER_STATUS(DPLLS_ID);
 alter table F_PL_BY_DATE add constraint FPLBD_DPLCUR_FK foreign key (PL_BI_ID) references D_PL_CURRENT(PL_BI_ID);
 
-create unique index FPLBD_UIX1 on F_PL_BY_DATE (PL_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index FPLBD_UIX2 on F_PL_BY_DATE (PL_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index FPLBD_UIX1 on F_PL_BY_DATE (PL_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics; 
+create unique index FPLBD_UIX2 on F_PL_BY_DATE (PL_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create index FPLBD_IX1 on F_PL_BY_DATE (LETTER_STATUS_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create index FPLBD_IX1 on F_PL_BY_DATE (LETTER_STATUS_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create index FPLBD_IXL1 on F_PL_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FPLBD_IXL2 on F_PL_BY_DATE (PL_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FPLBD_IXL3 on F_PL_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FPLBD_IXL4 on F_PL_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FPLBD_IXL1 on F_PL_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FPLBD_IXL2 on F_PL_BY_DATE (PL_BI_ID) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FPLBD_IXL3 on F_PL_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FPLBD_IXL4 on F_PL_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym F_PL_BY_DATE for F_PL_BY_DATE;
 grant select on F_PL_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_PL_BY_DATE_SV as
@@ -189,6 +198,4 @@ where
   and bdd.D_DATE = fplbd.BUCKET_END_DATE
 with read only;
 
-create or replace public synonym F_PL_BY_DATE_SV for F_PL_BY_DATE_SV;
 grant select on F_PL_BY_DATE_SV to MAXDAT_READ_ONLY;
-

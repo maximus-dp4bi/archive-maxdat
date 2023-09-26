@@ -3,7 +3,20 @@
   <info>
     <name>ManageWork_Insert</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -93,8 +106,8 @@
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME} </server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
@@ -163,31 +176,13 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table Output - FLHK_ETL_MANAGE_WORK</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Table Output - FLHK_ETL_MANAGE_WORK</from><to>Dummy - finished</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - OLTP </from><to>Table Output - FLHK_ETL_MANAGE_WORK</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>Dummy - finished</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>660</xloc>
-      <yloc>120</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
+  <hop> <from>Table Output - FLHK_ETL_MANAGE_WORK</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - OLTP </from><to>Table Output - FLHK_ETL_MANAGE_WORK</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Table Output - FLHK_ETL_MANAGE_WORK</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
-    <copies>4</copies>
+    <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
@@ -296,7 +291,7 @@
         </field>
         <field>
           <column_name>STG_EXTRACT_DATE</column_name>
-          <stream_name>CREATED_DATE</stream_name>
+          <stream_name>SYSTEM_DATE</stream_name>
         </field>
         <field>
           <column_name>WRSTATUS_ID</column_name>
@@ -327,12 +322,12 @@
        WS.PARENT_TASK_ID                    PARENT_TASK_ID,
        WT.DESCRIPTION                       TASK_TYPE,
        WS.STATUS                            TASK_STATUS,
-       NVL(WS.STATUS_DATE,&apos;01-JAN-1900&apos;)    STATUS_DATE,
+       WS.STATUS_DATE                       STATUS_DATE,
        WS.STATUS_REASON                     STATUS_REASON,
-       NVL(WS.CREATED_DATE,&apos;01-JAN-1900&apos;)   CREATED_DATE, 
+       WS.CREATED_DATE                      CREATED_DATE, 
        WS.CREATED_BY                        CREATED_BY_NAME,
        WS.PRIORITY                          PRIORITY,
-       NVL(WS.DUE_DATE, &apos;01-JAN-1900&apos;)      DUE_DATE,  
+       WS.DUE_DATE                          DUE_DATE,  
        WS.ASSIGNED_TO                       ASSIGNED_TO,  
        WQ.DESCRIPTION                       QUEUE,
        WS.CONTEXT                           CONTEXT,
@@ -341,7 +336,7 @@
        WA.CATEGORY                          ACTION_CATEGORY,
        WR.DESCRIPTION                       RULE_EXECUTED, 
        WR.ROLE_CODE                         ROLE_NAME,
-       NVL(WS.UPDATED_DATE, &apos;01-JAN-1900&apos;)  LAST_UPDATE_DATE,
+       WS.UPDATED_DATE                      LAST_UPDATE_DATE,
        WS.UPDATED_BY                        LAST_UPDATED_BY_NAME,
        decode(WS.STATUS, &apos;RESOLVED&apos;, &apos;COMPLETE&apos;,
                          &apos;UNASSIGNED&apos;, &apos;ACTIVE&apos;,
@@ -353,17 +348,17 @@
        &apos;ManageWork Move updates&apos; as job_name,
         WS.TASK_ID as driver_key_number, 
         sysdate as system_date,
-       &apos;FLHK_ETL_MANAGE_WORK&apos; as driver_table_name                            
-FROM WR_STATUSES WS, WR_TYPES WT, WR_QUEUES WQ, WR_ACTIONS WA, WR_RULES WR
- WHERE WS.wrrule_id = WR.wrrule_id (+)
-   AND WS.WRT_ID = WT.WRT_ID (+)
-   AND WS.WRQ_ID = WQ.WRQ_ID (+)
-   AND WR.WRACTION_ID = WA.WRACTION_ID (+)
-   AND WS.TASK_ID &gt; ${NEW_MAX_TASK_ID}
+       &apos;FLHK_ETL_MANAGE_WORK&apos; as driver_table_name ,
+        &apos;CRITICAL&apos; as error_level                   
+FROM WR_STATUSES WS 
+LEFT OUTER JOIN WR_TYPES WT on WS.WRT_ID = WT.WRT_ID
+LEFT OUTER JOIN WR_QUEUES WQ on WS.WRQ_ID = WQ.WRQ_ID 
+LEFT OUTER JOIN WR_RULES WR on WS.wrrule_id = WR.wrrule_id
+LEFT OUTER JOIN WR_ACTIONS WA on WR.WRACTION_ID = WA.WRACTION_ID 
+WHERE WS.TASK_ID &gt; ${NEW_MAX_TASK_ID}
    AND WS.WRSTATUS_ID = (SELECT MAX(WRSTATUS_ID) from WR_STATUSES w2 
                          WHERE WS.TASK_ID = W2.TASK_ID)
 order by WS.TASK_ID
- 
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -391,7 +386,7 @@ order by WS.TASK_ID
     <connection>MAXDAT</connection>
     <schema/>
     <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
+    <commit>100</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>N</use_batch>
@@ -407,16 +402,16 @@ order by WS.TASK_ID
     <return_field/>
     <fields>
         <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>TASK_ID</stream_name>
         </field>
         <field>
           <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
         </field>
         <field>
           <column_name>ERROR_CODES</column_name>
@@ -425,10 +420,6 @@ order by WS.TASK_ID
         <field>
           <column_name>ERROR_DESC</column_name>
           <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
         </field>
         <field>
           <column_name>ERROR_FIELD</column_name>
@@ -440,15 +431,19 @@ order by WS.TASK_ID
         </field>
         <field>
           <column_name>ERR_LEVEL</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
+          <stream_name>ERROR_LEVEL</stream_name>
         </field>
         <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>TASK_ID</stream_name>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
         </field>
         <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_of_error_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
         </field>
         <field>
           <column_name>UPDATE_TS</column_name>
@@ -468,8 +463,8 @@ order by WS.TASK_ID
         <source_step>Table Output - FLHK_ETL_MANAGE_WORK</source_step>
         <target_step>Table output OLTP - error</target_step>
         <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
+        <nr_valuename>nr_of_error_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
         <max_errors>10000</max_errors>

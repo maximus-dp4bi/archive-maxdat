@@ -1,0 +1,51 @@
+# Format:
+00 04 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_sc_pp_wfm_tables_load.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_sc_pp_wfm_tables_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+# minutes_of_hour hours_of_day days_of_month months_of_year days_of_the_week command_to_execute
+## NYHIX-1066 - commented out per NYHIX-1408 temporarily.
+## 0 05 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_planning.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_planning.log
+## NYHIX-1408
+15,45 * * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_planning.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_planning_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-12850
+#30 2-22 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_bpm.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_bpm_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-15654
+0 2-22 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_mfd.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_mfd_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-8353
+0 5 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/NYHIX_purge_logs.sh
+#MAXDAT-1720
+00 15 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/Run_PP_BO_RUNALL.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Run_PP_BO_RUNALL_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#NYHIX-12688 - adding the cron job
+#00 16 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/Run_PP_Actuals_AHT_RUNALL.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Run_PP_Actuals_AHT_RUNALL_`date +\%Y\%m\%d`.log 2>&1
+00 16 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/Run_PP_Actuals_AHT_RUNALL.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Run_PP_Actuals_AHT_RUNALL.log 2>&1
+#NYHIX-10848
+00 01 * * 1 /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_load_process_metrics.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_load_process_metrics.log 2>&1
+#NYHIX-14478- 6.00 AM EST
+#00 03 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/ContactCenter/load_New_Queue_Flag_for_Alert.out 2>&1
+#NYHIX-15134 - 06:00 PM EST
+#00 15 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/Run_PP_WFM_RUNALL.sh >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Run_PP_WFM_RUNALL.log 2>&1
+00 15 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/Run_PP_WFM_RUNALL.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Run_PP_WFM_RUNALL_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-17465
+00 19 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/MFD_Run_Init_DAILY/DLY_NYHIX_Run_Init_MFD.sh >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/DLY_NYHIX_Run_Init_MFD.log 2>&1
+#NYHIX-22004
+00 8-12 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_engage_load.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_engage_load_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#NYHIX-22917
+0 6 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_dp_scorecard_load.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_dp_scorecard_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-33505
+30 2-22 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_mailfaxbatch.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_mailfaxbatch_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-36421
+00 * * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_egain_load.sh > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_egain_load.sh_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#NYHIX-35127
+#30 17 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-37820
+00 6 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 9 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 12 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 15 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-37859
+00 3 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/pp_wfm_task_bo_30D_SYNC.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/pp_wfm_task_bo_30D_SYNC.sh_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYHIX-38046
+30 05 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/pp_wfm_task_bo_30D_SYNC.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/pp_wfm_task_bo_30D_SYNC.sh_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+30 08 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/pp_wfm_task_bo_30D_SYNC.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/pp_wfm_task_bo_30D_SYNC.sh_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#NYEC scripts
+01 00 * * * /u01/maximus/maxbi-uat/ETL/scripts/run_Nightly_bpm.sh >> /u01/maximus/maxbi-uat/ETL/logs/run_Nightly_bpm.log
+0 2-22 * * * /u01/maximus/maxbi-uat/ETL/scripts/run_bpm.sh 2>&1 | sed "s/^/$(date)/ " >> /u01/maximus/maxbi-uat/ETL/logs/run_bpm.log
+0 3 * * 1 /u01/maximus/maxbi-uat/ETL/scripts/Run_CIN_Snapshot.sh >> /u01/maximus/maxbi-uat/ETL/logs/LOAD_CIN_SNAPSHOT.log

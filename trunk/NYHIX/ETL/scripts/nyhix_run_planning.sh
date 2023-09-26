@@ -1,5 +1,6 @@
 #!/bin/ksh
 . ~/.bash_profile
+. $MAXDAT_ETL_PATH/.setenv_var.sh
 #nyhix_run_planning.sh
 PROGNAME=$(basename $0 .sh)
 function error_exit

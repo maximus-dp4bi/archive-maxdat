@@ -1,0 +1,28 @@
+create table D_LETTER_REQUEST_LINK
+(
+  dp_letter_link_id         NUMBER not null,
+  lmlink_id                 NUMBER(18),
+  letter_request_id         NUMBER(18),
+  reference_type            VARCHAR2(40),
+  reference_id              NUMBER(18),
+  created_by                VARCHAR2(80),
+  create_ts                 DATE,
+  updated_by                VARCHAR2(80),
+  update_ts                 DATE,
+  additional_reference_type VARCHAR2(30),
+  additional_reference_id   NUMBER(18),
+  client_id                 NUMBER(18),
+  client_enroll_status_id   NUMBER(18),
+  dp_updated_by             VARCHAR2(80),
+  dp_date_updated           DATE,
+  dp_created_by             VARCHAR2(80),
+  dp_date_created           DATE
+)
+;
+create unique index D_LETTER_REQUEST_LINK_UK on D_LETTER_REQUEST_LINK (LMLINK_ID);
+alter table D_LETTER_REQUEST_LINK
+  add constraint D_LETTER_REQUEST_LINK_PK primary key (DP_LETTER_LINK_ID);
+grant select, insert, update on D_LETTER_REQUEST_LINK to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on D_LETTER_REQUEST_LINK to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on D_LETTER_REQUEST_LINK to MAXDAT_MITRAN_READ_ONLY;
+

@@ -12,6 +12,11 @@ start with 265
 increment by 1
 cache 20;
 
+/* Generate subpartition SQL
+select 'subpartition sp' || BSL_ID || ' values less than (' || to_number(BSL_ID + 1) || ') ,'
+from BPM_SOURCE_LKUP 
+order by BSL_ID asc;
+*/
 create table BPM_UPDATE_EVENT_QUEUE
   (BUEQ_ID number not null,
    BSL_ID number not null,
@@ -23,21 +28,35 @@ create table BPM_UPDATE_EVENT_QUEUE
    WROTE_BPM_SEMANTIC_DATE date, 
    DATA_VERSION number not null,
    OLD_DATA xmltype,
-   NEW_DATA xmltype not null)
+   NEW_DATA xmltype not null,
+   CEJS_JOB_ID number)
 xmltype column OLD_DATA store as binary xml
 xmltype column NEW_DATA store as binary xml
-partition by range (BSL_ID)
-interval (1) (partition PT_BUEQ_LT_0 values less than (0)) 
-tablespace MAXDAT_DATA parallel;
+partition by range (EVENT_DATE) interval (numtodsinterval(1,'DAY'))
+subpartition by range (BSL_ID)
+subpartition template (
+  subpartition sp1 values less than (2),
+  subpartition sp12 values less than (13),
+  subpartition sp16 values less than (17),
+  subpartition sp18 values less than (19),
+  subpartition sp21 values less than (22),
+  subpartition sp22 values less than (23),
+  subpartition sp23 values less than (24),
+  subpartition sp24 values less than (25),
+  subpartition sp30 values less than (31),
+  subpartition sp2001 values less than (2002) ,
+  subpartition spmax values less than (maxvalue) )
+(partition PT_BUEQ_INIT values less than (to_date('2015-01-01','YYYY-MM-DD')))
+tablespace MAXDAT_DATA
+storage(initial 65536 next 1048576 minextents 1 maxextents 2147483645)
+parallel 4;
 
 alter table BPM_UPDATE_EVENT_QUEUE add constraint BUEQ_PK primary key (BUEQ_ID) using index tablespace MAXDAT_INDX;
 
-create index BUEQ_IX1 on BPM_UPDATE_EVENT_QUEUE (BSL_ID,EVENT_DATE) tablespace MAXDAT_INDX parallel compute statistics;
-
-create index BUEQ_LX1 on BPM_UPDATE_EVENT_QUEUE (EVENT_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index BUEQ_LX2 on BPM_UPDATE_EVENT_QUEUE (PROCESS_BUEQ_ID,0) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index BUEQ_LX3 on BPM_UPDATE_EVENT_QUEUE (IDENTIFIER) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index BUEQ_LX5 on BPM_UPDATE_EVENT_QUEUE (WROTE_BPM_SEMANTIC_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index BUEQ_IX1 on BPM_UPDATE_EVENT_QUEUE (BSL_ID,EVENT_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create index BUEQ_IX2 on BPM_UPDATE_EVENT_QUEUE (BSL_ID,PROCESS_BUEQ_ID) online tablespace MAXDAT_INDX parallel compute statistics;
+create index BUEQ_IX3 on BPM_UPDATE_EVENT_QUEUE (BSL_ID,IDENTIFIER) online tablespace MAXDAT_INDX parallel compute statistics;
+create index BUEQ_IX4 on BPM_UPDATE_EVENT_QUEUE (BSL_ID,WROTE_BPM_SEMANTIC_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
 
 alter table BPM_UPDATE_EVENT_QUEUE add constraint BUEQ_BSL_ID_FK foreign key (BSL_ID) references BPM_SOURCE_LKUP (BSL_ID);
 alter table BPM_UPDATE_EVENT_QUEUE add constraint BUEQ_BIL_ID_FK foreign key (BIL_ID) references BPM_IDENTIFIER_TYPE_LKUP (BIL_ID);
@@ -64,7 +83,8 @@ create table BPM_UPDATE_EVENT_QUEUE_ARCHIVE
    WROTE_BPM_SEMANTIC_DATE date, 
    DATA_VERSION number not null,
    OLD_DATA xmltype,
-   NEW_DATA xmltype not null)
+   NEW_DATA xmltype not null,
+   CEJS_JOB_ID number)
 xmltype column OLD_DATA store as binary xml
 xmltype column NEW_DATA store as binary xml
 partition by range (BSL_ID)

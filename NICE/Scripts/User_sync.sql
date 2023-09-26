@@ -1,0 +1,1 @@
+select * from nice_wfm_platform1..PLATFORM_UUA_SYNC_TIME

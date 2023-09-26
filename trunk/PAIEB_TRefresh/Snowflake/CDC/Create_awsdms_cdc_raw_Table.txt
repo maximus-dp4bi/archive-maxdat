@@ -1,0 +1,16 @@
+Create table raw.awsdms_cdc_raw (
+ jobid number(32)
+  , source_table_name varchar2(100)
+  , fullpath varchar2(200)
+  , filename varchar2(200)
+  , ingestion_ntz timestamp_ntz(9)
+  , cdc_flag varchar2(1)
+  , raw variant 
+  , committimestamp varchar2(100)
+  , commit_ntz timestamp_ntz(9)
+  , primary_key varchar
+  , pk_id  number(32)
+  , operation varchar2(10)
+  , commit_num number(32)
+  , processed boolean
+);

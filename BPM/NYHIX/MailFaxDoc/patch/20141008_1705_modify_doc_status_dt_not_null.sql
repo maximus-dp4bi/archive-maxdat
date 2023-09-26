@@ -1,0 +1,1 @@
+alter table nyhix_etl_mail_fax_doc modify doc_status_dt not null;

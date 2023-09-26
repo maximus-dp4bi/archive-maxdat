@@ -33,7 +33,11 @@ create or replace package MAXDAT_ADMIN as
 
   procedure DISPLAY_DBMS_SCHEDULER_JOBS;
   
+  procedure DROP_DBMS_SCHEDULER_JOB (p_job_name in varchar2);
+  
   procedure FIX_JOBS;
+  
+  procedure FIX_QUEUE_ROWS;
   
   procedure GATHER_TABLE_STATS
     (p_owner in varchar2,
@@ -55,6 +59,9 @@ create or replace package MAXDAT_ADMIN as
   procedure RUN_CALC_PROCEDURE
     (p_package_name in varchar2,
      p_procedure_name in varchar2);
+     
+  procedure SET_SCHED_DEFAULT_TIMEZONE
+    (p_timezone_region in varchar2);
   
   procedure SHUTDOWN_JOBS;
   
@@ -505,10 +512,38 @@ create or replace package body MAXDAT_ADMIN as
       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);  
   end;
   
+  
+  -- Drop a DBMS Scheduler job.
+  procedure DROP_DBMS_SCHEDULER_JOB
+    (p_job_name in varchar2)
+  as
+    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'DROP_DBMS_SCHEDULER_JOB';
+    v_sql_code number := null;
+    v_log_message clob := null;
+  begin
+    v_log_message := 'Drop DBMS Scheduler job "' || p_job_name || '".';
+    AUDIT_LOGGER(v_procedure_name,null,v_log_message);
+    
+    if p_job_name is null then
+      v_log_message := 'Null JOB_NAME.  Unable to drop DBMS Scheduler job.';
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,null);
+      return;
+    end if;
+    
+    dbms_scheduler.drop_job(p_job_name);
+    
+  exception
+    when others then
+      v_sql_code := SQLCODE;
+      v_log_message := 'Unable to drop DBMS Scheduler job "' || p_job_name || '".  ' || SQLERRM;
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);
+      
+  end;
+  
 
   -- Fix metadata of incorrect BPM queue jobs.
-     -- Fix metadata of defective jobs with null parameters and stop them.
-     -- Fix metadata of jobs that are not running.
+  -- Fix metadata of defective jobs with null parameters and stop them.
+  -- Fix metadata of jobs that are not running.
   procedure FIX_JOBS
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'FIX_JOBS';
@@ -529,6 +564,30 @@ create or replace package body MAXDAT_ADMIN as
       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);  
   end;
   
+  -- Fix stuck queue rows.
+  -- Fix completed but unarchived queue rows.
+  -- Note that if any fixes are necessary the queue jobs will be stopped and restarted automatically to fix.
+  procedure FIX_QUEUE_ROWS
+  as
+    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'FIX_QUEUE_ROWS';
+    v_sql_code number := null;
+    v_log_message clob := null;
+    
+  begin
+
+    v_log_message := 'Fix stuck and unarchived BPM queue rows.';
+    AUDIT_LOGGER(v_procedure_name,null,v_log_message);
+    
+    PROCESS_BPM_QUEUE_JOB_CONTROL.FIX_QUEUE_ROWS;
+    
+  exception
+    when others then
+      v_sql_code := SQLCODE;
+      v_log_message := 'Unable to fix stuck and unarchived BPM queue rows.  ' || SQLERRM;
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);  
+  end;
+  
+  
   -- Gather table statistics.  Helps improve performance.
   -- Updated statistics will not be used by currently running programs.  
   -- Stop and restart program to be able to use the updated statistics.
@@ -547,8 +606,8 @@ create or replace package body MAXDAT_ADMIN as
     v_log_message := 'Gather table stats for ' || p_owner || '.' || p_table_name || '.   Degree = ' || p_degree;
     AUDIT_LOGGER(v_procedure_name,null,v_log_message);
     
-    DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => p_owner,TABNAME => p_table_name,CASCADE => TRUE,DEGREE => p_degree,ESTIMATE_PERCENT => DBMS_STATS.AUTO_SAMPLE_SIZE,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
-    
+    DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => p_owner,TABNAME => p_table_name,CASCADE => TRUE,DEGREE => p_degree,ESTIMATE_PERCENT => 100,METHOD_OPT => 'FOR ALL COLUMNS SIZE AUTO');
+
   exception
   
     when others then
@@ -770,6 +829,21 @@ create or replace package body MAXDAT_ADMIN as
       v_log_message := v_program_unit_name || ' Unable to run BPM calc procedure ' || p_package_name || '.' || p_procedure_name || '.  ' || SQLERRM;
       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);  
   end;
+
+
+  -- Set DBMS Scheduler default timezone.
+  -- Requires MANAGE SCHEDULER privilege.
+  procedure SET_SCHED_DEFAULT_TIMEZONE
+    (p_timezone_region in varchar2)
+  as
+    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_SCHED_DEFAULT_TIMEZONE';
+    v_log_message clob := null;
+  begin
+    v_log_message := 'Setting DBMS Scheduler default timezone = ''' || p_timezone_region || '''.';
+    AUDIT_LOGGER(v_procedure_name,null,v_log_message);
+    
+    PROCESS_BPM_QUEUE_JOB_CONTROL.SET_SCHED_DEFAULT_TIMEZONE(p_timezone_region);
+  end;
   
 
   -- Shutdown all BPM control, queue and calculation jobs.
@@ -802,7 +876,7 @@ create or replace package body MAXDAT_ADMIN as
   procedure STOP_DBMS_SCHEDULER_JOB
     (p_job_name in varchar2)
   as
-    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'STOP_JOB';
+    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'STOP_DBMS_SCHEDULER_JOB';
     v_sql_code number := null;
     v_log_message clob := null;
   begin

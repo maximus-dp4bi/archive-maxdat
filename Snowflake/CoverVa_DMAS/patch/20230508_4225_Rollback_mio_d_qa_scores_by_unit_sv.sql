@@ -1,0 +1,3 @@
+drop view MARS_DP4BI_PROD.Public.MIO_D_QA_SCORES_BY_UNIT_SV ;
+
+drop view create or replace view MARS_DP4BI_PROD.PUBLIC.MIO_D_CPU_AND_CVIU_QA_SCORES_SV ;

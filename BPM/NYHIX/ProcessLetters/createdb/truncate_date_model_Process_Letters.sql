@@ -35,7 +35,7 @@ xmltype column OLD_DATA store as binary xml
 xmltype column NEW_DATA store as binary xml
 partition by range (BSL_ID)
 interval (1) (partition PT_BUEQ_LT_0 values less than (0)) 
-parallel;
+tablespace MAXDAT_DATA;
 
 insert into BUEQ_ARCHIVE_TEMP
 select 
@@ -61,7 +61,6 @@ alter table BUEQ_ARCHIVE_TEMP rename to BPM_UPDATE_EVENT_QUEUE_ARCHIVE;
 
 alter table BPM_UPDATE_EVENT_QUEUE_ARCHIVE add constraint BUEQA_PK primary key (BUEQ_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym BPM_UPDATE_EVENT_QUEUE_ARCHIVE for BPM_UPDATE_EVENT_QUEUE_ARCHIVE;
 grant select on BPM_UPDATE_EVENT_QUEUE_ARCHIVE to MAXDAT_READ_ONLY;
 
 

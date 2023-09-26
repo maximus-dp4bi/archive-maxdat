@@ -52,14 +52,13 @@ CREATE TABLE D_ILEB_MJR_CURRENT
 	FILE_PROCESS_TIME 				NUMBER--CALCULATED
   )PARALLEL;
   
-create or replace public synonym D_ILEB_MJR_CURRENT for D_ILEB_MJR_CURRENT;
+
 grant select on D_ILEB_MJR_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_ILEB_MJR_CURRENT_SV as
 select * from D_ILEB_MJR_CURRENT 
 with read only;
 
-create or replace public synonym D_ILEB_MJR_CURRENT_SV for D_ILEB_MJR_CURRENT_SV;
 grant select on D_ILEB_MJR_CURRENT_SV to MAXDAT_READ_ONLY;
 
 alter table D_ILEB_MJR_CURRENT add constraint DIMJRCUR_PK primary key (ILEB_MJR_BI_ID);
@@ -68,6 +67,7 @@ alter index DIMJRCUR_PK rebuild tablespace MAXDAT_INDX parallel;
 create or replace view D_ILEB_MJR_CURRENT_SV as
 select * from D_ILEB_MJR_CURRENT 
 with read only;
+
 
 ----- D_ILEB_MJR_LAST_UPDATE_BY    DIMJRLUB_ID  
 create sequence SEQ_DIMJRLUB_ID
@@ -88,18 +88,17 @@ alter index DIMJRLUB_PK rebuild tablespace MAXDAT_INDX parallel;
 
 create unique index DIMJRLUB_UIX1 on D_ILEB_MJR_LAST_UPDATE_BY (LAST_UPDATE_BY_NAME) tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_ILEB_MJR_LAST_UPDATE_BY for D_ILEB_MJR_LAST_UPDATE_BY;
 grant select on D_ILEB_MJR_LAST_UPDATE_BY to MAXDAT_READ_ONLY;
 
 create or replace view D_ILEB_MJR_LAST_UPDATE_BY_SV as
 select * from D_ILEB_MJR_LAST_UPDATE_BY
 with read only;
 
-create or replace public synonym D_ILEB_MJR_LAST_UPDATE_BY_SV for D_ILEB_MJR_LAST_UPDATE_BY_SV;
 grant select on D_ILEB_MJR_LAST_UPDATE_BY_SV to MAXDAT_READ_ONLY;
 
 insert into D_ILEB_MJR_LAST_UPDATE_BY (DIMJRLUB_ID ,LAST_UPDATE_BY_NAME) values (SEQ_DIMJRLUB_ID.nextval,null);
 commit;
+
 
 create sequence SEQ_FIMJRBD_ID
 minvalue 1
@@ -127,14 +126,12 @@ alter table F_ILEB_MJR_BY_DATE add constraint FIMJRBD_PK primary key (FIMJRBD_ID
 alter table F_ILEB_MJR_BY_DATE add constraint FIMJRBD_DIMJRLUB_FK foreign key (DIMJRLUB_ID) references D_ILEB_MJR_LAST_UPDATE_BY(DIMJRLUB_ID);
 alter table F_ILEB_MJR_BY_DATE add constraint FIMJRBD_DIMJRCUR_FK foreign key (ILEB_MJR_BI_ID) references D_ILEB_MJR_CURRENT(ILEB_MJR_BI_ID);
 
-
 alter index FIMJRBD_PK rebuild tablespace MAXDAT_INDX parallel;
 
 CREATE UNIQUE INDEX FNMRBD_UIX1 ON F_ILEB_MJR_BY_DATE(FIMJRBD_ID, D_DATE) tablespace MAXDAT_INDX  parallel compute statistics;
 CREATE UNIQUE INDEX FNMRBD_UIX2 ON F_ILEB_MJR_BY_DATE(FIMJRBD_ID, BUCKET_START_DATE) tablespace MAXDAT_INDX  parallel compute statistics;
 CREATE UNIQUE INDEX FNMRBD_UIX3 ON F_ILEB_MJR_BY_DATE(FIMJRBD_ID, BUCKET_END_DATE) tablespace MAXDAT_INDX  parallel compute statistics;
 
-create or replace public synonym F_ILEB_MJR_BY_DATE for F_ILEB_MJR_BY_DATE;
 grant select on F_ILEB_MJR_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_ILEB_MJR_BY_DATE_SV as
@@ -181,10 +178,8 @@ where
   and bdd.D_DATE = fimjrbd.BUCKET_END_DATE
 with read only;
    
-create or replace public synonym F_ILEB_MJR_BY_DATE_SV for F_ILEB_MJR_BY_DATE_SV;
 grant select on F_ILEB_MJR_BY_DATE_SV to MAXDAT_READ_ONLY;
-
-commit;  
+ 
 
 
 

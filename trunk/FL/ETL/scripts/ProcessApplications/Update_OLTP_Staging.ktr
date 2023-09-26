@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Staging</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -157,7 +170,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>CONFLICT_REASON</from><to>INCOMPLETE_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>MEMBERSHIP_STATUS</from><to>APP_CLEARANCE_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Columns</from><to>Table output - Update  Error 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON</from><to>Table output - Update  Error 2 4</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>Table output - Update  Error 2 5</to><enabled>Y</enabled> </hop>  <hop> <from>MEMBERSHIP_STATUS</from><to>Table output - Update  Error 2 7</to><enabled>Y</enabled> </hop>  <hop> <from>APP_CLEARANCE_DATE</from><to>Table output - Update  Error 2 8</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>Table output - Update  Error 2 10</to><enabled>Y</enabled> </hop>  <hop> <from>HEAD_HOUSEHOLD_ID</from><to>Table output - Update  Error 2 16</to><enabled>Y</enabled> </hop>  <hop> <from>Update FLHK_ETL_PROCESS_APP_OLTP</from><to>Table output - Update  Error 2 17</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>MEMBERSHIP_STATUS</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>Table output - Update  Error 2 8 2</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>Table output - Update  Error 2 16 2</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>Lookup TIMEOUT_NOTIF_ID</to><enabled>Y</enabled> </hop>  <hop> <from>TIMEOUT_NOTIF_ID</from><to>Lookup TIMEOUT_NOTIF_ID</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>APP_CLEARANCE_DATE</from><to>CURRENT_TASK_ID</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL</from><to>APPLICANT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_ID</from><to>APPLICANT_NUM</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_NUM</from><to>NUM_CHILDREN_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup TIMEOUT_NOTIF_ID</from><to>HEAD_HOUSEHOLD_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Columns</from><to>If ALL_MI_SATISIFIED is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ALL_MI_SATISIFIED is null</from><to>CONFLICT_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>SELECT FLHK_ETL_PROCESS_APP_OLTP</from><to>Columns</to><enabled>Y</enabled> </hop>  <hop> <from>HEAD_HOUSEHOLD_ID</from><to>ASSD_ACCOUNT_CREATE_UPDATE</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_ACCOUNT_CREATE_UPDATE</from><to>Update FLHK_ETL_PROCESS_APP_OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>join DCN</to><enabled>Y</enabled> </hop>  <hop> <from>join DCN</from><to>PRE_CHANNEL</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>CONFLICT_REASON</from><to>INCOMPLETE_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>MEMBERSHIP_STATUS</from><to>APP_CLEARANCE_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Columns</from><to>Update  Error 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON</from><to>Update  Error 2 4</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>Update  Error 2 5</to><enabled>Y</enabled> </hop>  <hop> <from>MEMBERSHIP_STATUS</from><to>Update  Error 2 7</to><enabled>Y</enabled> </hop>  <hop> <from>APP_CLEARANCE_DATE</from><to>Update  Error 2 8</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>Update  Error 2 10</to><enabled>Y</enabled> </hop>  <hop> <from>HEAD_HOUSEHOLD_ID</from><to>Update  Error 2 16</to><enabled>Y</enabled> </hop>  <hop> <from>Update FLHK_ETL_PROCESS_APP_OLTP</from><to>Update Error OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>MEMBERSHIP_STATUS</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>Update  Error 2 8 2</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>PRE_CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>Update  Error 2 16 2</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>Lookup TIMEOUT_NOTIF_ID</to><enabled>Y</enabled> </hop>  <hop> <from>TIMEOUT_NOTIF_ID</from><to>Lookup TIMEOUT_NOTIF_ID</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>APP_CLEARANCE_DATE</from><to>CURRENT_TASK_ID</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL</from><to>APPLICANT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_ID</from><to>APPLICANT_NUM</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_NUM</from><to>NUM_CHILDREN_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup TIMEOUT_NOTIF_ID</from><to>HEAD_HOUSEHOLD_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Columns</from><to>If ALL_MI_SATISIFIED is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ALL_MI_SATISIFIED is null</from><to>CONFLICT_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>SELECT FLHK_ETL_PROCESS_APP_OLTP</from><to>Columns</to><enabled>Y</enabled> </hop>  <hop> <from>HEAD_HOUSEHOLD_ID</from><to>ASSD_ACCOUNT_CREATE_UPDATE</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_ACCOUNT_CREATE_UPDATE</from><to>Update FLHK_ETL_PROCESS_APP_OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_ACCOUNT_CREATE_UPDATE</from><to>error_assd_acct_create_update</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>APPLICANT_ID</name>
     <type>DBJoin</type>
@@ -196,7 +209,7 @@ GROUP BY
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>540</xloc>
-      <yloc>540</yloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -237,8 +250,8 @@ GROUP BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>720</xloc>
-      <yloc>540</yloc>
+      <xloc>290</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -265,7 +278,6 @@ FROM
 	APPLICATION_TEMP A
 WHERE
 	A.STATUS=&apos;CLEARED&apos; AND
-	A.INSERT_USER != &apos;CONVERSION&apos; AND
 	A.APPLICATION_ID = ?
 </sql>
     <outer_join>Y</outer_join>
@@ -278,8 +290,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1470</xloc>
-      <yloc>240</yloc>
+      <xloc>1360</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -305,7 +317,6 @@ FROM	APPLICATION B
 left outer join ACCOUNT A on B.ACCOUNT_ID = A.ACCOUNT_ID
 WHERE
 	B.SOURCE IN (&apos;WEBSITE&apos;,&apos;MEDICAID_CLOSURE&apos;) AND
-	B.INSERT_USER != &apos;CONVERSION&apos; AND
 	B.APPLICATION_ID = ?
 GROUP BY CASE WHEN B.ACCOUNT_ID is null
              THEN &apos;N&apos;
@@ -320,8 +331,8 @@ GROUP BY CASE WHEN B.ACCOUNT_ID is null
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1190</xloc>
-      <yloc>650</yloc>
+      <xloc>770</xloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -345,8 +356,8 @@ GROUP BY CASE WHEN B.ACCOUNT_ID is null
 </formula>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>540</yloc>
+      <xloc>820</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -383,8 +394,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>860</xloc>
-      <yloc>240</yloc>
+      <xloc>750</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -423,8 +434,8 @@ GROUP BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1680</xloc>
-      <yloc>240</yloc>
+      <xloc>1360</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -454,7 +465,7 @@ GROUP BY
 	APPLICATION_ID AS STATUS_AND_DATE_APP_ID,
 	ACCOUNT_NUMBER,
 	WEB_APPLICATION_ID,
----	ASSOC_SRC_DOC_CONTROL_NUMBER AS DCN,
+	ASSOC_SRC_DOC_CONTROL_NUMBER AS DCN,
 	ACCOUNT_ID,
 	SOURCE,
     STATUS_DATE  AS ASSD_RECEIVE_PROCESS_MI,
@@ -472,7 +483,6 @@ GROUP BY
 FROM
 	APPLICATION A
 WHERE
-	A.INSERT_USER != &apos;CONVERSION&apos; AND 
 	A.APPLICATION_ID = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
@@ -484,8 +494,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>405</xloc>
-      <yloc>240</yloc>
+      <xloc>360</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -501,7 +511,7 @@ WHERE
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
+    <rowlimit>1</rowlimit>
     <sql>SELECT 
 	A.ACCOUNT_MEMBERSHIP_ID AS HEAD_HOUSEHOLD_ID
 FROM
@@ -510,7 +520,8 @@ FROM
 WHERE
 	A.ACCOUNT_ID = C.ACCOUNT_ID AND
 	A.PARENT_TYPE = &apos;PARENT1&apos; AND
-	A.ACCOUNT_ID = ?</sql>
+	A.ACCOUNT_ID = ?
+order by A.ACCOUNT_MEMBERSHIP_ID desc</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -521,7 +532,7 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1485</xloc>
+      <xloc>500</xloc>
       <yloc>540</yloc>
       <draw>Y</draw>
       </GUI>
@@ -558,8 +569,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1065</xloc>
-      <yloc>240</yloc>
+      <xloc>960</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -589,8 +600,8 @@ WHERE
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>630</xloc>
-      <yloc>240</yloc>
+      <xloc>580</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -636,7 +647,7 @@ WHERE
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1210</xloc>
+      <xloc>250</xloc>
       <yloc>540</yloc>
       <draw>Y</draw>
       </GUI>
@@ -673,8 +684,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1260</xloc>
-      <yloc>240</yloc>
+      <xloc>1150</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -691,14 +702,13 @@ WHERE
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>0</rowlimit>
-    <sql>SELECT SUM(CHILD_FLAG)  AS NUM_CHILDREN_APP, 
-	   B.APPLICATION_ID AS NUM_CHILDREN_APP_APP_ID
+    <sql>SELECT SUM(APPLYING_FOR_BENEFITS_IND)  AS NUM_CHILDREN_APP, 
+	   B.APPLICATION_ID                AS NUM_CHILDREN_APP_APP_ID
 FROM  ACCOUNT_MEMBERSHIP A 
 join  APPLICATION B on A.ACCOUNT_ID=B.ACCOUNT_ID
 WHERE APPLYING_FOR_BENEFITS_IND=&apos;1&apos; 
-  AND CHILD_FLAG=&apos;1&apos;
+---  AND CHILD_FLAG=&apos;1&apos;
   and parent_type is null
-  AND B.INSERT_USER != &apos;CONVERSION&apos; 
   AND B.APPLICATION_ID = ?
 GROUP BY B.APPLICATION_ID</sql>
     <outer_join>Y</outer_join>
@@ -711,8 +721,8 @@ GROUP BY B.APPLICATION_ID</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>930</xloc>
-      <yloc>540</yloc>
+      <xloc>80</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -736,7 +746,6 @@ FROM
 	APPLICATION B
 WHERE
 	B.ASSOC_SRC_DOC_CONTROL_NUMBER = A.DOCUMENT_CONTROL_NUMBER AND
-	B.INSERT_USER != &apos;CONVERSION&apos; AND 
 	B.APPLICATION_ID = ?
 ORDER BY
 	B.APPLICATION_ID</sql>
@@ -750,8 +759,8 @@ ORDER BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>180</xloc>
-      <yloc>540</yloc>
+      <xloc>1080</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -787,8 +796,8 @@ FROM
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>135</xloc>
-      <yloc>240</yloc>
+      <xloc>180</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -819,14 +828,14 @@ WHERE A.LMDEF_ID=13</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1210</xloc>
-      <yloc>420</yloc>
+      <xloc>250</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 10</name>
+    <name>Update  Error 2 10</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -904,14 +913,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>930</xloc>
-      <yloc>420</yloc>
+      <xloc>80</xloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 16</name>
+    <name>Update  Error 2 16</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -989,14 +998,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1485</xloc>
-      <yloc>390</yloc>
+      <xloc>500</xloc>
+      <yloc>720</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 16 2</name>
+    <name>Update  Error 2 16 2</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1074,14 +1083,99 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>180</xloc>
-      <yloc>420</yloc>
+      <xloc>1080</xloc>
+      <yloc>470</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 17</name>
+    <name>Update Error OLTP</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>10</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1030</xloc>
+      <yloc>720</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update  Error 2 2</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1159,14 +1253,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>960</yloc>
+      <xloc>360</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 2</name>
+    <name>Update  Error 2 4</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1244,14 +1338,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>405</xloc>
-      <yloc>135</yloc>
+      <xloc>750</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 4</name>
+    <name>Update  Error 2 5</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1329,14 +1423,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>860</xloc>
-      <yloc>120</yloc>
+      <xloc>960</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 5</name>
+    <name>Update  Error 2 7</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1414,14 +1508,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1065</xloc>
-      <yloc>120</yloc>
+      <xloc>1150</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 7</name>
+    <name>Update  Error 2 8</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1499,14 +1593,14 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1260</xloc>
-      <yloc>120</yloc>
+      <xloc>1360</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 8</name>
+    <name>Update  Error 2 8 2</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1584,93 +1678,8 @@ WHERE A.LMDEF_ID=13</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1470</xloc>
-      <yloc>120</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - Update  Error 2 8 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1680</xloc>
-      <yloc>120</yloc>
+      <xloc>1360</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1680,7 +1689,7 @@ WHERE A.LMDEF_ID=13</sql>
     <type>Update</type>
     <description/>
     <distribute>N</distribute>
-    <copies>16</copies>
+    <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
@@ -1701,20 +1710,12 @@ WHERE A.LMDEF_ID=13</sql>
         <name2/>
         </key>
       <value>
-        <name>ACCOUNT_COUNTY</name>
-        <rename>HOME_COUNTY</rename>
-        </value>
-      <value>
         <name>ACCOUNT_ID</name>
         <rename>ACCOUNT_ID</rename>
         </value>
       <value>
         <name>ACCOUNT_NUMBER</name>
         <rename>ACCOUNT_NUMBER</rename>
-        </value>
-      <value>
-        <name>ACCOUNT_STATE</name>
-        <rename>HOME_STATE</rename>
         </value>
       <value>
         <name>ALL_MI_SATISFIED</name>
@@ -1741,16 +1742,8 @@ WHERE A.LMDEF_ID=13</sql>
         <rename>APP_ID</rename>
         </value>
       <value>
-        <name>APP_STATUS</name>
-        <rename>STATUS</rename>
-        </value>
-      <value>
         <name>APP_STATUS_CHANGE_DATE</name>
         <rename>APP_STATUS_CHANGE_DATE</rename>
-        </value>
-      <value>
-        <name>APP_STATUS_DATE</name>
-        <rename>STATUS_DATE</rename>
         </value>
       <value>
         <name>APP_TYPE</name>
@@ -1765,14 +1758,6 @@ WHERE A.LMDEF_ID=13</sql>
         <rename>ASSD_ACCT_CREATE_UPDATE_DATE</rename>
         </value>
       <value>
-        <name>ASSD_RECEIVE_PROCESS_MI</name>
-        <rename>ASSD_RECEIVE_PROCESS_MI</rename>
-        </value>
-      <value>
-        <name>ASSD_TIME_OUT_NOTIF</name>
-        <rename>ASSD_TIMEOUT_NOTIF</rename>
-        </value>
-      <value>
         <name>CHANNEL</name>
         <rename>CHANNEL</rename>
         </value>
@@ -1785,20 +1770,28 @@ WHERE A.LMDEF_ID=13</sql>
         <rename>CONFLICT_REASON</rename>
         </value>
       <value>
-        <name>CREATE_DATE</name>
-        <rename>INSERT_DATE</rename>
-        </value>
-      <value>
-        <name>DCN</name>
-        <rename>DCN</rename>
-        </value>
-      <value>
         <name>HEAD_HOUSEHOLD_ID</name>
         <rename>HEAD_HOUSEHOLD_ID</rename>
         </value>
       <value>
+        <name>ACCOUNT_COUNTY</name>
+        <rename>HOME_COUNTY</rename>
+        </value>
+      <value>
+        <name>ZIP_CODE_APP</name>
+        <rename>HOME_POSTAL_CODE</rename>
+        </value>
+      <value>
+        <name>ACCOUNT_STATE</name>
+        <rename>HOME_STATE</rename>
+        </value>
+      <value>
         <name>INCOMPLETE_REASON</name>
         <rename>INCOMPLETE_REASON</rename>
+        </value>
+      <value>
+        <name>CREATE_DATE</name>
+        <rename>INSERT_DATE</rename>
         </value>
       <value>
         <name>NUM_CHILDREN_APP</name>
@@ -1813,8 +1806,12 @@ WHERE A.LMDEF_ID=13</sql>
         <rename>RENEWAL_DATE</rename>
         </value>
       <value>
-        <name>SOURCE</name>
-        <rename>SOURCE</rename>
+        <name>APP_STATUS</name>
+        <rename>STATUS</rename>
+        </value>
+      <value>
+        <name>APP_STATUS_DATE</name>
+        <rename>STATUS_DATE</rename>
         </value>
       <value>
         <name>STG_LAST_UPDATE_DATE</name>
@@ -1833,21 +1830,25 @@ WHERE A.LMDEF_ID=13</sql>
         <rename>TIMEOUT_NOTIF_ID</rename>
         </value>
       <value>
-        <name>ZIP_CODE_APP</name>
-        <rename>HOME_POSTAL_CODE</rename>
+        <name>ASSD_RECEIVE_PROCESS_MI</name>
+        <rename>ASSD_RECEIVE_PROCESS_MI</rename>
+        </value>
+      <value>
+        <name>ASSD_TIME_OUT_NOTIF</name>
+        <rename>ASSD_TIMEOUT_NOTIF</rename>
         </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>800</yloc>
+      <xloc>1030</xloc>
+      <yloc>540</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>join DCN</name>
-    <type>DBJoin</type>
+    <name>error_assd_acct_create_update</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1855,24 +1856,61 @@ WHERE A.LMDEF_ID=13</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
-    <sql>select id.document_control_number DCN
-from inbound_document id
-where id.source_batch_reference != &apos;MIGRATION&apos; and id.inbound_document_type = &apos;NEW_APPLICATION&apos;
-and id.account_id = ?</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>450</yloc>
+      <xloc>770</xloc>
+      <yloc>710</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1880,7 +1918,7 @@ and id.account_id = ?</sql>
   <step_error_handling>
       <error>
         <source_step>APP_CLEARANCE_DATE</source_step>
-        <target_step>Table output - Update  Error 2 8</target_step>
+        <target_step>Update  Error 2 8</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1891,8 +1929,20 @@ and id.account_id = ?</sql>
         <min_pct_rows/>
       </error>
       <error>
+        <source_step>ASSD_ACCOUNT_CREATE_UPDATE</source_step>
+        <target_step>error_assd_acct_create_update</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>number_of_errors</nr_valuename>
+        <descriptions_valuename>error_descriptions</descriptions_valuename>
+        <fields_valuename>error_fields</fields_valuename>
+        <codes_valuename>error_codes</codes_valuename>
+        <max_errors>100</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
         <source_step>CONFLICT_REASON</source_step>
-        <target_step>Table output - Update  Error 2 4</target_step>
+        <target_step>Update  Error 2 4</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1904,7 +1954,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>CURRENT_TASK_ID</source_step>
-        <target_step>Table output - Update  Error 2 8 2</target_step>
+        <target_step>Update  Error 2 8 2</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1916,7 +1966,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>Columns</source_step>
-        <target_step>Table output - Update  Error 2 2</target_step>
+        <target_step>Update  Error 2 2</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1928,7 +1978,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>HEAD_HOUSEHOLD_ID</source_step>
-        <target_step>Table output - Update  Error 2 16</target_step>
+        <target_step>Update  Error 2 16</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1940,7 +1990,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>INCOMPLETE_REASON</source_step>
-        <target_step>Table output - Update  Error 2 5</target_step>
+        <target_step>Update  Error 2 5</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1952,7 +2002,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>MEMBERSHIP_STATUS</source_step>
-        <target_step>Table output - Update  Error 2 7</target_step>
+        <target_step>Update  Error 2 7</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1964,7 +2014,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>NUM_CHILDREN_APP</source_step>
-        <target_step>Table output - Update  Error 2 10</target_step>
+        <target_step>Update  Error 2 10</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1976,7 +2026,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>PRE_CHANNEL</source_step>
-        <target_step>Table output - Update  Error 2 16 2</target_step>
+        <target_step>Update  Error 2 16 2</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
@@ -1988,7 +2038,7 @@ and id.account_id = ?</sql>
       </error>
       <error>
         <source_step>Update FLHK_ETL_PROCESS_APP_OLTP</source_step>
-        <target_step>Table output - Update  Error 2 17</target_step>
+        <target_step>Update Error OLTP</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>

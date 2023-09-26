@@ -1,0 +1,40 @@
+create table PROCESS_BPM_QUEUE_JOB_BATCH
+(
+  pbqjb_id                NUMBER not null,
+  pbqj_id                 NUMBER not null,
+  batch_id                NUMBER,
+  process_bueq_id         NUMBER,
+  batch_start_date        DATE not null,
+  batch_end_date          DATE,
+  locking_start_date      DATE,
+  locking_end_date        DATE,
+  reserve_start_date      DATE,
+  reserve_end_date        DATE,
+  proc_xml_start_date     DATE,
+  proc_xml_end_date       DATE,
+  num_sleep_seconds       NUMBER default (0) not null,
+  num_queue_rows_in_batch NUMBER default (0) not null,
+  num_bpm_event_insert    NUMBER default (0) not null,
+  num_bpm_event_update    NUMBER default (0) not null,
+  num_bpm_semantic_insert NUMBER default (0) not null,
+  num_bpm_semantic_update NUMBER default (0) not null,
+  status_date             DATE not null
+)
+partition by range (BATCH_START_DATE) interval (NUMTODSINTERVAL(1,'DAY'))
+(
+  partition PT_BE_ERROR_DATE_LT_2013 values less than (TO_DATE(' 2013-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN'))
+    tablespace MAXDAT_MIEB_DATA
+);
+create index PBQJB_LX1 on PROCESS_BPM_QUEUE_JOB_BATCH (PBQJ_ID)
+  nologging  local;
+create index PBQJB_LX2 on PROCESS_BPM_QUEUE_JOB_BATCH (BATCH_START_DATE)
+  nologging  local;
+alter table PROCESS_BPM_QUEUE_JOB_BATCH
+  add constraint PBQJB_PK primary key (PBQJB_ID);
+alter table PROCESS_BPM_QUEUE_JOB_BATCH
+  add constraint PBQJB_PBQJ_ID_FK foreign key (PBQJ_ID)
+  references PROCESS_BPM_QUEUE_JOB (PBQJ_ID);
+grant select, insert, update on PROCESS_BPM_QUEUE_JOB_BATCH to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on PROCESS_BPM_QUEUE_JOB_BATCH to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on PROCESS_BPM_QUEUE_JOB_BATCH to MAXDAT_MITRAN_READ_ONLY;
+

@@ -71,10 +71,11 @@ else
 	  #ensure the directory structure matches and the desired kjb/ktr files are specified
 	  $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageWork/ManageWork_RUNALL.kjb $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageWork_RUNALL_$(date +%Y%m%d_%H%M%S).log &
         $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessApplication/ProcessApp_RUNALL.kjb $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ProcessApp_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
-        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/MissingInfo/ProcessMI_RUNALL.kjb $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ProcessMI_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
+        #$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/MissingInfo/ProcessMI_RUNALL.kjb $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ProcessMI_RUNALL_$(date +%Y%m%d_%H%M%S).log & NYEC-10516
         $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/StateReview/ProcessStateReview_RUNALL.kjb $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ProcessStateReview_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
-       # $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessComplaints/Process_Complaints_RUN_ALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Complaints_RUN_ALL$(date +%Y%m%d_%H%M%S).log &
-        wait
+        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessComplaints/Process_Complaints_RUN_ALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Complaints_RUN_ALL$(date +%Y%m%d_%H%M%S).log &
+        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/MW_V2/MW_V2_RUNALL_TIMER.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/MW_V2_RUNALL_TIMER_RUN_ALL$(date +%Y%m%d_%H%M%S).log &
+		wait
         $MAXDAT_ETL_PATH/run_ktr.sh $MAXDAT_ETL_PATH/ManageWork/ManageWork_Get_Incident_Hdr.ktr $KTR_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageWork_Get_Incident_Hdr_$(date +%Y%m%d_%H%M%S).log &
            wait
 	  if [[ -e $CHILD_FAIL ]]

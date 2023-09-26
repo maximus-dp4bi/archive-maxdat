@@ -47,6 +47,12 @@ create or replace package PROCESS_BPM_QUEUE_JOB_CONTROL as
   MAX_LOCKING_JOBS number := 2;
   NUM_TRYS_TO_STOP_JOB number := 5;
 
+  FIRST_FIX_QUEUE_ROWS_MINUTES number :=  90;
+  UNARCHIVED_QUEUE_ROW_MINUTES number :=  30;
+  STUCK_QUEUE_ROW_LOOK_BACK_DAYS number := 1;
+  STUCK_QUEUE_ROW_MINUTES      number := 120;
+  STUCK_QUEUE_ROW_GAP_MINUTES  number := 120;
+
   procedure ADJUST_ALL_JOBS;
   
   procedure ADJUST_NUM_OF_JOBS
@@ -79,6 +85,11 @@ create or replace package PROCESS_BPM_QUEUE_JOB_CONTROL as
      p_start_reason_id in number);
      
   procedure FIX_JOBS;
+  
+  procedure FIX_QUEUE_ROWS;
+  
+  procedure SET_SCHED_DEFAULT_TIMEZONE
+    (p_timezone_region in varchar2);
   
   procedure STARTUP_JOBS;
   
@@ -119,18 +130,32 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'CREATE_CALC_JOB';
     v_log_message clob := null;
     v_sql_code number := null;
+    v_default_timezone varchar2(30) := null;
     v_job_action varchar2(200) := null;
     v_job_name varchar2(30) := null;
+    v_start_date varchar2(100) := null;
   begin
+    
+    select VALUE into v_default_timezone 
+    from ALL_SCHEDULER_GLOBAL_ATTRIBUTE 
+    where ATTRIBUTE_NAME = 'DEFAULT_TIMEZONE';
+    
+    if v_default_timezone is null then
+      v_sql_code := -20080;
+      v_log_message := 'Unable to start calc job "' || p_procedure_name || '".  No DBMS Scheduler default timezone set.  This can be set via MAXDAT_ADMIN.SET_SCHED_DEFAULT_TIMEZONE(timezone_region) which requires MANAGE SCHEDULER privilege.';
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,null,null,null,null,v_log_message,v_sql_code);    
+      return;
+    end if;
     
     -- Create job to run daily.
     v_job_action := 'begin ' || p_package_name || '.' || p_procedure_name || ' ; end;';
     v_job_name := p_procedure_name;
+    v_start_date := to_char(trunc(sysdate + 1),'DD-MON-YY HH.MI.SS AM') || ' ' || v_default_timezone;
     dbms_scheduler.create_job (
       job_name   => v_job_name,
       job_type   => 'PLSQL_BLOCK',
       job_action => v_job_action,
-      start_date => trunc(sysdate + 1),
+      start_date => v_start_date,
       repeat_interval=> 'FREQ=DAILY; BYHOUR=0;',
       enabled    =>  TRUE,
       comments   => 'Calculate column values in BPM Semantic current table.');
@@ -523,6 +548,7 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
       where STATUS not in (PROCESS_BPM_QUEUE.JOB_STATUS_STOPPED,PROCESS_BPM_QUEUE.JOB_STATUS_FAILED)
       order by PBQJ_ID asc;
   begin
+  
     update PROCESS_BPM_QUEUE_JOB_CTRL_CFG
     set PROCESSING_ENABLED = 'N';
     
@@ -532,6 +558,7 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
     loop
       STOP_JOB_BY_ID(i.PBQJ_ID,PBQJ_ADJUST_REASON.STOP_ALL_PROC_DISABLED);
     end loop;
+    
   end;
 
  
@@ -843,7 +870,8 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
     end if;
    
     -- Stop some sleeping for this source and data model ID.
-    if v_num_jobs_to_add_during_adj > 0 and v_num_jobs > v_min_num_jobs then
+    if v_num_jobs_to_del_during_adj > 0 and v_num_jobs > v_min_num_jobs then
+    
       select count(*)
       into v_num_jobs_sleeping
       from PROCESS_BPM_QUEUE_JOB
@@ -853,6 +881,7 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
         and STATUS = 'SLEEPING';
       
       if v_num_jobs_sleeping > 0 then
+      
         v_num_sleeping_jobs_to_cull := least (v_num_jobs_sleeping,v_num_jobs_to_del_during_adj);
         for r_sleeping_job in c_sleeping_jobs(v_num_sleeping_jobs_to_cull)
         loop
@@ -1012,6 +1041,133 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
    
   end;
   
+  
+  -- Fix queue rows.
+  procedure FIX_QUEUE_ROWS
+  as
+  
+  v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'FIX_QUEUE_ROWS';
+  v_log_message clob := null;
+    
+  v_unarchived_queue_row_exists number := null;
+  v_stuck_queue_row_exists number := null;
+  
+  cursor c_unarchived_queue_rows is
+  select
+    BUEQ_ID,
+    BSL_ID,
+    BIL_ID,
+    IDENTIFIER,
+    WROTE_BPM_SEMANTIC_DATE
+  from BPM_UPDATE_EVENT_QUEUE
+  where WROTE_BPM_SEMANTIC_DATE < sysdate - (UNARCHIVED_QUEUE_ROW_MINUTES / (24 * 60));
+  
+  -- Get all enabled BSL_IDs with stale reserved queue rows (STUCK_QUEUE_ROW_MINUTES)
+  -- that failed due to "object no longer exists" error
+  -- and have a gap of at least STUCK_QUEUE_ROW_GAP_MINUTES from the unreserved queue rows.
+  cursor c_bsl_with_stuck_queue_rows is
+  with 
+    reserved as
+      (select 
+         bueq.BSL_ID,
+         min(bueq.EVENT_DATE) min_event_date
+       from BPM_LOGGING bl
+       inner join BPM_UPDATE_EVENT_QUEUE bueq on 
+         bl.LOG_DATE > sysdate - STUCK_QUEUE_ROW_LOOK_BACK_DAYS
+         and bl.ERROR_NUMBER = -8103 -- object no longer exists error
+         and bueq.BSL_ID = bl.BSL_ID
+         and bueq.BIL_ID = bl.BIL_ID
+         and bueq.IDENTIFIER = bl.IDENTIFIER
+       where 
+         bueq.PROCESS_BUEQ_ID is not null
+         and bueq.WROTE_BPM_SEMANTIC_DATE is null
+       group by bueq.BSL_ID),
+    unreserved as
+      (select 
+         BSL_ID,
+         min(EVENT_DATE) min_event_date
+       from BPM_UPDATE_EVENT_QUEUE
+       where 
+         PROCESS_BUEQ_ID is null
+         and WROTE_BPM_SEMANTIC_DATE is null
+       group by BSL_ID),
+    pbqjc as
+      (select 
+         BSL_ID,
+         min(ENABLED) min_enabled
+       from PROCESS_BPM_QUEUE_JOB_CONFIG
+       group by BSL_ID)
+  select reserved.BSL_ID
+  from reserved
+  left outer join unreserved on reserved.BSL_ID = unreserved.BSL_ID
+  inner join pbqjc on reserved.BSL_ID = pbqjc.BSL_ID
+  where 
+    reserved.min_event_date < sysdate - (STUCK_QUEUE_ROW_MINUTES / (24 * 60))
+    and nvl(unreserved.min_event_date,sysdate) - reserved.min_event_date > STUCK_QUEUE_ROW_GAP_MINUTES / (24 * 60)
+    and pbqjc.min_enabled = 'Y';
+  
+  begin
+  
+    select count(*)
+    into v_unarchived_queue_row_exists
+    from dual
+    where exists
+      (select 1
+       from BPM_UPDATE_EVENT_QUEUE
+       where WROTE_BPM_SEMANTIC_DATE < sysdate - (UNARCHIVED_QUEUE_ROW_MINUTES / (24 * 60)));
+  
+    for r_bsl_with_stuck_queue_row in c_bsl_with_stuck_queue_rows
+    loop
+      v_stuck_queue_row_exists := 1;
+      exit;  -- At least one BSL_ID has a stuck queue row.
+    end loop;
+    
+    if v_unarchived_queue_row_exists = 1 or v_stuck_queue_row_exists = 1 then
+
+      v_log_message := 'Stopping all queue jobs.';
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,null,null,null,null,v_log_message,null);
+      
+      STOP_ALL_JOBS;
+      
+      -- Archive queue rows that processed but failed to archive.
+      if v_unarchived_queue_row_exists = 1 then
+      
+        for r_unarchived_queue_row in c_unarchived_queue_rows
+        loop
+        
+          PROCESS_BPM_QUEUE.ARCHIVE_PROCESSED_ROW(r_unarchived_queue_row.BUEQ_ID);
+          
+          v_log_message := 'Archiving unarchived queue row that completed on ' || to_char(r_unarchived_queue_row.WROTE_BPM_SEMANTIC_DATE,BPM_COMMON.DATE_FMT) || '.';
+          BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_WARNING,null,v_procedure_name,r_unarchived_queue_row.BSL_ID,r_unarchived_queue_row.BIL_ID,r_unarchived_queue_row.IDENTIFIER,null,v_log_message,null);  
+          
+        end loop;
+          
+      end if;
+
+      -- Reset stuck queue rows.
+      if v_stuck_queue_row_exists = 1 then
+      
+        for r_bsl_with_stuck_queue_row in c_bsl_with_stuck_queue_rows
+        loop
+        
+          MAXDAT_ADMIN.RESET_BPM_QUEUE_ROWS_BY_BSL_ID(r_bsl_with_stuck_queue_row.BSL_ID);
+          
+          v_log_message := 'Attempting to fix stuck queue rows by resetting queue rows for BSL_ID = ' ||  to_char(r_bsl_with_stuck_queue_row.BSL_ID) || '.';
+          BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_WARNING,null,v_procedure_name,r_bsl_with_stuck_queue_row.BSL_ID,null,null,null,v_log_message,null);  
+  
+        end loop;
+        
+      end if;
+ 
+      v_log_message := 'Starting all queue jobs.';
+      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,null,null,null,null,v_log_message,null);
+      
+      CREATE_ALL_JOBS;
+        
+    end if;
+   
+  end;
+  
 
   -- Adjust number of active jobs.
   procedure ADJUST_ALL_JOBS
@@ -1073,7 +1229,7 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
     
     commit;
     
-    ADJUST_ALL_JOBS ();
+    ADJUST_ALL_JOBS;
 
   end;
   
@@ -1082,6 +1238,8 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
   procedure CONTROL_JOB
   as
     v_control_job_sleep_seconds number := null;
+    v_prev_date_hour date := to_date(to_char(sysdate + (FIRST_FIX_QUEUE_ROWS_MINUTES / (60 * 24)),'YYYY-MM-DD HH24'),'YYYY-MM-DD HH24');
+    v_current_date_hour date := null;
   begin
 
     CREATE_ALL_JOBS;
@@ -1095,7 +1253,14 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
       
       user_lock.sleep(v_control_job_sleep_seconds * 100);
       
-      ADJUST_ALL_JOBS ();
+      ADJUST_ALL_JOBS;
+      
+      -- Check for stuck or unarchived queue rows about every hour.
+      v_current_date_hour := to_date(to_char(sysdate,'YYYY-MM-DD HH24'),'YYYY-MM-DD HH24');
+      if v_current_date_hour > v_prev_date_hour then
+        FIX_QUEUE_ROWS;
+      end if;
+      v_prev_date_hour := v_current_date_hour;
               
     end loop;
   end;
@@ -1134,6 +1299,7 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
   
   end;
   
+  
   -- Create all calculation jobs.
   procedure CREATE_ALL_CALC_JOBS
   as
@@ -1151,6 +1317,20 @@ create or replace package body PROCESS_BPM_QUEUE_JOB_CONTROL as
       CREATE_CALC_JOB(r_calc_job_config.PACKAGE_NAME,r_calc_job_config.PROCEDURE_NAME);
     end loop;
     
+  end;
+  
+
+  -- Set DBMS Scheduler default timezone.
+  -- Requires MANAGE SCHEDULER privilege.
+  -- Example: US/Eastern
+  -- List of Oracle TIMEZONE_REGION: http://psoug.org/definition/TIMEZONE_REGION.htm
+  procedure SET_SCHED_DEFAULT_TIMEZONE
+    (p_timezone_region in varchar2)
+  as
+  begin
+    DBMS_SCHEDULER.SET_SCHEDULER_ATTRIBUTE
+      (ATTRIBUTE => 'DEFAULT_TIMEZONE',
+       VALUE => p_timezone_region);
   end;
 
 

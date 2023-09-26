@@ -76,7 +76,7 @@ SVN_REVISION_AUTHOR = $Author$</extended_description>
   <notepads>
   </notepads>
   <connection>
-    <name>EMRS</name>
+    <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
@@ -99,161 +99,9 @@ SVN_REVISION_AUTHOR = $Author$</extended_description>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>KOFAX_ARS</name>
-    <server>${DB_KOFAX_ARS_HOSTNAME}</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>${DB_KOFAX_ARS_DB}</database>
-    <port>${DB_KOFAX_ARS_PORT}</port>
-    <username>${DB_KOFAX_ARS_USER}</username>
-    <password>${DB_KOFAX_ARS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_ARS_INSTANCE}</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_ARS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>KOFAX_CENTRAL</name>
-    <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>${DB_KOFAX_CENTRAL_DB}</database>
-    <port>${DB_KOFAX_CENTRAL_PORT}</port>
-    <username>${DB_KOFAX_CENTRAL_USER}</username>
-    <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_CENTRAL_INSTANCE}</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_CENTRAL_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>KOFAX_REMOTE</name>
-    <server>${DB_KOFAX_REMOTE_HOSTNAME}</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>${DB_KOFAX_REMOTE_DB}</database>
-    <port>${DB_KOFAX_REMOTE_PORT}</port>
-    <username>${DB_KOFAX_REMOTE_USER}</username>
-    <password>${DB_KOFAX_REMOTE_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_REMOTE_INSTANCE}</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_REMOTE_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Local</name>
-    <server>localhost</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>nyhixmdsp</database>
-    <port>1521</port>
-    <username>sp57859[maxdat]</username>
-    <password>Encrypted 2be98afc86aa7f2e48618b6348fc0fc8e</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
-    <port>1574</port>
-    <username>${DB_MAXDAT_USER}</username>
-    <password>${DB_MAXDAT_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1574</attribute></attribute>
-      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_MAXDAT_SCHEMA</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = maxdat_cadr;</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -273,19 +121,26 @@ SVN_REVISION_AUTHOR = $Author$</extended_description>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
-      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = etk_maximus_wc_uatest;</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXHIX;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Add constants 2 3 2</from><to>Table output-CORP_ETL_ERROR_LOG 2</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables 2 3 2</from><to>Add constants 2 3 2</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update - INCIDENT_HEADER_STG</from><to>Get Variables 2 3 2</to><enabled>Y</enabled> </hop>  <hop> <from>Database join</from><to>Insert &#47; Update - INCIDENT_HEADER_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>Database join</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Database join</from><to>Insert &#47; Update - INCIDENT_HEADER_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Table input</from><to>Database join</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update - INCIDENT_HEADER_STG</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Get transformation name</to><enabled>Y</enabled> </hop>  <hop> <from>Get transformation name</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Add constants 2 3 2</name>
+    <name>Add constants</name>
     <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
@@ -295,6 +150,28 @@ SVN_REVISION_AUTHOR = $Author$</extended_description>
            <schema_name/>
            </partitioning>
     <fields>
+      <field>
+        <name>ERR_LEVEL</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CRITICAL</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Run_Initialization</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
       <field>
         <name>DRIVER_TABLE_NAME</name>
         <type>String</type>
@@ -306,22 +183,11 @@ SVN_REVISION_AUTHOR = $Author$</extended_description>
         <length>-1</length>
         <precision>-1</precision>
       </field>
-      <field>
-        <name>PROCESS_NAME</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>NYHIX MAIL FAX DOC</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>613</xloc>
-      <yloc>213</yloc>
+      <xloc>450</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -368,8 +234,8 @@ WHERE create_ts &gt;=?
     </step>
 
   <step>
-    <name>Get Variables 2 3 2</name>
-    <type>GetVariable</type>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -379,53 +245,29 @@ WHERE create_ts &gt;=?
            </partitioning>
     <fields>
       <field>
-        <name>CREATE_TS</name>
-        <variable>${CREATE_TS}</variable>
-        <type>Date</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>UPDATE_TS</name>
-        <variable>${UPDATE_TS}</variable>
-        <type>Date</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>ERR_LEVEL</name>
-        <variable>${ERR_LEVEL}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>ERR_DATE</name>
-        <variable>${ERR_DATE}</variable>
-        <type>Date</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
+        <name>error_date</name>
+        <type>system date (variable)</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>450</xloc>
+      <yloc>210</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get transformation name</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
       <field>
         <name>JOB_NAME</name>
         <variable>${Internal.Transformation.Name}</variable>
@@ -438,47 +280,11 @@ WHERE create_ts &gt;=?
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
-      <field>
-        <name>ERROR_DESC</name>
-        <variable>${ERROR_DESC}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>ERROR_FIELD</name>
-        <variable>${ERROR_FIELD}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>ERROR_CODES</name>
-        <variable>${ERROR_CODES}</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>446</xloc>
-      <yloc>213</yloc>
+      <xloc>450</xloc>
+      <yloc>310</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -584,7 +390,7 @@ where name = &apos;MAX_UPDATE_TS_INCIDENT_STATUS_HIST&apos;</sql>
     </step>
 
   <step>
-    <name>Table output-CORP_ETL_ERROR_LOG 2</name>
+    <name>Table output-CORP_ETL_ERROR_LOG</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -632,18 +438,6 @@ where name = &apos;MAX_UPDATE_TS_INCIDENT_STATUS_HIST&apos;</sql>
           <stream_name>PROCESS_NAME</stream_name>
         </field>
         <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>CREATE_TS</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>UPDATE_TS</stream_name>
-        </field>
-        <field>
           <column_name>DRIVER_TABLE_NAME</column_name>
           <stream_name>DRIVER_TABLE_NAME</stream_name>
         </field>
@@ -655,11 +449,23 @@ where name = &apos;MAX_UPDATE_TS_INCIDENT_STATUS_HIST&apos;</sql>
           <column_name>DRIVER_KEY_NUMBER</column_name>
           <stream_name>INCIDENT_HEADER_ID</stream_name>
         </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>error_date</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>error_date</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>error_date</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>837</xloc>
-      <yloc>213</yloc>
+      <xloc>450</xloc>
+      <yloc>500</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -667,7 +473,7 @@ where name = &apos;MAX_UPDATE_TS_INCIDENT_STATUS_HIST&apos;</sql>
   <step_error_handling>
       <error>
         <source_step>Insert &#47; Update - INCIDENT_HEADER_STG</source_step>
-        <target_step>Get Variables 2 3 2</target_step>
+        <target_step>Get System Info</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>NR_OF_ERROR</nr_valuename>
         <descriptions_valuename>ERROR_DESC</descriptions_valuename>

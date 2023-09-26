@@ -128,7 +128,6 @@ alter table D_NYEC_PA_CURRENT add constraint DNPACUR_PK primary key (NYEC_PA_BI_
 
 create unique index DNPACUR_UIX1 on D_NYEC_PA_CURRENT ("Application ID","Cur Reactivation Number") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_CURRENT for D_NYEC_PA_CURRENT;
 grant select on D_NYEC_PA_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_CURRENT_SV as
@@ -258,7 +257,6 @@ select
 from D_NYEC_PA_CURRENT dnpacur
 with read only;
 
-create or replace public synonym D_NYEC_PA_CURRENT_SV for D_NYEC_PA_CURRENT_SV;
 grant select on D_NYEC_PA_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -304,7 +302,6 @@ from D_NYEC_PA_CURRENT dnpacur
 inner join D_MW_CURRENT dmwcur on (dnpacur."Current Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PA_CURRENT_TASK_SV for D_NYEC_PA_CURRENT_TASK_SV;
 grant select on D_NYEC_PA_CURRENT_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -350,7 +347,6 @@ from D_NYEC_PA_CURRENT dnpacur
 inner join D_MW_CURRENT dmwcur on (dnpacur."Data Entry Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PA_DATA_ENTRY_TASK_SV for D_NYEC_PA_DATA_ENTRY_TASK_SV;
 grant select on D_NYEC_PA_DATA_ENTRY_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -396,7 +392,6 @@ from D_NYEC_PA_CURRENT dnpacur
 inner join D_MW_CURRENT dmwcur on (dnpacur."QC Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PA_QC_TASK_SV for D_NYEC_PA_QC_TASK_SV;
 grant select on D_NYEC_PA_QC_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -419,14 +414,12 @@ alter table D_NYEC_PA_APP_STATUS add constraint DNPAAS_PK primary key (DNPAAS_ID
 
 create unique index DNPAAS_UIX1 on D_NYEC_PA_APP_STATUS ("App Status","App Status Group","Heart App Status","Refer to LDSS Flag") online tablespace MAXDAT_INDX parallel compute statistics;  
 
-create or replace public synonym D_NYEC_PA_APP_STATUS for D_NYEC_PA_APP_STATUS;
 grant select on D_NYEC_PA_APP_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_APP_STATUS_SV as
 select * from D_NYEC_PA_APP_STATUS 
 with read only;
 
-create or replace public synonym D_NYEC_PA_APP_STATUS_SV for D_NYEC_PA_APP_STATUS_SV;
 grant select on D_NYEC_PA_APP_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -446,14 +439,12 @@ alter table D_NYEC_PA_CIN add constraint DNPACIN_PK primary key (DNPACIN_ID) usi
 
 create unique index DNPACIN_UIX1 on D_NYEC_PA_CIN ("CIN") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_NYEC_PA_CIN for D_NYEC_PA_CIN;
 grant select on D_NYEC_PA_CIN to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_CIN_SV as
 select * from D_NYEC_PA_CIN
 with read only;
 
-create or replace public synonym D_NYEC_PA_CIN_SV for D_NYEC_PA_CIN_SV;
 grant select on D_NYEC_PA_CIN_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_CIN (DNPACIN_ID,"CIN") values (SEQ_DNPACIN_ID.nextval,null);
@@ -476,7 +467,6 @@ alter table D_NYEC_PA_COUNTY add constraint DNPACOU_PK primary key (DNPACOU_ID) 
 
 create unique index DNPACOU_UIX1 on D_NYEC_PA_COUNTY ("County") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PA_COUNTY for D_NYEC_PA_COUNTY;
 grant select on D_NYEC_PA_COUNTY to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_COUNTY_SV as
@@ -486,7 +476,6 @@ select
 from D_NYEC_PA_COUNTY 
 with read only;
 
-create or replace public synonym D_NYEC_PA_COUNTY_SV for D_NYEC_PA_COUNTY_SV;
 grant select on D_NYEC_PA_COUNTY_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_COUNTY (DNPACOU_ID,"County") values (SEQ_DNPACOU_ID.nextval,null);
@@ -509,14 +498,12 @@ alter table D_NYEC_PA_FPBP_SUBTYPE add constraint DNPAFPBPST_PK primary key (DNP
 
 create unique index DNPAFPBPST_UIX1 on D_NYEC_PA_FPBP_SUBTYPE ("FPBP Sub-type") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PA_FPBP_SUBTYPE for D_NYEC_PA_FPBP_SUBTYPE;
 grant select on D_NYEC_PA_FPBP_SUBTYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_FPBP_SUBTYPE_SV as
 select * from D_NYEC_PA_FPBP_SUBTYPE
 with read only;
 
-create or replace public synonym D_NYEC_PA_FPBP_SUBTYPE_SV for D_NYEC_PA_FPBP_SUBTYPE_SV;
 grant select on D_NYEC_PA_FPBP_SUBTYPE_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_FPBP_SUBTYPE (DNPAFPBPST_ID,"FPBP Sub-type") values (SEQ_DNPAFPBPST_ID.nextval,null);
@@ -539,14 +526,12 @@ alter table D_NYEC_PA_HEART_CASE_STATUS add constraint DNPAHCS_PK primary key (D
 
 create unique index DNPAHCS_UIX1 on D_NYEC_PA_HEART_CASE_STATUS ("HEART Case Status") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PA_HEART_CASE_STATUS for D_NYEC_PA_HEART_CASE_STATUS;
 grant select on D_NYEC_PA_HEART_CASE_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_HEART_CASE_STATUS_SV as
 select * from D_NYEC_PA_HEART_CASE_STATUS
 with read only;
 
-create or replace public synonym D_NYEC_PA_HEART_CASE_STATUS_SV for D_NYEC_PA_HEART_CASE_STATUS_SV;
 grant select on D_NYEC_PA_HEART_CASE_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_HEART_CASE_STATUS (DNPAHCS_ID,"HEART Case Status") values (SEQ_DNPAHCS_ID.nextval,null);
@@ -569,14 +554,12 @@ alter table D_NYEC_PA_HEART_INC_APP_IND add constraint DNPAHIAI_PK primary key (
 
 create unique index DNPAHIAI_UIX1 on D_NYEC_PA_HEART_INC_APP_IND ("HEART Incomplete App Ind") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PA_HEART_INC_APP_IND for D_NYEC_PA_HEART_INC_APP_IND;
 grant select on D_NYEC_PA_HEART_INC_APP_IND to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_HEART_INC_APP_IND_SV as
 select * from D_NYEC_PA_HEART_INC_APP_IND
 with read only;
 
-create or replace public synonym D_NYEC_PA_HEART_INC_APP_IND_SV for D_NYEC_PA_HEART_INC_APP_IND_SV;
 grant select on D_NYEC_PA_HEART_INC_APP_IND_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_HEART_INC_APP_IND (DNPAHIAI_ID,"HEART Incomplete App Ind") values (SEQ_DNPAHIAI_ID.nextval,null);
@@ -599,14 +582,12 @@ alter table D_NYEC_PA_HEART_SYNCH add constraint DNPAHS_PK primary key (DNPAHS_I
 
 create unique index DNPAHS_UIX1 on D_NYEC_PA_HEART_SYNCH ("HEART Synch Flag") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PA_HEART_SYNCH for D_NYEC_PA_HEART_SYNCH;
 grant select on D_NYEC_PA_HEART_SYNCH to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_HEART_SYNCH_SV as
 select * from D_NYEC_PA_HEART_SYNCH   
 with read only;
 
-create or replace public synonym D_NYEC_PA_HEART_SYNCH_SV for D_NYEC_PA_HEART_SYNCH_SV;
 grant select on D_NYEC_PA_HEART_SYNCH_SV to MAXDAT_READ_ONLY;
 
 
@@ -626,14 +607,12 @@ alter table D_NYEC_PA_MODE_CODE add constraint DNPAMC_PK primary key (DNPAMC_ID)
 
 create unique index DNPAMC_UIX1 on D_NYEC_PA_MODE_CODE ("Mode Code") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_MODE_CODE for D_NYEC_PA_MODE_CODE;
 grant select on D_NYEC_PA_MODE_CODE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_MODE_CODE_SV as
 select * from D_NYEC_PA_MODE_CODE
 with read only;
 
-create or replace public synonym D_NYEC_PA_MODE_CODE_SV for D_NYEC_PA_MODE_CODE_SV;
 grant select on D_NYEC_PA_MODE_CODE_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_MODE_CODE (DNPAMC_ID,"Mode Code") values (SEQ_DNPAMC_ID.nextval,null);
@@ -656,14 +635,12 @@ alter table D_NYEC_PA_MODE_LABEL add constraint DNPAML_PK primary key (DNPAML_ID
 
 create unique index DNPAML_UIX1 on D_NYEC_PA_MODE_LABEL ("Mode Label") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_MODE_LABEL for D_NYEC_PA_MODE_LABEL;
 grant select on D_NYEC_PA_MODE_LABEL to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_MODE_LABEL_SV as
 select * from D_NYEC_PA_MODE_LABEL
 with read only;
 
-create or replace public synonym D_NYEC_PA_MODE_LABEL_SV for D_NYEC_PA_MODE_LABEL_SV;
 grant select on D_NYEC_PA_MODE_LABEL_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_MODE_LABEL (DNPAML_ID,"Mode Label") values (SEQ_DNPAML_ID.nextval,null);
@@ -686,14 +663,12 @@ alter table D_NYEC_PA_OUTCOM_LTR_STATUS add constraint DNPAOLS_PK primary key (D
 
 create unique index DNPAOLS_UIX1 on D_NYEC_PA_OUTCOM_LTR_STATUS ("Outcome Letter Status") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_OUTCOM_LTR_STATUS for D_NYEC_PA_OUTCOM_LTR_STATUS;
 grant select on D_NYEC_PA_OUTCOM_LTR_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_OUTCOM_LTR_STATUS_SV as
 select * from D_NYEC_PA_OUTCOM_LTR_STATUS
 with read only;
 
-create or replace public synonym D_NYEC_PA_OUTCOM_LTR_STATUS_SV for D_NYEC_PA_OUTCOM_LTR_STATUS_SV;
 grant select on D_NYEC_PA_OUTCOM_LTR_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_OUTCOM_LTR_STATUS (DNPAOLS_ID,"Outcome Letter Status") values (SEQ_DNPAOLS_ID.nextval,null);
@@ -716,14 +691,12 @@ alter table D_NYEC_PA_OUTCOME_NOTF_FLAG add constraint DNPAONF_PK primary key (D
 
 create unique index DNPAONF_UIX1 on D_NYEC_PA_OUTCOME_NOTF_FLAG ("Outcome Notif Req Flag") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_OUTCOME_NOTF_FLAG for D_NYEC_PA_OUTCOME_NOTF_FLAG;
 grant select on D_NYEC_PA_OUTCOME_NOTF_FLAG to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_OUTCOME_NOTF_FLAG_SV as
 select * from D_NYEC_PA_OUTCOME_NOTF_FLAG
 with read only;
 
-create or replace public synonym D_NYEC_PA_OUTCOME_NOTF_FLAG_SV for D_NYEC_PA_OUTCOME_NOTF_FLAG_SV;
 grant select on D_NYEC_PA_OUTCOME_NOTF_FLAG_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_OUTCOME_NOTF_FLAG (DNPAONF_ID,"Outcome Notif Req Flag") values (SEQ_DNPAONF_ID.nextval,null);
@@ -746,14 +719,12 @@ alter table D_NYEC_PA_REACTIVATION_IND add constraint DNPARI_PK primary key (DNP
 
 create unique index DNPARI_UIX1 on D_NYEC_PA_REACTIVATION_IND ("Reactivation Indicator") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_REACTIVATION_IND for D_NYEC_PA_REACTIVATION_IND;
 grant select on D_NYEC_PA_REACTIVATION_IND to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_REACTIVATION_IND_SV as
 select * from D_NYEC_PA_REACTIVATION_IND
 with read only;
 
-create or replace public synonym D_NYEC_PA_REACTIVATION_IND_SV for D_NYEC_PA_REACTIVATION_IND_SV;
 grant select on D_NYEC_PA_REACTIVATION_IND_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_REACTIVATION_IND (DNPARI_ID,"Reactivation Indicator") values (SEQ_DNPARI_ID.nextval,null);
@@ -776,14 +747,12 @@ alter table D_NYEC_PA_REACTIVATE_REASON add constraint DNPARR_PK primary key (DN
 
 create unique index DNPARR_UIX1 on D_NYEC_PA_REACTIVATE_REASON ("Reactivation Reason") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_REACTIVATE_REASON for D_NYEC_PA_REACTIVATE_REASON;
 grant select on D_NYEC_PA_REACTIVATE_REASON to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_REACTIVATE_REASON_SV as
 select * from D_NYEC_PA_REACTIVATE_REASON
 with read only;
 
-create or replace public synonym D_NYEC_PA_REACTIVATE_REASON_SV for D_NYEC_PA_REACTIVATE_REASON_SV;
 grant select on D_NYEC_PA_REACTIVATE_REASON_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_REACTIVATE_REASON (DNPARR_ID,"Reactivation Reason") values (SEQ_DNPARR_ID.nextval,null);
@@ -806,14 +775,12 @@ alter table D_NYEC_PA_REACTIVATED_BY add constraint DNPARB_PK primary key (DNPAR
 
 create unique index DNPARB_UIX1 on D_NYEC_PA_REACTIVATED_BY ("Reactivated By") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_REACTIVATED_BY for D_NYEC_PA_REACTIVATED_BY;
 grant select on D_NYEC_PA_REACTIVATED_BY to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_REACTIVATED_BY_SV as
 select * from D_NYEC_PA_REACTIVATED_BY
 with read only;
 
-create or replace public synonym D_NYEC_PA_REACTIVATED_BY_SV for D_NYEC_PA_REACTIVATED_BY_SV;
 grant select on D_NYEC_PA_REACTIVATED_BY_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_REACTIVATED_BY (DNPARB_ID,"Reactivated By") values (SEQ_DNPARB_ID.nextval,null);
@@ -836,14 +803,12 @@ alter table D_NYEC_PA_REACTIVATION_NUM add constraint DNPARN_PK primary key (DNP
 
 create unique index DNPARN_UIX1 on D_NYEC_PA_REACTIVATION_NUM ("Reactivation Number") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_REACTIVATION_NUM for D_NYEC_PA_REACTIVATION_NUM;
 grant select on D_NYEC_PA_REACTIVATION_NUM to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_REACTIVATION_NUM_SV as
 select * from D_NYEC_PA_REACTIVATION_NUM
 with read only;
 
-create or replace public synonym D_NYEC_PA_REACTIVATION_NUM_SV for D_NYEC_PA_REACTIVATION_NUM_SV;
 grant select on D_NYEC_PA_REACTIVATION_NUM_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_REACTIVATION_NUM (DNPARN_ID,"Reactivation Number") values (SEQ_DNPARN_ID.nextval,0);
@@ -866,14 +831,12 @@ alter table D_NYEC_PA_WORKFLOW_REAC_IND add constraint DNPAWRI_PK primary key (D
 
 create unique index DNPAWRI_UIX1 on D_NYEC_PA_WORKFLOW_REAC_IND ("Workflow Reactivation Ind") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_WORKFLOW_REAC_IND for D_NYEC_PA_WORKFLOW_REAC_IND;
 grant select on D_NYEC_PA_WORKFLOW_REAC_IND to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_WORKFLOW_REAC_IND_SV as
 select * from D_NYEC_PA_WORKFLOW_REAC_IND
 with read only;
 
-create or replace public synonym D_NYEC_PA_WORKFLOW_REAC_IND_SV for D_NYEC_PA_WORKFLOW_REAC_IND_SV;
 grant select on D_NYEC_PA_WORKFLOW_REAC_IND_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_WORKFLOW_REAC_IND (DNPAWRI_ID,"Workflow Reactivation Ind") values (SEQ_DNPAWRI_ID.nextval,null);
@@ -896,14 +859,12 @@ alter table D_NYEC_PA_QC_INDICATOR add constraint DNPAQI_PK primary key (DNPAQI_
 
 create unique index DNPAQI_UIX1 on D_NYEC_PA_QC_INDICATOR ("QC Indicator") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_QC_INDICATOR for D_NYEC_PA_QC_INDICATOR;
 grant select on D_NYEC_PA_QC_INDICATOR to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_QC_INDICATOR_SV as
 select * from D_NYEC_PA_QC_INDICATOR
 with read only;
 
-create or replace public synonym D_NYEC_PA_QC_INDICATOR_SV for D_NYEC_PA_QC_INDICATOR_SV;
 grant select on D_NYEC_PA_QC_INDICATOR_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_QC_INDICATOR (DNPAQI_ID,"QC Indicator") values (SEQ_DNPAQI_ID.nextval,null);
@@ -927,14 +888,12 @@ alter table D_NYEC_PA_MA_REASON add constraint DNPAMAR_PK primary key (DNPAMAR_I
 
 create unique index DNPAMAR_UIX1 on D_NYEC_PA_MA_REASON (MA_REASON) online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_MA_REASON for D_NYEC_PA_MA_REASON;
 grant select on D_NYEC_PA_MA_REASON to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_MA_REASON_SV as
 select * from D_NYEC_PA_MA_REASON
 with read only;
 
-create or replace public synonym D_NYEC_PA_MA_REASON_SV for D_NYEC_PA_MA_REASON_SV;
 grant select on D_NYEC_PA_MA_REASON_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_MA_REASON (DNPAMAR_ID,MA_REASON) values (SEQ_DNPAMAR_ID.nextval,null);
@@ -957,14 +916,12 @@ alter table D_NYEC_PA_REV_CLEAR_REASON add constraint DNPARCR_PK primary key (DN
 
 create unique index DNPARCR_UIX1 on D_NYEC_PA_REV_CLEAR_REASON (REVERSE_CLEARANCE_REASON) online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PA_REV_CLEAR_REASON for D_NYEC_PA_REV_CLEAR_REASON;
 grant select on D_NYEC_PA_REV_CLEAR_REASON to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_REV_CLEAR_REASON_SV as
 select * from D_NYEC_PA_REV_CLEAR_REASON
 with read only;
 
-create or replace public synonym D_NYEC_PA_REV_CLEAR_REASON_SV for D_NYEC_PA_REV_CLEAR_REASON_SV;
 grant select on D_NYEC_PA_REV_CLEAR_REASON_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PA_REV_CLEAR_REASON (DNPARCR_ID,REVERSE_CLEARANCE_REASON) values (SEQ_DNPARCR_ID.nextval,null);
@@ -1050,7 +1007,6 @@ alter table F_NYEC_PA_BY_DATE add constraint FNPABD_DNPAQI_FK foreign key (DNPAQ
 alter table F_NYEC_PA_BY_DATE add constraint FNPABD_DNPAMAR_FK foreign key (DNPAMAR_ID) references D_NYEC_PA_MA_REASON(DNPAMAR_ID);
 alter table F_NYEC_PA_BY_DATE add constraint FNPABD_DNPARCR_FK foreign key (DNPARCR_ID) references D_NYEC_PA_REV_CLEAR_REASON(DNPARCR_ID);
 
-create or replace public synonym F_NYEC_PA_BY_DATE for F_NYEC_PA_BY_DATE;
 grant select on F_NYEC_PA_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_NYEC_PA_BY_DATE_SV as
@@ -1205,7 +1161,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_NYEC_PA_BY_DATE_SV for F_NYEC_PA_BY_DATE_SV;
 grant select on F_NYEC_PA_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 
@@ -1221,6 +1176,5 @@ where
   and dmwcur."Source Reference Type" = 'Application ID' 
 with read only;
 
-create or replace public synonym REL_TASK_APP_SV for REL_TASK_APP_SV;
 grant select on REL_TASK_APP_SV to MAXDAT_READ_ONLY;
 

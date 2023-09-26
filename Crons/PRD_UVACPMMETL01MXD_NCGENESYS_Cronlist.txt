@@ -1,0 +1,6 @@
+#NC_GENESYS
+0 1 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_purge.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/purge_GENESYS_logs.log 2>&1
+0 9-21 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_do_pull_H.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Do_GENESYS_Pull_H.log 2>&1
+5 5 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_do_pull.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Do_GENESYS_Pull.log 2>&1
+0 7 * * 1-6 /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_load.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Load_GENESYS_Data.log 2>&1
+10 8 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_load.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Load_GENESYS_Data.log 2>&1

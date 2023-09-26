@@ -60,7 +60,6 @@ BPM/Admin/createdb/MAXDAT_STATISTICS_pkg.sql
 create_ETL_initialize_tables.sql 
 create_ETL_initialize_views.sql 
 create_ETL_initialize_triggers.sql
-BPM_LAST_ETL_RUN_SV.sql
 
 ---------------------------------------- 
 3. CADIR PROJECT SCRIPTS SECTION - Part 1 
@@ -72,6 +71,7 @@ BPM_LAST_ETL_RUN_SV.sql
 create_d_staff_table_views.sql
 populate_BPM_PROJECT_LKUP.sql 
 populate_HOLIDAYS.sql
+BPM_LAST_ETL_RUN_SV.sql
 MASH_views.sql 
 
 ---------------------------------------- 

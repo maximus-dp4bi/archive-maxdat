@@ -1,0 +1,28 @@
+# Script used by jmxterm to repost Avaya acd.26 (Burlington) intervals into the NICE database.
+
+# Open the JMX session.
+open service:jmx:remoting-jmx://localhost:11399
+
+# Set the domain. 
+domain com.iex.tv.totalview.swxiface
+
+# Set the SwxifaceJobController bean.  
+bean com.iex.tv.totalview.swxiface:name=SwxifaceJobController
+
+# Run the MBean job to force interface to read date changes to start and end date in R_SWXIFACEJOBPARMS database table.
+run refresh
+
+# Set the JobRunner bean.
+bean com.iex.tv.totalview.swxiface:name=JobRunner
+
+# Set the MBean attribute for the job to run prefixed with the customer OID.
+set JobId customer1.Symposium-Acd26-Repost
+
+# Run the MBean job to create jobs for each interval to load.
+run run
+
+# Close the JMX session.
+close
+
+# Exit the jmxterm console.
+bye

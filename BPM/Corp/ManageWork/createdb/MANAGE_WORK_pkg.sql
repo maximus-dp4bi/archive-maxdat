@@ -18,12 +18,12 @@ create or replace package MANAGE_WORK as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
   
   function GET_JEOPARDY_FLAG
     (p_sla_days_type in varchar,
@@ -31,17 +31,17 @@ create or replace package MANAGE_WORK as
      p_age_in_calendar_days in number,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable;
     
   function GET_STATUS_AGE_IN_BUS_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_STATUS_AGE_IN_CAL_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_TIMELINESS_STATUS
     (p_complete_date in date,
@@ -49,7 +49,7 @@ create or replace package MANAGE_WORK as
      p_age_in_business_days in number,
      p_age_in_calendar_days in number,
      p_sla_days in number)
-    return varchar2;
+    return varchar2 parallel_enable;
 
   /* 
   Include: 
@@ -182,7 +182,7 @@ create or replace package body MANAGE_WORK as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -192,7 +192,7 @@ create or replace package body MANAGE_WORK as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -205,7 +205,7 @@ create or replace package body MANAGE_WORK as
      p_age_in_calendar_days in number,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin    
     if (p_sla_days_type = 'B'
@@ -227,7 +227,7 @@ create or replace package body MANAGE_WORK as
   function GET_STATUS_AGE_IN_BUS_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_status_date,nvl(p_complete_date,sysdate));
@@ -237,7 +237,7 @@ create or replace package body MANAGE_WORK as
   function GET_STATUS_AGE_IN_CAL_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_status_date);
@@ -250,7 +250,7 @@ create or replace package body MANAGE_WORK as
      p_age_in_business_days in number,
      p_age_in_calendar_days in number,
      p_sla_days in number)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin  
     if p_complete_date is null then

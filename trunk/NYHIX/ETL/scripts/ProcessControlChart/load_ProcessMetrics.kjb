@@ -222,6 +222,28 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Temp NYHIX</name>
+    <server>${DB_TEMP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_TEMP_NAME}</database>
+    <port>1557</port>
+    <username>${DB_TEMP_USER}</username>
+    <password>${DB_TEMP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -261,8 +283,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>81</xloc>
-      <yloc>233</yloc>
+      <xloc>110</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -271,8 +293,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>549</xloc>
-      <yloc>392</yloc>
+      <xloc>106</xloc>
+      <yloc>165</yloc>
       </entry>
     <entry>
       <name>end_ProcessControlChartjob</name>
@@ -303,8 +325,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>705</xloc>
-      <yloc>345</yloc>
+      <xloc>102</xloc>
+      <yloc>335</yloc>
       </entry>
     <entry>
       <name>Update_Job_Log_Error</name>
@@ -335,8 +357,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>516</xloc>
-      <yloc>226</yloc>
+      <xloc>322</xloc>
+      <yloc>186</yloc>
       </entry>
     <entry>
       <name>loadMWTaskTypeMetrics</name>
@@ -365,8 +387,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>329</xloc>
-      <yloc>120</yloc>
+      <xloc>374</xloc>
+      <yloc>63</yloc>
       </entry>
     <entry>
       <name>Setup_Job_Log</name>
@@ -397,8 +419,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>224</xloc>
-      <yloc>232</yloc>
+      <xloc>235</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>initialize_ProcessControlChartParameters</name>
@@ -429,8 +451,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>511</xloc>
-      <yloc>78</yloc>
+      <xloc>570</xloc>
+      <yloc>185</yloc>
       </entry>
     <entry>
       <name>recalculate_ProcessControlChartParameters</name>
@@ -461,8 +483,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>703</xloc>
-      <yloc>113</yloc>
+      <xloc>566</xloc>
+      <yloc>335</yloc>
       </entry>
     <entry>
       <name>update_ProcessActualTrend</name>
@@ -493,8 +515,38 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>231</yloc>
+      <xloc>318</xloc>
+      <yloc>335</yloc>
+      </entry>
+    <entry>
+      <name>load_MFBatchTypeMetrics</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;load_MFBatchTypeMetrics.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>574</xloc>
+      <yloc>63</yloc>
       </entry>
   </entries>
   <hops>
@@ -544,15 +596,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>loadMWTaskTypeMetrics</from>
-      <to>initialize_ProcessControlChartParameters</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>initialize_ProcessControlChartParameters</from>
       <to>recalculate_ProcessControlChartParameters</to>
       <from_nr>0</from_nr>
@@ -599,6 +642,33 @@
     </hop>
     <hop>
       <from>update_ProcessActualTrend</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>loadMWTaskTypeMetrics</from>
+      <to>load_MFBatchTypeMetrics</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_MFBatchTypeMetrics</from>
+      <to>initialize_ProcessControlChartParameters</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_MFBatchTypeMetrics</from>
       <to>Update_Job_Log_Error</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>

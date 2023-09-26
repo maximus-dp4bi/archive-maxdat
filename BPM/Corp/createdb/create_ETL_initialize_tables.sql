@@ -79,7 +79,8 @@ create table STEP_DEFINITION_STG
   update_ts           DATE,
   manual_task_ind     NUMBER(1),
   spring_bean         VARCHAR2(256),
-  correlation_parts   VARCHAR2(4000)
+  correlation_parts   VARCHAR2(4000),
+  display_name        VARCHAR2(100)
 )
 tablespace MAXDAT_DATA;
 
@@ -120,7 +121,7 @@ create table  STEP_INSTANCE_STG
   suspended_ts             DATE,
   hist_create_ts           DATE,
   mw_processed             VARCHAR2(1) default 'N',
-  ap_processed             VARCHAR2(1) default 'N',
+  mw_v2_processed          VARCHAR2(1) default 'N',
   mib_processed            VARCHAR2(1) default 'N',
   all_proc_done_date       DATE,
   stage_create_ts          DATE,
@@ -213,7 +214,7 @@ CREATE TABLE LETTERS_STG
 	LETTER_PARENT_LMREQ_ID NUMBER(18,0), 
 	LETTER_REF_TYPE VARCHAR2(40 BYTE), 
 	LETTER_TYPE_CD VARCHAR2(40 BYTE), 
-	LETTER_TYPE VARCHAR2(100 BYTE), 
+	LETTER_TYPE VARCHAR2(4000 BYTE), 
 	LETTER_REQUEST_TYPE VARCHAR2(2 BYTE), 
 	LETTER_LANG_CD VARCHAR2(32 BYTE), 
 	LANGUAGE VARCHAR2(20 BYTE), 
@@ -223,7 +224,10 @@ CREATE TABLE LETTERS_STG
 	LETTER_RETURN_REASON_CD VARCHAR2(32 BYTE), 
 	RETURN_REASON VARCHAR2(100 BYTE), 
 	LETTER_UPDATED_BY VARCHAR2(80 BYTE), 
-	LETTER_RETURN_DATE DATE
+	LETTER_RETURN_DATE DATE,
+	REPRINT_PARENT_LMREQ_ID	NUMBER(18,0),
+	PARENT_LMREQ_ID_MAILED_DATE DATE,
+        RESPONSE_DUE_DATE DATE
    )
 tablespace MAXDAT_DATA;
 
@@ -233,6 +237,8 @@ CREATE INDEX LETTERS_REQUEST_TYPE_STG_IDX  ON LETTERS_STG (LETTER_REQUEST_TYPE) 
 CREATE INDEX LETTERS_SENT_ON_STG_IDX       ON LETTERS_STG (LETTER_SENT_ON)            TABLESPACE MAXDAT_INDX;
 CREATE INDEX LETTERS_STG_IDX               ON LETTERS_STG (LETTER_TYPE_CD, LETTER_ID) TABLESPACE MAXDAT_INDX;
 CREATE INDEX LETTERS_TYPE_CD_STG_IDX       ON LETTERS_STG (LETTER_TYPE_CD)            TABLESPACE MAXDAT_INDX;
+create index LETTER_CASE_ID_IDX            on LETTERS_STG (LETTER_CASE_ID)            tablespace MAXDAT_INDX;
+create index LETTER_REQ_ON_IDX             on LETTERS_STG (LETTER_REQUESTED_ON)       tablespace MAXDAT_INDX;
 
 
 Grant select on LETTERS_STG to MAXDAT_READ_ONLY;
@@ -336,3 +342,66 @@ CREATE INDEX IDX_CL_ELIG_STAT_UPDATE_TS ON CLIENT_ELIG_STATUS_STG (UPDATE_TS)
    TABLESPACE MAXDAT_INDX;
 
 Grant select on CLIENT_ELIG_STATUS_STG to MAXDAT_READ_ONLY;
+
+create table STAFF_KEY_LKUP
+(
+staff_id  number,
+staff_key varchar2(80)
+);
+
+create index staff_key_lkup_idx1 on STAFF_KEY_LKUP(staff_key) TABLESPACE MAXDAT_INDX;
+
+grant select on  STAFF_KEY_LKUP to MAXDAT_READ_ONLY;
+
+/*
+Added on 07-May-2013 by Raj A.
+Description:
+Originally added by Brian Thai by the patch file, 20140226_1533_OC_create_oltp_temp_tabs. Backfilled by Raj A.
+*/
+-- Create table
+create table ETL_E_DIALER_RUN_STG
+( job_id                     NUMBER(18) not null
+, row_id                     NUMBER(18) not null
+, error_count                INTEGER
+, client_id                  NUMBER(18)
+, case_id                    NUMBER(18)
+, phone_ch                   VARCHAR2(32)
+, phone_cm                   VARCHAR2(32)
+, phone_hm                   VARCHAR2(32)
+, language_cd                VARCHAR2(2)
+, record_content             VARCHAR2(2000)
+, lmreq_id                   NUMBER(18)
+, error_text                 VARCHAR2(2000)
+, etl_e_834_event_staging_id NUMBER(18)
+, job_name        VARCHAR2(80)
+, job_group       VARCHAR2(80)
+, start_ts        DATE
+, end_ts          DATE
+, status_cd       VARCHAR2(32)
+, create_ts       DATE
+, created_by      VARCHAR2(80)
+, update_ts       DATE
+, updated_by      VARCHAR2(80)
+, comments        VARCHAR2(4000)
+, filename        VARCHAR2(1000)
+, host_name       VARCHAR2(256)
+, stage_create_ts            DATE not null
+, stage_update_ts            DATE not null
+)
+tablespace MAXDAT_DATA;
+
+alter table ETL_E_DIALER_RUN_STG
+  add constraint PK_ETL_E_DIALER_STG primary key (JOB_ID, ROW_ID)
+;
+create index ETL_E_DIALER_RUN_STG_INDX3 on ETL_E_DIALER_RUN_STG (CLIENT_ID)
+  tablespace MAXDAT_INDX
+  ;
+create index ETL_E_DIALER_RUN_STG_INDX4 on ETL_E_DIALER_RUN_STG (CASE_ID)
+  tablespace MAXDAT_INDX
+  ;
+create index ETL_E_DIALER_RUN_STG_INDX5 on ETL_E_DIALER_RUN_STG (CREATE_TS)
+  tablespace MAXDAT_INDX
+  ;
+  
+ -- Grant/Revoke object privileges 
+grant select on ETL_E_DIALER_RUN_STG to MAXDAT_READ_ONLY;

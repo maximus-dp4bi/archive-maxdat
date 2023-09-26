@@ -16,6 +16,9 @@ create or replace package PROCESS_BPM_QUEUE as
   JOB_STATUS_STARTED    varchar2(10) := 'STARTED';
   JOB_STATUS_STOPPED    varchar2(10) := 'STOPPED';
 
+  procedure ARCHIVE_PROCESSED_ROW
+    (p_bueq_id in number);
+    
   procedure PROCESS_ALL_ROWS_BY_BSL
     (p_bsl_id in number,
      p_bdm_id in number,
@@ -190,7 +193,8 @@ create or replace package body PROCESS_BPM_QUEUE as
        WROTE_BPM_SEMANTIC_DATE,
        DATA_VERSION,
        OLD_DATA,
-       NEW_DATA)
+       NEW_DATA,
+	   CEJS_JOB_ID)
     select 
       BUEQ_ID,
       BSL_ID,
@@ -202,7 +206,8 @@ create or replace package body PROCESS_BPM_QUEUE as
       WROTE_BPM_SEMANTIC_DATE,
       DATA_VERSION,
       OLD_DATA,
-      NEW_DATA 
+      NEW_DATA,
+      CEJS_JOB_ID
     from BPM_UPDATE_EVENT_QUEUE
     where 
       BUEQ_ID = p_bueq_id
@@ -625,7 +630,7 @@ create or replace package body PROCESS_BPM_QUEUE as
     v_num_sleep_seconds number := 0;
   begin
     
-    while (true)
+    while (TRUE)
     loop
       v_pbqjb_id := SEQ_PBQJB_ID.nextval;
       v_batch_id := v_batch_id + 1;

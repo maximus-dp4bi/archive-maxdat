@@ -9,7 +9,7 @@ create or replace package ETL_CLIENT_OUTREACH_PKG as
   SVN_REVISION_DATE varchar2(60) := '$Date$'; 
   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
   
-  
+  procedure CLOR_FETCH_OLTP_PROGRAM; 
   procedure CO_PROCESS_UPD1;
   procedure CO_PROCESS_UPD4;
   
@@ -20,6 +20,232 @@ end;
 
 create or replace package body ETL_CLIENT_OUTREACH_PKG as
 
+PROCEDURE CLOR_FETCH_OLTP_PROGRAM AS
+
+ CURSOR temp_cur
+IS
+  SELECT OUTREACH_ID,
+    CASE_ID,
+    CREATE_DT,
+    program_type,
+    SERVICE_AREA,
+    COUNTY,
+    VALIDATION_ERROR,
+    SUBPROGRAM_TYPE,
+    OUTCOME_NOTIFICATION_TASK_ID,
+    OUTCOME_NOTIFICATION_TASK_DT,
+    OUTCOME_NOTIFICATION_TASK_BY,
+    CURR_TASK_ID,
+    CURR_TASK_STATUS,
+    CURR_TASK_TYPE,
+    CLIENT_ID
+  FROM CORP_ETL_CLNT_OUTREACH_OLTP
+  WHERE STAGE_DONE_DATE IS NULL;
+--and outreach_id  = 36106779;
+
+  TYPE t_tab IS TABLE OF temp_cur%ROWTYPE INDEX BY PLS_INTEGER;
+  temp_tab t_tab;
+  v_bulk_limit NUMBER := 500;
+  v_step VARCHAR2(100);
+  v_err_code VARCHAR2(30);
+  v_err_msg VARCHAR2(240);
+  v_err_index NUMBER;
+  v_prgm_type VARCHAR2(20);
+  v_servc_area VARCHAR2(100);
+  v_cnty VARCHAR2(100);
+  v_subprogram_type VARCHAR2(30);
+  v_validation_error VARCHAR2(50);
+  v_outcum_notify_id NUMBER;
+  v_outcum_notify_dt DATE;
+  v_notify_outcum_by VARCHAR2(100);
+  v_curr_task_id NUMBER;
+  v_curr_task_status VARCHAR2(100);
+  v_curr_task_type VARCHAR2(100);
+    
+BEGIN  
+  OPEN temp_cur;
+LOOP
+  FETCH temp_cur BULK COLLECT INTO temp_tab LIMIT v_bulk_limit;
+  EXIT
+WHEN temp_tab.COUNT = 0; -- Exit when missing rows
+  FOR indx IN 1..temp_tab.COUNT
+    LOOP
+BEGIN    
+v_prgm_type := temp_tab(indx).program_type;
+v_servc_area := temp_tab(indx).SERVICE_AREA; 
+v_cnty := temp_tab(indx).COUNTY;       
+v_subprogram_type :=temp_tab(indx).SUBPROGRAM_TYPE;         
+v_validation_error :=temp_tab(indx).VALIDATION_ERROR;   
+v_outcum_notify_id :=temp_tab(indx).OUTCOME_NOTIFICATION_TASK_ID;
+v_outcum_notify_dt :=temp_tab(indx).OUTCOME_NOTIFICATION_TASK_DT;
+v_notify_outcum_by :=temp_tab(indx).OUTCOME_NOTIFICATION_TASK_BY;
+v_curr_task_id :=temp_tab(indx).CURR_TASK_ID;
+v_curr_task_status :=temp_tab(indx).CURR_TASK_STATUS;
+v_curr_task_type :=temp_tab(indx).CURR_TASK_TYPE;
+FOR p IN
+(SELECT
+  CASE
+    WHEN program_cd ='MEDICAID'
+    THEN program_cd
+    ELSE NULL
+  END               AS prgm_type ,
+  service_area      AS servc_area ,
+  addr_county_label AS cnty
+FROM client_supplementary_info_stg
+WHERE client_id = temp_tab(indx).client_id
+ORDER BY prgm_type ASC
+)
+LOOP
+  v_prgm_type  := p.prgm_type;
+  v_servc_area := p.servc_area;
+  v_cnty       := p.cnty;
+  EXIT; --get first record only
+END LOOP;
+          
+FOR l IN
+(SELECT subprogram_type
+FROM
+  (SELECT
+    CASE
+      WHEN program_cd = 'MEDICAID'
+      THEN
+        CASE
+          WHEN plan_type_cd = 'MEDICAL'
+          THEN DECODE(subprogram_type,'STARPDUAL',1,'STARHDUAL',2,'STARP',3,'STARH',4,'STAR',5)
+          ELSE 6
+        END
+      ELSE DECODE(subprogram_type,'CHIP',1,'CHIP-PER',2)
+    END subprog_order ,
+    cs.*
+  FROM client_elig_status_stg cs
+  WHERE client_id     = temp_tab(indx).client_id
+  AND program_cd      = v_prgm_type
+  AND end_date       IS NULL
+  AND elig_status_cd IN('M','V')
+  AND plan_type_cd   IN('MEDICAL','BEHAVIORAL')
+  )
+ORDER BY elig_status_cd,
+  subprog_order
+)
+LOOP
+  v_subprogram_type := l.subprogram_type;
+  EXIT; --get first record only
+END LOOP;
+
+FOR e IN
+(SELECT
+  CASE
+    WHEN lkup.out_var = 'Client Over 21 - Not Ortho'
+    THEN 'Client Over 21'
+    ELSE lkup.out_var
+  END AS VALIDATION_ERROR
+FROM corp_etl_clnt_outreach_events oe
+JOIN corp_etl_list_lkup lkup
+ON oe.event_type = lkup.value
+WHERE lkup.list_type LIKE 'CO_VALIDATION_ERROR%'
+AND lkup.name = 'CO_EVENT_VALIDATION' 
+AND OE.EVENT_REF_TYPE    = 'OUTREACH'
+AND oe.event_outreach_id = temp_tab(indx).outreach_id--26121015
+AND oe.event_create_dt  >= temp_tab(indx).create_dt
+ORDER BY out_var
+)
+LOOP
+  v_validation_error := e.VALIDATION_ERROR;
+  EXIT; --get first record only
+END LOOP;
+
+FOR d IN
+(SELECT TAS.STEP_INSTANCE_ID AS OUTCUM_NOTIFY_ID ,
+  TAS.CREATE_TS              AS OUTCUM_NOTIFY_DT ,
+  COALESCE(
+  (SELECT S.last_name
+    || ','
+    || S.first_name
+  FROM staff_stg S
+  WHERE TAS.HIST_CREATE_BY = TO_CHAR(S.STAFF_ID)
+  ),TAS.HIST_CREATE_BY) AS NOTIFY_OUTCUM_BY
+  --,TAS.*
+FROM step_instance_stg tas --HUMAN_TASK_INSTANCE TAS
+WHERE TAS.STEP_DEFINITION_ID = 50716
+  --and TAS.REF_ID = ?
+  --AND TAS.REF_TYPE = 'INCIDENT_HEADER'
+AND TAS.CASE_ID    = temp_tab(indx).CASE_ID
+AND TAS.CLIENT_ID  = temp_tab(indx).CLIENT_ID
+AND TAS.CREATE_TS >= temp_tab(indx).CREATE_DT
+ORDER BY TAS.STEP_INSTANCE_ID,
+  DECODE(TAS.STATUS,'COMPLETED',1,'CLAIMED',2,3),
+  TAS.CREATE_TS
+)
+LOOP
+  v_outcum_notify_id := d.OUTCUM_NOTIFY_ID;
+  v_outcum_notify_dt := d.OUTCUM_NOTIFY_DT;
+  v_notify_outcum_by := d.NOTIFY_OUTCUM_BY;
+  EXIT; --get first record only
+END LOOP;
+
+FOR h IN
+(SELECT step_instance_id AS CURR_TSK_ID,
+  hist_status            AS CURR_TSK_STATUS,
+  SD.NAME                AS CURR_TSK_TYPE
+FROM step_instance_stg si,
+  step_definition_stg sd
+WHERE ref_type            ='INCIDENT_HEADER'
+AND si.step_definition_id = sd.step_definition_id
+AND sd.step_type_cd      IN ('VIRTUAL_HUMAN_TASK','HUMAN_TASK')
+--AND si.completed_ts      IS NULL
+AND ref_id                = temp_tab(indx).outreach_id
+ORDER BY si.hist_create_ts desc,si.step_instance_id,
+  DECODE(si.status,'COMPLETED',1,'TERMINATED',2,'CLAIMED',3,4)
+)
+LOOP
+  v_curr_task_id     := h.CURR_TSK_ID;
+  v_curr_task_status := h.CURR_TSK_STATUS;
+  v_curr_task_type   := h.CURR_TSK_TYPE;
+  EXIT; --get first record only
+END LOOP;
+
+UPDATE CORP_ETL_CLNT_OUTREACH_OLTP
+SET program_type               = v_prgm_type ,
+  COUNTY                       = v_cnty ,
+  SERVICE_AREA                 = v_servc_area ,
+  SUBPROGRAM_TYPE              = v_subprogram_type ,
+  VALIDATION_ERROR             = v_validation_error ,
+  OUTCOME_NOTIFICATION_TASK_ID = v_outcum_notify_id ,
+  OUTCOME_NOTIFICATION_TASK_DT = v_outcum_notify_dt ,
+  OUTCOME_NOTIFICATION_TASK_BY = v_notify_outcum_by ,
+  CURR_TASK_ID                 = v_curr_task_id ,
+  CURR_TASK_STATUS             = v_curr_task_status ,
+  CURR_TASK_TYPE               = v_curr_task_type
+WHERE outreach_id              = temp_tab(indx).outreach_id;
+
+EXCEPTION                      
+         WHEN OTHERS THEN
+           v_err_code := SQLCODE;
+           v_err_msg := SUBSTR(SQLERRM, 1, 200);
+            insert into corp_etl_error_log values(
+                SEQ_CEEL_ID.nextval,--CEEL_ID
+                sysdate,--ERR_DATE
+                'CRITICAL',--ERR_LEVEL
+                'CLIENT_OUTREACH',--PROCESS_NAME
+                'Client_Outreach_get_OLTP_Program_PKG',--JOB_NAME
+                '1',--NR_OF_ERROR
+                v_step||' '||v_err_msg,--ERROR_DESC
+                null,--ERROR_FIELD
+                v_err_code,--ERROR_CODES
+                sysdate,--CREATE_TS
+                sysdate,--UPDATE_TS
+                'CORP_ETL_CLNT_OUTREACH_OLTP',--DRIVER_TABLE_NAME
+                temp_tab(indx).outreach_id);--DRIVER_KEY_NUMBER
+END;  
+END LOOP;
+COMMIT;
+END LOOP;
+COMMIT;
+CLOSE temp_cur;
+END CLOR_FETCH_OLTP_PROGRAM;
+
+
+
 PROCEDURE CO_PROCESS_UPD1 AS
 
  CURSOR upd1_cur IS
@@ -28,12 +254,14 @@ PROCEDURE CO_PROCESS_UPD1 AS
     SELECT 
       BPM.CECO_ID,OUTREACH_ID,
       'Y' IN_YES,
-      CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
-        THEN OUTREACH_STATUS
+     -- CASE WHEN NVL(HIST_OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
+     CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
+        THEN OUTREACH_STATUS  --HIST_OUTREACH_STATUS
         ELSE O_OUTREACH_STATUS
       END AS UPD1_10_OUTREACH_STATUS,
-      CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
-        THEN OUTREACH_STATUS_DT
+      --CASE WHEN NVL(HIST_OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
+       CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')
+        THEN OUTREACH_STATUS_DT --OUTREACH_HIST_STAT_DT
         ELSE O_OUTREACH_STATUS_DT
       END AS UPD1_10_OUTREACH_STATUS_DT,
       CASE WHEN NVL(ORIGIN,'X') <>  NVL(O_ORIGIN,'X')
@@ -434,7 +662,7 @@ PROCEDURE CO_PROCESS_UPD1 AS
         THEN FINAL_WAIT_UNIT
         ELSE O_FINAL_WAIT_UNIT
       END AS UPD1_830_FINAL_WAIT_UNIT,
-      CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')    
+      CASE WHEN NVL(OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X') -- NVL(HIST_OUTREACH_STATUS,'X') <>  NVL(O_OUTREACH_STATUS,'X')    
         OR NVL(ORIGIN,'X') <>  NVL(O_ORIGIN,'X')
         OR NVL(ORIGIN_ID,0) <>  NVL(O_ORIGIN_ID,0)
         OR NVL(OUTREACH_REQ_CATEGORY,'X') <>  NVL(O_OUTREACH_REQ_CATEGORY,'X')
@@ -823,7 +1051,12 @@ PROCEDURE CO_PROCESS_UPD4 AS
                        END 
                      ELSE NULL END AS END_DATE
                     ,OLTP.OUTREACH_STEP1_TYPE
+                    ,OLTP.OUTREACH_STEP2_TYPE
                     ,OLTP.OUTREACH_ID
+                    ,OLTP.OUTREACH_HIST_STAT_DT
+                    ,OLTP.HIST_OUTREACH_STATUS
+                    ,OLTP.OUTREACH_HIST_STAT_BY
+                    ,OLTP.OUTREACH_REQ_TYPE                    
                     ,BPM.*
     FROM CORP_ETL_CLNT_OUTREACH_OLTP  oltp
     JOIN  (SELECT CECO_ID	CECO_ID
@@ -837,7 +1070,16 @@ PROCEDURE CO_PROCESS_UPD4 AS
                   ,ASSD_OUTREACH_STEP1	O_ASSD_OUTREACH_STEP1
                   ,ASED_OUTREACH_STEP1	O_ASED_OUTREACH_STEP1
                   ,ASPB_OUTREACH_STEP1	O_ASPB_OUTREACH_STEP1
-                  ,ASF_OUTREACH_STEP1		O_ASF_OUTREACH_STEP1
+                  ,ASF_OUTREACH_STEP1		O_ASF_OUTREACH_STEP1                  
+                  ,ASSD_PERFORM_OUTREACH O_ASSD_PERFORM_OUTREACH
+                  ,ASED_PERFORM_OUTREACH O_ASED_PERFORM_OUTREACH
+                  ,ASPB_PERFORM_OUTREACH O_ASPB_PERFORM_OUTREACH
+                  ,GWF_STEP2_REQUIRED O_GWF_STEP2_REQUIRED
+                  ,ASF_PERFORM_OUTREACH O_ASF_PERFORM_OUTREACH
+                  ,GWF_UNSUCCESSFUL O_GWF_UNSUCCESSFUL
+                  ,COMPLETE_DT O_COMPLETE_DT
+                  ,STAGE_DONE_DATE O_STAGE_DONE_DATE
+                  ,INSTANCE_STATUS O_INSTANCE_STATUS
                   --,UPDATED O_UPDATED
                   ,'N' O_UPDATED
            FROM CORP_ETL_CLNT_OUTREACH_WIP_BPM
@@ -865,50 +1107,129 @@ BEGIN
 
      FOR indx IN 1 .. upd4_tab.COUNT LOOP    
        BEGIN
-          v_ased_outreach_step := NULL;
-          v_aspb_outreach_step := NULL;
-  	      IF upd4_tab(indx).outreach_step1_type = 'Delay1' THEN            
-            upd4_tab(indx).O_ASED_OUTREACH_STEP1 := upd4_tab(indx).END_DATE;
-            upd4_tab(indx).O_ASPB_OUTREACH_STEP1 :=	upd4_tab(indx).ASPB_DELAY;
-            upd4_tab(indx).O_ASF_OUTREACH_STEP1	:= upd4_tab(indx).IN_YES;
-            upd4_tab(indx).O_UPDATED := upd4_tab(indx).IN_YES;
-          ELSE
-            SELECT MAX(EVENT_CREATE_DT) AS ASED_OUTREACH_STEP,MAX(EVENT_CREATED_BY) ASPB_OUTREACH_STEP
-            INTO v_ased_outreach_step, v_aspb_outreach_step
-            FROM (SELECT O.OUTREACH_ID,O.OUTREACH_STEP1_TYPE,O.OUTREACH_TYPE,E.EVENT_TYPE,EVENT_CREATE_DT,EVENT_CREATED_BY
-                FROM 
-                  ( SELECT OUTREACH_ID,OUTREACH_STEP1_TYPE,
-                            CASE WHEN OUTREACH_STEP1_TYPE = 'Human Task'
-                            THEN OUTREACH_REQ_TYPE
-                            ELSE 'X'
-                            END AS OUTREACH_TYPE         
-                    FROM CORP_ETL_CLNT_OUTREACH_OLTP
-                    WHERE OUTREACH_ID = upd4_tab(indx).outreach_id) O
-            JOIN CORP_ETL_CLNT_OUTREACH_EVENTS E 
-              ON O.OUTREACH_ID = E.EVENT_OUTREACH_ID
-            JOIN CORP_ETL_CLNT_OR_ACTIVITY_LKUP ACT
-              ON ACT.EVENT_TYPE = E.EVENT_TYPE
-              AND O.OUTREACH_STEP1_TYPE = ACT.OUTREACH_STEP_TYPE
-              AND O.OUTREACH_TYPE = COALESCE(ACT.OUTREACH_TYPE,'X')
-            WHERE E.EVENT_CREATE_DT >= upd4_tab(indx).O_ASSD_OUTREACH_STEP1);
+         v_ased_outreach_step := NULL;
+         v_aspb_outreach_step := NULL;
+         
+                -- check if letter exists
+         FOR step1_ltr IN(SELECT letter_request_id,
+                                 CASE WHEN letter_create_date < upd4_tab(indx).o_assd_outreach_step1 THEN upd4_tab(indx).o_assd_outreach_step1 ELSE letter_create_date END letter_create_date,
+                                 letter_created_by                
+                          FROM corp_etl_clnt_outreach_letter
+                          WHERE outreach_ref_id = upd4_tab(indx).outreach_id
+                           AND (outreach_step = 1
+                           OR (outreach_step = 2 AND upd4_tab(indx).outreach_step2_type LIKE 'Letter%')) )
+         LOOP                
+             v_ased_outreach_step := step1_ltr.letter_create_date;
+             v_aspb_outreach_step := step1_ltr.letter_created_by;
+             EXIT; -- exit when at least one record is found
+         END LOOP;        
             
-            IF v_ased_outreach_step IS NOT NULL THEN            
-              upd4_tab(indx).O_ASED_OUTREACH_STEP1 :=	v_ased_outreach_step;
-              upd4_tab(indx).O_ASPB_OUTREACH_STEP1 :=	v_aspb_outreach_step;
-              upd4_tab(indx).O_ASF_OUTREACH_STEP1	:= upd4_tab(indx).IN_YES;
-              upd4_tab(indx).O_UPDATED	:= upd4_tab(indx).IN_YES;
-            END IF;
-          END IF;
+         IF v_ased_outreach_step IS NOT NULL AND upd4_tab(indx).outreach_step1_type LIKE 'Letter%' THEN            
+           upd4_tab(indx).O_ASED_OUTREACH_STEP1 :=	v_ased_outreach_step;
+           upd4_tab(indx).O_ASPB_OUTREACH_STEP1 :=	v_aspb_outreach_step;
+           upd4_tab(indx).O_ASF_OUTREACH_STEP1	:= upd4_tab(indx).IN_YES;
+           upd4_tab(indx).O_UPDATED	:= upd4_tab(indx).IN_YES;
+         ELSE
+           IF upd4_tab(indx).outreach_step1_type = 'Human Task' OR upd4_tab(indx).outreach_step1_type LIKE 'Home Visit%' THEN
+             FOR step1_task IN (SELECT *
+                                FROM (SELECT step_instance_id task_id, completed_ts, COALESCE(s.last_name||','||s.first_name, si.hist_create_by) staff_name,
+                                             row_number() over(partition by ref_id order by completed_ts) rn
+                                      FROM step_instance_stg si
+                                        LEFT OUTER JOIN d_staff s
+                                          ON si.hist_create_by = s.staff_id
+                                      WHERE ref_id = upd4_tab(indx).outreach_id
+                                      AND ref_type = 'INCIDENT_HEADER'
+                                      AND hist_status IN('COMPLETED','TERMINATED')
+                                      AND completed_ts >= upd4_tab(indx).O_ASSD_OUTREACH_STEP1)
+                                 WHERE rn = 1 )     
+             LOOP
+               v_ased_outreach_step :=	step1_task.completed_ts;
+               v_aspb_outreach_step :=	step1_task.staff_name;
+               EXIT; --exit when at least one record is found
+             END LOOP;
+           END IF;
+           
+           IF v_ased_outreach_step IS NULL THEN
+             --last attempt to see if there is a date to complete the activity step
+            BEGIN 
+             SELECT EVENT_CREATE_DT AS ASED_OUTREACH_STEP,EVENT_CREATED_BY ASPB_OUTREACH_STEP 
+             INTO v_ased_outreach_step, v_aspb_outreach_step
+             FROM 
+              (SELECT O.OUTREACH_ID,O.OUTREACH_STEP1_TYPE,O.OUTREACH_TYPE,E.EVENT_TYPE,EVENT_CREATE_DT,EVENT_CREATED_BY,
+                      ROW_NUMBER() OVER (ORDER BY event_create_dt) rn
+               FROM 
+                ( SELECT OUTREACH_ID,OUTREACH_STEP1_TYPE,
+                    CASE WHEN OUTREACH_STEP1_TYPE = 'Human Task'
+                      THEN OUTREACH_REQ_TYPE
+                      ELSE 'X'
+                      END AS OUTREACH_TYPE         
+                  FROM CORP_ETL_CLNT_OUTREACH_OLTP
+                  WHERE OUTREACH_ID = upd4_tab(indx).outreach_id ) O
+                JOIN CORP_ETL_CLNT_OUTREACH_EVENTS E 
+                  ON O.OUTREACH_ID = E.EVENT_OUTREACH_ID
+                JOIN CORP_ETL_CLNT_OR_ACTIVITY_LKUP ACT
+                  ON ACT.EVENT_TYPE = E.EVENT_TYPE
+                  AND (O.OUTREACH_STEP1_TYPE = ACT.OUTREACH_STEP_TYPE OR O.OUTREACH_STEP1_TYPE LIKE 'Delay%')
+                 AND O.OUTREACH_TYPE = COALESCE(ACT.OUTREACH_TYPE,'X')
+                 WHERE E.EVENT_CREATE_DT >= upd4_tab(indx).O_ASSD_OUTREACH_STEP1 )
+              WHERE rn = 1;  
+             EXCEPTION
+               WHEN NO_DATA_FOUND THEN
+                 v_ased_outreach_step := null;
+                 v_aspb_outreach_step := null;
+             END; 
+           END IF;
           
-          IF upd4_tab(indx).O_UPDATED = 'Y' THEN
+           IF v_ased_outreach_step IS NOT NULL THEN
+             upd4_tab(indx).O_ASED_OUTREACH_STEP1 :=	v_ased_outreach_step;
+             upd4_tab(indx).O_ASPB_OUTREACH_STEP1 :=	v_aspb_outreach_step;
+             upd4_tab(indx).O_ASF_OUTREACH_STEP1	:= upd4_tab(indx).IN_YES;
+             upd4_tab(indx).O_UPDATED	:= upd4_tab(indx).IN_YES;
+           ELSE
+             IF upd4_tab(indx).end_date IS NOT NULL THEN            
+               upd4_tab(indx).O_ASED_OUTREACH_STEP1 := upd4_tab(indx).END_DATE;
+               upd4_tab(indx).O_ASPB_OUTREACH_STEP1 :=	upd4_tab(indx).ASPB_DELAY;
+               upd4_tab(indx).O_ASF_OUTREACH_STEP1	:= upd4_tab(indx).IN_YES;
+               upd4_tab(indx).O_UPDATED := upd4_tab(indx).IN_YES;
+             END IF;
+           END IF;
+         END IF;
+          
+        /* IF upd4_tab(indx).outreach_req_type IN('THSteps Checkup OverDue Dental Letters','THSteps Checkup OverDue Medical Letters','THSteps Checkup Due Medical Letters','THSteps Checkup Due Dental Letters')
+            AND upd4_tab(indx).hist_outreach_status = 'Outreach Successful' 
+            --AND v_ased_outreach_step IS NOT NULL 
+            THEN            
+             upd4_tab(indx).O_GWF_STEP2_REQUIRED := upd4_tab(indx).IN_NO;
+             upd4_tab(indx).O_GWF_UNSUCCESSFUL := upd4_tab(indx).IN_NO;
+             upd4_tab(indx).O_ASED_OUTREACH_STEP1 := upd4_tab(indx).OUTREACH_HIST_STAT_DT;
+             upd4_tab(indx).O_ASPB_OUTREACH_STEP1 := upd4_tab(indx).OUTREACH_HIST_STAT_BY;
+             upd4_tab(indx).O_ASF_OUTREACH_STEP1 := upd4_tab(indx).IN_YES;                     
+             upd4_tab(indx).O_ASED_PERFORM_OUTREACH := upd4_tab(indx).OUTREACH_HIST_STAT_DT;
+             upd4_tab(indx).O_ASPB_PERFORM_OUTREACH := upd4_tab(indx).OUTREACH_HIST_STAT_BY;
+             upd4_tab(indx).O_ASF_PERFORM_OUTREACH := upd4_tab(indx).IN_YES;
+             upd4_tab(indx).O_COMPLETE_DT := upd4_tab(indx).OUTREACH_HIST_STAT_DT;
+             upd4_tab(indx).O_INSTANCE_STATUS := upd4_tab(indx).FINAL_STATUS;
+             upd4_tab(indx).O_STAGE_DONE_DATE := sysdate;             
+             upd4_tab(indx).O_UPDATED	:= upd4_tab(indx).IN_YES;         
+         END IF;*/
+          
+         IF upd4_tab(indx).O_UPDATED = 'Y' THEN
             UPDATE corp_etl_clnt_outreach_wip_bpm
             SET ASED_OUTREACH_STEP1 =	upd4_tab(indx).O_ASED_OUTREACH_STEP1
                 ,ASPB_OUTREACH_STEP1	= upd4_tab(indx).O_ASPB_OUTREACH_STEP1
-                ,ASF_OUTREACH_STEP1 = upd4_tab(indx).O_ASF_OUTREACH_STEP1                
+                ,ASF_OUTREACH_STEP1 = upd4_tab(indx).O_ASF_OUTREACH_STEP1                  
+                ,GWF_STEP2_REQUIRED = upd4_tab(indx).O_GWF_STEP2_REQUIRED
+                ,GWF_UNSUCCESSFUL = upd4_tab(indx).O_GWF_UNSUCCESSFUL
+                ,ASED_PERFORM_OUTREACH = upd4_tab(indx).O_ASED_PERFORM_OUTREACH
+                ,ASF_PERFORM_OUTREACH = upd4_tab(indx).O_ASF_PERFORM_OUTREACH
+                ,ASPB_PERFORM_OUTREACH = upd4_tab(indx).O_ASPB_PERFORM_OUTREACH   
+                ,COMPLETE_DT = upd4_tab(indx).O_COMPLETE_DT
+                ,INSTANCE_STATUS = upd4_tab(indx).O_INSTANCE_STATUS
+                ,STAGE_DONE_DATE = upd4_tab(indx).O_STAGE_DONE_DATE
                 ,UPDATED = upd4_tab(indx).O_UPDATED
             WHERE ceco_id = upd4_tab(indx).ceco_id;
           
-          END IF;
+         END IF;
        EXCEPTION                      
          WHEN OTHERS THEN
            v_err_code := SQLCODE;
@@ -1133,6 +1454,7 @@ BEGIN
               ,	asf_notify_source	=	wip_tab(indx).asf_notify_source
               ,	stage_done_date	=	wip_tab(indx).stage_done_date
               ,	max_inci_header_stat_hist_id	=	wip_tab(indx).max_stat_hist_id
+              , image_reference_id = wip_tab(indx).image_reference_id
          WHERE ceco_id = wip_tab(indx).ceco_id;
 
      EXCEPTION                      

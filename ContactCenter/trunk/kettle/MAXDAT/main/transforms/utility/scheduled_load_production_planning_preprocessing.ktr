@@ -103,8 +103,8 @@ Steps:
 8. Create new record in CC_A_SCHEDULED_JOB to represent current execution.</note>
       <xloc>0</xloc>
       <yloc>0</yloc>
-      <width>897</width>
-      <heigth>309</heigth>
+      <width>1170</width>
+      <heigth>401</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -453,6 +453,33 @@ Steps:
     </step>
 
   <step>
+    <name>Get Max FAQI Interval Start</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT MAX(INTERVAL_START_DATE) as PREV_END_DATETIME
+FROM CC_F_ACTUALS_QUEUE_INTERVAL faqi
+INNER JOIN CC_D_INTERVAL d on faqi.D_INTERVAL_ID = d.D_INTERVAL_ID</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>113</xloc>
+      <yloc>452</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Get Midnight Today</name>
     <type>SystemInfo</type>
     <description/>
@@ -499,33 +526,6 @@ Steps:
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>882</xloc>
-      <yloc>452</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Max FAQI Interval Start</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <sql>SELECT MAX(INTERVAL_START_DATE) as PREV_END_DATETIME
-FROM CC_F_ACTUALS_QUEUE_INTERVAL faqi
-INNER JOIN CC_D_INTERVAL d on faqi.D_INTERVAL_ID = d.D_INTERVAL_ID</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>113</xloc>
       <yloc>452</yloc>
       <draw>Y</draw>
       </GUI>

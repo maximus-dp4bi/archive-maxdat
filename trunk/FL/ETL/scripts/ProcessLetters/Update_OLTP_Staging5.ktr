@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Staging5</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -136,6 +149,128 @@
   <order>
   <hop> <from>Update Table  - Update OLTP temp</from><to>Table output - CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Update OLTP Staging </from><to>TRANSMITTED_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>TRANSMITTED_DATE</from><to>CONFIRMED_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>CONFIRMED_DATE</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Update Table  - Update OLTP temp</to><enabled>Y</enabled> </hop>  <hop> <from>TRANSMITTED_DATE</from><to>Set TRANSMITTED_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Set TRANSMITTED_DATE</from><to>CONFIRMED_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>CONFIRMED_DATE</from><to>Set CONFIRMED_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Set CONFIRMED_DATE</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  </order>
   <step>
+    <name>CONFIRMED_DATE</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set CONFIRMED_DATE</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CUR_STATUS</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>MLD</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>542</xloc>
+      <yloc>93</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>695</xloc>
+      <yloc>93</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set CONFIRMED_DATE</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CONFIRMED_DATE</name>
+        <replaceby>CUR_STATUS_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>542</xloc>
+      <yloc>245</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set TRANSMITTED_DATE</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>TRANSMITTED_DATE</name>
+        <replaceby>PREV_STATUS_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>341</xloc>
+      <yloc>246</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>TRANSMITTED_DATE</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set TRANSMITTED_DATE</send_true_to>
+<send_false_to>CONFIRMED_DATE</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>PREV_STATUS</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>PNT</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>340</xloc>
+      <yloc>93</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Table input - Update OLTP Staging </name>
     <type>TableInput</type>
     <description/>
@@ -149,7 +284,7 @@
     <sql>SELECT 
 	
 &apos;PROCESSLETTERS&apos; AS PROCESS_NAME,
-&apos;UPDATE_OLTP_STAGING2&apos; AS JOB_NAME,
+&apos;UPDATE_OLTP_STAGING5&apos; AS JOB_NAME,
 &apos;FLHK_ETL_PROCESS_LETTERS&apos; AS DRIVER_TABLE_NAME,
 SYSDATE AS ERR_DATE,
 &apos;CRITICAL&apos; AS ERR_LEVEL,
@@ -300,128 +435,6 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>887</xloc>
       <yloc>93</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>TRANSMITTED_DATE</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Set TRANSMITTED_DATE</send_true_to>
-<send_false_to>CONFIRMED_DATE</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>PREV_STATUS</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>PNT</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>340</xloc>
-      <yloc>93</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>CONFIRMED_DATE</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Set CONFIRMED_DATE</send_true_to>
-<send_false_to>Dummy (do nothing)</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>CUR_STATUS</leftvalue>
- <function>=</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>MLD</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>542</xloc>
-      <yloc>93</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>695</xloc>
-      <yloc>93</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set TRANSMITTED_DATE</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>TRANSMITTED_DATE</name>
-        <replaceby>PREV_STATUS_DATE</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>341</xloc>
-      <yloc>246</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set CONFIRMED_DATE</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>CONFIRMED_DATE</name>
-        <replaceby>CUR_STATUS_DATE</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>542</xloc>
-      <yloc>245</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

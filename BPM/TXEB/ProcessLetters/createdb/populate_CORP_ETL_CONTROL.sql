@@ -11,5 +11,9 @@ values ('PL_LAST_LMREQ_ID','N',0,'Used to fetch Letters from OLTP for Process Le
 Insert into CORP_ETL_CONTROL (NAME,VALUE_TYPE,VALUE,DESCRIPTION,CREATED_TS,UPDATED_TS) values ('RUN_DAILY_LETTERS_START','V','200000','RUN_LETTER_STARTTIME ',to_date('19-SEP-13','DD-MON-RR'),to_date('19-SEP-13','DD-MON-RR'));
 Insert into CORP_ETL_CONTROL (NAME,VALUE_TYPE,VALUE,DESCRIPTION,CREATED_TS,UPDATED_TS) values ('RUN_DAILY_LETTERS_END','V','230000','RUN_LETTER_ENDTIME ',to_date('19-SEP-13','DD-MON-RR'),to_date('19-SEP-13','DD-MON-RR'));
 
+insert into CORP_ETL_CONTROL(name,VALUE_TYPE,value,DESCRIPTION,CREATED_TS,UPDATED_TS) 
+values ('PL_BAD_ADDRESS_LAST_JOB_ID','N','0','Used to fetch Letters Bad address data from OLTP',sysdate,sysdate);
+
+
 
 commit;

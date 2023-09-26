@@ -75,7 +75,7 @@ else
 	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageJobs/ManageJobs_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ManageJobs_RunAll_$(date +%Y%m%d_%H%M%S).log &
 	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessLetters/ProcessLetters_RUNALL_ONCE_A_DAY.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/Process_Letters_runall_$(date +%Y%m%d_%H%M%S).log &
 	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/SupportClientInquiry/ClientInquiry_Main_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ClientInquiry_Main_RUNALL_$(date +%Y%m%d_%H%M%S).log &	
-	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageEnrollmentActivity/ProcessManageEnroll_RUNALL_ONCE_A_DAY.kjb $KJB_LOG_LEVEL  >> $MAXDAT_ETL_LOGS/ProcessManageEnroll_RUNALL_ONCE_A_DAY_$(date +%Y%m%d_%H%M%S).log &	
+	#$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageEnrollmentActivity/ProcessManageEnroll_RUNALL_ONCE_A_DAY.kjb $KJB_LOG_LEVEL  >> $MAXDAT_ETL_LOGS/ProcessManageEnroll_RUNALL_ONCE_A_DAY_$(date +%Y%m%d_%H%M%S).log &	
 	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessOnlineInfo/ProcessOnlineInfo_RunAll.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/ProcessOnlineInfo_RunAll_$(date +%Y%m%d_%H%M%S).log &
 	$MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/OutboundCalls/OutboundCalls_Runall.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/OutboundCalls_Runall_$(date +%Y%m%d_%H%M%S).log &
 	wait

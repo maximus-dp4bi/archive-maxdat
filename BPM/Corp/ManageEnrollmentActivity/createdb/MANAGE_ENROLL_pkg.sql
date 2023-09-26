@@ -1,10 +1,10 @@
 alter session set plsql_code_type = native;
 
-create or replace package maxdat.MANAGE_ENROLL as
+create or replace package MANAGE_ENROLL as
 /*
 Created on 09-Jul-2013 by Raj A.
 
-Raj A. 18-Jun-2014 Addressing ticket TXEB-2501: AI & AU Triggers do not have the age or the other SLA days and days_type attributes.
+Raj A. 18-Jun-2014 Addressing ticket TXEB-2501: AI and AU Triggers do not have the age or the other SLA days and days_type attributes.
 				   XML definition in Semantic pkg has these two attributes though. So, the age attributes in the XML definition in this package 
 				   are NOT doing anything. These can be removed later.
 */
@@ -15,66 +15,60 @@ Raj A. 18-Jun-2014 Addressing ticket TXEB-2501: AI & AU Triggers do not have the
   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
 
   procedure CALC_DMECUR;
-
-
+  
   function GET_AGE_IN_BUSINESS_DAYS
-      ( p_create_dt in date,
-        p_complete_date in date
-       )
-  return number;
+    (p_create_dt in date,
+     p_complete_date in date)
+    return number parallel_enable;
 
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_dt in date,
-     p_complete_date in date
-     )
-    return number;
+     p_complete_date in date)
+    return number parallel_enable;
 
-function GET_SLA_DAYS
-      (p_SLA_type in varchar2,
-       p_NEWBORN_FLAG in varchar2
-       )
-  return number;
-
-function GET_SLA_DAYS_TYPE
-    (p_SLA_type in varchar2,
+  function GET_SLA_DAYS
+    (p_sla_type in varchar2,
      p_newborn_flag in varchar2)
-    return varchar2;
+  return number result_cache parallel_enable;
 
-function GET_ENRL_FEE_REQ
-    (p_ENROLL_FEE_AMNT_DUE in NUMBER)
-    return varchar2;
+  function GET_SLA_DAYS_TYPE
+    (p_sla_type in varchar2,
+     p_newborn_flag in varchar2)
+    return varchar2 result_cache parallel_enable;
 
- function GET_DAYS_TO_AA
-    (p_AUTO_ASSIGNMENT_DUE_DATE in DATE,
-     P_CREATE_DT DATE)
-    return NUMBER;
+  function GET_ENRL_FEE_REQ
+    (p_enroll_fee_amnt_due in number)
+    return varchar2 parallel_enable;
 
-function GET_TIMELY_STATUS
-    (p_ASED          in DATE,
-     P_CREATE_DT     in DATE,
-     p_SLA_type      in varchar2,
-     p_NEWBORN_FLAG  in varchar2
-     )
-    return varchar2;
+  function GET_DAYS_TO_AA
+    (p_auto_assignment_due_date in date,
+     p_create_dt date)
+    return number parallel_enable;
 
-function GET_FOLLOWUP_TYPE
-    (P_FOLLOWUP_TYPE_CODE     in varchar2)
-    return varchar2;
+  function Get_Timely_Status
+    (p_ased         in date,
+     p_create_dt    in date,
+     p_sla_type     in varchar2,
+     p_newborn_flag in varchar2)
+    return varchar2 parallel_enable;
 
-function GET_ENRL_ACTIVITY_OUTCOME
+  function GET_FOLLOWUP_TYPE
+    (p_followup_type_code in varchar2)
+    return varchar2 result_cache parallel_enable;
+
+  function GET_ENRL_ACTIVITY_OUTCOME
    (p_cancel_dt     in date,
     p_complete_dt   in date,
     p_slct_method   in varchar,
-    p_cancel_reason in varchar
-    )
-    return varchar2;
+    p_cancel_reason in varchar)
+  return varchar2 parallel_enable;
+    
   /* 
   Include: 
     CEME_ID    
     STG_LAST_UPDATE_DATE
   */
-
-type T_INS_ME_XML is record
+  type T_INS_ME_XML is record
     (
      AA_DUE_DT varchar2(19),
      AGE_IN_BUSINESS_DAYS varchar2(100),
@@ -267,7 +261,9 @@ type T_UPD_ME_XML is record
 
 end;
 /
-create or replace package body maxdat.MANAGE_ENROLL as
+
+
+create or replace package body MANAGE_ENROLL as
 
   v_bem_id number := 14; -- 'ILEB Manage Enrollment'
   v_bil_id number := 14; -- 'Client Enroll Status ID'
@@ -281,7 +277,7 @@ function GET_AGE_IN_BUSINESS_DAYS
     (p_create_dt in date,
      p_complete_date in date
      )
-    return number
+    return number parallel_enable
   as
   begin
   return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_dt,nvl(p_complete_date,sysdate));
@@ -291,66 +287,74 @@ function GET_AGE_IN_BUSINESS_DAYS
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_dt in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_dt);
   end;
 
-   function GET_SLA_DAYS
-    (p_SLA_type in varchar2,
+
+  function GET_SLA_DAYS
+    (p_sla_type in varchar2,
      p_newborn_flag in varchar2)
-    return number
+    return number result_cache parallel_enable
   as
-     v_SLA_days number := null;
+     v_sla_days number := null;
   begin
 
-    select sla.sla_days
-    into v_SLA_days
-    from Rule_lkup_mng_enrl_sla sla
-    where sla_type = p_SLA_type
-    and newborn_flag = p_newborn_flag;
+    select SLA_DAYS
+    into v_sla_days
+    from RULE_LKUP_MNG_ENRL_SLA
+    where 
+      SLA_TYPE = p_sla_type
+      and NEWBORN_FLAG = p_newborn_flag;
 
-     return v_SLA_days;
+    return v_sla_days;
+    
   end;
 
+  
   function GET_SLA_DAYS_TYPE
-    (p_SLA_type in varchar2,
+    (p_sla_type in varchar2,
      p_newborn_flag in varchar2)
-    return varchar2
+    return varchar2 result_cache parallel_enable
   as
-     v_SLA_days_type varchar2(1) := null;
+     v_sla_days_type varchar2(1) := null;
   begin
 
-    select sla.sla_days_type
-    into v_SLA_days_type
-    from Rule_lkup_mng_enrl_sla sla
-    where sla_type = p_SLA_type
-    and newborn_flag = p_newborn_flag;
+    select SLA_DAYS_TYPE
+    into v_sla_days_type
+    from RULE_LKUP_MNG_ENRL_SLA
+    where SLA_TYPE = p_sla_type
+    and NEWBORN_FLAG = p_newborn_flag;
 
-     return v_SLA_days_type;
+    return v_sla_days_type;
+     
   end;
 
- function GET_ENRL_FEE_REQ
-    (p_ENROLL_FEE_AMNT_DUE in NUMBER)
-    return varchar2
-  AS
-    v_ENRL_FEE_REQ VARCHAR2(1);
-  BEGIN
 
-    select case when p_ENROLL_FEE_AMNT_DUE > 0 THEN 'Y'
-                WHEN p_ENROLL_FEE_AMNT_DUE >= 0 THEN 'N'
-           end
-     into v_ENRL_FEE_REQ
-     from dual;
+  function get_enrl_fee_req
+    (p_enroll_fee_amnt_due in number)
+    return varchar2 parallel_enable
+  as
+    v_enrl_fee_req varchar2(1);
+  begin
 
-     return v_ENRL_FEE_REQ;
-  END;
+    if p_enroll_fee_amnt_due > 0 then 
+      v_enrl_fee_req := 'Y';
+    elsif p_enroll_fee_amnt_due >= 0 then 
+      v_enrl_fee_req := 'N';
+    end if;
 
-function GET_DAYS_TO_AA
+    return v_enrl_fee_req;
+    
+  end;
+
+
+  function GET_DAYS_TO_AA
     (p_auto_assignment_due_date in date,
      p_create_dt in date)
-    return number
+    return number parallel_enable
   as
     v_days_to_aa number := null;
   begin
@@ -361,84 +365,96 @@ function GET_DAYS_TO_AA
 
     return trunc(v_days_to_aa);
   end;
-
+  
+  
   function GET_TIMELY_STATUS
-    (p_ASED          in DATE,
-     P_CREATE_DT     in DATE,
-     p_SLA_type      in varchar2,
-     p_newborn_flag  in varchar2
-     )
-    return varchar2
-  AS
-    v_AA_TIMELY_STATUS varchar2(10):=null;
-    v_SLA_days_type    varchar2(1) := null; 
-    v_SLA_days         number      := null;
+    (p_ased          in date,
+     p_create_dt     in date,
+     p_sla_type      in varchar2,
+     p_newborn_flag  in varchar2)
+    return varchar2 parallel_enable
+  as
+    v_aa_timely_status varchar2(10) := null;
+    v_sla_days_type    varchar2(1)  := null; 
+    v_sla_days         number       := null;
     
-  BEGIN
+  begin
     
-    v_SLA_days_type := GET_SLA_DAYS_TYPE(p_SLA_type, p_newborn_flag);
-    v_SLA_days      := GET_SLA_DAYS(p_SLA_type, p_newborn_flag);
+    v_sla_days_type := GET_SLA_DAYS_TYPE(p_sla_type,p_newborn_flag);
+    v_sla_days      := GET_SLA_DAYS(p_sla_type,p_newborn_flag);
 
-    select case when p_ASED is null then 'NA'
-                when p_ASED is not null and v_SLA_days_type = 'C' and (p_ASED-p_CREATE_DT) <= v_SLA_days then 'Timely'
-                when p_ASED is not null and v_SLA_days_type = 'B' and GET_AGE_IN_BUSINESS_DAYS(p_CREATE_DT, p_ASED) <= v_SLA_days then 'Timely'
-           else 'Untimely'
-           end
-      into v_AA_TIMELY_STATUS
-     from dual;
+    if p_ased is null then 
+      v_aa_timely_status := 'NA';
+    elsif p_ased is not null and v_sla_days_type = 'C' and trunc(p_ased - p_create_dt) <= v_sla_days then 
+      v_aa_timely_status := 'Timely';
+    elsif p_ased is not null and v_sla_days_type = 'B' and GET_AGE_IN_BUSINESS_DAYS(p_create_dt,p_ased) <= v_sla_days then 
+      v_aa_timely_status := 'Timely';
+    else 
+      v_aa_timely_status := 'Untimely';
+    end if;
 
-     return v_AA_TIMELY_STATUS;
-  END;
+    return v_aa_timely_status;
+    
+  end;
+
 
   function GET_FOLLOWUP_TYPE
-    (P_FOLLOWUP_TYPE_CODE     in varchar2)
-    return varchar2
-  AS
-    v_FOLLOWUP_TYPE varchar2(200);
-  BEGIN
+    (p_followup_type_code in varchar2)
+    return varchar2 result_cache parallel_enable
+  as
+    v_followup_type varchar2(200) := null;
+  begin
 
-     select case when P_FOLLOWUP_TYPE_CODE is not null
-                 then (select distinct FU.FOLLOWUP_TYPE
-                         from Rule_Lkup_Mng_Enrl_Followup FU
-                         where FU.FOLLOWUP_TYPE_CODE = P_FOLLOWUP_TYPE_CODE
-                         )
-                    else null end
-      into v_FOLLOWUP_TYPE
-      from dual;
+    if p_followup_type_code is not null then 
+   
+      select distinct FOLLOWUP_TYPE
+      into v_followup_type
+      from RULE_LKUP_MNG_ENRL_FOLLOWUP
+      where FOLLOWUP_TYPE_CODE = p_followup_type_code;
+     
+    else
+   
+      v_followup_type := null;
+     
+    end if;
 
-     return v_FOLLOWUP_TYPE;
-  END;
+    return v_followup_type;
+     
+  end;
+  
 
   function GET_ENRL_ACTIVITY_OUTCOME
    (p_cancel_dt     in date,
     p_complete_dt   in date,
     p_slct_method   in varchar,
-    p_cancel_reason in varchar
-    )
-    return varchar2
-   as
-     v_ENRL_ACTIVITY_OUTCOME varchar2(200) := null;
+    p_cancel_reason in varchar)
+    return varchar2 parallel_enable
+  as
+    v_enrl_activity_outcome varchar2(200) := null;
 
-   begin
-     select case when p_cancel_dt is null and p_complete_dt is not null and p_slct_method = 'Auto-Assigned' then 'Enrolled - AutoAssign'
-                 when p_cancel_dt is null and p_complete_dt is not null and p_slct_method in ('Phone','Mail','Fax','Online') then 'Enrolled - Selections Received'
-                 when p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'No longer eligible' then 'Loss of Eligibility'
-                 when p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'New Enrollment Packet Required' then 'New Packet Required'
-                 when p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'Failed to Pay' then 'Failed to Pay Enroll Fee'
-                 else null
-             end
-      into v_ENRL_ACTIVITY_OUTCOME
-      from dual;
+  begin
+    
+    if  p_cancel_dt is null and p_complete_dt is not null and p_slct_method = 'Auto-Assigned' then 
+      v_enrl_activity_outcome := 'Enrolled - AutoAssign';
+    elsif p_cancel_dt is null and p_complete_dt is not null and p_slct_method in ('Phone','Mail','Fax','Online') then 
+      v_enrl_activity_outcome := 'Enrolled - Selections Received';
+    elsif p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'No longer eligible' then 
+      v_enrl_activity_outcome := 'Loss of Eligibility';
+    elsif p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'New Enrollment Packet Required' then 
+      v_enrl_activity_outcome := 'New Packet Required';
+    elsif p_cancel_dt is not null and p_complete_dt is not null and p_cancel_reason = 'Failed to Pay' then 
+      v_enrl_activity_outcome := 'Failed to Pay Enroll Fee';
+    else 
+      v_enrl_activity_outcome := null;
+    end if;
 
-      return v_ENRL_ACTIVITY_OUTCOME;
-    end;
+    return v_enrl_activity_outcome;
+      
+  end;
 
 
--- Calculate column values in BPM Semantic table D_ME_CURRENT.
+  -- Calculate column values in BPM Semantic table D_ME_CURRENT.
   procedure CALC_DMECUR
-/*
-This procedure calculates the semantic layer attributes.
-*/
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'CALC_DMECUR';
     v_log_message clob := null;
@@ -446,8 +462,7 @@ This procedure calculates the semantic layer attributes.
     v_num_rows_updated number := null;
   begin
 
-
-update D_ME_CURRENT
+    update D_ME_CURRENT
     set
       Age_In_Business_Days          = GET_AGE_IN_BUSINESS_DAYS( create_dt, COMPLETE_DATE),
       Age_In_Calendar_Days          = GET_AGE_IN_CALENDAR_DAYS( create_dt, COMPLETE_DATE),
@@ -465,7 +480,8 @@ update D_ME_CURRENT
       FOURTH_FOLLOWUP_SLA_DAYS_TYPE = GET_SLA_DAYS_TYPE('FOURTH_FOLLOWUP',  NEWBORN_FLG),
       ENROLLMENT_FEE_REQUIRED       = GET_ENRL_FEE_REQ( ENROLL_FEE_AMNT_DUE),
       DAYS_TO_AUTO_ASSIGNMENT       = GET_Days_to_AA( AUTO_ASSIGNMENT_DUE_DATE, CREATE_DT)
-    where COMPLETE_DATE is null
+    where 
+      COMPLETE_DATE is null
       and CANCEL_ENROLL_ACTIVITY_DATE is null;
 
     v_num_rows_updated := sql%rowcount;

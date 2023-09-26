@@ -3,7 +3,20 @@
   <info>
     <name>Process_Letters_Get_Variables</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -135,7 +148,60 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input - LastLetterReq_ID</from><to>Set Variables - Max Letter_ReqID</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - LastLetterReq_ID</from><to>Set Variables - Max Letter_ReqID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup lm_letter_image_temp </from><to>Set Variables - Max Image Req</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Lookup lm_letter_image_temp </name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>select max(LMREQ_ID) Max_lmreqid_LLI
+from LM_LETTER_IMAGES_TEMP where IMAGE_RECEIVED_DATE  &gt; current_date - 7</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>310</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Variables - Max Image Req</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>MAX_LMREQID_LLI</field_name>
+        <variable_name>MAX_IMAGE_REQID</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value>-1</default_value>
+        </field>
+      </fields>
+    <use_formatting>N</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>570</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Set Variables - Max Letter_ReqID</name>
     <type>SetVariable</type>
@@ -157,8 +223,8 @@
     <use_formatting>N</use_formatting>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>630</xloc>
-      <yloc>270</yloc>
+      <xloc>570</xloc>
+      <yloc>110</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -187,8 +253,8 @@ WHERE Name = &apos;MAX_LETTERREQ_ID&apos;
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>375</xloc>
-      <yloc>270</yloc>
+      <xloc>310</xloc>
+      <yloc>110</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

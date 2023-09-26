@@ -1,0 +1,57 @@
+create table ERRLOG_LETTER
+(
+  ora_err_number$           NUMBER,
+  ora_err_mesg$             VARCHAR2(2000),
+  ora_err_rowid$            UROWID(4000),
+  ora_err_optyp$            VARCHAR2(2),
+  ora_err_tag$              VARCHAR2(2000),
+  dp_letter_request_id      VARCHAR2(4000),
+  letter_request_id         VARCHAR2(4000),
+  case_id                   VARCHAR2(4000),
+  lmdef_id                  VARCHAR2(4000),
+  requested_on              VARCHAR2(4000),
+  request_type              VARCHAR2(4000),
+  produced_by               VARCHAR2(4000),
+  language_cd               VARCHAR2(4000),
+  driver_type               VARCHAR2(4000),
+  status_cd                 VARCHAR2(4000),
+  rep_lmreq_id              VARCHAR2(4000),
+  sent_on                   VARCHAR2(4000),
+  created_by                VARCHAR2(4000),
+  create_ts                 VARCHAR2(4000),
+  updated_by                VARCHAR2(4000),
+  update_ts                 VARCHAR2(4000),
+  printed_on                VARCHAR2(4000),
+  staff_id_printed_by       VARCHAR2(4000),
+  note_refid                VARCHAR2(4000),
+  return_date               VARCHAR2(4000),
+  return_reason_cd          VARCHAR2(4000),
+  parent_lmreq_id           VARCHAR2(4000),
+  reprint_parent_lmreq_id   VARCHAR2(4000),
+  lmact_cd                  VARCHAR2(4000),
+  ldis_cd                   VARCHAR2(4000),
+  authorized_lmreq_id       VARCHAR2(4000),
+  error_codes               VARCHAR2(4000),
+  nmbr_requested            VARCHAR2(4000),
+  program_type_cd           VARCHAR2(4000),
+  material_request_id       VARCHAR2(4000),
+  mailing_address_id        VARCHAR2(4000),
+  response_due_date         VARCHAR2(4000),
+  mailed_date               VARCHAR2(4000),
+  reject_reason_cd          VARCHAR2(4000),
+  status_err_src            VARCHAR2(4000),
+  letter_out_generation_num VARCHAR2(4000),
+  portal_view_ind           VARCHAR2(4000),
+  is_digital_ind            VARCHAR2(4000),
+  dp_updated_by             VARCHAR2(4000),
+  dp_date_updated           VARCHAR2(4000),
+  dp_created_by             VARCHAR2(4000),
+  dp_date_created           VARCHAR2(4000)
+)
+;
+comment on table ERRLOG_LETTER
+  is 'DML Error Logging table for "D_LETTER_REQUEST"';
+grant select, insert, update on ERRLOG_LETTER to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on ERRLOG_LETTER to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on ERRLOG_LETTER to MAXDAT_MITRAN_READ_ONLY;
+

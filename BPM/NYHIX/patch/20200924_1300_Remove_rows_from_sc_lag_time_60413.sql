@@ -1,0 +1,4 @@
+DELETE FROM DP_SCORECARD.Sc_Lag_Time
+WHERE (AGENT_ID IN ('275107')
+AND TRUNC(LAG_DATE) in (to_date('09/08/2020','mm/dd/yyyy')));
+COMMIT;

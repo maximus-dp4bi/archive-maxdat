@@ -25,6 +25,7 @@
 			<font_object fo_type="UK Element" font_color="-16776961" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Not Null" font_color="-65536" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Key" font_color="-16777216" font_name="Dialog" font_size="10" font_style="0"/>
+			<font_object fo_type="Comments" font_color="-12566464" font_name="Dialog" font_size="10" font_style="0"/>
 		</fonts>
 		</fc_object>
 		<fc_object classname="Logical View" background="-25750" foreground="-16776961">
@@ -32,6 +33,7 @@
 			<font_object fo_type="Title" font_color="-16776961" font_name="Dialog" font_size="10" font_style="1"/>
 			<font_object fo_type="Attribute" font_color="-16777216" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Datatype" font_color="-16744448" font_name="Dialog" font_size="10" font_style="0"/>
+			<font_object fo_type="Comments" font_color="-12566464" font_name="Dialog" font_size="10" font_style="0"/>
 		</fonts>
 		</fc_object>
 		<fc_object classname="Table" background="-76" foreground="-16776961">
@@ -44,6 +46,7 @@
 			<font_object fo_type="UK Element" font_color="-16776961" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Not Null" font_color="-65536" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Key" font_color="-16777216" font_name="Dialog" font_size="10" font_style="0"/>
+			<font_object fo_type="Comments" font_color="-12566464" font_name="Dialog" font_size="10" font_style="0"/>
 		</fonts>
 		</fc_object>
 		<fc_object classname="Relational View" background="-6881386" foreground="-16776961">
@@ -51,6 +54,7 @@
 			<font_object fo_type="Title" font_color="-16776961" font_name="Dialog" font_size="10" font_style="1"/>
 			<font_object fo_type="Column" font_color="-16777216" font_name="Dialog" font_size="10" font_style="0"/>
 			<font_object fo_type="Datatype" font_color="-16744448" font_name="Dialog" font_size="10" font_style="0"/>
+			<font_object fo_type="Comments" font_color="-12566464" font_name="Dialog" font_size="10" font_style="0"/>
 		</fonts>
 		</fc_object>
 		<fc_object classname="Structured Type" background="-7537956" foreground="-16777216">
@@ -188,7 +192,9 @@
 			<ck value="{table}_CK"/>
 			<un value="{table}_{column}_UN"/>
 			<idx value="{table}_{column}_IDX"/>
+			<automatic_idx value="{table}_{column}_IDX"/>
 			<colck value="CK_{table}_{column}"/>
+			<colnnc value="NNC_{table abbr}_{column}"/>
 			<column_foreign_key value="{ref table}_{ref column}"/>
 			<ui value="{entity} PK"/>
 			<relation_attribute value="{ref entity}_{ref attribute}"/>
@@ -217,6 +223,7 @@
 		<entity_table>
 			<property name="Name" selected="true"/>
 			<property name="Short Name / Abbreviation" selected="true"/>
+			<property name="Deprecated" selected="true"/>
 			<property name="Comment" selected="true"/>
 			<property name="Comment in RDBMS" selected="true"/>
 			<property name="Notes" selected="true"/>
@@ -224,6 +231,7 @@
 			<property name="Table Type" selected="true"/>
 			<property name="Structured Type" selected="true"/>
 			<property name="Type Substitution (Super-Type Object)" selected="true"/>
+			<property name="Allow Type Substitution" selected="true"/>
 			<property name="Min Volumes" selected="true"/>
 			<property name="Expected Volumes" selected="true"/>
 			<property name="Max Volumes" selected="true"/>
@@ -234,6 +242,7 @@
 		</entity_table>
 		<attribute_column>
 			<property name="Name" selected="true"/>
+			<property name="Deprecated" selected="true"/>
 			<property name="Data Type" selected="true"/>
 			<property name="Data Type Kind" selected="true"/>
 			<property name="Mandatory" selected="true"/>
@@ -253,6 +262,7 @@
 		</attribute_column>
 		<key_index>
 			<property name="Name" selected="true"/>
+			<property name="Deprecated" selected="true"/>
 			<property name="Comment" selected="true"/>
 			<property name="Comment in RDBMS" selected="true"/>
 			<property name="Notes" selected="true"/>
@@ -266,12 +276,20 @@
 			<property name="Comment in RDBMS" selected="true"/>
 			<property name="Notes" selected="true"/>
 		</relation_fk>
-		<entityview_view>
+		<relation_table>
 			<property name="Name" selected="true"/>
 			<property name="Comment" selected="true"/>
 			<property name="Comment in RDBMS" selected="true"/>
 			<property name="Notes" selected="true"/>
+		</relation_table>
+		<entityview_view>
+			<property name="Name" selected="true"/>
+			<property name="Deprecated" selected="true"/>
+			<property name="Comment" selected="true"/>
+			<property name="Comment in RDBMS" selected="true"/>
+			<property name="Notes" selected="true"/>
 			<property name="Structured Type" selected="true"/>
+			<property name="Type Substitution (Super-Type Object)" selected="true"/>
 			<property name="WHERE" selected="true"/>
 			<property name="HAVING" selected="true"/>
 			<property name="User Defined SQL" selected="true"/>
@@ -279,41 +297,4 @@
 	</eng_compare>
 	<model_compare_props_filter>
 	</model_compare_props_filter>
-	<model_compare_storage_props_filter>
-	</model_compare_storage_props_filter>
-	<naming_options>
-		<model_options objectid="2769A820-5E35-5A5D-478A-41C1B8581727">
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Table" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Column" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.TableView" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Index" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-		</model_options>
-		<model_options objectid="33090178-9F96-49CD-8C2A-D7A8A23F7422">
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Table" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Column" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.TableView" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Index" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-		</model_options>
-		<model_options objectid="A82249F6-8F62-3186-4D09-73555F22795F">
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Table" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Column" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.TableView" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Index" max_name_length="30" case_type="2" valid_characters="null" all_valid="true" />
-		</model_options>
-		<model_options objectid="86279A55-43A2-AED9-AFCF-D209EF03E6DB">
-			<naming_option class_name="oracle.dbtools.crest.model.design.logical.Entity" max_name_length="254" case_type="2" valid_characters="" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.logical.Attribute" max_name_length="254" case_type="2" valid_characters="" all_valid="true" />
-			<naming_option class_name="oracle.dbtools.crest.model.design.logical.EntityView" max_name_length="254" case_type="2" valid_characters="" all_valid="true" />
-		</model_options>
-	</naming_options>
-	<merge_conflicts>
-	</merge_conflicts>
-	<deleted_files>
-	</deleted_files>
 </settings>

@@ -3,7 +3,20 @@
   <info>
     <name>monitor_CC_F_AGENT_BY_DATE</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+---------------------------------
+
+SVN_FILE_URL        = $URL$ 
+
+SVN_REVISION        = $Revision$ 
+
+SVN_REVISION_DATE   = $Date$
+
+SVN_REVISION_AUTHOR = $Author$
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -81,8 +94,8 @@
       <note>get source ACD_ACTIVITY</note>
       <xloc>558</xloc>
       <yloc>442</yloc>
-      <width>410</width>
-      <heigth>47</heigth>
+      <width>519</width>
+      <heigth>57</heigth>
       <fontname>Arial</fontname>
       <fontsize>25</fontsize>
       <fontbold>N</fontbold>
@@ -102,8 +115,8 @@
       <note>get staging data </note>
       <xloc>182</xloc>
       <yloc>888</yloc>
-      <width>106</width>
-      <heigth>25</heigth>
+      <width>136</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -123,8 +136,8 @@
       <note>get dimensional data</note>
       <xloc>182</xloc>
       <yloc>1050</yloc>
-      <width>130</width>
-      <heigth>25</heigth>
+      <width>167</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -144,8 +157,8 @@
       <note>test for ACD_ACTIVITY source to staging</note>
       <xloc>1017</xloc>
       <yloc>684</yloc>
-      <width>249</width>
-      <heigth>25</heigth>
+      <width>323</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -165,8 +178,8 @@
       <note>test for staging to dimensional</note>
       <xloc>1107</xloc>
       <yloc>1035</yloc>
-      <width>183</width>
-      <heigth>25</heigth>
+      <width>236</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -186,8 +199,8 @@
       <note>get source WORK_DAY</note>
       <xloc>2012</xloc>
       <yloc>353</yloc>
-      <width>362</width>
-      <heigth>47</heigth>
+      <width>458</width>
+      <heigth>57</heigth>
       <fontname>Arial</fontname>
       <fontsize>25</fontsize>
       <fontbold>N</fontbold>
@@ -217,8 +230,8 @@ Output:
 Some of the logic is exact copies of other source and staging transforms to facilitate comparison at the three levels</note>
       <xloc>0</xloc>
       <yloc>0</yloc>
-      <width>668</width>
-      <heigth>174</heigth>
+      <width>871</width>
+      <heigth>225</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -238,8 +251,8 @@ Some of the logic is exact copies of other source and staging transforms to faci
       <note>test for WORK_DAY source to staging</note>
       <xloc>4538</xloc>
       <yloc>1400</yloc>
-      <width>230</width>
-      <heigth>25</heigth>
+      <width>298</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -259,8 +272,8 @@ Some of the logic is exact copies of other source and staging transforms to faci
       <note>Convert local-time start&#47;end params to UCT</note>
       <xloc>1737</xloc>
       <yloc>652</yloc>
-      <width>261</width>
-      <heigth>25</heigth>
+      <width>338</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -280,8 +293,8 @@ Some of the logic is exact copies of other source and staging transforms to faci
       <note>Remove param-based DST Start&#47;End fields</note>
       <xloc>2481</xloc>
       <yloc>652</yloc>
-      <width>260</width>
-      <heigth>25</heigth>
+      <width>337</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -302,8 +315,8 @@ Some of the logic is exact copies of other source and staging transforms to faci
 data run through the staging logic for comparison</note>
       <xloc>3214</xloc>
       <yloc>122</yloc>
-      <width>597</width>
-      <heigth>72</heigth>
+      <width>727</width>
+      <heigth>86</heigth>
       <fontname>Arial</fontname>
       <fontsize>20</fontsize>
       <fontbold>N</fontbold>
@@ -412,24 +425,33 @@ data run through the staging logic for comparison</note>
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -456,13 +478,13 @@ data run through the staging logic for comparison</note>
   </connection>
   <connection>
     <name>MOTS</name>
-    <server/>
+    <server>${DB_MOTS_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MOTS_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -470,10 +492,114 @@ data run through the staging logic for comparison</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYHXMXP</name>
+    <server>nyhxmxp.maximus.com</server>
+    <type>ORACLE</type>
+    <access>ODBC</access>
+    <database>NYHXMXP</database>
+    <port>1557</port>
+    <username>lg74078</username>
+    <password>Encrypted 2be98afc86aa7f2e4a81da6699ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ETK_MAXIMUS_WC_PROD2;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TESTLOCALCO</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>TESTLOCALCO</database>
+    <port>1521</port>
+    <username>system</username>
+    <password>Encrypted 2be98afc86aa7c1a3ae14bd45cd97bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -6405,6 +6531,43 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
     </step>
 
   <step>
+    <name>Sort rows 15</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>STAFF_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>WORK_DATE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4025</xloc>
+      <yloc>532</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Sort rows 2</name>
     <type>SortRows</type>
     <description/>
@@ -7041,43 +7204,6 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>3198</xloc>
       <yloc>312</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort rows 15</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>STAFF_ID</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-      <field>
-        <name>WORK_DATE</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>4025</xloc>
-      <yloc>532</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

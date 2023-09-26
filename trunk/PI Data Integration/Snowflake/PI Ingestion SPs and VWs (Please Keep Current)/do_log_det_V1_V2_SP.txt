@@ -1,0 +1,25 @@
+CREATE or replace PROCEDURE do_log_det(PROJECTID STRING, OBJECT_CATEGORY STRING, OBJECT_NAME STRING, STATUS_STRING STRING, MSG STRING)
+ RETURNS STRING
+ LANGUAGE JAVASCRIPT
+ EXECUTE AS CALLER
+AS 
+$$
+
+ //see if we should log - checks for do_log = true session variable
+ try{
+    var foo = snowflake.createStatement( { sqlText: `select $do_log` } ).execute();
+ } catch (ERROR){
+    return; //swallow the error, variable not set so don't log
+ }
+ foo.next();
+ if (foo.getColumnValue(1)==true){ //if the value is anything other than true, don't log
+    try{
+        snowflake.createStatement( { sqlText: `create table identifier ($log_table) if not exists (ts number, projectid string, object_category string, object_name string, status_string string, msg string)`} ).execute();
+        snowflake.createStatement( { sqlText: `insert into identifier ($log_table) values (:1, :2, :3, :4, :5, :6)`, binds:[Date.now(), PROJECTID, OBJECT_CATEGORY, OBJECT_NAME, STATUS_STRING, MSG] } ).execute();
+    } catch (ERROR){
+        throw ERROR;
+    }
+ }
+ 
+ $$
+;

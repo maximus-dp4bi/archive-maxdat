@@ -1,0 +1,34 @@
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set CANCEL_DT  = to_date('12/08/2017', 'mm/dd/yyyy') 
+,CANCEL_BY = ' NYHIX-36652' 
+,CANCEL_REASON = 'Inactivated' 
+,CANCEL_METHOD = 'Exception' 
+,INSTANCE_STATUS = 'Complete' 
+,INSTANCE_END_DATE = to_date('12/08/2017', 'mm/dd/yyyy')
+,STG_DONE_DATE = to_date('12/08/2017', 'mm/dd/yyyy') 
+where dcn in  ('16406942','16406943'
+'16406944',
+'16406945',
+'16407119',
+'16407120',
+'16407349',
+'16407350',
+'16407351',
+'16407352',
+'16407353',
+'16407354',
+'16407355',
+'16407356',
+'16407357',
+'16407358',
+'16407359',
+'16407360',
+'16407361',
+'16407362',
+'16407363',
+'16407364',
+'16407365',
+'16407366',
+'16407367',
+'16407368');
+commit;

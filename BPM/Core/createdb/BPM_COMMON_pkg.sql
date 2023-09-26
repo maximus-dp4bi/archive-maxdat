@@ -24,25 +24,25 @@ create or replace package BPM_COMMON as
   function BUS_DAYS_BETWEEN
     (p_start_date in date,
      p_end_date in date)
-    return integer;
+    return integer parallel_enable;
      
   function CLEAN_PARAMETER
     (p_parameter_value in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable;
 
-  function GET_DATE_FMT return varchar2;
+  function GET_DATE_FMT return varchar2 parallel_enable;
      
-  function GET_MAX_DATE return date;
+  function GET_MAX_DATE return date parallel_enable;
    
   function GET_WEEKDAY
     (p_start_date in date, 
      p_days2add in number := 0) 
-    return date;
+    return date parallel_enable;
      
   function GET_BUS_DATE
     (p_start_date in date,
      p_number_days in number := 0)
-    return date;
+    return date parallel_enable;
     
   procedure LOGGER
     (p_log_level in varchar2,
@@ -88,7 +88,7 @@ create or replace package body BPM_COMMON as
   function BUS_DAYS_BETWEEN
     (p_start_date in date,
      p_end_date in date)
-    return integer
+    return integer parallel_enable
   as
   begin
     return ETL_COMMON.BUS_DAYS_BETWEEN(p_start_date,p_end_date);
@@ -156,7 +156,7 @@ create or replace package body BPM_COMMON as
   -- Clean parameter to avoid SQL injection.
   function CLEAN_PARAMETER
     (p_parameter_value in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'CLEAN_PARAMETER';
     v_sql_code number := null;
@@ -183,7 +183,7 @@ create or replace package body BPM_COMMON as
   
 
   -- Get standard data format.
-  function GET_DATE_FMT return varchar2
+  function GET_DATE_FMT return varchar2 parallel_enable
   as
   begin
     return DATE_FMT;
@@ -191,7 +191,7 @@ create or replace package body BPM_COMMON as
 
 
   -- Get maximum date for BPM Event data.
-  function GET_MAX_DATE return date
+  function GET_MAX_DATE return date parallel_enable
   as
   begin
     return MAX_DATE;
@@ -202,7 +202,7 @@ create or replace package body BPM_COMMON as
   function GET_WEEKDAY
     (p_start_date in date, 
      p_days2add in number) 
-    return date
+    return date parallel_enable
   as
   begin
     return ETL_COMMON.GET_WEEKDAY(p_start_date,p_days2add);
@@ -213,7 +213,7 @@ create or replace package body BPM_COMMON as
   function GET_BUS_DATE
     (p_start_date in date,
      p_number_days in number)
-    return date
+    return date parallel_enable
   as
   begin
     return ETL_COMMON.GET_BUS_DATE(p_start_date,p_number_days);

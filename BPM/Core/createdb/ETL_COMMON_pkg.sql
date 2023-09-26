@@ -11,27 +11,27 @@ create or replace package ETL_COMMON as
   function BUS_DAYS_BETWEEN
     (p_start_date in date,
      p_end_date in date)
-    return integer;
+    return integer parallel_enable;
    
   function GET_WEEKDAY
     (p_start_date in date, 
      p_days2add in number) 
-    return date;
+    return date parallel_enable;
      
   function GET_BUS_DATE
     (p_start_date in date,
      p_number_days in number)
-    return date;
+    return date parallel_enable;
     
   function GET_INLIST_STR2
     (p_task_type in varchar2,
      p_list_type in varchar2)
-    return varchar2 result_cache;
+    return varchar2 parallel_enable result_cache;
     
   function GET_INLIST_STR3
     (p_name in varchar2,
      p_list_type in varchar2)
-    return varchar2 result_cache;
+    return varchar2 parallel_enable result_cache;
   
 end;
 /
@@ -43,7 +43,7 @@ create or replace package body ETL_COMMON as
   function BUS_DAYS_BETWEEN
     (p_start_date in date,
      p_end_date in date)
-    return integer
+    return integer parallel_enable
   as
     v_num_days integer := 0;
     v_from_date date := null;
@@ -80,7 +80,7 @@ create or replace package body ETL_COMMON as
   function GET_WEEKDAY
     (p_start_date in date, 
      p_days2add in number) 
-    return date 
+    return date parallel_enable 
   as
     v_counter      natural := 0;
     v_curdate      date := p_start_date;
@@ -115,7 +115,7 @@ create or replace package body ETL_COMMON as
   function GET_BUS_DATE
     (p_start_date in date,
      p_number_days in number)
-    return date
+    return date parallel_enable
   as
     v_weekdate date := null;
    -- v_loop number := 0;
@@ -171,7 +171,7 @@ create or replace package body ETL_COMMON as
   function GET_INLIST_STR2
     (p_task_type in varchar2,
      p_list_type in varchar2)
-    return varchar2 result_cache
+    return varchar2 parallel_enable result_cache
   as
     v_list varchar2(4000) := null;
     v_first varchar2(1) := 'Y';
@@ -210,7 +210,7 @@ create or replace package body ETL_COMMON as
   function GET_INLIST_STR3
     (p_name in varchar2,
      p_list_type in varchar2)
-    return varchar2 result_cache
+    return varchar2 parallel_enable result_cache
   as
     v_list varchar2(4000) := null;
     v_first varchar2(1) := 'Y';

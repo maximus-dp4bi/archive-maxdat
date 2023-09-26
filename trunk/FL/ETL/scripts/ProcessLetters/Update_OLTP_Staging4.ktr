@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Staging4</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -146,13 +159,14 @@
            <schema_name/>
            </partitioning>
     <connection>LETTERS_SOURCE</connection>
-    <rowlimit>0</rowlimit>
+    <rowlimit>1</rowlimit>
     <sql>SELECT 
 	STATUS as CUR_STATUS,
 	STATUS_DATE as CUR_STATUS_DATE 
 FROM  LM_LTR_RQST_STATUSES 
-WHERE STATUS = &apos;MLD&apos; AND LMREQ_ID = ?</sql>
-    <outer_join>N</outer_join>
+WHERE LMREQ_ID = ?
+ORDER BY STATUS_DATE DESC</sql>
+    <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
@@ -162,8 +176,8 @@ WHERE STATUS = &apos;MLD&apos; AND LMREQ_ID = ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>463</xloc>
-      <yloc>104</yloc>
+      <xloc>460</xloc>
+      <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -182,7 +196,7 @@ WHERE STATUS = &apos;MLD&apos; AND LMREQ_ID = ?</sql>
     <sql>SELECT 
 	
 &apos;PROCESSLETTERS&apos; AS PROCESS_NAME,
-&apos;UPDATE_OLTP_STAGING2&apos; AS JOB_NAME,
+&apos;UPDATE_OLTP_STAGING4&apos; AS JOB_NAME,
 &apos;FLHK_ETL_PROCESS_LETTERS&apos; AS DRIVER_TABLE_NAME,
 SYSDATE AS ERR_DATE,
 &apos;CRITICAL&apos; AS ERR_LEVEL,
@@ -198,8 +212,8 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>194</xloc>
-      <yloc>104</yloc>
+      <xloc>180</xloc>
+      <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -217,7 +231,7 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
     <connection>MAXDAT</connection>
     <schema/>
     <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
+    <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>N</use_batch>
@@ -326,7 +340,7 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>730</xloc>
-      <yloc>104</yloc>
+      <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -340,7 +354,7 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
+        <max_errors>1000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
       </error>

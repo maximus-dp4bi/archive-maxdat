@@ -1,0 +1,26 @@
+use schema ineo;
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_training_staff_roster_history;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_STAFF_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_active_training_staff_roster;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_NEWHIRE_EXAM_TRACKER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_training_newhire_exam_tracker_history;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_NEWHIRE_EXAM_TRACKER_SV
+AS
+SELECT * FROM ineo.ineo_active_training_newhire_exam_tracker;
+
+CREATE OR REPLACE VIEW INEO_D_TRAINING_NEWHIRE_CLASS_TRACKER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_training_newhire_class_tracker_history;
+
+CREATE OR REPLACE VIEW INEO_D_TRAINING_NEWHIRE_CLASS_TRACKER_SV
+AS
+SELECT * FROM ineo.ineo_training_newhire_class_tracker;
+
+

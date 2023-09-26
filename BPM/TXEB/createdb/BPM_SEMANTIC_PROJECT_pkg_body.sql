@@ -35,6 +35,8 @@ package body BPM_SEMANTIC_PROJECT as
       CLIENT_OUTREACH.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);
     elsif p_bueq_row.BSL_ID = 17 then 
       COMMUNITY_OUTREACH.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);
+    elsif p_bueq_row.BSL_ID = 26 then 
+      CHIP_ELIG_EVENTS.INSERT_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.NEW_DATA);  
     else
       v_log_message := 'Unexpected BPM_UPDATE_EVENT_QUEUE.BSL_ID value "' || p_bueq_row.BSL_ID || '" in procedure ' || v_procedure_name || '.';
       v_error_number := -20012;
@@ -74,6 +76,8 @@ package body BPM_SEMANTIC_PROJECT as
       CLIENT_OUTREACH.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);
     elsif p_bueq_row.BSL_ID = 17 then 
       COMMUNITY_OUTREACH.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);
+      elsif p_bueq_row.BSL_ID = 26 then 
+      CHIP_ELIG_EVENTS.UPDATE_BPM_SEMANTIC(p_bueq_row.DATA_VERSION,p_bueq_row.OLD_DATA,p_bueq_row.NEW_DATA);
     else
       v_log_message := 'Unexpected BPM_UPDATE_EVENT_QUEUE.BSL_ID value "' || p_bueq_row.BSL_ID || '" in procedure ' || v_procedure_name || '.';
       v_error_number := -20012;

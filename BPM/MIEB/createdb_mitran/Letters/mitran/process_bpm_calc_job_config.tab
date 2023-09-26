@@ -1,0 +1,15 @@
+create table PROCESS_BPM_CALC_JOB_CONFIG
+(
+  pbcjc_id        NUMBER not null,
+  package_name    VARCHAR2(30) not null,
+  procedure_name  VARCHAR2(30) not null,
+  process_enabled VARCHAR2(1) not null
+)
+;
+create unique index PBCJC_UX1 on PROCESS_BPM_CALC_JOB_CONFIG (PACKAGE_NAME, PROCEDURE_NAME);
+alter table PROCESS_BPM_CALC_JOB_CONFIG
+  add constraint PBCJC_PK primary key (PBCJC_ID);
+grant select, insert, update on PROCESS_BPM_CALC_JOB_CONFIG to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on PROCESS_BPM_CALC_JOB_CONFIG to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on PROCESS_BPM_CALC_JOB_CONFIG to MAXDAT_MITRAN_READ_ONLY;
+

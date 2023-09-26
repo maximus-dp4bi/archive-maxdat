@@ -1,0 +1,5 @@
+#DCHIX8
+21,31 * * * * bash /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+00 02 * * * find /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+0 10 * * * /u01/maximus/maxdat-prd/DCHIX8/scripts/purge_logs.sh

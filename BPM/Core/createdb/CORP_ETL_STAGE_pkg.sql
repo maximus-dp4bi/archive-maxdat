@@ -3,9 +3,9 @@ alter session set plsql_code_type = native;
 create or replace package corp_etl_stage_pkg is
 
   -- Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
- 	SVN_FILE_URL varchar2(200) := '$URL$'; 
+  SVN_FILE_URL varchar2(200) := '$URL$'; 
   SVN_REVISION varchar2(20) := '$Revision$'; 
- 	SVN_REVISION_DATE varchar2(60) := '$Date$'; 
+  SVN_REVISION_DATE varchar2(60) := '$Date$'; 
   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
 
   con_pkg    CONSTANT  VARCHAR2(30) := $$PLSQL_UNIT;
@@ -63,7 +63,7 @@ create or replace package corp_etl_stage_pkg is
 
   FUNCTION get_task_status_order
   (in_status IN VARCHAR2)
-  RETURN INTEGER;
+  RETURN INTEGER parallel_enable;
 
 end corp_etl_stage_pkg;
 /
@@ -188,7 +188,7 @@ CREATE OR REPLACE PACKAGE BODY corp_etl_stage_pkg IS
 
   FUNCTION get_task_status_order
   (in_status IN VARCHAR2)
-  RETURN INTEGER
+  RETURN INTEGER parallel_enable
   AS
     a INTEGER := 0;
     CURSOR crs_lkup

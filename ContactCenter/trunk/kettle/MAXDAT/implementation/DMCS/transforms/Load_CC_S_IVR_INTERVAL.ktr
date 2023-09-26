@@ -3,7 +3,20 @@
   <info>
     <name>Load_CC_S_IVR_INTERVAL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -71,8 +84,8 @@
       <note>Using JNDI</note>
       <xloc>46</xloc>
       <yloc>18</yloc>
-      <width>76</width>
-      <heigth>25</heigth>
+      <width>96</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -111,10 +124,10 @@ Steps:
 8. Insert &#47; Update - Inserts the IVR_INTERVAL data into the CC_S_IVR_INTERVAL staging table
 
 *Consider replacing this with a lookup in the configuration file</note>
-      <xloc>59</xloc>
-      <yloc>252</yloc>
-      <width>971</width>
-      <heigth>339</heigth>
+      <xloc>0</xloc>
+      <yloc>221</yloc>
+      <width>1266</width>
+      <heigth>440</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -202,11 +215,11 @@ Steps:
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <server/>
     <type>ORACLE</type>
     <access>Native</access>
     <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
+    <port>1521</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
@@ -223,7 +236,7 @@ Steps:
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
@@ -348,7 +361,7 @@ Steps:
     </attributes>
   </connection>
   <order>
-  <hop> <from>Add constants</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Set metrics to 0 if null</to><enabled>Y</enabled> </hop>  <hop> <from>Set metrics to 0 if null</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Get Rows from Result</from><to>Database lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CSV file input</from><to>Database lookup</to><enabled>N</enabled> </hop>  </order>
+  <hop> <from>Add constants</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Set metrics to 0 if null</to><enabled>Y</enabled> </hop>  <hop> <from>Set metrics to 0 if null</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Get Rows from Result</from><to>Database lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CSV file input</from><to>Database lookup</to><enabled>N</enabled> </hop>  <hop> <from>Insert &#47; Update</from><to>Text file output</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants</name>
     <type>Constant</type>
@@ -371,296 +384,22 @@ Steps:
         <length>-1</length>
         <precision>-1</precision>
       </field>
+      <field>
+        <name>median_time_in_the_ivr</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>526</xloc>
       <yloc>68</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Rows from Result</name>
-    <type>RowsFromResult</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>      <field>        <name>IVR_INTERVAL_ID</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        </field>      <field>        <name>INTERVAL_ID</name>
-        <type>Date</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        </field>      <field>        <name>INTERVAL_DATE</name>
-        <type>Date</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        </field>      <field>        <name>CONTACTS_CREATED</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>CONTACTS_OFFERED_TO_ACD</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>CONTACTS_CONTAINED_IN_IVR</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>MIN_TIME_IN_THE_IVR</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>MAX_TIME_IN_THE_IVR</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>MEAN_TIME_IN_THE_IVR</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>MEDIAN_TIME_IN_THE_IVR</name>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      <field>        <name>STDDEV_TIME_IN_THE_IV</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>15</precision>
-        </field>      </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>290</xloc>
-      <yloc>70</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Insert &#47; Update</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>CC_S_IVR_INTERVAL</table>
-      <key>
-        <name>INTERVAL_DATE</name>
-        <field>INTERVAL_DATE</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>DB_INTERVAL_ID</name>
-        <field>INTERVAL_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>const_project_config_id</name>
-        <field>PROJECT_CONFIG_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>INTERVAL_DATE</name>
-        <rename>INTERVAL_DATE</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>CONTACTS_CREATED</name>
-        <rename>CONTACTS_CREATED</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>CONTACTS_OFFERED_TO_ACD</name>
-        <rename>CONTACTS_OFFERED_TO_ACD</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>CONTACTS_CONTAINED_IN_IVR</name>
-        <rename>CONTACTS_CONTAINED_IN_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>MIN_TIME_IN_THE_IVR</name>
-        <rename>MIN_TIME_IN_THE_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>MAX_TIME_IN_THE_IVR</name>
-        <rename>MAX_TIME_IN_THE_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>MEAN_TIME_IN_THE_IVR</name>
-        <rename>MEAN_TIME_IN_THE_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>MEDIAN_TIME_IN_THE_IVR</name>
-        <rename>MEDIAN_TIME_IN_THE_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>STDDEV_TIME_IN_THE_IVR</name>
-        <rename>STDDEV_TIME_IN_THE_IVR</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>INTERVAL_ID</name>
-        <rename>DB_INTERVAL_ID</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>PROJECT_CONFIG_ID</name>
-        <rename>const_project_config_id</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>862</xloc>
-      <yloc>75</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set metrics to 0 if null</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>CONTACTS_CREATED</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>CONTACTS_OFFERED_TO_ACD</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>CONTACTS_CONTAINED_IN_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>MIN_TIME_IN_THE_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>MAX_TIME_IN_THE_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>MEAN_TIME_IN_THE_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>MEDIAN_TIME_IN_THE_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      <field>
-        <name>STDDEV_TIME_IN_THE_IVR</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>745</xloc>
-      <yloc>72</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <loglevel>log_level_debug</loglevel>
-      <displayHeader>Y</displayHeader>
-      <logmessage>load_ivr_interval</logmessage>
-    <fields>
-      <field>
-        <name>IVR_INTERVAL_ID</name>
-        </field>
-      <field>
-        <name>INTERVAL_DATE</name>
-        </field>
-      <field>
-        <name>CONTACTS_CREATED</name>
-        </field>
-      <field>
-        <name>CONTACTS_OFFERED_TO_ACD</name>
-        </field>
-      <field>
-        <name>CONTACTS_CONTAINED_IN_IVR</name>
-        </field>
-      <field>
-        <name>MIN_TIME_IN_THE_IVR</name>
-        </field>
-      <field>
-        <name>MAX_TIME_IN_THE_IVR</name>
-        </field>
-      <field>
-        <name>MEAN_TIME_IN_THE_IVR</name>
-        </field>
-      <field>
-        <name>STDDEV_TIME_IN_THE_IVR</name>
-        </field>
-      <field>
-        <name>EXTRACT_DT</name>
-        </field>
-      <field>
-        <name>DB_INTERVAL_ID</name>
-        </field>
-      <field>
-        <name>const_project_config_id</name>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>630</xloc>
-      <yloc>73</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -856,6 +595,348 @@ Steps:
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>424</xloc>
       <yloc>72</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Rows from Result</name>
+    <type>RowsFromResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>IVR_INTERVAL_ID</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        </field>      <field>        <name>INTERVAL_ID</name>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        </field>      <field>        <name>INTERVAL_DATE</name>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        </field>      <field>        <name>CONTACTS_CREATED</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>CONTACTS_OFFERED_TO_ACD</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>CONTACTS_CONTAINED_IN_IVR</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>MIN_TIME_IN_THE_IVR</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>MAX_TIME_IN_THE_IVR</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>MEAN_TIME_IN_THE_IVR</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      <field>        <name>STDDEV_TIME_IN_THE_IV</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>15</precision>
+        </field>      </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>290</xloc>
+      <yloc>70</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>CC_S_IVR_INTERVAL</table>
+      <key>
+        <name>INTERVAL_DATE</name>
+        <field>INTERVAL_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>DB_INTERVAL_ID</name>
+        <field>INTERVAL_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>const_project_config_id</name>
+        <field>PROJECT_CONFIG_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>INTERVAL_DATE</name>
+        <rename>INTERVAL_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>CONTACTS_CREATED</name>
+        <rename>CONTACTS_CREATED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_OFFERED_TO_ACD</name>
+        <rename>CONTACTS_OFFERED_TO_ACD</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_CONTAINED_IN_IVR</name>
+        <rename>CONTACTS_CONTAINED_IN_IVR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MIN_TIME_IN_THE_IVR</name>
+        <rename>MIN_TIME_IN_THE_IVR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MAX_TIME_IN_THE_IVR</name>
+        <rename>MAX_TIME_IN_THE_IVR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEAN_TIME_IN_THE_IVR</name>
+        <rename>MEAN_TIME_IN_THE_IVR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEDIAN_TIME_IN_THE_IVR</name>
+        <rename>median_time_in_the_ivr</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>STDDEV_TIME_IN_THE_IVR</name>
+        <rename>STDDEV_TIME_IN_THE_IVR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>INTERVAL_ID</name>
+        <rename>DB_INTERVAL_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>PROJECT_CONFIG_ID</name>
+        <rename>const_project_config_id</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>862</xloc>
+      <yloc>75</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set metrics to 0 if null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>CONTACTS_CREATED</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>CONTACTS_OFFERED_TO_ACD</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>CONTACTS_CONTAINED_IN_IVR</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>MIN_TIME_IN_THE_IVR</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>MAX_TIME_IN_THE_IVR</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>MEAN_TIME_IN_THE_IVR</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>STDDEV_TIME_IN_THE_IVR</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>745</xloc>
+      <yloc>72</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_debug</loglevel>
+      <displayHeader>Y</displayHeader>
+      <logmessage>load_ivr_interval</logmessage>
+    <fields>
+      <field>
+        <name>IVR_INTERVAL_ID</name>
+        </field>
+      <field>
+        <name>INTERVAL_DATE</name>
+        </field>
+      <field>
+        <name>CONTACTS_CREATED</name>
+        </field>
+      <field>
+        <name>CONTACTS_OFFERED_TO_ACD</name>
+        </field>
+      <field>
+        <name>CONTACTS_CONTAINED_IN_IVR</name>
+        </field>
+      <field>
+        <name>MIN_TIME_IN_THE_IVR</name>
+        </field>
+      <field>
+        <name>MAX_TIME_IN_THE_IVR</name>
+        </field>
+      <field>
+        <name>MEAN_TIME_IN_THE_IVR</name>
+        </field>
+      <field>
+        <name>STDDEV_TIME_IN_THE_IVR</name>
+        </field>
+      <field>
+        <name>EXTRACT_DT</name>
+        </field>
+      <field>
+        <name>DB_INTERVAL_ID</name>
+        </field>
+      <field>
+        <name>const_project_config_id</name>
+        </field>
+      <field>
+        <name>median_time_in_the_ivr</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>630</xloc>
+      <yloc>73</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Text file output</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <separator>;</separator>
+    <enclosure>&quot;</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>N</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>N</create_parent_folder>
+    <file>
+      <name>${cc.project.completedFiles.directory}&#47;Date_Range</name>
+      <is_command>N</is_command>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>Y</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>Y</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>INTERVAL_DATE</name>
+        <type>Date</type>
+        <format>yyyy&#47;MM&#47;dd</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1024</xloc>
+      <yloc>73</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

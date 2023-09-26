@@ -1,0 +1,17 @@
+create table D_PROJECT
+(
+  project_code     VARCHAR2(32) not null,
+  project_name     VARCHAR2(240),
+  report_label     VARCHAR2(100),
+  project_category VARCHAR2(240),
+  active_inactive  VARCHAR2(1),
+  start_date       DATE,
+  end_date         DATE
+)
+;
+alter table D_PROJECT
+  add constraint PROJTYPE_PK primary key (PROJECT_CODE);
+grant select, insert, update on D_PROJECT to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on D_PROJECT to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on D_PROJECT to MAXDAT_MITRAN_READ_ONLY;
+

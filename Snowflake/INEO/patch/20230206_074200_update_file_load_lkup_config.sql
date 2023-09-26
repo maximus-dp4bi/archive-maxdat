@@ -1,0 +1,20 @@
+
+ INSERT INTO file_load_lkup(filename_prefix,full_load_table_name,full_load_table_schema,insert_fields,select_fields,where_clause,load_file,derive_timestamp_stmt,file_day_received,current_table_name,current_table_primary_key,full_load_table_primary_key) 
+ VALUES('WMST_TASKCOMPLETIONTIMELINESSREPORTDAILY','INEO_WMST_TASK_COMPLETION_TIMELINESS_REPORT_DAILY_HISTORY','INEO',
+'date,user_id,first_name,last_name,user_group,org_name,filename,reference_number,reference_type,task_sequence_number,metric_description,work_queue_name,task_create_date,task_completed_date,calendar_days,business_days,metric_1_performance_completed_within_days,metric_1_derivation_processed_timely,metric_2_performance_completed_within_days,metric_2_derivation_processed_timely,primary_office_location_id,primary_office_location_name',
+'try_cast(date as date),userid,firstname,lastname,usergroup,orgname,filename,reference_number,reference_type,task_sequence_number,metric_description,work_queue_name,try_cast(task_create_date as date),try_cast(task_completed_date as date),try_cast(calendar_days as integer),try_cast(business_days as integer),try_cast(metric_1___performance_completed_within_days as integer),metric_1___derivation_processed_timely,try_cast(metric_2___performance_completed_within_days as integer),metric_2___derivation_processed_timely,primary_office_locationid,primary_office_location_name',
+'WHERE 1=1',
+'Y',
+'SELECT TO_CHAR(TO_TIMESTAMP(TRIM(SUBSTR(<filename>,LENGTH(<filename>)-13)),''yyyymmddhh24miss''),''mm/dd/yyyy hh24:mi:ss'') file_date,''Y'' with_timestamp FROM dual',
+'PREVIOUS_BUSINESS_DAY',
+null,null,'WMST_TASK_COMPLETION_TIMELINESS_REPORT_DAILY_HISTORY_ID');
+
+ INSERT INTO file_load_lkup(filename_prefix,full_load_table_name,full_load_table_schema,insert_fields,select_fields,where_clause,load_file,derive_timestamp_stmt,file_day_received,current_table_name,current_table_primary_key,full_load_table_primary_key) 
+ VALUES('REGIONALSTAFFROSTER','INEO_REGIONAL_STAFF_ROSTER_HISTORY','INEO',
+'region,department,supervisor,qisc,manager,psid,filename,regions_supporting,time_zone,employee_id,employee_name,maximus_email,position_title,work_group,training_status,employee_status,transition_team_lead,regional_team_leads,regional_supervisors,qi_supervisor,sr_operations_manager,hr_specialist,agency_hire_date,conversion_date,maximus_hire_date,term_date,training_class_id,nesting_start_date,nesting_end_date,previous_stateconduent_employee,incumbent_transition,employee_type,staffing_agency,fssa_id,fssa_email,genesys_i3_id,attendance_status,attendance_status_date,attendance_status_time,attendance_points_accrued,shift_start_time,break_1_time,lunch_start_time,lunch_end_time,break_2_time,shift_end_time,shift_schedule_week_starting,open_corrective_actions,closed_corrective_actions',
+'region,department,supervisor,qisc,manager,psid,filename,regions_supporting,time_zone,employee_id,employee_name,maximus_email,position_title,work_group,training_status,employee_status,transition_team_lead,regional_team_leads,regional_supervisors,qi_supervisor,sr_operations_manager,hr_specialist,try_to_date(agency_hire_date,''mm/dd/yy''),try_to_date(conversion_date,''mm/dd/yy''),try_to_date(maximus_hire_date,''mm/dd/yy''),try_to_date(term_date,''mm/dd/yy''),training_class_id,try_to_date(nesting_start_date,''mm/dd/yy''),try_to_date(nesting_end_date,''mm/dd/yy''),previous_stateconduent_employee,incumbent_transition,employee_type,staffing_agency,fssa_id,fssa_email,genesys_i3_id,attendance_status,try_to_date(attendance_status_date,''mm/dd/yy''),attendance_status_time,try_cast(attendance_points_accrued as float),shift_start_time,break_1_time,lunch_start_time,lunch_end_time,break_2_time,shift_end_time,shift_schedule_week_starting,open_corrective_actions,closed_corrective_actions',
+'WHERE 1=1',
+'Y',
+'SELECT TO_CHAR(TO_TIMESTAMP(TRIM(SUBSTR(<filename>,LENGTH(<filename>)-13)),''yyyymmddhh24miss''),''mm/dd/yyyy hh24:mi:ss'') file_date,''Y'' with_timestamp FROM dual',
+'PREVIOUS_BUSINESS_DAY',
+null,null,'REGIONAL_STAFF_ROSTER_HISTORY_ID');

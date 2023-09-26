@@ -1,0 +1,79 @@
+create table DOCUMENT_STG_BKP as 
+select * from DOCUMENT_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym DOCUMENT_STG_BKP for DOCUMENT_STG_BKP;
+
+Grant select on DOCUMENT_STG_BKP to MAXDAT_READ_ONLY;
+
+create table APP_DOC_DATA_STG_BKP as
+select * from APP_DOC_DATA_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym APP_DOC_DATA_STG_BKP  for APP_DOC_DATA_STG_BKP ;
+
+Grant select on APP_DOC_DATA_STG_BKP to MAXDAT_READ_ONLY;
+
+create table APP_DOC_TRACKER_STG_BKP as
+select * from APP_DOC_TRACKER_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym APP_DOC_TRACKER_STG_BKP for APP_DOC_TRACKER_STG_BKP;
+
+Grant select on APP_DOC_TRACKER_STG_BKP to MAXDAT_READ_ONLY;
+
+create table APP_DOC_DATA_EXT_STG_BKP as 
+select * from APP_DOC_DATA_EXT_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym APP_DOC_DATA_EXT_STG_BKP for APP_DOC_DATA_EXT_STG_BKP;
+
+Grant select on APP_DOC_DATA_EXT_STG_BKP to MAXDAT_READ_ONLY;
+
+create table DOCUMENT_NOTIFICATION_STG_BKP as
+select * from DOCUMENT_NOTIFICATION_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym  DOCUMENT_NOTIFICATION_STG_BKP for  DOCUMENT_NOTIFICATION_STG_BKP;
+
+Grant select on  DOCUMENT_NOTIFICATION_STG_BKP to MAXDAT_READ_ONLY;
+
+create table DOCUMENT_SET_STG_BKP as
+select * from DOCUMENT_SET_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym  DOCUMENT_SET_STG_BKP  for  DOCUMENT_SET_STG_BKP ;
+
+Grant select on  DOCUMENT_SET_STG_BKP  to MAXDAT_READ_ONLY;
+
+create table DOC_LINK_STG_BKP as
+select * from DOC_LINK_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym DOC_LINK_STG_BKP for DOC_LINK_STG_BKP;
+
+Grant select on DOC_LINK_STG_BKP to MAXDAT_READ_ONLY;
+
+create table INCIDENT_HEADER_STG_BKP as
+select * from INCIDENT_HEADER_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym INCIDENT_HEADER_STG_BKP for INCIDENT_HEADER_STG_BKP;
+
+Grant select on INCIDENT_HEADER_STG_BKP to MAXDAT_READ_ONLY;
+
+create table ENUM_DOC_CODE_TO_TYPE_STG_BKP as
+select * from ENUM_DOC_CODE_TO_TYPE_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym ENUM_DOC_CODE_TO_TYPE_STG_BKP for ENUM_DOC_CODE_TO_TYPE_STG_BKP;
+
+Grant select on ENUM_DOC_CODE_TO_TYPE_STG_BKP to MAXDAT_READ_ONLY;
+
+create table ENUM_ENVELOPE_STATUS_STG_BKP as
+select * from ENUM_ENVELOPE_STATUS_STG;
+
+--GRANTS & PUBLIC SYNONYMNS
+create or replace public synonym ENUM_ENVELOPE_STATUS_STG_BKP for ENUM_ENVELOPE_STATUS_STG_BKP ;
+
+Grant select on ENUM_ENVELOPE_STATUS_STG_BKP  to MAXDAT_READ_ONLY;

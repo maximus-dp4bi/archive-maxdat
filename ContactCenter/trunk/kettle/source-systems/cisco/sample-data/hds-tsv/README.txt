@@ -1,2 +1,0 @@
-2 Weeks of Test Data
-CURRENT DATA: 09/30/2013 - 10/11/2013

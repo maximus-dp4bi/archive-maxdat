@@ -3,7 +3,20 @@
   <info>
     <name>Process_Applications_CreateRule</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -45,7 +58,7 @@
     <size_rowset>10000</size_rowset>
     <sleep_time_empty>50</sleep_time_empty>
     <sleep_time_full>50</sleep_time_full>
-    <unique_connections>N</unique_connections>
+    <unique_connections>Y</unique_connections>
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
@@ -135,7 +148,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>load - FLHK_ETL_PROCESS_APP - mailfaxemail</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_20</from><to>INS1_30_10</to><enabled>Y</enabled> </hop>  <hop> <from>load - FLHK_ETL_PROCESS_APP - webmedicaid</from><to>Table output - Update  Error 2</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10</from><to>INS1_10_30_30</to><enabled>Y</enabled> </hop>  <hop> <from>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict</from><to>Table output - Update  Error 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>INS1_20</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>load - FLHK_ETL_PROCESS_APP - no channel</to><enabled>Y</enabled> </hop>  <hop> <from>load - FLHK_ETL_PROCESS_APP - no channel</from><to>Table output - Update  Error 2 3</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_20</from><to>load - FLHK_ETL_PROCESS_APP - mailfaxemail</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DISTINCTS</from><to>INCOMPLETE_REASON_DUPS</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DUPS</from><to>INCOMPLETE_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>CONFLICT_REASON_DISTINCTS</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DISTINCTS</from><to>CONFLICT_REASON_DUPS</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DUPS</from><to>CONFLICT_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_10_30_30</from><to>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10</from><to>load - FLHK_ETL_PROCESS_APP - webmedicaid</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_20</from><to>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict 2</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_10_30_30</from><to>INS1_30_20</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_20</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict 2</from><to>Table output - Update  Error 2 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL</from><to>INCOMPLETE_REASON_DISTINCTS</to><enabled>Y</enabled> </hop>  <hop> <from>VIDA_SELECT</from><to>PRE_CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_ACCOUNT_CREATE_UPDATE</from><to>ASSD_RECEIVE_PROCESS_MI</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_RECEIVE_PROCESS_MI</from><to>CHANNEL = NULL</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON</from><to>join DCN</to><enabled>Y</enabled> </hop>  <hop> <from>join DCN</from><to>ASSD_ACCOUNT_CREATE_UPDATE</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>INS1_20</from><to>INS1_30_10</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10</from><to>INS1_10_30_30</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>INS1_20</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DISTINCTS</from><to>INCOMPLETE_REASON_DUPS</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON_DUPS</from><to>INCOMPLETE_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DISTINCTS</from><to>CONFLICT_REASON_DUPS</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON_DUPS</from><to>CONFLICT_REASON</to><enabled>Y</enabled> </hop>  <hop> <from>PRE_CHANNEL</from><to>CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_10_30_30</from><to>INS1_30_20</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_20</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL</from><to>INCOMPLETE_REASON_DISTINCTS</to><enabled>Y</enabled> </hop>  <hop> <from>VIDA_SELECT</from><to>PRE_CHANNEL</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_ACCOUNT_CREATE_UPDATE</from><to>ASSD_RECEIVE_PROCESS_MI</to><enabled>Y</enabled> </hop>  <hop> <from>join DCN</from><to>ASSD_ACCOUNT_CREATE_UPDATE</to><enabled>Y</enabled> </hop>  <hop> <from>ASSD_RECEIVE_PROCESS_MI</from><to>Lookup APP_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup APP_ID</from><to>Filter updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter updates</from><to>CHANNEL = NULL</to><enabled>Y</enabled> </hop>  <hop> <from>Filter updates</from><to>Dummy app exists</to><enabled>Y</enabled> </hop>  <hop> <from>Insert FLHK_ETL_PROCESS_APP</from><to>Insert Error</to><enabled>Y</enabled> </hop>  <hop> <from>CHANNEL = NULL</from><to>Set null channel</to><enabled>Y</enabled> </hop>  <hop> <from>Set null channel</from><to>Insert FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>INCOMPLETE_REASON</from><to>GWF_MISSING_INFO</to><enabled>Y</enabled> </hop>  <hop> <from>GWF_MISSING_INFO</from><to>Set GWF_MISSING_INFO-N</to><enabled>Y</enabled> </hop>  <hop> <from>GWF_MISSING_INFO</from><to>Set GWF_MISSING_INFO_Y</to><enabled>Y</enabled> </hop>  <hop> <from>Set GWF_MISSING_INFO-N</from><to>CONFLICT_REASON_DISTINCTS</to><enabled>Y</enabled> </hop>  <hop> <from>Set GWF_MISSING_INFO_Y</from><to>CONFLICT_REASON_DISTINCTS</to><enabled>Y</enabled> </hop>  <hop> <from>CONFLICT_REASON</from><to>Filter conflict_reason</to><enabled>Y</enabled> </hop>  <hop> <from>Set GWF_CONFLICT-N</from><to>join DCN</to><enabled>Y</enabled> </hop>  <hop> <from>Filter conflict_reason</from><to>Set GWF_CONFLICT-Y</to><enabled>Y</enabled> </hop>  <hop> <from>Filter conflict_reason</from><to>Set GWF_CONFLICT-N</to><enabled>Y</enabled> </hop>  <hop> <from>Set GWF_CONFLICT-Y</from><to>join DCN</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_20</from><to>Set INS1_20</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_10</from><to>Set INS1_30_10</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_10_30_30</from><to>Set INS1_30_30</to><enabled>Y</enabled> </hop>  <hop> <from>INS1_30_20</from><to>Set INS1_30_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set INS1_20</from><to>Insert FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Set INS1_30_10</from><to>Insert FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Set INS1_30_30</from><to>Insert FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Set INS1_30_20</from><to>Insert FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>ASSD_ACCOUNT_CREATE_UPDATE</name>
     <type>DBJoin</type>
@@ -156,7 +169,6 @@
 FROM  APPLICATION B
 LEFT OUTER JOIN ACCOUNT A on B.ACCOUNT_ID = A.ACCOUNT_ID 
 WHERE	B.SOURCE IN (&apos;WEBSITE&apos;,&apos;MEDICAID_CLOSURE&apos;) AND
-	    B.INSERT_USER != &apos;CONVERSION&apos; AND
 	    B.APPLICATION_ID = ?
 GROUP BY CASE WHEN B.ACCOUNT_ID is null
              THEN &apos;N&apos;
@@ -172,8 +184,8 @@ GROUP BY CASE WHEN B.ACCOUNT_ID is null
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>300</yloc>
+      <xloc>100</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -191,11 +203,10 @@ GROUP BY CASE WHEN B.ACCOUNT_ID is null
     <connection>OLTP_SOURCE</connection>
     <rowlimit>0</rowlimit>
     <sql>select
-	A.STATUS_DATE AS ASSD_RECEIVE_PROCESS_MI_DATE
+	A.STATUS_DATE AS ASSD_RECEIVE_PROCESS_MI
 FROM
 	APPLICATION A
 WHERE
-	A.INSERT_USER != &apos;CONVERSION&apos; AND
 	A.APPLICATION_ID = ?
 ORDER BY
 	A.APPLICATION_ID</sql>
@@ -209,8 +220,8 @@ ORDER BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>310</yloc>
+      <xloc>100</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -234,8 +245,8 @@ ORDER BY
 </formula>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>60</yloc>
+      <xloc>300</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -250,7 +261,7 @@ ORDER BY
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>load - FLHK_ETL_PROCESS_APP - no channel</send_true_to>
+<send_true_to>Set null channel</send_true_to>
 <send_false_to>INS1_20</send_false_to>
     <compare>
 <condition>
@@ -267,8 +278,8 @@ ORDER BY
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>320</yloc>
+      <xloc>340</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -292,8 +303,8 @@ ORDER BY
 </formula>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>680</xloc>
-      <yloc>210</yloc>
+      <xloc>650</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -337,8 +348,8 @@ ORDER BY B.APPLICATION_ID
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1320</xloc>
-      <yloc>60</yloc>
+      <xloc>960</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -381,8 +392,8 @@ ORDER BY B.APPLICATION_ID
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>960</xloc>
-      <yloc>150</yloc>
+      <xloc>750</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -399,8 +410,110 @@ ORDER BY B.APPLICATION_ID
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>990</yloc>
+      <xloc>1090</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy app exists</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>210</xloc>
+      <yloc>530</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter conflict_reason</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set GWF_CONFLICT-N</send_true_to>
+<send_false_to>Set GWF_CONFLICT-Y</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CONFLICT_REASON</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>500</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter updates</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy app exists</send_true_to>
+<send_false_to>CHANNEL = NULL</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>PA_ID</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>210</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>GWF_MISSING_INFO</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set GWF_MISSING_INFO-N</send_true_to>
+<send_false_to>Set GWF_MISSING_INFO_Y</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>INCOMPLETE_REASON</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>890</xloc>
+      <yloc>30</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -424,7 +537,7 @@ ORDER BY B.APPLICATION_ID
 </formula>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1080</xloc>
+      <xloc>730</xloc>
       <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
@@ -469,8 +582,8 @@ ORDER BY B.APPLICATION_ID
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>60</yloc>
+      <xloc>410</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -514,8 +627,8 @@ ORDER BY B.APPLICATION_ID
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>830</xloc>
-      <yloc>60</yloc>
+      <xloc>570</xloc>
+      <yloc>40</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -530,7 +643,7 @@ ORDER BY B.APPLICATION_ID
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict</send_true_to>
+<send_true_to>Set INS1_30_30</send_true_to>
 <send_false_to>INS1_30_20</send_false_to>
     <compare>
 <condition>
@@ -575,8 +688,8 @@ ORDER BY B.APPLICATION_ID
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>710</yloc>
+      <xloc>790</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -591,7 +704,7 @@ ORDER BY B.APPLICATION_ID
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>load - FLHK_ETL_PROCESS_APP - mailfaxemail</send_true_to>
+<send_true_to>Set INS1_20</send_true_to>
 <send_false_to>INS1_30_10</send_false_to>
     <compare>
 <condition>
@@ -629,8 +742,8 @@ ORDER BY B.APPLICATION_ID
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>440</yloc>
+      <xloc>480</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -645,7 +758,7 @@ ORDER BY B.APPLICATION_ID
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>load - FLHK_ETL_PROCESS_APP - webmedicaid</send_true_to>
+<send_true_to>Set INS1_30_10</send_true_to>
 <send_false_to>INS1_10_30_30</send_false_to>
     <compare>
 <condition>
@@ -683,8 +796,8 @@ ORDER BY B.APPLICATION_ID
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>560</yloc>
+      <xloc>640</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -699,7 +812,7 @@ ORDER BY B.APPLICATION_ID
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict 2</send_true_to>
+<send_true_to>Set INS1_30_20</send_true_to>
 <send_false_to>Dummy (do nothing)</send_false_to>
     <compare>
 <condition>
@@ -744,8 +857,251 @@ ORDER BY B.APPLICATION_ID
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>850</yloc>
+      <xloc>950</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert Error</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>970</xloc>
+      <yloc>550</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert FLHK_ETL_PROCESS_APP</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_PROCESS_APP</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_NUMBER</column_name>
+          <stream_name>ACCOUNT_NUMBER</stream_name>
+        </field>
+        <field>
+          <column_name>APP_ID</column_name>
+          <stream_name>APP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS</column_name>
+          <stream_name>APP_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>APP_STATUS_DATE</column_name>
+          <stream_name>APP_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>APP_TYPE</column_name>
+          <stream_name>APP_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>ASF_UPDATE_ACCOUNT</column_name>
+          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
+        </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>CONFLICT_REASON</column_name>
+          <stream_name>CONFLICT_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DATE</column_name>
+          <stream_name>CREATE_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>DCN</column_name>
+          <stream_name>DCN</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_CHANNEL</column_name>
+          <stream_name>GWF_CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_MISSING_INFO</column_name>
+          <stream_name>GWF_MISSING_INFO</stream_name>
+        </field>
+        <field>
+          <column_name>GWF_TIME_OUT</column_name>
+          <stream_name>GWF_TIME_OUT</stream_name>
+        </field>
+        <field>
+          <column_name>INCOMPLETE_REASON</column_name>
+          <stream_name>INCOMPLETE_REASON</stream_name>
+        </field>
+        <field>
+          <column_name>INSTANCE_STATUS</column_name>
+          <stream_name>INSTANCE_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>RECEIPT_DATE</column_name>
+          <stream_name>RECEIPT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_DATE</column_name>
+          <stream_name>RENEWAL_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>WEB_APPLICATION_ID</column_name>
+          <stream_name>WEB_APPLICATION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
+          <stream_name>ASSD_RECEIVE_PROCESS_MI</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>640</xloc>
+      <yloc>550</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup APP_ID</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>FLHK_ETL_PROCESS_APP</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PA_ID</name>
+        <rename>PA_ID</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>100</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -761,37 +1117,34 @@ ORDER BY B.APPLICATION_ID
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
+    <rowlimit>1</rowlimit>
     <sql>SELECT
 	NVL(A.INBOUND_DOCUMENT_SOURCE,&apos;NO_CHANNEL&apos;) AS PRE_CHANNEL
 FROM
-	INBOUND_DOCUMENT A,
-	APPLICATION B
+	INBOUND_DOCUMENT A 
 WHERE
-	B.ASSOC_SRC_DOC_CONTROL_NUMBER = A.DOCUMENT_CONTROL_NUMBER AND
-	B.INSERT_USER != &apos;CONVERSION&apos; AND 
-	B.APPLICATION_ID = ?
+	A.ACCOUNT_ID = ? 
 ORDER BY
-	B.APPLICATION_ID</sql>
+	DOCUMENT_CONTROL_NUMBER desc </sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
-        <name>APP_ID</name>
+        <name>ACCOUNT_ID</name>
         <type>Number</type>
       </field>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>210</xloc>
-      <yloc>60</yloc>
+      <xloc>190</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error</name>
-    <type>TableOutput</type>
+    <name>Set GWF_CONFLICT-N</name>
+    <type>SetValueField</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -799,84 +1152,23 @@ ORDER BY
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
     <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
+      <field>
+        <name>GWF_CONFLICT</name>
+        <replaceby>CON_NO</replaceby>
         </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1290</xloc>
-      <yloc>370</yloc>
+      <xloc>360</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2</name>
-    <type>TableOutput</type>
+    <name>Set GWF_CONFLICT-Y</name>
+    <type>SetValueField</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -884,332 +1176,184 @@ ORDER BY
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
     <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
+      <field>
+        <name>GWF_CONFLICT</name>
+        <replaceby>CON_YES</replaceby>
         </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1290</xloc>
-      <yloc>490</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - Update  Error 2 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1290</xloc>
-      <yloc>620</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - Update  Error 2 2 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1300</xloc>
-      <yloc>770</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - Update  Error 2 3</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1300</xloc>
+      <xloc>440</xloc>
       <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set GWF_MISSING_INFO-N</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_MISSING_INFO</name>
+        <replaceby>CON_NO</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1060</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set GWF_MISSING_INFO_Y</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_MISSING_INFO</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>890</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set INS1_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_CHANNEL</name>
+        <replaceby>CON_DOC</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>480</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set INS1_30_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_CHANNEL</name>
+        <replaceby>CON_WEB</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>640</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set INS1_30_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_CHANNEL</name>
+        <replaceby>CON_WEB</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>460</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set INS1_30_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_CHANNEL</name>
+        <replaceby>CON_WEB</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>790</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set null channel</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>GWF_CHANNEL</name>
+        <replaceby>CON_TBD</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>340</xloc>
+      <yloc>450</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1231,6 +1375,13 @@ ORDER BY
 	&apos;FLHK_ETL_PROCESS_APPLICATIONS&apos; as DRIVER_TABLE_NAME,
 	sysdate as ERR_DATE,
 	&apos;CRITICAL&apos; as ERR_LEVEL,
+    &apos;Y&apos; as CON_YES,
+    &apos;N&apos; as CON_NO,
+    &apos;WEB&apos; as CON_Web,
+    &apos;DOCUMENT&apos; as CON_DOC,
+     NULL as GWF_CHANNEL,
+     NULL as GWF_CONFLICT,
+     &apos;TBD&apos; as CON_TBD,
 	A.APPLICATION_ID AS APP_ID,
 	A.APP_TYPE,
 	A.INSERT_DATE AS CREATE_DATE,
@@ -1247,19 +1398,15 @@ ORDER BY
 	&apos;DOCUMENT&apos; AS DOCUMENT_GWF_CHANNEL,
 	&apos;CHANNEL_UNKNOWN&apos; AS UNKNOWN_GWF_CHANNEL,
 	A.SOURCE,
-	&apos;N&apos; AS GWF_IN_N_MISSING_INFO,
-	&apos;Y&apos; AS GWF_IN_Y_MISSING_INFO,
-	&apos;WEB&apos; AS GWF_CHANNEL_WEB,
-	&apos;Y&apos; AS IN_Y_GWF_CONFLICT,
-	&apos;N&apos; AS IN_N_GWF_CONFLICT,
-     CASE WHEN A.STATUS IN (&apos;CLEARED&apos;, NULL)
+    NULL as GWF_MISSING_INFO,
+    CASE WHEN A.STATUS IN (&apos;CLEARED&apos;, NULL)
           then &apos;N&apos;
           WHEN A.STATUS = &apos;EXPIRED&apos;
 		  then &apos;Y&apos;
      END GWF_TIME_OUT
 FROM	APPLICATION A
-WHERE  A.APPLICATION_ID  BETWEEN ${NEW_MAX_APPLICATION_APPID} AND  ${NEW_END_APPLICATION_APPID}
-AND    A.INSERT_USER != &apos;CONVERSION&apos; 
+WHERE  A.APPLICATION_ID  &gt; ${NEW_MAX_APPLICATION_APPID} 
+----AND    A.INSERT_USER != &apos;CONVERSION&apos; 
 ORDER BY	A.APPLICATION_ID</sql>
     <limit>0</limit>
     <lookup/>
@@ -1268,637 +1415,8 @@ ORDER BY	A.APPLICATION_ID</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>40</xloc>
-      <yloc>60</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>load - FLHK_ETL_PROCESS_APP - mailfaxemail</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_PROCESS_APP</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>APP_ID</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS</column_name>
-          <stream_name>APP_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS_DATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APP_TYPE</column_name>
-          <stream_name>APP_TYPE</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_UPDATE_ACCOUNT</column_name>
-          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_DATA_ENTRY</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CHANNEL</column_name>
-          <stream_name>CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>CONFLICT_REASON</column_name>
-          <stream_name>CONFLICT_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_DATE</column_name>
-          <stream_name>CREATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DCN</column_name>
-          <stream_name>DCN</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CHANNEL</column_name>
-          <stream_name>DOCUMENT_GWF_CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CONFLICT</column_name>
-          <stream_name>IN_N_GWF_CONFLICT</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_MISSING_INFO</column_name>
-          <stream_name>GWF_IN_N_MISSING_INFO</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_TIME_OUT</column_name>
-          <stream_name>GWF_TIME_OUT</stream_name>
-        </field>
-        <field>
-          <column_name>INCOMPLETE_REASON</column_name>
-          <stream_name>INCOMPLETE_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>RECEIPT_DATE</column_name>
-          <stream_name>RECEIPT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_DATE</column_name>
-          <stream_name>RENEWAL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>SOURCE</column_name>
-          <stream_name>SOURCE</stream_name>
-        </field>
-        <field>
-          <column_name>WEB_APPLICATION_ID</column_name>
-          <stream_name>WEB_APPLICATION_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
-          <stream_name>ASSD_RECEIVE_PROCESS_MI_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1140</xloc>
-      <yloc>440</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>load - FLHK_ETL_PROCESS_APP - no channel</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_PROCESS_APP</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>APP_ID</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS</column_name>
-          <stream_name>APP_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS_DATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APP_TYPE</column_name>
-          <stream_name>APP_TYPE</stream_name>
-        </field>
-        <field>
-          <column_name>CHANNEL</column_name>
-          <stream_name>CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>CONFLICT_REASON</column_name>
-          <stream_name>CONFLICT_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_DATE</column_name>
-          <stream_name>CREATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DCN</column_name>
-          <stream_name>DCN</stream_name>
-        </field>
-        <field>
-          <column_name>INCOMPLETE_REASON</column_name>
-          <stream_name>INCOMPLETE_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CONFLICT</column_name>
-          <stream_name>IN_N_GWF_CONFLICT</stream_name>
-        </field>
-        <field>
-          <column_name>RECEIPT_DATE</column_name>
-          <stream_name>RECEIPT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_DATE</column_name>
-          <stream_name>RENEWAL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>WEB_APPLICATION_ID</column_name>
-          <stream_name>WEB_APPLICATION_ID</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_MISSING_INFO</column_name>
-          <stream_name>GWF_IN_N_MISSING_INFO</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_UPDATE_ACCOUNT</column_name>
-          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_TIME_OUT</column_name>
-          <stream_name>GWF_TIME_OUT</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
-          <stream_name>ASSD_RECEIVE_PROCESS_MI_DATE</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1140</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>load - FLHK_ETL_PROCESS_APP - webmedicaid</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_PROCESS_APP</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>APP_ID</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS</column_name>
-          <stream_name>APP_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS_DATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APP_TYPE</column_name>
-          <stream_name>APP_TYPE</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_UPDATE_ACCOUNT</column_name>
-          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
-          <stream_name>ASSD_RECEIVE_PROCESS_MI_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CHANNEL</column_name>
-          <stream_name>CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>CONFLICT_REASON</column_name>
-          <stream_name>CONFLICT_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_DATE</column_name>
-          <stream_name>CREATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DCN</column_name>
-          <stream_name>DCN</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CHANNEL</column_name>
-          <stream_name>GWF_CHANNEL_WEB</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CONFLICT</column_name>
-          <stream_name>IN_N_GWF_CONFLICT</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_MISSING_INFO</column_name>
-          <stream_name>GWF_IN_Y_MISSING_INFO</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_TIME_OUT</column_name>
-          <stream_name>GWF_TIME_OUT</stream_name>
-        </field>
-        <field>
-          <column_name>INCOMPLETE_REASON</column_name>
-          <stream_name>INCOMPLETE_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>RECEIPT_DATE</column_name>
-          <stream_name>RECEIPT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_DATE</column_name>
-          <stream_name>RENEWAL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>SOURCE</column_name>
-          <stream_name>SOURCE</stream_name>
-        </field>
-        <field>
-          <column_name>WEB_APPLICATION_ID</column_name>
-          <stream_name>WEB_APPLICATION_ID</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1140</xloc>
-      <yloc>560</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_PROCESS_APP</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>APP_ID</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS</column_name>
-          <stream_name>APP_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS_DATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APP_TYPE</column_name>
-          <stream_name>APP_TYPE</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_UPDATE_ACCOUNT</column_name>
-          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_ACCOUNT_CREATE_UPDATE</column_name>
-          <stream_name>ASSD_ACCT_CREATE_UPDATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
-          <stream_name>ASSD_RECEIVE_PROCESS_MI_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CHANNEL</column_name>
-          <stream_name>CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>CONFLICT_REASON</column_name>
-          <stream_name>CONFLICT_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_DATE</column_name>
-          <stream_name>CREATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DCN</column_name>
-          <stream_name>DCN</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CHANNEL</column_name>
-          <stream_name>GWF_CHANNEL_WEB</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CONFLICT</column_name>
-          <stream_name>IN_N_GWF_CONFLICT</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_MISSING_INFO</column_name>
-          <stream_name>GWF_IN_N_MISSING_INFO</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_TIME_OUT</column_name>
-          <stream_name>GWF_TIME_OUT</stream_name>
-        </field>
-        <field>
-          <column_name>INCOMPLETE_REASON</column_name>
-          <stream_name>INCOMPLETE_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>RECEIPT_DATE</column_name>
-          <stream_name>RECEIPT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_DATE</column_name>
-          <stream_name>RENEWAL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>SOURCE</column_name>
-          <stream_name>SOURCE</stream_name>
-        </field>
-        <field>
-          <column_name>WEB_APPLICATION_ID</column_name>
-          <stream_name>WEB_APPLICATION_ID</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1150</xloc>
-      <yloc>710</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_PROCESS_APP</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>APP_ID</column_name>
-          <stream_name>APP_ID</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS</column_name>
-          <stream_name>APP_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>APP_STATUS_DATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APP_TYPE</column_name>
-          <stream_name>APP_TYPE</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_UPDATE_ACCOUNT</column_name>
-          <stream_name>ASF_UPDATE_ACCOUNT</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_ACCOUNT_CREATE_UPDATE</column_name>
-          <stream_name>APP_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_RECEIVE_PROCESS_MI</column_name>
-          <stream_name>ASSD_RECEIVE_PROCESS_MI_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CHANNEL</column_name>
-          <stream_name>CHANNEL</stream_name>
-        </field>
-        <field>
-          <column_name>CONFLICT_REASON</column_name>
-          <stream_name>CONFLICT_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_DATE</column_name>
-          <stream_name>CREATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DCN</column_name>
-          <stream_name>DCN</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CHANNEL</column_name>
-          <stream_name>GWF_CHANNEL_WEB</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_CONFLICT</column_name>
-          <stream_name>IN_Y_GWF_CONFLICT</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_MISSING_INFO</column_name>
-          <stream_name>GWF_IN_N_MISSING_INFO</stream_name>
-        </field>
-        <field>
-          <column_name>GWF_TIME_OUT</column_name>
-          <stream_name>GWF_TIME_OUT</stream_name>
-        </field>
-        <field>
-          <column_name>INCOMPLETE_REASON</column_name>
-          <stream_name>INCOMPLETE_REASON</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>RECEIPT_DATE</column_name>
-          <stream_name>RECEIPT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_DATE</column_name>
-          <stream_name>RENEWAL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>SOURCE</column_name>
-          <stream_name>SOURCE</stream_name>
-        </field>
-        <field>
-          <column_name>WEB_APPLICATION_ID</column_name>
-          <stream_name>WEB_APPLICATION_ID</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1160</xloc>
-      <yloc>850</yloc>
+      <xloc>90</xloc>
+      <yloc>50</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1915,9 +1433,9 @@ ORDER BY	A.APPLICATION_ID</sql>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>0</rowlimit>
-    <sql>select id.document_control_number DCN
+    <sql>select max(id.document_control_number) DCN
 from inbound_document id
-where id.source_batch_reference != &apos;MIGRATION&apos; and id.inbound_document_type = &apos;NEW_APPLICATION&apos;
+where  id.inbound_document_type = &apos;NEW_APPLICATION&apos;
 and id.account_id = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
@@ -1929,70 +1447,22 @@ and id.account_id = ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
-      <yloc>250</yloc>
+      <xloc>270</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
       <error>
-        <source_step>load - FLHK_ETL_PROCESS_APP - mailfaxemail</source_step>
-        <target_step>Table output - Update  Error</target_step>
+        <source_step>Insert FLHK_ETL_PROCESS_APP</source_step>
+        <target_step>Insert Error</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>load - FLHK_ETL_PROCESS_APP - no channel</source_step>
-        <target_step>Table output - Update  Error 2 3</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>load - FLHK_ETL_PROCESS_APP - webmedicaid</source_step>
-        <target_step>Table output - Update  Error 2</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict</source_step>
-        <target_step>Table output - Update  Error 2 2</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>load - FLHK_ETL_PROCESS_APP - webmedicaid - null conflict 2</source_step>
-        <target_step>Table output - Update  Error 2 2 2</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
+        <max_errors>1000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
       </error>

@@ -1,0 +1,18 @@
+
+use schema ineo;
+CREATE OR REPLACE VIEW INEO_D_STAFF_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_staff_roster;
+
+CREATE OR REPLACE VIEW INEO_D_STAFF_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_staff_roster_history;
+
+CREATE OR REPLACE VIEW INEO_D_ALL_STAFF_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_all_staff_roster;
+
+CREATE OR REPLACE VIEW INEO_D_ALL_STAFF_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_all_staff_roster_history;
+

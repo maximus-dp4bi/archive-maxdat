@@ -36,6 +36,8 @@ function error_exit
 LOG_LEVEL=$2
 ERRORS_FOUND="/tmp/${STCODE}_child_task_fail.txt"
 echo "ERRORS FOUND = $ERRORS_FOUND"
+export MAXDAT_KETTLE_DIR="/u01/app/appadmin/product/pentaho/data-integration"
+export KETTLE_HOME="/u01/maximus/maxdat-uat/NYHIX/config"
 
 #mail related variables
 EMAIL="MAXDatSystem@maximus.com"

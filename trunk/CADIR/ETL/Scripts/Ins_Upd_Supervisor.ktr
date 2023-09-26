@@ -3,7 +3,20 @@
   <info>
     <name>Ins_Upd_Supervisor</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -217,7 +230,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>CSV file input</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update</from><to>Abort</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Insert &#47; Update</from><to>Abort</to><enabled>Y</enabled> </hop>  <hop> <from>CSV file input</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Abort</name>
     <type>Abort</type>
@@ -243,7 +256,7 @@
     <name>CSV file input</name>
     <type>CsvInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -383,18 +396,18 @@
         <name2/>
       </key>
       <value>
-        <name>Supervisor_Person_ID</name>
-        <rename>SupervisorPersonID</rename>
-        <update>Y</update>
-      </value>
-      <value>
         <name>Person_ID</name>
         <rename>Person_ID</rename>
         <update>N</update>
       </value>
       <value>
-        <name>Employee_ID</name>
+        <name>EMPLOYEE_ID</name>
         <rename>EmployeeID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SUPERVISOR_PERSON_ID</name>
+        <rename>SupervisorPersonID</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -402,6 +415,34 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>350</xloc>
       <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>SupervisorPersonID</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>227</xloc>
+      <yloc>61</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

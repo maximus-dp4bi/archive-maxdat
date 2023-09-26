@@ -15,30 +15,30 @@ create or replace package IDR_INCIDENTS as
       ( p_create_dt in date,
         p_complete_date in date
        )
-  return number;
+  return number parallel_enable;
 
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_dt in date,
      p_complete_date in date
      )
-    return number;
+    return number parallel_enable;
 
   function GET_SLA_DAYS_TYPE
     (p_incident_type in varchar2)
-  return varchar2;
+  return varchar2 parallel_enable result_cache;
 
     function GET_TARGET_DAYS
         (p_incident_type in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable result_cache;
 
     function GET_JEOPARDY_DAYS
         (p_incident_type in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable result_cache;
 
 	 function GET_JEOPARDY_FLAG
      ( p_incident_type in varchar2,
        P_CREATE_DT     in DATE)
-    return varchar2;
+    return varchar2 parallel_enable;
 
     function GET_TIMELY_STATUS
       (
@@ -46,7 +46,7 @@ create or replace package IDR_INCIDENTS as
         p_incident_type in varchar2,
         p_COMPLETE_DT   in date
        )
-    return varchar2;
+    return varchar2 parallel_enable;
 
  /* 
   Include: 
@@ -58,6 +58,7 @@ type T_INS_IDR_XML is record
     (
      ABOUT_PLAN_CODE varchar2(32),
      ABOUT_PROVIDER_ID varchar2(100),
+     ACCOUNT_ID varchar2(30),
      ACTION_COMMENTS varchar2(4000),
      ACTION_TYPE varchar2(64),
      APPELLANT_TYPE varchar2(32),
@@ -75,6 +76,7 @@ type T_INS_IDR_XML is record
      CANCEL_METHOD varchar2(30),
      CANCEL_REASON varchar2(50),
      CASE_ID varchar2(100),
+     CHANNEL varchar2(80),
      CLIENT_ID varchar2(100),
      COMPLETE_DT varchar2(19),
      CREATED_BY_GROUP varchar2(80),
@@ -107,7 +109,8 @@ type T_INS_IDR_XML is record
      RESOLUTION_TYPE varchar2(64),
      STG_LAST_UPDATE_DATE varchar2(19),
      TRACKING_NUMBER varchar2(32),
-     UPDATED_BY varchar2(80)
+     UPDATED_BY varchar2(80),
+     PREF_LANGUAGE varchar2(255)
     );
 
 /* 
@@ -119,6 +122,7 @@ type T_UPD_IDR_XML is record
     (
      ABOUT_PLAN_CODE varchar2(32),
      ABOUT_PROVIDER_ID varchar2(100),
+     ACCOUNT_ID varchar2(30),
      ACTION_COMMENTS varchar2(4000),
      ACTION_TYPE varchar2(64),
      APPELLANT_TYPE varchar2(32),
@@ -136,6 +140,7 @@ type T_UPD_IDR_XML is record
      CANCEL_METHOD varchar2(30),
      CANCEL_REASON varchar2(50),
      CASE_ID varchar2(100),
+     CHANNEL varchar2(80),
      CLIENT_ID varchar2(100),
      COMPLETE_DT varchar2(19),
      CREATED_BY_GROUP varchar2(80),
@@ -167,7 +172,8 @@ type T_UPD_IDR_XML is record
      RESOLUTION_TYPE varchar2(64),
      STG_LAST_UPDATE_DATE varchar2(19),
      TRACKING_NUMBER varchar2(32),
-     UPDATED_BY varchar2(80)
+     UPDATED_BY varchar2(80),
+     PREF_LANGUAGE VARCHAR2(255)
     );
 
 
@@ -214,7 +220,7 @@ function GET_AGE_IN_BUSINESS_DAYS
 
    function GET_SLA_DAYS_TYPE
     (p_incident_type in varchar2)
-    return varchar2
+    return varchar2 result_cache
   as
      v_SLA_days_type varchar2(1) := null;
   begin
@@ -229,7 +235,7 @@ function GET_AGE_IN_BUSINESS_DAYS
 
   function GET_TARGET_DAYS
     (p_incident_type in varchar2)
-    return varchar2
+    return varchar2 result_cache
   as
      v_target_days number := null;
   begin
@@ -244,7 +250,7 @@ function GET_AGE_IN_BUSINESS_DAYS
 
   function GET_JEOPARDY_DAYS
     (p_incident_type in varchar2)
-    return varchar2
+    return varchar2 result_cache
   as
      v_jeopardy_days number := null;
   begin
@@ -334,9 +340,9 @@ This procedure calculates the semantic layer attributes.
       TARGET_DAYS           = GET_TARGET_DAYS('INFORMAL DISPUTE RESOLUTION'),
       JEOPARDY_FLAG         = GET_JEOPARDY_FLAG('INFORMAL DISPUTE RESOLUTION',create_dt),
       IDR_TIMELINESS_STATUS = GET_TIMELY_STATUS(create_dt, 'INFORMAL DISPUTE RESOLUTION', CUR_COMPLETE_DT)
-    where 1=1
-    and INSTANCE_COMPLETE_DT is null
-    and CANCEL_DT is null;
+    where
+      INSTANCE_COMPLETE_DT is null
+      and CANCEL_DT is null;
 
       v_num_rows_updated := sql%rowcount;
  COMMIT;
@@ -927,6 +933,7 @@ This procedure calculates the semantic layer attributes.
     select
             extractValue(p_data_xml,'/ROWSET/ROW/ABOUT_PLAN_CODE') "ABOUT_PLAN_CODE",
       extractValue(p_data_xml,'/ROWSET/ROW/ABOUT_PROVIDER_ID') "ABOUT_PROVIDER_ID",
+      extractValue(p_data_xml,'/ROWSET/ROW/ACCOUNT_ID') "ACCOUNT_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/ACTION_COMMENTS') "ACTION_COMMENTS",
       extractValue(p_data_xml,'/ROWSET/ROW/ACTION_TYPE') "ACTION_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/APPELLANT_TYPE') "APPELLANT_TYPE",
@@ -944,6 +951,7 @@ This procedure calculates the semantic layer attributes.
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_METHOD') "CANCEL_METHOD",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_REASON') "CANCEL_REASON",
       extractValue(p_data_xml,'/ROWSET/ROW/CASE_ID') "CASE_ID",
+      extractValue(p_data_xml,'/ROWSET/ROW/CHANNEL') "CHANNEL",
       extractValue(p_data_xml,'/ROWSET/ROW/CLIENT_ID') "CLIENT_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/COMPLETE_DT') "COMPLETE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CREATED_BY_GROUP') "CREATED_BY_GROUP",
@@ -977,7 +985,8 @@ This procedure calculates the semantic layer attributes.
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_TYPE') "RESOLUTION_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/TRACKING_NUMBER') "TRACKING_NUMBER",
-      extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY"
+      extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY",
+      extractValue(p_data_xml,'/ROWSET/ROW/PREF_LANGUAGE') "PREF_LANGUAGE"
        into p_data_record
        from dual;
 
@@ -1004,6 +1013,7 @@ This procedure calculates the semantic layer attributes.
      select
             extractValue(p_data_xml,'/ROWSET/ROW/ABOUT_PLAN_CODE') "ABOUT_PLAN_CODE",
       extractValue(p_data_xml,'/ROWSET/ROW/ABOUT_PROVIDER_ID') "ABOUT_PROVIDER_ID",
+      extractValue(p_data_xml,'/ROWSET/ROW/ACCOUNT_ID') "ACCOUNT_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/ACTION_COMMENTS') "ACTION_COMMENTS",
       extractValue(p_data_xml,'/ROWSET/ROW/ACTION_TYPE') "ACTION_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/APPELLANT_TYPE') "APPELLANT_TYPE",
@@ -1021,6 +1031,7 @@ This procedure calculates the semantic layer attributes.
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_METHOD') "CANCEL_METHOD",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_REASON') "CANCEL_REASON",
       extractValue(p_data_xml,'/ROWSET/ROW/CASE_ID') "CASE_ID",
+      extractValue(p_data_xml,'/ROWSET/ROW/CHANNEL') "CHANNEL",
       extractValue(p_data_xml,'/ROWSET/ROW/CLIENT_ID') "CLIENT_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/COMPLETE_DT') "COMPLETE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CREATED_BY_GROUP') "CREATED_BY_GROUP",
@@ -1053,7 +1064,8 @@ This procedure calculates the semantic layer attributes.
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_TYPE') "RESOLUTION_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/TRACKING_NUMBER') "TRACKING_NUMBER",
-      extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY"
+      extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY",
+      extractValue(p_data_xml,'/ROWSET/ROW/PREF_LANGUAGE') "PREF_LANGUAGE"
      into p_data_record
     from dual;
 
@@ -1247,7 +1259,10 @@ p_CURRENT_STEP           in   varchar2,
 p_APPELLANT_TYPE         in   varchar2,
 p_APPELLANT_TYPE_DESC    in   varchar2,
 p_reporter_name          in   varchar2,
-p_reporter_phone         in   varchar2
+p_reporter_phone         in   varchar2,
+p_channel                in   varchar2,
+p_account_id			 in   varchar2,
+p_pref_language          in   varchar2
 )
      as
        v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DIDRCUR';
@@ -1310,6 +1325,9 @@ r_didrcur.APPELLANT_TYPE                :=  p_APPELLANT_TYPE;
 r_didrcur.APPELLANT_TYPE_DESCRIPTION    :=  p_APPELLANT_TYPE_DESC;
 r_didrcur.REPORTER_NAME                 :=  p_REPORTER_NAME;
 r_didrcur.REPORTER_PHONE                :=  p_REPORTER_PHONE;
+r_didrcur.CHANNEL                       :=  p_channel;
+r_didrcur.ACCOUNT_ID                    :=  p_account_id;
+r_didrcur.PREF_LANGUAGE                 :=  p_pref_language;
 
 r_didrcur.JEOPARDY_DATE         :=  ETL_COMMON.GET_BUS_DATE(to_date(p_CREATE_DT,BPM_COMMON.DATE_FMT),GET_JEOPARDY_DAYS('INFORMAL DISPUTE RESOLUTION'));
 r_didrcur.JEOPARDY_DAYS         :=  GET_JEOPARDY_DAYS('INFORMAL DISPUTE RESOLUTION');
@@ -1465,7 +1483,11 @@ r_didrcur.IDR_TIMELINESS_STATUS :=  GET_TIMELY_STATUS(to_date(p_CREATE_DT,BPM_CO
    v_new_data.APPELLANT_TYPE,
    v_new_data.APPELLANT_TYPE_DESC,
    v_new_data.REPORTER_NAME,
-   v_new_data.REPORTER_PHONE
+   v_new_data.REPORTER_PHONE,
+   v_new_data.CHANNEL,
+   v_new_data.ACCOUNT_ID,
+   v_new_data.PREF_LANGUAGE
+   
   );
 
    INS_FIDRBD
@@ -1895,7 +1917,10 @@ r_didrcur.IDR_TIMELINESS_STATUS :=  GET_TIMELY_STATUS(to_date(p_CREATE_DT,BPM_CO
    v_new_data.APPELLANT_TYPE,
    v_new_data.APPELLANT_TYPE_DESC,
    v_new_data.REPORTER_NAME,
-   v_new_data.REPORTER_PHONE
+   v_new_data.REPORTER_PHONE,
+   v_new_data.CHANNEL,
+   v_new_data.ACCOUNT_ID,
+   v_new_data.PREF_LANGUAGE
   );
 
 

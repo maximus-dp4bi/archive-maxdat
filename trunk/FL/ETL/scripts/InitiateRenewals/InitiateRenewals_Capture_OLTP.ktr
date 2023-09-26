@@ -3,7 +3,20 @@
   <info>
     <name>InitiateRenewals_Capture_OLTP</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -42,7 +55,7 @@
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
-    <size_rowset>8000</size_rowset>
+    <size_rowset>10000</size_rowset>
     <sleep_time_empty>50</sleep_time_empty>
     <sleep_time_full>50</sleep_time_full>
     <unique_connections>N</unique_connections>
@@ -142,10 +155,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table Input - WIP BPM Table</from><to>Join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>Error log - OLTP join</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>Error Applications</to><enabled>Y</enabled> </hop>  <hop> <from>join interface_process </from><to>Error Interface_process</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>join application</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG</from><to>Error log - OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>join interface_process </from><to>join eligibility_results</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>join interface_process </to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility_results</from><to>join cancel_reasons</to><enabled>Y</enabled> </hop>  <hop> <from>join cancel_reasons</from><to>Error Cancel Reason</to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility_results</from><to>Error Eligibility_result</to><enabled>Y</enabled> </hop>  <hop> <from>Set values</from><to>Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>join cancel_reasons</from><to>Set values</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table Input - WIP BPM Table</from><to>Join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>Error log - OLTP join</to><enabled>Y</enabled> </hop>  <hop> <from>Filter renewal_start_date</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>Filter renewal_start_date</to><enabled>Y</enabled> </hop>  <hop> <from>Select - Renewal Letters</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  <hop> <from>lookup Letters</from><to>If ASF_REQUEST_NOTIFICATION is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ASF_REQUEST_NOTIFICATION is null</from><to>Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG</from><to>Error log - Update </to><enabled>Y</enabled> </hop>  <hop> <from>Filter renewal_start_date</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Error Applications</name>
-    <type>TableOutput</type>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -153,332 +166,10 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>Number_of_errors</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>Error_descriptions</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>Error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>Error_codes</stream_name>
-        </field>
-    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>440</xloc>
-      <yloc>60</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Error Cancel Reason</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>Error_descriptions</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>Error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>Error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>Number_of_error</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>980</xloc>
-      <yloc>70</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Error Eligibility_result</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>error_description</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>number_of_errors</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>810</xloc>
-      <yloc>70</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Error Interface_process</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>Error_descriptions</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>Error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>Error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>Number_of_errors</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>620</xloc>
-      <yloc>70</yloc>
+      <xloc>410</xloc>
+      <yloc>380</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -562,14 +253,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>290</xloc>
-      <yloc>70</yloc>
+      <xloc>260</xloc>
+      <yloc>380</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Error log - OLTP_STG</name>
+    <name>Error log - Update </name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -625,7 +316,11 @@
           <stream_name>ACCOUNT_ID</stream_name>
         </field>
         <field>
-          <column_name>ERROR_FIELD</column_name>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
           <stream_name>nr_err_fieldname</stream_name>
         </field>
         <field>
@@ -633,22 +328,77 @@
           <stream_name>nr_err_desc_fieldname</stream_name>
         </field>
         <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
+          <column_name>ERROR_FIELD</column_name>
           <stream_name>nr_err_fields_fieldname</stream_name>
         </field>
         <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>830</xloc>
-      <yloc>540</yloc>
+      <xloc>990</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter renewal_start_date</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>lookup Letters</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>RENEWAL_PERIOD_START_DATE</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>410</xloc>
+      <yloc>220</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>If ASF_REQUEST_NOTIFICATION is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>ASF_REQUEST_NOTIFICATION</name>
+        <value>N</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>780</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -665,73 +415,41 @@
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>0</rowlimit>
-    <sql>select distinct  
-       a.account_number                                             ACCOUNT_NUMBER,
-       ar.renewal_date                                              RENEWAL_PERIOD_START_DATE,
-       ar.CONTINUOUS_ELIG_END_DATE                                  RENEWAL_PERIOD_END_DATE,
-       ar.renewal_status                                            RENEWAL_STATUS,
-       ar.renewal_status_date                                       RENEWAL_STATUS_DATE,
-       arr.insert_date                                              COMPLETE_DATE,
-       case when ar.renewal_status = (&apos;SENT_TO_FAMILY&apos;)
+    <sql>select a.account_number                                                   ACCOUNT_NUMBER,
+       add_months(ar.CONTINUOUS_ELIG_END_DATE,-2)                         RENEWAL_PERIOD_START_DATE,
+       ar.CONTINUOUS_ELIG_END_DATE                                        RENEWAL_PERIOD_END_DATE,
+       ar.renewal_status                                                  RENEWAL_STATUS,
+       ar.renewal_status_date                                             RENEWAL_STATUS_DATE,
+       case when ar.renewal_status = &apos;SENT_TO_FAMILY&apos;
        then ar.renewal_status_date                                       
-       END                                                          ASED_IDENTIFY_RENEWAL_ACCTS,
-       case when ar.renewal_status = (&apos;SENT_TO_FAMILY&apos;) 
+       END                                                                ASSD_IDENTIFY_RENEWAL_ACCTS,
+       add_months(ar.continuous_elig_end_date, -6)                        ASSD_request_notification,                                                                  
+       case when ar.renewal_status = &apos;SENT_TO_FAMILY&apos; 
        then &apos;Y&apos;  
        else &apos;N&apos;
-       END                                                          ASF_IDENTIFY_RENEWAL_ACCTS,
-       ar.last_update_user                                          ASPB_IDENTIFY_RENEWAL_ACCTS,
-       case when ar.renewal_status in (&apos;INTENT_RECEIVED&apos;)
-       then ar.renewal_status_date 
-       end                                                          ASED_REQUEST_NOTIFICATION,
-       case when (sysdate - ar.renewal_status_date) &gt; 2 
-            and ar.renewal_status in (&apos;INTENT_RECEIVED&apos;)
+       END                                                                ASF_IDENTIFY_RENEWAL_ACCTS,
+       ar.last_update_user                                                ASPB_IDENTIFY_RENEWAL_ACCTS,
+       case when ar.renewal_status = &apos;SENT_TO_FAMILY&apos;
        then &apos;Y&apos;
        else &apos;N&apos; 
-       END                                                          ASF_REQUEST_NOTIFICATION,
-       case when (sysdate - ar.renewal_status_date) &lt; 2 
-            and ar.renewal_status in (&apos;INTENT_RECEIVED&apos;)
+       END                                                                ASF_REQUEST_NOTIFICATION,
+       case when ar.renewal_status = &apos;INTENT_RECEIVED&apos;
        then ar.last_update_user
-       END                                                          ASPB_REQUEST_NOTIFICATION,
-       case when rh.intent_to_renew = &apos;F&apos;
-             and arr.renewal_result not in (&apos;RENEWAL_GRANTED&apos;)
-       then &apos;Y&apos; 
-       else &apos;N&apos;                                                     
-       END                                                          ASF_CANCEL_RENEWAL,
-       case when ADD_MONTHS(ar.RENEWAL_DATE, 1) &gt; sysdate 
-             and arr.renewal_result  not in (&apos;RENEWAL_GRANTED&apos;) 
-       then &apos;N&apos; 
-       when arr.renewal_result = &apos;RENEWAL_GRANTED&apos;
+       END                                                                ASPB_REQUEST_NOTIFICATION,
+       case when ar.renewal_status = &apos;INTENT_RECEIVED&apos;
        then &apos;Y&apos;
-       end                                                          GWF_APP_RECEIVED,
-       case when months_between(ar.renewal_date, c.insert_date) &gt; 2 
-       then c.contact_id                
-       END                                                          TIME_TO_RENEWAL_CALL_ID, 
-       case when months_between(ar.renewal_date, c.insert_date) &lt; 2 
-             and months_between(ar.renewal_date, c.insert_date) &gt; 1
-       then c.contact_id
-       END                                                          RENEWAL_REMINDER_CALL_ID,
-       case when months_between(ar.renewal_date, c.insert_date) &gt; 1 
-            and months_between(ar.renewal_date, c.insert_date) &lt; 0
-       then c.contact_id 
-       END                                                          RENEWAL_CANCELLATION_CALL_ID,
-       &apos;ACTIVE&apos;                                                  as INSTANCE_STATUS,
-       sysdate                                                   as STG_EXTRACT_DATE,
-       sysdate                                                   as STG_LAST_UPDATE_DATE,
-        ar.account_id                                            as driver_key_number, 
-       &apos;FLHK_ETL_INITIATE_RENEWALS&apos;                              as driver_table_name
+       else &apos;N&apos; 
+       END                                                                INTENT_TO_RENEW,
+       current_date                                                    as STG_EXTRACT_DATE,
+       current_date                                                    as STG_LAST_UPDATE_DATE,
+        ar.account_id                                                  as driver_key_number, 
+       &apos;FLHK_ETL_INITIATE_RENEWALS&apos;                                    as driver_table_name
 from account_renewal ar
-join account_membership am on am.account_id = ar.account_id
-join account a             on a.account_id = am.account_id
-join account_renewal_result arr  on ar.account_id = arr.account_id and arr.RENEWAL_DATE &gt;= ADD_MONTHS(sysdate, -2)
-left outer join account_renewal_result arr  on ar.account_id = arr.account_id
-left outer join renewal_history rh  on ar.account_id = rh.account_id 
-left outer join contact_account ca  on ar.account_id = ca.account_id 
-left outer join contact c  on ca.contact_id = c.contact_id and c.contact_source = &apos;PHONE&apos;
-where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
-  and sysdate &lt;= CONTINUOUS_ELIG_END_DATE
-  and ar.account_id = ?</sql>
-    <outer_join>N</outer_join>
-    <replace_vars>Y</replace_vars>
+join account a             on a.account_id = ar.account_id
+where ar.account_id = ?
+and ar.CONTINUOUS_ELIG_END_DATE   is not null</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
     <parameter>
       <field>
         <name>ACCOUNT_ID</name>
@@ -740,15 +458,15 @@ where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>290</xloc>
-      <yloc>210</yloc>
+      <xloc>260</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Set values</name>
-    <type>SelectValues</type>
+    <name>Select - Renewal Letters</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -756,667 +474,25 @@ where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>ACCOUNT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ACCOUNT_NUMBER</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>APPLICATION_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>APP_ENTERED_BY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>APP_RECEIVED_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASED_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASED_REQUEST_NOTIFICATION</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASF_CANCEL_RENEWAL</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASF_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASF_REQUEST_NOTIFICATION</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASPB_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASPB_REQUEST_NOTIFICATION</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CANCEL_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CANCEL_REASON</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COMPLETE_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CON_NO</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CON_YES</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DEO_MATCH_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DEO_MATCH_STATUS_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DOR_MATCH_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DOR_MATCH_STATUS_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DRIVER_KEY_NUMBER</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DRIVER_TABLE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DRIVER_TABLE_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ELIG_RESULT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ERROR_LEVEL</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>GWF_APP_RECEIVED</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INSTANCE_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>IR_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>JOB_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PROCESS_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_CANCELLATION_CALL_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_PERIOD_END_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_PERIOD_START_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_REMINDER_CALL_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RENEWAL_STATUS_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>STG_EXTRACT_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>STG_LAST_UPDATE_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SYSTEM_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>TIME_TO_RENEWAL_CALL_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>ACCOUNT_ID</name>
-        <rename>ACCOUNT_ID</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ACCOUNT_NUMBER</name>
-        <rename>ACCOUNT_NUMBER</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>APPLICATION_ID</name>
-        <rename>APPLICATION_ID</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>APP_ENTERED_BY</name>
-        <rename>APP_ENTERED_BY</rename>
-        <type>-</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>APP_RECEIVED_DATE</name>
-        <rename>APP_RECEIVED_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASED_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>ASED_IDENTIFY_RENEWAL_ACCTS</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASED_REQUEST_NOTIFICATION</name>
-        <rename>ASED_REQUEST_NOTIFICATION</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASF_CANCEL_RENEWAL</name>
-        <rename>ASF_CANCEL_RENEWAL</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASF_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>ASF_IDENTIFY_RENEWAL_ACCTS</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASF_REQUEST_NOTIFICATION</name>
-        <rename>ASF_REQUEST_NOTIFICATION</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASPB_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>ASPB_IDENTIFY_RENEWAL_ACCTS</rename>
-        <type>-</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ASPB_REQUEST_NOTIFICATION</name>
-        <rename>ASPB_REQUEST_NOTIFICATION</rename>
-        <type>-</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CANCEL_DATE</name>
-        <rename>CANCEL_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CANCEL_REASON</name>
-        <rename>CANCEL_REASON</rename>
-        <type>-</type>
-        <length>80</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>COMPLETE_DATE</name>
-        <rename>COMPLETE_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CON_NO</name>
-        <rename>CON_NO</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CON_YES</name>
-        <rename>CON_YES</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DEO_MATCH_STATUS</name>
-        <rename>DEO_MATCH_STATUS</rename>
-        <type>-</type>
-        <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DEO_MATCH_STATUS_DATE</name>
-        <rename>DEO_MATCH_STATUS_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DOR_MATCH_STATUS</name>
-        <rename>DOR_MATCH_STATUS</rename>
-        <type>-</type>
-        <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DOR_MATCH_STATUS_DATE</name>
-        <rename>DOR_MATCH_STATUS_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DRIVER_KEY_NUMBER</name>
-        <rename>DRIVER_KEY_NUMBER</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DRIVER_TABLE</name>
-        <rename>DRIVER_TABLE</rename>
-        <type>-</type>
-        <length>7</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DRIVER_TABLE_NAME</name>
-        <rename>DRIVER_TABLE_NAME</rename>
-        <type>-</type>
-        <length>26</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ELIG_RESULT_ID</name>
-        <rename>ELIG_RESULT_ID</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ERROR_LEVEL</name>
-        <rename>ERROR_LEVEL</rename>
-        <type>-</type>
-        <length>8</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>GWF_APP_RECEIVED</name>
-        <rename>GWF_APP_RECEIVED</rename>
-        <type>-</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>INSTANCE_STATUS</name>
-        <rename>INSTANCE_STATUS</rename>
-        <type>-</type>
-        <length>6</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>IR_ID</name>
-        <rename>IR_ID</rename>
-        <type>-</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>JOB_NAME</name>
-        <rename>JOB_NAME</rename>
-        <type>-</type>
-        <length>29</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PROCESS_NAME</name>
-        <rename>PROCESS_NAME</rename>
-        <type>-</type>
-        <length>17</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_CANCELLATION_CALL_ID</name>
-        <rename>RENEWAL_CANCELLATION_CALL_ID</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_PERIOD_END_DATE</name>
-        <rename>RENEWAL_PERIOD_END_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_PERIOD_START_DATE</name>
-        <rename>RENEWAL_PERIOD_START_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_REMINDER_CALL_ID</name>
-        <rename>RENEWAL_REMINDER_CALL_ID</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_STATUS</name>
-        <rename>RENEWAL_STATUS</rename>
-        <type>-</type>
-        <length>32</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RENEWAL_STATUS_DATE</name>
-        <rename>RENEWAL_STATUS_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>STG_EXTRACT_DATE</name>
-        <rename>STG_EXTRACT_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>STG_LAST_UPDATE_DATE</name>
-        <rename>STG_LAST_UPDATE_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SYSTEM_DATE</name>
-        <rename>SYSTEM_DATE</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>TIME_TO_RENEWAL_CALL_ID</name>
-        <rename>TIME_TO_RENEWAL_CALL_ID</rename>
-        <type>-</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
+    <connection>LETTERS</connection>
+    <sql>select to_number(driver_primary_key)    account_id,
+       LMREQ_ID                         RENEWAL_LETTER_REQ_ID,
+       &apos;Y&apos;                              ASF_REQUEST_NOTIFICATION,
+       requested_on                     ASSD_REQUEST_NOTIFICATION
+from lm_letter_requests
+where requested_on &gt;= to_date(&apos;${IR_START_DATE}&apos;,&apos;YYYY&#47;MM&#47;DD&apos;) -60
+and status &lt;&gt; &apos;CANCEL&apos;
+and lmdef_id in (21,22,37,40) 
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>980</xloc>
-      <yloc>390</yloc>
+      <xloc>580</xloc>
+      <yloc>40</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1432,28 +508,30 @@ where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <sql>SELECT distinct IR_ID
-, Account_ID
+    <sql>SELECT distinct 
+  Account_ID
+, IR_ID
 , &apos;Initiate Renewals&apos; as process_name
 , &apos;InitiateRenewals_Capture_OLTP&apos; as job_name
 ,  sysdate as system_date 
 , &apos;CRITICAL&apos; as error_level
-, &apos;Account&apos; as driver_table 
+, &apos;FLHK_INITIATE_RENEWALS_WIP_BPM&apos; as driver_table 
 , &apos;N&apos; as CON_NO
 , &apos;Y&apos; as CON_YES
-FROM FLHK_INITIATE_RENEWALS_WIP_BPM
-WHERE STAGE_DONE_DATE is null 
+, add_months(to_date(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;), -2) as start_renewal_date
+, add_months(to_date(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;), 6) as end_renewal_date 
+FROM FLHK_INITIATE_RENEWALS_WIP_BPM 
 order by account_id, ir_id
 </sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
-      <yloc>210</yloc>
+      <xloc>100</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1463,14 +541,14 @@ order by account_id, ir_id
     <type>Update</type>
     <description/>
     <distribute>N</distribute>
-    <copies>1</copies>
+    <copies>4</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <skip_lookup>Y</skip_lookup>
-    <commit>5000</commit>
+    <skip_lookup>N</skip_lookup>
+    <commit>1000</commit>
     <use_batch>N</use_batch>
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
@@ -1484,36 +562,8 @@ order by account_id, ir_id
         <name2/>
         </key>
       <value>
-        <name>ACCOUNT_ID</name>
-        <rename>ACCOUNT_ID</rename>
-        </value>
-      <value>
         <name>ACCOUNT_NUMBER</name>
         <rename>ACCOUNT_NUMBER</rename>
-        </value>
-      <value>
-        <name>APPLICATION_ID</name>
-        <rename>APPLICATION_ID</rename>
-        </value>
-      <value>
-        <name>APP_ENTERED_BY</name>
-        <rename>APP_ENTERED_BY</rename>
-        </value>
-      <value>
-        <name>APP_RECEIVED_DATE</name>
-        <rename>APP_RECEIVED_DATE</rename>
-        </value>
-      <value>
-        <name>ASED_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>ASED_IDENTIFY_RENEWAL_ACCTS</rename>
-        </value>
-      <value>
-        <name>ASED_REQUEST_NOTIFICATION</name>
-        <rename>ASED_REQUEST_NOTIFICATION</rename>
-        </value>
-      <value>
-        <name>ASF_CANCEL_RENEWAL</name>
-        <rename>ASF_CANCEL_RENEWAL</rename>
         </value>
       <value>
         <name>ASF_IDENTIFY_RENEWAL_ACCTS</name>
@@ -1532,44 +582,20 @@ order by account_id, ir_id
         <rename>ASPB_REQUEST_NOTIFICATION</rename>
         </value>
       <value>
-        <name>CANCEL_DATE</name>
-        <rename>CANCEL_DATE</rename>
+        <name>ASSD_IDENTIFY_RENEWAL_ACCTS</name>
+        <rename>ASSD_IDENTIFY_RENEWAL_ACCTS</rename>
         </value>
       <value>
-        <name>CANCEL_REASON</name>
-        <rename>CANCEL_REASON</rename>
+        <name>ASSD_REQUEST_NOTIFICATION</name>
+        <rename>ASSD_REQUEST_NOTIFICATION</rename>
         </value>
       <value>
-        <name>COMPLETE_DATE</name>
-        <rename>COMPLETE_DATE</rename>
+        <name>IR_PROCESSED</name>
+        <rename>CON_YES</rename>
         </value>
       <value>
-        <name>DEO_MATCH_STATUS</name>
-        <rename>DEO_MATCH_STATUS</rename>
-        </value>
-      <value>
-        <name>DEO_MATCH_STATUS_DATE</name>
-        <rename>DEO_MATCH_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>DOR_MATCH_STATUS</name>
-        <rename>DOR_MATCH_STATUS</rename>
-        </value>
-      <value>
-        <name>DOR_MATCH_STATUS_DATE</name>
-        <rename>DOR_MATCH_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>GWF_APP_RECEIVED</name>
-        <rename>GWF_APP_RECEIVED</rename>
-        </value>
-      <value>
-        <name>INSTANCE_STATUS</name>
-        <rename>INSTANCE_STATUS</rename>
-        </value>
-      <value>
-        <name>RENEWAL_CANCELLATION_CALL_ID</name>
-        <rename>RENEWAL_CANCELLATION_CALL_ID</rename>
+        <name>RENEWAL_LETTER_REQ_ID</name>
+        <rename>RENEWAL_LETTER_REQ_ID</rename>
         </value>
       <value>
         <name>RENEWAL_PERIOD_END_DATE</name>
@@ -1578,10 +604,6 @@ order by account_id, ir_id
       <value>
         <name>RENEWAL_PERIOD_START_DATE</name>
         <rename>RENEWAL_PERIOD_START_DATE</rename>
-        </value>
-      <value>
-        <name>RENEWAL_REMINDER_CALL_ID</name>
-        <rename>RENEWAL_REMINDER_CALL_ID</rename>
         </value>
       <value>
         <name>RENEWAL_STATUS</name>
@@ -1600,21 +622,21 @@ order by account_id, ir_id
         <rename>STG_LAST_UPDATE_DATE</rename>
         </value>
       <value>
-        <name>TIME_TO_RENEWAL_CALL_ID</name>
-        <rename>TIME_TO_RENEWAL_CALL_ID</rename>
+        <name>INTENT_TO_RENEW</name>
+        <rename>INTENT_TO_RENEW</rename>
         </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>830</xloc>
-      <yloc>390</yloc>
+      <xloc>990</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>join application</name>
-    <type>DBJoin</type>
+    <name>lookup Letters</name>
+    <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1622,143 +644,39 @@ order by account_id, ir_id
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
-    <sql>select ap.application_id                                            APPLICATION_ID,
-       ap.RECEIVED_DATE                                             APP_RECEIVED_DATE,
-       ap.APP_ENTERED_BY                                            APP_ENTERED_BY
-from application ap 
-where ap.account_id = ?
-  and ap.app_type = &apos;RENEWAL&apos;
-</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
+    <from>Select - Renewal Letters</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
         <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
+        <field>ACCOUNT_ID</field>
+      </key>
+      <value>
+        <name>RENEWAL_LETTER_REQ_ID</name>
+        <rename>RENEWAL_LETTER_REQ_ID</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+      <value>
+        <name>ASF_REQUEST_NOTIFICATION</name>
+        <rename>ASF_REQUEST_NOTIFICATION</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>ASSD_REQUEST_NOTIFICATION</name>
+        <rename>ASSD_REQUEST_NOTIFICATION</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>440</xloc>
-      <yloc>210</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join cancel_reasons</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select        esr.STATUS_REASON                   CANCEL_REASON
-from         eligibility_status_reason esr
-where esr.eligibility_result_id = ?
-and esr.status_reason is not null</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ELIG_RESULT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>980</xloc>
-      <yloc>210</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join eligibility_results</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
-    <sql>select  er.ELIGIBILITY_RESULT_ID                                 as ELIG_RESULT_ID,   
-        d.ins_cancelled_date                                     as CANCEL_DATE
-from ELIGIBILITY_RESULT ER
-join account_membership am on am.account_membership_id = er.ACCOUNT_MEMBERSHIP_ID
-left outer join deter_factor d
-  on er.ELIGIBILITY_RESULT_ID  = d.ELIGIBILITY_RESULT_ID
-where er.schip_status in (&apos;PENDING&apos;, &apos;FULL_PAY&apos;, &apos;ELIGIBLE&apos;)
-  and ER.ELIGIBILITY_RESULT_ID = ( SELECT MAX(ELIGIBILITY_RESULT_ID)  
-                                  FROM ELIGIBILITY_RESULT  ER
-                                  WHERE ER.ACCOUNT_MEMBERSHIP_ID = AM.ACCOUNT_MEMBERSHIP_ID
-                                  GROUP BY ER.ACCOUNT_MEMBERSHIP_ID )
-  and am.account_id = ? </sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>810</xloc>
-      <yloc>210</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join interface_process </name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select case when interface_process_name like &apos;DOR%&apos;
-       then ip.interface_process_status                             
-       END                                                          DOR_MATCH_STATUS,
-       case when interface_process_name like &apos;DEO%&apos;
-       then ip.interface_process_status                             
-       END                                                          DEO_MATCH_STATUS,
-       case when interface_process_name like &apos;DOR%&apos;
-       then ip.interface_process_status_date
-       END                                                          DOR_MATCH_STATUS_DATE,
-       case when interface_process_name like &apos;DEO%&apos;
-       then ip.interface_process_status_date
-       END                                                          DEO_MATCH_STATUS_DATE
-from interface_process ip
-where ip.account_id = ?
- and ip.interface_process_name in (&apos;DOR&apos;, &apos;DOR Renewal&apos;, &apos;DEO&apos;, &apos;DEO Renewal&apos;)
- order by interface_process_status_date desc </sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>620</xloc>
-      <yloc>210</yloc>
+      <xloc>580</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1778,61 +696,13 @@ where ip.account_id = ?
       </error>
       <error>
         <source_step>Update OLTP_STG</source_step>
-        <target_step>Error log - OLTP_STG</target_step>
+        <target_step>Error log - Update </target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
         <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join application</source_step>
-        <target_step>Error Applications</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>Number_of_errors</nr_valuename>
-        <descriptions_valuename>Error_descriptions</descriptions_valuename>
-        <fields_valuename>Error_fields</fields_valuename>
-        <codes_valuename>Error_codes</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join cancel_reasons</source_step>
-        <target_step>Error Cancel Reason</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>Number_of_error</nr_valuename>
-        <descriptions_valuename>Error_descriptions</descriptions_valuename>
-        <fields_valuename>Error_fields</fields_valuename>
-        <codes_valuename>Error_codes</codes_valuename>
-        <max_errors>1000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join eligibility_results</source_step>
-        <target_step>Error Eligibility_result</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>number_of_errors</nr_valuename>
-        <descriptions_valuename>error_description</descriptions_valuename>
-        <fields_valuename>error_fields</fields_valuename>
-        <codes_valuename>error_codes</codes_valuename>
-        <max_errors>1000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join interface_process </source_step>
-        <target_step>Error Interface_process</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>Number_of_errors</nr_valuename>
-        <descriptions_valuename>Error_descriptions</descriptions_valuename>
-        <fields_valuename>Error_fields</fields_valuename>
-        <codes_valuename>Error_codes</codes_valuename>
-        <max_errors>1000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
       </error>

@@ -1,0 +1,28 @@
+update CORP_ETL_MFB_BATCH 
+set CANCEL_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ CANCEL_BY = 'NYHIX-36250',
+ CANCEL_REASON = 'Deleted', 
+ CANCEL_METHOD = 'Exception',
+ INSTANCE_STATUS = 'Complete', 
+ INSTANCE_STATUS_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ COMPLETE_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ CURRENT_STEP = 'End - Cancelled', 
+ STG_LAST_UPDATE_DATE=sysdate,
+ STG_DONE_DATE = sysdate  
+ where COMPLETE_DT is null and 
+ INSTANCE_STATUS='Active' and BATCH_NAME = 'NYSOH-FAX-11/17/2017-3:44:43 AM' ;	
+ 
+ update CORP_ETL_MFB_BATCH_STG 
+set CANCEL_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ CANCEL_BY = 'NYHIX-36250',
+ CANCEL_REASON = 'Deleted', 
+ CANCEL_METHOD = 'Exception',
+ INSTANCE_STATUS = 'Complete', 
+ INSTANCE_STATUS_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ COMPLETE_DT = to_date('11/29/2017 00:00:00', 'MM/DD/YYYY HH24:MI:SS') ,
+ CURRENT_STEP = 'End - Cancelled', 
+ STG_LAST_UPDATE_DATE=sysdate,
+ STG_DONE_DATE = sysdate  
+ where COMPLETE_DT is null and 
+ INSTANCE_STATUS='Active' and BATCH_NAME = 'NYSOH-FAX-11/17/2017-3:44:43 AM' ;
+ commit;

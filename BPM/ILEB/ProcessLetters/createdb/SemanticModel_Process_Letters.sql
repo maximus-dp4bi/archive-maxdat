@@ -66,14 +66,12 @@ alter table D_PL_CURRENT add constraint DPICUR_PK primary key (PL_BI_ID) using i
 
 create unique index DPLCUR_UIX1 on D_PL_CURRENT (LETTER_REQUEST_ID) online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PL_CURRENT for D_PL_CURRENT;
 grant select on D_PL_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_PL_CURRENT_SV as
 select * from D_PL_CURRENT
 with read only;
 
-create or replace public synonym D_PL_CURRENT_SV for D_PL_CURRENT_SV;
 grant select on D_PL_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -87,21 +85,19 @@ cache 20;
 
 create table D_PL_LETTER_STATUS
   (DPLLS_ID number not null, 
-   LETTER_STATUS varchar2(50))) 
+   LETTER_STATUS varchar2(50)) 
 tablespace MAXDAT_DATA;
 
 alter table D_PL_LETTER_STATUS add constraint DPLLS_PK primary key (DPLLS_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DPLLS_UIX1 on D_PL_LETTER_STATUS (LETTER_STATUS) tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_PI_LETTER_STATUS for D_PI_LETTER_STATUS;
-grant select on D_PI_LETTER_STATUS to MAXDAT_READ_ONLY;
+grant select on D_PL_LETTER_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_PL_LETTER_STATUS_SV as
 select * from D_PL_LETTER_STATUS
 with read only;
 
-create or replace public synonym D_PL_LETTER_STATUS_SV for D_PL_LETTER_STATUS_SV;
 grant select on D_PL_LETTER_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_PL_LETTER_STATUS (DPLLS_ID ,LETTER_STATUS) values (SEQ_DPLLS_ID.NEXTVAL,null);
@@ -146,7 +142,6 @@ create index FPLBD_IXL2 on F_PL_BY_DATE (PL_BI_ID) local online tablespace MAXDA
 create index FPLBD_IXL3 on F_PL_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FPLBD_IXL4 on F_PL_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_PL_BY_DATE for F_PL_BY_DATE;
 grant select on F_PL_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_PL_BY_DATE_SV as
@@ -186,6 +181,5 @@ where
   and bdd.D_DATE = fplbd.BUCKET_END_DATE
 with read only;
 
-create or replace public synonym F_PL_BY_DATE_SV for F_PL_BY_DATE_SV;
 grant select on F_PL_BY_DATE_SV to MAXDAT_READ_ONLY;
 

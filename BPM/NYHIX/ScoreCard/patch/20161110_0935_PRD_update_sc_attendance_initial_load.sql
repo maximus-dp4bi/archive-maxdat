@@ -1,0 +1,28 @@
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5221;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 32, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5926;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 7908;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 9418;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 19, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 3047;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 11557;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 11558;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 22, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 11048;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 3089;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 17, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 7886;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 16, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 3176;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 37, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5908;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5411;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 30, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 7387;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 4233;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 34, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 3132;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 17, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 3082;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 38, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 11414;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 22, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 8264;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 2, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5679;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 33, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 5680;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 14, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 10885;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = -11, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 6331;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = -21, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 6281;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 30, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 11329;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 20, START_DATE = to_date('9/26/2016', 'mm/dd/yyyy') where staff_id = 6174;
+
+commit;

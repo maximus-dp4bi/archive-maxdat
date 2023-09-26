@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_Update10thru12</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -144,7 +157,7 @@ UPD12 - Update Cancel Eligibility related attributes
     </attributes>
   </connection>
   <order>
-  <hop> <from>Filter rows - UPD10</from><to>Filter rows - UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD10_10</from><to>Set field - UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD10_10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Set field - UPD10_10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11</from><to>Filter rows - UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11_10</from><to>Set field - UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11_10</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Set field - UPD11_10</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12</from><to>Filter rows - UPD12_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12_10</from><to>Set field -UPD12_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Set field -UPD12_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Update - Move Update to WIP</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants </from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants </to><enabled>Y</enabled> </hop>  <hop> <from>Update - Move Update to WIP</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Extract OLTP_STG and WIP_STG for Update 10 thru 12</from><to>Filter rows - UPD10</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Filter UPD10</from><to>Filter rows - UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD10_10</from><to>Set field - UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter UPD10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD10_10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Set field - UPD10_10</from><to>Filter rows - UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11</from><to>Filter rows - UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11_10</from><to>Set field - UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD11_10</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Set field - UPD11_10</from><to>Filter rows - UPD12</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12</from><to>Filter rows - UPD12_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12_10</from><to>Set field -UPD12_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD12_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Set field -UPD12_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Update - Move Update to WIP</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants </from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants </to><enabled>Y</enabled> </hop>  <hop> <from>Update - Move Update to WIP</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Extract OLTP_STG and WIP_STG for Update 10 thru 12</from><to>Filter UPD10</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants </name>
     <type>Constant</type>
@@ -301,7 +314,8 @@ SELECT ME_ID O_ME_ID
 , ASED_CANCEL_REQUEST O_ASED_CANCEL_REQUEST 
 , COMPLETE_DATE O_COMPLETE_DATE
 , ALL_MI_SATISFIED O_ALL_MI_SATISFIED
-FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID</sql>
+FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
+where OSTG.CANCEL_DATE is null</sql>
     <limit/>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -316,7 +330,7 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
     </step>
 
   <step>
-    <name>Filter rows - UPD10</name>
+    <name>Filter UPD10</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -333,12 +347,6 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>N_CANCEL_DATE</leftvalue>
-   <function>IS NULL</function>
-   <rightvalue/>
-   </condition>
-  <condition>
-   <negated>N</negated>
    <operator>AND</operator>
    <conditions>
     <condition>
@@ -351,6 +359,25 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
      <negated>N</negated>
      <operator>AND</operator>
      <leftvalue>N_ASED_NTFY_TIMEOUT</leftvalue>
+     <function>IS NULL</function>
+     <rightvalue/>
+     </condition>
+    </conditions>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>O_ASSD_NTFY_TIMEOUT</leftvalue>
+     <function>IS NOT NULL</function>
+     <rightvalue/>
+     </condition>
+    <condition>
+     <negated>N</negated>
+     <operator>AND</operator>
+     <leftvalue>O_ASED_NTFY_TIMEOUT</leftvalue>
      <function>IS NULL</function>
      <rightvalue/>
      </condition>
@@ -425,12 +452,6 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>N_CANCEL_DATE</leftvalue>
-   <function>IS NULL</function>
-   <rightvalue/>
-   </condition>
-  <condition>
-   <negated>N</negated>
    <operator>AND</operator>
    <conditions>
     <condition>
@@ -444,6 +465,30 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
      <operator>AND</operator>
      <leftvalue>N_ASED_NTFY_OUTCOME</leftvalue>
      <function>IS NULL</function>
+     <rightvalue/>
+     </condition>
+    </conditions>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>O_ASED_NTFY_OUTCOME</leftvalue>
+     <function>IS NULL</function>
+     <rightvalue/>
+     </condition>
+    </conditions>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>O_ASSD_NTFY_OUTCOME</leftvalue>
+     <function>IS NOT NULL</function>
      <rightvalue/>
      </condition>
     </conditions>
@@ -515,12 +560,6 @@ FROM FLHK_ETL_ELIGIBILITY_WIP_BPM ) WIP  on OSTG.COV_RQST_ID = WIP.O_COV_RQST_ID
 <condition>
  <negated>N</negated>
  <conditions>
-  <condition>
-   <negated>N</negated>
-   <leftvalue>N_CANCEL_DATE</leftvalue>
-   <function>IS NULL</function>
-   <rightvalue/>
-   </condition>
   <condition>
    <negated>N</negated>
    <operator>AND</operator>

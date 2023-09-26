@@ -24,12 +24,12 @@ SVN_REVISION_AUTHOR = $Author$
     <parameters>
     </parameters>
     <log>
-<trans-log-table><connection></connection>
+<trans-log-table><connection/>
 <schema/>
-<table></table>
+<table/>
 <size_limit_lines/>
 <interval/>
-<timeout_days></timeout_days>
+<timeout_days/>
 <field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
 <perf-log-table><connection/>
 <schema/>
@@ -215,8 +215,8 @@ Steps
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>

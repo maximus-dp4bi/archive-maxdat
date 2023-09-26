@@ -1,0 +1,1 @@
+Drop view public.mio_d_cviu_exparte_renwal_report_sv.sql;

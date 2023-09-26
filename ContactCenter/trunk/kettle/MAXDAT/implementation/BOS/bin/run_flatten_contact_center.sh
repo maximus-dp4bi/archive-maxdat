@@ -1,6 +1,6 @@
 #!/bin/bash
 . ~/.bash_profile
-source $BOS_SETENV
+source $MD_SETENV
 # run_flatten_contact_center.sh
 # This program will run the Kettle job to flatten the Contact Center data mart to .csv files
 # Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN

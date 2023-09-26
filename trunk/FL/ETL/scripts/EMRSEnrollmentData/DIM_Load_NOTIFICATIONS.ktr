@@ -178,7 +178,8 @@ left outer join OUTBOUND_834_MK   mk        on a.account_membership_id = mk.acco
 left outer join outbound_834_mec_check mec on a.account_membership_id = mec.account_membership_id
 where a.interface_process_status = &apos;SENT&apos;
 and a.interface_process_name LIKE &apos;%834%&apos;
-</sql>
+and (a.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+  or a.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;))</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

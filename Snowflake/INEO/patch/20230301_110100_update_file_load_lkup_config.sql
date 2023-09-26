@@ -1,0 +1,15 @@
+delete from file_load_lkup
+where filename_prefix in('PRIVACY_INCIDENT_TRACKER');
+
+INSERT INTO file_load_lkup(filename_prefix,full_load_table_name,full_load_table_schema,insert_fields,select_fields,where_clause,load_file,derive_timestamp_stmt,file_day_received,current_table_name,current_table_primary_key,full_load_table_primary_key) 
+ VALUES('PRIVACY_INCIDENT_TRACKER','INEO_PRIVACY_INCIDENT_TRACKER_HISTORY','INEO',
+ 'filename,fssa_incident_id,maximus_privacy_id,rccregion,incident_date,date_incident_reported_to_project_poc,date_incident_reported_to_fssa_privacy,date_incident_reported_to_maximus_privacy,
+description_of_incident,risk_assessment_findings_from_maximus_privacy,maximus_privacy_commentsaction_required,risk_assessment_sent_to_fssa_privacy,fssa_commentsactions_required,date_fssa_requested_action_forwarded_to_fssa_privacy,
+contract_compliance_reviewrecommendations,date_recommendation_forwarded_to_senior_rcc_manager,corrective_actiondate_completed,fssa_incident_closure_date,current_status,outcome', 
+'filename,fssa_incident_,maximus_privacy_,rccregion,try_cast(incident_date as date),try_cast(date_incident_reported_to_project_poc as date),try_cast(date_incident_reported_to_fssa_privacy_must_be_within_24_hrs as date),try_cast(date_incident_reported_to_maximus_privacy_must_be_within_24_hrs as date),description_of_incident,risk_assessment_findings_from_maximus_privacy,maximus_privacy_commentsaction_required,try_cast(risk_assessment_sent_to_fssa_privacy as date),fssa_commentsactions_required,try_cast(date_fssa_requested_action_forwarded_to_fssa_privacy as date),contract_compliance_reviewrecommendations,try_cast(date_recommendation_forwarded_to_senior_rcc_manager as date),corrective_actiondate_completed,try_cast(fssa_incident_closure_date as date),current_status,outcome',
+'WHERE 1=1 and fssa_incident_ is not null',
+'Y',
+'SELECT TO_CHAR(TO_TIMESTAMP(TRIM(SUBSTR(<filename>,LENGTH(<filename>)-13)),''yyyymmddhh24miss''),''mm/dd/yyyy hh24:mi:ss'') file_date,''Y'' with_timestamp FROM dual',
+'PREVIOUS_BUSINESS_DAY',
+'INEO_PRIVACY_INCIDENT_TRACKER','FSSA_INCIDENT_ID','PRIVACY_INCIDENT_TRACKER_ID');
+

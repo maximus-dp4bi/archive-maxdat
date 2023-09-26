@@ -303,6 +303,28 @@ column is set to Y.
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Temp NYHIX</name>
+    <server>${DB_TEMP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_TEMP_NAME}</database>
+    <port>1557</port>
+    <username>${DB_TEMP_USER}</username>
+    <password>${DB_TEMP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
   <hop> <from>Table input - get dates to calculate</from><to>Database join - get range of data</to><enabled>Y</enabled> </hop>  <hop> <from>Mapping (sub-transformation)</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - get range of data</from><to>Mapping (sub-transformation)</to><enabled>Y</enabled> </hop>  </order>
   <step>
@@ -330,8 +352,8 @@ column is set to Y.
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>629</xloc>
-      <yloc>109</yloc>
+      <xloc>701</xloc>
+      <yloc>141</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -378,8 +400,8 @@ AND rp.end_date &lt;= ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>290</xloc>
-      <yloc>119</yloc>
+      <xloc>317</xloc>
+      <yloc>141</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -430,8 +452,8 @@ AND rp.end_date &lt;= ?</sql>
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>441</xloc>
-      <yloc>213</yloc>
+      <xloc>518</xloc>
+      <yloc>141</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -448,90 +470,113 @@ AND rp.end_date &lt;= ?</sql>
            </partitioning>
     <connection>MAXDAT</connection>
     <sql>WITH tmp_metric AS
-( SELECT mt.d_process_group_metric_id
-    ,md.name
-	,rp.type 
-	,rp.end_date
-	,f.d_reporting_period_id
-	,md.d_metric_definition_id
-    ,mt.calculate_control_chart_ind
-	,actual_value observation  
-    ,mt.upper_specification_limit
-    ,mt.lower_specification_limit
-    ,tvar.min_num_obs
-    ,tvar.max_num_obs
-    ,tvar.num_allowed_gaps
-    ,tvar.numstderrors
-	,CASE WHEN rp.type = &apos;WEEKLY&apos; THEN
-       CASE WHEN end_date - LAG(end_date) over (partition by mt.d_process_group_metric_id,rp.type order by end_date) &lt;= ((tvar.num_allowed_gaps+1) *7)
-           THEN null ELSE TO_NUMBER(TO_CHAR(end_date,&apos;yyyymmdd&apos;)) END
-     ELSE
-       CASE WHEN MONTHS_BETWEEN(end_date, LAG(end_date) over (partition by mt.d_process_group_metric_id,rp.type order by end_date)) &lt;= (tvar.num_allowed_gaps+1)
-           THEN null ELSE TO_NUMBER(TO_CHAR(end_date,&apos;yyyymmdd&apos;)) END
-     END rn
-  FROM bpm_f_process_metric f
-  INNER JOIN bpm_d_process_group_metric mt ON f.d_process_group_metric_id = mt.d_process_group_metric_id
-  INNER JOIN bpm_d_metric_definition md ON mt.d_metric_definition_id = md.d_metric_definition_id
-  INNER JOIN bpm_d_reporting_period rp ON f.d_reporting_period_id = rp.d_reporting_period_id
+( SELECT MT.d_process_group_metric_id
+    , MD.name
+    , RP.type 
+    , RP.end_date
+    , FM.d_reporting_period_id
+    , MD.d_metric_definition_id
+    , MT.calculate_control_chart_ind
+	  , FM.actual_value                 observation  
+    , MT.upper_specification_limit
+    , MT.lower_specification_limit
+    , TV.min_num_obs
+    , TV.max_num_obs
+    , TV.num_allowed_gaps
+    , TV.numstderrors
+    , CASE WHEN rp.type = &apos;WEEKLY&apos; THEN
+         CASE WHEN end_date - LAG(end_date) OVER (PARTITION BY MT.d_process_group_metric_id, RP.type ORDER BY end_date) &lt;= ((TV.num_allowed_gaps+1) *7)
+            THEN null 
+            ELSE TO_NUMBER(TO_CHAR(end_date,&apos;yyyymmdd&apos;))
+         END
+      ELSE
+         CASE WHEN MONTHS_BETWEEN(end_date, LAG(end_date) OVER (PARTITION BY MT.d_process_group_metric_id, RP.type ORDER BY end_date)) &lt;= (TV.num_allowed_gaps +1)
+           THEN null 
+           ELSE TO_NUMBER(TO_CHAR(end_date,&apos;yyyymmdd&apos;)) 
+         END
+      END rn
+  FROM bpm_f_process_metric FM
+  INNER JOIN bpm_d_process_group_metric MT  ON FM.d_process_group_metric_id = MT.d_process_group_metric_id
+  INNER JOIN bpm_d_metric_definition    MD  ON MT.d_metric_definition_id = MD.d_metric_definition_id
+  INNER JOIN bpm_d_reporting_period     RP  ON FM.d_reporting_period_id = RP.d_reporting_period_id
   CROSS JOIN (SELECT (SELECT TO_NUMBER(value) FROM corp_etl_control WHERE name = &apos;NUM_ALLOWABLE_GAPS&apos;) num_allowed_gaps,              
                      (SELECT TO_NUMBER(value) FROM corp_etl_control WHERE name = &apos;MIN_NUM_OBSERVATIONS&apos;) min_num_obs,
                      (SELECT TO_NUMBER(value) FROM corp_etl_control WHERE name = &apos;MAX_NUM_OBSERVATIONS&apos;) max_num_obs,
                      (SELECT TO_NUMBER(value) FROM corp_etl_control WHERE name = &apos;NUM_STANDARD_ERRORS&apos;) numstderrors
-              FROM DUAL) tvar    
-  WHERE actual_value IS NOT NULL
- -- AND mp.d_metric_project_id in(74,75)
- )
+              FROM DUAL) TV
+  WHERE FM.actual_value IS NOT NULL
+)
 SELECT 
-  MAX(calc_start_date) calc_start_date
-  ,MAX(calc_end_date) calc_end_date
-  ,d_process_group_metric_id
-  ,report_type
-  ,metric_name
-  ,numstderrors
-  ,upper_specification_limit
-  ,lower_specification_limit
-  ,calculate_control_chart_ind
-  ,TRUNC(SYSDATE) parameter_eff_dt
-  ,TO_DATE(&apos;12&#47;31&#47;2199&apos;,&apos;mm&#47;dd&#47;yyyy&apos;) parameter_end_dt
-FROM(
- SELECT CASE WHEN report_type = &apos;WEEKLY&apos; THEN MAX(max_rpt_end_date) -(LEAST(cnt_contiguous_rec,max_num_obs)*7) ELSE ADD_MONTHS(MAX(max_rpt_end_date),-(LEAST(cnt_contiguous_rec,max_num_obs))) END calc_start_date
-       ,MAX(max_rpt_end_date) calc_end_date
-       ,d_process_group_metric_id
-       ,report_type
-       ,metric_name
-       ,numstderrors
-       ,upper_specification_limit
-       ,lower_specification_limit
-       ,calculate_control_chart_ind
-       ,cnt_contiguous_rec       
-FROM       
-  (SELECT MIN(end_date) min_rpt_end_date
-        ,MAX(end_date) max_rpt_end_date
-        ,COUNT(1) cnt_contiguous_rec       
-        ,group_num
-        ,d_process_group_metric_id
-        ,type report_type
-        ,name metric_name
-        ,min_num_obs
-        ,max_num_obs
-        ,numstderrors
-        ,upper_specification_limit
-        ,lower_specification_limit
-        ,calculate_control_chart_ind
-  FROM(SELECT tmp_metric.*, MAX(rn) OVER (PARTITION BY d_process_group_metric_id, type ORDER BY end_date ) group_num
-       FROM tmp_metric)
-  GROUP BY group_num,d_process_group_metric_id, type,name,min_num_obs,max_num_obs,numstderrors,calculate_control_chart_ind,upper_specification_limit,lower_specification_limit
-   )
- WHERE cnt_contiguous_rec &gt;= min_num_obs  
- AND calculate_control_chart_ind  = &apos;Y&apos;
- GROUP BY d_process_group_metric_id,report_type,metric_name,max_num_obs,numstderrors,calculate_control_chart_ind,upper_specification_limit,lower_specification_limit,cnt_contiguous_rec)
+     MAX(calc_start_date)                calc_start_date
+   , MAX(calc_end_date)                  calc_end_date
+   , d_process_group_metric_id
+   , report_type
+   , metric_name
+   , numstderrors
+   , upper_specification_limit
+   , lower_specification_limit
+   , calculate_control_chart_ind
+   , Trunc(SYSDATE)                      parameter_eff_dt
+   , To_Date(&apos;12&#47;31&#47;2199&apos;,&apos;mm&#47;dd&#47;yyyy&apos;)  parameter_end_dt
+FROM (SELECT CASE WHEN report_type = &apos;WEEKLY&apos; 
+                THEN MAX(max_rpt_end_date) -(LEAST(cnt_contiguous_rec,max_num_obs)*7)
+                ELSE ADD_MONTHS(MAX(max_rpt_end_date),-(LEAST(cnt_contiguous_rec,max_num_obs)))
+             END                         calc_start_date
+         , MAX(max_rpt_end_date)         calc_end_date
+         , d_process_group_metric_id
+         , report_type
+         , metric_name
+         , numstderrors
+         , upper_specification_limit
+         , lower_specification_limit
+         , calculate_control_chart_ind
+         , cnt_contiguous_rec       
+      FROM (SELECT MIN(end_date)             min_rpt_end_date
+               , MAX(end_date)               max_rpt_end_date
+               , COUNT(1)                    cnt_contiguous_rec       
+               , group_num
+               , d_process_group_metric_id
+               , type                        report_type
+               , name                        metric_name
+               , min_num_obs
+               , max_num_obs
+               , numstderrors
+               , upper_specification_limit
+               , lower_specification_limit
+               , calculate_control_chart_ind
+            FROM (SELECT tmp_metric.*
+                     , MAX(rn) OVER (PARTITION BY d_process_group_metric_id, type ORDER BY end_date ) group_num
+                  FROM tmp_metric
+                 )
+            GROUP BY group_num
+               , d_process_group_metric_id
+               , type
+               , name
+               , min_num_obs
+               , max_num_obs
+               , numstderrors
+               , calculate_control_chart_ind
+               , upper_specification_limit
+               , lower_specification_limit
+           )
+      WHERE cnt_contiguous_rec &gt;= min_num_obs  
+        AND calculate_control_chart_ind  = &apos;Y&apos;
+      GROUP BY d_process_group_metric_id
+        , report_type,metric_name
+        , max_num_obs
+        , numstderrors
+        , calculate_control_chart_ind
+        , upper_specification_limit
+        , lower_specification_limit
+        , cnt_contiguous_rec
+     )
 GROUP BY d_process_group_metric_id
-  ,report_type
-  ,metric_name
-  ,numstderrors
-  ,upper_specification_limit
-  ,lower_specification_limit
-  ,calculate_control_chart_ind
+  , report_type
+  , metric_name
+  , numstderrors
+  , upper_specification_limit
+  , lower_specification_limit
+  , calculate_control_chart_ind
 ORDER BY d_process_group_metric_id, report_type</sql>
     <limit>0</limit>
     <lookup/>
@@ -540,8 +585,8 @@ ORDER BY d_process_group_metric_id, report_type</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>122</xloc>
-      <yloc>209</yloc>
+      <xloc>101</xloc>
+      <yloc>141</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -578,8 +623,8 @@ ORDER BY d_process_group_metric_id, report_type</sql>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>748</xloc>
-      <yloc>217</yloc>
+      <xloc>853</xloc>
+      <yloc>142</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

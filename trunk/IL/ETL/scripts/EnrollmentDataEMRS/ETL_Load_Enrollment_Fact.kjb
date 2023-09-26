@@ -230,8 +230,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>999</xloc>
-      <yloc>284</yloc>
+      <xloc>1056</xloc>
+      <yloc>423</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -272,8 +272,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1003</xloc>
-      <yloc>454</yloc>
+      <xloc>917</xloc>
+      <yloc>525</yloc>
       </entry>
     <entry>
       <name>SQL - Truncate stage table</name>
@@ -448,8 +448,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>879</xloc>
-      <yloc>376</yloc>
+      <xloc>907</xloc>
+      <yloc>379</yloc>
       </entry>
     <entry>
       <name>UPDATE_EMRS_JobStatus</name>
@@ -480,20 +480,43 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>769</xloc>
-      <yloc>458</yloc>
+      <xloc>761</xloc>
+      <yloc>467</yloc>
+      </entry>
+    <entry>
+      <name>GATHER_STATS_ENROLLMENT</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;GATHER_STATS_ENROLLMENT.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1047</xloc>
+      <yloc>294</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>STG_Load_S_ENROLLMENTS</from>
-      <to>FACT_Compare_ENROLLMENTS</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>STG_Load_S_ENROLLMENTS</from>
       <to>Error - Update job log</to>
@@ -627,6 +650,33 @@ SVN_REVISION_AUTHOR = $Author$
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>STG_Load_S_ENROLLMENTS</from>
+      <to>GATHER_STATS_ENROLLMENT</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>GATHER_STATS_ENROLLMENT</from>
+      <to>FACT_Compare_ENROLLMENTS</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>GATHER_STATS_ENROLLMENT</from>
+      <to>Error - Update job log</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

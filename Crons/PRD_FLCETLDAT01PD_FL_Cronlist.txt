@@ -1,0 +1,29 @@
+#
+# Find and remove logs 90 days old
+#
+#5 0 * * * find /home/etladmin/logs/ContactCenter/*log -mtime +30 -exec rm {} \;
+5 0 * * * find /opt/maxdat/FLHK8/logs/*log -mtime +30 -exec rm {} \;
+#
+# Run Manage Work every 15 minutes for times not supported by autosys
+#0,15,30,45 3-4 * * *  /home/etladmin/maxbi/ETL/scripts/run_bpm_min.sh
+0,15,30,45 3-4 * * *  /opt/maxdat/FLHK8/scripts/run_bpm_min.sh
+#45 2 * * *  /home/etladmin/maxbi/ETL/scripts/run_bpm_min.sh
+#45 2 * * *  /opt/maxdat/FLHK8/scripts/run_bpm_min.sh
+#20 9 * * *  /opt/maxdat/FLHK8/scripts/test_connect.sh
+#
+#  Check to see all ETL scripts have completed successfully
+#
+#48 13 * * * /home/etladmin/maxbi/ETL/scripts/check_done.sh
+#
+#  weekly maxdat analyze tables script
+#1 00 * * 6 /opt/maxdat/FLHK8/scripts/weekly_bpm.sh
+#
+# Capture performance statistics for nightly batch
+#4-15 4-6 * * * /opt/maxbi/ETL/scripts/check_app_server.sh cocp1mmor02fl.maxcorp                                                                                                             .maximus
+#07 11 * * * /home/etladmin/maxbi/ETL/scripts/MailFaxBatch7.sh &
+
+
+----------------------------------------------------------------------------------------------------------
+Note from Philip Smith below.
+Crons run via Autosys. BPM daily job runs around 5:05AM MST daily and runs via script call at 15:00 MST 
+----------------------------------------------------------------------------------------------------------

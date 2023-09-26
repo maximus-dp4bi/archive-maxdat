@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW EMRS_D_CARE_SERV_DELIV_AREA_SV
+AS
+  SELECT 
+    VALUE AS CSDA_CODE ,
+    DESCRIPTION AS CSDA_NAME ,
+    CASE
+      WHEN effective_end_date IS NULL
+      THEN 'A'
+      ELSE 'I'
+    END AS STATUS ,
+    effective_start_date AS EFFECTIVE_START_DATE,
+    effective_end_date AS EFFECTIVE_END_DATE
+  FROM &schema_name..enum_district
+  UNION ALL
+  SELECT 
+    '-1' AS CSDA_CODE ,
+    'Not Defined' AS CSDA_NAME ,
+    'A' AS STATUS ,
+    to_date('01/01/1900', 'mm/dd/yyyy')AS EFFECTIVE_START_DATE,
+    NULL AS EFFECTIVE_END_DATE
+    FROM DUAL;
+  
+  GRANT SELECT ON MAXDAT_SUPPORT.EMRS_D_CARE_SERV_DELIV_AREA_SV TO MAXDAT_REPORTS;

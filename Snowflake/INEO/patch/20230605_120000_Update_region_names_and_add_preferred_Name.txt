@@ -1,0 +1,1283 @@
+USE ROLE MARS_DP4BI_PROD_INEO_read;
+USE WAREHOUSE MARS_DP4BI_LOAD_PROD_WH;
+USE DATABASE MARS_DP4BI_PROD;
+USE SCHEMA INEO;
+----HR049_Archived_Terminations.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'HR_ARCHIVED_TERMINATIONS_';
+
+SELECT * FROM INEO.INEO_HR_ARCHIVED_TERMINATIONS_HISTORY;
+--INSERT_FIELDS
+region,supervisor,manager,filename,regions_supporting,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,
+training_status,training_class_id,agency_hire_date,maximus_hire_date,term_date,days_active,months_active,weeks_active,voluntary_involuntary,termination_reason,rehire_status,rehired_archive_term,left_for_state_position,left_to_stateother_vendor_on_ineo_project
+
+----SELECT_FIELDS
+region,supervisor,manager,filename,regions_supporting,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,training_status,training_class_id,try_cast(agency_hire_date as date),try_cast(maximus_hire_date as date),
+try_cast(term_date as date),try_cast(days_active as number),try_cast(months_active as float),try_cast(weeks_active as float),voluntary__involuntary,termination_reason,rehire_status,rehired___archive_term,left_for_state_position,left_to_stateother_vendor_on_ineo_project
+
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS = 'region,supervisor,manager,filename,region_supporting,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,training_status,training_class_id,try_cast(agency_hire_date as date),try_cast(maximus_hire_date as date),
+try_cast(term_date as date),try_cast(days_active as number),try_cast(months_active as float),try_cast(weeks_active as float),voluntary__involuntary,termination_reason,rehire_status,rehired___archive_term,left_for_state_position,left_to_stateother_vendor_on_ineo_project'
+WHERE FILENAME_PREFIX = 'HR_ARCHIVED_TERMINATIONS_';
+
+----HR050_Terminations_Tracker.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'HR_TERMINATIONS_TRACKER_';
+
+SELECT * FROM INEO.INEO_HR_TERMINATIONS_TRACKER_HISTORY;
+--INSERT_FIELDS
+region,supervisor,manager,filename,regions_supporting,rehired_archive_term,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,training_status,training_class_id,agency_hire_date,maximus_hire_date,term_date,days_active,months_active,weeks_active,voluntary_involuntary,termination_reason,left_to_stateother_vendor_on_ineo_project,rehire_status
+
+----SELECT_FIELDS
+region,supervisor,manager,filename,regions_supporting,rehired___archive_term,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,training_status,training_class_id,try_cast(agency_hire_date as date),try_cast(maximus_hire_date as date),try_cast(term_date as date),try_cast(days_active as number),try_cast(months_active as float),try_cast(weeks_active as float),voluntary__involuntary,termination_reason,left_to_stateother_vendor_on_ineo_project,rehire_status
+
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS = 'region,supervisor,manager,filename,region_supporting,rehired___archive_term,employee_id,first_name,last_name,maximus_email,position_title,previous_stateconduent_employee,employee_type,incumbent_transition,training_status,training_class_id,try_cast(agency_hire_date as date),try_cast(maximus_hire_date as date),try_cast(term_date as date),try_cast(days_active as number),try_cast(months_active as float),try_cast(weeks_active as float),voluntary__involuntary,termination_reason,left_to_stateother_vendor_on_ineo_project,rehire_status'
+WHERE FILENAME_PREFIX = 'HR_TERMINATIONS_TRACKER_';
+
+----PROV063_Provisioning_Staff_Roster.csv
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'PROV_PROVISIONING_STAFF_ROSTER';
+
+select * from "INEO".INEO_PROVISIONING_STAFF_ROSTER_HISTORY;
+
+DESCRIBE TABLE  "INEO".INEO_PROVISIONING_STAFF_ROSTER_HISTORY;
+
+
+select * from "INEO".INEO_PROVISIONING_STAFF_ROSTER;
+DESCRIBE TABLE "INEO".INEO_PROVISIONING_STAFF_ROSTER;
+--INSERT_FIELDS
+provisioning_staff_roster_id,agency_hire_date,cognos_needed,cognos_received,cognos_requested,department,employee_id,employee_name,employee_status,filename,fssa_id,fssa_received,fssa_requested,genesys_i3_id,genesys_requested,iedss_received
+,iedss_requested,manager,maximus_email,maximus_hire_date,position_title,psid,psid_overdue,psid_received,psid_requested,region,supervisor,term_date,time_zone,training_class_id,training_co_facilitator
+,training_facilitator,training_start_date,training_status,transition_team_lead
+---SELECT_FIELDS
+TRIM(CONCAT(TO_CHAR(TRY_CAST(agency_hire_date AS DATE),'yyyymmdd'),department,REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) provisioning_staff_roster_id,TRY_CAST(agency_hire_date AS DATE),cognos_needed,TRY_CAST(cognos_received AS DATE),TRY_CAST(cognos_requested AS DATE),department,employee_id,employee_name,employee_status,filename,fssa_id,
+TRY_CAST(fssa_received AS DATE),TRY_CAST(fssa_requested AS DATE),genesys_i3_id,TRY_CAST(genesys_requested AS DATE),TRY_CAST(iedss_received AS DATE),
+TRY_CAST(iedss_requested AS DATE),manager,maximus_email,TRY_CAST(maximus_hire_date AS DATE),position_title,psid,psid_overdue,TRY_CAST(psid_received AS DATE),TRY_CAST(psid_requested AS DATE),region,
+supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,training_co_facilitator
+,training_facilitator,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead;
+
+ALTER TABLE "INEO".INEO_PROVISIONING_STAFF_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE "INEO".INEO_PROVISIONING_STAFF_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='provisioning_staff_roster_id,agency_hire_date,cognos_needed,cognos_received,cognos_requested,department,employee_id,employee_name,employee_status,filename,fssa_id,fssa_received,fssa_requested,genesys_i3_id,genesys_requested,iedss_received
+,iedss_requested,manager,maximus_email,maximus_hire_date,position_title,psid,psid_overdue,psid_received,psid_requested,region,supervisor,term_date,time_zone,training_class_id,training_co_facilitator
+,training_facilitator,training_start_date,training_status,transition_team_lead,Preferred_Name'
+WHERE FILENAME_PREFIX ='PROV_PROVISIONING_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(TO_CHAR(TRY_CAST(agency_hire_date AS DATE),"yyyymmdd"),department,REGEXP_REPLACE(UPPER(employee_id),"[^A-Za-z0-9]"))) provisioning_staff_roster_id,TRY_CAST(agency_hire_date AS DATE),cognos_needed,TRY_CAST(cognos_received AS DATE),TRY_CAST(cognos_requested AS DATE),department,employee_id,employee_name,employee_status,filename,fssa_id,
+TRY_CAST(fssa_received AS DATE),TRY_CAST(fssa_requested AS DATE),genesys_i3_id,TRY_CAST(genesys_requested AS DATE),TRY_CAST(iedss_received AS DATE),
+TRY_CAST(iedss_requested AS DATE),manager,maximus_email,TRY_CAST(maximus_hire_date AS DATE),position_title,psid,psid_overdue,TRY_CAST(psid_received AS DATE),TRY_CAST(psid_requested AS DATE),region,
+supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,training_co_facilitator
+,training_facilitator,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,Preferred_Name'
+WHERE  FILENAME_PREFIX ='PROV_PROVISIONING_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_PROVISIONING_STAFF_ROSTER_SV;
+create or replace view INEO.INEO_D_PROVISIONING_STAFF_ROSTER_HISTORY_SV(
+	PROV_STAFF_ROSTER_HISTORY_ID,
+	PROVISIONING_STAFF_ROSTER_ID,
+	AGENCY_HIRE_DATE,
+	COGNOS_NEEDED,
+	COGNOS_RECEIVED,
+	COGNOS_REQUESTED,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	FSSA_ID,
+	FSSA_RECEIVED,
+	FSSA_REQUESTED,
+	GENESYS_I3_ID,
+	GENESYS_REQUESTED,
+	IEDSS_RECEIVED,
+	IEDSS_REQUESTED,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MAXIMUS_HIRE_DATE,
+	POSITION_TITLE,
+	PSID,
+	PSID_OVERDUE,
+	PSID_RECEIVED,
+	PSID_REQUESTED,
+	REGION,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_CO_FACILITATOR,
+	TRAINING_FACILITATOR,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+	
+) COPY GRANTS as
+SELECT * FROM ineo.ineo_provisioning_staff_roster_history;
+
+
+create or replace view INEO.INEO_D_PROVISIONING_STAFF_ROSTER_SV(
+	PROVISIONING_STAFF_ROSTER_ID,
+	AGENCY_HIRE_DATE,
+	COGNOS_NEEDED,
+	COGNOS_RECEIVED,
+	COGNOS_REQUESTED,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	FSSA_ID,
+	FSSA_RECEIVED,
+	FSSA_REQUESTED,
+	GENESYS_I3_ID,
+	GENESYS_REQUESTED,
+	IEDSS_RECEIVED,
+	IEDSS_REQUESTED,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MAXIMUS_HIRE_DATE,
+	POSITION_TITLE,
+	PSID,
+	PSID_OVERDUE,
+	PSID_RECEIVED,
+	PSID_REQUESTED,
+	REGION,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_CO_FACILITATOR,
+	TRAINING_FACILITATOR,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) COPY GRANTS
+as
+SELECT * FROM ineo.ineo_provisioning_staff_roster;
+
+-----PIONEER_TEAM_STAFF_ROSTER
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX ='PT_PIONEER_TEAM_STAFF_ROSTER';
+
+
+SELECT * FROM INEO.INEO_PIONEER_TEAM_STAFF_ROSTER_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_PIONEER_TEAM_STAFF_ROSTER_HISTORY;
+
+SELECT * FROM INEO.INEO_PIONEER_TEAM_STAFF_ROSTER;
+
+DESCRIBE TABLE INEO.INEO_PIONEER_TEAM_STAFF_ROSTER;
+
+--INSERT_FIELDS
+agency_hire_date,department,employee_id,employee_name,employee_status,filename,fssa_email,fssa_id,hr_specialist,manager,maximus_email,position_title,qi_supervisor,
+qisc,region,regions_supporting,sr_operations_manager,supervisor,term_date,training_status,work_order_end_date
+
+--SELECT_FIELDS
+TRY_CAST(agency_hire_date AS DATE),department,employee_id,employee_name,employee_status,filename,fssa_email,fssa_id,hr_specialist,manager,maximus_email,position_title,qi_supervisor,qisc,region,regions_supporting,
+sr_operations_manager,supervisor,TRY_CAST(term_date AS DATE),training_status,TRY_CAST(work_order_end_date AS DATE)
+
+ALTER TABLE "INEO".INEO_PIONEER_TEAM_STAFF_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE "INEO".INEO_PIONEER_TEAM_STAFF_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='agency_hire_date,department,employee_id,employee_name,employee_status,filename,fssa_email,fssa_id,hr_specialist,manager,maximus_email,position_title,qi_supervisor,qisc,
+region,regions_supporting,sr_operations_manager,supervisor,term_date,training_status,work_order_end_date,Preferred_Name'
+WHERE FILENAME_PREFIX = 'PT_PIONEER_TEAM_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRY_CAST(agency_hire_date AS DATE),department,employee_id,employee_name,employee_status,filename,fssa_email,fssa_id,hr_specialist,manager,maximus_email,position_title,null,null,region,region_supporting,
+sr_operations_manager,supervisor,TRY_CAST(term_date AS DATE),training_status,TRY_CAST(work_order_end_date AS DATE),Preferred_Name'
+WHERE  FILENAME_PREFIX = 'PT_PIONEER_TEAM_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_PIONEER_TEAM_STAFF_ROSTER_SV;
+create or replace view INEO.INEO_D_PIONEER_TEAM_STAFF_ROSTER_HISTORY_SV(
+	PIONEER_STAFF_ROSTER_ID,
+	AGENCY_HIRE_DATE,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	HR_SPECIALIST,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POSITION_TITLE,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONS_SUPPORTING,
+	SR_OPERATIONS_MANAGER,
+	SUPERVISOR,
+	TERM_DATE,
+	TRAINING_STATUS,
+	WORK_ORDER_END_DATE,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_pioneer_team_staff_roster_history;
+
+create or replace view INEO.INEO_D_PIONEER_TEAM_STAFF_ROSTER_SV(
+	AGENCY_HIRE_DATE,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	HR_SPECIALIST,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POSITION_TITLE,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONS_SUPPORTING,
+	SR_OPERATIONS_MANAGER,
+	SUPERVISOR,
+	TERM_DATE,
+	TRAINING_STATUS,
+	WORK_ORDER_END_DATE,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_pioneer_team_staff_roster;
+
+
+---QUAL065_Quality_Staff_Roster.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX LIKE  'QUAL_QUALITY_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_QUALITY_STAFF_ROSTER_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_QUALITY_STAFF_ROSTER_HISTORY;
+
+SELECT * FROM INEO.INEO_QUALITY_STAFF_ROSTER;
+
+DESCRIBE TABLE INEO.INEO_QUALITY_STAFF_ROSTER;
+
+--INSERT_FIELDS
+department,employee_id,employee_name,employee_status,employee_type,filename,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,manager,maximus_email,nesting_end_date,nesting_start_date,position_title,
+previous_stateconduent_employee,qi_supervisor,qisc,region,regional_supervisors,regions_supporting,supervisor,term_date,time_zone,training_class_id,training_end_date,training_start_date,training_status,transition_team_lead,work_group
+
+--SELECT_FIELDS
+department,employee_id,employee_name,employee_status,employee_type,filename,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,manager,maximus_email,TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),
+position_title,previous_stateconduent_employee,qi_supervisor,qisc,region,regional_supervisors,regions_supporting,supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),
+TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,work_group
+
+
+ALTER TABLE INEO.INEO_QUALITY_STAFF_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE INEO.INEO_QUALITY_STAFF_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='department,employee_id,employee_name,employee_status,employee_type,filename,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,manager,maximus_email,nesting_end_date,nesting_start_date,position_title,
+previous_stateconduent_employee,qi_supervisor,qisc,region,regional_supervisors,regions_supporting,supervisor,term_date,time_zone,training_class_id,training_end_date,training_start_date,training_status,transition_team_lead,work_group,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'QUAL_QUALITY_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='department,employee_id,employee_name,employee_status,employee_type,filename,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,manager,maximus_email,TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),
+position_title,previous_stateconduent_employee,qi_supervisor,qisc,region,regional_supervisors,region_supporting,supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),
+TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,work_group,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'QUAL_QUALITY_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_QUALITY_STAFF_ROSTER_SV;
+create or replace view INEO.INEO_D_QUALITY_STAFF_ROSTER_HISTORY_SV(
+	QUALITY_STAFF_ROSTER_ID,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	GENESYS_I3_ID,
+	HR_SPECIALIST,
+	INCUMBENT_TRANSITION,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	REGIONS_SUPPORTING,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WORK_GROUP,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_quality_staff_roster_history;
+
+create or replace view INEO.INEO_D_QUALITY_STAFF_ROSTER_SV(
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	GENESYS_I3_ID,
+	HR_SPECIALIST,
+	INCUMBENT_TRANSITION,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	REGIONS_SUPPORTING,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WORK_GROUP,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_quality_staff_roster;
+
+---SMS067_All_Staff_Roster.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'SMS_ALL_STAFF_ROSTER';
+
+
+SELECT * FROM INEO.INEO_ALL_STAFF_ROSTER_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ALL_STAFF_ROSTER_HISTORY;
+
+SELECT * FROM INEO.INEO_ALL_STAFF_ROSTER;
+
+DESCRIBE TABLE INEO.INEO_ALL_STAFF_ROSTER;
+
+--INSERT_FIELDS
+agency_hire_date,attendance_points_accrued,average_cpc_training_exam_score,break_1_time,break_2_time,closed_corrective_actions,conversion_date,department,employee_id,employee_name,employee_status,employee_type,exemption_status,facility_specialist,filename,first_name,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,
+last_name,lunch_end_time,lunch_start_time,manager, maximus_email,maximus_hire_date,modified,nesting_end_date,nesting_start_date,open_corrective_actions,personal_email,position_title,previous_stateconduent_employee,psid,qi_supervisor,qisc,region,regional_supervisors,regional_team_leads,regions_supporting,shift_end_time,
+shift_schedule_week_starting,shift_start_time,sr_operations_manager,staffing_agency,supervisor,term_date,time_zone,training_class_id,training_co_facilitator,training_end_date,training_facilitator,training_hours_missed,training_start_date,training_status,transition_team_lead,work_group
+
+--SELECT_FIELDS
+TRY_CAST(agency_hire_date AS DATE),attendance_points_accrued,average_cpc_training_exam_score,break_1_time,break_2_time,closed_corrective_actions,TRY_CAST(conversion_date AS DATE),department,employee_id,
+employee_name,employee_status,employee_type,exemption_status,facilities_specialist,filename,first_name,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,
+last_name,lunch_end_time,lunch_start_time,manager, maximus_email,TRY_CAST(maximus_hire_date AS DATE),TRY_CAST(modified AS TIMESTAMP_NTZ),TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),open_corrective_actions,personal_email,
+position_title,previous_stateconduent_employee,psid,qi_supervisor,qisc,region,regional_supervisors,regional_team_leads,regions_supporting,shift_end_time,
+shift_schedule_week_starting,shift_start_time,sr_operations_manager,staffing_agency,supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,training_co_facilitator,
+TRY_CAST(training_end_date AS DATE),training_facilitator,training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,work_group
+
+
+ALTER TABLE INEO.INEO_ALL_STAFF_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR;
+
+
+ALTER TABLE INEO.INEO_ALL_STAFF_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='agency_hire_date,attendance_points_accrued,average_cpc_training_exam_score,break_1_time,break_2_time,closed_corrective_actions,conversion_date,department,employee_id,employee_name,employee_status,employee_type,exemption_status,facility_specialist,filename,first_name,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,
+last_name,lunch_end_time,lunch_start_time,manager, maximus_email,maximus_hire_date,modified,nesting_end_date,nesting_start_date,open_corrective_actions,personal_email,position_title,previous_stateconduent_employee,psid,qi_supervisor,qisc,region,regional_supervisors,regional_team_leads,regions_supporting,shift_end_time,
+shift_schedule_week_starting,shift_start_time,sr_operations_manager,staffing_agency,supervisor,term_date,time_zone,training_class_id,training_co_facilitator,training_end_date,training_facilitator,training_hours_missed,training_start_date,training_status,transition_team_lead,work_group,Preferred_Name'
+WHERE FILENAME_PREFIX = 'SMS_ALL_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRY_CAST(agency_hire_date AS DATE),null,average_cpc_training_exam_score,null,null,null,TRY_CAST(conversion_date AS DATE),department,employee_id,
+employee_name,employee_status,employee_type,exemption_status,facilities_specialist,filename,first_name,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,
+last_name,null,null,manager, maximus_email,TRY_CAST(maximus_hire_date AS DATE),TRY_CAST(modified AS TIMESTAMP_NTZ),TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),null,personal_email,
+position_title,previous_stateconduent_employee,psid,qi_supervisor,qisc,region,regional_supervisors,regional_team_leads,region_supporting,null,
+null,null,sr_operations_manager,staffing_agency,supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,training_co_facilitator,
+TRY_CAST(training_end_date AS DATE),training_facilitator,training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,work_group,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'SMS_ALL_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_ALL_STAFF_ROSTER_SV;
+create or replace view INEO.INEO_D_ALL_STAFF_ROSTER_HISTORY_SV(
+	STAFF_ROSTER_HISTORY_ID,
+	AGENCY_HIRE_DATE,
+	ATTENDANCE_POINTS_ACCRUED,
+	AVERAGE_CPC_TRAINING_EXAM_SCORE,
+	BREAK_1_TIME,
+	BREAK_2_TIME,
+	CLOSED_CORRECTIVE_ACTIONS,
+	CONVERSION_DATE,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	EXEMPTION_STATUS,
+	FACILITY_SPECIALIST,
+	FILENAME,
+	FIRST_NAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	GENESYS_I3_ID,
+	HR_SPECIALIST,
+	INCUMBENT_TRANSITION,
+	LAST_NAME,
+	LUNCH_END_TIME,
+	LUNCH_START_TIME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MAXIMUS_HIRE_DATE,
+	MODIFIED,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	OPEN_CORRECTIVE_ACTIONS,
+	PERSONAL_EMAIL,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	PSID,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	REGIONAL_TEAM_LEADS,
+	REGIONS_SUPPORTING,
+	SHIFT_END_TIME,
+	SHIFT_SCHEDULE_WEEK_STARTING,
+	SHIFT_START_TIME,
+	SR_OPERATIONS_MANAGER,
+	STAFFING_AGENCY,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_CO_FACILITATOR,
+	TRAINING_END_DATE,
+	TRAINING_FACILITATOR,
+	TRAINING_HOURS_MISSED,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WORK_GROUP,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_all_staff_roster_history;
+
+create or replace view INEO.INEO_D_ALL_STAFF_ROSTER_SV(
+	AGENCY_HIRE_DATE,
+	ATTENDANCE_POINTS_ACCRUED,
+	AVERAGE_CPC_TRAINING_EXAM_SCORE,
+	BREAK_1_TIME,
+	BREAK_2_TIME,
+	CLOSED_CORRECTIVE_ACTIONS,
+	CONVERSION_DATE,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	EXEMPTION_STATUS,
+	FACILITY_SPECIALIST,
+	FILENAME,
+	FIRST_NAME,
+	FSSA_EMAIL,
+	FSSA_ID,
+	GENESYS_I3_ID,
+	HR_SPECIALIST,
+	INCUMBENT_TRANSITION,
+	LAST_NAME,
+	LUNCH_END_TIME,
+	LUNCH_START_TIME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MAXIMUS_HIRE_DATE,
+	MODIFIED,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	OPEN_CORRECTIVE_ACTIONS,
+	PERSONAL_EMAIL,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	PSID,
+	QI_SUPERVISOR,
+	QISC,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	REGIONAL_TEAM_LEADS,
+	REGIONS_SUPPORTING,
+	SHIFT_END_TIME,
+	SHIFT_SCHEDULE_WEEK_STARTING,
+	SHIFT_START_TIME,
+	SR_OPERATIONS_MANAGER,
+	STAFFING_AGENCY,
+	SUPERVISOR,
+	TERM_DATE,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_CO_FACILITATOR,
+	TRAINING_END_DATE,
+	TRAINING_FACILITATOR,
+	TRAINING_HOURS_MISSED,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WORK_GROUP,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_all_staff_roster;
+
+----TRAIN054_Training_Staff_Roster.csv
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX LIKE  'TRAIN_TRAINING_STAFF_ROSTER';
+
+
+SELECT * FROM INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY;
+
+SELECT * FROM INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER;
+
+----INSERT_FIELDS
+active_training_staff_roster_id,average_cpc_training_exam_score,conduent_trainer,department,employee_id,employee_name,employee_status,filename,manager,maximus_co_facilitator,maximus_email,maximus_facilitator,nesting_end_date,nesting_start_date,
+personal_email,position_title,previous_stateconduent_employee,psid_form_submission,region,send_welcome_email,staffing_agency,time_zone,training_class_id,training_end_date,training_hours_missed,training_start_date,
+training_status,transition_team_lead,fssa_email
+
+----SELECT_FIELDS
+
+CONCAT(COALESCE(training_class_id,'NA'),COALESCE(TO_CHAR(TRY_CAST(training_start_date AS DATE),'yyyymmdd'),'NA'),COALESCE(TO_CHAR(TRY_CAST(training_end_date AS DATE),'yyyymmdd'),'NA'),employee_id) active_training_staff_roster_id,
+TRY_CAST(average_cpc_training_exam_score AS FLOAT),conduent_trainer,department,employee_id,employee_name,employee_status,filename,manager,maximus_co_facilitator,maximus_email,maximus_facilitator,
+TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),personal_email,position_title,previous_stateconduent_employee,psid_form_submission,region,send_welcome_email,staffing_agency,
+time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,fssa_email
+
+
+ALTER TABLE INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE INEO.INEO_ACTIVE_TRAINING_STAFF_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='active_training_staff_roster_id,average_cpc_training_exam_score,conduent_trainer,department,employee_id,employee_name,employee_status,filename,manager,maximus_co_facilitator,maximus_email,maximus_facilitator,nesting_end_date,nesting_start_date,
+personal_email,position_title,previous_stateconduent_employee,psid_form_submission,region,send_welcome_email,staffing_agency,time_zone,training_class_id,training_end_date,training_hours_missed,training_start_date,
+training_status,transition_team_lead,fssa_email,Preferred_Name'
+WHERE FILENAME_PREFIX = 'TRAIN_TRAINING_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='CONCAT(COALESCE(training_class_id,"NA"),COALESCE(TO_CHAR(TRY_CAST(training_start_date AS DATE),"yyyymmdd"),"NA"),COALESCE(TO_CHAR(TRY_CAST(training_end_date AS DATE),"yyyymmdd"),"NA"),employee_id) active_training_staff_roster_id,
+TRY_CAST(average_cpc_training_exam_score AS FLOAT),conduent_trainer,department,employee_id,employee_name,employee_status,filename,manager,maximus_co_facilitator,maximus_email,maximus_facilitator,
+TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),personal_email,position_title,previous_stateconduent_employee,psid_form_submission,region,send_welcome_email,staffing_agency,
+time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,fssa_email,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'TRAIN_TRAINING_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY_SV;
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TRAINING_STAFF_ROSTER_HISTORY_SV(
+	ACTIVE_TRN_STAFF_ROSTER_HISTORY_ID,
+	ACTIVE_TRAINING_STAFF_ROSTER_ID,
+	AVERAGE_CPC_TRAINING_EXAM_SCORE,
+	CONDUENT_TRAINER,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_CO_FACILITATOR,
+	MAXIMUS_EMAIL,
+	MAXIMUS_FACILITATOR,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	PERSONAL_EMAIL,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	PSID_FORM_SUBMISSION,
+	REGION,
+	SEND_WELCOME_EMAIL,
+	STAFFING_AGENCY,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_HOURS_MISSED,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	FSSA_EMAIL,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_training_staff_roster_history;
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TRAINING_STAFF_ROSTER_SV(
+	ACTIVE_TRAINING_STAFF_ROSTER_ID,
+	AVERAGE_CPC_TRAINING_EXAM_SCORE,
+	CONDUENT_TRAINER,
+	DEPARTMENT,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_CO_FACILITATOR,
+	MAXIMUS_EMAIL,
+	MAXIMUS_FACILITATOR,
+	NESTING_END_DATE,
+	NESTING_START_DATE,
+	PERSONAL_EMAIL,
+	POSITION_TITLE,
+	PREVIOUS_STATECONDUENT_EMPLOYEE,
+	PSID_FORM_SUBMISSION,
+	REGION,
+	SEND_WELCOME_EMAIL,
+	STAFFING_AGENCY,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_HOURS_MISSED,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	FSSA_EMAIL,
+	PREFERRED_NAME
+	
+) as
+SELECT * FROM ineo.ineo_active_training_staff_roster
+;
+
+----WFM056_Production_Unscheduled_Absences.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'WFM_PRODUCTION_UNSCHEDULED_ABSENCES';
+
+
+SELECT * FROM INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY;
+
+SELECT * FROM INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION;
+
+----INSERT_FIELDS
+active_unsched_absence_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,point_value,position_title,region,regional_supervisors,submission_comments,
+submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_status,transition_team_lead,wfm_absence_description,regions_supporting,employee_total
+
+---SELECT_FIELDS
+TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),'yyyymmdd'),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),'yyyymmddhh24miss'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,point_value,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,transition_team_lead,wfm_absence_description,regions_supporting,0 employeetotal
+
+
+ALTER TABLE INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE INEO.INEO_ACTIVE_UNSCHED_ABSENCES_PRODUCTION
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='active_unsched_absence_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,point_value,position_title,region,regional_supervisors,submission_comments,
+submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_status,transition_team_lead,wfm_absence_description,regions_supporting,employee_total,Preferred_Name'
+WHERE  FILENAME_PREFIX ='WFM_PRODUCTION_UNSCHEDULED_ABSENCES';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),"yyyymmdd"),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),"yyyymmddhh24miss"),REGEXP_REPLACE(UPPER(employee_id),"[^A-Za-z0-9]"))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,point_value,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,transition_team_lead,wfm_absence_description,region_supporting,0 employeetotal,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'WFM_PRODUCTION_UNSCHEDULED_ABSENCES';
+
+SELECT * FROM INEO.INEO_D_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY_SV;
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY_SV(
+	ACTIVE_UNSCHED_HISTORY_ID,
+	ACTIVE_UNSCHED_ABSENCE_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POINT_VALUE,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING,
+	EMPLOYEE_TOTAL,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_unsched_absences_production_history;
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_SV(
+	ACTIVE_UNSCHED_ABSENCE_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POINT_VALUE,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING,
+	EMPLOYEE_TOTAL,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_unsched_absences_production;
+
+
+----WFM058_Time_Off_Requests.csv
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'WFM_TIME_OFF_REQUESTS';
+
+
+SELECT * FROM INEO.INEO_ACTIVE_TIME_OFF_REQUESTS_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TIME_OFF_REQUESTS_HISTORY;
+
+SELECT * FROM INEO.INEO_ACTIVE_TIME_OFF_REQUESTS;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TIME_OFF_REQUESTS;
+
+----INSERT_FIELDS
+active_timeoff_request_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,operations_approval_date,operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,wfm_approval_date,wfm_approval_status,regions_supporting,month_number,month_name
+
+---SELECT_FIELDS
+TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),'yyyymmdd'),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),'yyyymmddhh24miss'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) timeoff_request_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,TRY_CAST(operations_approval_date AS DATE),operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,TRY_CAST(wfm_approval_date AS DATE),wfm_approval_status,null,month(TRY_CAST(absence_date AS DATE)),monthname(TRY_CAST(absence_date AS DATE))
+
+
+ALTER TABLE INEO.INEO_ACTIVE_TIME_OFF_REQUESTS_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR;
+
+
+ALTER TABLE INEO.INEO_ACTIVE_TIME_OFF_REQUESTS
+ADD COLUMN PREFERRED_NAME VARCHAR;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='active_timeoff_request_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,operations_approval_date,operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,wfm_approval_date,wfm_approval_status,regions_supporting,month_number,month_name,Preferred_Name'
+WHERE FILENAME_PREFIX ='WFM_TIME_OFF_REQUESTS';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),"yyyymmdd"),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),"yyyymmddhh24miss"),REGEXP_REPLACE(UPPER(employee_id),"[^A-Za-z0-9]"))) timeoff_request_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,TRY_CAST(operations_approval_date AS DATE),operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,TRY_CAST(wfm_approval_date AS DATE),wfm_approval_status,region_supporting,month(TRY_CAST(absence_date AS DATE)),monthname(TRY_CAST(absence_date AS DATE)),Preferred_Name'
+WHERE  FILENAME_PREFIX = 'WFM_TIME_OFF_REQUESTS';
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TIME_OFF_REQUESTS_HISTORY_SV(
+	ACTIVE_TIMEOFF_REQ_HISTORY_ID,
+	ACTIVE_TIMEOFF_REQUEST_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	LATEST_COMMENT,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MONTH_NUMBER,
+	MONTH_NAME,
+	OPERATIONS_APPROVAL_DATE,
+	OPERATIONS_APPROVAL_STATUS,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	WFM_APPROVAL_DATE,
+	WFM_APPROVAL_STATUS,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_time_off_requests_history;
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TIME_OFF_REQUESTS_SV(
+	ACTIVE_TIMEOFF_REQUEST_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	LATEST_COMMENT,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	MONTH_NUMBER,
+	MONTH_NAME,
+	OPERATIONS_APPROVAL_DATE,
+	OPERATIONS_APPROVAL_STATUS,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	WFM_APPROVAL_DATE,
+	WFM_APPROVAL_STATUS,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_time_off_requests;
+-----WFM060_Training_Unscheduled_Absences.csv
+
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX LIKE  'WFM_TRAINING_UNSCHEDULED_ABSENCES';
+
+
+SELECT * FROM INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES_HISTORY;
+
+SELECT * FROM INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES;
+
+----INSERT_FIELDS
+active_training_unsched_absence_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,position_title,region,regional_supervisors,submission_comments,
+submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_class_id,training_end_date,training_start_date,training_status,transition_team_lead,wfm_absence_description
+
+TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),'yyyymmdd'),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),'yyyymmddhh24miss'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) timeoff_request_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,TRY_CAST(operations_approval_date AS DATE),operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,TRY_CAST(wfm_approval_date AS DATE),wfm_approval_status,null,month(TRY_CAST(absence_date AS DATE)),monthname(TRY_CAST(absence_date AS DATE))
+---SELECT_FIELDS
+TRIM(CONCAT(COALESCE(training_class_id,'NA'),TO_CHAR(TRY_CAST(absence_date AS DATE),'yyyymmdd'),COALESCE(REGEXP_REPLACE(absence_start_time,'[^A-Za-z0-9]'),'000am'),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),'yyyymmddhh24miss'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,wfm_absence_description
+
+--This COLUMN already added above
+ALTER TABLE INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE INEO.INEO_ACTIVE_TRAINING_UNSCHED_ABSENCES
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='active_training_unsched_absence_id,absence_date,absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,position_title,region,regional_supervisors,submission_comments,
+submission_date,submission_timestamp,submitted_employee_name,supervisor,time_zone,training_class_id,training_end_date,training_start_date,training_status,transition_team_lead,wfm_absence_description,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'WFM_TRAINING_UNSCHEDULED_ABSENCES';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(COALESCE(training_class_id,"NA"),TO_CHAR(TRY_CAST(absence_date AS DATE),"yyyymmdd"),COALESCE(REGEXP_REPLACE(absence_start_time,"[^A-Za-z0-9]"),"000am"),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),"yyyymmddhh24miss"),REGEXP_REPLACE(UPPER(employee_id),"[^A-Za-z0-9]"))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,wfm_absence_description,Preferred_Name'
+WHERE FILENAME_PREFIX = 'WFM_TRAINING_UNSCHEDULED_ABSENCES';
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TRAINING_UNSCHED_ABSENCES_HISTORY_SV(
+	ACTIVE_TRAINING_UNSCHED_HISTORY_ID,
+	ACTIVE_TRAINING_UNSCHED_ABSENCE_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_training_unsched_absences_history;
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_ACTIVE_TRAINING_UNSCHED_ABSENCES_SV(
+	ACTIVE_TRAINING_UNSCHED_ABSENCE_ID,
+	ABSENCE_DATE,
+	ABSENCE_DESCRIPTION,
+	ABSENCE_END_TIME,
+	ABSENCE_START_TIME,
+	ABSENCE_TYPE,
+	ARCHIVE_ERROR,
+	ARRIVAL_TIME,
+	DEPARTURE_TIME,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MAXIMUS_EMAIL,
+	POSITION_TITLE,
+	REGION,
+	REGIONAL_SUPERVISORS,
+	SUBMISSION_COMMENTS,
+	SUBMISSION_DATE,
+	SUBMISSION_TIMESTAMP,
+	SUBMITTED_EMPLOYEE_NAME,
+	SUPERVISOR,
+	TIME_ZONE,
+	TRAINING_CLASS_ID,
+	TRAINING_END_DATE,
+	TRAINING_START_DATE,
+	TRAINING_STATUS,
+	TRANSITION_TEAM_LEAD,
+	WFM_ABSENCE_DESCRIPTION,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_active_training_unsched_absences;
+
+
+----WFM062_WFM_Staff_Roster.csv
+
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX like 'WFM_WFM_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY;
+
+SELECT * FROM INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER;
+
+DESCRIBE TABLE INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER;
+
+----INSERT_FIELDS
+wfm_attendance_id,attendance_status,attendance_substatus,checked_in,date,employee_id,employee_name,employee_status,employee_type,filename,manager,modified,points_accrued_to_date,points_earned,position_title,region,supervisor,time,time_zone,timestamp,training_status,regions_supporting
+
+---SELECT_FIELDS
+TRIM(CONCAT(TO_CHAR(TRY_CAST(modified AS TIMESTAMP_NTZ),'yyyymmddhh24miss'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]')))  wfm_attendance_id,attendance_status,attendance_substatus,
+ checked_in,TRY_CAST(date AS DATE),employee_id,employee_name,employee_status,employee_type,filename,manager,TRY_CAST(modified AS TIMESTAMP_NTZ),TRY_CAST(points_accrued_to_date AS NUMBER),TRY_CAST(points_earned AS NUMBER),position_title,region,supervisor,time,time_zone,TRY_CAST(timestamp AS TIMESTAMP_NTZ),training_status,regions_supporting
+
+--This COLUMN already added above
+ALTER TABLE INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+
+ALTER TABLE INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER
+ADD COLUMN PREFERRED_NAME VARCHAR ;
+
+---UPDATE INSERT_FIELDS
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='wfm_attendance_id,attendance_status,attendance_substatus,checked_in,date,employee_id,employee_name,employee_status,employee_type,filename,manager,modified,points_accrued_to_date,points_earned,position_title,region,supervisor,time,time_zone,timestamp,training_status,regions_supporting,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'WFM_WFM_STAFF_ROSTER';
+
+--UPDATE SELECT_FIELDS
+
+UPDATE  "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(TO_CHAR(TRY_CAST(modified AS TIMESTAMP_NTZ),"yyyymmddhh24miss"),REGEXP_REPLACE(UPPER(employee_id),"[^A-Za-z0-9]")))  wfm_attendance_id,attendance_status,attendance_substatus,
+ checked_in,TRY_CAST(date AS DATE),employee_id,employee_name,employee_status,employee_type,filename,manager,TRY_CAST(modified AS TIMESTAMP_NTZ),TRY_CAST(points_accrued_to_date AS NUMBER),TRY_CAST(points_earned AS NUMBER),position_title,region,supervisor,time,time_zone,TRY_CAST(timestamp AS TIMESTAMP_NTZ),training_status,region_supporting,Preferred_Name'
+WHERE  FILENAME_PREFIX = 'WFM_WFM_STAFF_ROSTER';
+
+SELECT * FROM INEO.INEO_D_WFM_STAFF_ROSTER_SV;
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_WFM_STAFF_ROSTER_HISTORY_SV(
+	WFM_ATTENDANCE_HISTORY_ID,
+	WFM_ATTENDANCE_ID,
+	ATTENDANCE_STATUS,
+	ATTENDANCE_SUBSTATUS,
+	CHECKED_IN,
+	DATE,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MODIFIED,
+	POINTS_ACCRUED_TO_DATE,
+	POINTS_EARNED,
+	POSITION_TITLE,
+	REGION,
+	SUPERVISOR,
+	TIME,
+	TIME_ZONE,
+	TIMESTAMP,
+	TRAINING_STATUS,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING,
+	PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster_history;
+
+create or replace view MARS_DP4BI_PROD.INEO.INEO_D_WFM_STAFF_ROSTER_SV(
+	WFM_ATTENDANCE_ID,
+	ATTENDANCE_STATUS,
+	ATTENDANCE_SUBSTATUS,
+	CHECKED_IN,
+	DATE,
+	EMPLOYEE_ID,
+	EMPLOYEE_NAME,
+	EMPLOYEE_STATUS,
+	EMPLOYEE_TYPE,
+	FILENAME,
+	MANAGER,
+	MODIFIED,
+	POINTS_ACCRUED_TO_DATE,
+	POINTS_EARNED,
+	POSITION_TITLE,
+	REGION,
+	SUPERVISOR,
+	TIME,
+	TIME_ZONE,
+	TIMESTAMP,
+	TRAINING_STATUS,
+	SF_CREATE_TS,
+	SF_UPDATE_TS,
+	REGIONS_SUPPORTING
+	,PREFERRED_NAME
+) as
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster;
+
+
+----WFM064_WFM_Training_Form_Submissions.csv
+
+select * from "INEO"."FILE_LOAD_LKUP"
+where FILENAME_PREFIX = 'WFM_WFM_TRAINING_FORM_SUBMISSIONS';
+
+SELECT * FROM INEO.INEO_ACTIVE_WFM_TRAINING_FORM_SUBMISSIONS_HISTORY;
+
+DESCRIBE TABLE INEO.INEO_ACTIVE_WFM_TRAINING_FORM_SUBMISSIONS_HISTORY;
+
+---There IS NO CURRENT table
+--SELECT * FROM INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER;
+
+--DESCRIBE TABLE INEO.INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER;
+
+----INSERT_FIELDS
+active_wfm_training_form_submission_id,comments,absence_type,date_of_absence,delete_record,emailed_submitted_form_for_absence,employee_id,employee_name,employee_status,filename,hours_missed,position_title,
+reason_for_absence,region,submitted_employee_name,training_class_id
+
+---SELECT_FIELDS
+TRIM(CONCAT(COALESCE(training_class_id,'NA'),TO_CHAR(TRY_CAST(date_of_absence AS DATE),'yyyymmdd'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) active_wfm_training_form_submission_id,
+comments,absence_type,TRY_CAST(date_of_absence AS DATE),delete_record,emailed__submitted_form_for_absence,employee_id,employee_name,employee_status,filename,TRY_CAST(hours_missed AS FLOAT),position_title,reason_for_absence,region,submitted_employee_name,training_class_id
+
+
+ALTER TABLE INEO.INEO.INEO_ACTIVE_WFM_TRAINING_FORM_SUBMISSIONS_HISTORY;
+ADD COLUMN PREFERRED_NAME VARCHAR AS PREFERRED_NAME;
+
+
+
+
+---UPDATE INSERT_FIELDS
+UPDATE TABLE "INEO"."FILE_LOAD_LKUP"
+SET INSERT_FIELDS='active_wfm_training_form_submission_id,comments,absence_type,date_of_absence,delete_record,emailed_submitted_form_for_absence,employee_id,employee_name,employee_status,filename,hours_missed,position_title,
+reason_for_absence,region,submitted_employee_name,training_class_id,Preferred_Name'
+WHERE where FILENAME_PREFIX = 'WFM_WFM_TRAINING_FORM_SUBMISSIONS';;
+
+--UPDATE SELECT_FIELDS
+
+UPDATE TABLE "INEO"."FILE_LOAD_LKUP"
+SET SELECT_FIELDS='TRIM(CONCAT(COALESCE(training_class_id,'NA'),TO_CHAR(TRY_CAST(date_of_absence AS DATE),'yyyymmdd'),REGEXP_REPLACE(UPPER(employee_id),'[^A-Za-z0-9]'))) active_wfm_training_form_submission_id,
+comments,absence_type,TRY_CAST(date_of_absence AS DATE),delete_record,emailed__submitted_form_for_absence,employee_id,employee_name,employee_status,filename,TRY_CAST(hours_missed AS FLOAT),position_title,reason_for_absence,region,submitted_employee_name,training_class_id,Preferred_Name'
+WHERE where FILENAME_PREFIX = 'WFM_WFM_TRAINING_FORM_SUBMISSIONS';;
+
+
+select * from file_load_log
+order by load_date desc;
+
+update file_load_lkup
+set select_fields = 'CONCAT(COALESCE(training_class_id,''NA''),COALESCE(TO_CHAR(TRY_CAST(training_start_date AS DATE),''yyyymmdd''),''NA''),COALESCE(TO_CHAR(TRY_CAST(training_end_date AS DATE),''yyyymmdd''),''NA''),employee_id) active_training_staff_roster_id,
+TRY_CAST(average_cpc_training_exam_score AS FLOAT),conduent_trainer,department,employee_id,employee_name,employee_status,filename,manager,maximus_co_facilitator,maximus_email,maximus_facilitator,
+TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),personal_email,position_title,previous_stateconduent_employee,psid_form_submission,region,send_welcome_email,staffing_agency,
+time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,fssa_email,Preferred_Name'
+where filename_prefix = 'TRAIN_TRAINING_STAFF_ROSTER';
+
+update file_load_lkup
+set select_fields = 'TRIM(CONCAT(COALESCE(training_class_id,''NA''),TO_CHAR(TRY_CAST(absence_date AS DATE),''yyymmdd''),COALESCE(REGEXP_REPLACE(absence_start_time,''[^A-Za-z0-9]''),''000am''),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),''yyyymmddhh24miss''),REGEXP_REPLACE(UPPER(employee_id),''[^A-Za-z0-9]''))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_class_id,TRY_CAST(training_end_date AS DATE),TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,wfm_absence_description,Preferred_Name'
+where filename_prefix = 'WFM_TRAINING_UNSCHEDULED_ABSENCES';
+
+update file_load_lkup
+set select_fields = 'TRIM(CONCAT(TO_CHAR(TRY_CAST(modified AS TIMESTAMP_NTZ),''yyyymmddhh24miss''),REGEXP_REPLACE(UPPER(employee_id),''[^A-Za-z0-9]'')))  wfm_attendance_id,attendance_status,attendance_substatus,
+ checked_in,TRY_CAST(date AS DATE),employee_id,employee_name,employee_status,employee_type,filename,manager,TRY_CAST(modified AS TIMESTAMP_NTZ),TRY_CAST(points_accrued_to_date AS NUMBER),TRY_CAST(points_earned AS NUMBER),position_title,region,supervisor,time,time_zone,TRY_CAST(timestamp AS TIMESTAMP_NTZ),training_status,region_supporting,Preferred_Name'
+ where filename_prefix = 'WFM_WFM_STAFF_ROSTER';
+
+update file_load_lkup
+set select_fields = 'TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),''yyyymmdd''),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),''yyyymmddhh24miss''),REGEXP_REPLACE(UPPER(employee_id),''[^A-Za-z0-9]''))) active_unsched_absence_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,manager,maximus_email,point_value,position_title,region,regional_supervisors,submission_comments,
+TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,transition_team_lead,wfm_absence_description,region_supporting,0 employeetotal,Preferred_Name'
+where filename_prefix = 'WFM_PRODUCTION_UNSCHEDULED_ABSENCES';
+
+update file_load_lkup
+set select_fields = 'TRIM(CONCAT(TO_CHAR(TRY_CAST(absence_date AS DATE),''yyyymmdd''),TO_CHAR(TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),''yyyymmddhh24miss''),REGEXP_REPLACE(UPPER(employee_id),''[^A-Za-z0-9]''))) timeoff_request_id,TRY_CAST(absence_date AS DATE),absence_description,absence_end_time,absence_start_time,absence_type,archive_error,arrival_time,departure_time,employee_id,employee_name,
+employee_status,employee_type,filename,latest_comment,manager,maximus_email,TRY_CAST(operations_approval_date AS DATE),operations_approval_status,position_title,
+region,regional_supervisors,submission_comments,TRY_CAST(submission_date AS DATE),TRY_CAST(submission_timestamp AS TIMESTAMP_NTZ),submitted_employee_name,supervisor,time_zone,training_status,
+transition_team_lead,wfm_absence_description,TRY_CAST(wfm_approval_date AS DATE),wfm_approval_status,region_supporting,month(TRY_CAST(absence_date AS DATE)),monthname(TRY_CAST(absence_date AS DATE)),Preferred_Name'
+where filename_prefix = 'WFM_TIME_OFF_REQUESTS';
+
+
+update file_load_lkup
+set select_fields = 'TRY_CAST(agency_hire_date AS DATE),null,average_cpc_training_exam_score,null,null,null,TRY_CAST(conversion_date AS DATE),department,employee_id,
+employee_name,employee_status,employee_type,exemption_status,facilities_specialist,filename,first_name,fssa_email,fssa_id,genesys_i3_id,hr_specialist,incumbent_transition,
+last_name,null,null,manager, maximus_email,TRY_CAST(maximus_hire_date AS DATE),null,TRY_CAST(nesting_end_date AS DATE),TRY_CAST(nesting_start_date AS DATE),null,personal_email,
+position_title,previous_stateconduent_employee,psid,qi_supervisor,qisc,region,regional_supervisors,regional_team_leads,region_supporting,null,
+null,null,sr_operations_manager,staffing_agency,supervisor,TRY_CAST(term_date AS DATE),time_zone,training_class_id,training_co_facilitator,
+TRY_CAST(training_end_date AS DATE),training_facilitator,training_hours_missed,TRY_CAST(training_start_date AS DATE),training_status,transition_team_lead,work_group,Preferred_Name'
+where filename_prefix = 'SMS_ALL_STAFF_ROSTER';

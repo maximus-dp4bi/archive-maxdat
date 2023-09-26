@@ -1,0 +1,68 @@
+--  NYHIX-29902
+---  
+alter session set current_schema = MAXDAT;
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set INSTANCE_STATUS = 'Complete',
+    ASF_PROCESS_DOC = 'Y',
+    COMPLETE_DT=to_date('10-MAR-2017 09:00:48','dd-MON-yyyy hh24:mi:ss'),
+    INSTANCE_END_DATE=to_date('10-MAR-2017 09:00:48','dd-MON-yyyy hh24:mi:ss'),
+    STG_DONE_DATE=to_date('10-MAR-2017 09:00:48','dd-MON-yyyy hh24:mi:ss')
+where kofax_dcn = 'A170664E96001';
+
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set INSTANCE_STATUS = 'Complete',
+    ASF_PROCESS_DOC = 'Y',
+    COMPLETE_DT=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss'),
+    INSTANCE_END_DATE=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss'),
+    STG_DONE_DATE=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss')
+where kofax_dcn in 
+('H170654638008',
+'V170599F67008',
+'V170599F67009',
+'V170599F67010',
+'V170653C1A001',
+'V17065420C011',
+'V17065420C012',
+'V17065420C013',
+'V17065476C001',
+'V170654795001',
+'V170654888001');
+
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set INSTANCE_STATUS = 'Complete',
+    ASF_PROCESS_DOC = 'Y',
+    COMPLETE_DT=to_date('10-MAR-2017 09:01:06','dd-MON-yyyy hh24:mi:ss'),
+    INSTANCE_END_DATE=to_date('10-MAR-2017 09:01:06','dd-MON-yyyy hh24:mi:ss'),
+    STG_DONE_DATE=to_date('10-MAR-2017 09:01:06','dd-MON-yyyy hh24:mi:ss')
+where kofax_dcn in 
+('O170676060007',
+'O1706760D5005',
+'O17067610A005',
+'O17067C30B006',
+'O17067C317003',
+'O17067C343001',
+'O1706869D2001',
+'O1706869EC001',
+'O170686A25002',
+'O170686A56002',
+'V170676659008',
+'V170676659009',
+'V170676659010',
+'V17067C801004');
+
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set INSTANCE_STATUS = 'Complete',
+    ASF_PROCESS_DOC = 'Y',
+    COMPLETE_DT=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss'),
+    INSTANCE_END_DATE=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss'),
+    STG_DONE_DATE=to_date('10-MAR-2017 09:00:49','dd-MON-yyyy hh24:mi:ss')
+where kofax_dcn in 
+('O1706658DC003',
+'O17066C059001',
+'O17066C059004',
+'O17066C059009',
+'O17066C05D002');
+
+commit;
+
+

@@ -1,0 +1,18 @@
+SET DEFINE OFF;
+show errors;
+
+CREATE TABLE PP_BO_EVENT_TARGET_LKUP 
+(event_id NUMBER
+ ,name VARCHAR2(512)
+ ,target NUMBER
+ ,scorecard_flag VARCHAR2(1)
+ ,start_date DATE
+ ,end_date DATE
+ ,create_by VARCHAR2(100)
+ ,create_datetime DATE) TABLESPACE MAXDAT_DATA;
+
+CREATE UNIQUE INDEX "MAXDAT"."PPBO_EVENTTARGET_EVENT_ID" ON "MAXDAT"."PP_BO_EVENT_TARGET_LKUP" (EVENT_ID,start_date, end_date) 
+  TABLESPACE "MAXDAT_INDX" ;
+ 
+grant select on PP_BO_EVENT_TARGET_LKUP to MAXDAT_READ_ONLY;  
+grant select on PP_BO_EVENT_TARGET_LKUP to DP_SCORECARD;  

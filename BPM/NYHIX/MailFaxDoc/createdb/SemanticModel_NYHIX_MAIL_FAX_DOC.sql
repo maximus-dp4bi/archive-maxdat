@@ -94,7 +94,7 @@ create table D_NYHIX_MFD_CURRENT
    ORIGINATION_DT date not null,
    INSTANCE_START_DATE date, 
    INSTANCE_END_DATE date) 
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA parallel 4;
 
 comment on column D_NYHIX_MFD_CURRENT.NYHIX_MFD_BI_ID is 'Sequence ';
 comment on column D_NYHIX_MFD_CURRENT.DCN is 'Unique identifier to track individual documents. The dcn is created in dms and saved in the source system.';
@@ -189,20 +189,127 @@ comment on column D_NYHIX_MFD_CURRENT.CURRENT_TASK_ID is 'This is the date/time 
 
 alter table D_NYHIX_MFD_CURRENT add constraint DNMFD_PK primary key (NYHIX_MFD_BI_ID) using index tablespace MAXDAT_INDX;
 
-create index DNMFDCUR_IX1 on D_NYHIX_MFD_CURRENT (BATCH_ID) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DNMFDCUR_IX2 on D_NYHIX_MFD_CURRENT (CANCEL_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DNMFDCUR_IX3 on D_NYHIX_MFD_CURRENT (ENVELOPE_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DNMFDCUR_IX4 on D_NYHIX_MFD_CURRENT (DCN) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DNMFDCUR_IX5 on D_NYHIX_MFD_CURRENT (CANCEL_BY) online tablespace MAXDAT_INDX parallel compute statistics;
+create index DNMFDCUR_IX1 on D_NYHIX_MFD_CURRENT (BATCH_ID) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DNMFDCUR_IX2 on D_NYHIX_MFD_CURRENT (CANCEL_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DNMFDCUR_IX3 on D_NYHIX_MFD_CURRENT (ENVELOPE_STATUS_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DNMFDCUR_IX4 on D_NYHIX_MFD_CURRENT (DCN) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DNMFDCUR_IX5 on D_NYHIX_MFD_CURRENT (CANCEL_BY) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym D_NYHIX_MFD_CURRENT for D_NYHIX_MFD_CURRENT;
 grant select on D_NYHIX_MFD_CURRENT to MAXDAT_READ_ONLY;
 
-create or replace view D_NYHIX_MFD_CURRENT_SV as
-select * from D_NYHIX_MFD_CURRENT
-with read only;
+CREATE OR REPLACE VIEW D_NYHIX_MFD_CURRENT_SV AS
+SELECT NYHIX_MFD_BI_ID,
+  DCN,
+  CREATE_DT,
+  ECN,
+  INSTANCE_STATUS,
+  INSTANCE_STATUS_DT,
+  BATCH_ID,
+  CHANNEL,
+  PAGE_COUNT,
+  DOCUMENT_STATUS,
+  DOCUMENT_STATUS_DT,
+  ENVELOPE_STATUS,
+  ENVELOPE_STATUS_DT,
+  DOCUMENT_TYPE,
+  DOCUMENT_SUBTYPE,
+  FORM_TYPE,
+  FREE_FORM_TEXT,
+  SCAN_DT,
+  RELEASE_DT,
+  MAXE_CREATE_DOC_START,
+  MAXE_CREATE_DOC_END,
+  DOCUMENT_ID,
+  DOCUMENT_SET_ID,
+  MAXE_DOC_CREATE_DT,
+  LANGUAGE,
+  COMPLAINT_DATA_ENTRY_TASK_ID,
+  CREATE_COMPLAINT_START,
+  CREATE_COMPLAINT_END,
+  APPEAL_DATA_ENTRY_TASK_ID,
+  CREATE_APPEAL_START,
+  CREATE_APPEAL_END,
+  INCIDENT_ID,
+  HSDE_QC_TASK_ID,
+  RESOLVE_HSDE_QC_TASK_START,
+  RESOLVE_HSDE_QC_TASK_END,
+  HSDE_ERROR,
+  MANUAL_LINKING_TASK_ID,
+  MANUAL_LINK_DOCUMENT_START,
+  MANUAL_LINK_DOCUMENT_END,
+  DOC_SET_LINK_QC_TASK_ID,
+  DOC_SET_LINK_QC_START,
+  DOC_SET_LINK_QC_END,
+  ESCALATED_TASK_ID,
+  RESOLVE_ESC_TASK_START,
+  RESOLVE_ESC_TASK_END,
+  DATA_ENTRY_TASK_ID,
+  DATA_ENTRY_START,
+  DATA_ENTRY_END,
+  MAXIMUS_QC_TASK_ID,
+  MAXIMUS_QC_START,
+  MAXIMUS_QC_END,
+  ESCALATED_TASK_ID2,
+  RESOLVE_ESC_TASK2_START,
+  RESOLVE_ESC_TASK2_END,
+  TRANSMIT_TO_NYHBE_START,
+  TRANSMIT_TO_NYHBE_END,
+  CANCEL_DT,
+  CASE
+    WHEN length(S.LAST_NAME || ', ' || S.FIRST_NAME) > 2 THEN S.LAST_NAME || ', ' || S.FIRST_NAME
+    WHEN length(E.LAST_NAME || ', ' || E.FIRST_NAME) > 2 THEN E.LAST_NAME || ', ' || E.FIRST_NAME
+    ELSE C.CANCEL_BY
+  END CANCEL_BY,
+  CANCEL_REASON,
+  CANCEL_METHOD,
+  LINK_METHOD,
+  LINK_ID,
+  LINKED_CLIENT,
+  COMPLETE_DT,
+  RESCANNED,
+  RETURNED_MAIL,
+  RETURNED_MAIL_REASON,
+  RESCAN_COUNT,
+  LAST_UPDATED_BY,
+  LAST_UPDATED_DT,
+  DOCUMENT_TRASHED,
+  DOCUMENT_NOTE_ID,
+  ORIGINAL_DOC_TYPE,
+  ORIGINAL_FORM_TYPE,
+  EXPEDITED,
+  RESEARCH_REQUESTED,
+  AGE_IN_BUSINESS_DAYS,
+  AGE_IN_CALENDAR_DAYS,
+  TIMELINESS_STATUS,
+  TIMELINESS_DAYS,
+  TIMELINESS_DAYS_TYPE,
+  TIMELINESS_DATE,
+  JEOPARDY_FLAG,
+  JEOPARDY_DAYS,
+  JEOPARDY_DAYS_TYPE,
+  JEOPARDY_DATE,
+  TARGET_DAYS,
+  CURRENT_TASK_ID,
+  KOFAX_DCN,
+  CURRENT_STEP,
+  BATCH_NAME,
+  ORIGINATION_DT,
+  PREVIOUS_KOFAX_DCN,
+  PAPER_SLA_TIME_STATUS,
+  APP_DOC_TRACKER_ID,
+  DOC_NOTIFICATION_ID,
+  DOC_NOTIFICATION_STATUS,
+  HX_ACCOUNT_ID,
+  HXID,
+  INSTANCE_START_DATE,
+  INSTANCE_END_DATE,
+  ACCOUNT_ID
+FROM D_NYHIX_MFD_CURRENT C
+LEFT OUTER JOIN D_STAFF S
+ON C.CANCEL_BY = to_char(S.STAFF_ID)
+LEFT OUTER JOIN D_STAFF E
+ON C.CANCEL_BY = E.EXT_STAFF_NUMBER;
 
-create or replace public synonym D_NYHIX_MFD_CURRENT_SV for D_NYHIX_MFD_CURRENT_SV;
 grant select on D_NYHIX_MFD_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -222,16 +329,14 @@ tablespace MAXDAT_DATA;
 alter table D_NYHIX_MFD_INS_STATUS add constraint DNMFDIS_PK primary key (DNMFDIS_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DNMFDIS_UIX1 on D_NYHIX_MFD_INS_STATUS ("INSTANCE_STATUS") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_INS_STATUS for D_NYHIX_MFD_INS_STATUS;
 grant select on D_NYHIX_MFD_INS_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_INS_STATUS_SV as
 select * from D_NYHIX_MFD_INS_STATUS
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_INS_STATUS_SV for D_NYHIX_MFD_INS_STATUS_SV;
 grant select on D_NYHIX_MFD_INS_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -251,16 +356,14 @@ tablespace MAXDAT_DATA;
 alter table D_NYHIX_MFD_DOC_TYPE add constraint DNMFDDT_PK primary key (DNMFDDT_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DNMFDDT_UIX1 on D_NYHIX_MFD_DOC_TYPE ("DOCUMENT_TYPE") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_DOC_TYPE for D_NYHIX_MFD_DOC_TYPE;
 grant select on D_NYHIX_MFD_DOC_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_DOC_TYPE_SV as
 select * from D_NYHIX_MFD_DOC_TYPE
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_DOC_TYPE_SV for D_NYHIX_MFD_DOC_TYPE_SV;
 grant select on D_NYHIX_MFD_DOC_TYPE_SV to MAXDAT_READ_ONLY;
 
 
@@ -280,16 +383,14 @@ tablespace MAXDAT_DATA;
 alter table D_NYHIX_MFD_DOC_STATUS add constraint DNMFDDS_PK primary key (DNMFDDS_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DNMFDDS_UIX1 on D_NYHIX_MFD_DOC_STATUS ("DOCUMENT_STATUS") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_DOC_STATUS for D_NYHIX_MFD_DOC_STATUS;
 grant select on D_NYHIX_MFD_DOC_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_DOC_STATUS_SV as
 select * from D_NYHIX_MFD_DOC_STATUS
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_DOC_STATUS_SV for D_NYHIX_MFD_DOC_STATUS_SV;
 grant select on D_NYHIX_MFD_DOC_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -312,16 +413,14 @@ alter table D_NYHIX_MFD_ENV_STATUS add constraint DNMFDES_PK primary key (DNMFDE
 alter index DNMFDES_PK rebuild tablespace MAXDAT_INDX parallel;
 
 create unique index DNMFDES_UIX1 on D_NYHIX_MFD_ENV_STATUS ("ENVELOPE_STATUS") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_ENV_STATUS for D_NYHIX_MFD_ENV_STATUS;
 grant select on D_NYHIX_MFD_ENV_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_ENV_STATUS_SV as
 select * from D_NYHIX_MFD_ENV_STATUS
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_ENV_STATUS_SV for D_NYHIX_MFD_ENV_STATUS_SV;
 grant select on D_NYHIX_MFD_ENV_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -341,16 +440,14 @@ tablespace MAXDAT_DATA;
 alter table D_NYHIX_MFD_DOC_SUB_TYPE add constraint DNMFDDST_PK primary key (DNMFDDST_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DNMFDDST_UIX1 on D_NYHIX_MFD_DOC_SUB_TYPE ("DOCUMENT_SUBTYPE") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_DOC_SUB_TYPE for D_NYHIX_MFD_DOC_SUB_TYPE;
 grant select on D_NYHIX_MFD_DOC_SUB_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_DOC_SUB_TYPE_SV as
 select * from D_NYHIX_MFD_DOC_SUB_TYPE
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_DOC_SUB_TYPE_SV for D_NYHIX_MFD_DOC_SUB_TYPE_SV;
 grant select on D_NYHIX_MFD_DOC_SUB_TYPE_SV to MAXDAT_READ_ONLY;
 
 
@@ -369,17 +466,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_FORM_TYPE add constraint DNMFDFT_PK primary key (DNMFDFT_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DNMFDFT_UIX1 on D_NYHIX_MFD_FORM_TYPE ("FORM_TYPE") online tablespace MAXDAT_INDX 
-parallel compute statistics; 
+create unique index DNMFDFT_UIX1 on D_NYHIX_MFD_FORM_TYPE ("FORM_TYPE") online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_FORM_TYPE for D_NYHIX_MFD_FORM_TYPE;
 grant select on D_NYHIX_MFD_FORM_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_FORM_TYPE_SV as
 select * from D_NYHIX_MFD_FORM_TYPE
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_FORM_TYPE_SV for D_NYHIX_MFD_FORM_TYPE_SV;
 grant select on D_NYHIX_MFD_FORM_TYPE_SV to MAXDAT_READ_ONLY;
 
 
@@ -399,16 +493,14 @@ tablespace MAXDAT_DATA;
 alter table D_NYHIX_MFD_TIME_STATUS add constraint DNMFDTS_PK primary key (DNMFDTS_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DNMFDTS_UIX1 on D_NYHIX_MFD_TIME_STATUS ("DCN_TIMELINESS_STATUS") online 
-tablespace MAXDAT_INDX parallel compute statistics; 
+tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_TIME_STATUS for D_NYHIX_MFD_TIME_STATUS;
 grant select on D_NYHIX_MFD_TIME_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_TIME_STATUS_SV as
 select * from D_NYHIX_MFD_TIME_STATUS
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_TIME_STATUS_SV for D_NYHIX_MFD_TIME_STATUS_SV;
 grant select on D_NYHIX_MFD_TIME_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -446,7 +538,7 @@ create table F_NYHIX_MFD_BY_DATE
 partition by range (BUCKET_START_DATE)
 interval (NUMTODSINTERVAL(1,'day'))
 (partition PT_BUCKET_START_DATE_LT_2013 values less than (TO_DATE('20130101','YYYYMMDD')))
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA parallel 4;
 
 comment on column F_NYHIX_MFD_BY_DATE.FNMFDBD_ID is 'Sequence ';
 comment on column F_NYHIX_MFD_BY_DATE.NYHIX_MFD_BI_ID is 'BI ID ';
@@ -467,21 +559,20 @@ alter table F_NYHIX_MFD_BY_DATE add constraint FNMFDBD_DNMFDTS_FK foreign key (D
 alter table F_NYHIX_MFD_BY_DATE add constraint FNMFDBD_NYHIX_MFD_BI_ID_FK foreign key (NYHIX_MFD_BI_ID) references D_NYHIX_MFD_CURRENT(NYHIX_MFD_BI_ID);
 alter table F_NYHIX_MFD_BY_DATE add constraint FNMFDBD_DNMFDIS_FK foreign key (DNMFDIS_ID) references D_NYHIX_MFD_INS_STATUS(DNMFDIS_ID);
 
-create unique index FNMFDBD_UIX1 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index FNMFDBD_UIX2 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index FNMFDBD_UIX1 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics; 
+create unique index FNMFDBD_UIX2 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create index FNMFDBD_IX1 on F_NYHIX_MFD_BY_DATE (INSTANCE_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IX2 on F_NYHIX_MFD_BY_DATE (DOCUMENT_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IX4 on F_NYHIX_MFD_BY_DATE (SCAN_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IX5 on F_NYHIX_MFD_BY_DATE (RELEASE_DT) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IX6 on F_NYHIX_MFD_BY_DATE (ENVELOPE_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics;
+create index FNMFDBD_IX1 on F_NYHIX_MFD_BY_DATE (INSTANCE_STATUS_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IX2 on F_NYHIX_MFD_BY_DATE (DOCUMENT_STATUS_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IX4 on F_NYHIX_MFD_BY_DATE (SCAN_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IX5 on F_NYHIX_MFD_BY_DATE (RELEASE_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IX6 on F_NYHIX_MFD_BY_DATE (ENVELOPE_STATUS_DT) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create index FNMFDBD_IXL1 on F_NYHIX_MFD_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IXL2 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IXL3 on F_NYHIX_MFD_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNMFDBD_IXL4 on F_NYHIX_MFD_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FNMFDBD_IXL1 on F_NYHIX_MFD_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IXL2 on F_NYHIX_MFD_BY_DATE (NYHIX_MFD_BI_ID) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IXL3 on F_NYHIX_MFD_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index FNMFDBD_IXL4 on F_NYHIX_MFD_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym F_NYHIX_MFD_BY_DATE for F_NYHIX_MFD_BY_DATE;
 grant select on F_NYHIX_MFD_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_NYHIX_MFD_BY_DATE_SV as
@@ -643,7 +734,6 @@ where
   and f.COMPLETION_COUNT = 1
 with read only; 
 
-create or replace public synonym F_NYHIX_MFD_BY_DATE_SV for F_NYHIX_MFD_BY_DATE_SV;
 grant select on F_NYHIX_MFD_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 --Replace current view for Paper_sla_time_status and previous_kofax_dcn additions to table 
@@ -651,5 +741,4 @@ create or replace view D_NYHIX_MFD_CURRENT_SV as
 select * from D_NYHIX_MFD_CURRENT
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_CURRENT_SV for D_NYHIX_MFD_CURRENT_SV;
 grant select on D_NYHIX_MFD_CURRENT_SV to MAXDAT_READ_ONLY;

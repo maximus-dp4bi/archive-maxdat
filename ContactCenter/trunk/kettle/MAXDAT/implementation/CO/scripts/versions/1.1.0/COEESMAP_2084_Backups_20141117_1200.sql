@@ -1,0 +1,36 @@
+---BACKUPS
+CREATE TABLE CC_C_UNIT_OF_WORK_BAK
+  AS (SELECT * FROM CC_C_UNIT_OF_WORK);
+  
+create or replace public synonym CC_C_UNIT_OF_WORK_BAK
+     for MAXDAT.CC_C_UNIT_OF_WORK_BAK;  
+  
+CREATE TABLE CC_D_UNIT_OF_WORK_BAK
+  AS (SELECT * FROM CC_D_UNIT_OF_WORK);
+  
+create or replace public synonym CC_D_UNIT_OF_WORK_BAK
+     for MAXDAT.CC_D_UNIT_OF_WORK_BAK;    
+  
+CREATE TABLE CC_C_CONTACT_QUEUE_BAK
+  AS (SELECT * FROM CC_C_CONTACT_QUEUE);
+  
+create or replace public synonym CC_C_CONTACT_QUEUE_BAK
+     for MAXDAT.CC_C_CONTACT_QUEUE_BAK;      
+  
+CREATE TABLE CC_F_ACTUALS_QUEUE_INTRVL_BAK
+  AS (SELECT * FROM CC_F_ACTUALS_QUEUE_INTERVAL);
+  
+create or replace public synonym CC_F_ACTUALS_QUEUE_INTRVL_BAK
+     for MAXDAT.CC_F_ACTUALS_QUEUE_INTRVL_BAK;   
+
+CREATE TABLE CC_C_LOOKUP_BAK
+  AS (SELECT * FROM CC_C_LOOKUP);
+  
+create or replace public synonym CC_C_LOOKUP_BAK
+     for MAXDAT.CC_C_LOOKUP_BAK;    
+  
+commit;
+
+/  
+
+   

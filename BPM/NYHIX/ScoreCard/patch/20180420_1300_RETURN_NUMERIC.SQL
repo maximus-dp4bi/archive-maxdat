@@ -1,0 +1,40 @@
+CREATE OR REPLACE FUNCTION DP_SCORECARD.RETURN_NUMERIC( TEST_STRING IN VARCHAR )
+RETURN VARCHAR
+IS 
+ 	SVN_FILE_URL varchar2(200) := '$URL: svn://rcmxapp1d.maximus.com/maxdat/BPM/NYHIX/patch/20180420_1300_RETURN_NUMERIC.SQL $';
+  	SVN_REVISION varchar2(20) := '$Revision: 20489 $';
+ 	SVN_REVISION_DATE varchar2(60) := '$Date: 2017-07-03 15:31:06 -0400 (Mon, 03 Jul 2017) $';
+  	SVN_REVISION_AUTHOR varchar2(20) := '$Author: wl134672 $';
+
+    RESULT  VARCHAR(200);
+BEGIN
+   RESULT := TO_NUMBER(TEST_STRING);
+
+   RETURN RESULT;
+   
+EXCEPTION
+
+    WHEN OTHERS THEN 
+    RETURN TO_NUMBER(NULL);
+END;
+/
+
+show errors;
+
+GRANT EXECUTE ON DP_SCORECARD.return_numeric TO MAXDAT;
+
+GRANT EXECUTE ON DP_SCORECARD.return_numeric TO MAXDAT_REPORTS;
+
+GRANT EXECUTE ON DP_SCORECARD.return_numeric TO MAXDAT_READ_ONLY;
+
+GRANT EXECUTE ON DP_SCORECARD.return_numeric TO DP_SCORECARD_READ_ONLY;
+
+-----------------------------------------------------
+-- in DP_SCORECARD SCHEMA
+-----------------------------------------------------
+ 
+ALTER TABLE DP_SCORECARD.PP_WFM_DAILY_SUMMARY
+add QC_FLAG varchar2(1);
+
+ALTER TABLE DP_SCORECARD.PP_WFM_DAILY_SUMMARY_WRK
+add QC_FLAG varchar2(1);

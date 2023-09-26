@@ -1,0 +1,3 @@
+INSERT INTO corp_etl_control (NAME, VALUE_TYPE, VALUE, DESCRIPTION) VALUES ('MAX_APP_DOC_INDV_LOOKBACK', 'N', '1', 'Lookback value for HX_LINK_ID');
+
+COMMIT;

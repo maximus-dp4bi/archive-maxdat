@@ -173,7 +173,7 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT_CADR;</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ${MAXDAT_DB_SCHEMA};</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -409,7 +409,32 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${OLTP_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = etk_maximus_wc_prod2;</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ${OLTP_DB_SCHEMA};</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>SQID</name>
+    <server>${DB_SQID_HOSTNAME}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${DB_SQID_NAME}</database>
+    <port>${DB_SQID_PORT}</port>
+    <username>${DB_SQID_USER}</username>
+    <password>${DB_SQID_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SQID_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -459,34 +484,14 @@ SVN_REVISION_AUTHOR = $Author$
    <shared_objects_file/>
   <entries>
     <entry>
-      <name>START</name>
-      <description/>
-      <type>SPECIAL</type>
-      <start>Y</start>
-      <dummy>N</dummy>
-      <repeat>N</repeat>
-      <schedulerType>0</schedulerType>
-      <intervalSeconds>0</intervalSeconds>
-      <intervalMinutes>60</intervalMinutes>
-      <hour>12</hour>
-      <minutes>0</minutes>
-      <weekDay>1</weekDay>
-      <DayOfMonth>1</DayOfMonth>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>11</xloc>
-      <yloc>55</yloc>
-      </entry>
-    <entry>
       <name>Success</name>
       <description/>
       <type>SUCCESS</type>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>24</xloc>
-      <yloc>201</yloc>
+      <xloc>34</xloc>
+      <yloc>264</yloc>
       </entry>
     <entry>
       <name>ManageWork_Save_Variables</name>
@@ -517,8 +522,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>20</xloc>
-      <yloc>381</yloc>
+      <xloc>34</xloc>
+      <yloc>372</yloc>
       </entry>
     <entry>
       <name>Setup Job Statistic Log</name>
@@ -526,7 +531,7 @@ SVN_REVISION_AUTHOR = $Author$
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;Setup_Job_Log.ktr</filename>
+      <filename>${JOB_STATISTIC_DIR}&#47;Setup_Job_Log.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -550,7 +555,7 @@ SVN_REVISION_AUTHOR = $Author$
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>144</xloc>
-      <yloc>61</yloc>
+      <yloc>54</yloc>
       </entry>
     <entry>
       <name>Call Init Proc</name>
@@ -575,8 +580,8 @@ end;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>278</xloc>
-      <yloc>56</yloc>
+      <xloc>285</xloc>
+      <yloc>54</yloc>
       </entry>
     <entry>
       <name>Call Insert INS1</name>
@@ -601,8 +606,8 @@ end;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>425</xloc>
-      <yloc>56</yloc>
+      <xloc>417</xloc>
+      <yloc>54</yloc>
       </entry>
     <entry>
       <name>Call Upd2_10</name>
@@ -628,7 +633,7 @@ end;</sql>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>566</xloc>
-      <yloc>55</yloc>
+      <yloc>54</yloc>
       </entry>
     <entry>
       <name>Call Upd3_10A</name>
@@ -680,7 +685,7 @@ end;</sql>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>704</xloc>
-      <yloc>201</yloc>
+      <yloc>221</yloc>
       </entry>
     <entry>
       <name>Call Upd3_10C</name>
@@ -706,7 +711,7 @@ end;</sql>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>704</xloc>
-      <yloc>381</yloc>
+      <yloc>372</yloc>
       </entry>
     <entry>
       <name>Call Upd6_10</name>
@@ -731,8 +736,8 @@ end;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>446</xloc>
-      <yloc>381</yloc>
+      <xloc>567</xloc>
+      <yloc>372</yloc>
       </entry>
     <entry>
       <name>Call UpdateMW</name>
@@ -757,15 +762,79 @@ end;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>239</xloc>
-      <yloc>381</yloc>
+      <xloc>417</xloc>
+      <yloc>372</yloc>
       </entry>
     <entry>
-      <name>DUMMY</name>
-      <description>Do Nothing</description>
+      <name>ManageWork_MainJob_completed</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;ManageWork_MainJob_completed.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>242</xloc>
+      <yloc>372</yloc>
+      </entry>
+    <entry>
+      <name>Update_Job_Log_Error</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${JOB_STATISTIC_DIR}&#47;Update_Job_Log_Error.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>417</xloc>
+      <yloc>221</yloc>
+      </entry>
+    <entry>
+      <name>START</name>
+      <description/>
       <type>SPECIAL</type>
-      <start>N</start>
-      <dummy>Y</dummy>
+      <start>Y</start>
+      <dummy>N</dummy>
       <repeat>N</repeat>
       <schedulerType>0</schedulerType>
       <intervalSeconds>0</intervalSeconds>
@@ -777,92 +846,11 @@ end;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>447</xloc>
-      <yloc>201</yloc>
+      <xloc>34</xloc>
+      <yloc>58</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>Call Init Proc</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Insert INS1</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Upd2_10</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Upd3_10A</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Upd3_10B</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Upd3_10C</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call Upd6_10</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Call UpdateMW</from>
-      <to>DUMMY</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>Setup Job Statistic Log</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>Setup Job Statistic Log</from>
       <to>Call Init Proc</to>
@@ -937,11 +925,74 @@ end;</sql>
     </hop>
     <hop>
       <from>Call UpdateMW</from>
-      <to>ManageWork_Save_Variables</to>
+      <to>Update_Job_Log_Error</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Init Proc</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Insert INS1</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Upd2_10</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Upd3_10A</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Upd3_10B</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Upd3_10C</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call Upd6_10</from>
+      <to>Update_Job_Log_Error</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -952,6 +1003,33 @@ end;</sql>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Call UpdateMW</from>
+      <to>ManageWork_MainJob_completed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ManageWork_MainJob_completed</from>
+      <to>ManageWork_Save_Variables</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Setup Job Statistic Log</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>

@@ -3,7 +3,20 @@
   <info>
     <name>InitiateRenewals_Create</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -67,27 +80,6 @@
   <modified_date>2012&#47;04&#47;26 13:00:07.765</modified_date>
   </info>
   <notepads>
-    <notepad>
-      <note>Insert only the the rows for any new account_renewals into the BPM stage table and those with new account_id&apos;s. </note>
-      <xloc>250</xloc>
-      <yloc>460</yloc>
-      <width>563</width>
-      <heigth>22</heigth>
-      <fontname>Microsoft Sans Serif</fontname>
-      <fontsize>8</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>LETTERS</name>
@@ -163,7 +155,25 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Unique rows</from><to>Dummy (duplicates)</to><enabled>Y</enabled> </hop>  <hop> <from>output to FLHK_ETL_INITIATE_RENEWALS</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Account_Renewals</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Letters</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  <hop> <from>lookup Letters</from><to>output to FLHK_ETL_INITIATE_RENEWALS</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Unique rows</from><to>Dummy (duplicates)</to><enabled>Y</enabled> </hop>  <hop> <from>insert FLHK_ETL_INITIATE_RENEWALS</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Account_Renewals</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Find renewal letters</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>lookup Letters</to><enabled>Y</enabled> </hop>  <hop> <from>Row not found</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Row not found</from><to>insert FLHK_ETL_INITIATE_RENEWALS</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup renewal exists</from><to>Row not found</to><enabled>Y</enabled> </hop>  <hop> <from>lookup Letters</from><to>If intent-to_renew is null</to><enabled>Y</enabled> </hop>  <hop> <from>If intent-to_renew is null</from><to>Lookup renewal exists</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>810</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Dummy (duplicates)</name>
     <type>Dummy</type>
@@ -176,8 +186,114 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>280</xloc>
+      <xloc>250</xloc>
       <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Find renewal letters</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>LETTERS</connection>
+    <sql>select lr.driver_primary_key ACCOUNT_ID,
+       lr.lmreq_id           RENEWAL_LETTER_REQ_ID   
+from lm_letter_requests lr
+where lr.LMDEF_ID in (21,22,37,40)
+and lr.status &lt;&gt; &apos;CANCEL&apos;
+and lr.requested_on &gt;= to_date(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) - 60  
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>370</xloc>
+      <yloc>70</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup renewal exists</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>FLHK_ETL_INITIATE_RENEWALS</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>ACCOUNT_ID</name>
+        <field>ACCOUNT_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>RENEWAL_PERIOD_START_DATE</name>
+        <field>RENEWAL_PERIOD_START_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>IR_ID</name>
+        <rename>IR_ID</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>660</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Row not found</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>insert FLHK_ETL_INITIATE_RENEWALS</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>IR_ID</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>810</xloc>
+      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -196,14 +312,20 @@
     <sql>select distinct
        ar.ACCOUNT_ID                                ACCOUNT_ID, 
        a.ACCOUNT_NUMBER                             ACCOUNT_NUMBER,
-       ar.renewal_date                              RENEWAL_PERIOD_START_DATE,
+       add_months(ar.CONTINUOUS_ELIG_END_DATE,-2)   RENEWAL_PERIOD_START_DATE,
        ap.application_id                            APPLICATION_ID,
        ar.CONTINUOUS_ELIG_END_DATE                  RENEWAL_PERIOD_END_DATE,
        ar.renewal_status                            RENEWAL_STATUS,
        ar.renewal_status_date                       RENEWAL_STATUS_DATE,
-       ADD_MONTHS(ar.renewal_date, -4)              ASSD_IDENTIFY_RENEWAL_ACCTS,
-       d.ins_cancelled_date                         CANCEL_DATE,
-       &apos;N&apos;                                       as ASF_IDENTIFY_RENEWAL_ACCTS,
+       case when ar.renewal_status = &apos;SENT_TO_FAMILY&apos;
+       then  ADD_MONTHS(ar.renewal_date, -4)              
+       end                                          ASSD_IDENTIFY_RENEWAL_ACCTS,
+       case when ar.renewal_status = &apos;SENT_TO_FAMILY&apos;
+       then&apos;Y&apos; else &apos;N&apos;
+       end                                          ASF_IDENTIFY_RENEWAL_ACCTS,
+       case when ar.renewal_status = &apos;INTENT_RECEIVED&apos;
+       then&apos;Y&apos; else &apos;N&apos;
+       end                                          INTENT_TO_RENEW,
        &apos;N&apos;                                       as ASF_REQUEST_NOTIFICATION,
        &apos;N&apos;                                       as ASF_WAIT_FOR_ALL_DISENROLLED,
        &apos;N&apos;                                       as ASF_CANCEL_RENEWAL,
@@ -221,16 +343,12 @@ join account_membership am
   on am.account_id = ar.account_id
 join account a
   on am.account_id = a.account_id
-left outer join ELIGIBILITY_RESULT ER
-  on am.account_membership_id = er.ACCOUNT_MEMBERSHIP_ID
 left outer join application ap 
   on (ap.account_id = AR.ACCOUNT_ID
- and ap.insert_date &gt; ADD_MONTHS(sysdate, -3))
-left outer join deter_factor d
-  on er.ELIGIBILITY_RESULT_ID  = d.ELIGIBILITY_RESULT_ID 
-where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
-  and sysdate &lt;= CONTINUOUS_ELIG_END_DATE
-  and ar.account_id &gt; ${MAX_ACCOUNT_ID}
+ and ap.insert_date &gt; ADD_MONTHS(TO_DATE(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;), -3))
+where  CONTINUOUS_ELIG_END_DATE is not null 
+  and  (ADD_MONTHS(TO_DATE(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;), 6)  &gt;= CONTINUOUS_ELIG_END_DATE  
+  and  TO_DATE(&apos;${IR_START_DATE}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) &lt;= CONTINUOUS_ELIG_END_DATE) 
  order by ar.ACCOUNT_ID</sql>
     <limit>0</limit>
     <lookup/>
@@ -241,36 +359,6 @@ where ADD_MONTHS(sysdate, 6) &gt;= CONTINUOUS_ELIG_END_DATE
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>100</xloc>
       <yloc>200</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input - Letters</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <sql>select lr.driver_primary_key ACCOUNT_ID,
-       lr.lmreq_id           RENEWAL_LETTER_REQ_ID   
-from lm_letter_requests_tmp lr
-where lr.LMDEF_ID in (21,22,37)
-and add_months(lr.requested_on, 2) &gt;= sysdate   
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
-      <yloc>30</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -354,8 +442,8 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
-      <yloc>360</yloc>
+      <xloc>810</xloc>
+      <yloc>490</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -380,8 +468,105 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
         <case_insensitive>N</case_insensitive>
         </field>      </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>280</xloc>
+      <xloc>250</xloc>
       <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>insert FLHK_ETL_INITIATE_RENEWALS</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>4</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>FLHK_ETL_INITIATE_RENEWALS</table>
+    <commit>5000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_NUMBER</column_name>
+          <stream_name>ACCOUNT_NUMBER</stream_name>
+        </field>
+        <field>
+          <column_name>APPLICATION_ID</column_name>
+          <stream_name>APPLICATION_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ASF_IDENTIFY_RENEWAL_ACCTS</column_name>
+          <stream_name>ASF_IDENTIFY_RENEWAL_ACCTS</stream_name>
+        </field>
+        <field>
+          <column_name>ASF_REQUEST_NOTIFICATION</column_name>
+          <stream_name>ASF_REQUEST_NOTIFICATION</stream_name>
+        </field>
+        <field>
+          <column_name>ASF_WAIT_FOR_ALL_DISENROLLED</column_name>
+          <stream_name>ASF_WAIT_FOR_ALL_DISENROLLED</stream_name>
+        </field>
+        <field>
+          <column_name>ASSD_IDENTIFY_RENEWAL_ACCTS</column_name>
+          <stream_name>ASSD_IDENTIFY_RENEWAL_ACCTS</stream_name>
+        </field>
+        <field>
+          <column_name>INSTANCE_STATUS</column_name>
+          <stream_name>INSTANCE_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_LETTER_REQ_ID</column_name>
+          <stream_name>RENEWAL_LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_PERIOD_END_DATE</column_name>
+          <stream_name>RENEWAL_PERIOD_END_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_PERIOD_START_DATE</column_name>
+          <stream_name>RENEWAL_PERIOD_START_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_STATUS</column_name>
+          <stream_name>RENEWAL_STATUS</stream_name>
+        </field>
+        <field>
+          <column_name>RENEWAL_STATUS_DATE</column_name>
+          <stream_name>RENEWAL_STATUS_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>STG_EXTRACT_DATE</column_name>
+          <stream_name>STG_EXTRACT_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>STG_LAST_UPDATE_DATE</column_name>
+          <stream_name>STG_LAST_UPDATE_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>810</xloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -396,7 +581,7 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>Table input - Letters</from>
+    <from>Find renewal letters</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
@@ -421,15 +606,15 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
+      <xloc>370</xloc>
       <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>output to FLHK_ETL_INITIATE_RENEWALS</name>
-    <type>TableOutput</type>
+    <name>If intent-to_renew is null</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -437,92 +622,22 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>FLHK_ETL_INITIATE_RENEWALS</table>
-    <commit>5000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field>MW_ID</return_field>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
     <fields>
-        <field>
-          <column_name>ACCOUNT_ID</column_name>
-          <stream_name>ACCOUNT_ID</stream_name>
+      <field>
+        <name>INTENT_TO_RENEW</name>
+        <value>N</value>
+        <mask/>
         </field>
-        <field>
-          <column_name>RENEWAL_PERIOD_START_DATE</column_name>
-          <stream_name>RENEWAL_PERIOD_START_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>APPLICATION_ID</column_name>
-          <stream_name>APPLICATION_ID</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_PERIOD_END_DATE</column_name>
-          <stream_name>RENEWAL_PERIOD_END_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_STATUS</column_name>
-          <stream_name>RENEWAL_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_STATUS_DATE</column_name>
-          <stream_name>RENEWAL_STATUS_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>RENEWAL_LETTER_REQ_ID</column_name>
-          <stream_name>RENEWAL_LETTER_REQ_ID</stream_name>
-        </field>
-        <field>
-          <column_name>ASSD_IDENTIFY_RENEWAL_ACCTS</column_name>
-          <stream_name>ASSD_IDENTIFY_RENEWAL_ACCTS</stream_name>
-        </field>
-        <field>
-          <column_name>CANCEL_DATE</column_name>
-          <stream_name>CANCEL_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>INSTANCE_STATUS</column_name>
-          <stream_name>INSTANCE_STATUS</stream_name>
-        </field>
-        <field>
-          <column_name>STG_EXTRACT_DATE</column_name>
-          <stream_name>STG_EXTRACT_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>STG_LAST_UPDATE_DATE</column_name>
-          <stream_name>STG_LAST_UPDATE_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ACCOUNT_NUMBER</column_name>
-          <stream_name>ACCOUNT_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_IDENTIFY_RENEWAL_ACCTS</column_name>
-          <stream_name>ASF_IDENTIFY_RENEWAL_ACCTS</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_REQUEST_NOTIFICATION</column_name>
-          <stream_name>ASF_REQUEST_NOTIFICATION</stream_name>
-        </field>
-        <field>
-          <column_name>ASF_WAIT_FOR_ALL_DISENROLLED</column_name>
-          <stream_name>ASF_WAIT_FOR_ALL_DISENROLLED</stream_name>
-        </field>
-    </fields>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
+      <xloc>510</xloc>
       <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
@@ -542,7 +657,7 @@ and add_months(lr.requested_on, 2) &gt;= sysdate
         <min_pct_rows/>
       </error>
       <error>
-        <source_step>output to FLHK_ETL_INITIATE_RENEWALS</source_step>
+        <source_step>insert FLHK_ETL_INITIATE_RENEWALS</source_step>
         <target_step>Table output OLTP - error</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_desc_fieldname</nr_valuename>

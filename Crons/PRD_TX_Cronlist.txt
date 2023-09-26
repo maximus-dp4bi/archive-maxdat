@@ -1,0 +1,99 @@
+#BPM
+00 4,6-23 * * * /u01/cron_files/cron_tx_run_bpm.sh > /u01/ETL_Logs/logs/`uname` -n_runbpm.log 2>&1
+
+#CONTCENTCENTER
+15 * * * * /u01/cron_files/cron_tx_run_contcent.sh > /u01/ETL_Logs/logs/ContactCenter/`uname -n`_contcent.log 2>&1
+
+#EMRS
+00 02 * * * /u01/cron_files/cron_tx_run_emrs.sh > /u01/ETL_Logs/logs/`uname -n`_emrs.log 2>&1
+
+#PURGELOGS
+11 10 * * * /u01/ETL_Scripts/scripts/tx_purge_logs.sh > /u01/ETL_Logs/logs/`uname -n`_purgelogs.log 2>&1
+
+#CONTCENTCENTERFORECASTS
+30 * * * * /u01/cron_files/cron_tx_run_contcent_forecast.sh > /u01/ETL_Logs/logs/ContactCenter/`uname -n`_contcentforecast.log 2>&1
+
+#CONTACTCENTERTIMEOUTCALLS
+30 19 * * * /u01/cron_files/cron_tx_run_load_timeout_calls.sh > /u01/ETL_Logs/logs/ContactCenter/run_timeout_calls_`date +\%Y\%m\%d`.log 2>&1
+
+#adhoc_contcent
+45 * * * * /u01/cron_files/cron_tx_run_adhoc_contcent.sh > /u01/ETL_Logs/logs/ContactCenter/`uname -n`_contcent.log 2>&1
+
+#DailyJobs
+00 0-6,20-23 * * * /u01/cron_files/cron_run_bpm_daily.sh > /u01/ETL_Logs/logs/daily_jobs_`date +\%Y\%m\%d`.log 2>&1
+
+#Onetimejob
+30 23 * * * /u01/cron_files/cron_run_bpm_daily_once.sh > /u01/ETL_Logs/logs/bpm_daily_once_jobs_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule Survey lookup load to run every hour daily from 5.40am to 11.40pm
+0 0,2,4,5,6,10,12,14,16,18,20,22 * * * /u01/ETL_Scripts/scripts/run_survey_lkup_load.sh > /u01/ETL_Logs/logs/cron_survey_lkup_load_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule Survey load to run every hour daily from 6am to 10pm
+0 1,3,5,7,9,11,13,15,17,19,21,23 * * * /u01/ETL_Scripts/scripts/run_survey_load.sh > /u01/ETL_Logs/logs/cron_survey_load_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule run_qcsample_load.sh to run once every hour
+0 * * * * /u01/ETL_Scripts/scripts/run_qcsample_load.sh > /u01/ETL_Logs/logs/cron_qcsample_load_`date +\%Y\%m\%d`.log 2>&1
+
+#Agent Performance
+0 6-18 * * * /u01/ETL_Scripts/scripts/run_agent_performance_load.sh > /u01/ETL_Logs/logs/run_agent_performance_load_`date +\%Y\%m\%d`.log 2>&1
+
+##added as part of 17646####
+0 3-22 * * * /u01/ETL_Scripts/scripts/run_provider_network_load.sh > /u01/ETL_Logs/logs/run_provider_network_load_`date +\%Y\%m\%d`.log 2>&1
+
+###added as part of 17947####
+0 2,18 * * * /u01/ETL_Scripts/scripts/tx_run_load_rpa_tables.sh > /u01/ETL_Logs/logs/tx_run_load_rpa_tables_`date +\%Y\%m\%d`.log 2>&1
+
+#CSG (Run hourly from 6am to 6pm)
+0 6-18 * * * /u01/ETL_Scripts/scripts/run_csg_exception_load.sh > /u01/ETL_Logs/logs/csg_exception_load_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule ReconReport_setup.sh to run once on 27th afternoon at 3pm
+0 15 27 * * /u01/ETL_Scripts/scripts/ReconReport_setup.sh > /u01/ETL_Logs/logs/cron_recon_setup_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule ReconReport_load.sh to run every 2 hours from 27th 8pm to 30th 10pm.
+0 0,2,4,6,8,10,12,14,16,18,20,22 24-30 * * /u01/ETL_Scripts/scripts/ReconReport_load.sh > /u01/ETL_Logs/logs/cron_recon_monthly_`date +\%Y\%m\%d`.log 2>&1
+
+#Recon Daily Load
+0 23 * * * /u01/ETL_Scripts/scripts/ReconReport_load_daily.sh > /u01/ETL_Logs/logs/cron_recon_daily_`date +\%Y\%m\%d`.log 2>&1
+
+#### added as part of jira 10468#####
+0 14 23 * * /u01/ETL_Scripts/scripts/ReconReport_setup.sh > /u01/ETL_Logs/logs/cron_recon_setup_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule Selection_load.sh
+0 1 * * * /u01/ETL_Scripts/scripts/Selection_load.sh > /u01/ETL_Logs/logs/cron_Selection_load_`date +\%Y\%m\%d`.log 2>&1
+
+#update cutoff calendar once per month at 4am
+0 4 1 * * /u01/ETL_Scripts/scripts/KPR10_cutoff_calendar.sh > /u01/ETL_Logs/logs/KPR10_cutoff_calendar_`date +\%Y\%m\%d`.log 2>&1
+#KPR10 setup once per day at 6am
+0 6 * * * /u01/ETL_Scripts/scripts/KPR10_Setup.sh > /u01/ETL_Logs/logs/KPR10_Setup_`date +\%Y\%m\%d`.log 2>&1
+
+#load elig and selection for a week every half hour to load historical data
+0,30 * 16-22 7 * /u01/ETL_Scripts/scripts/ReconReport_DailySelection_load.sh > /u01/ETL_Logs/logs/RR_DailySelection_load_`date +\%Y\%m\%d`.log 2>&1
+0,30 * 16-22 7 * /u01/ETL_Scripts/scripts/ReconReport_KPR10_elig.sh > /u01/ETL_Logs/logs/RR_`date +\%Y\%m\%d`.log 2>&1
+
+#load elig and selection ongoing
+48 8 * * * /u01/ETL_Scripts/scripts/ReconReport_DailySelection_load.sh > /u01/ETL_Logs/logs/RR_DailySelection_load_`date +\%Y\%m\%d`.log 2>&1
+48 8 * * * /u01/ETL_Scripts/scripts/ReconReport_KPR10_elig.sh > /u01/ETL_Logs/logs/RR_`date +\%Y\%m\%d`.log 2>&1
+
+###Change Daily Selection and KPR10_Elig to run every 5 mins
+0,5,10,15,20,25,30,35,40,45,50,55 * 28-31 8 * /u01/ETL_Scripts/scripts/ReconReport_DailySelection_load.sh > /u01/ETL_Logs/logs/RR_DailySelection_load_`date +\%Y\%m\%d`.log 2>&1
+0,5,10,15,20,25,30,35,40,45,50,55 * 28-31 8 * /u01/ETL_Scripts/scripts/ReconReport_KPR10_elig.sh > /u01/ETL_Logs/logs/RR_`date +\%Y\%m\%d`.log 2>&1
+
+###KPR10 Chip loads every 15 mins in september
+0,15,30,45 * 28-31 9 * /u01/ETL_Scripts/scripts/ReconReport_KPR10_ctran.sh > /u01/ETL_Logs/logs/KPR10_ctran_`date +\%Y\%m\%d`.log 2>&1
+0,15,30,45 * 28-31 9 * /u01/ETL_Scripts/scripts/ReconReport_KPR10_chip.sh > /u01/ETL_Logs/logs/KPR10_chip_`date +\%Y\%m\%d`.log 2>&1
+
+###kpr10 chip loads daily at 3.05 ongoing
+5 3 * * * /u01/ETL_Scripts/scripts/ReconReport_KPR10_ctran.sh > /u01/ETL_Logs/logs/KPR10_ctran_`date +\%Y\%m\%d`.log 2>&1
+5 3 * * * /u01/ETL_Scripts/scripts/ReconReport_KPR10_chip.sh > /u01/ETL_Logs/logs/KPR10_chip_`date +\%Y\%m\%d`.log 2>&1
+
+#KPR10 Load monthly Medicaid files
+0,30 * * * * /u01/ETL_Scripts/scripts/KPR10_MXLS.sh > /u01/ETL_Logs/logs/KPR10_MXLS_`date +\%Y\%m\%d`.log 2>&1
+
+#Schedule ReconReport_load.sh to run every 2 hours from 18th to 22nd may 2021
+0 0,2,4,6,8,10,12,14,16,18,20,22 18-22 5 * /u01/ETL_Scripts/scripts/ReconReport_load.sh > /u01/ETL_Logs/logs/cron_recon_monthly_$(date +\%Y\%m\%d).log 2>&1
+
+#ETL pull ETL_REPORT every hour
+0 */1 * * * /u01/ETL_Scripts/scripts/KPR10_ETL_REPORT.sh > /u01/ETL_Logs/logs/KPR10_ETL_REPORT`date +\%Y\%m\%d`.log 2>&1
+
+#P2-2707792
+0 0,2,4,6,8,10,12,14,16,18,20,22 3-5 8 * /u01/ETL_Scripts/scripts/ReconReport_load.sh > /u01/ETL_Logs/logs/cron_recon_monthly_$(date +\%Y\%m\%d).log 2>&1

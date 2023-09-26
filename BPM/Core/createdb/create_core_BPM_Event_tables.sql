@@ -106,7 +106,7 @@ create table BPM_ATTRIBUTE_STAGING_TABLE
 tablespace MAXDAT_DATA;
 
 alter table BPM_ATTRIBUTE_STAGING_TABLE add constraint BAST_PK primary key (BAST_ID) using index tablespace MAXDAT_INDX;
-create index BAST_BA_ID_IX1 on BPM_ATTRIBUTE_STAGING_TABLE (BA_ID) tablespace MAXDAT_INDX parallel compute statistics;  
+create index BAST_BA_ID_IX1 on BPM_ATTRIBUTE_STAGING_TABLE (BA_ID) tablespace MAXDAT_INDX compute statistics;  
 
 grant select on BPM_ATTRIBUTE_STAGING_TABLE to MAXDAT_READ_ONLY;
 
@@ -144,7 +144,7 @@ create table BPM_D_OPS_GROUP_TASK
 tablespace MAXDAT_DATA;
 
 alter table BPM_D_OPS_GROUP_TASK add constraint BPM_D_OPS_GROUP_TASK_PK primary key (OPS_GROUP,TASK_TYPE);
-alter index BPM_D_OPS_GROUP_TASK_PK rebuild tablespace MAXDAT_INDX parallel;
+alter index BPM_D_OPS_GROUP_TASK_PK rebuild tablespace MAXDAT_INDX;
 
 grant select on BPM_D_OPS_GROUP_TASK to MAXDAT_READ_ONLY;
 
@@ -187,7 +187,7 @@ alter table BPM_IDENTIFIER_TYPE_LKUP add constraint BPM_IDENTIFIER_LKUP_UNK uniq
 grant select on BPM_IDENTIFIER_TYPE_LKUP to MAXDAT_READ_ONLY;
 
 create table BPM_LOGGING
-  (BL_ID           number,
+  (BL_ID           number not null,
    LOG_DATE        date not null,
    LOG_LEVEL       varchar2(7) not null,
    PBQJ_ID         number,
@@ -203,12 +203,12 @@ storage (initial 64K)
 partition by range (LOG_DATE)
 interval (NUMTODSINTERVAL(1,'day'))
 (partition PT_BL_LOG_DATE_LT_2012 values less than (TO_DATE('20120101','YYYYMMDD')))
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA;
 
 alter table BPM_LOGGING add constraint BPM_LOGGING_PK primary key (BL_ID) using index tablespace MAXDAT_INDX;
 
-create index BPM_LOGGING_LX1 on BPM_LOGGING (LOG_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index BPM_LOGGING_LX2 on BPM_LOGGING (BSL_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index BPM_LOGGING_LX1 on BPM_LOGGING (LOG_DATE) local online tablespace MAXDAT_INDX compute statistics;
+create index BPM_LOGGING_LX2 on BPM_LOGGING (BSL_ID) local online tablespace MAXDAT_INDX compute statistics;
 
 alter table BPM_LOGGING add constraint BPM_LOGGING_LOG_LEVEL_CK 
 check (LOG_LEVEL in ('SEVERE','WARNING','INFO','CONFIG','FINE','FINER','FINEST'));

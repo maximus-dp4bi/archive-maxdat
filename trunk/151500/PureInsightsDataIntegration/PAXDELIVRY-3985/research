@@ -1,0 +1,38 @@
+-- MySQL
+
+select 
+	min(d.login_time) as overall_login_time,
+	max(d.logout_time) as overall_logout_time
+from
+(
+	SELECT userid, username, min(date_add(presencestarttime, interval -5 hour)) as login_time, max(date_add(presenceendtime, interval -5 hour)) as logout_time FROM purecloud.primary_presence WHERE DATE(date_add(presencestarttime, interval -5 hour)) = '2022-01-06'  AND organizationpresence <> 'Offline'
+	GROUP BY userid, username
+	ORDER BY username
+) d;
+
+
+-- Snowflake
+use role PI_DATA_INGEST_DEV_ALERT_USER;
+use warehouse PUREINSIGHTS_DEV_LOAD_DAILY_WH;
+use database PUREINSIGHTS_DEV;
+use schema RAW;
+
+SELECT
+	min(login_time) AS overall_login_time,
+	max(logout_time) AS overall_logout_time
+FROM
+	(
+		SELECT 
+			userid, 
+			username,                    
+			min(case when SYSTEMPRESENCE <> 'OFFLINE' then PROJECTPRESENCESTARTTIME end)  login_time,
+		  	max(case when SYSTEMPRESENCE <> 'OFFLINE'  then PROJECTPRESENCEENDTIME end)  logout_time
+		FROM
+			d_pi_primary_presence_vw 
+		WHERE projectid = '321' 
+		AND projectpresencestartdate = '2022-01-06' 
+		AND organizationpresence <> 'Offline'
+		GROUP BY userid, username
+		ORDER BY
+			username
+	);			

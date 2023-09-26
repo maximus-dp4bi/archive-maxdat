@@ -1,0 +1,549 @@
+use role PI_DATA_INGEST_DEV_ALERT_USER;
+use warehouse PUREINSIGHTS_DEV_LOAD_DAILY_WH;
+use database PUREINSIGHTS_DEV;
+use schema RAW;
+
+CREATE or replace PROCEDURE INGESTPIDATA_V2 (TABLENAME VARCHAR, STAGENAME VARCHAR, AWSFOLDERNAME VARCHAR,PROJECTID VARCHAR,PROJECTNAME VARCHAR, TRUNCATEFLAG BOOLEAN, REINGESTFLAG BOOLEAN,runFromBashFlag Boolean, tableIngestType varchar,tableKeyString varchar)
+	RETURNS VARCHAR
+  	LANGUAGE javascript
+  	EXECUTE AS CALLER
+  	AS
+  	$$  
+  	
+  	var attempt = 0;
+  	var max_attempts = 3000;
+  	var	wait_seconds = 1;
+  	  
+	REINGEST_SFX = ""
+
+	if (REINGESTFLAG)
+	{
+		REINGEST_SFX=" REINGEST";
+	} 
+
+	//set logging on
+
+	var sqlCommand = "set do_log = true;";
+   	snowflake.execute({sqlText: sqlCommand});
+
+	sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+
+	if (RUNFROMBASHFLAG) 
+	{
+    	sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+   	}
+    snowflake.execute({sqlText: sqlCommand});
+     
+	function log(projectid, object_category, object_name, status_string, msg)
+	{
+    	snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] }).execute();
+	}
+
+	function wrapInsertValue(value, dataType){
+	    if (value == 'null'){
+	        return 'NULL';
+	    }
+	    switch (dataType){
+	        case "TEXT":
+	            return "'" + escapeInsertString(value) + "'";
+	        case "OBJECT":
+	            return "'" + escapeInsertString(value) + "'";
+	        case "TIMESTAMP_TZ":
+	            return "'" + value + "'";
+	        case "TIMESTAMP":
+	            return "'" + value + "'";
+	        default: return value;
+	    }
+	}
+
+	function escapeInsertString(value) {
+	    var s = value.replace(/\\/g, "\\\\");
+	    s = s.replace(/'/g, "''" );
+	    s = s.replace(/"/g, '\\"');
+	    s = s.replace(/\s+/g, " ");
+	//  s = s.replace(/[^\x00-\x7F]/g, "");
+	    return s;
+	}	
+	
+	//default stage
+	var stageName = STAGENAME;
+
+	if (! stageName)
+	{
+		stageName = 'PUREINSIGHTS_S3_2';
+   	} 
+
+	var LOG_CATEGORY="TABLE";
+	if (REINGESTFLAG)
+	{
+		LOG_CATEGORY="TABLE REINGEST";
+	}
+
+	//get list of files to ingest for this table
+
+	var file_array=[];
+	var filecslist = "?";
+
+     	var pi_files_to_ingest_table = "PI_FILES_TO_INGEST";
+
+     	if (RUNFROMBASHFLAG) {
+      	  pi_files_to_ingest_table = "PI_FILES_TO_INGEST_"+PROJECTID;
+     	}
+
+	var sqlCommand = "select filename, to_varchar(file_timestamp) from "+pi_files_to_ingest_table+" where projectid = '"+PROJECTID+"' and tablename = '"+TABLENAME+"' and ingest_start_timestamp is null order by file_timestamp;";
+    var createdSQL = snowflake.createStatement({sqlText: sqlCommand});
+    var rs = createdSQL.execute();
+
+   while (rs.next()) 
+    {
+		 var fileName = rs.getColumnValue(1);
+		 var file_ts = rs.getColumnValue(2)
+		 file_array.push(fileName+";"+file_ts);
+		
+		 if (filecslist == "?")
+		 {
+			filecslist = "'" + fileName + "'";
+		 }
+		 else
+		 {
+		 	filecslist += ",'" + fileName + "'";  
+		 }
+    }
+
+    var filesToIngestCount = file_array.length;
+ 
+ 	if (filesToIngestCount < 1)
+ 	{
+  		log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"WARNING","Table " + TABLENAME + " has 0 files to ingest."); 
+	} 
+ 	else 
+ 	{
+ 		log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"INFO","filesToIngestCount: " + filesToIngestCount); 
+ 
+		//tableingesttype
+		//"truncate_insert","merge_no_deletes","merge_with_deletes", "insert"
+
+		log(PROJECTID,"SQL"+REINGEST_SFX,TABLENAME,"INFO","table ingest type: " + TABLEINGESTTYPE); 
+
+		if (TABLEINGESTTYPE == "merge_no_deletes" || TABLEINGESTTYPE == "merge_with_deletes")
+		{
+
+			//get keys
+			//var keyString = "conversationId";
+
+			var keyCounter = 0;
+			var keyOnSQL = "";
+			var selectKeySQL = "";
+			var keyArray = TABLEKEYSTRING.split(";");
+
+			for (const pKey of keyArray)
+			{
+				keyCounter++;
+
+				if (keyCounter == 1)
+				{
+ 					selectKeySQL = `SELECT parse_json(t.$1):`+pKey+`::string as pKey`+keyCounter+`,`;
+ 					keyOnSQL = `ON ` +TABLENAME+`.raw:`+pKey+`::string = bar.pKey`+keyCounter;
+ 				} 
+ 				else 
+ 				{
+ 					selectKeySQL += `parse_json(t.$1):`+pKey+`::string as pKey`+keyCounter+`,`;
+ 					keyOnSQL += ` AND `+TABLENAME+`.raw:`+pKey+`::string = bar.pKey`+keyCounter;
+ 				}
+			}
+
+			//ingest files
+
+			for (const fileinfo of file_array) 
+			{
+				var info_array = fileinfo.split(";");
+				var filename = info_array[0];
+				var file_timestamp = info_array[1];
+
+				//update files to ingest TABLE
+				
+   				var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'IN PROGRESS', status_msg = 'Ingestion is currently running...', ingest_start_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "' and filename = '"+filename+"' and file_timestamp = to_timestamp('" + file_timestamp + "');";
+   				log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+  
+    			try 
+    			{
+            		snowflake.execute ({sqlText: sqlCommand});
+                      
+        		}
+    			catch (err)  
+    			{
+        			log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for file " + filename+ "for table " +TABLENAME+ ": "+ err); 
+        			return "99";
+        		}
+
+        		if (TABLEINGESTTYPE == "merge_with_deletes" && TABLENAME == "wfm_schedule")
+        		{
+					attempt = 0;
+					var rowCount = -1;
+				
+					while(attempt <= max_attempts)
+					{			
+						if (attempt != 0)
+						{
+					       var sqlCommand = "call SYSTEM$WAIT("+wait_seconds+",'SECONDS');";
+					       snowflake.execute ({sqlText: sqlCommand});
+						}
+	
+						attempt++;
+	        		
+					  	try 
+					  	{
+
+							if (rowCount < 0)
+							{
+			        			var sqlCommand = `select count(*) from @`+stageName+`/`+TABLENAME+`/`+filename+` (PATTERN=>'.*.parquet', FILE_FORMAT => myformat2) t;`;
+
+			        			stmt = snowflake.createStatement({sqlText: sqlCommand});
+						       	var result2 = stmt.execute();
+						
+						        result2.next();
+						      	rowCount = result2.getColumnValue(1); 
+							}
+							
+					      	if (rowCount == 0)
+					      	{
+								var file_name_part_array = filename.split("_");
+								var business_unit_id = file_name_part_array[0];
+								var activity_start_date = file_name_part_array[1];
+								var schedule_id = file_name_part_array[2];
+							
+								schedule_id = schedule_id.replace(".parquet", "");
+							
+								sqlCommand = `DELETE FROM raw.wfm_schedule WHERE projectid = '`+PROJECTID+`' AND raw:scheduleID::string = '`+schedule_id+`';`;
+	  							snowflake.execute ({sqlText: sqlCommand});
+
+								log(PROJECTID,"SQL"+REINGEST_SFX,TABLENAME,"INFO","SQL: " + sqlCommand);
+					    		log(PROJECTID, LOG_CATEGORY, TABLENAME, "SUCCEEDED","Succeeded in analyzing and processing deletes for file "+filename+" and scheduleID="+schedule_id+".");		   					
+	  						
+					      	}
+					  		attempt = max_attempts + 1;
+					  	}
+					    catch (err)  
+					    {
+
+		 					var error = err.message;
+					        error = error.replace("'", " ");
+					       
+						    if(error.includes("was aborted because the number of waiters for this lock exceeds"))
+						    {
+			  					error = "Transaction was aborted because the number of waiters for this lock exceeds the maximum";
+						    }
+					       
+					    	log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED","Failed to analyze and process deletes for file "+filename+" and scheduleID="+schedule_id+": "+ error);
+		
+							//update files to ingest TABLE
+							
+						  	var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'FAILED', status_msg = 'Ingestion failed with error:  "+error+"', ingest_end_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "' and filename = '"+filename+"' and file_timestamp = to_timestamp('" + file_timestamp + "');";
+		   					log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+				  
+				    		try 
+				    		{
+				            	snowflake.execute ({sqlText: sqlCommand});
+				                      
+				        	}
+				    		catch (err)  
+				    		{
+								log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for file " + filename+ "for table " +TABLENAME+ ": "+ err); 
+								return "99";							
+					        }           
+	
+						    if(!error.includes("was aborted because the number of waiters for this lock exceeds"))
+						    {
+			  					attempt = max_attempts + 1;
+						    }
+					    					    
+		 					var error = err.message;
+					        error = error.replace("'", " ");
+					       
+						    if(error.includes("was aborted because the number of waiters for this lock exceeds"))
+						    {
+			  					error = "Transaction was aborted because the number of waiters for this lock exceeds the maximum";
+						    }
+					    
+					    	log(PROJECTID, LOG_CATEGORY+REINGEST_SFX, TABLENAME, "FAILED","Failed to analyze and process deletes for file "+filename+" and scheduleID="+schedule_id+": "+ error);
+					        
+					    	if (attempt >= max_attempts)
+					    	{
+					    		return "88";
+					    	}
+					    }
+					    
+
+					}
+	        		
+        		}
+        		
+				attempt = 0;
+			
+				while(attempt <= max_attempts)
+				{			
+					if (attempt != 0)
+					{
+				       var sqlCommand = "call SYSTEM$WAIT("+wait_seconds+",'SECONDS');";
+				       snowflake.execute ({sqlText: sqlCommand});
+					}
+
+					attempt++;
+        		        		
+	  				try 
+	  				{
+	
+						var sqlCommand = `MERGE INTO `+TABLENAME+` USING
+						(
+						 `+selectKeySQL+`
+						 t.$1 as newRecord
+						from @`+stageName+`/`+TABLENAME+`/`+filename+` (PATTERN=>'.*.parquet', FILE_FORMAT => myformat2) t 
+						) bar `+keyOnSQL+`
+						and `+TABLENAME+`.projectid = '`+PROJECTID+`'
+						WHEN MATCHED THEN
+						 UPDATE SET `+TABLENAME+`.raw = bar.newRecord,`+TABLENAME+`.ingestiondatetime = convert_timezone('UTC','America/New_York',sysdate()),`+TABLENAME+`.ingestiondmloperation = 'UPDATE',`+TABLENAME+`.ingestionsource = '`+filename+`'
+						 WHEN NOT MATCHED THEN
+						 INSERT
+						 (projectid, projectname, programid, programname,raw, ingestiondatetime, ingestiondmloperation, ingestionsource
+						 ) VALUES
+						 ('`+PROJECTID+`','`+PROJECTNAME+`',null,null,bar.newRecord,convert_timezone('UTC','America/New_York',sysdate()), 'INSERT', '`+filename+`'
+						 );`;
+		 
+						log(PROJECTID,"SQL"+REINGEST_SFX,TABLENAME,"INFO","SQL: " + sqlCommand); 
+	  				  				
+	  					snowflake.execute ({sqlText: sqlCommand});
+	  				
+	  					attempt = max_attempts + 1;
+	           
+						//update files to ingest TABLE
+						
+				   		var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'COMPLETE', status_msg = 'Ingestion completed successfully.', ingest_end_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "' and filename = '"+filename+"' and file_timestamp = to_timestamp('" + file_timestamp + "');";
+	   					log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+				  
+				    	try 
+				    	{
+					    	
+				    		snowflake.execute ({sqlText: sqlCommand});
+				                      
+				        }
+				    	catch (err)  
+				    	{
+				        	log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for file " + filename+ "for table " +TABLENAME+ ": "+ err); 
+				        	return "99";				        
+				        }           
+	           
+	        		}
+	    			catch (err)  
+	    			{
+
+	 					var error = err.message;
+				        error = error.replace("'", " ");
+				       
+					    if(error.includes("was aborted because the number of waiters for this lock exceeds"))
+					    {
+		  					error = "Transaction was aborted because the number of waiters for this lock exceeds the maximum";
+					    }
+				       
+	    				log(PROJECTID,LOG_CATEGORY, TABLENAME, "FAILED","Failed to ingest file "+filename+" for table " + TABLENAME +" : "+error);
+	
+						//update files to ingest TABLE
+						
+					  	var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'FAILED', status_msg = 'Ingestion failed with error:  "+error+"', ingest_end_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "' and filename = '"+filename+"' and file_timestamp = to_timestamp('" + file_timestamp + "');";
+	   					log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+			  
+			    		try 
+			    		{
+			            	snowflake.execute ({sqlText: sqlCommand});
+			                      
+			        	}
+			    		catch (err)  
+			    		{
+							log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for file " + filename+ "for table " +TABLENAME+ ": "+ err); 
+			        		return "99";							
+				        }  
+
+				    	if (attempt >= max_attempts)
+				    	{
+				    		return "88";
+				    	}
+				        				        				        
+	    			}
+	    		}
+
+  			}
+  
+		}
+
+		if (TABLEINGESTTYPE == "truncate_insert" || TABLEINGESTTYPE == "truncate_file_insert" || TABLEINGESTTYPE == "truncate_multi_file_insert")
+		{
+
+			if (TABLEINGESTTYPE == "truncate_insert")
+			{
+				var sqlCommand = "delete from raw."+TABLENAME+" where projectid = '" + PROJECTID + "';";
+			}
+			else
+			{
+				var sqlCommand = "delete from raw."+TABLENAME+" where projectid = '" + PROJECTID + "' and ingestionsource IN (select filename from raw."+pi_files_to_ingest_table+" where tablename='"+TABLENAME+"');";
+			}
+   					
+			var fileIngestionSQLCommand = "call execFileIngestionSQLCommand('"+PROJECTID+"','','"+TABLENAME+"','NA','1900-01-01',"+wrapInsertValue(sqlCommand, "TEXT")+",false,"+REINGESTFLAG+","+RUNFROMBASHFLAG+");";
+
+
+			try 
+			{
+        		snowflake.execute ({sqlText: fileIngestionSQLCommand});
+    		}
+			catch (err)  
+			{
+    			log(PROJECTID, "FILES"+REINGEST_SFX, TABLENAME, "FAILED","SQL:"+fileIngestionSQLCommand+" - "+ err); 
+    			return "5"; 
+			}
+	
+			//ingest data from parquet files
+
+            if (TABLEINGESTTYPE != "truncate_multi_file_insert")
+			{
+
+				for (const fileinfo of file_array) 
+				{
+					var info_array = fileinfo.split(";");
+					var filename = info_array[0];
+					var file_timestamp = info_array[1];
+	
+					//update files to ingest TABLE
+					
+	   				var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'IN PROGRESS', status_msg = 'Ingestion is currently running...', ingest_start_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "' and filename = '"+filename+"' and file_timestamp = to_timestamp('" + file_timestamp + "');";
+	   				log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+	  
+					try 
+					{
+						snowflake.execute({sqlText: sqlCommand});
+					                  
+					}
+					catch (err)  
+					{
+					
+						log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for file " + filename+ "for table " +TABLENAME+ ": "+ err); 
+						return "99";				
+					}
+					
+	
+					//var sqlCommand = "copy into raw." + TABLENAME + " (projectid, projectname, ingestiondmloperation, ingestionsource, ingestionDateTime, raw) from (select '"+ PROJECTID +"','" + PROJECTNAME + "','INSERT','"+filename+"',convert_timezone('UTC','America/New_York',sysdate()), * from @" + stageName + "/" + TABLENAME + "/) PATTERN='.*"+filename+"' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;"; 
+					var sqlCommand = "copy into raw." + TABLENAME + " (projectid, projectname, ingestiondmloperation, ingestionsource, ingestionDateTime, raw) from (select '"+ PROJECTID +"','" + PROJECTNAME + "','INSERT','"+filename+"',convert_timezone('UTC','America/New_York',sysdate()), * from @" + stageName + "/" + TABLENAME + "/) FILES=('"+filename+"') FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;";		  			
+	
+	
+					var fileIngestionSQLCommand = "call execFileIngestionSQLCommand('"+PROJECTID+"','','"+TABLENAME+"','"+filename+"','"+file_timestamp+"',"+wrapInsertValue(sqlCommand, "TEXT")+",true,"+REINGESTFLAG+","+RUNFROMBASHFLAG+");";
+	
+	  				try 
+	  				{
+	            		snowflake.execute ({sqlText: fileIngestionSQLCommand});
+	        		}
+	    			catch (err)  
+	    			{
+	        			log(PROJECTID, "FILES"+REINGEST_SFX, LOG_CATEGORY, "FAILED","SQL:"+fileIngestionSQLCommand+" - "+ err); 
+	        			return "55"; 
+					}
+				
+			        					    
+	  			}
+			}
+			else
+			{
+
+   				var sqlCommand = "update raw."+pi_files_to_ingest_table+" set status = 'IN PROGRESS', status_msg = 'Ingestion is currently running...', ingest_start_timestamp = convert_timezone('UTC','America/New_York',sysdate()), status_timestamp = convert_timezone('UTC','America/New_York',sysdate()) where tablename = '" + TABLENAME + "';";
+   				log(PROJECTID,LOG_CATEGORY, TABLENAME, "INFO",sqlCommand);
+  
+				try 
+				{
+					snowflake.execute({sqlText: sqlCommand});
+				                  
+				}
+				catch (err)  
+				{
+				
+					log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to update files_to_ingest table for table " +TABLENAME+ ": "+ err); 
+					return "99";				
+				}
+
+				const filecslistarr = filecslist.split(',');
+				filecslist = "?";
+
+				var fileCounter = 0;
+	
+				for (const filecs of filecslistarr)
+				{
+					fileCounter++;
+
+					if (filecslist == "?")
+					{
+						filecslist = filecs;
+					}
+					else
+					{
+					 	filecslist += "," + filecs;  
+					}
+	
+					if (fileCounter % 1000 == 0 || fileCounter == filecslistarr.length)
+					{
+
+						var sqlCommand = "copy into raw." + TABLENAME + " (projectid, projectname, ingestiondmloperation, ingestionsource, ingestionDateTime, raw) from (select '"+ PROJECTID +"','" + PROJECTNAME + "','INSERT',substr(METADATA$FILENAME, regexp_instr(METADATA$FILENAME, '"+TABLENAME+"')+LENGTH('"+TABLENAME+"')+1),convert_timezone('UTC','America/New_York',sysdate()), * from @" + stageName + "/" + TABLENAME + "/) FILES=("+filecslist+") FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;";		  			
+
+
+						if (fileCounter == filecslistarr.length)
+						{
+							var fileIngestionSQLCommand = "call execFileIngestionSQLCommand('"+PROJECTID+"','','"+TABLENAME+"','NA','1900-01-01',"+wrapInsertValue(sqlCommand, "TEXT")+",true,"+REINGESTFLAG+","+RUNFROMBASHFLAG+");";
+						}
+						else
+						{
+							var fileIngestionSQLCommand = "call execFileIngestionSQLCommand('"+PROJECTID+"','','"+TABLENAME+"','NA','1900-01-01',"+wrapInsertValue(sqlCommand, "TEXT")+",false,"+REINGESTFLAG+","+RUNFROMBASHFLAG+");";
+						}
+
+		  				try 
+		  				{
+		            		snowflake.execute ({sqlText: fileIngestionSQLCommand});
+		        		}
+		    			catch (err)  
+		    			{
+		        			log(PROJECTID, "FILES"+REINGEST_SFX, LOG_CATEGORY, "FAILED","SQL:"+fileIngestionSQLCommand+" - "+ err); 
+		        			return "55"; 
+						}
+					
+						filecslist = "?";
+						
+	 				} 
+
+				}				
+
+			} 
+		}
+	}
+
+/*
+	//generate warning if 0 records for any table not listed in unavailable tables table
+    var sqlCommand = "select count(*) from raw." + TABLENAME + " rw where rw.projectid = '" + PROJECTID + "';"; 
+ 
+  	try 
+  	{
+    	stmt = snowflake.createStatement({sqlText: sqlCommand});
+       	var result1 = stmt.execute();
+
+        result1.next();
+      	rowCount = result1.getColumnValue(1); 
+  	}
+    catch (err)  
+    {
+    	log(PROJECTID, "TABLE ROW COUNT"+REINGEST_SFX, TABLENAME, "FAILED","Failed to count records after ingestion: "+ err);
+        return "4";
+    }
+
+    log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"INFO","rowcount: " + rowCount); 
+        
+   	if (rowCount < 1) 
+   	{
+       log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"WARNING","Table " + TABLENAME + " has 0 records after ingestion."); 
+	} 
+
+*/
+  	log(PROJECTID, LOG_CATEGORY, TABLENAME, "SUCCEEDED","Succeeded loading files for table " + TABLENAME + " for projectid " + PROJECTID);
+  	return "0";  
+  	$$;   

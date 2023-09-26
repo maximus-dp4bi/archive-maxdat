@@ -33,7 +33,8 @@
 	LETTER_RETURN_REASON_CD VARCHAR2(32 BYTE), 
 	RETURN_REASON VARCHAR2(100 BYTE), 
 	LETTER_UPDATED_BY VARCHAR2(80 BYTE), 
-	LETTER_RETURN_DATE DATE
+	LETTER_RETURN_DATE DATE,
+        LETTER_DEFINITION_ID NUMBER(18,0)
    ) tablespace MAXDAT_DATA;
 
  CREATE INDEX LETTERS_ID_STG_IDX ON LETTERS_STG (LETTER_ID) tablespace MAXDAT_INDX;
@@ -47,7 +48,7 @@ create index LETTER_req_on_IDX on LETTERS_STG (LETTER_REQUESTED_ON) tablespace M
 create index LETTER_CASE_ID_IDX on LETTERS_STG (LETTER_CASE_ID) tablespace MAXDAT_INDX;
 
 
-create or replace public synonym LETTERS_STG for LETTERS_STG;
+
 
 grant select on LETTERS_STG to MAXDAT_READ_ONLY;
 
@@ -82,12 +83,12 @@ create table CORP_ETL_PROC_LETTERS
 	LETTER_RESP_FILE_DT date, 
 	LAST_UPDATE_DT date, 
 	LAST_UPDATE_BY_NAME varchar2(50 byte), 
-	NEWBORN_FLAG varchar2(1 byte), 
+    NEWBORN_FLAG varchar2(1 byte), 
 	TASK_ID number, 
 	CANCEL_DT date, 
 	CANCEL_BY varchar2(50 byte), 
-        CANCEL_REASON varchar2(50 byte), 
-        CANCEL_METHOD varchar2(50 byte), 
+    CANCEL_REASON varchar2(100 byte), 
+    CANCEL_METHOD varchar2(50 byte), 
 	COMPLETE_DT date, 
 	INSTANCE_STATUS varchar2(10 byte) not null enable, 
 	ASSD_PROCESS_LETTER_REQ date, 
@@ -95,19 +96,30 @@ create table CORP_ETL_PROC_LETTERS
 	ASSD_TRANSMIT date, 
 	ASED_TRANSMIT date, 
 	ASSD_RECEIVE_CONFIRMATION date, 
-	ASED_RECEIVE_CONFIRMATION date, 
-	ASSD_CREATE_ROUTE_WORK date, 
-	ASED_CREATE_ROUTE_WORK date, 
+	ASED_RECEIVE_CONFIRMATION date, 	
 	ASF_PROCESS_LETTER_REQ varchar2(1 byte) not null enable, 
 	ASF_TRANSMIT varchar2(1 byte) not null enable, 
 	ASF_RECEIVE_CONFIRMATION varchar2(1 byte) not null enable, 
-	ASF_CREATE_ROUTE_WORK varchar2(1 byte) not null enable, 
 	GWF_VALID varchar2(1 byte), 
 	GWF_OUTCOME varchar2(1 byte), 
 	GWF_WORK_REQUIRED varchar2(1 byte), 
 	STG_EXTRACT_DATE date not null enable, 
 	STG_LAST_UPDATE_DATE date not null enable, 
-	STAGE_DONE_DATE date) 
+	STAGE_DONE_DATE date,
+	NEW_LETTER_REQUEST_ID NUMBER, 
+    ASSD_RESOLVE_RESP     DATE,
+    ASED_RESOLVE_RESP     DATE,
+    ASF_RESOLVE_RESP      VARCHAR2(1),
+	ERROR_COUNT           NUMBER,
+    LAST_ERRORED_DATE     DATE,
+	LAST_ERROR_FIXED_BY   VARCHAR2(80),
+    REJECT_FLAG           VARCHAR2(1),
+	CREATED_BY_ID         VARCHAR2(80),
+    LAST_UPDATED_BY_ID    VARCHAR2(80),
+    CANCEL_BY_ID          VARCHAR2(80),
+    EPM_MAIL_DT_FOR_CASE DATE,
+    LETTER_DEFINITION_ID NUMBER(18,0)
+) 
 tablespace MAXDAT_DATA;
    
 alter table CORP_ETL_PROC_LETTERS add constraint CORP_ETL_PROC_LETTERS_PK primary key (CEPN_ID) using index tablespace MAXDAT_INDX;
@@ -124,8 +136,12 @@ create index CORP_ETL_PROC_LETTERS_SLUD on CORP_ETL_PROC_LETTERS (STG_LAST_UPDAT
 
 create index CORP_ETL_PROC_LETTERS_REQ_DT on CORP_ETL_PROC_LETTERS (REQUEST_DT)
   tablespace MAXDAT_INDX;
+
+create index CEPL_LETTER_TYPE on corp_etl_proc_letters(letter_type) tablespace MAXDAT_INDX;
+
+create index CORP_ETL_PROC_LETTERS_LDEF_ID on CORP_ETL_PROC_LETTERS (LETTER_DEFINITION_ID)  tablespace MAXDAT_INDX;
   
-create or replace public synonym CORP_ETL_PROC_LETTERS for CORP_ETL_PROC_LETTERS;
+
 
 grant select on CORP_ETL_PROC_LETTERS to MAXDAT_READ_ONLY;
 
@@ -141,7 +157,7 @@ grant select on CORP_ETL_PROC_LETTERS to MAXDAT_READ_ONLY;
 
 create index CORP_ETL_PROC_LETTERS_CHD_IDX1 on CORP_ETL_PROC_LETTERS_CHD (LETTER_REQUEST_ID) tablespace MAXDAT_INDX;
 
-create or replace public synonym CORP_ETL_PROC_LETTERS_CHD for CORP_ETL_PROC_LETTERS_CHD;
+
 
 grant select on CORP_ETL_PROC_LETTERS_CHD to MAXDAT_READ_ONLY;
 
@@ -157,9 +173,10 @@ grant select on CORP_ETL_PROC_LETTERS_CHD to MAXDAT_READ_ONLY;
   tablespace MAXDAT_DATA ;
 
   create index CORP_ETL_PROC_LTR_CHD_TMP_IDX1 on CORP_ETL_PROC_LETTERS_CHD_TMP (LETTER_REQUEST_ID) tablespace MAXDAT_INDX ;
+  create index CORP_ETL_PROC_LETTERS_CHD_IDX2 ON CORP_ETL_PROC_LETTERS_CHD(CREATE_DT) TABLESPACE MAXDAT_INDX;
+  create index CORP_ETL_PROC_LETTERS_CHD_IDX3 ON CORP_ETL_PROC_LETTERS_CHD(CLIENT_ID) TABLESPACE MAXDAT_INDX;
 
 
-create or replace public synonym CORP_ETL_PROC_LETTERS_CHD_TMP for CORP_ETL_PROC_LETTERS_CHD_TMP;
 
 grant select on CORP_ETL_PROC_LETTERS_CHD_TMP to MAXDAT_READ_ONLY;
 
@@ -201,7 +218,7 @@ grant select on CORP_ETL_PROC_LETTERS_CHD_TMP to MAXDAT_READ_ONLY;
 	TASK_ID number, 
 	CANCEL_DT date, 
 	CANCEL_BY varchar2(50 byte), 
-        CANCEL_REASON varchar2(50 byte), 
+        CANCEL_REASON varchar2(100 byte), 
         CANCEL_METHOD varchar2(50 byte), 
 	COMPLETE_DT date, 
 	INSTANCE_STATUS varchar2(10 byte) not null enable, 
@@ -211,12 +228,9 @@ grant select on CORP_ETL_PROC_LETTERS_CHD_TMP to MAXDAT_READ_ONLY;
 	ASED_TRANSMIT date, 
 	ASSD_RECEIVE_CONFIRMATION date, 
 	ASED_RECEIVE_CONFIRMATION date, 
-	ASSD_CREATE_ROUTE_WORK date, 
-	ASED_CREATE_ROUTE_WORK date, 
 	ASF_PROCESS_LETTER_REQ varchar2(1 byte) not null enable, 
 	ASF_TRANSMIT varchar2(1 byte) not null enable, 
 	ASF_RECEIVE_CONFIRMATION varchar2(1 byte) not null enable, 
-	ASF_CREATE_ROUTE_WORK varchar2(1 byte) not null enable, 
 	GWF_VALID varchar2(1 byte), 
 	GWF_OUTCOME varchar2(1 byte), 
 	GWF_WORK_REQUIRED varchar2(1 byte), 
@@ -225,13 +239,28 @@ grant select on CORP_ETL_PROC_LETTERS_CHD_TMP to MAXDAT_READ_ONLY;
 	STAGE_DONE_DATE date, 
 	ERROR_DATE date, 
 	STEP_DEFINITION_ID number, 
-	TASK_CREATE_DT date)
+	TASK_CREATE_DT date,
+    NEW_LETTER_REQUEST_ID NUMBER, 
+    ASSD_RESOLVE_RESP     DATE,
+    ASED_RESOLVE_RESP     DATE,
+    ASF_RESOLVE_RESP      VARCHAR2(1),
+	ERROR_COUNT           NUMBER,
+    LAST_ERRORED_DATE     DATE,
+	LAST_ERROR_FIXED_BY   VARCHAR2(80),
+    REJECT_FLAG           VARCHAR2(1),
+	CREATED_BY_ID         VARCHAR2(80),
+    LAST_UPDATED_BY_ID    VARCHAR2(80),
+    CANCEL_BY_ID          VARCHAR2(80),
+	OBE_status_date       DATE,
+    EPM_MAIL_DT_FOR_CASE DATE,
+    LETTER_DEFINITION_ID NUMBER(18,0)
+	)
 tablespace MAXDAT_DATA ;
 
 alter table CORP_ETL_PROC_LETTERS_OLTP add constraint CORP_ETL_PROC_LETTERS_OLT_PK primary key (CEPN_ID) using index tablespace MAXDAT_INDX; 
 alter table CORP_ETL_PROC_LETTERS_OLTP add constraint CORP_ETL_PROC_LETTERS_OLTP_ID unique (LETTER_REQUEST_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym CORP_ETL_PROC_LETTERS_OLTP for CORP_ETL_PROC_LETTERS_OLTP;
+
 
 grant select on CORP_ETL_PROC_LETTERS_OLTP to MAXDAT_READ_ONLY;
 
@@ -272,7 +301,7 @@ create table CORP_ETL_PROC_LETTERS_OLTP_T
   task_id                   NUMBER,
   cancel_dt                 DATE,
   cancel_by                 VARCHAR2(50),
-  cancel_reason             VARCHAR2(50),
+  cancel_reason             VARCHAR2(100),
   cancel_method             VARCHAR2(50),
   complete_dt               DATE,
   instance_status           VARCHAR2(10) not null,
@@ -282,12 +311,9 @@ create table CORP_ETL_PROC_LETTERS_OLTP_T
   ased_transmit             DATE,
   assd_receive_confirmation DATE,
   ased_receive_confirmation DATE,
-  assd_create_route_work    DATE,
-  ased_create_route_work    DATE,
   asf_process_letter_req    VARCHAR2(1) not null,
   asf_transmit              VARCHAR2(1) not null,
-  asf_receive_confirmation  VARCHAR2(1) not null,
-  asf_create_route_work     VARCHAR2(1) not null,
+  asf_receive_confirmation  VARCHAR2(1) not null,  
   gwf_valid                 VARCHAR2(1),
   gwf_outcome               VARCHAR2(1),
   gwf_work_required         VARCHAR2(1),
@@ -296,7 +322,20 @@ create table CORP_ETL_PROC_LETTERS_OLTP_T
   stage_done_date           DATE,
   error_date                DATE,
   step_definition_id        NUMBER,
-  task_create_dt            DATE
+  task_create_dt            DATE,
+  NEW_LETTER_REQUEST_ID     NUMBER, 
+  ASSD_RESOLVE_RESP         DATE,
+  ASED_RESOLVE_RESP         DATE,
+  ASF_RESOLVE_RESP          VARCHAR2(1),
+  ERROR_COUNT               NUMBER,
+  LAST_ERRORED_DATE         DATE,
+  LAST_ERROR_FIXED_BY       VARCHAR2(80),
+  REJECT_FLAG               VARCHAR2(1),
+  CREATED_BY_ID             VARCHAR2(80),
+  LAST_UPDATED_BY_ID        VARCHAR2(80),
+  CANCEL_BY_ID              VARCHAR2(80),
+  EPM_MAIL_DT_FOR_CASE      DATE,
+  LETTER_DEFINITION_ID NUMBER(18,0)
 )
 tablespace MAXDAT_DATA;
 
@@ -315,7 +354,8 @@ grant select on CORP_ETL_PROC_LETTERS_OLTP_T to MAXDAT_READ_ONLY;
 --Process Letters WIP BPM
 
 create table CORP_ETL_PROC_LETTERS_WIP_BPM 
-   (	CEPN_ID number not null enable, 
+   (	
+    CEPN_ID number not null enable, 
 	LETTER_REQUEST_ID number not null enable, 
 	CREATE_DT date not null enable, 
 	CREATE_BY varchar2(50 byte), 
@@ -348,7 +388,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
 	TASK_ID number, 
 	CANCEL_DT date, 
 	CANCEL_BY varchar2(50 byte), 
-        CANCEL_REASON varchar2(50 byte), 
+        CANCEL_REASON varchar2(100 byte), 
         CANCEL_METHOD varchar2(50 byte), 
 	COMPLETE_DT date, 
 	INSTANCE_STATUS varchar2(10 byte) not null enable, 
@@ -358,25 +398,36 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
 	ASED_TRANSMIT date, 
 	ASSD_RECEIVE_CONFIRMATION date, 
 	ASED_RECEIVE_CONFIRMATION date, 
-	ASSD_CREATE_ROUTE_WORK date, 
-	ASED_CREATE_ROUTE_WORK date, 
 	ASF_PROCESS_LETTER_REQ varchar2(1 byte) not null enable, 
 	ASF_TRANSMIT varchar2(1 byte) not null enable, 
 	ASF_RECEIVE_CONFIRMATION varchar2(1 byte) not null enable, 
-	ASF_CREATE_ROUTE_WORK varchar2(1 byte) not null enable, 
 	GWF_VALID varchar2(1 byte), 
 	GWF_OUTCOME varchar2(1 byte), 
 	GWF_WORK_REQUIRED varchar2(1 byte), 
 	STG_EXTRACT_DATE date not null enable, 
 	STG_LAST_UPDATE_DATE date not null enable, 
 	STAGE_DONE_DATE date, 
-	updated varchar2(1 byte))
+	updated varchar2(1 byte),
+	NEW_LETTER_REQUEST_ID     NUMBER, 
+    ASSD_RESOLVE_RESP         DATE,
+    ASED_RESOLVE_RESP         DATE,
+    ASF_RESOLVE_RESP          VARCHAR2(1),
+    ERROR_COUNT               NUMBER,
+    LAST_ERRORED_DATE         DATE,
+    LAST_ERROR_FIXED_BY       VARCHAR2(80),
+    REJECT_FLAG               VARCHAR2(1),
+    CREATED_BY_ID             VARCHAR2(80),
+    LAST_UPDATED_BY_ID        VARCHAR2(80),
+    CANCEL_BY_ID              VARCHAR2(80),
+    EPM_MAIL_DT_FOR_CASE      DATE,
+    LETTER_DEFINITION_ID NUMBER(18,0)
+)
 tablespace MAXDAT_DATA  ;
 
 alter table CORP_ETL_PROC_LETTERS_WIP_BPM add	constraint CORP_ETL_PROC_LETTERS_WIP_PK primary key (CEPN_ID) using index tablespace MAXDAT_INDX; 
 alter table CORP_ETL_PROC_LETTERS_WIP_BPM add constraint CORP_ETL_PROC_LTR_BPM_ID unique (LETTER_REQUEST_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym CORP_ETL_PROC_LETTERS_WIP_BPM for CORP_ETL_PROC_LETTERS_WIP_BPM;
+
 
 grant select on CORP_ETL_PROC_LETTERS_WIP_BPM to MAXDAT_READ_ONLY;
 
@@ -402,7 +453,7 @@ tablespace MAXDAT_INDX;
 create index LETTER_OUT_DATA_CONT_STG_IDX3 on LETTER_OUT_DATA_CONTENT_STG (JOB_ID)
 tablespace MAXDAT_INDX;
 
-create or replace public synonym LETTER_OUT_DATA_CONTENT_STG for LETTER_OUT_DATA_CONTENT_STG;
+
 
 grant select on LETTER_OUT_DATA_CONTENT_STG to MAXDAT_READ_ONLY;
 
@@ -443,7 +494,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_T
   task_id                   NUMBER,
   cancel_dt                 DATE,
   cancel_by                 VARCHAR2(50),
-  cancel_reason             VARCHAR2(50),
+  cancel_reason             VARCHAR2(100),
   cancel_method             VARCHAR2(50),
   complete_dt               DATE,
   instance_status           VARCHAR2(10) not null,
@@ -453,19 +504,29 @@ create table CORP_ETL_PROC_LETTERS_WIP_T
   ased_transmit             DATE,
   assd_receive_confirmation DATE,
   ased_receive_confirmation DATE,
-  assd_create_route_work    DATE,
-  ased_create_route_work    DATE,
   asf_process_letter_req    VARCHAR2(1) not null,
   asf_transmit              VARCHAR2(1) not null,
   asf_receive_confirmation  VARCHAR2(1) not null,
-  asf_create_route_work     VARCHAR2(1) not null,
   gwf_valid                 VARCHAR2(1),
   gwf_outcome               VARCHAR2(1),
   gwf_work_required         VARCHAR2(1),
   stg_extract_date          DATE not null,
   stg_last_update_date      DATE not null,
   stage_done_date           DATE,
-  updated                   VARCHAR2(1)
+  updated                   VARCHAR2(1),
+  NEW_LETTER_REQUEST_ID     NUMBER, 
+  ASSD_RESOLVE_RESP         DATE,
+  ASED_RESOLVE_RESP         DATE,
+  ASF_RESOLVE_RESP          VARCHAR2(1),
+  ERROR_COUNT               NUMBER,
+  LAST_ERRORED_DATE         DATE,
+  LAST_ERROR_FIXED_BY       VARCHAR2(80),
+  REJECT_FLAG               VARCHAR2(1),
+  CREATED_BY_ID             VARCHAR2(80),
+  LAST_UPDATED_BY_ID        VARCHAR2(80),
+  CANCEL_BY_ID              VARCHAR2(80),
+  EPM_MAIL_DT_FOR_CASE      DATE,
+  LETTER_DEFINITION_ID NUMBER(18,0)
 )
 tablespace MAXDAT_DATA;
 

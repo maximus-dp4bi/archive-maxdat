@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>ManageEnroll_set_RUN_RUNALL_TODAY</name>
+    <name>Process_Letters_Set_RUN_RUNALL_TODAY</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -189,17 +203,21 @@ successful run of the RUNALL kjb.</note>
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <sql>select to_char(trunc(sysdate),&apos;yyyy&#47;MM&#47;dd&apos;) as IN_RUN_RUNALL_TODAY,      
+    <sql>select 
+       (select to_char(trunc(job_start_date),&apos;yyyy&#47;MM&#47;dd&apos;)
+        from corp_etl_job_statistics
+        where job_id =${ETL_JOBID}
+        )  as IN_RUN_RUNALL_TODAY,
        &apos;PROCESSLETTERS_RUN_RUNALL_TODAY&apos; as in_HistoryFieldName
 from dual</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
+      <xloc>145</xloc>
       <yloc>89</yloc>
       <draw>Y</draw>
       </GUI>

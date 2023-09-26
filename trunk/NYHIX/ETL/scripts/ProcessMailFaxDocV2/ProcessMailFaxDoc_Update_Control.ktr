@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_Update_Control</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -68,50 +90,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>DMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Local</name>
-    <server>localhost</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>nyhixmdsp</database>
-    <port>1521</port>
-    <username>sp57859[maxdat]</username>
-    <password>Encrypted 2be98afc86aa7f2e48618b6348fc0fc8e</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -128,42 +106,71 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>8</attribute></attribute>
+      <attribute><code>POOLING_maxIdle</code><attribute>8</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
-    <port>${DB_OLTP_PORT}</port>
-    <username>${DB_OLTP_USER}</username>
-    <password>${DB_OLTP_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
-  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_DMS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_MAXE</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_CSC</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_DMS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_MAXE</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update - MAX_CREATE_DATE_CSC</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</from><to>Update -MAX_APP_DOC_INDV_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Update - MAX_CREATE_DATE_APP</from><to>Set Variables - LookBackDates</to><enabled>Y</enabled> </hop>  <hop> <from>Update -MAX_APP_DOC_INDV_ID</from><to>Set Variables - LookBackDates 2</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Set Variables - LookBackDates</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>MAX_CREATE_DATE_APP</field_name>
+        <variable_name>MAX_CREATE_DATE_APP</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>N</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>971</xloc>
+      <yloc>456</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Variables - LookBackDates 2</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>MAX_APP_DOC_INDV_ID</field_name>
+        <variable_name>MAX_APP_DOC_INDV_ID</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>N</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>52</xloc>
+      <yloc>630</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Table input - NYHIX_ETL_MAIL_FAX_DOC_V2</name>
     <type>TableInput</type>
@@ -180,10 +187,14 @@
 &apos;MAX_CREATE_DATE_MAXE&apos; name_maxe,
 &apos;MAX_CREATE_DATE_CSC&apos; name_csc,
 &apos;MAX_CREATE_DATE_APP&apos; name_app,
-(select to_char(max(create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;) from NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 where DCN not like &apos;DCN%&apos;) MAX_CREATE_DATE_DMS,
-(select to_char(max(create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;) from NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 where DCN like &apos;DCN%&apos;) MAX_CREATE_DATE_MAXE,
-(select to_char(max(link_create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;) from NYHIX_ETL_MAIL_FAX_DOC_APP_V2) MAX_CREATE_DATE_APP,
-(select to_char(max(csc_proc_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;) from NYHIX_ETL_MAIL_FAX_DOC_CSC_V2) MAX_CREATE_DATE_CSC
+&apos;MAX_DCN_DETAIL_ID&apos; as name_csc_error,
+&apos;MAX_APP_DOC_INDV_ID&apos; as name_doc_indv_id,
+(select coalesce(to_char(max(create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;),to_char(&apos;2013&#47;10&#47;1 00:00:00&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 where DCN not like &apos;DCN%&apos;) MAX_CREATE_DATE_DMS,
+(select coalesce(to_char(max(create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;),to_char(&apos;2013&#47;10&#47;1 00:00:00&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 where DCN like &apos;DCN%&apos;) MAX_CREATE_DATE_MAXE,
+(select coalesce(to_char(max(link_create_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;),to_char(&apos;2013&#47;10&#47;1 00:00:00&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_APP_V2) MAX_CREATE_DATE_APP,
+(select coalesce(to_char(max(csc_proc_dt),&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;),to_char(&apos;2013&#47;10&#47;1 00:00:00&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_CSC_V2) MAX_CREATE_DATE_CSC,
+(select coalesce(to_char(max(csc_detail_id)),to_char(&apos;1&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_CSC_V2) MAX_DCN_DETAIL_ID,
+(select coalesce(to_char(max(app_doc_indv_id)),to_char(&apos;1&apos;)) from NYHIX_ETL_MAIL_FAX_DOC_APP_V2) MAX_APP_DOC_INDV_ID
 from dual</sql>
     <limit>0</limit>
     <lookup/>
@@ -346,6 +357,44 @@ from dual</sql>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>1009</xloc>
       <yloc>228</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update -MAX_APP_DOC_INDV_ID</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>Corp_etl_control</table>
+      <key>
+        <name>NAME_DOC_INDV_ID</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>VALUE</name>
+        <rename>MAX_APP_DOC_INDV_ID</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>53</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

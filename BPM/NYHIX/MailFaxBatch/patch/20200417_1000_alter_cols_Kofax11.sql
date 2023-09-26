@@ -1,0 +1,23 @@
+---- 
+---- NYHIX-55501 - Changes to column sizes for Kofax 11 and drop one constraint 
+----
+
+
+alter table "MAXDAT"."CORP_ETL_MFB_SML_OLTP"  modify (MODULEUNIQUEID varchar2(250), USERID varchar2(128));
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_EVENTS"  modify USER_ID varchar2(128);
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_EVENTS_OLTP" modify USER_ID varchar2(128);
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_EVENTS_STG"  modify USER_ID varchar2(128);
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_EVENTS_WIP" modify USER_ID varchar2(128);
+alter table "MAXDAT"."CORP_ETL_MFB_SB_OLTP"  modify CREATIONUSERID VARCHAR2(128);
+alter table "MAXDAT"."CORP_ETL_MFB_SBM_OLTP" modify MODULECLOSEUNIQUEID varchar2(250);
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH"  modify (CREATION_USER_ID VARCHAR2(128), CURRENT_BATCH_MODULE_ID varchar2(250), ASPB_VALIDATE_DATA_USER_ID varchar2(128));
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_OLTP" modify (CREATION_USER_ID VARCHAR2(128), CURRENT_BATCH_MODULE_ID varchar2(250), ASPB_VALIDATE_DATA_USER_ID varchar2(128));
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_STG"  modify (CREATION_USER_ID VARCHAR2(128), CURRENT_BATCH_MODULE_ID varchar2(250), ASPB_VALIDATE_DATA_USER_ID varchar2(128));
+alter table "MAXDAT"."CORP_ETL_MFB_BATCH_WIP"  modify (CREATION_USER_ID VARCHAR2(128), CURRENT_BATCH_MODULE_ID varchar2(250), ASPB_VALIDATE_DATA_USER_ID varchar2(128));
+alter table "MAXDAT"."D_MFB_CURRENT"  modify CURRENT_BATCH_MODULE_ID VARCHAR2(250);
+--- drop deleted not null constraint
+alter table "MAXDAT"."CORP_ETL_MFB_DOCUMENT_OLTP" drop constraint "SYS_C0084512";
+alter table "MAXDAT"."CORP_ETL_MFB_DOCUMENT_STG" drop constraint "SYS_C0084522";
+alter table "MAXDAT"."CORP_ETL_MFB_DOCUMENT_WIP" drop constraint "SYS_C0084535";
+alter table "MAXDAT"."CORP_ETL_MFB_DOCUMENT" drop constraint "SYS_C0084547"
+

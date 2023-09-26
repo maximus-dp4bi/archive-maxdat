@@ -54,14 +54,12 @@ alter table D_NYEC_SR_CURRENT add constraint DNSRCUR_PK primary key (NYEC_SR_BI_
 create index DNSRCUR_IX1 on D_NYEC_SR_CURRENT ("Application ID") online tablespace MAXDAT_INDX parallel compute statistics;
 create unique index DNSRCUR_UIX1 on D_NYEC_SR_CURRENT ("State Review Task ID") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_NYEC_SR_CURRENT for D_NYEC_SR_CURRENT;
 grant select on D_NYEC_SR_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_CURRENT_SV as
 select * from D_NYEC_SR_CURRENT
 with read only;
 
-create or replace public synonym D_NYEC_SR_CURRENT_SV for D_NYEC_SR_CURRENT_SV;
 grant select on D_NYEC_SR_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PA_STATE_REV_TASK_SV as
@@ -106,7 +104,6 @@ from D_NYEC_PA_CURRENT dnpacur
 inner join D_MW_CURRENT dmwcur on (dnpacur."State Review Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PA_STATE_REV_TASK_SV for D_NYEC_PA_STATE_REV_TASK_SV;
 grant select on D_NYEC_PA_STATE_REV_TASK_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_CURRENT_APP_SV as
@@ -221,7 +218,6 @@ from D_NYEC_SR_CURRENT dnsrcur
 inner join D_NYEC_PA_CURRENT dnpacur on (dnsrcur."Application ID" = dnpacur."Application ID")
 with read only;
 
-create or replace public synonym D_NYEC_SR_CURRENT_APP_SV for D_NYEC_SR_CURRENT_APP_SV;
 grant select on D_NYEC_SR_CURRENT_APP_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_STATE_REV_TASK_SV as
@@ -266,7 +262,6 @@ from D_NYEC_SR_CURRENT dnsrcur
 inner join D_MW_CURRENT dmwcur on (dnsrcur."State Review Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_SR_STATE_REV_TASK_SV for D_NYEC_SR_STATE_REV_TASK_SV;
 grant select on D_NYEC_SR_STATE_REV_TASK_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_DATA_CORRECT_TASK_SV as
@@ -311,7 +306,6 @@ from D_NYEC_SR_CURRENT dnsrcur
 inner join D_MW_CURRENT dmwcur on (dnsrcur."Data Correction Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_SR_DATA_CORRECT_TASK_SV for D_NYEC_SR_DATA_CORRECT_TASK_SV;
 grant select on D_NYEC_SR_DATA_CORRECT_TASK_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_RESEARCH_TASK_SV as
@@ -356,7 +350,6 @@ from D_NYEC_SR_CURRENT dnsrcur
 inner join D_MW_CURRENT dmwcur on (dnsrcur."Research Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_SR_RESEARCH_TASK_SV for D_NYEC_SR_RESEARCH_TASK_SV;
 grant select on D_NYEC_SR_RESEARCH_TASK_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_CURRENT_TASK_SV as
@@ -401,7 +394,6 @@ from D_NYEC_SR_CURRENT dnsrcur
 inner join D_MW_CURRENT dmwcur on (dnsrcur."Current Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_SR_CURRENT_TASK_SV for D_NYEC_SR_CURRENT_TASK_SV;
 grant select on D_NYEC_SR_CURRENT_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -420,14 +412,12 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYEC_SR_RFE_STATUS_FLAG add constraint DNSRRSF_PK primary key (DNSRRSF_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym D_NYEC_SR_RFE_STATUS_FLAG for D_NYEC_SR_RFE_STATUS_FLAG;
 grant select on D_NYEC_SR_RFE_STATUS_FLAG to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_RFE_STATUS_FLAG_SV as
 select * from D_NYEC_SR_RFE_STATUS_FLAG
 with read only;
 
-create or replace public synonym D_NYEC_SR_RFE_STATUS_FLAG_SV for D_NYEC_SR_RFE_STATUS_FLAG_SV;
 grant select on D_NYEC_SR_RFE_STATUS_FLAG_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_SR_RFE_STATUS_FLAG (DNSRRSF_ID,"RFE Status Flag") values (SEQ_DNSRRSF_ID.nextval,null);
@@ -451,14 +441,12 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYEC_SR_STATE_ACCEPT_IND add constraint DNSRSAI_PK primary key (DNSRSAI_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym D_NYEC_SR_STATE_ACCEPT_IND for D_NYEC_SR_STATE_ACCEPT_IND;
 grant select on D_NYEC_SR_STATE_ACCEPT_IND to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_STATE_ACCEPT_IND_SV as
 select * from D_NYEC_SR_STATE_ACCEPT_IND
 with read only;
 
-create or replace public synonym D_NYEC_SR_STATE_ACCEPT_IND_SV for D_NYEC_SR_STATE_ACCEPT_IND_SV;
 grant select on D_NYEC_SR_STATE_ACCEPT_IND_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_SR_STATE_ACCEPT_IND (DNSRSAI_ID,"State Acceptance Indicator") values (SEQ_DNSRSAI_ID.nextval,'N');
@@ -483,14 +471,12 @@ alter table D_NYEC_SR_HEART_APP_STATUS add constraint DNSRHAS_PK primary key (DN
 
 create unique index DNSRHAS_UIX1 on D_NYEC_SR_HEART_APP_STATUS ("HEART App Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_NYEC_SR_HEART_APP_STATUS for D_NYEC_SR_HEART_APP_STATUS;
 grant select on D_NYEC_SR_HEART_APP_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_HEART_APP_STATUS_SV as
 select * from D_NYEC_SR_HEART_APP_STATUS
 with read only;
 
-create or replace public synonym D_NYEC_SR_HEART_APP_STATUS_SV for D_NYEC_SR_HEART_APP_STATUS_SV;
 grant select on D_NYEC_SR_HEART_APP_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_SR_HEART_APP_STATUS (DNSRHAS_ID,"HEART App Status") values (SEQ_DNSRHAS_ID.nextval,null);
@@ -514,14 +500,12 @@ alter table D_NYEC_SR_APP_STATUS_GROUP add constraint DNSRASG_PK primary key (DN
 
 create unique index DNSRASG_UIX1 on D_NYEC_SR_APP_STATUS_GROUP ("App Status Group") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_NYEC_SR_APP_STATUS_GROUP for D_NYEC_SR_APP_STATUS_GROUP;
 grant select on D_NYEC_SR_APP_STATUS_GROUP to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_SR_APP_STATUS_GROUP_SV as
 select * from D_NYEC_SR_APP_STATUS_GROUP
 with read only;
 
-create or replace public synonym D_NYEC_SR_APP_STATUS_GROUP_SV for D_NYEC_SR_APP_STATUS_GROUP_SV;
 grant select on D_NYEC_SR_APP_STATUS_GROUP_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_SR_APP_STATUS_GROUP (DNSRASG_ID,"App Status Group") values (SEQ_DNSRASG_ID.nextval,null);
@@ -570,7 +554,6 @@ create index FNSRBD_IXL2 on F_NYEC_SR_BY_DATE (NYEC_SR_BI_ID) local online table
 create index FNSRBD_IXL3 on F_NYEC_SR_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FNSRBD_IXL4 on F_NYEC_SR_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_NYEC_SR_BY_DATE for F_NYEC_SR_BY_DATE;
 grant select on F_NYEC_SR_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_NYEC_SR_BY_DATE_SV as
@@ -653,5 +636,4 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_NYEC_SR_BY_DATE_SV for F_NYEC_SR_BY_DATE_SV;
 grant select on F_NYEC_SR_BY_DATE_SV to MAXDAT_READ_ONLY;

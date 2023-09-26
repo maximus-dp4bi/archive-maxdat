@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojomappings.MarsContactRecordEvents" table="MARS_CONTACT_RECORD_EVENTS" schema="CISCO_ENTERPRISE_CC">
+        <property name="id">
+            <column name="ID" sql-type="number(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="contactRecordId">
+            <column name="CONTACT_RECORD_ID" sql-type="number(19)" precision="19" not-null="true"/>
+        </property>
+        <property name="contactRecordType">
+            <column name="CONTACT_RECORD_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="consumerType">
+            <column name="CONSUMER_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="preferredLanguageCode">
+            <column name="PREFERRED_LANGUAGE_CODE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactRecordStartTime">
+            <column name="CONTACT_RECORD_START_TIME" sql-type="date" not-null="true"/>
+        </property>
+        <property name="contactRecordEndTime">
+            <column name="CONTACT_RECORD_END_TIME" sql-type="date" not-null="true"/>
+        </property>
+        <property name="consumerPhone">
+            <column name="CONSUMER_PHONE" sql-type="varchar2(20)" length="20" not-null="true"/>
+        </property>
+        <property name="consumerFirstName">
+            <column name="CONSUMER_FIRST_NAME" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="consumerLastName">
+            <column name="CONSUMER_LAST_NAME" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="consumerEmail">
+            <column name="CONSUMER_EMAIL" sql-type="varchar2(80)" length="80" not-null="true"/>
+        </property>
+        <property name="contactRecordStatusType">
+            <column name="CONTACT_RECORD_STATUS_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="consumerAuthenticatedInd">
+            <column name="CONSUMER_AUTHENTICATED_IND" sql-type="number(3)" precision="3" not-null="true"/>
+        </property>
+        <property name="createdBy">
+            <column name="CREATED_BY" sql-type="varchar2(80)" length="80" not-null="true"/>
+        </property>
+        <property name="createdOn">
+            <column name="CREATED_ON" sql-type="date" not-null="true"/>
+        </property>
+        <property name="updatedBy">
+            <column name="UPDATED_BY" sql-type="varchar2(80)" length="80" not-null="true"/>
+        </property>
+        <property name="updatedOn">
+            <column name="UPDATED_ON" sql-type="date" not-null="true"/>
+        </property>
+        <property name="genericField1Txt">
+            <column name="GENERIC_FIELD1_TXT" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="genericField2Txt">
+            <column name="GENERIC_FIELD2_TXT" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="genericField3Txt">
+            <column name="GENERIC_FIELD3_TXT" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="genericField4Txt">
+            <column name="GENERIC_FIELD4_TXT" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="genericField1Num">
+            <column name="GENERIC_FIELD1_NUM" sql-type="number(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="genericField2Num">
+            <column name="GENERIC_FIELD2_NUM" sql-type="number(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="genericField3Num">
+            <column name="GENERIC_FIELD3_NUM" sql-type="number(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="genericField4Num">
+            <column name="GENERIC_FIELD4_NUM" sql-type="number(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="genericField1Date">
+            <column name="GENERIC_FIELD1_DATE" sql-type="date" not-null="true"/>
+        </property>
+        <property name="genericField2Date">
+            <column name="GENERIC_FIELD2_DATE" sql-type="date" not-null="true"/>
+        </property>
+        <property name="genericField3Date">
+            <column name="GENERIC_FIELD3_DATE" sql-type="date" not-null="true"/>
+        </property>
+        <property name="genericField4Date">
+            <column name="GENERIC_FIELD4_DATE" sql-type="date" not-null="true"/>
+        </property>
+        <property name="linkRefId">
+            <column name="LINK_REF_ID" sql-type="number(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="linkRefType">
+            <column name="LINK_REF_TYPE" sql-type="varchar2(32)" length="32" not-null="true"/>
+        </property>
+        <property name="correlationId">
+            <column name="CORRELATION_ID" sql-type="varchar2(256)" length="256" not-null="true"/>
+        </property>
+        <property name="uiid">
+            <column name="UIID" sql-type="varchar2(256)" length="256" not-null="true"/>
+        </property>
+        <property name="wrapUpTime">
+            <column name="WRAP_UP_TIME" sql-type="date" not-null="true"/>
+        </property>
+        <property name="callDuration">
+            <column name="CALL_DURATION" sql-type="number(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="inboundCallQueue">
+            <column name="INBOUND_CALL_QUEUE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactChannelType">
+            <column name="CONTACT_CHANNEL_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactCompaignType">
+            <column name="CONTACT_COMPAIGN_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactReasonEditType">
+            <column name="CONTACT_REASON_EDIT_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactOutcome">
+            <column name="CONTACT_OUTCOME" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="organizationName">
+            <column name="ORGANIZATION_NAME" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+        <property name="contactType">
+            <column name="CONTACT_TYPE" sql-type="varchar2(64)" length="64" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+use schema ineo;
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_DAILY_CHECK_INS_SV
+AS
+SELECT * FROM ineo.ineo_archived_daily_check_ins;
+
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_DAILY_CHECK_INS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_archived_daily_check_ins_history;
+
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_TIME_OFF_REQUESTS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_archived_time_off_requests_history;
+
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_TIME_OFF_REQUESTS_SV
+AS
+SELECT * FROM ineo.ineo_archived_time_off_requests;
+
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_UNSCHED_ABSENCES_PRODUCTION_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_archived_unsched_absences_production_history;
+
+CREATE OR REPLACE VIEW INEO_D_ARCHIVED_UNSCHED_ABSENCES_PRODUCTION_SV
+AS
+SELECT * FROM ineo.ineo_archived_unsched_absences_production;
+
+/* --reneamed to INEO_D_WFM_STAFF_ROSTER_*
+CREATE OR REPLACE VIEW INEO_D_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster_history;
+
+CREATE OR REPLACE VIEW INEO_D_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster;*/
+
+CREATE OR REPLACE VIEW INEO_D_WFM_STAFF_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster_history;
+
+CREATE OR REPLACE VIEW INEO_D_WFM_STAFF_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_wfm_daily_staff_attendance_roster;      
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TIME_OFF_REQUESTS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_time_off_requests_history;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TIME_OFF_REQUESTS_SV
+AS
+SELECT * FROM ineo.ineo_active_time_off_requests;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_unsched_absences_production_history;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_UNSCHED_ABSENCES_PRODUCTION_SV
+AS
+SELECT * FROM ineo.ineo_active_unsched_absences_production;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_UNSCHED_ABSENCES_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_training_unsched_absences_history;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_TRAINING_UNSCHED_ABSENCES_SV
+AS
+SELECT * FROM ineo.ineo_active_training_unsched_absences;
+
+CREATE OR REPLACE VIEW INEO_D_ACTIVE_WFM_TRAINING_FORM_SUBMISSIONS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_active_wfm_training_form_submissions_history;
+

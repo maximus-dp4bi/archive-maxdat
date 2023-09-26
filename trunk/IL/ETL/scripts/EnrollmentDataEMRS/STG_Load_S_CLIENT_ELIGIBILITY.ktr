@@ -75,6 +75,29 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
+    <name>DP_SCORECARD</name>
+    <server>${DB_SCORECARD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_SCORECARD_NAME}</database>
+    <port>${DB_SCORECARD_PORT}</port>
+    <username>${DB_SCORECARD_USER}</username>
+    <password>${DB_SCORECARD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SCORECARD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = DP_SCORECARD;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>EMRS</name>
     <server>${DB_EMRS_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -111,18 +134,13 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -169,22 +187,132 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
   <hop> <from>Table input -CLIENT_ELIGIBILITY from EB</from><to>Database lookup - Get Record Id</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup - Get Record Id</from><to>Database join  - Get Max version</to><enabled>Y</enabled> </hop>  <hop> <from>Database join  - Get Max version</from><to>Table output - EMRS CLIENT_ELIGIBILITY_STG </to><enabled>Y</enabled> </hop>  <hop> <from>Execute SQL script</from><to>Table input -CLIENT_ELIGIBILITY from EB</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants </from><to>CORP_ETL_ERROR_LOG </to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables </from><to>Add constants </to><enabled>Y</enabled> </hop>  <hop> <from>Table output - EMRS CLIENT_ELIGIBILITY_STG </from><to>Get Variables </to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add constants </name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>EMRS_S_CLIENT_ELIGIBILITY_STG</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>450</xloc>
+      <yloc>471</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CORP_ETL_ERROR_LOG </name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>CREATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>UPDATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>SOURCE_RECORD_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>449</xloc>
+      <yloc>553</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Database join  - Get Max version</name>
     <type>DBJoin</type>
@@ -305,194 +433,6 @@ AND el.version = (SELECT MAX(version)
     </step>
 
   <step>
-    <name>Table input -CLIENT_ELIGIBILITY from EB</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <sql>SELECT client_id client_number
-      , plan_type_cd
-      , subprogram_type sub_program_code
-      , elig_status_cd eligibility_status_code
-      , start_date date_of_validity_start
-      , end_date date_of_validity_end
-      , client_elig_status_id source_record_id
-      , program_cd
-FROM client_elig_status
-WHERE create_ts &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>349</xloc>
-      <yloc>75</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - EMRS CLIENT_ELIGIBILITY_STG </name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>5</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>EMRS</connection>
-    <schema/>
-    <table>EMRS_S_CLIENT_ELIGIBILITY_STG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>444</xloc>
-      <yloc>291</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Add constants </name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>DRIVER_TABLE_NAME</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>EMRS_S_CLIENT_ELIGIBILITY_STG</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>450</xloc>
-      <yloc>471</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>CORP_ETL_ERROR_LOG </name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>ERR_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>ERR_NR</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>ERR_DESC</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>ERR_FLD</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>ERR_CD</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>CREATE_TS</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>UPDATE_TS</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>SOURCE_RECORD_ID</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>449</xloc>
-      <yloc>553</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Get Variables </name>
     <type>GetVariable</type>
     <description/>
@@ -580,6 +520,127 @@ WHERE create_ts &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YY
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>452</xloc>
       <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input -CLIENT_ELIGIBILITY from EB</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT client_id client_number
+      , plan_type_cd
+      , subprogram_type sub_program_code
+      , elig_status_cd eligibility_status_code
+      , start_date date_of_validity_start
+      , end_date date_of_validity_end
+      , client_elig_status_id source_record_id
+      , program_cd
+      , debug
+FROM client_elig_status
+WHERE create_ts &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>349</xloc>
+      <yloc>75</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - EMRS CLIENT_ELIGIBILITY_STG </name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <schema/>
+    <table>EMRS_S_CLIENT_ELIGIBILITY_STG</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>CLIENT_NUMBER</column_name>
+          <stream_name>CLIENT_NUMBER</stream_name>
+        </field>
+        <field>
+          <column_name>PLAN_TYPE_CD</column_name>
+          <stream_name>PLAN_TYPE_CD</stream_name>
+        </field>
+        <field>
+          <column_name>SUB_PROGRAM_CODE</column_name>
+          <stream_name>SUB_PROGRAM_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>ELIGIBILITY_STATUS_CODE</column_name>
+          <stream_name>ELIGIBILITY_STATUS_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>DATE_OF_VALIDITY_START</column_name>
+          <stream_name>DATE_OF_VALIDITY_START</stream_name>
+        </field>
+        <field>
+          <column_name>DATE_OF_VALIDITY_END</column_name>
+          <stream_name>DATE_OF_VALIDITY_END</stream_name>
+        </field>
+        <field>
+          <column_name>SOURCE_RECORD_ID</column_name>
+          <stream_name>SOURCE_RECORD_ID</stream_name>
+        </field>
+        <field>
+          <column_name>PROGRAM_CD</column_name>
+          <stream_name>PROGRAM_CD</stream_name>
+        </field>
+        <field>
+          <column_name>DEBUG</column_name>
+          <stream_name>DEBUG</stream_name>
+        </field>
+        <field>
+          <column_name>CLIENT_PLAN_ELIGIBILITY_ID</column_name>
+          <stream_name>CLIENT_PLAN_ELIGIBILITY_ID</stream_name>
+        </field>
+        <field>
+          <column_name>VERSION</column_name>
+          <stream_name>VERSION</stream_name>
+        </field>
+        <field>
+          <column_name>UPD_CLIENT_PLAN_ELIG_ID</column_name>
+          <stream_name>UPD_CLIENT_PLAN_ELIG_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>444</xloc>
+      <yloc>291</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

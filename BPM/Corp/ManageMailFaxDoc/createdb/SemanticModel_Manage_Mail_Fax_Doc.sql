@@ -28,7 +28,7 @@ create table D_MFDOC_CURRENT
 	 "Manual Link Image Start" date, 
 	 "Manual Link Image End" date, 
 	 "Manual Link Image End Flag" varchar2(1), 
-   "Manual Classify Form Doc Start" date, 
+         "Manual Classify Form Doc Start" date, 
 	 "Manual Classify Form Doc End" date, 
 	 "Manual Classify Form Doc Flag" varchar2(1), 
 	 "Create and Route Work Start" date, 
@@ -55,15 +55,14 @@ alter table D_MFDOC_CURRENT add constraint DMFDOCCUR_PK primary key (MFDOC_BI_ID
 
 create index dcn_dmfdoc_curr on D_MFDOC_CURRENT (Dcn) tablespace MAXDAT_INDX;
 
-create or replace public synonym D_MFDOC_CURRENT for D_MFDOC_CURRENT;
 grant select on D_MFDOC_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_CURRENT_SV as
 select * from D_MFDOC_CURRENT
 with read only;
 
-create or replace public synonym D_MFDOC_CURRENT_SV for D_MFDOC_CURRENT_SV;
 grant select on D_MFDOC_CURRENT_SV to MAXDAT_READ_ONLY;
+
 
 -- D_MFDOC_INSTANCE_STATUS  DMFDOCIS_ID
 create sequence SEQ_DMFDOCIS_ID
@@ -82,14 +81,12 @@ alter table D_MFDOC_INSTANCE_STATUS add constraint DMFDOCIS_PK primary key (DMFD
 
 create unique index DMFDOCIS_UIX1 on D_MFDOC_INSTANCE_STATUS ("Instance Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_INSTANCE_STATUS for D_MFDOC_INSTANCE_STATUS;
 grant select on D_MFDOC_INSTANCE_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_INSTANCE_STATUS_SV as
 select * from D_MFDOC_INSTANCE_STATUS
 with read only;
 
-create or replace public synonym D_MFDOC_INSTANCE_STATUS_SV for D_MFDOC_INSTANCE_STATUS_SV;
 grant select on D_MFDOC_INSTANCE_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_MFDOC_INSTANCE_STATUS (DMFDOCIS_ID,"Instance Status") values (SEQ_DMFDOCIS_ID.nextval,'Active');
@@ -114,15 +111,14 @@ alter table D_MFDOC_DOCUMENT_STATUS add constraint DMFDOCDS_PK primary key (DMFD
 
 create unique index DMFDOCDS_UIX1 on D_MFDOC_DOCUMENT_STATUS ("Document Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_DOCUMENT_STATUS for D_MFDOC_DOCUMENT_STATUS;
 grant select on D_MFDOC_DOCUMENT_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_DOCUMENT_STATUS_SV as
 select * from D_MFDOC_DOCUMENT_STATUS
 with read only;
 
-create or replace public synonym D_MFDOC_DOCUMENT_STATUS_SV for D_MFDOC_DOCUMENT_STATUS_SV;
 grant select on D_MFDOC_DOCUMENT_STATUS_SV to MAXDAT_READ_ONLY;
+
 
 -- D_MFDOC_TIMELINESS_STATUS  DMFDOCTS_ID
 create sequence SEQ_DMFDOCTS_ID
@@ -141,14 +137,12 @@ alter table D_MFDOC_TIMELINESS_STATUS add constraint DMFDOCTS_PK primary key (DM
 
 create unique index DMFDOCTS_UIX1 on D_MFDOC_TIMELINESS_STATUS ("DCN Timeliness Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_TIMELINESS_STATUS for D_MFDOC_TIMELINESS_STATUS;
 grant select on D_MFDOC_TIMELINESS_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_TIMELINESS_STATUS_SV as
 select * from D_MFDOC_TIMELINESS_STATUS
 with read only;
 
-create or replace public synonym D_MFDOC_TIMELINESS_STATUS_SV for D_MFDOC_TIMELINESS_STATUS_SV;
 grant select on D_MFDOC_TIMELINESS_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_MFDOC_TIMELINESS_STATUS (DMFDOCTS_ID,"DCN Timeliness Status") values (SEQ_DMFDOCTS_ID.nextval,'Not Processed');
@@ -175,15 +169,14 @@ alter table D_MFDOC_BATCH add constraint DMFDOCB_PK primary key (DMFDOCB_ID) usi
 
 create unique index DMFDOCB_UIX1 on D_MFDOC_BATCH ("Batch Name") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_BATCH for D_MFDOC_BATCH;
 grant select on D_MFDOC_BATCH to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_BATCH_SV as
 select * from D_MFDOC_BATCH
 with read only;
 
-create or replace public synonym D_MFDOC_BATCH_SV for D_MFDOC_BATCH_SV;
 grant select on D_MFDOC_BATCH_SV to MAXDAT_READ_ONLY;
+
 
 -- D_MFDOC_DOC_TYPE  DMFDOCDT_ID
 create sequence SEQ_DMFDOCDT_ID
@@ -202,14 +195,12 @@ alter table D_MFDOC_DOC_TYPE add constraint DMFDOCDT_PK primary key (DMFDOCDT_ID
 
 create unique index DMFDOCDT_UIX1 on D_MFDOC_DOC_TYPE ("Document Type") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_DOC_TYPE for D_MFDOC_DOC_TYPE;
 grant select on D_MFDOC_DOC_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_DOC_TYPE_SV as
 select * from D_MFDOC_DOC_TYPE
 with read only;
 
-create or replace public synonym D_MFDOC_DOC_TYPE_SV for D_MFDOC_DOC_TYPE_SV;
 grant select on D_MFDOC_DOC_TYPE_SV to MAXDAT_READ_ONLY;
 
 insert into D_MFDOC_DOC_TYPE (DMFDOCDT_ID,"Document Type") values (SEQ_DMFDOCDT_ID.nextval,null);
@@ -233,20 +224,19 @@ alter table D_MFDOC_DCN_JEOPARDY_STATUS add constraint DMFDOCDCNJS_PK primary ke
 
 create unique index DMFDOCDCNJS_UIX1 on D_MFDOC_DCN_JEOPARDY_STATUS ("DCN Jeopardy Status") online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_MFDOC_DCN_JEOPARDY_STATUS for D_MFDOC_DCN_JEOPARDY_STATUS;
 grant select on D_MFDOC_DCN_JEOPARDY_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_MFDOC_DCN_JEOPARDY_STATUS_SV as
 select * from D_MFDOC_DCN_JEOPARDY_STATUS
 with read only;
 
-create or replace public synonym D_MFDOC_DCN_JEOPARDY_STATUS_SV for D_MFDOC_DCN_JEOPARDY_STATUS_SV;
 grant select on D_MFDOC_DCN_JEOPARDY_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_MFDOC_DCN_JEOPARDY_STATUS (DMFDOCDCNJS_ID,"DCN Jeopardy Status") values (SEQ_DMFDOCDCNJS_ID.nextval,'N');
 insert into D_MFDOC_DCN_JEOPARDY_STATUS (DMFDOCDCNJS_ID,"DCN Jeopardy Status") values (SEQ_DMFDOCDCNJS_ID.nextval,'Y');
 insert into D_MFDOC_DCN_JEOPARDY_STATUS (DMFDOCDCNJS_ID,"DCN Jeopardy Status") values (SEQ_DMFDOCDCNJS_ID.nextval,'NA');
 commit;
+
 
 create sequence SEQ_FMFDOCBD_ID
 minvalue 1
@@ -298,7 +288,6 @@ create index FMFDOCBD_IXL2 on F_MFDOC_BY_DATE (MFDOC_BI_ID) local online tablesp
 create index FMFDOCBD_IXL3 on F_MFDOC_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FMFDOCBD_IXL4 on F_MFDOC_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_MFDOC_BY_DATE_SV for F_MFDOC_BY_DATE;
 grant select on F_MFDOC_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_MFDOC_BY_DATE_SV as
@@ -397,7 +386,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_MFDOC_BY_DATE_SV for F_MFDOC_BY_DATE_SV;
 grant select on F_MFDOC_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 

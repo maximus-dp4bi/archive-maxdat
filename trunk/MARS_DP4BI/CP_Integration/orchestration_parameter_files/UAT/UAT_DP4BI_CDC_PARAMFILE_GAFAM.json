@@ -1,0 +1,55 @@
+{
+	"extractionParameters":
+	{
+		"JOB_ID":"1845afb4-a496-4f5a-9c78-da5fa642405f:maximus.com",
+		"SOURCE_END_POINT": "jdbc:mysql://mars-georgiafamilies-connectionpoint-prod-uat.cluster-cv1123iecdel.us-west-2.rds.amazonaws.com:3306",
+		"PRJ_PREFIX": "marsdb-cdc"		,
+		"PRJ_SUFFIX": "gafam",
+		"CP_OFFSET": "",
+		"INCLUDE_TABLES": "mars-consumer-%.%, mars-contact-record-%.%, mars-contacts-%.%, mars-task-%.%, mars-ecms-%.%, mars-enrollment%.%, mars-blats%.%, mars-plan-provider%.%, mars-event%.%, mars-tenant-manager.%,task-%.%",
+		"IGNORE_TABLES": "mars-cti-%.%,mars-etl-%.%, mars-bpm%.%, mars-rules.%, mars-blats1-camunda%.%, mars-tm-config.%, mars-%.%_TRANSACTION, mars-%.AUDIT_LOG, mars-%.DATE_FIELD, mars-%.DISPLAY_LABEL, mars-%.GRID, mars-%.GRID_COLUMNS, mars-%.GRID_COLUMN_PROPERTIES, mars-%.SECTION, mars-%.TASK_TEMPLATE_TYPE_MAP, mars-%.UI_PERMISSIONS, mars-%.FIELDS, mars-%.PAGE, mars-%.USER_ACTIVITY_DETAILS, mars-%.TASK_SEARCH, mars-%.PROJECT_CONFIGURATIONS, mars-%.CASELOADER_PAYLOAD, mars-%.PORTFOLIO, mars-%.PRIVACY_NOTICE, mars-%.TASK_QUEUE_FILTER, mars-%.TASK_QUEUE_FILTER_SCOPE, mars-%.TASK_QUEUE_FILTER_TASK_TYPES, mars-%.TASK_FIELD, mars-%.TASK_TEMPLATE, mars-%.TASK_TEMPLATE_FIELD, mars-%.TASK_TYPE_PERMISSION, mars-%.FIELD_VALIDATION, mars-%.USER_SECURITY, mars-%.flyway_schema_history, mars-%.HOLIDAY_HISTORY, mars-%.CONTACT_RECORD_EDIT_HISTORY, mars-consumer-%.CONSUMER_AUTHENTICATION, mars-%.EXTERNAL_REQ_RESPONSE, mars-%.TRANSACTIONS, mars-%.USER_SECURITY, mars-%.BUSINESS_DAYS, mars-%.BUSINESS_DAYS_HISTORY, mars-%.%BKP% ,mars-%.%_TEMP_%, mars-%.%_TEMP, mars-contact-record-%.CALL_DATA, mars-contact-record-%.CTI_ENTITY, mars-contact-record-%.META_DATA",
+		"SERVER_ID": "1794385798",
+		"AWS_USERNAME": "aws",
+		"AWS_ACCOUNT": "aws@maximus.com",
+		"AWS_URL_PASSWORD": "prod/MARS-UAT/ConnectionPoint/mars-georgiafamilies-connectionpoint-prod-uat/DPBI&password",
+		"AWS_URL_USERNAME": "prod/MARS-UAT/ConnectionPoint/mars-georgiafamilies-connectionpoint-prod-uat/DPBI&username",
+		"CP_OFFSET": "",
+		"BATCH_SIZE": "1000",
+		"RAW_LOG_TABLE_NAME": "MARSDB_RAW_LOGS"
+	},
+	"loadParameters":
+	{
+		"JOB_ID":"2d250deb-e5e5-4f2c-bc1a-a29b85d7bd1e:maximus.com",
+		"SF_NAME": "SVC_MARS_DP4BI_UAT_STREAMSETS_USER",
+		"SF_PASS": "Jyx(f;N<5Rw)*L6,n~Lnb)zB%XH{,g^N<^D@9k%:",
+		"SF_WH": "MARS_DP4BI_LOAD_UAT_WH",
+		"SF_DB": "MARS_DP4BI_UAT",
+		"SF_SCHEMA": "MARSDB",
+		"SF_STAGE": "MARS_DP4BI_UAT_S3_MDB_CDC",
+		"CP_CONN": "jdbc:mysql://mars-georgiafamilies-connectionpoint-prod-uat.cluster-cv1123iecdel.us-west-2.rds.amazonaws.com:3306",
+		"DIR_PATH": "/home/streamsets/marsdb/tmp/stage/",
+		"FILE_PATTERN": "marsdb-cdc-gafam*",
+		"STAGE_FILE_PATTERN": "marsdb-gafam",
+		"DIR_ERROR": "/home/streamsets/marsdb/err",
+		"DIR_ARCHIVE": "/home/streamsets/marsdb/processed/stage",
+		"SF_ACCOUNT": "FU30703",
+		"SF_URL": "fu30703.us-east-1.snowflakecomputing.com"
+	},
+	"compareParameters":
+	{
+		"JOB_ID":"ff00fca7-7224-4206-ad9c-5fa296002c21:maximus.com",
+		"CP_CONN": "jdbc:mysql://mars-georgiafamilies-connectionpoint-prod-uat.cluster-cv1123iecdel.us-west-2.rds.amazonaws.com:3306/sys?zeroDateTimeBehavior=convertToNull&useSSL=true&enabledTLSProtocols=TLSv1,TLSv1.1,TLSv1.2",
+		"AWS_USERNAME": "aws",
+		"AWS_ACCOUNT": "aws@maximus.com",
+		"AWS_URL_PASSWORD": "prod/MARS-UAT/ConnectionPoint/mars-georgiafamilies-connectionpoint-prod-uat/DPBI&password",
+		"AWS_URL_USERNAME": "prod/MARS-UAT/ConnectionPoint/mars-georgiafamilies-connectionpoint-prod-uat/DPBI&username",
+		"SF_NAME": "SVC_MARS_DP4BI_UAT_STREAMSETS_USER",
+		"SF_PASS": "Jyx(f;N<5Rw)*L6,n~Lnb)zB%XH{,g^N<^D@9k%:",
+		"SF_WH": "MARS_DP4BI_LOAD_UAT_WH",
+		"SF_DB": "MARS_DP4BI_UAT",
+		"SF_SCHEMA": "MARSDB",
+		"SF_ACCOUNT": "FU30703",
+		"SF_URL": "fu30703.us-east-1.snowflakecomputing.com",
+		"SF_STAGE": "MARS_DP4BI_UAT_S3_MDB_CDC"
+	}
+}

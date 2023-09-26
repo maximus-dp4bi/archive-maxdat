@@ -353,8 +353,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>58</xloc>
-      <yloc>674</yloc>
+      <xloc>43</xloc>
+      <yloc>644</yloc>
       </entry>
     <entry>
       <name>ProcessLetters_CaptureChildTable</name>
@@ -929,8 +929,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>248</xloc>
-      <yloc>678</yloc>
+      <xloc>282</xloc>
+      <yloc>674</yloc>
       </entry>
     <entry>
       <name>Update_Job_Log_Error</name>
@@ -963,6 +963,38 @@ SVN_REVISION_AUTHOR = $Author$
       <nr>0</nr>
       <xloc>652</xloc>
       <yloc>377</yloc>
+      </entry>
+    <entry>
+      <name>Process_Letters_set_RUN_RUNALL_TODAY</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;Process_Letters_set_RUN_RUNALL_TODAY.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>137</xloc>
+      <yloc>710</yloc>
       </entry>
   </entries>
   <hops>
@@ -1147,15 +1179,6 @@ SVN_REVISION_AUTHOR = $Author$
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Process_Letters_Job_Completed</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
       <from>Setup_Job_Log</from>
       <to>Update_Job_Log_Error</to>
       <from_nr>0</from_nr>
@@ -1324,6 +1347,24 @@ SVN_REVISION_AUTHOR = $Author$
       <to_nr>0</to_nr>
       <enabled>N</enabled>
       <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Process_Letters_Job_Completed</from>
+      <to>Process_Letters_set_RUN_RUNALL_TODAY</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Process_Letters_set_RUN_RUNALL_TODAY</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

@@ -3,7 +3,20 @@
   <info>
     <name>ProcessLetters_CreateRule</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -186,7 +199,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table output - FLHK_ETL_PROCESS_LETTERS</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Table output - FLHK_ETL_PROCESS_LETTERS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - LM_LETTER_REQUESTS_TEMP</from><to>LETTER_DEFINITIONS</to><enabled>Y</enabled> </hop>  <hop> <from>LM_LETTER_DEFINITIONS</from><to>LETTER_DEFINITIONS</to><enabled>Y</enabled> </hop>  <hop> <from>LM_VARIABLE_VALUES</from><to>LANGUAGE</to><enabled>Y</enabled> </hop>  <hop> <from>LETTER_DEFINITIONS</from><to>LANGUAGE</to><enabled>Y</enabled> </hop>  <hop> <from>LANGUAGE</from><to>ACCOUNT</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT</from><to>Database lookup</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table output - FLHK_ETL_PROCESS_LETTERS</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup letter exists</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Table output - FLHK_ETL_PROCESS_LETTERS</to><enabled>Y</enabled> </hop>  <hop> <from>LETTERS SOURCE</from><to>LETTER_DEFINITIONS</to><enabled>Y</enabled> </hop>  <hop> <from>LM_LETTER_DEFINITIONS</from><to>LETTER_DEFINITIONS</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT</from><to>Lookup letter exists</to><enabled>Y</enabled> </hop>  <hop> <from>LETTER_DEFINITIONS</from><to>LANGUAGE join</to><enabled>Y</enabled> </hop>  <hop> <from>LANGUAGE join</from><to>ACCOUNT</to><enabled>Y</enabled> </hop>  <hop> <from>LANGUAGE join</from><to>Errorlog - LANGUAGE</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>ACCOUNT</name>
     <type>DBLookup</type>
@@ -197,7 +210,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>LETTERS_SOURCE</connection>
+    <connection>OLTP_SOURCE</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -222,49 +235,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>696</xloc>
-      <yloc>95</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>FLHK_ETL_PROCESS_LETTERS</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>LETTER_REQ_ID</name>
-        <field>LETTER_REQ_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>PK_ID</name>
-        <rename>PK_ID</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>872</xloc>
-      <yloc>95</yloc>
+      <xloc>470</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -281,8 +253,93 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>873</xloc>
-      <yloc>338</yloc>
+      <xloc>660</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Errorlog - LANGUAGE</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>LETTER_REQ_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>error_descriptions</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>number_of_errors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>error_fields</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>error_code</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERROR_DATE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>310</xloc>
+      <yloc>390</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -309,15 +366,15 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>873</xloc>
-      <yloc>228</yloc>
+      <xloc>660</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>LANGUAGE</name>
-    <type>StreamLookup</type>
+    <name>LANGUAGE join</name>
+    <type>DBJoin</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -325,27 +382,82 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>LM_VARIABLE_VALUES</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
-    <lookup>
-      <key>
+    <connection>LETTERS_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>SELECT  
+A.LMREQ_ID,
+CASE when A.VALUE = &apos;en&apos; then &apos;ENGLISH&apos;
+     when A.VALUE = &apos;es&apos; then &apos;SPANISH&apos;
+     when A.VALUE = &apos;ht&apos; then &apos;HAITIAN_CREOLE&apos;
+     else &apos;ENGLISH&apos; 
+end  LANGUAGE
+FROM 
+	LM_VARIABLE_VALUES A
+WHERE  A.LMVTT_ID = 128
+and lmreq_id = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
         <name>LETTER_REQ_ID</name>
-        <field>LMREQ_ID</field>
-      </key>
-      <value>
-        <name>LANGUAGE</name>
-        <rename>LANGUAGE</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
+        <type>Number</type>
+      </field>
+    </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>525</xloc>
-      <yloc>95</yloc>
+      <xloc>310</xloc>
+      <yloc>230</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>LETTERS SOURCE</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT 
+&apos;PROCESSLETTERS&apos; 					AS PROCESS_NAME,
+&apos;PROCESSLETTERS_CREATERULE&apos; 		AS JOB_NAME,
+&apos;FLHK_ETL_PROCESS_LETTERS&apos; 			AS DRIVER_TABLE_NAME,
+SYSDATE        						AS ERROR_DATE,
+&apos;CRITICAL&apos;     						AS ERR_LEVEL,
+A.LMREQ_ID     						AS LETTER_REQ_ID,
+A.REQUESTED_ON 						AS REQUESTED_ON_DATE,
+NVL(A.STATUS,&apos;REQUESTED&apos;)			AS STATUS,
+A.STATUS_DATE						AS STATUS_DATE,
+NVL(A.TRIGGERING_METHOD,&apos;SYS&apos;) 	    AS TRIGGERING_METHOD,
+A.INSERT_DATE 						AS CREATE_DATE,
+A.USERNAME							AS USER_NAME,
+A.INSERT_USER						AS CREATED_BY_NAME,
+A.BATCH_ID							AS BATCH_ID,
+coalesce(to_number(A.DRIVER_PRIMARY_KEY),0) AS DRIVER_KEY,
+coalesce(A.SOURCE,&apos;NO_SOURCE&apos;) 		AS SOURCE,
+A.INSERT_DATE 						AS LAST_UPDATE_DATE,
+A.INSERT_USER  						AS LAST_UPDATE_BY_NAME,
+&apos;ACTIVE&apos;       						AS INSTANCE_STATUS,
+SYSDATE        						AS STG_EXTRACT_DATE,
+A.REQUESTED_ON 						AS ASSD_PROCESS_LETTER_REQUEST,
+A.INSERT_DATE                       AS ASSD_RECEIVED_CONFIRMATION 
+
+FROM LM_LETTER_REQUESTS_TEMP A
+WHERE A.LMREQ_ID &gt; ${MAX_LETTER_REQID}
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>160</xloc>
+      <yloc>90</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -409,8 +521,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>333</xloc>
-      <yloc>95</yloc>
+      <xloc>160</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -425,70 +537,33 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>LETTERS_SOURCE</connection>
-    <sql>SELECT 
-
-R.LMREQ_ID AS LETTER_REQ_ID,
-D.DRIVER_TYPE,
+    <connection>MAXDAT</connection>
+    <sql>SELECT R.LMREQ_ID 			  AS LETTER_REQ_ID,
+NVL(D.DRIVER_TYPE, &apos;ACCOUNT&apos;) AS DRIVER_TYPE,
 CASE WHEN D.DRIVER_TYPE = &apos;ACCOUNT&apos; THEN to_number(R.DRIVER_PRIMARY_KEY) END AS ACCOUNT_ID,
 CASE WHEN D.DRIVER_TYPE = &apos;MEMBER&apos; THEN to_number(R.DRIVER_PRIMARY_KEY) END AS MEMBER_ID,
 CASE WHEN D.DRIVER_TYPE = &apos;APP_ID&apos; THEN to_number(R.DRIVER_PRIMARY_KEY) END AS APP_ID,
-D.NAME AS LETTER_CODE,
-D.DESCRIPTION AS TYPE
-
-FROM LM_LETTER_REQUESTS R
-LEFT OUTER JOIN LM_LETTER_DEFINITIONS D ON R.LMDEF_ID = D.LMDEF_ID 
-</sql>
+D.NAME 			              AS LETTER_CODE,
+D.DESCRIPTION                 AS TYPE
+FROM LM_LETTER_REQUESTS_TEMP R
+LEFT OUTER JOIN LM_LETTER_DEFINITIONS_TMP D ON R.LMDEF_ID = D.LMDEF_ID 
+WHERE R.LMREQ_ID &gt; ${MAX_LETTER_REQID}</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>333</xloc>
-      <yloc>273</yloc>
+      <xloc>160</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>LM_VARIABLE_VALUES</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>LETTERS_SOURCE</connection>
-    <sql>SELECT  
-A.LMREQ_ID,
-CASE when A.VALUE = &apos;en&apos; then &apos;ENGLISH&apos;
-     when A.VALUE = &apos;es&apos; then &apos;SPANISH&apos;
-     when A.VALUE = &apos;ht&apos; then &apos;HAITIAN_CREOLE&apos;
-     else &apos;ENGLISH&apos; 
-end  LANGUAGE
-
-FROM LM_VARIABLE_VALUES A
-WHERE	A.LMVTT_ID = 128</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>525</xloc>
-      <yloc>274</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input - LM_LETTER_REQUESTS_TEMP</name>
-    <type>TableInput</type>
+    <name>Lookup letter exists</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -497,42 +572,32 @@ WHERE	A.LMVTT_ID = 128</sql>
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <sql>SELECT 
-&apos;PROCESSLETTERS&apos; 					AS PROCESS_NAME,
-&apos;PROCESSLETTERS_CREATERULE&apos; 		AS JOB_NAME,
-&apos;FLHK_ETL_PROCESS_LETTERS&apos; 			AS DRIVER_TABLE_NAME,
-SYSDATE        						AS ERROR_DATE,
-&apos;CRITICAL&apos;     						AS ERR_LEVEL,
-A.LMREQ_ID     						AS LETTER_REQ_ID,
-A.REQUESTED_ON 						AS REQUESTED_ON_DATE,
-NVL(A.STATUS,&apos;REQUESTED&apos;)			AS STATUS,
-A.STATUS_DATE						AS STATUS_DATE,
-A.TRIGGERING_METHOD 				AS TRIGGERING_METHOD,
-A.INSERT_DATE 						AS CREATE_DATE,
-A.USERNAME							AS USER_NAME,
-A.INSERT_USER						AS CREATED_BY_NAME,
-A.BATCH_ID							AS BATCH_ID,
-coalesce(to_number(A.DRIVER_PRIMARY_KEY),0) AS DRIVER_KEY,
-coalesce(A.SOURCE,&apos;NO_SOURCE&apos;) 		AS SOURCE,
-A.INSERT_DATE 						AS LAST_UPDATE_DATE,
-A.INSERT_USER  						AS LAST_UPDATE_BY_NAME,
-&apos;ACTIVE&apos;       						AS INSTANCE_STATUS,
-SYSDATE        						AS STG_EXTRACT_DATE,
-A.REQUESTED_ON 						AS ASSD_PROCESS_LETTER_REQUEST
-
-FROM LM_LETTER_REQUESTS_TEMP A
-WHERE A.LMREQ_ID &gt; ${MAX_LETTER_REQID}
-AND A.SOURCE != &apos;MIGRATION&apos;
-AND A.INSERT_DATE &gt; sysdate - 30</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>FLHK_ETL_PROCESS_LETTERS</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>LETTER_REQ_ID</name>
+        <field>LETTER_REQ_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PK_ID</name>
+        <rename>PK_ID</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>117</xloc>
-      <yloc>95</yloc>
+      <xloc>660</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -653,11 +718,15 @@ AND A.INSERT_DATE &gt; sysdate - 30</sql>
           <column_name>CREATED_BY_NAME</column_name>
           <stream_name>CREATED_BY_NAME</stream_name>
         </field>
+        <field>
+          <column_name>ASSD_RECEIVED_CONFIRMATION</column_name>
+          <stream_name>ASSD_RECEIVED_CONFIRMATION</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1136</xloc>
-      <yloc>228</yloc>
+      <xloc>850</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -741,13 +810,25 @@ AND A.INSERT_DATE &gt; sysdate - 30</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1136</xloc>
-      <yloc>427</yloc>
+      <xloc>850</xloc>
+      <yloc>550</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
+      <error>
+        <source_step>LANGUAGE join</source_step>
+        <target_step>Errorlog - LANGUAGE</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>number_of_errors</nr_valuename>
+        <descriptions_valuename>error_descriptions</descriptions_valuename>
+        <fields_valuename>error_fields</fields_valuename>
+        <codes_valuename>error_code</codes_valuename>
+        <max_errors>1000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
       <error>
         <source_step>Table output - FLHK_ETL_PROCESS_LETTERS</source_step>
         <target_step>Table output - Update  Error</target_step>

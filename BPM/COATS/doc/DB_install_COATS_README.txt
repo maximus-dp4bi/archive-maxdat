@@ -59,8 +59,6 @@ BPM/Admin/createdb/MAXDAT_ADMIN_pkg.sql
 
 BPM/Admin/createdb/GATHER_STATS_TABLE_CONFIG.sql 
 BPM/Admin/createdb/MAXDAT_STATISTICS_pkg.sql 
-BPM/Admin/createdb/create_ADMIN_synonyms.sql 
-
 
 
 ---------------------------- 
@@ -76,7 +74,6 @@ Run order:
 1. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/createdb/create_ETL_initialize_tables.sql 
 2. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/createdb/create_ETL_initialize_views.sql 
 3. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/createdb/create_ETL_initialize_triggers.sql 
-4. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/createdb/create_ETL_initialize_synonyms.sql 
 
 ---------------------------------------- 
 3. COATS PROJECT SCRIPTS SECTION - Part 1 
@@ -106,18 +103,16 @@ Run order:
 8. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageWork/createdb/populate_lkup_tables.sql 
 9. svn://rcmxapp1d.maximus.com/maxdat/BPM/COATS/ManageWork/createdb/populate_BPM_EVENT_MASTER.sql 
 10. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageWork/createdb/create_ETL_ManageWork_triggers.sql 
-11. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageWork/createdb/create_ETL_ManageWork_synonyms.sql 
-12. svn://rcmxapp1d.maximus.com/maxdat/BPM/COATS/createdb/BPM_SEMANTIC_PROJECT_pkg_body.sql 
-13. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageWork/createdb/insert_MW_list_lkup_status_order.sql 
+11. svn://rcmxapp1d.maximus.com/maxdat/BPM/COATS/createdb/BPM_SEMANTIC_PROJECT_pkg_body.sql 
+12. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageWork/createdb/insert_MW_list_lkup_status_order.sql 
 
 ---------------------------------------- 
 5. COATS Production Planning 
 ---------------------------------------- 
 
 1. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ProductionPlanning/createdb/create_CORP_production_planning_bpm_tables.sql 
-2. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ProductionPlanning/createdb/create_CORP_production_planning_bpm_synonyms.sql 
-3. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ProductionPlanning/createdb/create_micro_strat_grants.sql 
-4. svn://rcmxapp1d.maximus.com/maxdat/BPM/COATS/ProductionPlanning/createdb/populate_production_planning_LKUP_tables.sql 
+2. svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ProductionPlanning/createdb/create_micro_strat_grants.sql 
+3. svn://rcmxapp1d.maximus.com/maxdat/BPM/COATS/ProductionPlanning/createdb/populate_production_planning_LKUP_tables.sql 
 
 ----------------- 
 6. START BPM JOBS 

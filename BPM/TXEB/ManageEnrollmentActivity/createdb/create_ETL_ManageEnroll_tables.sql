@@ -177,7 +177,7 @@ alter table corp_etl_Manage_enroll
   add constraint corp_etl_Manage_enroll_C15
   check (instance_status IN ('Active','Complete'));
 
-create or replace public synonym corp_etl_Manage_enroll for corp_etl_Manage_enroll;
+
 grant select on corp_etl_Manage_enroll to MAXDAT_READ_ONLY;
 
 
@@ -278,7 +278,7 @@ age_in_calendar_days   number(18),
 age_in_business_days   number(18)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym corp_etl_Manage_enroll_oltp for corp_etl_Manage_enroll_oltp;
+
 grant select on corp_etl_Manage_enroll_oltp to MAXDAT_READ_ONLY;
 
 
@@ -381,7 +381,7 @@ age_in_calendar_days   number(18),
 age_in_business_days   number(18)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym corp_etl_Manage_enroll_wip for corp_etl_Manage_enroll_wip;
+
 grant select on corp_etl_Manage_enroll_wip to MAXDAT_READ_ONLY;
 
 
@@ -404,7 +404,7 @@ updated_ts          date
 ALTER TABLE RULE_LKUP_MNG_ENRL_FOLLOWUP
 ADD CONSTRAINT MNG_ENRL_FU_UNQ UNIQUE (FOLLOWUP_NAME, PLAN_TYPE, PROGRAM_TYPE, START_DATE) using index tablespace MAXDAT_INDX; 
 
-create or replace public synonym Rule_lkup_mng_enrl_followup for Rule_lkup_mng_enrl_followup;
+
 grant select on Rule_lkup_mng_enrl_followup to MAXDAT_READ_ONLY;
 
 
@@ -422,7 +422,7 @@ updated_ts     date
 alter table Rule_lkup_mng_enrl_sla
 add constraint Mng_Enrl_sla_UNQ unique (sla_days_type, sla_type, newborn_flag) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym Rule_lkup_mng_enrl_sla for Rule_lkup_mng_enrl_sla;
+
 grant select on Rule_lkup_mng_enrl_sla to MAXDAT_READ_ONLY;
 
 
@@ -437,7 +437,7 @@ CREATED_TS         DATE,
 UPDATED_TS         DATE
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym RULE_LKUP_MNG_ENRL_PACKET for RULE_LKUP_MNG_ENRL_PACKET;
+
 grant select on RULE_LKUP_MNG_ENRL_PACKET to MAXDAT_READ_ONLY;
 
 
@@ -459,7 +459,7 @@ create table CLIENT_ENROLL_STATUS_STG
   DISPOSITION_CD          VARCHAR2(32)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym CLIENT_ENROLL_STATUS_STG for CLIENT_ENROLL_STATUS_STG;
+
 grant select on CLIENT_ENROLL_STATUS_STG to MAXDAT_READ_ONLY;
 
 
@@ -547,7 +547,7 @@ create table SELECTION_TXN_STG
   SELECTION_GENERIC_FIELD10_TXT VARCHAR2(256)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym SELECTION_TXN_STG for SELECTION_TXN_STG;
+
 grant select on SELECTION_TXN_STG to MAXDAT_READ_ONLY;
 
 
@@ -569,7 +569,7 @@ create table ENUM_ENROLL_TRANS_SOURCE_STG
   IS_CHOICE_IND        NUMBER(1)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym ENUM_ENROLL_TRANS_SOURCE_STG for ENUM_ENROLL_TRANS_SOURCE_STG;
+
 grant select on ENUM_ENROLL_TRANS_SOURCE_STG to MAXDAT_READ_ONLY;
 
 
@@ -596,7 +596,7 @@ DISPOSITION_CD	VARCHAR2(32),
 SUBPROGRAM_TYPE	VARCHAR2(32)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym CLIENT_ELIG_STATUS_STG for CLIENT_ELIG_STATUS_STG;
+
 grant select on CLIENT_ELIG_STATUS_STG to MAXDAT_READ_ONLY;
 
 
@@ -628,10 +628,20 @@ NSF_FLAG	VARCHAR2(1),
 PLAN_NOTIFIED_DATE	DATE,
 P030_EXCLUDE	VARCHAR2(1),
 CE_FLAG	VARCHAR2(1 BYTE),
-ORIGINAL_TRAN_TYPE	VARCHAR2(10)
+ORIGINAL_TRAN_TYPE	VARCHAR2(10),
+cost_share_updates_id  NUMBER,
+cs_updates_created_by  VARCHAR2(256),
+cs_updates_updated_by  VARCHAR2(256),
+cs_updates_create_ts   DATE,
+cs_updates_update_ts   DATE,
+fee_status_date        DATE,
+fee_status             VARCHAR2(10),
+lpd_date               DATE
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym COST_SHARE_DETAILS_STG for COST_SHARE_DETAILS_STG;
+create index cs_details_idx1 on cost_share_details_stg(case_id) TABLESPACE MAXDAT_INDX;
+
+
 grant select on COST_SHARE_DETAILS_STG to MAXDAT_READ_ONLY;
 
 create table CUTOFF_CALENDAR_STG
@@ -663,5 +673,5 @@ create table CUTOFF_CALENDAR_STG
   MAXIMUS_CUTOFF_TIME2       VARCHAR2(32)
 ) tablespace MAXDAT_DATA;
 
-create or replace public synonym CUTOFF_CALENDAR_STG for CUTOFF_CALENDAR_STG;
+
 grant select on CUTOFF_CALENDAR_STG to MAXDAT_READ_ONLY;

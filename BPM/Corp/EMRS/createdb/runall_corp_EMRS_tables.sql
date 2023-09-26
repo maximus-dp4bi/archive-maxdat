@@ -326,5 +326,4 @@
 @@EMRS_F_OUTREACH_EVENT_REFCONSTRAINT.sql
 @@EMRS_D_PLAN_PERCENTAGE_REFCONSTRAINT.sql
 @@EMRS_D_CASE_CLIENT.sql
-@@emrs_table_synonyms.syn
 @@emrs_table_grants.grt

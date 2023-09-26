@@ -3,7 +3,20 @@
   <info>
     <name>ManageWork_Get_Variables</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -93,8 +106,8 @@
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME} </server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>

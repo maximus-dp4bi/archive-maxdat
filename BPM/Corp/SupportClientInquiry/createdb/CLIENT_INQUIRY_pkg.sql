@@ -13,7 +13,7 @@ create or replace package CLIENT_INQUIRY as
   FUNCTION get_handle_time
     (p_contact_start_dt IN DATE
     ,p_contact_end_dt   IN DATE)
-  RETURN NUMBER;
+  RETURN NUMBER parallel_enable;
 
   /* 
   Include: 
@@ -359,7 +359,7 @@ update D_SCI_CURRENT
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -369,7 +369,7 @@ update D_SCI_CURRENT
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -379,7 +379,7 @@ update D_SCI_CURRENT
   function GET_APP_CYCLE_BUS_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     if p_receipt_date is not null and p_complete_date is not null then 
@@ -393,7 +393,7 @@ update D_SCI_CURRENT
   function GET_APP_CYCLE_CAL_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     if p_receipt_date is not null then 
@@ -410,7 +410,7 @@ update D_SCI_CURRENT
      p_sla_days_type in varchar,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if p_sla_jeopardy_days is null then
@@ -434,7 +434,7 @@ update D_SCI_CURRENT
      p_complete_date in date,
      p_sla_days_type in varchar,
      p_sla_days in number)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if p_complete_date is null then
@@ -455,7 +455,7 @@ update D_SCI_CURRENT
   FUNCTION get_handle_time
     (p_contact_start_dt IN DATE
     ,p_contact_end_dt   IN DATE)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
   AS
     /* Purpose: Total time for the contact/web chat calculated as,
                 contact_end_dt - contact_start_dt  (expressed in seconds).

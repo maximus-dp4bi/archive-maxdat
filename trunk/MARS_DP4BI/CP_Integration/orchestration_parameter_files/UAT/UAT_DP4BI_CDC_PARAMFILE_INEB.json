@@ -1,0 +1,57 @@
+{
+	"extractionParameters":
+	{
+		"JOB_ID":"0610ff0b-240d-4d7c-883f-1a323f47f588:maximus.com",
+		"SOURCE_END_POINT": "jdbc:mysql://mars-ineb-connectionpoint-prod-uat.cluster-cv1123iecdel.us-west-2.rds.amazonaws.com:3306",
+		"PRJ_PREFIX": "marsdb-cdc"		,
+		"PRJ_SUFFIX": "ineb",		
+		"INCLUDE_TABLES": "mars-consumer-%.%, mars-contact-record-%.%, mars-contacts-%.%, mars-task-%.%, mars-ecms-%.%, mars-enrollment%.%, mars-blats%.%, mars-plan-provider%.%, mars-event%.%, mars-tenant-manager.%,task-%.%",
+		"IGNORE_TABLES": "mars-cti-%.%,mars-etl-%.%, mars-bpm%.%, mars-rules.%, mars-blats1-camunda%.%, mars-tm-config.%, mars-%.%_TRANSACTION, mars-%.AUDIT_LOG, mars-%.DATE_FIELD, mars-%.DISPLAY_LABEL, mars-%.GRID, mars-%.GRID_COLUMNS, mars-%.GRID_COLUMN_PROPERTIES, mars-%.SECTION, mars-%.TASK_TEMPLATE_TYPE_MAP, mars-%.UI_PERMISSIONS, mars-%.FIELDS, mars-%.PAGE, mars-%.USER_ACTIVITY_DETAILS, mars-%.TASK_SEARCH, mars-%.PROJECT_CONFIGURATIONS, mars-%.CASELOADER_PAYLOAD, mars-%.PORTFOLIO, mars-%.PRIVACY_NOTICE, mars-%.TASK_QUEUE_FILTER, mars-%.TASK_QUEUE_FILTER_SCOPE, mars-%.TASK_QUEUE_FILTER_TASK_TYPES, mars-%.TASK_FIELD, mars-%.TASK_TEMPLATE, mars-%.TASK_TEMPLATE_FIELD, mars-%.TASK_TYPE_PERMISSION, mars-%.FIELD_VALIDATION, mars-%.USER_SECURITY, mars-%.flyway_schema_history, mars-%.HOLIDAY_HISTORY, mars-%.CONTACT_RECORD_EDIT_HISTORY, mars-consumer-%.CONSUMER_AUTHENTICATION, mars-%.EXTERNAL_REQ_RESPONSE, mars-%.TRANSACTIONS, mars-%.USER_SECURITY, mars-%.BUSINESS_DAYS, mars-%.BUSINESS_DAYS_HISTORY, mars-%.%BKP% ,mars-%.%_TEMP_%, mars-%.%_TEMP, mars-contact-record-%.CALL_DATA, mars-contact-record-%.CTI_ENTITY, mars-contact-record-%.META_DATA",
+		"SERVER_ID": "1794385798",
+		"AWS_ACCOUNT": "all",
+		"AWS_USERNAME_CP": "aws",		
+		"AWS_URL_PASSWORD_CP": "prod/MARS-UAT/ConnectionPoint/mars-ineb-connectionpoint-prod-uat/DPBI&password",
+		"AWS_URL_USERNAME_CP": "prod/MARS-UAT/ConnectionPoint/mars-ineb-connectionpoint-prod-uat/DPBI&username",
+		"CP_OFFSET": "",
+		"BATCH_SIZE": "1000",
+		"RAW_LOG_TABLE_NAME": "MARSDB_RAW_LOGS"
+	},
+	"loadParameters":
+	{
+		"JOB_ID":"0a9a17c9-de14-47da-ac7b-74a766f115f8:maximus.com",
+		"AWS_ACCOUNT": "all",
+		"AWS_USERNAME_SF": "aws_de",
+		"AWS_URL_USERNAME_SF": "snowflake.uat.access&user_sf_uat_cp",
+		"AWS_URL_PASSWORD_SF": "snowflake.uat.access&pass_sf_uat_cp",
+		"SF_WH": "MARS_DP4BI_LOAD_UAT_WH",
+		"SF_DB": "MARS_DP4BI_UAT",
+		"SF_SCHEMA": "MARSDB",
+		"SF_STAGE": "MARS_DP4BI_UAT_S3_MDB_CDC",		
+		"DIR_PATH": "/home/streamsets/marsdb/tmp/stage/",
+		"FILE_PATTERN": "marsdb-cdc-ineb*",
+		"STAGE_FILE_PATTERN": "marsdb-ineb",
+		"DIR_ERROR": "/home/streamsets/marsdb/err",
+		"DIR_ARCHIVE": "/home/streamsets/marsdb/processed/stage",
+		"SF_ACCOUNT": "FU30703",
+		"SF_URL": "fu30703.us-east-1.snowflakecomputing.com"
+	},
+	"compareParameters":
+	{
+		"JOB_ID":"d3033568-a6f7-4f04-a99c-6eae7018bb72:maximus.com",
+		"CP_CONN": "jdbc:mysql://mars-ineb-connectionpoint-prod-uat.cluster-ro-cv1123iecdel.us-west-2.rds.amazonaws.com:3306/sys?zeroDateTimeBehavior=convertToNull&useSSL=true&enabledTLSProtocols=TLSv1,TLSv1.1,TLSv1.2",
+		"AWS_ACCOUNT": "all",
+		"AWS_USERNAME_CP": "aws",		
+		"AWS_URL_PASSWORD_CP": "prod/MARS-UAT/ConnectionPoint/mars-ineb-connectionpoint-prod-uat/DPBI&password",
+		"AWS_URL_USERNAME_CP": "prod/MARS-UAT/ConnectionPoint/mars-ineb-connectionpoint-prod-uat/DPBI&username",
+		"AWS_USERNAME_SF": "aws_de",
+		"AWS_URL_USERNAME_SF": "snowflake.uat.access&user_sf_uat_cp",
+		"AWS_URL_PASSWORD_SF": "snowflake.uat.access&pass_sf_uat_cp",
+		"SF_WH": "MARS_DP4BI_LOAD_UAT_WH",
+		"SF_DB": "MARS_DP4BI_UAT",
+		"SF_SCHEMA": "MARSDB",
+		"SF_ACCOUNT": "FU30703",
+		"SF_URL": "fu30703.us-east-1.snowflakecomputing.com",
+		"SF_STAGE": "MARS_DP4BI_UAT_S3_MDB_CDC",
+		"CP_TABLE_LIST_QUERY": "SELECT TABLE_SCHEMA, TABLE_NAME, STR_TO_DATE(date_format(current_timestamp(),'%Y-%m-%d %H:00:00'), '%Y-%m-%d %H:%i:%s') AS LOG_CREATED_ON, coalesce(has_created_on_col, 0) as HAS_CREATED_ON_COL FROM information_schema.TABLES t left outer join (SELECT table_name as table_col, case when count(*) > 0 then '1' else '0' end as has_created_on_col FROM INFORMATION_SCHEMA.COLUMNS WHERE UPPER(COLUMN_NAME) = 'CREATED_ON' group by table_name) c on t.table_name = c.table_col where (TABLE_SCHEMA like 'mars-%' or TABLE_SCHEMA like 'task-%' ) and TABLE_SCHEMA not like 'mars-ats%' and TABLE_SCHEMA not like 'mars-audit%' and TABLE_SCHEMA not like '%camunda%' and TABLE_SCHEMA not like 'mars-bpm%' and TABLE_SCHEMA not like 'mars-cleanup%' and TABLE_SCHEMA not like 'mars-missing-information%' and TABLE_SCHEMA not like 'mars-rules%' and TABLE_SCHEMA not like 'mars-search%' and TABLE_SCHEMA not like 'mars-tm-config%' and TABLE_NAME not like 'AUDIT_LOG' and TABLE_NAME not like 'GRID' and TABLE_NAME not like 'GRID_COLUMNS' and TABLE_NAME not like 'GRID_COLUMN_PROPERTIES' and TABLE_NAME not like 'SECTION' and TABLE_NAME not like 'UI_PERMISSIONS' and TABLE_NAME not like 'PAGE' and TABLE_NAME not like 'PORTFOLIO' and TABLE_NAME not like 'PRIVACY_NOTICE' and TABLE_NAME not like 'flyway_schema_history' and TABLE_NAME not like 'USER_SECURITY' and concat(TABLE_SCHEMA,TABLE_NAME) not like 'mars-consumer-%CONSUMER_AUTHENTICATION' -- and table_rows > 0 order by 2;"
+	}
+}

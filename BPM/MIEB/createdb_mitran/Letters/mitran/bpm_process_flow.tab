@@ -1,0 +1,21 @@
+create table BPM_PROCESS_FLOW
+(
+  bpf_id                      NUMBER not null,
+  current_baca_id             NUMBER not null,
+  completion_required_baca_id NUMBER not null
+)
+;
+alter table BPM_PROCESS_FLOW
+  add constraint BPM_PROCESS_FLOW_PK primary key (BPF_ID);
+alter table BPM_PROCESS_FLOW
+  add constraint BPF_UNK unique (CURRENT_BACA_ID, COMPLETION_REQUIRED_BACA_ID);
+alter table BPM_PROCESS_FLOW
+  add constraint BPF_COMP_REQ_BACA_FK foreign key (COMPLETION_REQUIRED_BACA_ID)
+  references BPM_ACTIVITY_ATTRIBUTE (BACA_ID);
+alter table BPM_PROCESS_FLOW
+  add constraint BPF_CUR_BACA_FK foreign key (CURRENT_BACA_ID)
+  references BPM_ACTIVITY_ATTRIBUTE (BACA_ID);
+grant select, insert, update on BPM_PROCESS_FLOW to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on BPM_PROCESS_FLOW to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on BPM_PROCESS_FLOW to MAXDAT_MITRAN_READ_ONLY;
+

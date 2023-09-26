@@ -156,10 +156,10 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
   </connection>
   <connection>
     <name>OLTP_REPORTS</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
+    <server>${DB_REPORT_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
+    <database>${DB_REPORT_NAME}</database>
     <port>${DB_OLTP_PORT}</port>
     <username>${DB_REPORT_USER}</username>
     <password>${DB_REPORT_PASSWORD}</password>
@@ -206,7 +206,7 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
     </attributes>
   </connection>
   <order>
-  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>N</enabled> </hop>  <hop> <from>Table input -TERMINATION_REASON_CODE from EMRS</from><to>Select values -EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Select values -EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -TERMINATION_REASON from Vida</from><to>Select values -Vida </to><enabled>Y</enabled> </hop>  <hop> <from>Select values -Vida </from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -TERMINATION_REASON_CODE from EMRS</from><to>Select values -EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Select values -EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -TERMINATION_REASON from Vida</from><to>Select values -Vida </to><enabled>Y</enabled> </hop>  <hop> <from>Select values -Vida </from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Merge Rows (diff) - Compare Vida vs. EMRS</name>
     <type>MergeRows</type>
@@ -221,13 +221,11 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
       <key>PLAN_NAME</key>
       <key>REASON_CODE</key>
       <key>MANAGED_CARE_PROGRAM</key>
-      <key>REASON</key>
     </keys>
     <values>
       <value>PLAN_NAME</value>
       <value>REASON_CODE</value>
       <value>MANAGED_CARE_PROGRAM</value>
-      <value>REASON</value>
     </values>
 <flag_field>flagfield</flag_field>
 <reference>Select values -EMRS</reference>
@@ -236,8 +234,8 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>540</xloc>
-      <yloc>200</yloc>
+      <xloc>550</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -252,15 +250,7 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>MANAGED_CARE_PROGRAM</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PLAN_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>REASON</name>
+    <fields>      <field>        <name>PLAN_NAME</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -268,39 +258,19 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_RECORD_ID</name>
+      </field>      <field>        <name>MANAGED_CARE_PROGRAM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>REASON</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>MANAGED_CARE_PROGRAM</name>
-        <rename>MANAGED_CARE_PROGRAM</rename>
-        <type>String</type>
-        <length>30</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PLAN_NAME</name>
+      <meta>        <name>PLAN_NAME</name>
         <rename>PLAN_NAME</rename>
         <type>String</type>
         <length>25</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>REASON</name>
-        <rename>REASON</rename>
-        <type>String</type>
-        <length>240</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -321,11 +291,23 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>SOURCE_RECORD_ID</name>
-        <rename>SOURCE_RECORD_ID</rename>
-        <type>Number</type>
-        <length>22</length>
-        <precision>0</precision>
+      </meta>      <meta>        <name>MANAGED_CARE_PROGRAM</name>
+        <rename>MANAGED_CARE_PROGRAM</rename>
+        <type>String</type>
+        <length>30</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>REASON</name>
+        <rename>REASON</rename>
+        <type>String</type>
+        <length>240</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -335,8 +317,8 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>340</xloc>
-      <yloc>250</yloc>
+      <xloc>350</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -351,15 +333,7 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>MANAGED_CARE_PROGRAM</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PLAN_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>REASON</name>
+    <fields>      <field>        <name>PLAN_NAME</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -367,39 +341,19 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_RECORD_ID</name>
+      </field>      <field>        <name>MANAGED_CARE_PROGRAM</name>
         <rename/>
-        <length>22</length>
-        <precision>0</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>MANAGED_CARE_PROGRAM</name>
-        <rename>MANAGED_CARE_PROGRAM</rename>
-        <type>String</type>
-        <length>30</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PLAN_NAME</name>
+      </field>      <field>        <name>REASON</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>PLAN_NAME</name>
         <rename>PLAN_NAME</rename>
         <type>String</type>
         <length>25</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>REASON</name>
-        <rename>REASON</rename>
-        <type>String</type>
-        <length>240</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -420,11 +374,23 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>SOURCE_RECORD_ID</name>
-        <rename>SOURCE_RECORD_ID</rename>
-        <type>Number</type>
-        <length>22</length>
-        <precision>0</precision>
+      </meta>      <meta>        <name>MANAGED_CARE_PROGRAM</name>
+        <rename>MANAGED_CARE_PROGRAM</rename>
+        <type>String</type>
+        <length>30</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>REASON</name>
+        <rename>REASON</rename>
+        <type>String</type>
+        <length>240</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -434,8 +400,8 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>340</xloc>
-      <yloc>170</yloc>
+      <xloc>350</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -482,35 +448,30 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
         <name2/>
       </key>
       <value>
-        <name>MANAGED_CARE_PROGRAM</name>
-        <rename>MANAGED_CARE_PROGRAM</rename>
-        <update>N</update>
-      </value>
-      <value>
         <name>PLAN_NAME</name>
         <rename>PLAN_NAME</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>REASON</name>
-        <rename>REASON</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>REASON_CODE</name>
         <rename>REASON_CODE</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
-        <name>SOURCE_RECORD_ID</name>
-        <rename>SOURCE_RECORD_ID</rename>
-        <update>N</update>
+        <name>MANAGED_CARE_PROGRAM</name>
+        <rename>MANAGED_CARE_PROGRAM</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REASON</name>
+        <rename>REASON</rename>
+        <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>760</xloc>
-      <yloc>200</yloc>
+      <xloc>770</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -525,16 +486,17 @@ SVN_REVISION_AUTHOR = $Author: dh24064 $
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_REPORTS</connection>
-    <sql>SELECT  distinct PROG_ABBREV     MANAGED_CARE_PROGRAM, 
-        PROG_NAME                PLAN_NAME, 
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT  distinct  
+        pr.description           plan_name, 
         COVERAGE_REASON          REASON_CODE,
-        cov_status               REASON,            
-        max(to_number(ACCOUNT_MEMBERSHIP_ID))    SOURCE_RECORD_ID 
-from cov_dim cd 
-where cov_status = &apos;DISENROLLED&apos;
-and COVERAGE_REASON is not null
-group by PROG_ABBREV, PROG_NAME, COVERAGE_REASON, cov_status</sql>
+        program_short_name       managed_care_program,
+        coverage_status          REASON
+from coverage_reason_ref cd 
+inner join program_ref pr on program_short_name is not null
+inner join coverage_status_ref csr on coverage_status = &apos;DISENROLLED&apos;
+order by pr.description, COVERAGE_REASON, program_short_name
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -542,8 +504,8 @@ group by PROG_ABBREV, PROG_NAME, COVERAGE_REASON, cov_status</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>150</xloc>
-      <yloc>140</yloc>
+      <xloc>160</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -559,9 +521,9 @@ group by PROG_ABBREV, PROG_NAME, COVERAGE_REASON, cov_status</sql>
            <schema_name/>
            </partitioning>
     <connection>EMRS</connection>
-    <sql>SELECT MANAGED_CARE_PROGRAM, PLAN_NAME,REASON, REASON_CODE, SOURCE_RECORD_ID
+    <sql>SELECT PLAN_NAME, REASON_CODE, MANAGED_CARE_PROGRAM,  REASON
 FROM emrs_d_termination_reason
-ORDER BY term_reason_code_id</sql>
+ORDER BY PLAN_NAME, REASON_CODE, MANAGED_CARE_PROGRAM,  REASON</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -569,8 +531,8 @@ ORDER BY term_reason_code_id</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>290</yloc>
+      <xloc>170</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -585,7 +547,7 @@ ORDER BY term_reason_code_id</sql>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <separator>;</separator>
+    <separator>|</separator>
     <enclosure>&quot;</enclosure>
     <enclosure_forced>N</enclosure_forced>
     <enclosure_fix_disabled>N</enclosure_fix_disabled>
@@ -617,11 +579,119 @@ ORDER BY term_reason_code_id</sql>
       <splitevery>0</splitevery>
     </file>
     <fields>
+      <field>
+        <name>MANAGED_CARE_PROGRAM</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PLAN_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>REASON_CODE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>REASON</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>flagfield</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>number_of_errors</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_description</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_fields</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_codes</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>950</xloc>
-      <yloc>200</yloc>
+      <xloc>960</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -629,8 +699,8 @@ ORDER BY term_reason_code_id</sql>
   <step_error_handling>
       <error>
         <source_step>Synchronize after merge</source_step>
-        <target_step/>
-        <is_enabled>N</is_enabled>
+        <target_step>Text file output - Error Log</target_step>
+        <is_enabled>Y</is_enabled>
         <nr_valuename>number_of_errors</nr_valuename>
         <descriptions_valuename>error_description</descriptions_valuename>
         <fields_valuename>error_fields</fields_valuename>

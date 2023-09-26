@@ -3,7 +3,20 @@
   <info>
     <name>load_CC_C_CONTACT_QUEUE</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -159,13 +172,13 @@
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <server>rcmxdb4d.maximus.com</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
-    <username>${DB_MAXDAT_USER}</username>
-    <password>${DB_MAXDAT_PASSWORD}</password>
+    <database>TNRDMXDD</database>
+    <port>1533</port>
+    <username>pa28085[FOLSOM_SHARED_CC]</username>
+    <password>Encrypted 2be98afc86aa7f2b0ae01af638cc2ee8f</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -180,8 +193,10 @@
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1533</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>CISCO_ENTERPRISE_CC</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -228,6 +243,110 @@
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYHXMXP</name>
+    <server>nyhxmxp.maximus.com</server>
+    <type>ORACLE</type>
+    <access>ODBC</access>
+    <database>NYHXMXP</database>
+    <port>1557</port>
+    <username>lg74078</username>
+    <password>Encrypted 2be98afc86aa7f2e4a81da6699ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ETK_MAXIMUS_WC_PROD2;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TESTLOCALCO</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>TESTLOCALCO</database>
+    <port>1521</port>
+    <username>system</username>
+    <password>Encrypted 2be98afc86aa7c1a3ae14bd45cd97bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -291,67 +410,67 @@
       <value>
         <name>QUEUE_NAME</name>
         <rename>QUEUE_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>QUEUE_TYPE</name>
         <rename>QUEUE_TYPE</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>SERVICE_PERCENT</name>
         <rename>SERVICE_PERCENT</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>SERVICE_SECONDS</name>
         <rename>SERVICE_SECONDS</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>INTERVAL_MINUTES</name>
         <rename>INTERVAL_MINUTES</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>UNIT_OF_WORK_NAME</name>
         <rename>UNIT_OF_WORK_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>PROJECT_NAME</name>
         <rename>PROJECT_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>PROGRAM_NAME</name>
         <rename>PROGRAM_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>REGION_NAME</name>
         <rename>REGION_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>STATE_NAME</name>
         <rename>STATE_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>PROVINCE_NAME</name>
         <rename>PROVINCE_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>DISTRICT_NAME</name>
         <rename>DISTRICT_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>COUNTRY_NAME</name>
         <rename>COUNTRY_NAME</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>RECORD_EFF_DT</name>

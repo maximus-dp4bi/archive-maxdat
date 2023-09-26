@@ -14,3 +14,4 @@
 #       the environment optimization (.set_env) occurs (DWD 5/20/14)
 
 find /u01/maximus/maxdat-*/NYHIX/ETL/logs \( -ctime +45 -o -size 0 \) -exec rm -f '{}' \;
+

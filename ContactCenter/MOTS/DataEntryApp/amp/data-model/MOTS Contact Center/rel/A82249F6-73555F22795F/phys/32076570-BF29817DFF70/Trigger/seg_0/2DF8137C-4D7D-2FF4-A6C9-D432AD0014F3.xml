@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_CC_D_DISTRICT" directorySegmentName="seg_0" id="2DF8137C-4D7D-2FF4-A6C9-D432AD0014F3">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 19:16:49 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.DISTRICT_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_D_DISTRICT.NEXTVAL INTO :NEW.DISTRICT_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END;  </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>AD8F1077-3A5A-4FA5-E9AA-BC9863AEABEA</table>
+</TriggerOraclev10g>

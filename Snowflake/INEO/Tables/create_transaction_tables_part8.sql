@@ -1,0 +1,52 @@
+CREATE OR REPLACE SEQUENCE seq_privacy_incident_tracker_id;
+
+CREATE OR REPLACE TABLE INEO_PRIVACY_INCIDENT_TRACKER_HISTORY (privacy_incident_tracker_id NUMBER NOT NULL DEFAULT seq_privacy_incident_tracker_id.nextval,
+filename varchar,
+fssa_incident_id varchar,
+maximus_privacy_id varchar,
+rccregion varchar,
+incident_date date,
+date_incident_reported_to_project_poc date,
+date_incident_reported_to_fssa_privacy date,
+date_incident_reported_to_maximus_privacy date,
+description_of_incident varchar,
+risk_assessment_findings_from_maximus_privacy varchar,
+maximus_privacy_commentsaction_required varchar,
+risk_assessment_sent_to_fssa_privacy date,
+fssa_commentsactions_required varchar,
+date_fssa_requested_action_forwarded_to_fssa_privacy date,
+contract_compliance_reviewrecommendations varchar,
+date_recommendation_forwarded_to_senior_rcc_manager date,
+corrective_actiondate_completed varchar,
+fssa_incident_closure_date date,
+current_status varchar,
+outcome varchar,
+sf_create_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp(),
+sf_update_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp());
+
+ALTER TABLE INEO_PRIVACY_INCIDENT_TRACKER_HISTORY ADD PRIMARY KEY(privacy_incident_tracker_id);
+
+CREATE OR REPLACE TABLE INEO_PRIVACY_INCIDENT_TRACKER(filename TEXT,
+fssa_incident_id varchar,
+maximus_privacy_id varchar,
+rccregion varchar,
+incident_date date,
+date_incident_reported_to_project_poc date,
+date_incident_reported_to_fssa_privacy date,
+date_incident_reported_to_maximus_privacy date,
+description_of_incident varchar,
+risk_assessment_findings_from_maximus_privacy varchar,
+maximus_privacy_commentsaction_required varchar,
+risk_assessment_sent_to_fssa_privacy date,
+fssa_commentsactions_required varchar,
+date_fssa_requested_action_forwarded_to_fssa_privacy date,
+contract_compliance_reviewrecommendations varchar,
+date_recommendation_forwarded_to_senior_rcc_manager date,
+corrective_actiondate_completed varchar,
+fssa_incident_closure_date date,
+current_status varchar,
+outcome varchar,
+sf_create_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp(),
+sf_update_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp());
+
+ALTER TABLE INEO_PRIVACY_INCIDENT_TRACKER ADD PRIMARY KEY(fssa_incident_id);

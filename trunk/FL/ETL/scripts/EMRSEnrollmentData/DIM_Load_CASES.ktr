@@ -206,10 +206,10 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </attributes>
   </connection>
   <order>
-  <hop> <from>Insert &#47; Update</from><to>Output to CASE</to><enabled>Y</enabled> </hop>  <hop> <from>Select value</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -CASES from Vida</from><to>Person join</to><enabled>Y</enabled> </hop>  <hop> <from>Person join</from><to>Join health_plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join health_plan</from><to>Join relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship</from><to>Select value</to><enabled>Y</enabled> </hop>  <hop> <from>Output to CASE</from><to>Text file output - Case Error Handling</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Get CASES from Vida</from><to>Person join</to><enabled>Y</enabled> </hop>  <hop> <from>Person join</from><to>Join health_plan</to><enabled>Y</enabled> </hop>  <hop> <from>Output to CASE</from><to>Text file output - Case Error Handling</to><enabled>Y</enabled> </hop>  <hop> <from>If program is null</from><to>Select value</to><enabled>Y</enabled> </hop>  <hop> <from>Relationship extract</from><to>Relationship lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Join health_plan</from><to>Relationship lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Relationship lookup</from><to>If program is null</to><enabled>Y</enabled> </hop>  <hop> <from>Select value</from><to>Output to CASE</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Insert &#47; Update</name>
-    <type>InsertUpdate</type>
+    <name>Get CASES from Vida</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -217,28 +217,95 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>EMRS</connection>
-    <commit>1000</commit>
-    <update_bypassed>Y</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>EMRS_D_CASE_REF</table>
-      <key>
-        <name>CASE_NUMBER</name>
-        <field>CASE_NUMBER</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>CASE_NUMBER</name>
-        <rename>CASE_NUMBER</rename>
-        <update>N</update>
-      </value>
-    </lookup>
+    <connection>OLTP_SOURCE</connection>
+    <sql>select  
+       nvl(a.ACCOUNT_NUMBER, 0)                 source_record_id,
+       nvl(a.ACCOUNT_NUMBER, 0)                 case_number,
+       nvl(a.ACCOUNT_NUMBER, 0)                 current_case_id,
+       to_char(a.INSERT_DATE, &apos;MM&#47;DD&#47;YYYY&apos;)     RECORD_DATE,
+       TO_CHAR(a.INSERT_date,&apos;HH24MI&apos;)          RECORD_TIME,
+       a.INSERT_USER                            RECORD_NAME,
+       a.account_id                             CLNT_CLIENT_ID,
+       TO_CHAR(a.UPDATE_DATE, &apos;MM&#47;DD&#47;YYYY&apos;)     MODIFIED_DATE,
+       TO_CHAR(a.UPDATE_DATE, &apos;HH24MI&apos;)         MODIFIED_TIME, 
+       a.LAST_UPDATE_USER                       MODIFIED_NAME,
+--       CASE when ACCOUNT_MEMBERSHIP_STATUS=&apos;IN&apos; 
+--       then &apos;Y&apos; ELSE &apos;N&apos;     
+--       end                                      CURRENT_FLAG,
+--       p.person_id                              person_id,
+       a.last_update_user                       updated_by,
+       a.update_date                            date_updated,
+       aci.home_phone                           phone,
+       a.account_number                         family_number,
+       aci.mailing_street                       mailing_address1,
+       aci.mailing_street2                      mailing_address2,
+       aci.mailing_city                         mailing_city,
+       aci.mailing_state                        mailing_state,
+     substr(aci.mailing_postal_code,1,9)      mailing_zip,
+       null                                  as case_educated_ind,
+       null                                  as case_educated_date,
+       null                                  as case_need_translator_ind,
+       null                                  as case_phone_reminder_use,
+       null                                  as case_educated_by,
+       a.insert_user                         as created_by,
+       sysdate                               as date_created
+from ACCOUNT a
+LEFT OUTER JOIN account_contact_info aci
+    ON a.account_id = aci.account_id
+where a.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
+   or a.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
+order by 1
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>820</xloc>
+      <xloc>60</xloc>
       <yloc>180</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>If program is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>MANAGED_CARE_PROGRAM</name>
+        <value>HK</value>
+        <mask/>
+        </field>
+      <field>
+        <name>CSDA_CODE</name>
+        <value>HK</value>
+        <mask/>
+        </field>
+      <field>
+        <name>CURRENT_FLAG</name>
+        <value>Y</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>130</xloc>
+      <yloc>450</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -275,53 +342,8 @@ where hpa.account_membership_id = ? </sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>180</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Join relationship</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
-    <sql>SELECT p.PERSON_NUMBER as CHILD_PERSON_NUMBER
-     , pParent1.FIRST_NAME as FIRST_NAME
-     , pParent1.LAST_NAME as LAST_NAME
-     , pParent1.MIDDLE_INITIAL as MIDDLE_INITIAL
-     , pParent1.FIRST_NAME || &apos; &apos; || pParent1.LAST_NAME as GUARDIAN_FULL_NAME
-     , pParent1.FIRST_NAME || &apos; &apos; || pParent1.LAST_NAME as FULL_NAME
-FROM PERSON p
-JOIN ACCOUNT_MEMBERSHIP amChild ON p.PERSON_ID = amChild.PERSON_ID AND amChild.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
-JOIN ACCOUNT aChild ON amChild.ACCOUNT_ID = aChild.ACCOUNT_ID
-LEFT JOIN PERSON_RELATIONSHIP prChildParent1
-  JOIN ACCOUNT_MEMBERSHIP am1 ON prChildParent1.PERSON_ID = am1.PERSON_ID AND am1.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
-  JOIN PERSON pParent1 ON prChildParent1.RELATED_TO_PERSON_ID  = pParent1.PERSON_ID
-  JOIN ACCOUNT_MEMBERSHIP amParent1 ON pParent1.PERSON_ID = amParent1.PERSON_ID AND am1.ACCOUNT_ID = amParent1.ACCOUNT_ID AND amParent1.PARENT_TYPE = &apos;PARENT1&apos;
-ON p.PERSON_ID = prChildParent1.PERSON_ID
-WHERE amChild.CHILD_FLAG = 1
-and p.person_id = ?
-ORDER BY amChild.ACCOUNT_ID</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>PERSON_ID</name>
-        <type>Integer</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>540</xloc>
-      <yloc>180</yloc>
+      <xloc>80</xloc>
+      <yloc>300</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -501,8 +523,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>950</xloc>
-      <yloc>180</yloc>
+      <xloc>190</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -519,7 +541,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>1</rowlimit>
-    <sql>select  CASE when am.update_date &gt; sysdate -2
+    <sql>select  CASE when (p.update_date &gt; TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;) - 2)
              then &apos;Y&apos; ELSE &apos;N&apos;     
          end                                    CURRENT_FLAG,
        p.person_id                              person_id,
@@ -528,7 +550,7 @@ from account_membership am
 join person p 
   on p.person_id = am.person_id
 where am.ACCOUNT_id = ?</sql>
-    <outer_join>N</outer_join>
+    <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
@@ -538,8 +560,120 @@ where am.ACCOUNT_id = ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>260</xloc>
+      <xloc>200</xloc>
       <yloc>180</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Relationship extract</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT p.person_id as PERSON_ID
+     , p.PERSON_NUMBER as CHILD_PERSON_NUMBER
+     , pParent1.FIRST_NAME as FIRST_NAME
+     , pParent1.LAST_NAME as LAST_NAME
+     , pParent1.MIDDLE_INITIAL as MIDDLE_INITIAL
+     , pParent1.FIRST_NAME || &apos; &apos; || pParent1.LAST_NAME as GUARDIAN_FULL_NAME
+     , pParent1.FIRST_NAME || &apos; &apos; || pParent1.LAST_NAME as FULL_NAME
+FROM PERSON p
+JOIN ACCOUNT_MEMBERSHIP amChild ON p.PERSON_ID = amChild.PERSON_ID AND amChild.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
+JOIN ACCOUNT aChild ON amChild.ACCOUNT_ID = aChild.ACCOUNT_ID
+LEFT JOIN PERSON_RELATIONSHIP prChildParent1
+  JOIN ACCOUNT_MEMBERSHIP am1 ON prChildParent1.PERSON_ID = am1.PERSON_ID AND am1.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
+  JOIN PERSON pParent1 ON prChildParent1.RELATED_TO_PERSON_ID  = pParent1.PERSON_ID
+  JOIN ACCOUNT_MEMBERSHIP amParent1 ON pParent1.PERSON_ID = amParent1.PERSON_ID AND am1.ACCOUNT_ID = amParent1.ACCOUNT_ID AND amParent1.PARENT_TYPE = &apos;PARENT1&apos;
+ON p.PERSON_ID = prChildParent1.PERSON_ID
+WHERE amChild.CHILD_FLAG = 1
+ORDER BY amChild.ACCOUNT_ID</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>300</xloc>
+      <yloc>100</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Relationship lookup</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <from>Relationship extract</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>PERSON_ID</name>
+        <field>PERSON_ID</field>
+      </key>
+      <value>
+        <name>PERSON_ID</name>
+        <rename>PERSON_ID</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+      <value>
+        <name>CHILD_PERSON_NUMBER</name>
+        <rename>CHILD_PERSON_NUMBER</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+      <value>
+        <name>FIRST_NAME</name>
+        <rename>FIRST_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>LAST_NAME</name>
+        <rename>LAST_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>MIDDLE_INITIAL</name>
+        <rename>MIDDLE_INITIAL</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>GUARDIAN_FULL_NAME</name>
+        <rename>GUARDIAN_FULL_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>FULL_NAME</name>
+        <rename>FULL_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>300</xloc>
+      <yloc>300</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -785,78 +919,8 @@ where am.ACCOUNT_id = ?</sql>
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>680</xloc>
-      <yloc>180</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input -CASES from Vida</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <sql>select  
-       nvl(a.ACCOUNT_NUMBER, 0)                 source_record_id,
-       nvl(a.ACCOUNT_NUMBER, 0)                 case_number,
-       nvl(a.ACCOUNT_NUMBER, 0)                 current_case_id,
-       to_char(a.INSERT_DATE, &apos;MM&#47;DD&#47;YYYY&apos;)     RECORD_DATE,
-       TO_CHAR(a.INSERT_date,&apos;HH24MI&apos;)          RECORD_TIME,
-       a.INSERT_USER                            RECORD_NAME,
-       a.account_id                             CLNT_CLIENT_ID,
-       TO_CHAR(a.UPDATE_DATE, &apos;MM&#47;DD&#47;YYYY&apos;)     MODIFIED_DATE,
-       TO_CHAR(a.UPDATE_DATE, &apos;HH24MI&apos;)         MODIFIED_TIME, 
-       a.LAST_UPDATE_USER                       MODIFIED_NAME,
---       CASE when ACCOUNT_MEMBERSHIP_STATUS=&apos;IN&apos; 
---       then &apos;Y&apos; ELSE &apos;N&apos;     
---       end                                      CURRENT_FLAG,
---       p.person_id                              person_id,
-       a.last_update_user                       updated_by,
-       a.update_date                            date_updated,
-       aci.home_phone                           phone,
-       a.account_number                         family_number,
-       aci.mailing_street                       mailing_address1,
-       aci.mailing_street2                      mailing_address2,
-       aci.mailing_city                         mailing_city,
-       aci.mailing_state                        mailing_state,
-     substr(aci.mailing_postal_code,1,9)      mailing_zip,
-       null                                  as case_educated_ind,
-       null                                  as case_educated_date,
-       null                                  as case_need_translator_ind,
-       null                                  as case_phone_reminder_use,
-       null                                  as case_educated_by,
-       &apos;N&apos;                                   as CURRENT_FLAG,
-       a.insert_user                         as created_by,
-       &apos;UNKNOWN&apos;                             as CSDA_CODE,
-       sysdate                               as date_created,
-       &apos;hk&apos;                                  as MANAGED_CARE_PROGRAM
---	   am.account_membership_id     
-from ACCOUNT a
---join account_membership am
---  on a.ACCOUNT_id = am.account_id 
-JOIN account_contact_info aci
-    ON a.account_id = aci.account_id
---join person p 
----    on p.person_id = am.person_id 
-where a.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
-   or a.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
-order by 1
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>90</xloc>
-      <yloc>180</yloc>
+      <xloc>370</xloc>
+      <yloc>450</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1422,8 +1486,8 @@ order by 1
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>950</xloc>
-      <yloc>330</yloc>
+      <xloc>430</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

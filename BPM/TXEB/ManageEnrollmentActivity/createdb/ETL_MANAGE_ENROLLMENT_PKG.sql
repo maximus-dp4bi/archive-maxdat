@@ -50,6 +50,7 @@ create or replace package ETL_MANAGE_ENROLLMENT_PKG as
 
 end;
 /
+
 create or replace package body ETL_MANAGE_ENROLLMENT_PKG as
 
 PROCEDURE MEA_FETCH_NEW_INSTANCES AS
@@ -1468,14 +1469,14 @@ PROCEDURE MEA_UPD_1 AS
                                                 AND OLTP.PLAN_TYPE = F1.PLAN_TYPE
                                                 AND OLTP.PROGRAM_TYPE = F1.PROGRAM_TYPE
  LEFT OUTER JOIN RULE_LKUP_MNG_ENRL_FOLLOWUP F2 ON OLTP.SECOND_FOLLOWUP_TYPE_CODE = F2.FOLLOWUP_TYPE_CODE
-                                                AND OLTP.PLAN_TYPE = F1.PLAN_TYPE
-                                                AND OLTP.PROGRAM_TYPE = F1.PROGRAM_TYPE
+                                                AND OLTP.PLAN_TYPE = F2.PLAN_TYPE
+                                                AND OLTP.PROGRAM_TYPE = F2.PROGRAM_TYPE
  LEFT OUTER JOIN RULE_LKUP_MNG_ENRL_FOLLOWUP F3 ON OLTP.THIRD_FOLLOWUP_TYPE_CODE  = F3.FOLLOWUP_TYPE_CODE
-                                                 AND OLTP.PLAN_TYPE = F1.PLAN_TYPE
-                                                AND OLTP.PROGRAM_TYPE = F1.PROGRAM_TYPE
+                                                 AND OLTP.PLAN_TYPE = F3.PLAN_TYPE
+                                                AND OLTP.PROGRAM_TYPE = F3.PROGRAM_TYPE
  LEFT OUTER JOIN RULE_LKUP_MNG_ENRL_FOLLOWUP F4 ON OLTP.FOURTH_FOLLOWUP_TYPE_CODE = F4.FOLLOWUP_TYPE_CODE
-                                                 AND OLTP.PLAN_TYPE = F1.PLAN_TYPE
-                                                AND OLTP.PROGRAM_TYPE = F1.PROGRAM_TYPE
+                                                 AND OLTP.PLAN_TYPE = F4.PLAN_TYPE
+                                                AND OLTP.PROGRAM_TYPE = F4.PROGRAM_TYPE
  WHERE 1=1
  --AND oltp.CEME_ID  = 145
 and
@@ -1495,8 +1496,9 @@ and
        coalesce(oltp.SLCT_LAST_UPDATE_DT,to_date('1-jan-2000','dd-mon-yyyy')) <> coalesce(WIP.SLCT_LAST_UPDATE_DT,to_date('1-jan-2000','dd-mon-yyyy')) or
        coalesce(oltp.SLCT_AUTO_PROC,'X') <> coalesce(WIP.SLCT_AUTO_PROC,'X') or
 
-       COALESCE(OLTP.AGE_IN_CALENDAR_DAYS,9999) <> COALESCE(WIP.AGE_IN_CALENDAR_DAYS,9999) OR
+   --    COALESCE(OLTP.AGE_IN_CALENDAR_DAYS,9999) <> COALESCE(WIP.AGE_IN_CALENDAR_DAYS,9999) OR
        (   WIP.FIRST_FOLLOWUP_ID IS NULL
+            and oltp.first_followup_id IS NOT NULL
             and coalesce(F1.FOLLOWUP_TYPE_CODE,'X') = coalesce(oltp.FIRST_FOLLOWUP_TYPE_CODE,'X')
             and coalesce(F1.FOLLOWUP_NAME,'X') = 'FIRST'
             AND COALESCE(F1.FOLLOWUP_REQ,'X')  = 'Y'
@@ -1505,6 +1507,7 @@ and
             AND coalesce(F1.FOLLOWUP_CAL_DAYS,9999) <= OLTP.AGE_IN_CALENDAR_DAYS
        )  OR --f_first_followup_id,
       ( WIP.SECOND_FOLLOWUP_ID IS NULL
+            and oltp.SECOND_FOLLOWUP_ID IS NOT NULL
             and coalesce(F2.FOLLOWUP_TYPE_CODE,'X') = coalesce(oltp.SECOND_FOLLOWUP_TYPE_CODE,'X')
             and coalesce(F2.FOLLOWUP_NAME,'X') = 'SECOND'
             and coalesce(F2.FOLLOWUP_REQ,'X')  = 'Y'
@@ -1513,6 +1516,7 @@ and
             AND coalesce(F2.FOLLOWUP_CAL_DAYS,9999) <= oltp.AGE_IN_CALENDAR_DAYS
        ) or --f_second_followup_id,
        ( WIP.THIRD_FOLLOWUP_ID IS NULL
+            and oltp.THIRD_FOLLOWUP_ID IS NOT NULL
             AND coalesce(F3.FOLLOWUP_TYPE_CODE,'X') = coalesce(oltp.THIRD_FOLLOWUP_TYPE_CODE,'X')
             and coalesce(F3.FOLLOWUP_NAME,'X') = 'THIRD'
             and coalesce(F3.FOLLOWUP_REQ,'X')  = 'Y'
@@ -1521,6 +1525,7 @@ and
             AND coalesce(F3.FOLLOWUP_CAL_DAYS,9999) <= oltp.AGE_IN_CALENDAR_DAYS
        ) OR --f_THIRD_followup_id,
        ( WIP.FOURTH_FOLLOWUP_ID is null
+            and oltp.FOURTH_FOLLOWUP_ID is not null
             and coalesce(F4.FOLLOWUP_TYPE_CODE,'X') = coalesce(oltp.fourth_FOLLOWUP_TYPE_CODE,'X')
             and coalesce(F4.FOLLOWUP_NAME,'X') = 'FOURTH'
             and coalesce(F4.FOLLOWUP_REQ,'X')  = 'Y'
@@ -1651,6 +1656,7 @@ BEGIN
         update corp_etl_manage_enroll_wip
         set INSTANCE_STATUS = MEA_cur_tab(indx).IN_COMPLETE,
             COMPLETE_DT = MEA_cur_tab(indx).IN_SYSDATE,
+            STAGE_DONE_DATE = MEA_cur_tab(indx).IN_SYSDATE,
             UPDATE_FLG = MEA_cur_tab(indx).IN_YES            
         where ceme_id = MEA_cur_tab(indx).ceme_id
         ;
@@ -2980,4 +2986,5 @@ END MEA_WIP_TO_BPM;
 END ETL_MANAGE_ENROLLMENT_PKG;
 /
 
+  
 alter session set plsql_code_type = interpreted;

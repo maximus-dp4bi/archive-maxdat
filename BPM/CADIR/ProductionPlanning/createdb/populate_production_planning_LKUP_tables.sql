@@ -1,38 +1,34 @@
 --Insert into UOW Config 
-insert into pp_cfg_unit_of_work values (1, 'COES_RENEWAL_APPS', 'N', 'Minutes',2, 'BUS', 15, 'Renewal Applications');
-insert into pp_cfg_unit_of_work values (2, 'COES_DISENROLLMENT', 'N', 'Minutes',2, 'BUS', 3, 'Disenrollment');
-insert into pp_cfg_unit_of_work values (3, 'COES_APPEAL_COMPLAINT', 'N', 'Minutes',1, 'BUS', 2, 'Appeals/Complaints');
-insert into pp_cfg_unit_of_work values (4, 'COES_CASE_MAINT', 'N', 'Minutes',2, 'CAL', 15, 'Case Maintenance');
-insert into pp_cfg_unit_of_work values (5, 'COES_MISSING_INFO', 'N', 'Minutes',1, 'CAL', 3, 'Missing Information');
-insert into pp_cfg_unit_of_work values (6, 'COES_NEW_APPS', 'N', 'Minutes',7, 'CAL', 10, 'New Applications');
-insert into pp_cfg_unit_of_work values (7, 'COES_NEW_BACKLOG', 'N', 'Minutes',2, 'CAL', 3, 'Backlog Applications');
-insert into pp_cfg_unit_of_work values (8, 'COES_MANUAL_ENROLL', 'N', 'Minutes',3, 'CAL', 15, 'Manual Enrollments');
-insert into pp_cfg_unit_of_work values (9, 'COES_ENROL_FEE', 'N', 'Minutes',1, 'CAL', 2, 'Enrollment Fees');
-/*
-insert into pp_cfg_unit_of_work values (10, 'NYHIX_DOCRES2', 'N', 'Minutes',7, 'CAL', 15, 'Doc Resolution 2');
-insert into pp_cfg_unit_of_work values (11, 'NYHIX_LINKING', 'N', 'Minutes',1, 'CAL', 3, 'Linking');
-insert into pp_cfg_unit_of_work values (12, 'NYHIX_SHOPFM', 'N', 'Minutes',7, 'CAL', 15, 'FM');
-insert into pp_cfg_unit_of_work values (13, 'NYHIX_OTHER', 'N', 'Minutes',7, 'CAL', 15, 'Other');
-insert into pp_cfg_unit_of_work values (14, 'NYHIX_QC', 'N', 'Minutes',2, 'CAL', 3, 'QC');
-*/
+insert into pp_cfg_unit_of_work values (1, '15_DAY_WAITING_QUEUE', 'N', 'Minutes',17, 'CAL', 30, '15 Day Waiting Period Queue');
+insert into pp_cfg_unit_of_work values (2, 'CASE_CLOSING', 'N', 'Minutes',1, 'BUS', 3, 'Case Closing');
+insert into pp_cfg_unit_of_work values (3, 'CASE_CREATION', 'N', 'Minutes',1, 'BUS', 3, 'Case Creation');
+insert into pp_cfg_unit_of_work values (4, 'CLINICAL_CONSULTANT', 'N', 'Minutes',4, 'BUS', 15, 'Clinical Consultant');
+insert into pp_cfg_unit_of_work values (5, 'FDL', 'N', 'Minutes',1, 'BUS', 3, 'Final Determination Letter');
+insert into pp_cfg_unit_of_work values (6, 'INTERNAL_EXPERT', 'N', 'Minutes',4, 'BUS', 10, 'Internal Expert Review');
+insert into pp_cfg_unit_of_work values (7, 'PANEL_SCHED_EXPERT_REVIEW', 'N', 'Minutes',6, 'CAL', 15, 'Expert Review');
+insert into pp_cfg_unit_of_work values (8, 'PANEL_SCHED_RECEIVING', 'N', 'Minutes',1, 'BUS', 15, 'Panel Scheduling Incoming');
+insert into pp_cfg_unit_of_work values (9, 'PANEL_SCHED_SENDING', 'N', 'Minutes',1, 'BUS', 3, 'Panel Scheduling Sending');
+insert into pp_cfg_unit_of_work values (10, 'PRELIMINARY_REVIEW', 'N', 'Minutes',1, 'BUS', 3, 'Preliminary Review');
+insert into pp_cfg_unit_of_work values (11, 'TERMINATION', 'N', 'Minutes',1, 'BUS', 3, 'Termination');
+insert into pp_cfg_unit_of_work values (12, 'TWO_DAY_LETTER_QUEUE', 'N', 'Minutes',16, 'CAL', 30, 'Two Day Letter');
+insert into pp_cfg_unit_of_work values (13, 'MRT', 'N', 'Minutes',4, 'BUS', 15, 'MRT');
+--select * from pp_d_unit_of_work
 
 --Insert into UOW Lookup
-insert into pp_d_unit_of_work values (1, 'COES_RENEWAL_APPS', 'Minutes',2, 'Renewal Applications');
-insert into pp_d_unit_of_work values (2, 'COES_DISENROLLMENT', 'Minutes',2, 'Disenrollment');
-insert into pp_d_unit_of_work values (3, 'COES_APPEAL_COMPLAINT', 'Minutes',1, 'Appeals/Complaints');
-insert into pp_d_unit_of_work values (4, 'COES_CASE_MAINT', 'Minutes',2, 'Case Maintenance');
-insert into pp_d_unit_of_work values (5, 'COES_MISSING_INFO', 'Minutes',1, 'Missing Information');
-insert into pp_d_unit_of_work values (6, 'COES_NEW_APPS', 'Minutes',7, 'New Applications');
-insert into pp_d_unit_of_work values (7, 'COES_NEW_BACKLOG', 'Minutes',2, 'Backlog Applications');
-insert into pp_d_unit_of_work values (8, 'COES_MANUAL_ENROLL', 'Minutes',3, 'Manual Enrollments');
-insert into pp_d_unit_of_work values (9, 'COES_ENROL_FEE', 'Minutes',1, 'Enrollment Fees');
-/*
-insert into pp_d_unit_of_work values (10, 'NYHIX_DOCRES2', 'Minutes',7, 'Doc Resolution 2');
-insert into pp_d_unit_of_work values (11, 'NYHIX_LINKING', 'Minutes',1, 'Linking');
-insert into pp_d_unit_of_work values (12, 'NYHIX_SHOPFM', 'Minutes',7, 'FM');
-insert into pp_d_unit_of_work values (13, 'NYHIX_OTHER', 'Minutes',7, 'Other');
-insert into pp_d_unit_of_work values (14, 'NYHIX_QC', 'Minutes',2, 'QC');
-*/
+insert into pp_d_unit_of_work values (1, '15_DAY_WAITING_QUEUE', 'Minutes',17, '15 Day Waiting Period Queue');
+insert into pp_d_unit_of_work values (2, 'CASE_CLOSING', 'Minutes',1, 'Case Closing');
+insert into pp_d_unit_of_work values (3, 'CASE_CREATION', 'Minutes',1, 'Case Creation');
+insert into pp_d_unit_of_work values (4, 'CLINICAL_CONSULTANT', 'Minutes',4, 'Clinical Consultant');
+insert into pp_d_unit_of_work values (5, 'FDL', 'Minutes',1, 'Final Determination Letter');
+insert into pp_d_unit_of_work values (6, 'INTERNAL_EXPERT', 'Minutes',4, 'Internal Expert Review');
+insert into pp_d_unit_of_work values (7, 'PANEL_SCHED_EXPERT_REVIEW', 'Minutes',6, 'Expert Review');
+insert into pp_d_unit_of_work values (8, 'PANEL_SCHED_RECEIVING', 'Minutes',1, 'Panel Scheduling Incoming');
+insert into pp_d_unit_of_work values (9, 'PANEL_SCHED_SENDING', 'Minutes',1, 'Panel Scheduling Sending');
+insert into pp_d_unit_of_work values (10, 'PRELIMINARY_REVIEW', 'Minutes',1, 'Preliminary Review');
+insert into pp_d_unit_of_work values (11, 'TERMINATION', 'Minutes',1, 'Termination');
+insert into pp_d_unit_of_work values (12, 'TWO_DAY_LETTER_QUEUE', 'Minutes',16, 'Two Day Letter');
+insert into pp_d_unit_of_work values (13, 'MRT', 'Minutes',4, 'MRT');
+
 commit;
 
 
@@ -40,24 +36,24 @@ commit;
 insert into pp_cfg_geography_config
   (cfg_geography_config_id, site_name, region_name, state_name, province_name, district_name, country_name, record_eff_dt, record_end_dt)
 values
-  (1, 'Denver', 'WEST', 'CO', 'Arapahoe County', NULL, 'US', TRUNC(SYSDATE-1), TO_DATE('07/07/7777','MM/DD/YYYY'));
+  (1, 'Folsom', 'WEST', 'CA', 'Sacramento County', NULL, 'US', TRUNC(SYSDATE-1), TO_DATE('07/07/7777','MM/DD/YYYY'));
 
 
 INSERT INTO PP_CFG_PROGRAM_CONFIG
     (CFG_PROGRAM_CONFIG_ID, PROGRAM_NAME)
   VALUES
-    (1,'CHIP PLUS');
+    (1,'IMR');
 
 --PROVINCE  
 INSERT INTO PP_D_PROVINCE
   (PROVINCE_ID, PROVINCE_NAME)
 VALUES
-  (1, 'Arapahoe County');
+  (1, 'Sacramento County');
 --SITE
 INSERT INTO PP_D_SITE
   (SITE_ID, SITE_NAME)
 VALUES
-  (1, 'Denver');
+  (1, 'Folsom');
 --DISTRICT
 INSERT INTO PP_D_DISTRICT
   (DISTRICT_ID, DISTRICT_NAME)
@@ -67,7 +63,7 @@ VALUES
 INSERT INTO PP_D_STATE
   (STATE_ID, STATE_NAME)
 VALUES
-  (1, 'CO');
+  (1, 'CA');
 --REGION
 INSERT INTO PP_D_REGION
   (REGION_ID, REGION_NAME)
@@ -82,12 +78,12 @@ VALUES
 INSERT INTO PP_D_GEOGRAPHY_MASTER
   (GEOGRAPHY_MASTER_ID, GEOGRAPHY_NAME, COUNTRY_ID, STATE_ID, PROVINCE_ID, DISTRICT_ID, REGION_ID, SITE_ID)
 VALUES
-  (1, 'COEEMAP', 1, 1, 1, 1, 1, 1);    
+  (1, 'CADIR', 1, 1, 1, 1, 1, 1);    
   
 insert into pp_d_program
   (program_id, program_name)
 values
-  (1, 'CHIP PLUS');
+  (1, 'IMR');
   
 insert into pp_d_segment
   (segment_id, segment_name)
@@ -97,53 +93,50 @@ values
 insert into pp_d_project
   (project_id, project_name, segment_id)
 values
-  (1, 'COEEMAP', 1);
+  (1, 'CADIR', 1);
     
 insert into pp_d_production_plan
   (pp_id, production_plan_name, production_plan_description, project_id, program_id, geography_master_id, effective_date, end_date, pp_create_date, pp_last_update_date)
 values
-  (1, 'COEEMAP_PROD_PLAN', 'COEEMAP_PROD_PLAN', 1, 1, 1, SYSDATE, TO_DATE('07/07/7777','MM/DD/YYYY'), SYSDATE, SYSDATE);
+  (1, 'CADIR_PROD_PLAN', 'CADIR_PROD_PLAN', 1, 1, 1, SYSDATE, TO_DATE('07/07/7777','MM/DD/YYYY'), SYSDATE, SYSDATE);
   
 
 --Insert into Project Config  
 insert into pp_cfg_project_config
   (cfg_project_config_id, segment_name, project_name, program_name, create_date, last_update_date)
 values
-  (1, 'Health Services', 'COEEMAP', 'CHIP PLUS', sysdate, sysdate);
+  (1, 'Health Services', 'CADIR', 'IMR', sysdate, sysdate);
 
 --Insert into Production Plan 
 insert into pp_cfg_production_plan
   (cfg_production_plan_id, cfg_geography_config_id, cfg_project_config_id, production_plan_name, production_plan_description, effective_date, end_date, create_date, last_update_date)
 values
-  (1, 1, 1, 'COEEMAP_PROD_PLAN', 'COEEMAP Production Planning', TRUNC(SYSDATE-1), null, SYSDATE, SYSDATE);
+  (1, 1, 1, 'CADIR_PROD_PLAN', 'CADIR Production Planning', TRUNC(SYSDATE-1), null, SYSDATE, SYSDATE);
 
 INSERT INTO PP_CFG_SOURCE_CONFIG
   (CFG_SOURCE_CONFIG_ID, SOURCE_NAME, SOURCE_DESCRIPTION)
 VALUES
-  (1, 'MANAGE WORK STG', 'Colorado MAXDAT Manage Work Staging Table - Task Create Date to Completed Date.');
-
-/*
-INSERT INTO PP_CFG_SOURCE_CONFIG
-  (CFG_SOURCE_CONFIG_ID, SOURCE_NAME, SOURCE_DESCRIPTION)
-VALUES
-  (2, 'MAIL/FAX BATCH STG', 'MAXDAT Mail/Fax Batch Staging Table - Review Batch Start Date to End Date.');
-  
-INSERT INTO PP_CFG_SOURCE_CONFIG
-  (CFG_SOURCE_CONFIG_ID, SOURCE_NAME, SOURCE_DESCRIPTION)
-VALUES
-  (3, 'MAIL/FAX BATCH SCAN', 'MAXDAT Mail/Fax Batch Staging Table - Activity Scan Start to Scan End.');  
-*/
+  (1, 'MANAGE WORK STG', 'California MAXDAT Manage Work Staging Table - Task Create Date to Completed Date.');
   
 --Insert into Forecast File Control 
 insert into pp_cfg_forecast_file_control
   (cfg_forecast_file_control_id, cfg_production_plan_id, file_location, inventory_filename, volume_filename, enabled, create_date, last_update_date)
 values
-  (1, 1, '/u01/maximus/maxdat-prd/CO/ETL/Processing/ProductionPlanning/Forecast/', 'PP_COEEMAP_INV_INI.TXT', 'PP_COEEMAP_VOL_INI.TXT', 'Y', sysdate, sysdate);
+(1, 1, '/u01/maximus/maxdat-prd/CADIR/Processing/ProductionPlanning/Forecast/', 'PP_CADIR_INV_INI.TXT', 'PP_CADIR_VOL_INI.TXT', 'Y', sysdate, sysdate); 
+
+  --(1, 1, '/u01/maximus/maxdat-uat/CADIR/Processing/ProductionPlanning/Forecast/', 'PP_CADIR_INV_INI.TXT', 'PP_CADIR_VOL_INI.TXT', 'Y', sysdate, sysdate); --UAT
+--  (1, 1, '/u01/maximus/maxdat-dev/CADIR/Processing/ProductionPlanning/Forecast/', 'PP_CADIR_INV_INI.TXT', 'PP_CADIR_VOL_INI.TXT', 'Y', sysdate, sysdate); --DEV
+--  (1, 1, '/u01/maximus/maxdat-prd/CADIR/Processing/ProductionPlanning/Forecast/', 'PP_CADIR_INV_INI.TXT', 'PP_CADIR_VOL_INI.TXT', 'Y', sysdate, sysdate); --PROD
   
 insert into pp_cfg_actuals_file_control
   (cfg_actuals_file_control_id, project_id, program_id, geography_master_id, file_location, actuals_filename, enabled, create_date, last_update_date)
 values
-  (1, 1, 1, 1, '/u01/maximus/maxdat-prd/CO/ETL/Processing/ProductionPlanning/Actuals/', 'PP_COEEMAP_ACTUALS.TXT', 'Y', SYSDATE, SYSDATE);
+(1, 1, 1, 1, '/u01/maximus/maxdat-prd/CADIR/Processing/ProductionPlanning/Actuals/', 'PP_CADIR_ACTUALS.TXT', 'Y', SYSDATE, SYSDATE); 
+--  (1, 1, 1, 1, '/u01/maximus/maxdat-dev/CADIR/Processing/ProductionPlanning/Actuals/', 'PP_CADIR_ACTUALS.TXT', 'Y', SYSDATE, SYSDATE); --DEV
+ -- (1, 1, 1, 1, '/u01/maximus/maxdat-uat/CADIR/Processing/ProductionPlanning/Actuals/', 'PP_CADIR_ACTUALS.TXT', 'Y', SYSDATE, SYSDATE); --UAT 
+--  (1, 1, 1, 1, '/u01/maximus/maxdat-prd/CADIR/Processing/ProductionPlanning/Actuals/', 'PP_CADIR_ACTUALS.TXT', 'Y', SYSDATE, SYSDATE); --PROD 
+
+commit;
 
 INSERT INTO PP_D_DATES
   (D_DATE,
@@ -200,162 +193,26 @@ INSERT INTO PP_D_HOURS(D_HOUR,HOUR12,AM_PM, TIME_OF_DAY12, TIME_OF_DAY24) VALUES
 INSERT INTO PP_D_HOURS(D_HOUR,HOUR12,AM_PM, TIME_OF_DAY12, TIME_OF_DAY24) VALUES(22,10,'PM','10 PM','22:00');
 INSERT INTO PP_D_HOURS(D_HOUR,HOUR12,AM_PM, TIME_OF_DAY12, TIME_OF_DAY24) VALUES(23,11,'PM','11 PM','23:00');  
 
-INSERT INTO PP_D_SOURCE SELECT 1, 'MANAGE WORK STG', 'Colorado MAXDAT Manage Work Staging Table - Task Create Date to Complete Date' FROM DUAL;
-/*
-INSERT INTO PP_D_SOURCE SELECT 2, 'MAIL/FAX BATCH STG', 'New York HIX MAXDAT Mail/Fax Batch Staging Table - Review Batch Start Date to End Date.' FROM DUAL;
-INSERT INTO PP_D_SOURCE SELECT 3, 'MAIL/FAX BATCH SCAN', 'New York HIX MAXDAT Mail/Fax Batch Staging Table - Activity Scan Start to Scan End.' FROM DUAL;
-*/
+INSERT INTO PP_D_SOURCE SELECT 1, 'MANAGE WORK STG', 'California MAXDAT Manage Work Staging Table - Task Create Date to Complete Date' FROM DUAL;
 
 INSERT INTO PP_D_SOURCE_REF_TYPE SELECT 1, 'TASK TYPE', 1 FROM DUAL;
-/*
-INSERT INTO PP_D_SOURCE_REF_TYPE SELECT 2, 'BATCH TYPE', 2 FROM DUAL;
-INSERT INTO PP_D_SOURCE_REF_TYPE SELECT 3, 'BATCH CLASS', 3 FROM DUAL;
-*/
 
 
---APPEALS_COMPLAINTS 3
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 1, 3, 1, 'Medicaid - State Hearing Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 2, 3, 1, 'Appeals Coordinator ReminderTask', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 3, 3, 1, 'Liaison Complaint', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 4, 3, 1, 'Fair Hearing Notice List Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 5, 3, 1, 'Incident Document Processing', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 6, 3, 1, 'Fair Hearing Notice email to prn scn Dt Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 7, 3, 1, 'EC Supervisor Complaints', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 8, 3, 1, 'EC Complaints', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 9, 3, 1, 'Discontinuation of Benefits Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 10, 3, 1, 'Continuation of Benefits Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 11, 3, 1, 'Complaint Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 12, 3, 1, 'CHP+ Grievance Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 14, 3, 1, 'CHP+ Appeal Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 15, 3, 1, 'ES 2 Complaints', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 16, 3, 1, 'Appeals Coordinator Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 17, 3, 1, 'Medicaid - Dispute Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
---CASE_MAINTENANCE 4
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 18, 4, 1, 'Fee - Research', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 19, 4, 1, 'Add a Member Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 20, 4, 1, 'PEAK Change Report', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 21, 4, 1, 'Cost Share Manual Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 22, 4, 1, 'Add a Member Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 23, 4, 1, 'Initiate RRR - CHP+ 1 year old ', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 24, 4, 1, 'MI Received - Transition Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 25, 4, 1, 'Expedite P3 Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 26, 4, 1, 'Good Faith Effort', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL; 
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 27, 4, 1, 'MI Received - Non MAXIMUS Case ', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL; 
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 28, 4, 1, 'Initiate RRR - CHP+ Prenatal', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 29, 4, 1, 'Initiate RRR - Medicaid 1 year o', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL; 
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 30, 4, 1, 'Creditable Coverage Letter Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 31, 4, 1, 'Demographic Change Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL; 
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 32, 4, 1, 'Expedite P1 Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 33, 4, 1, 'Expedite P2 Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 34, 4, 1, 'Insurance Card Creation Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 35, 4, 1, 'Application Problem Resolution', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 38, 4, 1, 'Patient Registration Form Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 39, 4, 1, 'Research Task - General', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-commit;
---DISENROLLMENTS 2
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 40, 2, 1, 'Disenroll CHP+ - 19 year old', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 2, 1, 'Disenroll Medicaid - 19 yr old', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 42, 2, 1, 'Disenroll CHP+ - 19 year OLD', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 43, 2, 1, 'Disenroll  CHP+ - 1 year old ', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 44, 2, 1, ' Disenroll Medicaid - 19 year ol', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 45, 2, 1, 'Disenroll Medicaid - 1 year old ', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 46, 2, 1, 'Disenrollment Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 47, 2, 1, 'Disenrollment request from MCO', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-
---ENROLLMENT_FEES 9
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 48, 9, 1, 'Process Enrollment Fee', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 49, 9, 1, 'Process Enrollment Fee - Lockbox', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
---MANUAL_ENROLLMENTS 8
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 50, 8, 1, 'Manual Enrollment Expedite', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 51, 8, 1, 'Manual Enrollment Request-Esc', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 52, 8, 1, 'Manual Enrollment Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 53, 8, 1, 'Enrollment Request Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
---COES_RENEWAL_APPS 1
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 54, 1, 1, 'Renewal App Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
----COES_MISSING_INFO 5
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 55, 5, 1, 'Buy-In Missing Info Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 56, 5, 1, 'Missing Info Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 57, 5, 1, 'MI Received via Phone task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 58, 5, 1, 'MI without App Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
---COES_NEW_APPS 6
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 59, 6, 1, 'Buy-In New App Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 60, 6, 1, 'New App Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
----COES_NEW_BACKLOG 7
---?
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 1, 1, 1, '15 Day Waiting Period Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 2, 2, 1, 'Ready to Close Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 3, 3, 1, 'caseCreation', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 4, 4, 1, 'Clinical Consultant Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 5, 5, 1, 'Final Determination Letter Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 6, 6, 1, 'Internal Expert Reviewer Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 7, 7, 1, 'Pending Expert Review Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 8, 8, 1, 'mprRouting', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 9, 9, 1, 'Panel Scheduling Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 10, 10, 1, 'Preliminary Reviewer Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 11, 11, 1, 'Termination Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 12, 12, 1, 'Two Day Letter Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
+INSERT INTO PP_D_UOW_SOURCE_REF SELECT 14, 13, 1, 'Document Review Queue', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
 
 
---MONITOR
-/* 
-3 first tasks are from apps/mi. wasn't sure which uow to assign to
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 8, 1, 'Add a Member Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'State Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Timely Process Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Wait for MI Clearance/State Acceptance', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Classification Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Complaints Follow Up', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Consent Form Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Consumer Consent Form Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Daily Eligible Error Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Data Correction', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Discrepancy on RFE Status', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Disenrollment Denial Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EC/DE Disenroll Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EE Adjudicator Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EE Disposition Review Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EE MI Received Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EE Processing Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'EE with MI Call Customer Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Enrollment Correction Task for EEU', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Enrollment Correction Task for Special Projects', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Enrollment Correction Task for State', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Enrollment Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'ERL Extract Daily Selections Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'ETL Load Selection Response Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Exemption Exclusion Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'FEC Presentation Survey Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'General Correspondence Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'General Correspondence Letter Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Health Assessment Form Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'HRA MCSS Disposition Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'HRA Med. Dir. Disposition Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'HRA On-Site Clinicians Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Initiate RRR - Medicaid 1 year o', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Letter Generation Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Letter Request Creation Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Letter Voided Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Manual Human Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Manual Linking', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'MAXIMUS EE Clinicians Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'MI Received Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Outreach Session Schedule Request', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Provider Load Error', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Relink Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Rescan Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Research Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Returned Mail Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'SPU Denied Selection Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'State Acceptance', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'State EE Disposition Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Survey Data Entry Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Task One VHT', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Alternate Document Processing', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Prenatal Termination Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Alternate Document VHT', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'CHP+ Authorization Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'HSDE-QC', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Document Problem Resolution', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Link Document Set', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'MAXIMUS-QC', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Backlog Application Data Entry', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'General Reminder Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'CSR General Reminder Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Renewal - No Change', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Renewal - Change Task', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Process Refund', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-INSERT INTO PP_D_UOW_SOURCE_REF SELECT 41, 5, 1, 'Process NSF', 'TASK ID', TO_DATE('20140417','YYYYMMDD'), TO_DATE('20770707','YYYYMMDD') FROM DUAL;
-*/
 
 
 CREATE OR REPLACE VIEW PP_D_UOW_MW_SV AS
@@ -367,23 +224,6 @@ CREATE OR REPLACE VIEW PP_D_UOW_MW_SV AS
    WHERE S.SOURCE_NAME = 'MANAGE WORK STG'
    AND SRT.SOURCE_REF_TYPE_NAME = 'TASK TYPE';
 
-/*   CREATE OR REPLACE VIEW PP_D_UOW_MFB_SCAN_SV AS
-   SELECT USR.UOW_ID, USR.SOURCE_REF_VALUE AS BATCH_CLASS
-   FROM PP_D_SOURCE_REF_TYPE SRT
-   INNER JOIN PP_D_SOURCE S ON SRT.SOURCE_ID = S.SOURCE_ID
-   INNER JOIN PP_D_UOW_SOURCE_REF USR ON SRT.SOURCE_REF_TYPE_ID =
-   USR.SOURCE_REF_TYPE_ID
-   WHERE S.SOURCE_NAME = 'MAIL/FAX BATCH SCAN'
-   AND SRT.SOURCE_REF_TYPE_NAME = 'BATCH CLASS';
-
-   CREATE OR REPLACE VIEW PP_D_UOW_MFB_RVW_SV AS
-   SELECT USR.UOW_ID, USR.SOURCE_REF_VALUE AS BATCH_TYPE
-   FROM PP_D_SOURCE_REF_TYPE SRT
-   INNER JOIN PP_D_SOURCE S ON SRT.SOURCE_ID = S.SOURCE_ID
-   INNER JOIN PP_D_UOW_SOURCE_REF USR ON SRT.SOURCE_REF_TYPE_ID =
-   USR.SOURCE_REF_TYPE_ID
-   WHERE S.SOURCE_NAME = 'MAIL/FAX BATCH STG'
-   AND SRT.SOURCE_REF_TYPE_NAME = 'BATCH TYPE'; */ 
 
 commit;
 ---FUTURE DATES
@@ -411,6 +251,5 @@ insert into PP_D_DATES
     commit;
     
   end;
-
 
 /

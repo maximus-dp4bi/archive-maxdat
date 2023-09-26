@@ -28,12 +28,11 @@ tablespace MAXDAT_DATA;
 
 alter table cutoff_calendar add constraint cutoff_pk primary key (cutoff_id) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym CUTOFF_CALENDAR for CUTOFF_CALENDAR;
+
 grant select on CUTOFF_CALENDAR to MAXDAT_READ_ONLY;
 
 create or replace view EMRS_D_CUTOFF_CALENDAR_SV as
 select * from EMRS_D_CUTOFF_CALENDAR
 with read only;
 
-create or replace public synonym EMRS_D_CUTOFF_CALENDAR_SV for EMRS_D_CUTOFF_CALENDAR_SV;
 grant select on EMRS_D_CUTOFF_CALENDAR_SV to MAXDAT_READ_ONLY;

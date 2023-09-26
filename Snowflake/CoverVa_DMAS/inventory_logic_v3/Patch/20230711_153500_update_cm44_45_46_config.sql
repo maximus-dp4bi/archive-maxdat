@@ -1,0 +1,11 @@
+update dmas_file_load_lkup
+ set select_fields = 'REGEXP_REPLACE(tracking_,''[^A-Za-z0-9]'',''''),case_,source,locality,status,denialclosure_reason,aid_category,CASE WHEN REGEXP_INSTR(application_date,''/'') = 0 THEN DATEADD(DAYS, application_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(application_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS application_date, CASE WHEN REGEXP_INSTR(authorized_date,''/'') = 0 THEN DATEADD(DAYS, authorized_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(authorized_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS authorized_date,TRY_CAST(number_of_days AS NUMBER),authorized_worker_id,ma_pregnancy_indicator,processing_unit,filename,SUBSTR(filename,1,6) filename_prefix'
+ where filename_prefix = 'CM_044';
+ 
+ update dmas_file_load_lkup
+ set select_fields = 'REGEXP_REPLACE(tracking_,''[^A-Za-z0-9]'',''''),case_,source,case_locality,status,denialclosure_reason,aid_category,CASE WHEN REGEXP_INSTR(application_date,''/'') = 0 THEN DATEADD(DAYS, application_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(application_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS application_date, CASE WHEN REGEXP_INSTR(authorized_date,''/'') = 0 THEN DATEADD(DAYS, authorized_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(authorized_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS authorized_date,TRY_CAST(numberof_days AS NUMBER),authorized_worker_id,ma_pregnancy_indicator,processing_unit,filename,SUBSTR(filename,1,6) filename_prefix'
+ where filename_prefix = 'CM_045';
+ 
+ update dmas_file_load_lkup
+ set select_fields = 'REGEXP_REPLACE(tracking_,''[^A-Za-z0-9]'',''''),case_,source,case_locality,status,denialclosure_reason,aid_category,CASE WHEN REGEXP_INSTR(application_date,''/'') = 0 THEN DATEADD(DAYS, application_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(application_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS application_date, CASE WHEN REGEXP_INSTR(authorized_date,''/'') = 0 THEN DATEADD(DAYS, authorized_date,CAST(''12/30/1899'' AS DATE)) ELSE TRY_CAST(regexp_replace(authorized_date,''[^A-Za-z0-9 -:/*]'','''') AS DATE) END AS authorized_date,TRY_CAST(number_of__days AS NUMBER),authorized_worker_id,ma_pregnancy_indicator,processing_unit,filename,SUBSTR(filename,1,6) filename_prefix'
+ where filename_prefix = 'CM_046';

@@ -1,0 +1,257 @@
+use role MAXEB_DP4BI_PAIEB_prd_ADMIN;
+use warehouse MAXEB_DP4BI_PAIEB_prd_LOAD_WH;
+use database MAXEB_DP4BI_PAIEB_prd;
+use schema PAIEB_PRD;
+
+list @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/FULL1/ATS/APP_HEADER/ pattern='.*/*parquet';
+
+
+//svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Control/Create_Control_Schema_Tables.txt
+//alter statements
+
+//svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Control/Create_S3_CDC_tables_list.txt
+alter table control.paieb_awsdms_tables_list add (
+create_pq_table_str varchar2(2000)
+,   copy_pq_table_str varchar2(2000)
+, md5_compare_str varchar(10000)
+ , merge_full_update_str varchar(10000)
+  , merge_full_insert_str varchar(10000)
+  , alter_pq_table_str varchar2(2000)
+);
+
+alter table control.paieb_awsdms_tables_list add (
+   merge_str varchar
+);
+
+alter table control.paieb_awsdms_tables_list add (
+   merge_liststr varchar
+);
+
+create file format control.paieb_s3_format type = parquet;
+create file format control.my_parquet type = parquet;
+
+update control.paieb_awsdms_tables_list set create_pq_table_str = 'create or replace table ~PQSCHEMA~.'||source_table_name||'_PQ \
+using template (  \
+    select array_agg(object_construct(*)) \
+    from table( \
+      infer_schema( \
+      location => ''~PQSTAGE~'||source_table_name||'/'' , \
+         file_format => ''control.my_parquet'' \
+      )));'
+      ;
+
+update control.paieb_awsdms_tables_list set copy_pq_table_str = 
+'copy into ~PQSCHEMA~.'||source_table_name||'_PQ \
+from ''~PQSTAGE~'||source_table_name||'/'' \
+file_format = ''control.my_parquet'' \
+on_error = ''ABORT_STATEMENT'' \
+MATCH_BY_COLUMN_NAME=CASE_INSENSITIVE \
+PURGE=FALSE ;'
+;
+
+create schema FULL1;
+
+//svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Control/cfg_paieb_session_params.sql
+
+create table control.CFG_PAIEB_SESSION_PARAMS (
+PARAM_NAME VARCHAR
+, PARAM_VALUE VARCHAR
+, PARAM_SQL VARCHAR
+, CREATE_NTZ TIMESTAMP_NTZ
+);
+
+alter table control.CFG_PAIEB_SESSION_PARAMS add (param_order number(10));
+delete from control.cfg_paieb_session_params;
+
+
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 1 PORDER, 'ROLE' PNAME, 'MAXEB_DP4BI_PAIEB_PRD_ADMIN' PVALUE, 'USE ~PN~ ~PV~;' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 3 PORDER, 'DATABASE' PNAME, 'MAXEB_DP4BI_PAIEB_PRD' PVALUE, 'USE ~PN~ ~PV~;' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 2 PORDER, 'WAREHOUSE' PNAME, 'MAXEB_DP4BI_PAIEB_PRD_LOAD_WH' PVALUE, 'USE ~PN~ ~PV~;' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 4 PORDER, 'SCHEMA' PNAME, 'PAIEB_PRD' PVALUE, 'USE ~PN~ ~PV~;' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 5 PORDER, 'DATE_INPUT_FORMAT' PNAME, 'YYYY-MM-DD' PVALUE, 'ALTER SESSION SET ~PN~ = ''~PV~'';' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+MERGE INTO CONTROL.CFG_PAIEB_SESSION_PARAMS TGT
+USING (SELECT 6 PORDER, 'TIMESTAMP_INPUT_FORMAT' PNAME, 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZH:TZM' PVALUE, 'ALTER SESSION SET ~PN~ = ''~PV~'';' PSQL, CURRENT_TIMESTAMP() PTIME FROM DUAL) SRC
+ON SRC.PNAME = TGT.PARAM_NAME
+WHEN MATCHED THEN UPDATE SET PARAM_ORDER = PORDER, PARAM_VALUE = PVALUE, PARAM_SQL = PSQL, CREATE_NTZ = PTIME
+WHEN NOT MATCHED THEN INSERT (PARAM_ORDER,PARAM_NAME, PARAM_VALUE, PARAM_SQL, CREATE_NTZ)
+VALUES (PORDER, PNAME, PVALUE, PSQL, PTIME)
+;
+
+//check control procedures are latest
+show procedures;
+
+
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_start_full_load.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_list_files_pq.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_infer_create_full_pq.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_merge_full_pq.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_update_full_complete.sql
+;
+
+call control.start_full_load('MAXEB_DP4BI_PAIEB_PRD_S3', '/FULL1/ATS/','FULL1','PAIEB_PRD','ALL','N','Y');
+//update control.paieb_awsdms_tables_list.merge_liststr
+
+call control.list_files_pq('N',46);
+//This will create the tables in FULL1 and copy data to it for each tables.
+call control.infer_create_full_pq('APP_HEADER','N',46);
+call control.infer_create_full_pq('APP_CASE_LINK','N',46);
+call control.infer_create_full_pq('APP_DOC_DATA','N',46);
+call control.infer_create_full_pq('APP_ELIG_OUTCOME','N',46);
+call control.infer_create_full_pq('APP_HEADER_EXT','N',46);
+call control.infer_create_full_pq('APP_INDIVIDUAL','N',46);
+call control.infer_create_full_pq('APP_MISSING_INFO','N',46);
+call control.infer_create_full_pq('APP_STATUS_HISTORY','N',46);
+call control.infer_create_full_pq('DOC_FLEX_FIELD','N',46);
+call control.infer_create_full_pq('DOC_LINK','N',46);
+call control.infer_create_full_pq('DOCUMENT','N',46);
+call control.infer_create_full_pq('DOCUMENT_SET','N',46);
+call control.infer_create_full_pq('LETTER_REQUEST','N',46);
+call control.infer_create_full_pq('LETTER_REQUEST_LINK','N',46);
+call control.infer_create_full_pq('NOTIFICATION_REQUEST','N',46);
+call control.infer_create_full_pq('STEP_INSTANCE','N',46);
+call control.infer_create_full_pq('ADDRESS','N',46);
+call control.infer_create_full_pq('CLIENT','N',46);
+call control.infer_create_full_pq('PHONE_NUMBER','N',46);
+call control.infer_create_full_pq('ASSESSMENT','N',46);
+call control.infer_create_full_pq('APP_ADV_PLAN_SELECTION','N',46);
+call control.infer_create_full_pq('CALENDAR_ITEM','N',46);
+call control.infer_create_full_pq('SELECTION_TXN','N',46);
+call control.infer_create_full_pq('SELECTION_SEGMENT','N',47);
+call control.infer_create_full_pq('ASSESSMENT_HIST','N',46);
+
+//run the update statements for md5, merge input and merge update cmds
+update control.paieb_Awsdms_tables_list awsdms set 
+merge_full_insert_str = (select replace('insert (' || listagg(s1.column_name,',') || ') values (' || listagg('src.'|| s1.column_name,',') || ')','src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+update control.paieb_Awsdms_tables_list awsdms 
+set md5_compare_str = (select
+ 'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'src.' || s1.column_name end ,',') || '),'',''))'  
+|| ' <> ' || 
+'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'tgt.'|| s1.column_name end,',') || '),'',''))' md5_compare_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+
+update control.paieb_Awsdms_tables_list awsdms 
+set merge_full_update_str = (select
+replace(replace(replace(listagg((case when s1.column_name = a.primary_key_column then 'PKCOLUMN' else 'tgt.' || s1.column_name || ' = src.' || s1.column_name end) ,','),'PKCOLUMN',''),',,',','),'src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')  merge_full_update_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name and s1.column_name <> a.primary_key_column
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+update control.paieb_awsdms_tables_list a
+set merge_str = 
+'Merge into TGT_SCHEMANAME.' || a.source_table_name ||' tgt
+using (select * from SRC_SCHEMANAME.'|| a.source_table_name ||'_pq) src on src.'|| a.primary_key_column ||' = tgt.'|| a.primary_key_column ||'
+when matched and '|| a.md5_compare_str ||'
+then update set '|| a.merge_full_update_str ||'
+when not matched then '||a.merge_full_insert_str ||';
+';
+
+select * from control.paieb_awsdms_tables_list;
+
+select clnt_client_id, count(1) from full1.client_pq group by clnt_client_id;
+
+select column_name 
+//select * 
+from information_schema.columns 
+where table_schema = 'FULL1' and table_name = 'APP_HEADER_PQ'
+order by column_name asc
+;
+
+call control.merge_full_pq('APP_HEADER','N',46);
+call control.merge_full_pq('APP_CASE_LINK','N',46);
+call control.merge_full_pq('APP_DOC_DATA','N',46);
+call control.merge_full_pq('APP_ELIG_OUTCOME','N',46);
+call control.merge_full_pq('APP_HEADER_EXT','N',46);
+call control.merge_full_pq('APP_INDIVIDUAL','N',46);
+call control.merge_full_pq('APP_MISSING_INFO','N',46);
+call control.merge_full_pq('APP_STATUS_HISTORY','N',46);
+call control.merge_full_pq('DOC_FLEX_FIELD','N',47);
+call control.merge_full_pq('DOC_LINK','N',46);
+call control.merge_full_pq('DOCUMENT','N',46);
+call control.merge_full_pq('DOCUMENT_SET','N',46);
+call control.merge_full_pq('LETTER_REQUEST','N',46);
+call control.merge_full_pq('LETTER_REQUEST_LINK','N',46);
+call control.merge_full_pq('NOTIFICATION_REQUEST','N',46);
+call control.merge_full_pq('STEP_INSTANCE','N',46);
+call control.merge_full_pq('ADDRESS','N',46);
+call control.merge_full_pq('CLIENT','N',46);
+call control.merge_full_pq('PHONE_NUMBER','N',46);
+call control.merge_full_pq('ASSESSMENT','N',46);
+call control.merge_full_pq('APP_ADV_PLAN_SELECTION','N',46);
+call control.merge_full_pq('CALENDAR_ITEM','N',46);
+call control.merge_full_pq('SELECTION_TXN','N',46);
+call control.merge_full_pq('SELECTION_SEGMENT','N',47);
+call control.merge_full_pq('ASSESSMENT_HIST','N',46);
+
+select count(1) from full1.doc_flex_field_pq;
+
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_create_full_tasks.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_drop_full_task.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_suspend_full_task.sql
+svn://svn-staging.maximus.com/dev1d/maxdat/trunk/PAIEB_TRefresh/Snowflake/Full/sp_resume_full_task.sql
+;
+
+update control.paieb_job_ctrl set status = 'COMPLETED' where jobid = 47;
+
+call control.create_full_task('MAXEB_DP4BI_PAIEB_PRD_S3','/FULL1/ATS/','FULL1','ALL');
+call control.suspend_full_task('FULL1');
+alter task full1_full_load set schedule = 'USING CRON 12 6 8 8 * America/Los_Angeles';
+call control.resume_full_task('FULL1');
+execute task full1_full_load;
+show tasks;
+
+select *
+  from table(information_schema.task_history())
+  where name like 'FULL%'or name like 'INFER%' or name like 'LIST%'or name like 'MERGE%'
+--  and root_task_id = '01a624a4-83ce-4021-0000-000000000322'
+  and scheduled_time > current_date()
+  order by completed_time desc;
+  
+select * from control.paieb_awsdms_tables_list;
+
+update control.paieb_awsdms_tables_list set PRIMARY_KEY_COLUMN = 'DOC_FLEX_FIELD_ID' , PRIMARY_KEY_LIMIT = 9549327 WHERE SOURCE_TABLE_NAME = 'DOC_FLEX_FIELD';
+
+
+select * from control.paieb_job_ctrl where jobid = 48;

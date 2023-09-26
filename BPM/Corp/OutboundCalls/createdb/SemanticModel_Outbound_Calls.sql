@@ -52,14 +52,12 @@ alter table D_OBC_CURRENT add constraint DOBCCUR_PK primary key (OBC_BI_ID) usin
 
 create unique index DOBCCUR_UIX1 on D_OBC_CURRENT (OUTBOUND_CALL_IDENTIFIER) online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_OBC_CURRENT for D_OBC_CURRENT;
 grant select on D_OBC_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_OBC_CURRENT_SV as
 select * from D_OBC_CURRENT
 with read only;
 
-create or replace public synonym D_OBC_CURRENT_SV for D_OBC_CURRENT_SV;
 grant select on D_OBC_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -88,7 +86,6 @@ OUTBOUND_DIAL_RECORD_ID
 from CORP_ETL_PROC_OUTBND_CALL_DTL
 with read only;
 
-create or replace public synonym D_OBC_DETAIL_SV for D_OBC_DETAIL_SV;
 grant select on D_OBC_DETAIL_SV to MAXDAT_READ_ONLY;
 
 
@@ -126,8 +123,8 @@ create index FOBCBD_IXL2 on F_OBC_BY_DATE (OBC_BI_ID) local online tablespace MA
 create index FOBCBD_IXL3 on F_OBC_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FOBCBD_IXL4 on F_OBC_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_OBC_BY_DATE for F_OBC_BY_DATE;
 grant select on F_OBC_BY_DATE to MAXDAT_READ_ONLY;
+
 
 create or replace view F_OBC_BY_DATE_SV as
 -- First day plus interpolate days until before the next day with an update.
@@ -193,7 +190,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_OBC_BY_DATE_SV for F_OBC_BY_DATE_SV;
 grant select on F_OBC_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 

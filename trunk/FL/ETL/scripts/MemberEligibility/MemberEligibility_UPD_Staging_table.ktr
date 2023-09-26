@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_UPD_Staging_table</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -157,7 +170,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input WR_STATUSES</from><to>Update Staging table</to><enabled>Y</enabled> </hop>  <hop> <from>Table input LM_LETTER_REQUESTS</from><to>Update LM_LETTER_REQUESTS_TMP</to><enabled>Y</enabled> </hop>  <hop> <from>Update LM_LETTER_REQUESTS_TMP</from><to>Error output - LM_LETTER_TMP</to><enabled>Y</enabled> </hop>  <hop> <from>Update Staging table</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input LM_LETTER_REQUESTS</from><to>Update LM_LETTER_REQUESTS_TMP</to><enabled>Y</enabled> </hop>  <hop> <from>Update LM_LETTER_REQUESTS_TMP</from><to>Error output - LM_LETTER_TMP</to><enabled>Y</enabled> </hop>  <hop> <from>Table input WR_STATUSES</from><to>Insert &#47; Update Staging table</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update Staging table</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Database lookup</name>
     <type>DBLookup</type>
@@ -566,6 +579,138 @@
     </step>
 
   <step>
+    <name>Insert &#47; Update Staging table</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>WR_STATUSES_TMP</table>
+      <key>
+        <name>TASK_ID</name>
+        <field>TASK_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>WRSTATUS_ID</name>
+        <field>WRSTATUS_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>WRSTATUS_ID</name>
+        <rename>WRSTATUS_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>TASK_ID</name>
+        <rename>TASK_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>WRQ_ID</name>
+        <rename>WRQ_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>WRT_ID</name>
+        <rename>WRT_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>DRIVER_KEY</name>
+        <rename>DRIVER_KEY</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>STATUS</name>
+        <rename>STATUS</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>STATUS_DATE</name>
+        <rename>STATUS_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>STATUS_REASON</name>
+        <rename>STATUS_REASON</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>PRIORITY</name>
+        <rename>PRIORITY</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>CONTEXT</name>
+        <rename>CONTEXT</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>ASSIGNED_TO</name>
+        <rename>ASSIGNED_TO</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>PARENT_TASK_ID</name>
+        <rename>PARENT_TASK_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>CREATED_BY</name>
+        <rename>CREATED_BY</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>CREATED_DATE</name>
+        <rename>CREATED_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>UPDATED_BY</name>
+        <rename>UPDATED_BY</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>UPDATED_DATE</name>
+        <rename>UPDATED_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>DUE_DATE</name>
+        <rename>DUE_DATE</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>WRRULE_ID</name>
+        <rename>WRRULE_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>USER_ROLE</name>
+        <rename>USER_ROLE</rename>
+        <update>N</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>610</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Table input LM_LETTER_REQUESTS</name>
     <type>TableInput</type>
     <description/>
@@ -598,14 +743,13 @@ INSERT_JOB_NAME,
 LAST_UPDATE_JOB_NAME,
 &apos;Member Eligibility&apos; as process_name,
 &apos;Update Letters Staging Table&apos; as job_name,
-sysdate as system_date,
-&apos;LM_LETTER_REQUESTS_TMP&apos; as driver_table_name,
+current_date as system_date,
+&apos;LM_LETTER_REQUESTS_TMP&apos; as DRIVER_TABLE_NAME,
 &apos;CRITICAL&apos; AS ERR_LEVEL	
 FROM LM_LETTER_REQUESTS LM
 WHERE lmdef_id in  (1,3,11,12,13,14,15,19,21,22,37,34)
-and source &lt;&gt;&apos;MIGRATION&apos;
 and status&lt;&gt;&apos;CANCEL&apos;
-and update_date &gt; sysdate-1</sql>
+and update_date &gt; current_date-1</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -648,17 +792,16 @@ UPDATED_BY,
 UPDATED_DATE,
 DUE_DATE,
 WRRULE_ID,
-USER_ROLE,	
+USER_ROLE,
+&apos;WR_STATUSES&apos; AS DRIVER_TABLE_NAME,	
+&apos;CRITICAL&apos; AS ERR_LEVEL,
 &apos;Member Eligibility&apos; as process_name,
 &apos;Update Staging Table&apos; as job_name,
-sysdate as system_date,
-&apos;WR_STATUSES_TMP&apos; as driver_table_name,
-&apos;CRITICAL&apos; AS ERR_LEVEL	
+sysdate as system_date
 FROM WR_STATUSES WR
 WHERE WR.WRT_id  = 55
 and wr.status = &apos;RESOLVED&apos;
-and created_by &lt;&gt; &apos;MIGRATION&apos;
-and wr.updated_date &gt; sysdate-2</sql>
+and wr.updated_date &gt; current_date-1</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -871,115 +1014,19 @@ and wr.updated_date &gt; sysdate-2</sql>
       </GUI>
     </step>
 
-  <step>
-    <name>Update Staging table</name>
-    <type>Update</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
-    <lookup>
-      <schema/>
-      <table>WR_STATUSES_TMP</table>
-      <key>
-        <name>WRSTATUS_ID</name>
-        <field>WRSTATUS_ID</field>
-        <condition>=</condition>
-        <name2/>
-        </key>
-      <key>
-        <name>TASK_ID</name>
-        <field>TASK_ID</field>
-        <condition>=</condition>
-        <name2/>
-        </key>
-      <value>
-        <name>WRQ_ID</name>
-        <rename>WRQ_ID</rename>
-        </value>
-      <value>
-        <name>WRT_ID</name>
-        <rename>WRT_ID</rename>
-        </value>
-      <value>
-        <name>DRIVER_KEY</name>
-        <rename>DRIVER_KEY</rename>
-        </value>
-      <value>
-        <name>STATUS</name>
-        <rename>STATUS</rename>
-        </value>
-      <value>
-        <name>STATUS_DATE</name>
-        <rename>STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>STATUS_REASON</name>
-        <rename>STATUS_REASON</rename>
-        </value>
-      <value>
-        <name>PRIORITY</name>
-        <rename>PRIORITY</rename>
-        </value>
-      <value>
-        <name>CONTEXT</name>
-        <rename>CONTEXT</rename>
-        </value>
-      <value>
-        <name>ASSIGNED_TO</name>
-        <rename>ASSIGNED_TO</rename>
-        </value>
-      <value>
-        <name>PARENT_TASK_ID</name>
-        <rename>PARENT_TASK_ID</rename>
-        </value>
-      <value>
-        <name>CREATED_BY</name>
-        <rename>CREATED_BY</rename>
-        </value>
-      <value>
-        <name>CREATED_DATE</name>
-        <rename>CREATED_DATE</rename>
-        </value>
-      <value>
-        <name>UPDATED_BY</name>
-        <rename>UPDATED_BY</rename>
-        </value>
-      <value>
-        <name>UPDATED_DATE</name>
-        <rename>UPDATED_DATE</rename>
-        </value>
-      <value>
-        <name>DUE_DATE</name>
-        <rename>DUE_DATE</rename>
-        </value>
-      <value>
-        <name>WRRULE_ID</name>
-        <rename>WRRULE_ID</rename>
-        </value>
-      <value>
-        <name>USER_ROLE</name>
-        <rename>USER_ROLE</rename>
-        </value>
-      </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step_error_handling>
+      <error>
+        <source_step>Insert &#47; Update Staging table</source_step>
+        <target_step>Table output - Update  Error</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>nr_err_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
+        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
+        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
+        <max_errors>1000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
       <error>
         <source_step>Update LM_LETTER_REQUESTS_TMP</source_step>
         <target_step>Error output - LM_LETTER_TMP</target_step>
@@ -989,18 +1036,6 @@ and wr.updated_date &gt; sysdate-2</sql>
         <fields_valuename>error_fields</fields_valuename>
         <codes_valuename>error_codes</codes_valuename>
         <max_errors>1000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>Update Staging table</source_step>
-        <target_step>Table output - Update  Error</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>10000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
       </error>

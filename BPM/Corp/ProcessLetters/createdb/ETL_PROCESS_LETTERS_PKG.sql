@@ -9,6 +9,10 @@ create or replace package ETL_PROCESS_LETTERS_PKG as
   SVN_REVISION_DATE varchar2(60) := '$Date$'; 
   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
   
+  function Get_min_mail_date
+    (p_case_id in INTEGER,
+     p_letter_type in varchar2)
+  return DATE;
   
   procedure PL_POPULATE_TEMP_TBLS;
   
@@ -18,6 +22,24 @@ end;
 /    
 
 create or replace package body ETL_PROCESS_LETTERS_PKG as
+
+function Get_min_mail_date
+    (p_case_id in INTEGER,
+     p_letter_type in varchar2)
+    return DATE
+  as
+    v_min_mail_date date := null;
+  begin
+
+    select MIN(letter_mailed_date)
+    into v_min_mail_date
+    from letters_stg
+    WHERE letter_case_id = p_case_id
+      AND letter_type_cd = Coalesce(p_letter_type, letter_type_cd);
+
+    return v_min_mail_date;
+
+  END Get_min_mail_date;
 
 PROCEDURE PL_POPULATE_TEMP_TBLS AS
  

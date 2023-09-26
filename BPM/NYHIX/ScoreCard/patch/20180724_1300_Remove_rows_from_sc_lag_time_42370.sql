@@ -1,0 +1,16 @@
+--- NYHIX-42370
+SELECT * -- 2 records
+FROM   DP_SCORECARD.Sc_Lag_Time 
+WHERE  AGENT_ID = 105716
+AND    TRUNC(LAG_DATE) = to_date('02-JUL-2018','DD-MON-YYYY');
+
+delete from DP_SCORECARD.Sc_Lag_Time
+WHERE  AGENT_ID = 105716
+AND    TRUNC(LAG_DATE) = to_date('02-JUL-2018','DD-MON-YYYY');
+
+commit;
+
+SELECT *  -- 0 records
+FROM   DP_SCORECARD.Sc_Lag_Time
+WHERE  AGENT_ID = 105716
+AND    TRUNC(LAG_DATE) = to_date('02-JUL-2018','DD-MON-YYYY');

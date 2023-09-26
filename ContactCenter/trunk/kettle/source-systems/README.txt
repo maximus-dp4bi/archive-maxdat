@@ -1,2 +1,0 @@
-This folder is intended to contain documentation and sample-data on source systems. 
-It should also contain kettle jobs/transforms that allow us to populate a clone of the source database(s) for development purposes.

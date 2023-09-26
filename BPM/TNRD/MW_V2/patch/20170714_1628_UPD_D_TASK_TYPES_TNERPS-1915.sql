@@ -1,0 +1,11 @@
+UPDATE D_TASK_TYPES 
+SET OPERATIONS_GROUP = 'Mail Room'
+,SLA_DAYS = 2
+,SLA_DAYS_TYPE = 'B'
+,SLA_TARGET_DAYS =  2
+,SLA_JEOPARDY_DAYS =  2
+,UNIT_OF_WORK =  ''
+where task_name = 'MAM Linking Task'
+;
+
+COMMIT;

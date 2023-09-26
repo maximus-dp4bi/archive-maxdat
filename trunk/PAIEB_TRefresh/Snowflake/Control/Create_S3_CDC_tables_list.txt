@@ -1,0 +1,307 @@
+// Table to store the list of tables we get CDC thru S3
+
+create or replace table control.paieb_awsdms_tables_list  (
+ "SOURCE_TABLE_NAME" varchar2(100)
+ , "PRIMARY_KEY_COLUMN" varchar2(200)
+ , "PRIMARY_KEY_LIMIT" INTEGER
+  , "CREATE_RAW_FLAG" NUMBER(1,0)
+  , "RECORD_CDC_FLAG" NUMBER(1,0)
+  , "SOURCE_ROW_COUNT" NUMBER(32,0)
+  , "TARGET_ROW_COUNT" NUMBER(32,0)
+  , "ROW_COUNT_EST" VARCHAR2(30)
+  , "ROW_COUNT_TIME" TIMESTAMP_NTZ
+  , "ROW_COUNT_COMMENT" VARCHAR2(1000)
+) ;
+
+alter table control.paieb_awsdms_tables_list add (
+create_pq_table_str varchar2(2000)
+,   copy_pq_table_str varchar2(2000)
+, md5_compare_str varchar(10000)
+ , merge_full_update_str varchar(10000)
+  , merge_full_insert_str varchar(10000)
+  , alter_pq_table_str varchar2(2000)
+);
+
+alter table control.paieb_awsdms_tables_list add (
+   merge_str varchar
+);
+
+alter table control.paieb_awsdms_tables_list add (
+   merge_liststr varchar
+);
+
+alter table control.paieb_awsdms_tables_list add(KETTLE_LOAD_RUN_OK NUMBER);
+
+//CDC changes
+alter table control.paieb_awsdms_tables_list add (cdc_list_str varchar, cdc_copy_str varchar);
+alter table control.paieb_awsdms_tables_list add (cdc_upd_str varchar);
+
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_CASE_LINK'		  ,'APP_CASE_LINK_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_DOC_DATA'		  ,'APP_DOC_DATA_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_ELIG_OUTCOME'	  ,'APP_ELIG_OUTCOME_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_HEADER'		  ,'APPLICATION_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_HEADER_EXT'	  ,'APP_HEADER_EXT_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_INDIVIDUAL'	  ,'APP_INDIVIDUAL_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_MISSING_INFO'	  ,'MISSING_INFO_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_STATUS_HISTORY'	  ,'APP_STATUS_HISTORY_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('CLIENT'		  ,'CLNT_CLIENT_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('DOC_FLEX_FIELD'	  ,'DOCUMENT_SET_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('DOC_LINK'		  ,'DOC_LINK_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('DOCUMENT'		  ,'DOCUMENT_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('DOCUMENT_SET'		  ,'DOCUMENT_Set_id', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('LETTER_REQUEST'	  ,'LMREQ_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('LETTER_REQUEST_LINK'	  ,'LMLINK_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('NOTIFICATION_REQUEST'	  ,'NOTIFICATION_REQUEST_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('STEP_INSTANCE'		  ,'STEP_INSTANCE_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('ADDRESS'		  ,'ADDR_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('PHONE_NUMBER'		  ,'PHON_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('ASSESSMENT'		  ,'ASSESSMENT_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('APP_ADV_PLAN_SELECTION'  ,'APP_ADV_PLAN_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('CALENDAR_ITEM'		  ,'CALENDAR_ITEM_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('SELECTION_TXN'		  ,'SELECTION_TXN_ID', 0, 1, 1);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('SELECTION_SEGMENT'	  ,'SELECTION_SEGMENT_ID', 0, 1, 0);
+INSERT INTO CONTROL.PAIEB_AWSDMS_TABLES_LIST (SOURCE_TABLE_NAME, PRIMARY_KEY_COLUMN, PRIMARY_KEY_LIMIT, CREATE_RAW_FLAG, RECORD_CDC_FLAG) VALUES  ('ASSESSMENT_HIST'	  ,'ASSESSMENT_HIST_ID', 0, 1, 0);
+
+
+//full load parquet files need to exist for these to run
+
+update control.paieb_awsdms_tables_list set create_pq_table_str = 'create or replace table ~PQSCHEMA~.'||source_table_name||'_PQ \
+using template (  \
+    select array_agg(object_construct(*)) \
+    from table( \
+      infer_schema( \
+      location => ''~PQSTAGE~'||source_table_name||'/'' , \
+         file_format => ''control.my_parquet'' \
+      )));'
+      ;
+update control.paieb_awsdms_tables_list set alter_pq_table_str = 'alter table ~PQSCHEMA~.'||source_table_name||'_PQ \
+add (filename varchar(300), rownumber number(10));';
+
+update control.paieb_awsdms_tables_list set copy_pq_table_str = 
+'copy into ~PQSCHEMA~.'||source_table_name||'_PQ \
+from ''~PQSTAGE~'||source_table_name||'/'' \
+file_format = ''control.my_parquet'' \
+on_error = ''ABORT_STATEMENT'' \
+MATCH_BY_COLUMN_NAME=CASE_INSENSITIVE \
+PURGE=FALSE ;'
+;
+
+
+//create command should be run before you run the below
+
+//run the update statements for md5, merge input and merge update cmds
+update control.paieb_Awsdms_tables_list awsdms set 
+merge_full_insert_str = (select replace('insert (' || listagg(s1.column_name,',') || ') values (' || listagg('src.'|| s1.column_name,',') || ')','src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+update control.paieb_Awsdms_tables_list awsdms 
+set md5_compare_str = (select
+ 'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'src.' || s1.column_name end ,',') || '),'',''))'  
+|| ' <> ' || 
+'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'tgt.'|| s1.column_name end,',') || '),'',''))' md5_compare_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+
+update control.paieb_Awsdms_tables_list awsdms 
+set merge_full_update_str = (select
+replace(replace(replace(listagg((case when s1.column_name = a.primary_key_column then 'PKCOLUMN' else 'tgt.' || s1.column_name || ' = src.' || s1.column_name end) ,','),'PKCOLUMN',''),',,',','),'src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')  merge_full_update_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name and s1.column_name <> a.primary_key_column
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+);
+
+update control.paieb_awsdms_tables_list a
+set merge_str = 
+'Merge into TGT_SCHEMANAME.' || a.source_table_name ||' tgt
+using (select * from SRC_SCHEMANAME.'|| a.source_table_name ||'_pq) src on src.'|| a.primary_key_column ||' = tgt.'|| a.primary_key_column ||'
+when matched and '|| a.md5_compare_str ||'
+then update set '|| a.merge_full_update_str ||'
+when not matched then '||a.merge_full_insert_str ||';
+';
+
+UPDATE control.paieb_awsdms_tables_list 
+set KETTLE_LOAD_RUN_OK = 0;
+
+
+update control.paieb_awsdms_tables_list a
+set merge_liststr = 
+'Merge into control.paieb_s3_files_to_ingest tgt 
+using (
+      select tablename, fullpath, filename, psize, modified_timestamp, modified_timestamp_ntz, 0 processed, nvl(try_to_number(''REPLACE_JOBID''),0) jobid  from 
+             (
+             with parquet as ( 
+             select split_part("name",''/'',''-2'') as tablename 
+                    ,"name" as fullpath  
+                    ,split_part("name",''/'',''-1'') as filename 
+                    ,"size" as psize 
+                    ,"last_modified" as modified_timestamp 
+                    ,convert_timezone(''UTC'',''America/New_York'',to_timestamp(rtrim("last_modified",'' GMT''),''DY, DD MON YYYY HH24:MI:SS'')) modified_timestamp_NTZ 
+             FROM table(result_scan(last_query_id())) lsid 
+             order by "last_modified" 
+             ) 
+             select pt.tablename,pt.filename, pt.fullpath 
+             ,modified_timestamp 
+             ,modified_timestamp_ntz 
+             ,pt.psize 
+             from parquet pt 
+             where ''REPLACE_REINGEST'' = ''Y'' 
+             or (''REPLACE_REINGEST'' != ''Y'' and (not exists (select 1 from control.paieb_s3_files_hist fh where fh.processed = 1 and fh.table_name = pt.tablename and fh.filename = pt.filename and fh.last_modified = pt.modified_timestamp ) 
+             and not exists (select 1 from control.paieb_s3_files_to_ingest fh where fh.jobid <> nvl(try_to_number(''REPLACE_JOBID''),0) and fh.processed = 1 and fh.table_name = pt.tablename and fh.filename = pt.filename and fh.last_modified = pt.modified_timestamp )  
+             ))
+             and ('''||a.source_table_name||''' = ''ALL'' or pt.tablename = '''||a.source_table_name||''' ) 
+             )
+      ) as pql on pql.tablename = tgt.table_name and pql.fullpath = tgt.fullpath and pql.jobid = tgt.jobid  
+      when not matched then   
+      insert (TABLE_NAME, FULLPATH, FILENAME,SIZE, LAST_MODIFIED, LAST_MODIFIED_NTZ, PROCESSED, COMMENTS, JOBID) 
+      values (pql.tablename, pql.fullpath, pql.filename, pql.psize, pql.modified_timestamp, pql.modified_timestamp_ntz, pql.processed, ''List:''||to_char(current_timestamp(),''YYYY/MM/DD HH24:MI:SS TZH''),  pql.jobid ) 
+;' 
+;
+
+
+
+
+//set list of files sql
+update control.paieb_awsdms_tables_list a
+set cdc_list_str = 
+'Merge into control.paieb_s3_cdc_to_ingest tgt 
+using (
+      select tablename, fullpath, filename, psize, modified_timestamp, modified_timestamp_ntz, 0 processed, nvl(try_to_number(''REPLACE_JOBID''),0) jobid  from 
+             (
+             with parquet as ( 
+             select split_part("name",''/'',''-2'') as tablename 
+                    ,"name" as fullpath  
+                    ,split_part("name",''/'',''-1'') as filename 
+                    ,"size" as psize 
+                    ,"last_modified" as modified_timestamp 
+                    ,convert_timezone(''UTC'',''America/New_York'',to_timestamp(rtrim("last_modified",'' GMT''),''DY, DD MON YYYY HH24:MI:SS'')) modified_timestamp_NTZ 
+             FROM table(result_scan(last_query_id())) lsid 
+             order by "last_modified" 
+             ) 
+             select pt.tablename,pt.filename, pt.fullpath 
+             ,modified_timestamp 
+             ,modified_timestamp_ntz 
+             ,pt.psize 
+             from parquet pt 
+             where (''REPLACE_REINGEST'' = ''Y'' 
+             or (''REPLACE_REINGEST'' != ''Y'' and (not exists (select 1 from control.paieb_s3_files_hist fh where fh.processed = 1 and fh.table_name = pt.tablename and fh.filename = pt.filename and fh.last_modified = pt.modified_timestamp ) 
+             and not exists (select 1 from control.paieb_s3_cdc_to_ingest fh where fh.jobid <> nvl(try_to_number(''REPLACE_JOBID''),0) and fh.processed = 1 and fh.table_name = pt.tablename and fh.filename = pt.filename and fh.last_modified = pt.modified_timestamp )  
+             )))
+             and (''REPLACE_TABLENAME'' = ''ALL'' or pt.tablename = '''||a.source_table_name||''' ) 
+             )
+      ) as pql on pql.tablename = tgt.table_name and pql.fullpath = tgt.fullpath and pql.jobid = tgt.jobid  
+      when not matched then   
+      insert (TABLE_NAME, FULLPATH, FILENAME,SIZE, LAST_MODIFIED, LAST_MODIFIED_NTZ, PROCESSED, COMMENTS, JOBID) 
+      values (pql.tablename, pql.fullpath, pql.filename, pql.psize, pql.modified_timestamp, pql.modified_timestamp_ntz, pql.processed, ''List:''||to_char(current_timestamp(),''YYYY/MM/DD HH24:MI:SS TZH''),  pql.jobid ) 
+;' 
+;
+
+update control.paieb_awsdms_tables_list set cdc_copy_str = 
+'copy into REPLACE_PQSCHEMA.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation,  rownumber, filenum, raw) from 
+              (
+                select convert_timezone(''UTC'',''America/New_York'',sysdate()) 
+          ,'''||source_table_name||''' , '' '',METADATA$FILENAME , ''Y''
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , REPLACE_JOBID 
+          , '''||primary_key_column||''' primary_key , $1:'||primary_key_column||'::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,''/'',-1),''-''),''.parquet'')) filenum
+          , * from REPLACE_STAGE'||source_table_name||'/ 
+              )  
+          FILES=(REPLACE_FILELIST)    
+          FILE_FORMAT = (TYPE= ''PARQUET'') 
+          FORCE=FALSE 
+          PURGE=TRUE 
+          PATTERN=''.*.parquet'';
+';
+
+//old before supplemental logging
+merge into control.paieb_awsdms_tables_list tr using (                
+with setlist as (
+select a.source_table_name,a.primary_key_column primary_key
+, replace(replace(replace(listagg((case when s1.column_name = a.primary_key_column then 'PKCOLUMN' else 'tgt.' || s1.column_name || ' = src.' || s1.column_name end) ,',') within group (order by ordinal_position),'PKCOLUMN',''),',,',','),'src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')  set_str
+, listagg(case when s1.data_type = 'TIMESTAMP_NTZ' then 'to_timestamp(substr(parse_json(fin.finjson):' || column_name || '::VARCHAR,1,19),''YYYY-MM-DD HH24:MI:SS'') '  else 'parse_json(fin.finjson):' || column_name ||' ' end || column_name,',') within group (order by ordinal_position) sel_str
+, md5_compare_str  
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name and s1.column_name <> a.primary_key_column
+  group by a.source_table_name, primary_key_column, md5_compare_str
+ )  
+select source_table_name, '
+merge into PAIEB_PRD.'||source_table_name||' tgt using (
+with cdcrecs as (
+select rw.source_table_name, primary_key, pk_id
+  , control.json_merge_array(array_agg(parse_json(raw)) within group (order by filenum, rownumber, commit_ntz)) cdc_merged
+  from raw.awsdms_cdc_raw rw, PAIEB_PRD.'||source_table_name||' srcmain
+  where jobid = REPLACE_JOBID
+  and srcmain.'||primary_key||' = pk_id
+  and rw.operation = ''U''
+  and rw.source_table_name = '''||source_table_name||'''
+ and rw.commit_ntz >= srcmain.committimestamp
+group by source_table_name, primary_key, pk_id
+),
+fin as (
+select rw.source_table_name, rw.primary_key, rw.pk_id, control.json_merge(object_construct(src.*), rw.cdc_merged) finjson
+from cdcrecs rw, PAIEB_PRD.'||source_table_name||' src
+where src.'||primary_key ||' = rw.pk_id
+)
+select pk_id '|| primary_key || ', '|| sel_str || '
+from fin 
+) src on src.'||primary_key||' = tgt.'||primary_key||'
+when matched 
+and '|| md5_compare_str || ' 
+then
+update set '|| set_str || ';' as cdcupdstr
+from setlist sl
+) as sr on sr.source_table_name = tr.source_table_name
+when matched then
+update set tr.cdc_upd_str = sr.cdcupdstr;
+;
+
+//new after supplemental logging all tables
+merge into control.paieb_awsdms_tables_list tr using (                
+with setlist as (
+select a.source_table_name,a.primary_key_column primary_key
+, replace(replace(replace(listagg((case when s1.column_name = a.primary_key_column then 'PKCOLUMN' else 'tgt.' || s1.column_name || ' = src.' || s1.column_name end) ,',') within group (order by ordinal_position),'PKCOLUMN',''),',,',','),'src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')  set_str
+, listagg(case when s1.data_type = 'TIMESTAMP_NTZ' then 'to_timestamp(substr(parse_json(fin.finjson):' || column_name || '::VARCHAR,1,19),''YYYY-MM-DD HH24:MI:SS'') '  else 'parse_json(fin.finjson):' || column_name ||' ' end || column_name,',') within group (order by ordinal_position) sel_str
+, md5_compare_str  
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name and s1.column_name <> a.primary_key_column
+  group by a.source_table_name, primary_key_column, md5_compare_str
+ )  
+select source_table_name, '
+merge into PAIEB_PRD.'||source_table_name||' tgt using (
+with cdcrecs as (
+select rw.source_table_name, primary_key, pk_id
+  , row_number() over(partition by source_table_name, pk_id order by filenum desc, rownumber desc, commit_ntz desc) rown
+  , raw
+  from raw.awsdms_cdc_raw rw, PAIEB_PRD.'||source_table_name||' srcmain
+  where jobid = REPLACE_JOBID
+  and srcmain.'||primary_key||' = pk_id
+  and rw.operation = ''U''
+  and rw.source_table_name = '''||source_table_name||'''
+ and rw.commit_ntz >= srcmain.committimestamp
+),
+fin as (
+select source_table_name, primary_key, pk_id, raw finjson from cdcrecs where rown = 1
+)
+select pk_id '|| primary_key || ', '|| sel_str || '
+from fin 
+) src on src.'||primary_key||' = tgt.'||primary_key||'
+when matched 
+and '|| md5_compare_str || ' 
+then
+update set '|| set_str || ';' as cdcupdstr
+from setlist sl
+) as sr on sr.source_table_name = tr.source_table_name
+when matched then
+update set tr.cdc_upd_str = sr.cdcupdstr;
+;

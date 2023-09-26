@@ -1,0 +1,11 @@
+# Format:
+# minutes_of_hour hours_of_day days_of_month months_of_year days_of_the_week command_to_execute
+# LAEB Dental Production crontab
+
+0 4 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_emrs_case_client.sh >> /u01/maximus/maxdat/LAEB/logs/EMRS/LAEB_run_emrs_case_client.log
+0 5 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_emrs_selections.sh >> /u01/maximus/maxdat/LAEB/logs/EMRS/LAEB_run_emrs_selections.log
+0 3 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_load_letters.sh >> /u01/maximus/maxdat/LAEB/logs/Letters/LAEB_run_load_letters.log
+0 3 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_call_incidents.sh >> /u01/maximus/maxdat/LAEB/logs/CallsIncidents/LAEB_run_call_incidents.log
+0 3 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_emrs_lookups.sh >> /u01/maximus/maxdat/LAEB/logs/EMRS/LAEB_run_emrs_lookups.log
+0 5 * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_run_emrs_elig.sh >> /u01/maximus/maxdat/LAEB/logs/EMRS/LAEB_run_emrs_elig.log
+0 2    * * * /u01/maximus/maxdat/LAEB/scripts/LAEB_purge_logs.sh 

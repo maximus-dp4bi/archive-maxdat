@@ -1,0 +1,25 @@
+35 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/manage_adhoc_contact_center_jobs.log 2>&1
+
+0 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+5 3 * * 1 /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "WEEKLY" > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/cron_run_weekly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+10 3 2 * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "MONTHLY" > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/cron_run_monthly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+45 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_adhoc_extracts.sh
+
+30 6 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_scheduled_extracts.sh
+
+30 04 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/load_Agent_First_Call_Dt.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/load_Agent_First_Call_Dt.sh_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+20 7 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_scheduled_IVR_Menu_Group.sh> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_scheduled_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_adhoc_IVR_Menu_Group.sh> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_adhoc_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+10,40 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/scheduled_contact_center_job_executions.log
+
+0 12 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/purge_cc_logs.sh
+
+0 5 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_scheduled_Call_Back.sh
+
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_adhoc_Call_Back.sh

@@ -19,103 +19,45 @@ package OUTBOUND_CALLS as
   g_target_days number;
 
   procedure CALC_DOBCCUR;
-  
-  procedure CREATE_CALC_DOBCCUR_JOB;
-  
-  procedure STOP_CALC_DOBCCUR_JOB;
 
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
-  FUNCTION GET_TIMELINE_STATUS(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2;
+  function GET_TIMELINESS_DAYS
+    return number result_cache parallel_enable;
     
-    FUNCTION GET_TIMELINESS_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER;
+  function GET_TIMELINESS_DAYS_TYPE
+    return varchar2 result_cache parallel_enable;
     
-  FUNCTION GET_TIMELINESS_DAYS_TYPE(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN VARCHAR2;
+  function GET_TIMELINE_STATUS
+    (p_create_date   in date,
+     p_complete_date in date)
+    return varchar2 parallel_enable;
+
+  function GET_JEOPARDY_DAYS
+    return number result_cache parallel_enable;
   
-  FUNCTION GET_JEOPARDY_FLAG(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2;
+  function GET_JEOPARDY_DAYS_TYPE
+    return varchar2 result_cache parallel_enable;
+    
+  function GET_JEOPARDY_FLAG
+    (p_create_date   in date,
+     p_complete_date in date)
+    return varchar2 parallel_enable;
    
-    FUNCTION GET_JEOPARDY_DATE(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE
-      )
-    RETURN VARCHAR2;
+  function GET_JEOPARDY_DATE
+    (p_create_date in date)
+    return varchar2 parallel_enable;
     
-  FUNCTION GET_JEOPARDY_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER;
-  
-  FUNCTION GET_JEOPARDY_DAYS_TYPE(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN VARCHAR2;
-  
-  FUNCTION GET_TARGET_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER;
-
-/* 
- FUNCTION GET_SLA_DAYS(
-      p_outreach_id   IN NUMBER
-      )
-    RETURN VARCHAR2;
- 
- FUNCTION GET_SLA_DAYS_TYPE(
-      p_outreach_id   IN NUMBER
-      )
-    RETURN VARCHAR2;
- 
- FUNCTION JEOPARDY_DAYS(
-      p_outreach_id   IN NUMBER
-      )
-    RETURN NUMBER; 
-    
-    FUNCTION GET_JEOPARDY_DATE(
-      p_outreach_id   IN NUMBER,
-      p_create_date    IN DATE 
-      )
-    RETURN date;
-    
-  FUNCTION GET_JEOPARDY_FLAG(
-      p_outreach_id   IN NUMBER,
-      p_create_date    IN DATE 
-      )
-    RETURN VARCHAR2;
-    
-  FUNCTION GET_CYCLE_TIME(
-    p_create_date   IN DATE,
-    p_complete_date IN DATE)
-  RETURN NUMBER;
-     
-  FUNCTION GET_TIMELINE_STATUS(
-      p_outreach_id   IN NUMBER,
-      p_create_date IN DATE )
-    RETURN VARCHAR2;
-    
-*/
+  function GET_TARGET_DAYS
+    return number result_cache parallel_enable;
   
   /* 
   Include: 
@@ -224,8 +166,8 @@ package OUTBOUND_CALLS as
      p_new_data_xml in xmltype);
     
 end;
-
 /
+
 
 create or replace 
 package body OUTBOUND_CALLS as
@@ -236,186 +178,198 @@ package body OUTBOUND_CALLS as
   v_butl_id number := 1; -- 'ETL'
   v_date_bucket_fmt varchar2(21) := 'YYYY-MM-DD';
   
-  v_CALC_DOBCCUR_job_name varchar2(30) := 'CALC_DOBCCUR';
+  v_calc_dobccur_job_name varchar2(30) := 'CALC_DOBCCUR';
   
   
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
-     return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
+     return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,coalesce(p_complete_date,sysdate));
   end;
   
      
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
-    return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
+    return trunc(coalesce(p_complete_date,sysdate)) - trunc(p_create_date);
   end;
  
- FUNCTION GET_TIMELINE_STATUS(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2
-  IS
-  BEGIN
-    if g_time_days is null then
-       select out_var into g_time_days
-         from corp_etl_list_lkup
-        where name = 'OUTBND_CALL_Timeline_Days';
-    end if;
-    if g_time_days_type is null then
-       select out_var into g_time_days_type
-         from corp_etl_list_lkup
-        where name = 'OUTBND_CALL_Timeline_Days_Type';
+ 
+  function GET_TIMELINESS_DAYS
+    return number result_cache parallel_enable
+  as
+  begin
+  
+    if g_timeliness_days is null then
+    
+      select OUT_VAR
+      into g_timeliness_days
+      from CORP_ETL_LIST_LKUP
+      where NAME = 'OUTBND_CALL_Timeline_Days';
+       
     end if;
     
-    IF g_time_days_type = 'B' AND BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,NVL(p_complete_date,sysdate)) <= g_time_days THEN
-      RETURN 'Timely';
-    elsif g_time_days_type =  'C' AND trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date) <= g_time_days THEN
-      RETURN 'Timely';
-    ELSE
-      RETURN 'Untimely';
-    END IF;
-  END GET_TIMELINE_STATUS;
-  
-  FUNCTION GET_TIMELINESS_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER
-  IS
-  BEGIN
-    if g_timeliness_days is null then
-      select out_var
-        into g_timeliness_days
-        from corp_etl_list_lkup
-       where name = 'OUTBND_CALL_Timeline_Days';
-    end if;
     return g_timeliness_days;
 
-  END GET_TIMELINESS_DAYS;
+  end;
   
-  FUNCTION GET_TIMELINESS_DAYS_TYPE(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN VARCHAR2
-  IS
-  BEGIN
+  
+  function GET_TIMELINESS_DAYS_TYPE
+    return varchar2 result_cache parallel_enable
+  as
+  begin
+  
     if g_time_days_type is null then
-      select out_var 
-        into g_time_days_type
-        from corp_etl_list_lkup
-       where name = 'OUTBND_CALL_Timeline_Days_Type';
+    
+      select OUT_VAR 
+      into g_time_days_type
+      from CORP_ETL_LIST_LKUP
+      where NAME = 'OUTBND_CALL_Timeline_Days_Type';
+       
     end if;
+    
     return g_time_days_type;
   
-  END GET_TIMELINESS_DAYS_TYPE;
+  end;
   
-  FUNCTION GET_JEOPARDY_FLAG(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2
-  IS
-  BEGIN
-    if g_jeop_days is null then
-      select out_var into g_jeop_days
-        from corp_etl_list_lkup 
-       where name = 'OUTBND_CALL_Jeopardy_Days';
-    end if;
-    if g_jeop_days_type is null then
-      select out_var into g_jeop_days_type
-        from corp_etl_list_lkup 
-       where name = 'OUTBND_CALL_Jeopardy_Days_Type';
+ 
+  function GET_TIMELINE_STATUS
+    (p_create_date   in date,
+     p_complete_date in date)
+    return varchar2 parallel_enable
+  as
+  begin
+  
+    if g_time_days is null then
+      g_time_days := GET_TIMELINESS_DAYS();     
     end if;
     
-    IF p_complete_date is null and g_jeop_days_type = 'B' AND BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,NVL(p_complete_date,sysdate)) > g_jeop_days THEN
-      RETURN 'Y';
-    elsif p_complete_date is null and g_jeop_days_type =  'C' AND trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date) > g_jeop_days THEN
-      RETURN 'Y';
-    ELSE
-      RETURN 'N';
-    END IF;
-  END GET_JEOPARDY_FLAG;
-  
-  FUNCTION GET_JEOPARDY_DATE(
-      p_outbound_call_identifier   IN NUMBER,
-      p_create_date   IN DATE
-      )
-    RETURN VARCHAR2
-  IS
-  BEGIN
-    if g_jeop_days is null then
-       select out_var into g_jeop_days
-         from corp_etl_list_lkup 
-        where name = 'OUTBND_CALL_Jeopardy_Days';
-    end if;
-    if g_jeop_days_type is null then
-       select out_var into g_jeop_days_type
-         from corp_etl_list_lkup where name = 'OUTBND_CALL_Jeopardy_Days_Type';
+    if g_time_days_type is null then
+      g_time_days_type := GET_TIMELINESS_DAYS_TYPE;
     end if;
     
-    IF  g_jeop_days_type = 'B' 
-    THEN 
-      RETURN BPM_COMMON.GET_BUS_DATE(p_create_date,g_jeop_days)       ;
-    elsif g_jeop_days_type =  'C' 
-     THEN 
-      RETURN p_create_date + g_jeop_days;
+    if g_time_days_type = 'B' and BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,coalesce(p_complete_date,sysdate)) <= g_time_days then
+      return 'Timely';
+    elsif g_time_days_type =  'C' and trunc(coalesce(p_complete_date,sysdate)) - trunc(p_create_date) <= g_time_days then
+      return 'Timely';
+    else
+      return 'Untimely';
+    end if;
     
-    END IF;
-  END GET_JEOPARDY_DATE;
+  end;
   
-FUNCTION GET_JEOPARDY_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER
-  IS
-  BEGIN
+  
+    function GET_JEOPARDY_DAYS
+    return number result_cache parallel_enable
+  as
+  begin
+  
     if g_jeopardy_days is null then
-      select out_var into g_jeopardy_days 
-        from corp_etl_list_lkup
-       where name = 'OUTBND_CALL_Jeopardy_Days';
+    
+      select OUT_VAR 
+      into g_jeopardy_days 
+      from CORP_ETL_LIST_LKUP
+      where NAME = 'OUTBND_CALL_Jeopardy_Days';
+       
     end if;
+    
     return g_jeopardy_days;
   
-  END GET_JEOPARDY_DAYS;
-
-FUNCTION GET_JEOPARDY_DAYS_TYPE(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN VARCHAR2
-  IS
-  v_jeopardy_days_type varchar(10);
-  BEGIN
+  end;
+  
+  
+  function GET_JEOPARDY_DAYS_TYPE
+    return varchar2 result_cache parallel_enable
+  as
+    v_jeopardy_days_type varchar(10);
+  begin
+  
     if g_jeopardy_days_type is null then
-       select out_var into g_jeopardy_days_type
-         from corp_etl_list_lkup
-        where name = 'OUTBND_CALL_Jeopardy_Days_Type';
+    
+      select out_var 
+      into g_jeopardy_days_type
+      from CORP_ETL_LIST_LKUP
+      where NAME = 'OUTBND_CALL_Jeopardy_Days_Type';
+        
     end if; 
+    
     return g_jeopardy_days_type;
   
-  END GET_JEOPARDY_DAYS_TYPE;
-
-FUNCTION GET_TARGET_DAYS(
-      p_outbound_call_identifier   IN NUMBER
-      )
-    RETURN NUMBER
-  IS
-  BEGIN
-    if g_target_days is null then
-       select out_var into g_target_days
-         from corp_etl_list_lkup
-        where name = 'OUTBND_CALL_Target_Days';
+  end;
+  
+  
+  function GET_JEOPARDY_FLAG
+    (p_create_date   in date,
+     p_complete_date in date)
+    return varchar2 parallel_enable
+  as
+  begin
+  
+    if g_jeop_days is null then
+      g_jeop_days := GET_JEOPARDY_DAYS();   
     end if;
+    
+    if g_jeop_days_type is null then
+      g_jeop_days_type := GET_JEOPARDY_DAYS_TYPE(); 
+    end if;
+    
+    if p_complete_date is null and g_jeop_days_type = 'B' and BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,coalesce(p_complete_date,sysdate)) > g_jeop_days then
+      return 'Y';
+    elsif p_complete_date is null and g_jeop_days_type =  'C' and trunc(coalesce(p_complete_date,sysdate)) - trunc(p_create_date) > g_jeop_days then
+      return 'Y';
+    else
+      return 'N';
+    end if;
+    
+  end;
+  
+  
+  function GET_JEOPARDY_DATE
+    (p_create_date in date)
+    return varchar2 parallel_enable
+  as
+  begin
+  
+    if g_jeop_days is null then
+      g_jeop_days := GET_JEOPARDY_DAYS;
+    end if;
+    
+    if g_jeop_days_type is null then
+      g_jeop_days_type := GET_JEOPARDY_DAYS_TYPE();
+    end if;
+    
+    if  g_jeop_days_type = 'B' then 
+      return BPM_COMMON.GET_BUS_DATE(p_create_date,g_jeop_days)       ;
+    elsif g_jeop_days_type =  'C' then 
+      return p_create_date + g_jeop_days;
+    end if;
+    
+  end;
+
+
+  function GET_TARGET_DAYS
+    return number result_cache parallel_enable
+  is
+  begin
+  
+    if g_target_days is null then
+    
+      select OUT_VAR 
+      into g_target_days
+      from CORP_ETL_LIST_LKUP
+      where NAME = 'OUTBND_CALL_Target_Days';
+        
+    end if;
+    
    return g_target_days;
   
-  END GET_TARGET_DAYS;
+  end;
  
 
   -- Calculate column values in BPM Semantic table D_OBC_CURRENT.
@@ -431,15 +385,15 @@ FUNCTION GET_TARGET_DAYS(
     set
       AGE_IN_BUSINESS_DAYS = GET_AGE_IN_BUSINESS_DAYS(CREATE_DATE,COMPLETE_DATE),
       AGE_IN_CALENDAR_DAYS = GET_AGE_IN_CALENDAR_DAYS(CREATE_DATE,COMPLETE_DATE),
-     TIMELINESS_STATUS = GET_TIMELINE_STATUS(OUTBOUND_CALL_IDENTIFIER,CREATE_DATE,COMPLETE_DATE),
-     TIMELINESS_DAYS = GET_TIMELINESS_DAYS(OUTBOUND_CALL_IDENTIFIER),
-    TIMELINESS_DAYS_TYPE = GET_TIMELINESS_DAYS_TYPE(OUTBOUND_CALL_IDENTIFIER),
-    JEOPARDY_FLAG =GET_JEOPARDY_FLAG(OUTBOUND_CALL_IDENTIFIER,CREATE_DATE,COMPLETE_DATE),
-    JEOPARDY_DATE = GET_JEOPARDY_DATE(OUTBOUND_CALL_IDENTIFIER,CREATE_DATE),
-    JEOPARDY_DAYS = GET_JEOPARDY_DAYS(OUTBOUND_CALL_IDENTIFIER),
-    JEOPARDY_DAYS_TYPE = GET_JEOPARDY_DAYS_TYPE(OUTBOUND_CALL_IDENTIFIER),
-    TARGET_DAYS =GET_TARGET_DAYS(OUTBOUND_CALL_IDENTIFIER)
-     where 
+      TIMELINESS_STATUS = GET_TIMELINE_STATUS(CREATE_DATE,COMPLETE_DATE),
+      TIMELINESS_DAYS = GET_TIMELINESS_DAYS(),
+      TIMELINESS_DAYS_TYPE = GET_TIMELINESS_DAYS_TYPE(),
+      JEOPARDY_FLAG = GET_JEOPARDY_FLAG(CREATE_DATE,COMPLETE_DATE),
+      JEOPARDY_DATE = GET_JEOPARDY_DATE(CREATE_DATE),
+      JEOPARDY_DAYS = GET_JEOPARDY_DAYS(),
+      JEOPARDY_DAYS_TYPE = GET_JEOPARDY_DAYS_TYPE(),
+      TARGET_DAYS = GET_TARGET_DAYS()
+    where 
       COMPLETE_DATE is null 
       and CANCEL_DATE is null;
     
@@ -459,128 +413,7 @@ FUNCTION GET_TARGET_DAYS(
 
   end;
   
-  
-  -- Create and start scheduler job for CALC_DOBCCUR job.
-  procedure CREATE_CALC_DOBCCUR_JOB
-  as
-    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'CREATE_CALC_DOBCCUR_JOB';
-    v_log_message clob := null;
-    v_sql_code number := null;
-    v_job_action varchar2(200) := null;
-  begin
-  
-    -- Run now.
-    CALC_DOBCCUR;
     
-    -- Create job to run daily.
-    v_job_action := 'begin OUTBOUND_CALLS.CALC_DOBCCUR; end;';
-    dbms_scheduler.create_job (
-      job_name   => v_CALC_DOBCCUR_job_name,
-      job_type   => 'PLSQL_BLOCK',
-      job_action => v_job_action,
-      start_date => trunc(sysdate + 1),
-      repeat_interval=> 'FREQ=DAILY; BYHOUR=0;',
-      enabled    =>  TRUE,
-      comments   => 'Calculate column values in BPM Semantic table D_OBC_CURRENT');
-      
-    dbms_scheduler.set_attribute(
-      name => v_CALC_DOBCCUR_job_name,
-      attribute => 'RESTARTABLE',
-      value => TRUE);
-
-    v_log_message := 'Created dbms_scheduler job "' || v_CALC_DOBCCUR_job_name || '".';
-    BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
-
-  exception
-
-    when others then
-      v_sql_code := SQLCODE;
-      v_log_message := 'Unable to start job "' || v_CALC_DOBCCUR_job_name || '".  '  || SQLERRM;
-      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
-
-  end;
-
-
-  -- Gracefully stop CALC_DOBCCUR job.
-  procedure STOP_CALC_DOBCCUR_JOB
-  as
-    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'STOP_CALC_DOBCCUR_JOB';
-    v_log_message clob := null;
-    v_sql_code number := null;
-  begin
-    dbms_scheduler.drop_job(v_CALC_DOBCCUR_job_name,TRUE);
-    
-    v_log_message := 'Stopped dbms_scheduler job "' || v_CALC_DOBCCUR_job_name || '".';
-    BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
-
-  exception
-
-    when others then
-      v_sql_code := SQLCODE;
-      v_log_message := 'Unable to stop job "' || v_CALC_DOBCCUR_job_name || '".  '  || SQLERRM;
-      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
-
-  end;
-
-/*
-  -- Get dimension ID for BPM Semantic model - Client Outreach process - COUNTY.
-  procedure GET_DOBCCI_ID
-     (p_identifier in varchar2,
-      p_bi_id in number,
-      p_county in varchar2,
-      p_dOBCci_id out number)
-   as
-     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'GET_DOBCCI_ID';
-     v_sql_code number := null;
-     v_log_message clob := null;
-   begin
-
-     select DOBCCI_ID
-     into p_dOBCci_id
-     from D_OBC_COUNTY
-     where 
-       COUNTY = p_county 
-       or (COUNTY is null and p_county is null);
-      
-   exception
-
-     when NO_DATA_FOUND then
-
-       p_dOBCci_id := SEQ_DOBCCI_ID.nextval;
-       begin
-         insert into D_OBC_COUNTY (DOBCCI_ID,COUNTY)
-         values (p_dOBCci_id,p_county);
-         commit;
-
-       exception
-
-         when DUP_VAL_ON_INDEX then
-           select DOBCCI_ID into p_dOBCci_id
-           from D_OBC_COUNTY
-           where 
-             COUNTY = p_county 
-       or (COUNTY is null and p_county is null);
-             
-         when OTHERS then
-
-           v_sql_code := SQLCODE;
-           v_log_message := SQLERRM;
-           BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,p_identifier,p_bi_id,v_log_message,v_sql_code); 
-           raise;
-
-       end;
-
-     when OTHERS then
-     
-       v_sql_code := SQLCODE;
-       v_log_message := SQLERRM;
-       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,p_identifier,p_bi_id,v_log_message,v_sql_code); 
-       raise;
-       
-  end;
- */   
- 
-  
   -- Get record for outbound Calls insert XML.
   procedure GET_INS_OBC_XML
     (p_data_xml in xmltype,
@@ -701,7 +534,6 @@ FUNCTION GET_TARGET_DAYS(
        p_start_date in date,
        p_end_date in date,
        p_bi_id in number,
-       --p_stg_last_update_date in varchar2,
        p_fobcbd_id out number) 
     as
       v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'INS_FOBCBD';
@@ -709,12 +541,9 @@ FUNCTION GET_TARGET_DAYS(
       v_log_message clob := null;
       v_bucket_start_date date := null;
       v_bucket_end_date date := null;
-      --v_stg_last_update_date date := null;
-      --v_outreach_request_status_date date := null;
+
     begin
     
-      --v_stg_last_update_date := to_date(p_stg_last_update_date,BPM_COMMON.DATE_FMT);
-      --v_outreach_request_status_date := to_date(p_outreach_request_status_date,BPM_COMMON.DATE_FMT);
       p_fobcbd_id := SEQ_FOBCBD_ID.nextval;
       
       v_bucket_start_date := to_date(to_char(p_start_date,v_date_bucket_fmt),v_date_bucket_fmt);
@@ -775,6 +604,7 @@ FUNCTION GET_TARGET_DAYS(
       
   end; 
   
+  
   -- Insert or update dimension for BPM Semantic model - Process Letters process - Current.
   procedure SET_DOBCCUR
     (p_set_type in varchar2,
@@ -811,8 +641,6 @@ FUNCTION GET_TARGET_DAYS(
      p_cancel_reason	in varchar2,
      p_cancel_method	in varchar2,
      p_instance_status	in varchar2
-
-
     )
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DOBCCUR';
@@ -855,18 +683,15 @@ FUNCTION GET_TARGET_DAYS(
     r_dobccur.INSTANCE_STATUS := p_instance_status;
     r_dobccur.AGE_IN_BUSINESS_DAYS := GET_AGE_IN_BUSINESS_DAYS(r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
     r_dobccur.AGE_IN_CALENDAR_DAYS := GET_AGE_IN_CALENDAR_DAYS(r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
-    r_dobccur.TIMELINESS_STATUS := GET_TIMELINE_STATUS(r_dobccur.OUTBOUND_CALL_IDENTIFIER,r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
-    r_dobccur.TIMELINESS_DAYS := GET_TIMELINESS_DAYS(r_dobccur.OUTBOUND_CALL_IDENTIFIER);
-    r_dobccur.TIMELINESS_DAYS_TYPE := GET_TIMELINESS_DAYS_TYPE(r_dobccur.OUTBOUND_CALL_IDENTIFIER);
-    r_dobccur.JEOPARDY_FLAG :=GET_JEOPARDY_FLAG(r_dobccur.OUTBOUND_CALL_IDENTIFIER,r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
-    r_dobccur.JEOPARDY_DATE := GET_JEOPARDY_DATE(r_dobccur.OUTBOUND_CALL_IDENTIFIER,r_dobccur.CREATE_DATE);
-    r_dobccur.JEOPARDY_DAYS := GET_JEOPARDY_DAYS(r_dobccur.OUTBOUND_CALL_IDENTIFIER);
-    r_dobccur.JEOPARDY_DAYS_TYPE := GET_JEOPARDY_DAYS_TYPE(r_dobccur.OUTBOUND_CALL_IDENTIFIER);
-    r_dobccur.TARGET_DAYS := GET_TARGET_DAYS(r_dobccur.OUTBOUND_CALL_IDENTIFIER);
+    r_dobccur.TIMELINESS_STATUS := GET_TIMELINE_STATUS(r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
+    r_dobccur.TIMELINESS_DAYS := GET_TIMELINESS_DAYS();
+    r_dobccur.TIMELINESS_DAYS_TYPE := GET_TIMELINESS_DAYS_TYPE();
+    r_dobccur.JEOPARDY_FLAG := GET_JEOPARDY_FLAG(r_dobccur.CREATE_DATE,r_dobccur.COMPLETE_DATE);
+    r_dobccur.JEOPARDY_DATE := GET_JEOPARDY_DATE(r_dobccur.CREATE_DATE);
+    r_dobccur.JEOPARDY_DAYS := GET_JEOPARDY_DAYS();
+    r_dobccur.JEOPARDY_DAYS_TYPE := GET_JEOPARDY_DAYS_TYPE();
+    r_dobccur.TARGET_DAYS := GET_TARGET_DAYS();
     
-    
-
-      
     if p_set_type = 'INSERT' then
       insert into D_OBC_CURRENT
       values r_dobccur;
@@ -965,10 +790,7 @@ FUNCTION GET_TARGET_DAYS(
         v_new_data.CANCEL_DT,
         v_new_data.CANCEL_REASON,
         v_new_data.CANCEL_METHOD,
-        v_new_data.INSTANCE_STATUS
-
-         
-        ); 
+        v_new_data.INSTANCE_STATUS); 
         
       INS_FOBCBD
         (v_identifier,v_start_date,v_end_date,v_bi_id,v_fobcbd_id);
@@ -1028,9 +850,8 @@ FUNCTION GET_TARGET_DAYS(
 
     v_stg_last_update_date := to_date(p_stg_last_update_date,BPM_COMMON.DATE_FMT);
     v_event_date := v_stg_last_update_date;
-    --v_outreach_request_status_date := to_date(p_outreach_request_status_date,BPM_COMMON.DATE_FMT);
-    
     v_fobcbd_id := p_fobcbd_id;
+    
     with most_recent_fact_bi_id as
       (select 
          max(FOBCBD_ID) max_fobcbd_id,
@@ -1254,8 +1075,7 @@ FUNCTION GET_TARGET_DAYS(
                   v_new_data.CANCEL_DT,
                   v_new_data.CANCEL_REASON,
                   v_new_data.CANCEL_METHOD,
-                  v_new_data.INSTANCE_STATUS
-        );
+                  v_new_data.INSTANCE_STATUS);
         
       UPD_FOBCBD
         (v_identifier,v_start_date,v_end_date,v_bi_id,v_new_data.stg_last_update_date, v_fobcbd_id);

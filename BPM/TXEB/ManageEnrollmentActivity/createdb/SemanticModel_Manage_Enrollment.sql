@@ -119,14 +119,14 @@ alter table D_ME_CURRENT add constraint DMECUR_PK primary key (ME_BI_ID) using i
 
 create unique index DMECUR_UIX1 on D_ME_CURRENT (CLIENT_ENROLL_STATUS_ID) online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_ME_CURRENT for D_ME_CURRENT;
+
 grant select on D_ME_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_ME_CURRENT_SV as
 select * from D_ME_CURRENT
 with read only;
 
-create or replace public synonym D_ME_CURRENT_SV for D_ME_CURRENT_SV;
+
 grant select on D_ME_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -148,14 +148,14 @@ alter table D_ME_ENRL_STATUS_CODE add constraint DMESC_PK primary key (DMESC_ID)
 
 create unique index DMESC_UIX1 on D_ME_ENRL_STATUS_CODE (Enrollment_Status_Code) online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_ME_ENRL_STATUS_CODE for D_ME_ENRL_STATUS_CODE;
+
 grant select on D_ME_ENRL_STATUS_CODE to MAXDAT_READ_ONLY;
 
 create or replace view D_ME_ENRL_STATUS_CODE_SV as
 select * from D_ME_ENRL_STATUS_CODE
 with read only;
 
-create or replace public synonym D_ME_ENRL_STATUS_CODE_SV for D_ME_ENRL_STATUS_CODE_SV;
+
 grant select on D_ME_ENRL_STATUS_CODE_SV to MAXDAT_READ_ONLY;
 
 insert into D_ME_ENRL_STATUS_CODE (DMESC_ID ,Enrollment_Status_Code) values (SEQ_DMESC_ID.nextval,null);
@@ -201,7 +201,7 @@ create index FMEBD_IXL2 on F_ME_BY_DATE (ME_BI_ID) local online tablespace MAXDA
 create index FMEBD_IXL3 on F_ME_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FMEBD_IXL4 on F_ME_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_ME_BY_DATE for F_ME_BY_DATE;
+
 grant select on F_ME_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_ME_BY_DATE_SV as
@@ -272,6 +272,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_ME_BY_DATE_SV for F_ME_BY_DATE_SV;
+
 grant select on F_ME_BY_DATE_SV to MAXDAT_READ_ONLY;
   

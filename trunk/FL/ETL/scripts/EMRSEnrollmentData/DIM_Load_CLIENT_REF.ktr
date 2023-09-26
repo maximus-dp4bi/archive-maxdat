@@ -3,7 +3,20 @@
   <info>
     <name>DIM_Load_CLIENT_REF</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -180,6 +193,36 @@
   <order>
   <hop> <from>Table input -CLIENTS from Vida</from><to>Insert &#47; Update - CLIENT_REF</to><enabled>Y</enabled> </hop>  </order>
   <step>
+    <name>Table input -CLIENTS from Vida</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT distinct  p.person_number    client_number
+FROM person p
+  WHERE p.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+     OR p.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+  order by p.person_number
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Insert &#47; Update - CLIENT_REF</name>
     <type>InsertUpdate</type>
     <description/>
@@ -209,41 +252,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>440</xloc>
-      <yloc>140</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input -CLIENTS from Vida</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <sql>SELECT client_number
-FROM
-( SELECT distinct 
-       p.person_number                           client_number  
-      ,p.person_id                               source_record_id
-  FROM person p
-  WHERE p.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
-     OR p.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
-  order by p.person_number
- )</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
+      <xloc>470</xloc>
       <yloc>140</yloc>
       <draw>Y</draw>
       </GUI>

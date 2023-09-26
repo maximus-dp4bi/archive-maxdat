@@ -1,0 +1,47 @@
+UPDATE file_load_log
+SET load_date = dateadd(HOUR,-17,load_date)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230527020145';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY
+SET sf_create_ts = dateadd(HOUR,-17,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230527020145';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER
+SET sf_create_ts = dateadd(HOUR,-17,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230527020145';
+
+UPDATE file_load_log
+SET load_date = dateadd(HOUR,-8,load_date)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230601032825';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY
+SET sf_create_ts = dateadd(HOUR,-8,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230601032825';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER
+SET sf_create_ts = dateadd(HOUR,-8,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230601032825';
+
+UPDATE file_load_log
+SET load_date = dateadd(HOUR,-8,load_date)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230603022247';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY
+SET sf_create_ts = dateadd(HOUR,-8,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230603022247';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER
+SET sf_create_ts = dateadd(HOUR,-8,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230603022247';
+
+UPDATE file_load_log
+SET load_date = dateadd(HOUR,-10,load_date)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230606020236';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER_HISTORY
+SET sf_create_ts = dateadd(HOUR,-10,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230606020236';
+
+UPDATE INEO_WFM_DAILY_STAFF_ATTENDANCE_ROSTER
+SET sf_create_ts = dateadd(HOUR,-10,sf_create_ts)
+WHERE upper(filename) = 'WFM062_WFM_STAFF_ROSTER20230606020236';

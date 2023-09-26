@@ -1,0 +1,24 @@
+use schema ineo;
+CREATE OR REPLACE VIEW INEO_D_NEW_HIRE_PSID_SUBMISSIONS_SV
+AS
+SELECT * FROM ineo.ineo_new_hire_psid_submissions;
+
+CREATE OR REPLACE VIEW INEO_D_NEW_HIRE_PSID_SUBMISSIONS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_new_hire_psid_submissions_history;
+
+CREATE OR REPLACE VIEW INEO_D_ADHOC_PSID_SUBMISSIONS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_adhoc_psid_submissions_history;
+
+CREATE OR REPLACE VIEW INEO_D_ADHOC_PSID_SUBMISSIONS_SV
+AS
+SELECT * FROM ineo.ineo_adhoc_psid_submissions;
+
+CREATE OR REPLACE VIEW INEO_D_PROVISIONING_STAFF_ROSTER_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_provisioning_staff_roster_history;
+
+CREATE OR REPLACE VIEW INEO_D_PROVISIONING_STAFF_ROSTER_SV
+AS
+SELECT * FROM ineo.ineo_provisioning_staff_roster;

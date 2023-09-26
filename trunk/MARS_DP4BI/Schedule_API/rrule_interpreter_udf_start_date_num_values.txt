@@ -1,0 +1,76 @@
+// Function to get the dates from rrule using count
+create or replace function rrule_interpreter_udf(start_dt_str string, rrule_str string, d_number int)
+returns variant
+language python
+runtime_version = 3.8
+packages = ('python-dateutil')
+handler = 'udf'
+as $$
+from dateutil.rrule import * 
+from dateutil.parser import * 
+from datetime import * 
+import json
+
+# Used whith rrule
+def convert_int(str):
+
+    FREQNAMES = ['YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY', 'HOURLY', 'MINUTELY', 'SECONDLY']
+    WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+    
+    # tries to convert to int
+    try:
+        return int(str)
+    
+    # If it is not an int
+    except ValueError:
+        
+        # If it is a frequency => Returns the index of the frequency
+        if str in FREQNAMES:
+            return FREQNAMES.index(str)
+        
+        # If it is a day of hte week => Returns the index of the day
+        if str in WEEKDAYS:
+            return WEEKDAYS.index(str)
+        
+        # return the string otherwise
+        return str.replace('T',' ')[0:19]
+        
+# Used whith rrule
+def try_int(str):
+    
+    stra = str.split(',')
+    
+    if len(stra) == 1:
+        return convert_int(str)
+    
+    return [convert_int(i) for i in stra]
+
+    
+def udf(start_dt_str, rrule_str, d_number):    
+    
+    # If the parameters are not passed
+    if (not rrule_str) or (not start_dt_str):
+        return [start_dt_str.replace('T',' ')[0:19]]
+        
+    # Covert the start date to datetime format
+    start_dt = parse(start_dt_str)
+
+    ##### Used whith rrule ######
+    # Converting rrules to dictonary
+    #rrule_dic = dict((a.strip(), try_int(b.strip())) for a, b in (element.split('=') for element in rrule_str.split(';')))
+    
+    # put the key in lowercase to match function parameters
+    # The python rrule function replace byday for byweekday, so we are doing the same
+    #rrule_dic_final =  {k.lower().replace('byday','byweekday'): v for k, v in rrule_dic.items()}
+
+    # return the list of dates until the count value
+    #return list(rrule(**rrule_dic_final, count=d_number, dtstart=start_dt))
+    ##### Used whith rrule ######
+    
+    # If it doesn't have COUNT in the RRULE
+    if 'COUNT=' not in rrule_str:    	
+    	rrule_str = rrule_str + ';COUNT=' + str(d_number)
+
+    # return the list of dates until the count value
+    return list(rrulestr(rrule_str.replace('Z;',';'), dtstart=start_dt))    
+$$;

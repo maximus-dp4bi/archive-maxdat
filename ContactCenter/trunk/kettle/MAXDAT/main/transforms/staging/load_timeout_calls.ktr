@@ -3,9 +3,22 @@
   <info>
     <name>load_timeout_calls</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+---------------------------------
+
+SVN_FILE_URL        = $URL$ 
+
+SVN_REVISION        = $Revision$ 
+
+SVN_REVISION_DATE   = $Date$
+
+SVN_REVISION_AUTHOR = $Author$
+
+---------------------------------</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -72,8 +85,8 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
 </note>
       <xloc>348</xloc>
       <yloc>93</yloc>
-      <width>481</width>
-      <heigth>42</heigth>
+      <width>599</width>
+      <heigth>50</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
       <fontbold>N</fontbold>
@@ -137,7 +150,9 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -194,6 +209,28 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
     </attributes>
   </connection>
   <connection>
+    <name>NYHXMXP</name>
+    <server>nyhxmxp.maximus.com</server>
+    <type>ORACLE</type>
+    <access>ODBC</access>
+    <database>NYHXMXP</database>
+    <port>1557</port>
+    <username>lg74078</username>
+    <password>Encrypted 2be98afc86aa7f2e4a81da6699ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>OLTP_SOURCE</name>
     <server>${DB_OLTP_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -210,9 +247,40 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ETK_MAXIMUS_WC_PROD2;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TESTLOCALCO</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>TESTLOCALCO</database>
+    <port>1521</port>
+    <username>system</username>
+    <password>Encrypted 2be98afc86aa7c1a3ae14bd45cd97bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -322,121 +390,6 @@ This can be calculated in reports by doing IVR_TIME_SECONDS+QUEUE_TIME_SECONDS
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>307</xloc>
       <yloc>202</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Select Values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>      <field>        <name>Variable5</name>
-        <rename>SOURCE_CALL_ID</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>BeganRoutingDateTime</name>
-        <rename>CALL_DATE</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CallTypeID</name>
-        <rename>QUEUE_NAME</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DialedNumberString</name>
-        <rename>DNIS</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ANI</name>
-        <rename>ANI_PHONE_NUMBER</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>IVRTime</name>
-        <rename>IVR_TIME_SECONDS</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RouterQueueTime</name>
-        <rename>QUEUE_TIME_SECONDS</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>TalkTime</name>
-        <rename>TALK_TIME_SECONDS</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>HoldTime</name>
-        <rename>HOLD_TIME_SECONDS</rename>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CALL_SEGMENT_END_DT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>AGENT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>AFTER_CALL_WORK_SECONDS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>XFERRED_OUT_FLAG</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>LANGUAGE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RING_TIME_SECONDS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>TIME_OUT_CALL</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CALL_TYPE_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>Time_To_Agent</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>CALL_DATE</name>
-        <rename>CALL_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>yyyy&#47;MM&#47;dd HH:mm:ss</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CALL_SEGMENT_END_DT</name>
-        <rename>CALL_SEGMENT_END_DT</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>yyyy&#47;MM&#47;dd HH:mm:ss</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>473</xloc>
-      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -634,6 +587,121 @@ and LEN(rcd.Variable10) &lt;= &apos;4&apos;
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>743</xloc>
       <yloc>199</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select Values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>Variable5</name>
+        <rename>SOURCE_CALL_ID</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BeganRoutingDateTime</name>
+        <rename>CALL_DATE</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CallTypeID</name>
+        <rename>QUEUE_NAME</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DialedNumberString</name>
+        <rename>DNIS</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ANI</name>
+        <rename>ANI_PHONE_NUMBER</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>IVRTime</name>
+        <rename>IVR_TIME_SECONDS</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RouterQueueTime</name>
+        <rename>QUEUE_TIME_SECONDS</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TalkTime</name>
+        <rename>TALK_TIME_SECONDS</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HoldTime</name>
+        <rename>HOLD_TIME_SECONDS</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CALL_SEGMENT_END_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AGENT_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AFTER_CALL_WORK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>XFERRED_OUT_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LANGUAGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RING_TIME_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TIME_OUT_CALL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CALL_TYPE_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Time_To_Agent</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>CALL_DATE</name>
+        <rename>CALL_DATE</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CALL_SEGMENT_END_DT</name>
+        <rename>CALL_SEGMENT_END_DT</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>473</xloc>
+      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

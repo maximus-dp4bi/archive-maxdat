@@ -3,7 +3,20 @@
   <info>
     <name>SupportMemberInquiry_Updates1_From_OLTP_STG_to_WIP_STG</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -647,7 +660,7 @@
     <connection>MAXDAT</connection>
     <sql>SELECT  
 	&apos;SupportMemberInqury&apos; as PROCESS_NAME
-,	&apos;SupportMemberInqury_CreateRule&apos; as JOB_NAME
+,	&apos;SupportMemberInquiry_Updates1_From_OLTP_STG_to_WIP_STG&apos; as JOB_NAME
 ,	&apos;FLHK_ETL_SUPP_MEMBR_INQY&apos; as DRIVER_TABLE_NAME
 ,	sysdate as ERR_DATE
 ,	&apos;CRITICAL&apos; as ERR_LEVEL
@@ -704,7 +717,8 @@ FROM
 	FLHK_ETL_SUPP_MEMBR_INQY_OLTP ostg,
 	FLHK_ETL_SUPP_MEMBR_INQY_WIP wstg
 where
-	OSTG.CONTACT_ID = WSTG.CONTACT_ID</sql>
+	OSTG.CONTACT_ID = WSTG.CONTACT_ID
+and OSTG.STAGE_DONE_DATE is null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -712,8 +726,8 @@ where
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>233</xloc>
-      <yloc>64</yloc>
+      <xloc>230</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

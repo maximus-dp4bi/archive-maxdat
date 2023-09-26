@@ -7,13 +7,18 @@
 
 ---------------------------------
 
+
 SVN_FILE_URL        = $URL$ 
+
 
 SVN_REVISION        = $Revision$ 
 
+
 SVN_REVISION_DATE   = $Date$
 
+
 SVN_REVISION_AUTHOR = $Author$
+
 
 ---------------------------------
 </extended_description>
@@ -126,8 +131,56 @@ Should call stats have any null values?
 What about queue time?</note>
       <xloc>0</xloc>
       <yloc>0</yloc>
-      <width>784</width>
-      <heigth>503</heigth>
+      <width>1023</width>
+      <heigth>655</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>Add table input to ensure that 
+a record is created for every 
+agent and day between and 
+agent&apos;s hire and termination dates</note>
+      <xloc>569</xloc>
+      <yloc>700</yloc>
+      <width>237</width>
+      <heigth>90</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>Raj A. 06&#47;15&#47;2016 1. Added two new columns as per MAXDAT-3533
+                           2. Removed hardcoded metrics as per MAXDAT-3541
+                           3. Changed the Right Outer Join to Left Outer Join on the Merge Join step for 
+                               AgentsActivityByDate and AgentsWorkDayByDate Table Inputs.</note>
+      <xloc>115</xloc>
+      <yloc>1744</yloc>
+      <width>733</width>
+      <heigth>88</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -147,7 +200,7 @@ What about queue time?</note>
   <connection>
     <name>ACD</name>
     <server/>
-    <type>CACHE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_ACD_SOURCE}</database>
     <port>1521</port>
@@ -160,6 +213,7 @@ What about queue time?</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -183,6 +237,96 @@ What about queue time?</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_AVAYA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EMRS</name>
+    <server>${DB_EMRS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_EMRS_NAME}</database>
+    <port>${DB_EMRS_PORT}</port>
+    <username>${DB_EMRS_USER}</username>
+    <password>${DB_EMRS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -236,24 +380,33 @@ What about queue time?</note>
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>rcmxdb4d.maximus.com</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>COEEMXDD</database>
+    <port>1531</port>
+    <username>CISCO_ENTERPRISE_CC</username>
+    <password>Encrypted 2be98afc86aa7f2a7822a8d5f9ac3fd89</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1531</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>CISCO_ENTERPRISE_CC</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -330,6 +483,59 @@ What about queue time?</note>
     </attributes>
   </connection>
   <connection>
+    <name>nyhxmxdp</name>
+    <server>${DB_PRD_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_PRD_MAXDAT_NAME}</database>
+    <port>${DB_PRD_MAXDAT_PORT}</port>
+    <username>${DB_PRD_MAXDAT_USER}</username>
+    <password>${DB_PRD_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_PRD_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA=MAXDAT;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYHXMXP</name>
+    <server>nyhxmxp.maximus.com</server>
+    <type>ORACLE</type>
+    <access>ODBC</access>
+    <database>NYHXMXP</database>
+    <port>1557</port>
+    <username>lg74078</username>
+    <password>Encrypted 2be98afc86aa7f2e4a81da6699ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>OLTP_SOURCE</name>
     <server>${DB_OLTP_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -346,15 +552,46 @@ What about queue time?</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ETK_MAXIMUS_WC_PROD2;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
+    <name>TESTLOCALCO</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>TESTLOCALCO</database>
+    <port>1521</port>
+    <username>system</username>
+    <password>Encrypted 2be98afc86aa7c1a3ae14bd45cd97bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>WFM</name>
     <server/>
-    <type>ORACLE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_WFM_SOURCE}</database>
     <port>1521</port>
@@ -367,6 +604,7 @@ What about queue time?</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -374,7 +612,27 @@ What about queue time?</note>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Lookup Site Dim</from><to>Lookup Group Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>No Agent Dim Record</to><enabled>Y</enabled> </hop>  <hop> <from>Get Stg Agent Attrs</from><to>Get Stg Supervisor ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Stg Supervisor ID</from><to>Get Stg Manager ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Supervisor Login ID</from><to>Get Manager Login ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Stg Manager ID</from><to>Get Supervisor Login ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Supervisor</from><to>Lookup Manager</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Agent Dim</from><to>Lookup Supervisor</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Group Dim</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Get Manager Login ID</from><to>Lookup Date Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Date Dim</from><to>Get Project Name</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project Name</from><to>Get Project ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Project Targets Dim</from><to>Lookup Site Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Manager</from><to>Lookup Project Targets Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Hard Code Interval Metrics</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project ID</from><to>Get Program ID</to><enabled>Y</enabled> </hop>  <hop> <from>Hard Code Interval Metrics</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Insert &#47; Update Call CC_F_AGENT_BY_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by AGENT_CALLS_DT, AGENT_ID</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by WORK_DATE, AGENT_ID</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join</from><to>Calculate Handle Time</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Handle Time</from><to>Reformat AGENT_CALLS_DT</to><enabled>Y</enabled> </hop>  <hop> <from>Reformat AGENT_CALLS_DT</from><to>Get Stg Agent Attrs</to><enabled>Y</enabled> </hop>  <hop> <from>Get Program ID</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing) 2</from><to>Lookup Agent Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Get ACD Agent Activity by date range</from><to>Dummy (do nothing) 3</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing) 3</from><to>Sort by AGENT_CALLS_DT, AGENT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Agent Workday by date range</from><to>Dummy (do nothing) 4</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing) 4</from><to>Sort by WORK_DATE, AGENT_ID</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Lookup Site Dim</from><to>Lookup Group Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>No Agent Dim Record</to><enabled>Y</enabled> </hop>  <hop> <from>Get Supervisor Login ID</from><to>Get Manager Login ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Supervisor</from><to>Lookup Manager</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Agent Dim</from><to>Lookup Supervisor</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Group Dim</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project Name</from><to>Get Project ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Project Targets Dim</from><to>Lookup Site Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Manager</from><to>Lookup Project Targets Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project ID</from><to>Get Program ID</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by AGENT_CALLS_DT, AGENT_ID</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by WORK_DATE, AGENT_ID</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing) 2</from><to>Lookup Agent Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by D_DATE, AGENT_ID</from><to>Merge Join 2</to><enabled>Y</enabled> </hop>  <hop> <from>Get Agent Workday by date range</from><to>Sort by WORK_DATE, AGENT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get ACD Agent Activity by date range</from><to>Sort by AGENT_CALLS_DT, AGENT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Remove Extra Fields</from><to>Calculate Handle Time</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Supervisor ID</from><to>Database join  - Get Manager ID</to><enabled>Y</enabled> </hop>  <hop> <from>Database join  - Get Manager ID</from><to>Get Supervisor Login ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Program ID</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Get Manager Login ID</from><to>Get Project Name</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Handle Time</from><to>Lookup Date Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Get Active Agents on the Roster</from><to>Sort by D_DATE, AGENT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Date Dim</from><to>Database join - Get Group Name</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Group Name</from><to>If GROUP_NAME is null</to><enabled>Y</enabled> </hop>  <hop> <from>If GROUP_NAME is null</from><to>Get Stg Agent Attrs</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_COUNTRY</from><to>Lookup D_STATE</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_DISTRICT</from><to>Lookup D_COUNTRY</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_PROVINCE</from><to>Lookup D_REGION</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_REGION</from><to>Lookup D_DISTRICT</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_STATE</from><to>Lookup D_GEOGRAPHY_MASTER</to><enabled>Y</enabled> </hop>  <hop> <from>Get Stg Agent Attrs</from><to>Get C_PROJECT_CONFIG</to><enabled>Y</enabled> </hop>  <hop> <from>Get C_PROJECT_CONFIG</from><to>Lookup D_PROVINCE</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_GEOGRAPHY_MASTER</from><to>Database join - Get Supervisor ID</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Default when NULL</to><enabled>Y</enabled> </hop>  <hop> <from>Default when NULL</from><to>I&#47;U CC_F_AGENT_BY_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>Rename column Agent_ID</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>Rename column Agent_ID_1</to><enabled>Y</enabled> </hop>  <hop> <from>Rename column Agent_ID</from><to>Append streams</to><enabled>Y</enabled> </hop>  <hop> <from>Rename column Agent_ID_1</from><to>Append streams</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join</from><to>Filter rows 2</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join 2</from><to>Remove Extra Fields</to><enabled>Y</enabled> </hop>  <hop> <from>Append streams</from><to>Sort by WORK_DATE, NEW_AGENT_ID </to><enabled>Y</enabled> </hop>  <hop> <from>Sort by WORK_DATE, NEW_AGENT_ID </from><to>Merge Join 2</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Append streams</name>
+    <type>Append</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<head_name>Rename column Agent_ID</head_name>
+<tail_name>Rename column Agent_ID_1</tail_name>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1020</xloc>
+      <yloc>954</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Calculate Handle Time</name>
     <type>Calculator</type>
@@ -401,15 +659,15 @@ What about queue time?</note>
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>723</xloc>
-      <yloc>618</yloc>
+      <xloc>782</xloc>
+      <yloc>1140</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Database join  - Get Manager ID</name>
+    <type>DBJoin</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -417,10 +675,287 @@ What about queue time?</note>
            <method>none</method>
            <schema_name/>
            </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>with min_pk as
+(
+select  agent_id, min(agent_supervisor_id) as agent_supervisor_id
+from cc_s_agent_supervisor
+where record_eff_dt &lt;= ?
+and record_end_dt &gt;= ?
+group by agent_id
+order by agent_id
+)
+select supervisor_agent_id as manager_agent_id
+from cc_s_agent_supervisor s, min_pk m
+where s.agent_supervisor_id = m.agent_supervisor_id
+and s.agent_id = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>SUPERVISOR_AGENT_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1010</xloc>
-      <yloc>1096</yloc>
+      <xloc>1096</xloc>
+      <yloc>1412</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get Group Name</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>with min_pk as
+(
+select agent_id, min(agent_group_id) as agent_group_id
+from cc_s_agent_group
+where record_eff_dt &lt;= ?
+and record_end_dt &gt;= ?
+group by agent_id
+order by agent_id
+)
+select group_name
+from cc_s_agent_group ag, min_pk m
+where ag.agent_group_id = m.agent_group_id
+and ag.agent_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>AGENT_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>135</xloc>
+      <yloc>1235</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get Supervisor ID</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>with min_pk as
+(
+select  agent_id, min(agent_supervisor_id) as agent_supervisor_id
+from cc_s_agent_supervisor
+where record_eff_dt &lt;= ?
+and record_end_dt &gt;= ?
+group by agent_id
+order by agent_id
+)
+select supervisor_agent_id
+from cc_s_agent_supervisor s, min_pk m
+where s.agent_supervisor_id = m.agent_supervisor_id
+and s.agent_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>D_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>AGENT_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1026</xloc>
+      <yloc>1308</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Default when NULL</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>AFTER_CALL_WORK_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ACD_CALLS_COUNT</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ACD_TALK_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>HANDLE_TIME_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>INTERNAL_CALLS_COUNT</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>INTERNAL_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>EXTERNAL_CALLS_COUNT</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>EXTERNAL_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>HOLD_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>RING_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>LOGIN_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>IDLE_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>NOT_READY_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>TALK_RESERVE_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>PREDICTIVE_TALK_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>PREVIEW_TALK_SECONDS</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>PREDICTIVE_CALLS_COUNT</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>PREVIEW_CALLS_COUNT</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>BREAK_TIME</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>CONSULTATION_TIME</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>WALKAWAY_TIME</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>BUSYONDNTIME</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ACTUAL_SHIFT_MINUTES</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ACTUAL_OVERTIME_MINUTES</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1533</xloc>
+      <yloc>1671</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -437,44 +972,8 @@ What about queue time?</note>
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>514</xloc>
-      <yloc>981</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing) 3</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>305</xloc>
-      <yloc>532</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing) 4</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>307</xloc>
-      <yloc>649</yloc>
+      <xloc>1550</xloc>
+      <yloc>1433</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -489,7 +988,7 @@ What about queue time?</note>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Hard Code Interval Metrics</send_true_to>
+<send_true_to>Default when NULL</send_true_to>
 <send_false_to>No Agent Dim Record</send_false_to>
     <compare>
 <condition>
@@ -513,8 +1012,36 @@ What about queue time?</note>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
-      <yloc>1032</yloc>
+      <xloc>1424</xloc>
+      <yloc>1559</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Rename column Agent_ID</send_true_to>
+<send_false_to>Rename column Agent_ID_1</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>AGENT_ID</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>696</xloc>
+      <yloc>977</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -554,6 +1081,8 @@ What about queue time?</note>
 , SUM(CONSULTATION_TIME) AS CONSULTATION_TIME
 , SUM(WALKAWAY_TIME) AS WALKAWAY_TIME
 , SUM(BUSYONDNTIME) AS BUSYONDNTIME
+, SUM(SHORT_CALLS) AS SHORT_CALLS
+, SUM(CALLS_RETURNED_TO_QUEUE) AS CALLS_RETURNED_TO_QUEUE
 FROM CC_S_ACD_AGENT_ACTIVITY
 WHERE AGENT_CALLS_DT BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) AND TO_DATE(&apos;${endDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;)
 GROUP BY   TRUNC(AGENT_CALLS_DT, &apos;dd&apos;), AGENT_ID</sql>
@@ -564,8 +1093,43 @@ GROUP BY   TRUNC(AGENT_CALLS_DT, &apos;dd&apos;), AGENT_ID</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>127</xloc>
-      <yloc>560</yloc>
+      <xloc>197</xloc>
+      <yloc>918</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Active Agents on the Roster</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>WITH DATES AS (
+	SELECT D_DATE
+	FROM CC_D_DATES
+	WHERE D_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) AND TO_DATE(&apos;${endDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;)
+)
+SELECT D_DATE, AGENT_ID
+FROM CC_S_AGENT, DATES
+WHERE (
+	HIRE_DATE &lt;= D_DATE
+	AND (TERMINATION_DATE IS NULL OR TERMINATION_DATE &gt;= D_DATE)
+)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>190</xloc>
+      <yloc>800</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -598,8 +1162,85 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>118</xloc>
-      <yloc>688</yloc>
+      <xloc>197</xloc>
+      <yloc>1047</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get C_PROJECT_CONFIG</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_C_PROJECT_CONFIG</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROJECT_CONFIG_ID</name>
+        <field>PROJECT_CONFIG_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROJECT_NAME</name>
+        <rename>PROJECT_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROGRAM_NAME</name>
+        <rename>PROGRAM_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>REGION_NAME</name>
+        <rename>REGION_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>STATE_NAME</name>
+        <rename>STATE_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROVINCE_NAME</name>
+        <rename>PROVINCE_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>DISTRICT_NAME</name>
+        <rename>DISTRICT_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>COUNTRY_NAME</name>
+        <rename>COUNTRY_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>358</xloc>
+      <yloc>1260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -639,8 +1280,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>537</xloc>
-      <yloc>886</yloc>
+      <xloc>1256</xloc>
+      <yloc>1410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -680,8 +1321,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>814</xloc>
-      <yloc>915</yloc>
+      <xloc>1470</xloc>
+      <yloc>1309</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -721,8 +1362,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>782</yloc>
+      <xloc>1383</xloc>
+      <yloc>1414</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -768,8 +1409,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>686</xloc>
-      <yloc>888</yloc>
+      <xloc>1321</xloc>
+      <yloc>1308</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -785,7 +1426,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <cache>N</cache>
+    <cache>Y</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
@@ -813,12 +1454,6 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <type>String</type>
       </value>
       <value>
-        <name>AGENT_GROUP</name>
-        <rename>AGENT_GROUP</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
         <name>PROJECT_CONFIG_ID</name>
         <rename>PROJECT_CONFIG_ID</rename>
         <default/>
@@ -827,90 +1462,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>337</xloc>
-      <yloc>782</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Stg Manager ID</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <cache>Y</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>CC_S_AGENT_SUPERVISOR</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>SUPERVISOR_AGENT_ID</name>
-        <field>AGENT_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>SUPERVISOR_AGENT_ID</name>
-        <rename>MANAGER_AGENT_ID</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>382</xloc>
-      <yloc>881</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Stg Supervisor ID</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <cache>Y</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>CC_S_AGENT_SUPERVISOR</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>AGENT_ID</name>
-        <field>AGENT_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>SUPERVISOR_AGENT_ID</name>
-        <rename>SUPERVISOR_AGENT_ID</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>231</xloc>
-      <yloc>881</yloc>
+      <xloc>249</xloc>
+      <yloc>1348</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -950,45 +1503,14 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>475</xloc>
-      <yloc>781</yloc>
+      <xloc>1176</xloc>
+      <yloc>1309</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Hard Code Interval Metrics</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>GEOGRAPHY_MASTER_ID</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>1</nullif>
-        <length>0</length>
-        <precision>0</precision>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>883</xloc>
-      <yloc>1144</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Insert &#47; Update Call CC_F_AGENT_BY_DATE</name>
+    <name>I&#47;U CC_F_AGENT_BY_DATE</name>
     <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
@@ -1015,95 +1537,59 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <condition>=</condition>
         <name2/>
       </key>
-      <key>
-        <name>PROJECT_TARGETS_DIM_TECH</name>
-        <field>D_PROJECT_TARGETS_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>PROGRAM_ID</name>
-        <field>D_PROGRAM_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>SUPE_DIM_TECH</name>
-        <field>SUPERVISOR_D_AGENT_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>MGR_DIM_TECH</name>
-        <field>MANAGER_D_AGENT_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>GROUP_DIM_TECH</name>
-        <field>D_GROUP_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>GEOGRAPHY_MASTER_ID</name>
-        <field>D_GEOGRAPHY_MASTER_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
       <value>
-        <name>LOGIN_SECONDS</name>
-        <rename>LOGIN_SECONDS</rename>
+        <name>D_AGENT_ID</name>
+        <rename>AGENT_DIM_TECH</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>D_DATE_ID</name>
+        <rename>D_DATE_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>D_PROJECT_TARGETS_ID</name>
+        <rename>PROJECT_TARGETS_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>EXTERNAL_SECONDS</name>
-        <rename>EXTERNAL_SECONDS</rename>
+        <name>D_PROGRAM_ID</name>
+        <rename>PROGRAM_ID</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>INTERNAL_SECONDS</name>
-        <rename>INTERNAL_SECONDS</rename>
+        <name>D_GEOGRAPHY_MASTER_ID</name>
+        <rename>GEOGRAPHY_MASTER_ID_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>IDLE_SECONDS</name>
-        <rename>IDLE_SECONDS</rename>
+        <name>D_GROUP_ID</name>
+        <rename>GROUP_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>NOT_READY_SECONDS</name>
-        <rename>NOT_READY_SECONDS</rename>
+        <name>D_SITE_ID</name>
+        <rename>SITE_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>HOLD_SECONDS</name>
-        <rename>HOLD_SECONDS</rename>
+        <name>SUPERVISOR_D_AGENT_ID</name>
+        <rename>SUPE_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>TALK_RESERVE_SECONDS</name>
-        <rename>TALK_RESERVE_SECONDS</rename>
+        <name>MANAGER_D_AGENT_ID</name>
+        <rename>MGR_DIM_TECH</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>RING_SECONDS</name>
-        <rename>RING_SECONDS</rename>
+        <name>HANDLE_CALLS_COUNT</name>
+        <rename>ACD_CALLS_COUNT</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>PREDICTIVE_TALK_SECONDS</name>
-        <rename>PREDICTIVE_TALK_SECONDS</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>PREVIEW_TALK_SECONDS</name>
-        <rename>PREVIEW_TALK_SECONDS</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>EXTERNAL_CALLS_COUNT</name>
-        <rename>EXTERNAL_CALLS_COUNT</rename>
+        <name>HANDLE_TIME_SECONDS</name>
+        <rename>HANDLE_TIME_SECONDS</rename>
         <update>Y</update>
       </value>
       <value>
@@ -1112,13 +1598,38 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <update>Y</update>
       </value>
       <value>
-        <name>PREDICTIVE_CALLS_COUNT</name>
-        <rename>PREDICTIVE_CALLS_COUNT</rename>
+        <name>INTERNAL_SECONDS</name>
+        <rename>INTERNAL_SECONDS</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>PREVIEW_CALLS_COUNT</name>
-        <rename>PREVIEW_CALLS_COUNT</rename>
+        <name>EXTERNAL_CALLS_COUNT</name>
+        <rename>EXTERNAL_CALLS_COUNT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>EXTERNAL_SECONDS</name>
+        <rename>EXTERNAL_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>HOLD_SECONDS</name>
+        <rename>HOLD_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RING_SECONDS</name>
+        <rename>RING_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>TALK_SECONDS</name>
+        <rename>ACD_TALK_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>WRAP_SECONDS</name>
+        <rename>AFTER_CALL_WORK_SECONDS</rename>
         <update>Y</update>
       </value>
       <value>
@@ -1137,46 +1648,6 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <update>Y</update>
       </value>
       <value>
-        <name>WRAP_SECONDS</name>
-        <rename>AFTER_CALL_WORK_SECONDS</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>D_AGENT_ID</name>
-        <rename>AGENT_DIM_TECH</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>SUPERVISOR_D_AGENT_ID</name>
-        <rename>SUPE_DIM_TECH</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>MANAGER_D_AGENT_ID</name>
-        <rename>MGR_DIM_TECH</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>D_DATE_ID</name>
-        <rename>D_DATE_ID</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>D_PROJECT_TARGETS_ID</name>
-        <rename>PROJECT_TARGETS_DIM_TECH</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>D_GEOGRAPHY_MASTER_ID</name>
-        <rename>GEOGRAPHY_MASTER_ID</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>D_SITE_ID</name>
-        <rename>SITE_DIM_TECH</rename>
-        <update>Y</update>
-      </value>
-      <value>
         <name>ACTUAL_SHIFT_MINUTES</name>
         <rename>ACTUAL_SHIFT_MINUTES</rename>
         <update>Y</update>
@@ -1187,28 +1658,43 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <update>Y</update>
       </value>
       <value>
-        <name>D_GROUP_ID</name>
-        <rename>GROUP_DIM_TECH</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>D_PROGRAM_ID</name>
-        <rename>PROGRAM_ID</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>HANDLE_CALLS_COUNT</name>
-        <rename>ACD_CALLS_COUNT</rename>
+        <name>LOGIN_SECONDS</name>
+        <rename>LOGIN_SECONDS</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>TALK_SECONDS</name>
-        <rename>ACD_TALK_SECONDS</rename>
+        <name>IDLE_SECONDS</name>
+        <rename>IDLE_SECONDS</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>HANDLE_TIME_SECONDS</name>
-        <rename>HANDLE_TIME_SECONDS</rename>
+        <name>NOT_READY_SECONDS</name>
+        <rename>NOT_READY_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>TALK_RESERVE_SECONDS</name>
+        <rename>TALK_RESERVE_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PREDICTIVE_TALK_SECONDS</name>
+        <rename>PREDICTIVE_TALK_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PREVIEW_TALK_SECONDS</name>
+        <rename>PREVIEW_TALK_SECONDS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PREDICTIVE_CALLS_COUNT</name>
+        <rename>PREDICTIVE_CALLS_COUNT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PREVIEW_CALLS_COUNT</name>
+        <rename>PREVIEW_CALLS_COUNT</rename>
         <update>Y</update>
       </value>
       <value>
@@ -1231,11 +1717,67 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
         <rename>BUSYONDNTIME</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>AGENT_LOGIN_ID</name>
+        <rename>LOGIN_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SUPERVISOR_AGENT_LOGIN_ID</name>
+        <rename>SUPE_LOGIN_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MANAGER_AGENT_LOGIN_ID</name>
+        <rename>MGR_LOGIN_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SHORT_CALLS</name>
+        <rename>SHORT_CALLS</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CALLS_RETURNED_TO_QUEUE</name>
+        <rename>CALLS_RETURNED_TO_QUEUE</rename>
+        <update>Y</update>
+      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1125</xloc>
-      <yloc>1144</yloc>
+      <xloc>1763</xloc>
+      <yloc>1670</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>If GROUP_NAME is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>GROUP_NAME</name>
+        <value>Unknown</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>86</xloc>
+      <yloc>1347</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1261,7 +1803,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <lookup>LOGIN_ID</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1269,6 +1811,16 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <name>AGENT_DIM_ID</name>
           <lookup>D_AGENT_ID</lookup>
           <update>BigNumber</update>
+        </field>
+        <field>
+          <name>AGENT_RECORD_EFF_DT</name>
+          <lookup>RECORD_EFF_DT</lookup>
+          <update>Date</update>
+        </field>
+        <field>
+          <name>AGENT_RECORD_END_DT</name>
+          <lookup>RECORD_END_DT</lookup>
+          <update>Date</update>
         </field>
         <return>
           <name>D_AGENT_ID</name>
@@ -1288,8 +1840,278 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>227</xloc>
-      <yloc>1036</yloc>
+      <xloc>947</xloc>
+      <yloc>1563</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_COUNTRY</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_COUNTRY</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>COUNTRY_NAME</name>
+        <field>COUNTRY_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>COUNTRY_ID</name>
+        <rename>COUNTRY_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>689</xloc>
+      <yloc>1255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_DISTRICT</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_DISTRICT</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>DISTRICT_NAME</name>
+        <field>DISTRICT_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>DISTRICT_ID</name>
+        <rename>DISTRICT_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>607</xloc>
+      <yloc>1361</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_GEOGRAPHY_MASTER</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_GEOGRAPHY_MASTER</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>COUNTRY_ID_DIM_TECH</name>
+        <field>COUNTRY_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>STATE_ID_DIM_TECH</name>
+        <field>STATE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>PROVINCE_ID_DIM_TECH</name>
+        <field>PROVINCE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>DISTRICT_ID_DIM_TECH</name>
+        <field>DISTRICT_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>REGION_ID_DIM_TECH</name>
+        <field>REGION_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>GEOGRAPHY_MASTER_ID</name>
+        <rename>GEOGRAPHY_MASTER_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>887</xloc>
+      <yloc>1255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_PROVINCE</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PROVINCE</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROVINCE_NAME</name>
+        <field>PROVINCE_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROVINCE_ID</name>
+        <rename>PROVINCE_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>431</xloc>
+      <yloc>1361</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_REGION</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_REGION</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>REGION_NAME</name>
+        <field>REGION_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>REGION_ID</name>
+        <rename>REGION_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>521</xloc>
+      <yloc>1255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_STATE</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_STATE</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>STATE_NAME</name>
+        <field>STATE_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>STATE_ID</name>
+        <rename>STATE_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>770</xloc>
+      <yloc>1361</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1315,7 +2137,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <fail_on_multiple>Y</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>AGENT_CALLS_DT</name>
+        <name>D_DATE</name>
         <field>D_DATE</field>
         <condition>=</condition>
         <name2/>
@@ -1329,8 +2151,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>616</xloc>
-      <yloc>784</yloc>
+      <xloc>473</xloc>
+      <yloc>1139</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1352,11 +2174,11 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <update>N</update>
       <fields>
         <key>
-          <name>AGENT_GROUP</name>
+          <name>GROUP_NAME</name>
           <lookup>GROUP_NAME</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1383,8 +2205,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>632</xloc>
-      <yloc>1141</yloc>
+      <xloc>1352</xloc>
+      <yloc>1668</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1410,7 +2232,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <lookup>LOGIN_ID</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1437,8 +2259,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>393</xloc>
-      <yloc>1032</yloc>
+      <xloc>1113</xloc>
+      <yloc>1559</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1464,7 +2286,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <lookup>PROJECT_ID</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1491,8 +2313,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>470</xloc>
-      <yloc>1146</yloc>
+      <xloc>1190</xloc>
+      <yloc>1673</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1518,7 +2340,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <lookup>SITE_NAME</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1545,8 +2367,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>556</xloc>
-      <yloc>1032</yloc>
+      <xloc>1276</xloc>
+      <yloc>1559</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1572,7 +2394,7 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
           <lookup>LOGIN_ID</lookup>
         </key>
         <date>
-          <name>AGENT_CALLS_DT</name>
+          <name>D_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1599,8 +2421,8 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>297</xloc>
-      <yloc>1141</yloc>
+      <xloc>1017</xloc>
+      <yloc>1668</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1609,13 +2431,13 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     <name>Merge Join</name>
     <type>MergeJoin</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>LEFT OUTER</join_type>
+<join_type>FULL OUTER</join_type>
 <step1>Sort by AGENT_CALLS_DT, AGENT_ID</step1>
 <step2>Sort by WORK_DATE, AGENT_ID</step2>
     <keys_1>
@@ -1628,8 +2450,37 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>591</xloc>
-      <yloc>619</yloc>
+      <xloc>558</xloc>
+      <yloc>976</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge Join 2</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Sort by D_DATE, AGENT_ID</step1>
+<step2>Sort by WORK_DATE, NEW_AGENT_ID </step2>
+    <keys_1>
+      <key>D_DATE</key>
+      <key>AGENT_ID</key>
+    </keys_1>
+    <keys_2>
+      <key>WORK_DATE</key>
+      <key>NEW_AGENT_ID</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1151</xloc>
+      <yloc>804</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1679,14 +2530,14 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>846</xloc>
-      <yloc>1032</yloc>
+      <xloc>1607</xloc>
+      <yloc>1559</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Reformat AGENT_CALLS_DT</name>
+    <name>Remove Extra Fields</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -1696,22 +2547,298 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
            <schema_name/>
            </partitioning>
     <fields>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>AGENT_CALLS_DT</name>
-        <rename>AGENT_CALLS_DT</rename>
-        <type>Date</type>
+      <remove>        <name>AGENT_CALLS_DT</name>
+      </remove>      <remove>        <name>WORK_DATE</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1153</xloc>
+      <yloc>1129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Rename column Agent_ID</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>AGENT_ID</name>
+        <rename>NEW_AGENT_ID</rename>
         <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask>yyyy-MM-dd HH:mm:ss</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
+      </field>      <field>        <name>AGENT_CALLS_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LOGIN_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>EXTERNAL_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERNAL_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>IDLE_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NOT_READY_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACD_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HOLD_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AFTER_CALL_WORK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TALK_RESERVE_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RING_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREDICTIVE_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREVIEW_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACD_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>EXTERNAL_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERNAL_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREDICTIVE_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREVIEW_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BREAK_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONSULTATION_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WALKAWAY_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BUSYONDNTIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SHORT_CALLS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CALLS_RETURNED_TO_QUEUE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WORK_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FIRST_LOGIN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_LOGOUT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SCHEDULED_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACTUAL_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACTUAL_OVERTIME_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>725</xloc>
-      <yloc>704</yloc>
+      <xloc>821</xloc>
+      <yloc>878</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Rename column Agent_ID_1</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>AGENT_ID_1</name>
+        <rename>NEW_AGENT_ID</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AGENT_CALLS_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LOGIN_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>EXTERNAL_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERNAL_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>IDLE_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NOT_READY_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACD_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HOLD_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AFTER_CALL_WORK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TALK_RESERVE_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RING_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREDICTIVE_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREVIEW_TALK_SECONDS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACD_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>EXTERNAL_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERNAL_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREDICTIVE_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREVIEW_CALLS_COUNT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BREAK_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONSULTATION_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WALKAWAY_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BUSYONDNTIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SHORT_CALLS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CALLS_RETURNED_TO_QUEUE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WORK_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FIRST_LOGIN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_LOGOUT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SCHEDULED_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACTUAL_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACTUAL_OVERTIME_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>845</xloc>
+      <yloc>1033</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1747,8 +2874,45 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>464</xloc>
-      <yloc>560</yloc>
+      <xloc>424</xloc>
+      <yloc>918</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by D_DATE, AGENT_ID</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>D_DATE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>AGENT_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>430</xloc>
+      <yloc>800</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1784,8 +2948,45 @@ WHERE WORK_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>467</xloc>
-      <yloc>689</yloc>
+      <xloc>424</xloc>
+      <yloc>1047</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by WORK_DATE, NEW_AGENT_ID </name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>WORK_DATE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>NEW_AGENT_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1083</xloc>
+      <yloc>892</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

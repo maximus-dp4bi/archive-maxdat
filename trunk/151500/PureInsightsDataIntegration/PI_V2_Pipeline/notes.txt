@@ -1,0 +1,11 @@
+Filename:  2021-12-part-00002.snappy.parquet (17 records)
+Command:  copy into raw.conversation_attributes (projectid, projectname, ingestiondmloperation, ingestionsource, ingestionDateTime, raw) from (select '221','DC PDMS','INSERT','2021-12-part-00002.snappy.parquet',convert_timezone('UTC','America/New_York',sysdate()), * from @PI_V2_221/conversation_attributes/) PATTERN='.*2021-12-part-00002.snappy.parquet' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+Start Time:  2022-03-29 14:00:15.307
+End Time:  2022-03-29 14:01:29.112
+
+Filename:  015dce54-a74c-4512-b65e-76d9641c2d36.parquet (8422 records)
+Commamd:  copy into raw.user_roles (projectid, projectname, ingestiondmloperation, ingestionsource, ingestionDateTime, raw) from (select '5555','COVERVA','INSERT','015dce54-a74c-4512-b65e-76d9641c2d36.parquet',convert_timezone('UTC','America/New_York',sysdate()), * from @PI_V2_5555/user_roles/) PATTERN='.*015dce54-a74c-4512-b65e-76d9641c2d36.parquet' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+Start Time:  2022-03-31 16:00:35.842
+End Time:  2022-03-31 16:01:26.483
+
+

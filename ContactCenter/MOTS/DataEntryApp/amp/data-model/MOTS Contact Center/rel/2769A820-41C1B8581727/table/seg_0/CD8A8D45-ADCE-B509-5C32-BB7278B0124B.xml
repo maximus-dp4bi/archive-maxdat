@@ -1,0 +1,370 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CD8A8D45-ADCE-B509-5C32-BB7278B0124B" name="S_METRIC">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>F_METRIC contains the actual, forecast and target values of each metric that has been reported for a given project, program, geography and reporting period combination.  &lt;br/&gt;&lt;br/&gt;The data sources for this fact are the AMP data collection template and MAXDAT Contact Center enabled projects.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="S_METRIC_ID" id="C5AC0CBB-817F-AC53-50CB-8994E7FFD682">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 15:04:34 UTC</createdTime>
+<comment>PK</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A0D2765A-68C3-C83A-C22A-C67464CCC648</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_METRIC_DEFINITION_ID" id="052C551F-D770-64BF-9BE0-09B431091D0B">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>FK to D_METRIC_DEFINITION.  This column indicates which metric definition the actual, forecast and target values are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A0D2765A-68C3-C83A-C22A-C67464CCC648</domain>
+<delegate>EB14BBE8-EF95-7148-54F0-6D7055B9BD65</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<generateConstraintInDDL>NO</generateConstraintInDDL>
+<associations>
+<colAssociation fkAssociation="66AE7B97-3D06-0B2E-1B15-348012338F65" referredColumn="EB14BBE8-EF95-7148-54F0-6D7055B9BD65"/>
+</associations>
+</Column>
+<Column name="S_ACTUALS_PROJECT_REPORT_ID" id="267E3D78-B09B-7EA9-5B97-C80F941156CA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>FK to D_PROJECT_REPORT_HEADER_ID.  This column indicates which project reporting period header record the metric is associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A0D2765A-68C3-C83A-C22A-C67464CCC648</domain>
+<delegate>F80BDDA6-DCD6-3DB6-2C3E-F77EACDBB733</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<generateConstraintInDDL>NO</generateConstraintInDDL>
+<associations>
+<colAssociation fkAssociation="84012398-A361-7F94-39BF-E576C6EC8C52" referredColumn="F80BDDA6-DCD6-3DB6-2C3E-F77EACDBB733"/>
+</associations>
+</Column>
+<Column name="S_FORECASTS_PROJECT_REPORT_ID" id="C2C8B348-3CC9-E88F-5B4C-291CC5735086">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>FK to D_PROJECT_REPORT_HEADER_ID.  This column indicates which project reporting period header record the metric is associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A0D2765A-68C3-C83A-C22A-C67464CCC648</domain>
+<delegate>F80BDDA6-DCD6-3DB6-2C3E-F77EACDBB733</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<generateConstraintInDDL>NO</generateConstraintInDDL>
+<associations>
+<colAssociation fkAssociation="E4E73732-C859-34D1-C110-DF3C82AE3E7F" referredColumn="F80BDDA6-DCD6-3DB6-2C3E-F77EACDBB733"/>
+</associations>
+</Column>
+<Column name="APPROVED" id="E0A6C924-623C-DFEE-40C5-DFCCEE947A53">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This column contains a flag indicating whether or not the metric data has been approved.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APPROVED_DATE" id="68EB7F2B-AD0C-D5EC-BB7D-D9A92CE56FCE">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This column contains the date on which the metric data was approved.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_VALUE" id="A16B237C-1C66-0230-0832-C2C8A1F3F4DA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the measured value for this metric, project and reporting period combination.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_RECEIVED_DATE" id="CBE58AAA-30C8-D8A9-1E44-D7638BFF54A2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>The date that the actual value was received by MOTS.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_TREND_INDICATOR" id="0A4868C1-EB19-5CE5-21C3-373C58BF7D7D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_FORECAST_VARIANCE_FRMT" id="B5BC6933-59E3-5C90-4348-63D1B82D3F92">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FORECAST_VALUE" id="DD331A96-612D-34ED-90FB-AA0BB23C3CE9">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the value of the estimated value for this metric, project and reporting period combination.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FORECAST_RECEIVED_DATE" id="BDD00B1A-D80B-FFD0-53D0-861455D63B81">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>The date that the forecast value was received by MOTS.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TARGET_VALUE" id="F6BEF224-0A10-FA5A-0C7B-057359CDA4C5">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the the apirational value for this metric, project and reporting period combination.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TARGET_RECEIVED_DATE" id="4298857D-9EB0-D2D2-09EB-ECC9A2F44262">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>The date that the target value was received by MOTS.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMMENTS" id="5092F685-E21A-6381-B945-ACD11B2B15B5">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the comments associated with the actual value of the metric.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FORECAST_COMMENTS" id="21C64D45-B237-A91E-48ED-06CBD6C30D9D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the comments associated with the forecast value of the metric.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TARGET_COMMENTS" id="3056B6A5-F329-81D3-779D-18E0D9D08A06">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field contains the comments associated with the target value of the metric.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATE_DATE" id="3EFD4B13-3138-712F-C338-C7912677B525">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>The date the record was created.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="C5FB29BD-BF73-2D94-F641-4EF1AD34EEBC">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field identifies which user last created this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_MODIFIED_DATE" id="A69AF024-D44C-414D-2C91-4CC56BD3A448">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>The date the record was last modified.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_BY" id="EBBCE1D6-D5C6-E62A-5126-5423BAC86379">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<comment>This field identifies which user last updated this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_VALUE_NOT_SUPPLIED" id="D90ED9CA-C0F1-75A4-B456-65EEDEF79B6D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FORECAST_VALUE_NOT_SUPPLIED" id="9942DA49-301A-5D6B-67FC-00B4F96D7000">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E22E6381-16A8-4152-4B65-AF9B33FCE004" name="S_METRIC_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="C5AC0CBB-817F-AC53-50CB-8994E7FFD682"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="627A55B9-1AD6-D664-3EB2-9F57D204042F" name="S_METRIC_UN1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="052C551F-D770-64BF-9BE0-09B431091D0B"/>
+<colUsage columnID="267E3D78-B09B-7EA9-5B97-C80F941156CA"/>
+<colUsage columnID="C2C8B348-3CC9-E88F-5B4C-291CC5735086"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="24AECF52-C48E-F4DC-22D6-8140C505E716" name="S_METRIC__IDX">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 15:12:52 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="052C551F-D770-64BF-9BE0-09B431091D0B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1328CDD9-01C3-4450-0274-01A6EB27C393" name="S_METRIC__IDXv1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 15:12:52 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="267E3D78-B09B-7EA9-5B97-C80F941156CA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="29AA3195-69BB-51DE-7F03-A5DE392D6622" name="S_METRIC__IDXv2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 15:12:52 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C2C8B348-3CC9-E88F-5B4C-291CC5735086"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C7E1B837-1AE2-4EFE-881A-594B4224CEFB" name="S_METRIC_D_FORECASTS_REPORT_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C2C8B348-3CC9-E88F-5B4C-291CC5735086"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="495B329A-CF58-7FBC-856D-6901BD3947C1" name="S_METRIC_D_METRIC_DEF_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="052C551F-D770-64BF-9BE0-09B431091D0B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B9CA6424-ADD4-2E0F-F19B-3B945B6B3E64" name="S_METRIC_D_ACTUALS_REPORT_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2015-07-06 14:59:34 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="267E3D78-B09B-7EA9-5B97-C80F941156CA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

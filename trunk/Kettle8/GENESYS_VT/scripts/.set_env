@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+
+#Complete the environment - Specific to CAHCO only
+#---------------------------
+export PENTAHO_JAVA_HOME='/u01/app/appadmin/product/java/jdk1.8.0_192/'  
+
+# Set the ENV_CODE to the correct environment, dev, uat or prd
+export ENV_CODE=prd
+
+export MAXDAT_KETTLE_DIR='/u01/app/appadmin/product/pentaho_8.3/data-integration'
+
+export STCODE=VT_GENESYS
+
+export MAXDAT_ETL_PATH="/u01/maximus/maxdat-$ENV_CODE/${STCODE}"
+
+export MAXDAT_ETL_LOGS=$MAXDAT_ETL_PATH/logs
+export MAXDAT_DATA_FILES=$MAXDAT_ETL_PATH/data_extracts
+export MAXDAT_ETL_PATH=$MAXDAT_ETL_PATH/scripts
+export KETTLE_GENESYS_HOME="/u01/maximus/maxdat-$ENV_CODE/${STCODE}/config"
+PATH=$KETTLE_GENESYS_HOME/.kettle/kettle.properties:.:/u01/app/appadmin/product/pentaho/data-integration/:$PATH
+export PATH
+export KETTLE_HOME=$KETTLE_GENESYS_HOME
+
+export INIT_OK="$MAXDAT_ETL_PATH/${STCODE}_run_check_load.txt"
+export INIT_OK_PULL="$MAXDAT_ETL_PATH/${STCODE}_run_check_pull.txt"
+export INIT_OK_PULL_M="$MAXDAT_ETL_PATH/${STCODE}_run_check_pull_m.txt"
+export INIT_OK_PULL_W="$MAXDAT_ETL_PATH/${STCODE}_run_check_pull_w.txt"
+export INIT_OK_PULL_H="$MAXDAT_ETL_PATH/${STCODE}_run_check_pull_h.txt"
+#--------------------------

@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_Capture_OLTP4</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -47,8 +60,8 @@
     <sleep_time_full>50</sleep_time_full>
     <unique_connections>N</unique_connections>
     <feedback_shown>Y</feedback_shown>
-    <feedback_size>50000</feedback_size>
-    <using_thread_priorities>N</using_thread_priorities>
+    <feedback_size>500</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
     <shared_objects_file/>
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
@@ -149,10 +162,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Update_OLTP_Stage4</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input - WIP BPM Table</from><to>Join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>error  log - OLTP - join</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>join application</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>error log - join application</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>Sort by app_id</to><enabled>Y</enabled> </hop>  <hop> <from>input tasks</from><to>lookup tasks</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by app_id</from><to>join childcare expenses</to><enabled>Y</enabled> </hop>  <hop> <from>join childcare expenses</from><to>lookup tasks</to><enabled>Y</enabled> </hop>  <hop> <from>join childcare expenses</from><to>errorr output - childcare exp</to><enabled>Y</enabled> </hop>  <hop> <from>lookup tasks</from><to>Update_OLTP_Stage4</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Update_OLTP_Stage4</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>error log - join application</to><enabled>Y</enabled> </hop>  <hop> <from>input tasks</from><to>lookup tasks</to><enabled>Y</enabled> </hop>  <hop> <from>join childcare expenses</from><to>lookup tasks</to><enabled>Y</enabled> </hop>  <hop> <from>join childcare expenses</from><to>errorr output - childcare exp</to><enabled>Y</enabled> </hop>  <hop> <from>lookup tasks</from><to>Update_OLTP_Stage4</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>If APPLICATION_ID is null</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input - WIP BPM Table</from><to>join application</to><enabled>Y</enabled> </hop>  <hop> <from>If APPLICATION_ID is null</from><to>join childcare expenses</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Join OLTP data</name>
-    <type>DBJoin</type>
+    <name>If APPLICATION_ID is null</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -160,57 +173,22 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select  nvl(a.account_id, 0)                                          ACCOUNT_ID
-from coverage_request cr
-     join account_membership  am on cr.account_membership_id = am.account_membership_id
-     join account a              on am.account_id = a.account_id
-where cr.COVERAGE_REQUEST_ID = ?
-order by account_id</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>COV_RQST_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>260</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort by app_id</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>10000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
     <fields>
       <field>
         <name>APPLICATION_ID</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
+        <value>0</value>
+        <mask/>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>510</xloc>
+      <xloc>420</xloc>
       <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
@@ -235,6 +213,7 @@ order by account_id</sql>
 , &apos;CRITICAL&apos; as error_level
 , &apos;Coverage_request&apos; as DRIVER_TABLE_NAME
 ,  COV_RQST_ID as DRIVER_KEY_NUMBER
+,  nvl(account_id, 0)          ACCOUNT_ID
 ,  NULL as CON_NULL
 ,  &apos;Y&apos; as CON_YES
 ,  &apos;N&apos; as CON_NO
@@ -242,7 +221,6 @@ order by account_id</sql>
 ,  TO_DATE(&apos;01-JAN-1900&apos;) as DATE_DEFAULT
 FROM FLHK_ETL_ELIGIBILITY_WIP_BPM
 WHERE STAGE_DONE_DATE is null 
-order by COV_RQST_ID, ME_ID
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -251,7 +229,7 @@ order by COV_RQST_ID, ME_ID
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>70</xloc>
+      <xloc>120</xloc>
       <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
@@ -300,96 +278,15 @@ order by COV_RQST_ID, ME_ID
         <name>CHILDCARE_EXPENSE</name>
         <rename>CHILDCARE_EXPENSE</rename>
         </value>
+      <value>
+        <name>GWF_ELIG_TIMEOUT</name>
+        <rename>GWF_ELIG_TIMEOUT</rename>
+        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1030</xloc>
+      <xloc>890</xloc>
       <yloc>260</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error  log - OLTP - join</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>430</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -473,7 +370,7 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1030</xloc>
+      <xloc>890</xloc>
       <yloc>440</yloc>
       <draw>Y</draw>
       </GUI>
@@ -558,8 +455,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>380</xloc>
-      <yloc>410</yloc>
+      <xloc>280</xloc>
+      <yloc>450</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -643,7 +540,7 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>690</xloc>
+      <xloc>590</xloc>
       <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
@@ -663,9 +560,8 @@ order by COV_RQST_ID, ME_ID
     <sql>select wr.driver_key  APP_ID,
       max(wr.created_date) ASSD_RVW_ELIG
 from  WR_STATUSES_TMP wr 
-where WR.WRSTATUS_ID = (SELECT MAX(WRSTATUS_ID) from WR_STATUSES_TMP w2 
-                         WHERE wr.DRIVER_KEY = W2.driver_key)
-group by wr.driver_key</sql>
+group by wr.driver_key
+order by wr.driver_key</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -673,8 +569,8 @@ group by wr.driver_key</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>840</xloc>
-      <yloc>120</yloc>
+      <xloc>740</xloc>
+      <yloc>110</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -691,20 +587,25 @@ group by wr.driver_key</sql>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>1</rowlimit>
-    <sql>select max(ap.application_id)  APPLICATION_ID
-from    application ap         
-where account_id = ?</sql>
+    <sql>select cr.application_id 			  APPLICATION_ID,
+       CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos;
+          ELSE &apos;N&apos; 
+       END                            GWF_ELIG_TIMEOUT
+from    coverage_request cr  
+join    application ap on ap.application_id = cr.application_id       
+where coverage_request_id = ?
+</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
-        <name>ACCOUNT_ID</name>
+        <name>COV_RQST_ID</name>
         <type>Integer</type>
       </field>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>380</xloc>
+      <xloc>280</xloc>
       <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
@@ -737,7 +638,7 @@ where ai.application_id = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>690</xloc>
+      <xloc>590</xloc>
       <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
@@ -772,25 +673,13 @@ where ai.application_id = ?
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>840</xloc>
+      <xloc>740</xloc>
       <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
-      <error>
-        <source_step>Join OLTP data</source_step>
-        <target_step>error  log - OLTP - join</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
       <error>
         <source_step>Update_OLTP_Stage4</source_step>
         <target_step>error log - Update OLTP_STG</target_step>

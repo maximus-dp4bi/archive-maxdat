@@ -1,0 +1,74 @@
+select	distinct coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+--	coalesce(pa11.CustCol_17, pa12.CustCol_17)  CustCol_17,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' ' || a13.MIDDLE_INITIAL    AGENT_DISPLAY_NAME,
+	coalesce(pa11.LOGIN_ID, pa12.LOGIN_ID)  AGENT_LOGIN_ID,
+    coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME)  SITE_NAME,
+	pa11.WJXBFS1  COUNT_OF_HANDLED_CALLS,
+	pa11.WJXBFS3  TALK_SECONDS,
+    pa11.WJXBFS2  HOLD_SECONDS,
+	pa11.WJXBFS4  WRAP_SECONDS,
+	pa11.WJXBFS5  IDLE_SECONDS
+--	pa12.WJXBFS1  WJXBFS6
+from	
+( select	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a13.D_DATE  D_DATE,
+	a11.AGENT_LOGIN_ID  LOGIN_ID,
+	 a12.LAST_NAME ||', ' || a12.FIRST_NAME || ' '|| a12.MIDDLE_INITIAL || '(' || a12.LOGIN_ID|| ')'   CustCol_17,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS1,
+	sum(a11.HOLD_SECONDS)  WJXBFS2,
+	sum(a11.TALK_SECONDS)  WJXBFS3,
+	sum(a11.WRAP_SECONDS)  WJXBFS4,
+	sum(a11.IDLE_SECONDS)  WJXBFS5
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a12
+	  on 	(a11.D_AGENT_ID = a12.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_DATES	a13
+	  on 	(a11.D_DATE_ID = a13.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a14
+	  on 	(a11.D_PROJECT_TARGETS_ID = a14.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a14.PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	a13.D_DATE between To_Date('15-06-2020', 'dd-mm-yyyy') and To_Date('21-06-2020', 'dd-mm-yyyy')
+group by	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a13.D_DATE,
+	a11.AGENT_LOGIN_ID,
+	 a12.LAST_NAME ||', ' || a12.FIRST_NAME || ' '|| a12.MIDDLE_INITIAL || '(' || a12.LOGIN_ID|| ')' )	pa11
+	full outer join	
+	(	select	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a14.D_DATE  D_DATE,
+	a13.LOGIN_ID  LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'   CustCol_17,
+	sum(a11.ACTIVITY_MINUTES)  WJXBFS1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a12
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a12.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(a11.D_AGENT_ID = a13.D_AGENT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_DATES	a14
+	  on 	(a11.D_DATE_ID = a14.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.ACTIVITY_TYPE_NAME in ('ACW')
+ and a14.D_DATE between To_Date('19-04-2020', 'dd-mm-yyyy') and To_Date('25-04-2020', 'dd-mm-yyyy'))
+group by	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a14.D_DATE,
+	a13.LOGIN_ID,
+	 a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')'  )	pa12
+	  on 	(pa11.CustCol_17 = pa12.CustCol_17 and 
+	pa11.D_DATE = pa12.D_DATE and 
+	pa11.LOGIN_ID = pa12.LOGIN_ID and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.SITE_NAME = pa12.SITE_NAME)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_AGENT	a13
+	  on 	(coalesce(pa11.CustCol_17, pa12.CustCol_17) =  a13.LAST_NAME ||', ' || a13.FIRST_NAME || ' '|| a13.MIDDLE_INITIAL || '(' || a13.LOGIN_ID|| ')' )
+where coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) = 'Mass Health'
+    and coalesce(pa11.SITE_NAME, pa12.SITE_NAME) = 'Boston'

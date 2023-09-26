@@ -3,7 +3,20 @@
   <info>
     <name>Process_Letters_Updates4_5_6_From_OLTP_STG_to_WIP_STG</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -135,25 +148,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Set field value - UPD4_10</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>Set field value - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD5_10</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6</from><to>UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>Set field value - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD6_10</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -- Perfrom Update4_AND_5_AND_6</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Move All Updated Record for WIP_STG 4_5_6</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>Set field value - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Filter rows 2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows 2</from><to>Move All Updated Record for WIP_STG 4_5_6</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>N</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>145</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
+  <hop> <from>Set field value - UPD4_10</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>Set field value - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4_10</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD5_10</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6</from><to>UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>Set field value - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -- Perfrom Update4_AND_5_AND_6</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Move All Updated Record for WIP_STG 4_5_6</from><to>Table output - Update  Error</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>Set field value - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>UPD5_10</from><to>Filter rows - UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter updates</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter updates</from><to>Move All Updated Record for WIP_STG 4_5_6</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD6_10</from><to>Filter updates</to><enabled>Y</enabled> </hop>  <hop> <from>UPD6_10</from><to>Filter updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6</from><to>Filter updates</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Dummy (do nothing) 2</name>
     <type>Dummy</type>
@@ -213,8 +208,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>134</xloc>
-      <yloc>145</yloc>
+      <xloc>130</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -260,8 +255,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>348</xloc>
-      <yloc>145</yloc>
+      <xloc>350</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -277,7 +272,7 @@
            <schema_name/>
            </partitioning>
 <send_true_to>UPD6_10</send_true_to>
-<send_false_to>Dummy (do nothing)</send_false_to>
+<send_false_to>Filter updates</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -300,14 +295,14 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>603</xloc>
-      <yloc>145</yloc>
+      <xloc>610</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows 2</name>
+    <name>Filter updates</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -328,8 +323,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>933</xloc>
-      <yloc>144</yloc>
+      <xloc>930</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -406,8 +401,8 @@
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>932</xloc>
-      <yloc>237</yloc>
+      <xloc>930</xloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -450,8 +445,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>134</xloc>
-      <yloc>375</yloc>
+      <xloc>130</xloc>
+      <yloc>370</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -538,8 +533,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>603</xloc>
-      <yloc>385</yloc>
+      <xloc>610</xloc>
+      <yloc>390</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -767,19 +762,12 @@ where wstg.instance_status = &apos;ACTIVE&apos;
    <function>=</function>
    <rightvalue>NEW_TYPE</rightvalue>
    </condition>
-  <condition>
-   <negated>N</negated>
-   <operator>AND</operator>
-   <leftvalue>OLD_CREATE_DATE</leftvalue>
-   <function>&gt;</function>
-   <rightvalue>NEW_CREATE_DATE</rightvalue>
-   </condition>
   </conditions>
  </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>348</xloc>
+      <xloc>350</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
@@ -796,7 +784,7 @@ where wstg.instance_status = &apos;ACTIVE&apos;
            <schema_name/>
            </partitioning>
 <send_true_to>Set field value - UPD6_10</send_true_to>
-<send_false_to>Dummy (do nothing)</send_false_to>
+<send_false_to>Filter updates</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -812,7 +800,7 @@ where wstg.instance_status = &apos;ACTIVE&apos;
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>603</xloc>
+      <xloc>610</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>

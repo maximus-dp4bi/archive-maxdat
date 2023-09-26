@@ -48,7 +48,6 @@ alter table D_SCI_CURRENT add constraint DSCICUR_PK primary key (SCI_BI_ID) usin
 
 create unique index DSCICUR_UIX1 on D_SCI_CURRENT (CONTACT_RECORD_ID) online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_SCI_CURRENT for D_SCI_CURRENT;
 grant select on D_SCI_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_SCI_CURRENT_SV as
@@ -89,7 +88,6 @@ create index FSCIBD_IXL2 on F_SCI_BY_DATE (SCI_BI_ID) local online tablespace MA
 create index FSCIBD_IXL3 on F_SCI_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FSCIBD_IXL4 on F_SCI_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_SCI_BY_DATE for F_SCI_BY_DATE;
 grant select on F_SCI_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_SCI_BY_DATE_SV as
@@ -156,7 +154,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_SCI_BY_DATE_SV for F_SCI_BY_DATE_SV;
 grant select on F_SCI_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 
@@ -175,7 +172,6 @@ select
 from CORP_ETL_CLIENT_INQUIRY_DTL
 with read only;
 
-create or replace public synonym D_SCID_CURRENT_SV for D_SCID_CURRENT_SV;
 grant select on D_SCID_CURRENT_SV to MAXDAT_READ_ONLY;
 
 /*create or replace view D_SCIE_CURRENT_SV as
@@ -210,6 +206,5 @@ select
 from CORP_ETL_CLIENT_INQUIRY_EVENT a
 with read only;
 
-create or replace public synonym D_SCIE_CURRENT_SV for D_SCIE_CURRENT_SV;
 grant select on D_SCIE_CURRENT_SV to MAXDAT_READ_ONLY;
 

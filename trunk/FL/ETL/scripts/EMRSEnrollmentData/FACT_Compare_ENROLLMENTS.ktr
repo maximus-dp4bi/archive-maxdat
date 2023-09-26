@@ -48,7 +48,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
-    <size_rowset>10000</size_rowset>
+    <size_rowset>8000</size_rowset>
     <sleep_time_empty>50</sleep_time_empty>
     <sleep_time_full>50</sleep_time_full>
     <unique_connections>N</unique_connections>
@@ -56,7 +56,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
     <shared_objects_file/>
-    <capture_step_performance>N</capture_step_performance>
+    <capture_step_performance>Y</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
     <dependencies>
@@ -224,15 +224,11 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>SOURCE_SELECTION_RECORD_ID</name>
+    <fields>      <field>        <name>AID_CATEGORY_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_CASE_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_CLIENT_ID</name>
+      </field>      <field>        <name>CERTIFICATION_DATE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -240,51 +236,31 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>CHIP_ANNUAL_ENROLL_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CITIZENSHIP_STATUS_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COST_SHARE_END_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COST_SHARE_START_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>COUNTY_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CSDA_CODE</name>
+      </field>      <field>        <name>CO_PAY_AMOUNT</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>CREATE_TS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PEOPLE_IN_FAMILY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>LANGUAGE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_PLAN_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PROGRAM_TYPE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_NETWORK_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RISK_GROUP_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>STATUS_IN_GROUP_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SUB_PROGRAM_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -296,59 +272,15 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>SELECTION_SOURCE_CODE</name>
+      </field>      <field>        <name>CSDA_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>SELECTION_REASON_CODE</name>
+      </field>      <field>        <name>ELIGIBILITY_RECEIPT_DATE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CITIZENSHIP_STATUS_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>AID_CATEGORY_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CERTIFICATION_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MANAGED_CARE_START_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MANAGED_CARE_END_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MEDICAID_RECERTIFICATION_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MET_COST_SHARE_CAP_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COST_SHARE_START_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COST_SHARE_END_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_FEE_FREQUENCY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CHIP_ANNUAL_ENROLL_DATE</name>
+      </field>      <field>        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -360,6 +292,10 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>ENROLLMENT_FEE_FREQUENCY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>ENROLLMENT_FEE_PAID</name>
         <rename/>
         <length>-2</length>
@@ -368,11 +304,71 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CO_PAY_AMOUNT</name>
+      </field>      <field>        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ELIGIBILITY_RECEIPT_DATE</name>
+      </field>      <field>        <name>LANGUAGE_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_CARE_END_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_CARE_START_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEDICAID_RECERTIFICATION_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MET_COST_SHARE_CAP_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PEOPLE_IN_FAMILY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PLAN_TYPE_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROGRAM_TYPE_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RISK_GROUP_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SELECTION_REASON_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SELECTION_SOURCE_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_CASE_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_CLIENT_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_NETWORK_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_PLAN_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_SELECTION_RECORD_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -380,7 +376,11 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>PLAN_TYPE_CODE</name>
+      </field>      <field>        <name>STATUS_IN_GROUP_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SUB_PROGRAM_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -686,8 +686,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>329</xloc>
-      <yloc>144</yloc>
+      <xloc>330</xloc>
+      <yloc>140</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -707,18 +707,16 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       ,fe.source_table_name
       ,dc.case_number source_case_id
       ,dcl.client_number source_client_id
-      ,GREATEST(dtm.reason_code,dcr.change_reason_code) change_reason_code  -- cols will not be populated at the same time
+      ,GREATEST(dtm.reason_code,dcr.change_reason_code) change_reason_code  
       ,dco.county_code county_code
       ,dcs.csda_code csda_code
       ,ddp.date_standard_2 create_ts
       ,dea.enrollment_action_status_code enrollment_action_status_code
-      --,dfp.fpl_number_in_family family_size    
       ,fe.people_in_family people_in_family
       ,dla.language_code language_code
       ,dpl.plan_code source_plan_code
       ,dpr.program_code program_type_code
       ,dpd.provider_number source_network_id
-   --   ,dra.race_code race_code
       ,drg.risk_group_code risk_group_code
       ,dsi.status_in_group_code status_in_group_code
       ,dsp.sub_program_code sub_program_code
@@ -836,7 +834,6 @@ ORDER BY fe.source_record_id       </sql>
       ,source_plan_code
       ,program_type_code
       ,source_network_id
-     -- ,race_code
       ,risk_group_code
       ,status_in_group_code
       ,sub_program_code
@@ -1474,7 +1471,7 @@ ORDER BY source_selection_record_id</sql>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
-    <copies>10</copies>
+    <copies>4</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>

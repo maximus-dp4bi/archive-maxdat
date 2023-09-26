@@ -1,0 +1,23 @@
+create table CORP_ETL_JOB_STATISTICS
+(
+  job_id                NUMBER not null,
+  parent_job_id         NUMBER,
+  job_name              VARCHAR2(80) not null,
+  job_status_cd         VARCHAR2(20) not null,
+  file_name             VARCHAR2(512),
+  record_count          NUMBER,
+  processed_count       NUMBER,
+  error_count           NUMBER,
+  warning_count         NUMBER,
+  record_inserted_count NUMBER,
+  record_updated_count  NUMBER,
+  job_start_date        DATE,
+  job_end_date          DATE
+)
+;
+alter table CORP_ETL_JOB_STATISTICS
+  add constraint CORP_ETL_JOB_STATISTICS_PK primary key (JOB_ID);
+grant select, insert, update on CORP_ETL_JOB_STATISTICS to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on CORP_ETL_JOB_STATISTICS to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on CORP_ETL_JOB_STATISTICS to MAXDAT_MITRAN_READ_ONLY;
+

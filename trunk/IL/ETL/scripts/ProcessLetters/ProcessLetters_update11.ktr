@@ -78,6 +78,35 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
+    <name>EMRS</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>50</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -94,60 +123,18 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>50</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>MAXDATPRD</name>
-    <server>${DB_MAXDATPRD_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDATPRD_NAME}</database>
-    <port>${DB_MAXDATPRD_PORT}</port>
-    <username>${DB_MAXDATPRD_USER}</username>
-    <password>${DB_MAXDATPRD_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATPRD_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>MAXDATUAT</name>
-    <server>${DB_MAXDATUAT_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDATUAT_NAME}</database>
-    <port>${DB_MAXDATUAT_PORT}</port>
-    <username>${DB_MAXDATUAT_USER}</username>
-    <password>${DB_MAXDATUAT_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATUAT_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -167,38 +154,16 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>50</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>NYECSTBY</name>
-    <server>${DB_STBY_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_STBY_NAME}</database>
-    <port>${DB_STBY_PORT}</port>
-    <username>${DB_STBY_USER}</username>
-    <password>${DB_STBY_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_STBY_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -218,20 +183,22 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>50</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = EB;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Filter rows UPD11_10</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows UPD11_10</from><to>Set field value UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy - NO Update</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value UPD11_10</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Update-WIP_BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Get transformation name</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Table input- Get data from oltp and wip_bpm</from><to>Filter rows UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Update-WIP_BPM</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get transformation name</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Filter rows UPD11_10</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows UPD11_10</from><to>Set field value UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy - NO Update</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value UPD11_10</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy</from><to>Update-WIP_BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Get transformation name</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Table input- Get data from oltp and wip_bpm</from><to>Filter rows UPD11_10</to><enabled>Y</enabled> </hop>  <hop> <from>Update-WIP_BPM</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get transformation name</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants</name>
     <type>Constant</type>
@@ -279,14 +246,14 @@ SVN_REVISION_AUTHOR = $Author$
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>956</xloc>
-      <yloc>242</yloc>
+      <xloc>604</xloc>
+      <yloc>396</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Dummy (do nothing)</name>
+    <name>Dummy</name>
     <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
@@ -297,8 +264,8 @@ SVN_REVISION_AUTHOR = $Author$
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>597</xloc>
-      <yloc>173</yloc>
+      <xloc>601</xloc>
+      <yloc>130</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -315,8 +282,8 @@ SVN_REVISION_AUTHOR = $Author$
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>655</xloc>
-      <yloc>53</yloc>
+      <xloc>825</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -341,15 +308,15 @@ SVN_REVISION_AUTHOR = $Author$
    <negated>N</negated>
    <leftvalue>CANCEL_DT</leftvalue>
    <function>IS NOT NULL</function>
-   <rightvalue>CANCEL_STATUS</rightvalue>
+   <rightvalue/>
    </condition>
   </conditions>
  </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>294</xloc>
-      <yloc>81</yloc>
+      <xloc>384</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -364,7 +331,7 @@ SVN_REVISION_AUTHOR = $Author$
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Dummy (do nothing)</send_true_to>
+<send_true_to>Dummy</send_true_to>
 <send_false_to>Dummy - NO Update</send_false_to>
     <compare>
 <condition>
@@ -376,8 +343,8 @@ SVN_REVISION_AUTHOR = $Author$
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>497</xloc>
-      <yloc>78</yloc>
+      <xloc>601</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -400,8 +367,8 @@ SVN_REVISION_AUTHOR = $Author$
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>792</xloc>
-      <yloc>241</yloc>
+      <xloc>603</xloc>
+      <yloc>328</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -432,8 +399,8 @@ SVN_REVISION_AUTHOR = $Author$
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1106</xloc>
-      <yloc>241</yloc>
+      <xloc>604</xloc>
+      <yloc>468</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -476,8 +443,8 @@ SVN_REVISION_AUTHOR = $Author$
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>297</xloc>
-      <yloc>220</yloc>
+      <xloc>385</xloc>
+      <yloc>184</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -664,7 +631,7 @@ CEPN_ID CEPN_ID
 ,STG_EXTRACT_DATE O_STG_EXTRACT_DATE
 ,STG_LAST_UPDATE_DATE  O_STG_LAST_UPDATE_DATE
 ,STAGE_DONE_DATE O_STAGE_DONE_DATE
-,UPDATED O_UPDATED
+,&apos;N&apos; O_UPDATED
 FROM CORP_ETL_PROC_LETTERS_WIP_BPM
 WHERE INSTANCE_STATUS = &apos;Active&apos;
 AND CANCEL_DT IS NULL
@@ -678,8 +645,8 @@ ON OLTP.CEPN_ID= BPM.CEPN_ID
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>87</xloc>
-      <yloc>79</yloc>
+      <xloc>141</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -755,8 +722,8 @@ ON OLTP.CEPN_ID= BPM.CEPN_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1105</xloc>
-      <yloc>340</yloc>
+      <xloc>606</xloc>
+      <yloc>544</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -813,8 +780,8 @@ ON OLTP.CEPN_ID= BPM.CEPN_ID
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>662</xloc>
-      <yloc>242</yloc>
+      <xloc>602</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

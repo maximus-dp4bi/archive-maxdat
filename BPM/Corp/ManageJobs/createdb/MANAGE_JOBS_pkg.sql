@@ -23,50 +23,50 @@ create or replace package MANAGE_JOBS as
     p_receipt_dt IN DATE,
     p_job_type   IN VARCHAR,
     p_file_name  IN VARCHAR)
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 parallel_enable;
      
   FUNCTION RECORD_THRESHOLD_CNT(
     p_record_count IN VARCHAR,
     p_job_type     IN VARCHAR,
     p_file_name    IN VARCHAR)
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 parallel_enable;
   
   FUNCTION RECORD_ERROR_PER(
     p_record_count NUMBER,
     p_error_count  NUMBER,
     p_job_type IN VARCHAR)
-  RETURN NUMBER result_cache;  
+  RETURN NUMBER result_cache parallel_enable;  
   
   FUNCTION RECORD_ERR_THRESHOLD(
     p_record_count NUMBER,
     p_error_count  NUMBER,
     p_job_type  IN VARCHAR,
     p_file_name IN VARCHAR)
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 parallel_enable;
      
   FUNCTION GET_FILE_PROCESSED_TIMELY(
     p_ased_process_job IN DATE,
     p_job_type         IN VARCHAR,
     p_file_name        IN VARCHAR)
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 parallel_enable;
   
   FUNCTION GET_FILE_PROCESS_TIME(
     p_job_start_dt DATE ,
     p_job_end_dt   DATE,
     p_job_type IN VARCHAR )
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 parallel_enable;
   
   FUNCTION RECORD_CNT_MIN_THRE(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER; 
+  RETURN NUMBER parallel_enable; 
   
   FUNCTION RECORD_CNT_MAX_THRE(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER;
+  RETURN NUMBER parallel_enable;
   
   FUNCTION GET_PER_ERR_ALERT(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER;  
+  RETURN NUMBER parallel_enable;  
   
      
    /* 
@@ -244,7 +244,7 @@ FUNCTION FILE_RECEIVED_TIMELY(
     p_receipt_dt IN DATE,
     p_job_type   IN VARCHAR,
     p_file_name  IN VARCHAR)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
   v_sla_time DATE;
 BEGIN
@@ -273,7 +273,7 @@ FUNCTION RECORD_THRESHOLD_CNT(
     p_record_count IN VARCHAR,
     p_job_type     IN VARCHAR,
     p_file_name    IN VARCHAR)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
   v_min NUMBER;
   v_max NUMBER;
@@ -303,7 +303,7 @@ FUNCTION RECORD_ERROR_PER(
     p_record_count NUMBER,
     p_error_count  NUMBER,
     p_job_type IN VARCHAR)
-  RETURN NUMBER result_cache
+  RETURN NUMBER result_cache parallel_enable
 IS
   record_error_percentage NUMBER;
 BEGIN
@@ -324,7 +324,7 @@ FUNCTION RECORD_ERR_THRESHOLD(
     p_error_count  NUMBER,
     p_job_type  IN VARCHAR,
     p_file_name IN VARCHAR)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
   v_error_alert NUMBER(3,2);
 BEGIN
@@ -352,7 +352,7 @@ FUNCTION GET_FILE_PROCESSED_TIMELY(
     p_ased_process_job IN DATE,
     p_job_type         IN VARCHAR,
     p_file_name        IN VARCHAR)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
   v_processed_time DATE;
 BEGIN
@@ -379,7 +379,7 @@ FUNCTION GET_FILE_PROCESS_TIME(
     p_job_start_dt DATE ,
     p_job_end_dt   DATE,
     p_job_type IN VARCHAR )
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
   days         NUMBER;
   day_fraction NUMBER;
@@ -403,7 +403,7 @@ END;
 
 FUNCTION RECORD_CNT_MIN_THRE(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
 IS
   v_min NUMBER;
   --v_max NUMBER;
@@ -425,7 +425,7 @@ WHEN others then
 
 FUNCTION RECORD_CNT_MAX_THRE(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
 IS
   v_max NUMBER;
 BEGIN
@@ -443,7 +443,7 @@ WHEN others then
 
 FUNCTION GET_PER_ERR_ALERT(
       p_file_name    IN VARCHAR)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
 IS
   v_err NUMBER;
 BEGIN

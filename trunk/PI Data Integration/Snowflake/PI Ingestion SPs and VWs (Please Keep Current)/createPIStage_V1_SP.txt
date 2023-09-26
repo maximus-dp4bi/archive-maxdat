@@ -1,0 +1,39 @@
+CREATE or replace PROCEDURE createPIStage(AWSFolderName VARCHAR, stageName VARCHAR, todayDateString VARCHAR)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+   
+
+   
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     var todayDateString = TODAYDATESTRING;
+
+     //get date string for today if parameter is missing
+     if (! TODAYDATESTRING){
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     todayDateString = yyyy + mm + dd;
+     }
+     
+     //default stageName
+     var stageName = STAGENAME;
+     if (! stageName){
+        stageName = 'PUREINSIGHTS_S3_2';
+     }     
+     
+    //create stage for today's data
+    var sqlCommand = "CREATE STAGE RAW." + stageName + " URL = 's3://soapax-pureinsights/"+ AWSFOLDERNAME +"/"+ todayDateString +"/' CREDENTIALS=(aws_key_id='AKIAT6QV4CSZF5RW77X4' aws_secret_key='secret key goes here');";
+    snowflake.execute ({sqlText: sqlCommand});
+
+  return "0";
+  
+  $$;

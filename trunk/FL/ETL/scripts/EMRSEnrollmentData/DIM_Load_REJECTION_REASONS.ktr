@@ -184,7 +184,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </attributes>
   </connection>
   <order>
-  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - REJECTION_ERROR_REASONS from EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -REJECTION_ERROR_REASONS from Vida</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>N</enabled> </hop>  </order>
+  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - REJECTION_ERROR_REASONS from EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -REJECTION_ERROR_REASONS from Vida</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Merge Rows (diff) - Compare Vida vs. EMRS</name>
     <type>MergeRows</type>
@@ -212,8 +212,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>280</yloc>
+      <xloc>340</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -260,8 +260,18 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <name2/>
       </key>
       <value>
+        <name>MANAGED_CARE_PROGRAM</name>
+        <rename>MANAGED_CARE_PROGRAM</rename>
+        <update>Y</update>
+      </value>
+      <value>
         <name>REJECTION_CODE</name>
         <rename>REJECTION_CODE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RELATED_FILES</name>
+        <rename>RELATED_FILES</rename>
         <update>Y</update>
       </value>
       <value>
@@ -275,25 +285,15 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
         <update>Y</update>
       </value>
       <value>
-        <name>MANAGED_CARE_PROGRAM</name>
-        <rename>MANAGED_CARE_PROGRAM</rename>
-        <update>Y</update>
-      </value>
-      <value>
         <name>REJECTION_CATEGORY</name>
         <rename>REJECTION_CATEGORY</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>RELATED_FILES</name>
-        <rename>RELATED_FILES</rename>
         <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
-      <yloc>370</yloc>
+      <xloc>570</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -309,9 +309,9 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
            <schema_name/>
            </partitioning>
     <connection>EMRS</connection>
-    <sql>SELECT rejection_code, rejection_error_description,rejection_error_reason,managed_care_program, rejection_category,related_files
+    <sql>SELECT managed_care_program, rejection_code,related_files, rejection_error_description, rejection_error_reason, rejection_category
 FROM emrs_d_rejection_error_reason
-ORDER BY managed_care_program, rejection_code
+ORDER BY managed_care_program, rejection_code, related_files
 
 </sql>
     <limit>0</limit>
@@ -321,8 +321,8 @@ ORDER BY managed_care_program, rejection_code
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
-      <yloc>352</yloc>
+      <xloc>180</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -338,21 +338,20 @@ ORDER BY managed_care_program, rejection_code
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <sql>SELECT rejection_code, rejection_error_description, rejection_error_reason, managed_care_program, rejection_category, related_files
+    <sql>SELECT managed_care_program, rejection_code, related_files, rejection_error_description, rejection_error_reason,rejection_category
 FROM (
-  SELECT  nvl(crr.r834_code,0) rejection_code
-         ,crr.coverage_reason rejection_error_description
-         ,crr.UI_REASON_CODE rejection_error_reason
-         ,program_short_name managed_care_program
-         ,crr.ui_reason_code rejection_category
-         ,crr.coverage_reason related_files
+  SELECT  nvl(program_short_name, &apos;TBD&apos;)   managed_care_program
+         ,nvl(crr.r834_code,0)             rejection_code
+         ,crr.coverage_reason              related_files
+         ,crr.coverage_reason              rejection_error_description
+         ,crr.UI_REASON_CODE               rejection_error_reason
+         ,crr.ui_reason_code               rejection_category      
   FROM coverage_reason_ref crr
   inner join program_ref on program_short_name is not null 
   WHERE UI_REASON_CODE in 
   (&apos;Not Eligible&apos;, &apos;Non-Payment&apos;, &apos;Moved Out&apos;, &apos;Non-Payment&apos;, &apos;Family Request&apos;, 
   &apos;Over Age for MK&apos;, &apos;Not Applying&apos;, &apos;Never Paid&apos;))
-ORDER BY managed_care_program, rejection_code, related_files
-</sql>
+ORDER BY managed_care_program, rejection_code, related_files</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -360,8 +359,8 @@ ORDER BY managed_care_program, rejection_code, related_files
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>210</yloc>
+      <xloc>170</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -416,8 +415,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>32</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -428,8 +427,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>1000</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -440,8 +439,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>240</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -452,8 +451,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>30</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -464,8 +463,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>30</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -476,8 +475,8 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>25</length>
+        <trim_type>both</trim_type>
+        <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
@@ -488,21 +487,21 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
       <field>
         <name>error_fieldname</name>
         <type>Integer</type>
-        <format/>
+        <format>0</format>
         <currency/>
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
-        <length>3</length>
-        <precision>0</precision>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>error_description</name>
@@ -512,7 +511,7 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -524,7 +523,7 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -536,15 +535,15 @@ ORDER BY managed_care_program, rejection_code, related_files
         <decimal/>
         <group/>
         <nullif/>
-        <trim_type>none</trim_type>
+        <trim_type>both</trim_type>
         <length>-1</length>
         <precision>-1</precision>
       </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>632</xloc>
-      <yloc>370</yloc>
+      <xloc>760</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -552,8 +551,8 @@ ORDER BY managed_care_program, rejection_code, related_files
   <step_error_handling>
       <error>
         <source_step>Synchronize after merge</source_step>
-        <target_step/>
-        <is_enabled>N</is_enabled>
+        <target_step>Text file output - Error Log</target_step>
+        <is_enabled>Y</is_enabled>
         <nr_valuename>error_fieldname</nr_valuename>
         <descriptions_valuename>error_description</descriptions_valuename>
         <fields_valuename>error_fields</fields_valuename>

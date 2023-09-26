@@ -9,10 +9,6 @@ create or replace package CLIENT_OUTREACH as
   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
 
   procedure CALC_DCORCUR;
-  
-  procedure CREATE_CALC_DCORCUR_JOB;
-  
-  procedure STOP_CALC_DCORCUR_JOB;
 
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
@@ -24,63 +20,58 @@ create or replace package CLIENT_OUTREACH as
      p_complete_date in date)
     return number;
  
- FUNCTION GET_SLA_DAYS(
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2,
-      p_outreach_step IN VARCHAR2        
-      )
-    RETURN VARCHAR2;
+  function GET_SLA_DAYS
+    (p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2,
+     p_outreach_step in varchar2)
+    return varchar2 result_cache;
  
- FUNCTION GET_SLA_DAYS_TYPE
-    RETURN VARCHAR2;
+  function GET_SLA_DAYS_TYPE
+    return varchar2 result_cache;
  
- FUNCTION JEOPARDY_DAYS(
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2     
-      )
-    RETURN NUMBER; 
+  function JEOPARDY_DAYS
+    (p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2)
+    return number result_cache; 
     
-    FUNCTION GET_JEOPARDY_DATE(
-      p_create_date    IN DATE,
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2      
-      )
-    RETURN date;
+  function GET_JEOPARDY_DATE
+    (p_create_date in date,
+     p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2)
+    return date;
     
-  FUNCTION GET_JEOPARDY_FLAG(
-      p_create_date    IN DATE,
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2     
-      )
-    RETURN VARCHAR2;
+  function GET_JEOPARDY_FLAG
+    (p_create_date    in date,
+     p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2)
+   return varchar2;
     
-FUNCTION GET_TIMELINE_STATUS(
-      p_create_date    IN DATE,
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2,            
-      p_ased_outreach_step1 IN DATE,      
-      p_ased_outreach_step2 IN DATE,      
-      p_ased_outreach_step3 IN DATE,      
-      p_ased_outreach_step4 IN DATE,      
-      p_ased_outreach_step5 IN DATE,
-      p_outreach_step6 IN VARCHAR2,
-      p_ased_outreach_step6 IN DATE,
-      p_reminder_appt_dt IN DATE,
-      p_complete_date IN DATE,
-      p_outreach_status IN VARCHAR2 )
-  RETURN VARCHAR2;
+  function GET_TIMELINE_STATUS
+    (p_create_date in date,
+     p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2,            
+     p_ased_outreach_step1 in date,      
+     p_ased_outreach_step2 in date,      
+     p_ased_outreach_step3 in date,      
+     p_ased_outreach_step4 in date,      
+     p_ased_outreach_step5 in date,
+     p_outreach_step6 in varchar2,
+     p_ased_outreach_step6 in date,
+     p_reminder_appt_dt in date,
+     p_complete_date in date,
+    p_outreach_status in varchar2)
+  return varchar2;
     
-  FUNCTION GET_CYCLE_TIME(
-     p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN NUMBER;
+  function GET_CYCLE_TIME
+    (p_create_date   in date,
+     p_complete_date in date)
+    return number;
     
-
   /*
   Include
     CECO_ID
@@ -213,6 +204,7 @@ FUNCTION GET_TIMELINE_STATUS(
      HOME_VISIT_REASON varchar2(4000),
      HUMAN_TASK_TYPE1 varchar2(32),
      HUMAN_TASK_TYPE2 varchar2(32),
+     IMAGE_REFERENCE_ID varchar2(100),
      INSTANCE_STATUS varchar2(32),
      LAST_UPDATE_BY varchar2(100),
      LAST_UPDATE_DT varchar2(19),
@@ -399,6 +391,7 @@ FUNCTION GET_TIMELINE_STATUS(
      HOME_VISIT_REASON varchar2(4000),
      HUMAN_TASK_TYPE1 varchar2(32),
      HUMAN_TASK_TYPE2 varchar2(32),
+     IMAGE_REFERENCE_ID varchar2(100),
      INSTANCE_STATUS varchar2(32),
      LAST_UPDATE_BY varchar2(100),
      LAST_UPDATE_DT varchar2(19),
@@ -466,7 +459,6 @@ FUNCTION GET_TIMELINE_STATUS(
      p_new_data_xml in xmltype);
     
 end;
-
 /
 
 
@@ -490,6 +482,7 @@ package body CLIENT_OUTREACH as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
   end;
+    
        
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
@@ -500,80 +493,99 @@ package body CLIENT_OUTREACH as
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
   end;
   
-FUNCTION GET_SLA_DAYS(
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2,
-      p_outreach_step IN VARCHAR2     
-      )
-    RETURN VARCHAR2
-  IS
-  v_sla_days varchar(30);
-  BEGIN
-    BEGIN
-     IF p_process = 'OUTREACH_REQUEST_9' THEN       
-       SELECT timeliness
-       INTO v_sla_days 
-       FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
-       WHERE outreach_category_desc = p_outreach_category
-       AND outreach_type_desc = p_outreach_type  
-       AND outreach_activity = p_outreach_step;
-     ELSE
-       SELECT timeliness
-       INTO v_sla_days 
-       FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
-       WHERE outreach_category_desc = p_outreach_category
-       AND outreach_type_desc = p_outreach_type  
-       AND timeliness IS NOT NULL;     
-     END IF;
-    EXCEPTION
-       WHEN NO_DATA_FOUND THEN
-          v_sla_days := NULL;
-    END;
-   
-    RETURN v_sla_days;
+  
+  function GET_SLA_DAYS
+    (p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2,
+     p_outreach_step in varchar2)
+    return varchar2 result_cache
+  is
+    v_sla_days varchar(30);
+  begin
+  
+    begin
     
-  END;
-  
- FUNCTION GET_SLA_DAYS_TYPE
-    RETURN VARCHAR2
-  IS
-  v_sla_days_type varchar(10);
-  BEGIN      
-      SELECT VALUE
-      INTO v_sla_days_type 
-      FROM  CORP_ETL_CONTROL
-      WHERE NAME = 'CLIENT_OUTREACH_SLA_DAYS_TYPE';
-  
-      RETURN v_sla_days_type;
+      if p_process IN('OUTREACH_REQUEST_9','OUTREACH_REQUEST_12','OUTREACH_REQUEST_13') then 
+     
+        select TIMELINESS
+        into v_sla_days 
+        from CORP_CLNT_OUTREACH_NOTIFY_LKUP
+        where 
+          OUTREACH_CATEGORY_DESC = p_outreach_category
+          and OUTREACH_TYPE_DESC = p_outreach_type  
+          and OUTREACH_ACTIVITY = p_outreach_step;
+       
+      else
+     
+        select MAX(TIMELINESS)
+        into v_sla_days 
+        from CORP_CLNT_OUTREACH_NOTIFY_LKUP
+        where 
+          OUTREACH_CATEGORY_DESC = p_outreach_category
+          and OUTREACH_TYPE_DESC = p_outreach_type  
+          and TIMELINESS is not null;
+       
+      end if;
+     
+    exception
+    
+      when no_data_found then
+        v_sla_days := null;
+        
+    end;
    
-  END;
+    return v_sla_days;
+    
+  end;
   
-FUNCTION JEOPARDY_DAYS(      
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2 
-      )
-    RETURN NUMBER
-  IS
-  v_jeopardy_days number;
-  BEGIN
+  
+  function GET_SLA_DAYS_TYPE
+    return varchar2 result_cache
+  is
+    v_sla_days_type varchar(10);
+  begin 
+  
+    select VALUE
+    into v_sla_days_type 
+    from CORP_ETL_CONTROL
+    where NAME = 'CLIENT_OUTREACH_SLA_DAYS_TYPE';
+  
+    return v_sla_days_type;
+   
+  end;
+  
+  
+  function jeopardy_days
+    (p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2)
+   return number result_cache
+  is
+    v_jeopardy_days number;
+  begin
  
-   BEGIN
-    SELECT jeopardy 
-    INTO v_jeopardy_days 
-    FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
-    WHERE outreach_category_desc = p_outreach_category
-    AND outreach_type_desc = p_outreach_type  
-    AND jeopardy IS NOT NULL;    
-   EXCEPTION
-     WHEN NO_DATA_FOUND THEN
-       v_jeopardy_days := null;
-   END;        
+   begin
    
-   RETURN v_jeopardy_days;
+     select JEOPARDY 
+     into v_jeopardy_days 
+     from CORP_CLNT_OUTREACH_NOTIFY_LKUP
+     where 
+       OUTREACH_CATEGORY_DESC = p_outreach_category
+       and OUTREACH_TYPE_DESC = p_outreach_type  
+       and JEOPARDY is not null;
     
-  END;
+   exception
+   
+     when no_data_found then
+       v_jeopardy_days := null;
+       
+   end;        
+   
+   return v_jeopardy_days;
+    
+  end;
+
 
 FUNCTION GET_JEOPARDY_DATE(
       p_create_date    IN DATE,
@@ -595,36 +607,42 @@ FUNCTION GET_JEOPARDY_DATE(
    END IF;    
   END;
   
-FUNCTION GET_JEOPARDY_FLAG(      
-      p_create_date    IN DATE,
-      p_process IN VARCHAR2,
-      p_outreach_category IN VARCHAR2,
-      p_outreach_type IN VARCHAR2 
-      )
-    RETURN varchar2
-  IS
-  v_jeopardy_date DATE;
-  BEGIN
+  
+  function GET_JEOPARDY_FLAG     
+    (p_create_date in date,
+     p_process in varchar2,
+     p_outreach_category in varchar2,
+     p_outreach_type in varchar2)
+    return varchar2
+  is
+    v_jeopardy_date date;
+  begin
+  
     v_jeopardy_date := GET_JEOPARDY_DATE(p_create_date,p_process,p_outreach_category,p_outreach_type);
     
-    IF v_jeopardy_date IS NOT NULL AND sysdate >= v_jeopardy_date THEN
-      RETURN 'Y';
-    ELSE
-      RETURN 'N' ;
-    END IF;      
-  END;
+    if v_jeopardy_date is not null and sysdate >= v_jeopardy_date then
+      return 'Y';
+    else
+      return 'N' ;
+    end if;
+    
+  end;
   
-FUNCTION GET_CYCLE_TIME(
-    p_create_date   IN DATE,
-    p_complete_date IN DATE)
-  RETURN NUMBER
-AS
-BEGIN
-IF p_complete_date IS NOT NULL  THEN
-  RETURN TRUNC(p_complete_date) - TRUNC(p_create_date);
-ELSE RETURN NULL;
-END IF;
-END;
+  
+  function GET_CYCLE_TIME
+    (p_create_date   in date,
+     p_complete_date in date)
+    return number
+  as
+  begin
+  
+  if p_complete_date is not null then
+    return trunc(p_complete_date) - trunc(p_create_date);
+  else 
+    return null;
+  end if;
+  
+end;
 
 
 FUNCTION GET_TIMELINE_STATUS(
@@ -646,52 +664,57 @@ FUNCTION GET_TIMELINE_STATUS(
     RETURN VARCHAR2
   IS    
   v_timeliness   varchar(50) ;  
-  v_sla_days1 VARCHAR2(50);
-  v_sla_days2 VARCHAR2(50);
-  v_sla_days3 VARCHAR2(50);
+  v_sla_days1 NUMBER;
+  v_sla_days2 NUMBER;
+  v_sla_days3 NUMBER;
   v_sla_date DATE;
 BEGIN
     -- Timeliness for Process 9
     IF p_process = 'OUTREACH_REQUEST_9' THEN      
        BEGIN
-        SELECT timeliness
+       
+        SELECT /*+ RESULT_CACHE +*/ timeliness
         INTO v_sla_days1 
         FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
         WHERE outreach_category_desc = p_outreach_category
         AND outreach_type_desc = p_outreach_type  
         AND outreach_activity = 'Automated Call 1';
+        
        EXCEPTION
         WHEN NO_DATA_FOUND THEN
           v_sla_days1 := NULL;
        END;
       
-       BEGIN
-        SELECT timeliness
-        INTO v_sla_days2 
+       --BEGIN       
+        --SELECT /*+ RESULT_CACHE +*/ timeliness
+        /* INTO v_sla_days2 
         FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
         WHERE outreach_category_desc = p_outreach_category
         AND outreach_type_desc = p_outreach_type  
         AND outreach_activity = 'Automated Call 2';
+        
        EXCEPTION
         WHEN NO_DATA_FOUND THEN
           v_sla_days2 := NULL;
-       END;
+       END; */
       
        BEGIN
-        SELECT timeliness
+       
+        SELECT /*+ RESULT_CACHE +*/ timeliness
         INTO v_sla_days3 
         FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
         WHERE outreach_category_desc = p_outreach_category
         AND outreach_type_desc = p_outreach_type  
         AND outreach_activity = p_outreach_step6;
+        
        EXCEPTION
          WHEN NO_DATA_FOUND THEN
            v_sla_days3 := NULL;
        END;
        -- check timeliness for first step 
        IF v_sla_days1 IS NOT NULL THEN
-         IF p_ased_outreach_step3 IS NOT NULL THEN
-           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  TO_NUMBER(v_sla_days1) THEN
+         IF p_ased_outreach_step2 IS NOT NULL THEN
+           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step2) <=  v_sla_days1 THEN
              v_timeliness := 'Timely';
            ELSE
              v_timeliness := 'Untimely';
@@ -705,9 +728,9 @@ BEGIN
       
        IF v_timeliness = 'Timely' THEN
        --check timeliness for second step.  first step should have already been completed at this time.
-         IF v_sla_days2 IS NOT NULL THEN
+       /*  IF v_sla_days2 IS NOT NULL THEN
            IF p_ased_outreach_step5 IS NOT NULL THEN
-             IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step5) <=  TO_NUMBER(v_sla_days2) THEN
+             IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step5) <=  v_sla_days2 THEN
                v_timeliness := 'Timely';
              ELSE
                v_timeliness := 'Untimely';
@@ -715,13 +738,13 @@ BEGIN
            END IF;
          ELSE
            v_timeliness := 'Not Required';
-         END IF;  
+         END IF;  */
          
          IF v_timeliness = 'Timely' THEN
            --check timeliness for third step.  second step should have already been completed at this time.
            IF v_sla_days3 IS NOT NULL THEN
-             IF p_ased_outreach_step6 IS NOT NULL THEN
-               IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step6) <=  TO_NUMBER(v_sla_days3) THEN
+             IF p_ased_outreach_step3 IS NOT NULL THEN
+               IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  v_sla_days3 THEN
                  v_timeliness := 'Timely';
                ELSE
                  v_timeliness := 'Untimely';
@@ -738,42 +761,170 @@ BEGIN
          IF p_outreach_status IN ('Withdrawn','Outreach No Longer Required') THEN
             v_timeliness := 'Not Applicable';
          ELSIF p_outreach_status = 'Outreach Successful' AND v_timeliness = 'Not Processed' THEN
-           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_complete_date) <= TO_NUMBER(v_sla_days3) THEN
+           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_complete_date) <= v_sla_days3 THEN
              v_timeliness := 'Timely';    
            ELSE
              v_timeliness := 'Untimely';    
            END IF;
          END IF;
        END IF;       
-       
+    
+    ELSIF p_process IN('OUTREACH_REQUEST_12','OUTREACH_REQUEST_13')  THEN   
+    -- Process 12 and 13
+       BEGIN       
+        SELECT /*+ RESULT_CACHE +*/ timeliness
+        INTO v_sla_days1 
+        FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
+        WHERE outreach_category_desc = p_outreach_category
+        AND outreach_type_desc = p_outreach_type  
+        AND outreach_activity = 'Letter';        
+       EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          v_sla_days1 := NULL;
+       END;
+      
+       BEGIN       
+        SELECT /*+ RESULT_CACHE +*/ timeliness
+        INTO v_sla_days2 
+        FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
+        WHERE outreach_category_desc = p_outreach_category
+        AND outreach_type_desc = p_outreach_type  
+        AND outreach_activity IN('Phone Call2','Phone Call3');
+        
+       EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          v_sla_days2 := NULL;
+       END;
+      
+       BEGIN       
+        SELECT /*+ RESULT_CACHE +*/ timeliness
+        INTO v_sla_days3 
+        FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
+        WHERE outreach_category_desc = p_outreach_category
+        AND outreach_type_desc = p_outreach_type  
+        AND outreach_activity = 'Home Visit';
+        
+       EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          v_sla_days3 := NULL;
+       END;
+    
+       -- check timeliness for first step 
+       IF v_sla_days1 IS NOT NULL THEN
+         IF p_ased_outreach_step1 IS NOT NULL THEN
+           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  v_sla_days1 THEN
+             v_timeliness := 'Timely';
+           ELSE
+             v_timeliness := 'Untimely';
+           END IF;
+         ELSE
+           v_timeliness := 'Not Processed';
+         END IF;
+       ELSE
+         v_timeliness := 'Not Required';
+       END IF;
+      
+       IF v_timeliness = 'Timely' THEN
+       --check timeliness for second step.  first step should have already been completed at this time.
+         IF v_sla_days2 IS NOT NULL THEN
+           IF p_ased_outreach_step3 IS NOT NULL THEN
+             IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  v_sla_days2 THEN
+               v_timeliness := 'Timely';
+             ELSE
+               v_timeliness := 'Untimely';
+             END IF;
+           END IF;
+         ELSE
+           v_timeliness := 'Not Required';
+         END IF;  
+         IF p_process = 'OUTREACH_REQUEST_13' THEN
+           --applies only to Process 13
+           IF v_timeliness = 'Timely' THEN
+             --check timeliness for third step.  second step should have already been completed at this time.
+             IF v_sla_days3 IS NOT NULL THEN 
+               IF p_ased_outreach_step4 IS NOT NULL THEN
+                 IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step4) <=  v_sla_days3 THEN
+                   v_timeliness := 'Timely';
+                 ELSE
+                   v_timeliness := 'Untimely';
+                 END IF;
+               END IF;
+             ELSE
+               v_timeliness := 'Not Required';
+             END IF;   
+           END IF;  
+         END IF;
+                
+         IF v_timeliness = 'Timely' THEN
+           --check timeliness for third/fourth step.  second/third step should have already been completed at this time.
+           IF v_sla_days1 IS NOT NULL THEN
+             IF p_ased_outreach_step5 IS NOT NULL THEN
+               IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step5) <=  v_sla_days1 THEN
+                 v_timeliness := 'Timely';
+               ELSE
+                 v_timeliness := 'Untimely';
+               END IF;
+             END IF;
+           ELSE
+             v_timeliness := 'Not Required';
+           END IF;   
+         END IF;
+       END IF;
+      
+       -- just a catchall in case outreach is already completed, Outreach is successful but end dates are null (this should not happen)
+       IF p_complete_date IS NOT NULL THEN
+         IF p_outreach_status IN ('Withdrawn','Outreach No Longer Required') THEN
+            v_timeliness := 'Not Applicable';
+         ELSIF p_outreach_status = 'Outreach Successful' AND v_timeliness = 'Not Processed' THEN
+           IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_complete_date) <= v_sla_days1 THEN
+             v_timeliness := 'Timely';    
+           ELSE
+             v_timeliness := 'Untimely';    
+           END IF;
+         END IF;
+       END IF;     
+    --end Process 12 and 13       
     ELSE
       BEGIN
-        SELECT timeliness
+      
+        SELECT /*+ RESULT_CACHE +*/ MAX(timeliness)
         INTO v_sla_days1 
         FROM CORP_CLNT_OUTREACH_NOTIFY_LKUP
         WHERE outreach_category_desc = p_outreach_category
         AND outreach_type_desc = p_outreach_type;
+        
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
           v_sla_days1 := NULL;
       END;
         
       IF v_sla_days1 IS NOT NULL THEN
-        --Timeliness for Process 1 or 11
-        IF p_process IN('OUTREACH_REQUEST_1' , 'OUTREACH_REQUEST_11') THEN               
-          IF p_ased_outreach_step3 IS NOT NULL THEN       
-            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  TO_NUMBER(v_sla_days1) THEN
+        --Timeliness for Process 1
+        IF p_process = 'OUTREACH_REQUEST_1' THEN               
+          IF p_ased_outreach_step1 IS NOT NULL THEN       
+            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  v_sla_days1 THEN
               v_timeliness := 'Timely';
             ELSE
               v_timeliness := 'Untimely';
             END IF;
           ELSE
             v_timeliness := 'Not Processed';
-          END IF;       
+          END IF; 
+        --TXEB-5438 8/17 process 11 separated from process 1
+        ELSIF p_process = 'OUTREACH_REQUEST_11' THEN               
+          IF p_ased_outreach_step3 IS NOT NULL THEN       
+            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  v_sla_days1 THEN
+              v_timeliness := 'Timely';
+            ELSE
+              v_timeliness := 'Untimely';
+            END IF;
+          ELSE
+            v_timeliness := 'Not Processed';
+          END IF;           
         --Timeliness for Process2
         ELSIF p_process IN('OUTREACH_REQUEST_2','OUTREACH_REQUEST_4') THEN        
           IF p_ased_outreach_step3 IS NOT NULL THEN
-            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  TO_NUMBER(v_sla_days1) THEN
+            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  v_sla_days1 THEN
               v_timeliness := 'Timely';           
             ELSE
               v_timeliness := 'Untimely';
@@ -783,7 +934,7 @@ BEGIN
           END IF;
           IF v_timeliness = 'Timely' THEN
             IF p_ased_outreach_step4 IS NOT NULL THEN
-              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step4) <=  TO_NUMBER(v_sla_days1) THEN
+              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step4) <=  v_sla_days1 THEN
                 v_timeliness := 'Timely';           
               ELSE
                 v_timeliness := 'Untimely';
@@ -794,7 +945,7 @@ BEGIN
         ELSIF p_process = 'OUTREACH_REQUEST_3' THEN  
           IF p_ased_outreach_step1 IS NOT NULL THEN
             IF p_reminder_appt_dt IS NOT NULL THEN
-              IF p_ased_outreach_step1 <= get_bus_date(p_reminder_appt_dt, -1*TO_NUMBER(v_sla_days1)) THEN
+              IF p_ased_outreach_step1 <= get_bus_date(p_reminder_appt_dt, -1*v_sla_days1) THEN
                 v_timeliness := 'Timely';
               ELSE
                 v_timeliness := 'Untimely';
@@ -809,7 +960,7 @@ BEGIN
           IF v_timeliness = 'Timely' THEN
             --only check the rest of the steps if step 1 is Timely
             IF p_ased_outreach_step2 IS NOT NULL THEN
-              IF p_ased_outreach_step2 <= get_bus_date(p_reminder_appt_dt, -1*TO_NUMBER(v_sla_days1)) THEN
+              IF p_ased_outreach_step2 <= get_bus_date(p_reminder_appt_dt, -1*v_sla_days1) THEN
                 v_timeliness := 'Timely';
               ELSE
                 v_timeliness := 'Untimely';
@@ -818,7 +969,7 @@ BEGIN
             
             IF v_timeliness = 'Timely' THEN
               IF p_ased_outreach_step3 IS NOT NULL THEN
-                IF p_ased_outreach_step3 <= get_bus_date(p_reminder_appt_dt, -1*TO_NUMBER(v_sla_days1)) THEN
+                IF p_ased_outreach_step3 <= get_bus_date(p_reminder_appt_dt, -1*v_sla_days1) THEN
                   v_timeliness := 'Timely';
                 ELSE
                   v_timeliness := 'Untimely';
@@ -832,7 +983,7 @@ BEGIN
             IF p_outreach_status IN ('Withdrawn','Outreach No Longer Required') THEN
               v_timeliness := 'Not Applicable';
             ELSIF p_outreach_status = 'Outreach Successful' AND v_timeliness = 'Not Processed' AND p_reminder_appt_dt is not null THEN      
-              IF p_complete_date <=  get_bus_date(p_reminder_appt_dt, -1*TO_NUMBER(v_sla_days1)) THEN
+              IF p_complete_date <=  get_bus_date(p_reminder_appt_dt, -1*v_sla_days1) THEN
                 v_timeliness := 'Timely';              
               ELSE
                 v_timeliness := 'Untimely';              
@@ -845,7 +996,7 @@ BEGIN
         --Timeliness for Process 5
         ELSIF p_process = 'OUTREACH_REQUEST_5' THEN          
         --  v_sla_date := TO_DATE('10-'||TO_CHAR(p_assd_outreach_step1,'MON-YY'),'DD-MON-YY');
-          v_sla_date := get_bus_date(p_create_date,TO_NUMBER(v_sla_days1));                                    
+          v_sla_date := get_bus_date(p_create_date,v_sla_days1);                                    
 
           IF p_ased_outreach_step1 IS NOT NULL THEN            
             IF p_ased_outreach_step1 <= v_sla_date THEN
@@ -872,7 +1023,7 @@ BEGIN
        --Timeliness for Process 6 or 7
         ELSIF p_process IN('OUTREACH_REQUEST_6','OUTREACH_REQUEST_7') THEN  
           IF p_ased_outreach_step1 IS NOT NULL THEN
-            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  TO_NUMBER(v_sla_days1) THEN
+            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  v_sla_days1 THEN
               v_timeliness := 'Timely';
             ELSE
               v_timeliness := 'Untimely';
@@ -883,7 +1034,7 @@ BEGIN
           
           IF v_timeliness = 'Timely' THEN
             IF p_ased_outreach_step3 IS NOT NULL THEN
-              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  TO_NUMBER(v_sla_days1) THEN
+              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step3) <=  v_sla_days1 THEN
                 v_timeliness := 'Timely';
               ELSE
                 v_timeliness := 'Untimely';
@@ -894,7 +1045,7 @@ BEGIN
           IF p_process = 'OUTREACH_REQUEST_6' THEN
             IF v_timeliness = 'Timely' THEN
               IF p_ased_outreach_step5 IS NOT NULL THEN
-                IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step5) <=  TO_NUMBER(v_sla_days1) THEN
+                IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step5) <=  v_sla_days1 THEN
                   v_timeliness := 'Timely';
                 ELSE
                   v_timeliness := 'Untimely';
@@ -905,7 +1056,7 @@ BEGIN
         --Timeliness for Process 8 or 10
         ELSIF p_process IN('OUTREACH_REQUEST_8','OUTREACH_REQUEST_10') THEN
           IF p_ased_outreach_step1 IS NOT NULL THEN
-            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  TO_NUMBER(v_sla_days1) THEN
+            IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step1) <=  v_sla_days1 THEN
               v_timeliness := 'Timely';
             ELSE
               v_timeliness := 'Untimely';
@@ -916,7 +1067,7 @@ BEGIN
          
           IF v_timeliness = 'Timely' THEN
             IF p_ased_outreach_step2 IS NOT NULL THEN
-              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step2) <=  TO_NUMBER(v_sla_days1) THEN
+              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_ased_outreach_step2) <=  v_sla_days1 THEN
                 v_timeliness := 'Timely';
               ELSE
                 v_timeliness := 'Untimely';
@@ -931,7 +1082,7 @@ BEGIN
             IF p_outreach_status IN ('Withdrawn','Outreach No Longer Required') THEN
               v_timeliness := 'Not Applicable';
             ELSIF p_outreach_status = 'Outreach Successful' AND v_timeliness = 'Not Processed' THEN
-              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_complete_date) <= TO_NUMBER(v_sla_days1) THEN
+              IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,p_complete_date) <= v_sla_days1 THEN
                 v_timeliness := 'Timely';    
               ELSE
                 v_timeliness := 'Untimely';    
@@ -958,6 +1109,7 @@ BEGIN
     v_log_message clob := null;
     v_sql_code number := null;
     v_num_rows_updated number := null;
+    
   begin
   
     update D_COR_CURRENT
@@ -972,9 +1124,9 @@ BEGIN
       TIMELINESS_STATUS = GET_TIMELINE_STATUS(CREATE_DATE,GENERIC_FIELD_2,OUTREACH_REQUEST_CATEGORY, OUTREACH_REQUEST_TYPE,
                                               PERFORM_OR_STEP1_END_DATE,PERFORM_OR_STEP2_END_DATE,
                                               PERFORM_OR_STEP3_END_DATE,PERFORM_OR_STEP4_END_DATE,PERFORM_OR_STEP5_END_DATE,
-                                              OUTREACH_STEP_6_TYPE,PERFORM_OR_STEP6_END_DATE,
-                                              TO_DATE(REMINDER_APPOINTMENT_DATE,'mm/dd/yy'),COMPLETE_DATE,OUTREACH_REQUEST_STATUS),
-      CYCLE_TIME =GET_CYCLE_TIME(CREATE_DATE,COMPLETE_DATE)
+                                              OUTREACH_STEP_3_TYPE,PERFORM_OR_STEP6_END_DATE,
+                                              to_date(REMINDER_APPOINTMENT_DATE,'mm/dd/yy'),COMPLETE_DATE,OUTREACH_REQUEST_STATUS),
+      CYCLE_TIME = GET_CYCLE_TIME(CREATE_DATE,COMPLETE_DATE)
     where 
       COMPLETE_DATE is null 
       and CANCEL_DATE is null;
@@ -991,69 +1143,6 @@ BEGIN
     when others then
       v_sql_code := SQLCODE;
       v_log_message := SQLERRM;
-      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
-
-  end;
-  
-  
-  -- Create and start scheduler job for CALC_DCORCUR job.
-  procedure CREATE_CALC_DCORCUR_JOB
-  as
-    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'CREATE_CALC_DCORCUR_JOB';
-    v_log_message clob := null;
-    v_sql_code number := null;
-    v_job_action varchar2(200) := null;
-  begin
-  
-    -- Run now.
-    CALC_DCORCUR;
-    
-    -- Create job to run daily.
-    v_job_action := 'begin CLIENT_OUTREACH.CALC_DCORCUR; end;';
-    dbms_scheduler.create_job (
-      job_name   => v_calc_dcorcur_job_name,
-      job_type   => 'PLSQL_BLOCK',
-      job_action => v_job_action,
-      start_date => trunc(sysdate + 1),
-      repeat_interval=> 'FREQ=DAILY; BYHOUR=0;',
-      enabled    =>  TRUE,
-      comments   => 'Calculate column values in BPM Semantic table D_COR_CURRENT');
-      
-    dbms_scheduler.set_attribute(
-      name => v_calc_dcorcur_job_name,
-      attribute => 'RESTARTABLE',
-      value => TRUE);
-
-    v_log_message := 'Created dbms_scheduler job "' || v_calc_dcorcur_job_name || '".';
-    BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
-
-  exception
-
-    when others then
-      v_sql_code := SQLCODE;
-      v_log_message := 'Unable to start job "' || v_calc_dcorcur_job_name || '".  '  || SQLERRM;
-      BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
-
-  end;
-
-
-  -- Gracefully stop CALC_DCORCUR job.
-  procedure STOP_CALC_DCORCUR_JOB
-  as
-    v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'STOP_CALC_DCORCUR_JOB';
-    v_log_message clob := null;
-    v_sql_code number := null;
-  begin
-    dbms_scheduler.drop_job(v_calc_dcorcur_job_name,TRUE);
-    
-    v_log_message := 'Stopped dbms_scheduler job "' || v_calc_dcorcur_job_name || '".';
-    BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
-
-  exception
-
-    when others then
-      v_sql_code := SQLCODE;
-      v_log_message := 'Unable to stop job "' || v_calc_dcorcur_job_name || '".  '  || SQLERRM;
       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
 
   end;
@@ -1358,6 +1447,7 @@ BEGIN
       extractValue(p_data_xml,'/ROWSET/ROW/HOME_VISIT_REASON') "HOME_VISIT_REASON",
       extractValue(p_data_xml,'/ROWSET/ROW/HUMAN_TASK_TYPE1') "HUMAN_TASK_TYPE1",
       extractValue(p_data_xml,'/ROWSET/ROW/HUMAN_TASK_TYPE2') "HUMAN_TASK_TYPE2",
+      extractValue(p_data_xml,'/ROWSET/ROW/IMAGE_REFERENCE_ID') "IMAGE_REFERENCE_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/INSTANCE_STATUS') "INSTANCE_STATUS",
       extractValue(p_data_xml,'/ROWSET/ROW/LAST_UPDATE_BY') "LAST_UPDATE_BY",
       extractValue(p_data_xml,'/ROWSET/ROW/LAST_UPDATE_DT') "LAST_UPDATE_DT",
@@ -1553,6 +1643,7 @@ BEGIN
       extractValue(p_data_xml,'/ROWSET/ROW/HOME_VISIT_REASON') "HOME_VISIT_REASON",
       extractValue(p_data_xml,'/ROWSET/ROW/HUMAN_TASK_TYPE1') "HUMAN_TASK_TYPE1",
       extractValue(p_data_xml,'/ROWSET/ROW/HUMAN_TASK_TYPE2') "HUMAN_TASK_TYPE2",
+      extractValue(p_data_xml,'/ROWSET/ROW/IMAGE_REFERENCE_ID') "IMAGE_REFERENCE_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/INSTANCE_STATUS') "INSTANCE_STATUS",
       extractValue(p_data_xml,'/ROWSET/ROW/LAST_UPDATE_BY') "LAST_UPDATE_BY",
       extractValue(p_data_xml,'/ROWSET/ROW/LAST_UPDATE_DT') "LAST_UPDATE_DT",
@@ -1888,8 +1979,8 @@ BEGIN
      p_termination_timer_flag	in varchar2,
      p_ee_other_indicator	in varchar2,
      p_cpw_name_of_referrer      IN VARCHAR2,
-     p_cpw_referral_source_phone IN VARCHAR2
-
+     p_cpw_referral_source_phone IN VARCHAR2,
+     p_image_reference_id in number 
     )
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DCORCUR';
@@ -2083,7 +2174,7 @@ BEGIN
     r_dcorcur.EE_OTHER_INDICATOR	:=	p_ee_other_indicator	;
     r_dcorcur.CPW_NAME_OF_REFERRER	:=	p_cpw_name_of_referrer ;
     r_dcorcur.CPW_REFERRAL_SOURCE_PHONE	:=	p_cpw_referral_source_phone ;
-
+    r_dcorcur.IMAGE_REFERENCE_ID	:=	p_image_reference_id	;
       
     if p_set_type = 'INSERT' then
       insert into D_COR_CURRENT
@@ -2325,8 +2416,8 @@ v_new_data.ASF_PERFORM_HOME_VISIT,
 v_new_data.ASF_TERMINATION_TIMER,
 v_new_data.EXEFF_OTHER_IND,
 v_new_data.CPW_NAME_OF_REFERRER,
-v_new_data.CPW_REFERRAL_SOURCE_PHONE
-
+v_new_data.CPW_REFERRAL_SOURCE_PHONE,
+v_new_data.IMAGE_REFERENCE_ID
          
         ); 
         
@@ -2778,7 +2869,8 @@ v_new_data.ASF_PERFORM_HOME_VISIT,
 v_new_data.ASF_TERMINATION_TIMER,
 v_new_data.EXEFF_OTHER_IND,
 v_new_data.CPW_NAME_OF_REFERRER,
-v_new_data.CPW_REFERRAL_SOURCE_PHONE
+v_new_data.CPW_REFERRAL_SOURCE_PHONE,
+v_new_data.IMAGE_REFERENCE_ID
         );
         
       UPD_FCORBD

@@ -102,7 +102,7 @@ create or replace package user_lock is
 end;
 /
 
-create package body user_lock is
+create or replace package body user_lock is
 
   procedure psdlgt(id binary_integer, lockmode binary_integer, 
                    maxholders binary_integer, timeout binary_integer, 

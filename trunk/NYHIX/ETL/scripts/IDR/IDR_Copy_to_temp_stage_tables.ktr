@@ -76,29 +76,31 @@ SVN_REVISION_AUTHOR = $Author$
   <modified_date>2013&#47;03&#47;21 14:27:09.399</modified_date>
   </info>
   <notepads>
+    <notepad>
+      <note>Raj A. 09&#47;25&#47;2015 Per NYHIX-16911, performance tuning IDR process. Added threads to DB Join steps and table Output steps.
+Raj A. 02&#47;25&#47;2016 Per NYHIX-16911, performance tuning IDR process. Pointing to the Incident Status Hist stage table in maxdat.
+Devin H 08&#47;23&#47;2016 Devin added error logging to this ktr to resolve deadlock issues and to find out why IDR ETL process is getting stuck.
+Raj A. 08&#47;25&#47;2016 Added index hint to the DB join for performance.</note>
+      <xloc>56</xloc>
+      <yloc>566</yloc>
+      <width>1051</width>
+      <heigth>88</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
-  <connection>
-    <name>EMRS</name>
-    <server>${DB_EMRS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_EMRS_NAME}</database>
-    <port>${DB_EMRS_PORT}</port>
-    <username>${DB_EMRS_USER}</username>
-    <password>${DB_EMRS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
@@ -128,69 +130,11 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
-    <port>${DB_OLTP_PORT}</port>
-    <username>${DB_OLTP_USER}</username>
-    <password>${DB_OLTP_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
-  <hop> <from>Table Input -NYHX_ETL_IDR_INCIDENTS</from><to>Database join - Get history status from OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get history status from OLTP</from><to>Table Output -NYHX_ETL_IDR_INCIDENTS_OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input -NYHX_ETL_IDR_INCIDENTS</from><to>Database join - Get last status used for process updates</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get last status used for process updates</from><to>Table Output - NYHX_ETL_IDR_INCIDENTS_WIP</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table Input -NYHX_ETL_IDR_INCIDENTS</from><to>Dummy -1</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy -1</from><to>Database join - Get last status used for process updates</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input -NYHX_ETL_IDR_INCIDENTS</from><to>Dummy -2</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy -2</from><to>Database join - Get history status from OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get last status used for process updates</from><to>Dummy -3</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy -3</from><to>Table Output - NYHX_ETL_IDR_INCIDENTS_WIP</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get history status from OLTP</from><to>Dummy -4</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy -4</from><to>Table Output -NYHX_ETL_IDR_INCIDENTS_OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>Table Output - NYHX_ETL_IDR_INCIDENTS_WIP</from><to>Get Variables2</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables2</from><to>Add constants2</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants2</from><to>Error2</to><enabled>Y</enabled> </hop>  <hop> <from>Error2</from><to>Abort 2</to><enabled>Y</enabled> </hop>  <hop> <from>Error3</from><to>Abort3</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants3</from><to>Error3</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables3</from><to>Add constants3</to><enabled>Y</enabled> </hop>  <hop> <from>Table Output -NYHX_ETL_IDR_INCIDENTS_OLTP</from><to>Get Variables3</to><enabled>Y</enabled> </hop>  <hop> <from>Error1</from><to>Abort1</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants1</from><to>Error1</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables1</from><to>Add constants1</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get last status used for process updates</from><to>Get Variables1</to><enabled>Y</enabled> </hop>  <hop> <from>Error4</from><to>Abort4</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants4</from><to>Error4</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables4</from><to>Add constants4</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get history status from OLTP</from><to>Get Variables4</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Database join - Get history status from OLTP</name>
-    <type>DBJoin</type>
+    <name>Abort 2</name>
+    <type>Abort</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -198,18 +142,225 @@ SVN_REVISION_AUTHOR = $Author$
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
+      <row_threshold>0</row_threshold>
+      <message>ABORT FROM : : Table Output - NYHX_ETL_IDR_INCIDENTS_WIP</message>
+      <always_log_rows>Y</always_log_rows>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1131</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Abort1</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <row_threshold>0</row_threshold>
+      <message>ABORT FROM :  Database join - Get last status used for process updates</message>
+      <always_log_rows>Y</always_log_rows>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>693</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Abort3</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <row_threshold>0</row_threshold>
+      <message>ABORT FROM :  Table Output -NYHX_ETL_IDR_INCIDENTS_OLTP</message>
+      <always_log_rows>Y</always_log_rows>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1162</xloc>
+      <yloc>467</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Abort4</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <row_threshold>0</row_threshold>
+      <message>ABORT FROM : Database join - Get history status from OLTP</message>
+      <always_log_rows>Y</always_log_rows>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>683</xloc>
+      <yloc>461</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants1</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>INCIDENT_HEADER_STAT_HIST_STG</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>517</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants2</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>NYHX_ETL_IDR_INCIDENTS_WIP</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>983</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants3</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>NYHX_ETL_IDR_INCIDENTS_OLTP</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1000</xloc>
+      <yloc>467</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants4</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>INCIDENT_HEADER_STAT_HIST_STG</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>515</xloc>
+      <yloc>461</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get history status from OLTP</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>5</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
     <rowlimit>0</rowlimit>
-    <sql>SELECT incident_header_stat_hist_id as oltp_inci_stat_hist_id, 
-       hs.report_label  oltp_incident_status, 
-       s.create_ts      oltp_incident_status_dt,
-       (select ST.LAST_NAME||&apos;,&apos;||ST.FIRST_NAME||&apos; &apos;||ST.MIDDLE_NAME from STAFF ST where to_char(ST.STAFF_ID) = s.CREATED_BY) AS oltp_inci_stat_staff
-FROM incident_header_stat_hist s, 
-     enum_incident_header_status hs
-WHERE s.status_cd = hs.value
-AND incident_header_id = ?
+    <sql>SELECT &#47;*+ index(s INC_HEAD_STAT_HIST_STG_IX1)*&#47;
+       incident_header_stat_hist_id AS oltp_inci_stat_hist_id,
+       incident_status AS oltp_incident_status,
+       create_ts AS oltp_incident_status_dt,
+       (select ST.LAST_NAME||&apos;,&apos;||ST.FIRST_NAME||&apos; &apos;||ST.MIDDLE_NAME from STAFF_STG ST where to_char(ST.STAFF_ID) = s.CREATED_BY) AS oltp_inci_stat_staff
+FROM incident_header_stat_hist_stg s
+WHERE incident_header_id = ?
 AND incident_header_stat_hist_id &gt;= ?
-ORDER BY s.create_ts</sql>
+ORDER BY create_ts</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -224,8 +375,8 @@ ORDER BY s.create_ts</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>307</xloc>
-      <yloc>326</yloc>
+      <xloc>430</xloc>
+      <yloc>359</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -235,21 +386,19 @@ ORDER BY s.create_ts</sql>
     <type>DBJoin</type>
     <description/>
     <distribute>Y</distribute>
-    <copies>1</copies>
+    <copies>5</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
+    <connection>MAXDAT</connection>
     <rowlimit>0</rowlimit>
-    <sql>SELECT COALESCE(MIN(hs.report_label),?) last_incident_status, 
-       COALESCE(MIN(s.create_ts),?)     last_incident_status_dt
-FROM incident_header_stat_hist   s, 
-     enum_incident_header_status hs
-WHERE s.status_cd = hs.value
-AND s.incident_header_id= ?
-AND s.incident_header_stat_hist_id = ?
---ORDER BY s.create_ts</sql>
+    <sql>SELECT COALESCE(MIN(incident_status),?) AS last_incident_status,
+       COALESCE(MIN(create_ts),?)       AS last_incident_status_dt
+FROM  incident_header_stat_hist_stg
+WHERE 1=1
+AND incident_header_id = ?
+AND incident_header_stat_hist_id = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -272,8 +421,788 @@ AND s.incident_header_stat_hist_id = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>300</xloc>
-      <yloc>88</yloc>
+      <xloc>427</xloc>
+      <yloc>72</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy -1</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>284</xloc>
+      <yloc>127</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy -2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>294</xloc>
+      <yloc>282</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy -3</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>664</xloc>
+      <yloc>56</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy -4</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>695</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Error1</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>CREATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>UPDATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>INCIDENT_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>605</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Error2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>CREATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>UPDATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>INCIDENT_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1057</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Error3</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>CREATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>UPDATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>INCIDENT_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1081</xloc>
+      <yloc>467</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Error4</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>ERR_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERR_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>JOB_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>ERR_DESC</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>ERR_FLD</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>CREATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>UPDATE_TS</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>INCIDENT_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>599</xloc>
+      <yloc>461</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables1</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATE_TS</name>
+        <variable>${CREATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>UPDATE_TS</name>
+        <variable>${UPDATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_LEVEL</name>
+        <variable>${ERR_LEVEL}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <variable>${PROCESS_NAME}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_DATE</name>
+        <variable>${ERR_DATE}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>429</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables2</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATE_TS</name>
+        <variable>${CREATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>UPDATE_TS</name>
+        <variable>${UPDATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_LEVEL</name>
+        <variable>${ERR_LEVEL}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <variable>${PROCESS_NAME}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_DATE</name>
+        <variable>${ERR_DATE}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>909</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables3</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATE_TS</name>
+        <variable>${CREATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>UPDATE_TS</name>
+        <variable>${UPDATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_LEVEL</name>
+        <variable>${ERR_LEVEL}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <variable>${PROCESS_NAME}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_DATE</name>
+        <variable>${ERR_DATE}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>919</xloc>
+      <yloc>467</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables4</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATE_TS</name>
+        <variable>${CREATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>UPDATE_TS</name>
+        <variable>${UPDATE_TS}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_LEVEL</name>
+        <variable>${ERR_LEVEL}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <variable>${PROCESS_NAME}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ERR_DATE</name>
+        <variable>${ERR_DATE}</variable>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>431</xloc>
+      <yloc>461</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -342,7 +1271,10 @@ AND s.incident_header_stat_hist_id = ?
        APPELLANT_TYPE,
        APPELLANT_TYPE_DESC,
        REPORTER_NAME,
-       REPORTER_PHONE
+       REPORTER_PHONE,
+	   CHANNEL,
+       ACCOUNT_ID,
+       PREF_LANGUAGE
   FROM nyhx_etl_idr_incidents A
  WHERE A.STAGE_DONE_DATE is null
  ORDER BY A.INCIDENT_ID</sql>
@@ -364,7 +1296,7 @@ AND s.incident_header_stat_hist_id = ?
     <type>TableOutput</type>
     <description/>
     <distribute>N</distribute>
-    <copies>1</copies>
+    <copies>5</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
@@ -603,11 +1535,23 @@ AND s.incident_header_stat_hist_id = ?
           <column_name>REPORTER_PHONE</column_name>
           <stream_name>REPORTER_PHONE</stream_name>
         </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>PREF_LANGUAGE</column_name>
+          <stream_name>PREF_LANGUAGE</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>657</xloc>
-      <yloc>87</yloc>
+      <xloc>913</xloc>
+      <yloc>56</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -617,7 +1561,7 @@ AND s.incident_header_stat_hist_id = ?
     <type>TableOutput</type>
     <description/>
     <distribute>N</distribute>
-    <copies>1</copies>
+    <copies>5</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
@@ -860,16 +1804,76 @@ AND s.incident_header_stat_hist_id = ?
           <column_name>REPORTER_PHONE</column_name>
           <stream_name>REPORTER_PHONE</stream_name>
         </field>
+        <field>
+          <column_name>CHANNEL</column_name>
+          <stream_name>CHANNEL</stream_name>
+        </field>
+        <field>
+          <column_name>ACCOUNT_ID</column_name>
+          <stream_name>ACCOUNT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>PREF_LANGUAGE</column_name>
+          <stream_name>PREF_LANGUAGE</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>673</xloc>
-      <yloc>326</yloc>
+      <xloc>921</xloc>
+      <yloc>359</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
+      <error>
+        <source_step>Database join - Get history status from OLTP</source_step>
+        <target_step>Get Variables4</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Database join - Get last status used for process updates</source_step>
+        <target_step>Get Variables1</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>99999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table Output - NYHX_ETL_IDR_INCIDENTS_WIP</source_step>
+        <target_step>Get Variables2</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>9999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table Output -NYHX_ETL_IDR_INCIDENTS_OLTP</source_step>
+        <target_step>Get Variables3</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>ERR_NR</nr_valuename>
+        <descriptions_valuename>ERR_DESC</descriptions_valuename>
+        <fields_valuename>ERR_FLD</fields_valuename>
+        <codes_valuename>ERR_CD</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
   </step_error_handling>
    <slave-step-copy-partition-distribution>
 </slave-step-copy-partition-distribution>

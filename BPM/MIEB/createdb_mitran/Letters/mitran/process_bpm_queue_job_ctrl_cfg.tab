@@ -1,0 +1,46 @@
+create table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+(
+  max_total_num_jobs            NUMBER(4) not null,
+  num_jobs_to_del_during_adjust NUMBER(3) not null,
+  num_jobs_to_add_during_adjust NUMBER(3) not null,
+  num_group_cycles_before_add   NUMBER(3) not null,
+  control_job_sleep_seconds     NUMBER(5) not null,
+  lock_timeout_seconds          NUMBER(5) not null,
+  process_sleep_seconds         NUMBER(5) not null,
+  process_batch_seconds         NUMBER(5) not null,
+  start_delay_seconds           NUMBER(5) not null,
+  stop_delay_seconds            NUMBER(5) not null,
+  processing_enabled            VARCHAR2(1) not null
+)
+;
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_LOCK_TIMEOUT_SECONDS_CK
+  check (LOCK_TIMEOUT_SECONDS >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_NUM_GC_BEFORE_ADD_CK
+  check (NUM_GROUP_CYCLES_BEFORE_ADD >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_NUM_JOBS_TO_ADD_ADJ_CK
+  check (NUM_JOBS_TO_ADD_DURING_ADJUST >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_NUM_JOBS_TO_DEL_ADJ_CK
+  check (NUM_JOBS_TO_DEL_DURING_ADJUST >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_PROC_BATCH_SECONDS_CK
+  check (PROCESS_BATCH_SECONDS >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_PROC_SLEEP_SECONDS_CK
+  check (PROCESS_SLEEP_SECONDS >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_START_DELAY_SECONDS_CK
+  check (START_DELAY_SECONDS >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_STOP_DELAY_SECONDS_CK
+  check (STOP_DELAY_SECONDS >= 0);
+alter table PROCESS_BPM_QUEUE_JOB_CTRL_CFG
+  add constraint PBQJCC_TOTAL_MAX_NUM_JOBS_CK
+  check (MAX_TOTAL_NUM_JOBS >= 0);
+grant select, insert, update on PROCESS_BPM_QUEUE_JOB_CTRL_CFG to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on PROCESS_BPM_QUEUE_JOB_CTRL_CFG to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on PROCESS_BPM_QUEUE_JOB_CTRL_CFG to MAXDAT_MITRAN_READ_ONLY;
+

@@ -1,0 +1,226 @@
+USE DATABASE MARS_DP4BI_uat;
+USE SCHEMA PUBLIC;
+
+CREATE OR REPLACE VIEW MW_D_ESCALATIONS_INSTANCE_SV AS
+WITH mw AS(
+   SELECT ts.TASK_ID AS mw_bi_id      
+          ,ts.CREATED_ON AS instance_start_date_time
+          ,ts.CREATED_ON AS create_date_time     
+          ,ts.CREATED_ON AS curr_work_receipt_date_time           
+          ,CASE WHEN ts.TASK_STATUS IN('Cancelled', 'Complete') THEN ts.STATUS_DATE ELSE NULL END AS instance_end_date_time
+          ,(SELECT CASE WHEN (COUNT(*)-1) < 0 THEN 0 ELSE COUNT(*)-1 END
+               FROM D_DATES
+               WHERE d_dates.PROJECT_ID = ts.PROJECT_ID
+               AND business_day_flag = 'Y'
+               AND d_date BETWEEN DATE_TRUNC('DAY',ts.CREATED_ON) 
+               AND (CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN DATE_TRUNC('DAY',ts.STATUS_DATE) ELSE CURRENT_DATE() END) ) age_in_business_days     
+          ,DATEDIFF('DAY',ts.CREATED_ON,CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN DATE_TRUNC('DAY',ts.STATUS_DATE) ELSE CURRENT_DATE()END) age_in_calendar_days     
+          ,CASE WHEN ts.TASK_STATUS = 'Cancelled' THEN ts.UPDATED_BY ELSE NULL END AS cancelled_by_user_id     
+           ,CASE WHEN ts.TASK_STATUS = 'Cancelled' THEN 'Normal' ELSE NULL END AS cancel_method
+           ,ts.CANCEL_REASON AS cancel_reason
+           ,CASE WHEN ts.TASK_STATUS = 'Cancelled' THEN ts.STATUS_DATE ELSE NULL END AS cancel_work_date_time          
+           ,exc.case_id
+           ,exclnt.client_id       
+           ,CASE WHEN ts.TASK_STATUS in ('Complete','Closed') THEN ts.STATUS_DATE ELSE NULL END AS complete_date_time
+           ,ts.CREATED_BY AS curr_created_by_user_id
+           ,CASE WHEN ts.ESCALATED_FLAG_HIST THEN thesc.escalated_to_user_id ELSE NULL END AS escalated_to_user_id    
+           ,ts.STAFF_FORWARD_BY AS curr_forwarded_by_user_id
+           ,CASE WHEN ts.STAFF_FORWARD_BY IS NOT NULL THEN 'Y' ELSE 'N' END AS forwarded_flag     
+           ,sato.BUSINESS_UNIT_ID curr_business_unit_id           
+           ,ts.UPDATED_BY AS curr_last_upd_by_user_id
+           ,ts.UPDATED_ON AS curr_last_update_date_time
+           ,CASE WHEN ts.TASK_STATUS NOT IN('Complete','Cancelled') THEN ts.STAFF_ASSIGNED_TO ELSE NULL END AS curr_owner_user_id     
+           ,exo.source_reference_type
+           ,exo.source_reference_id
+           ,ts.STATUS_DATE AS curr_status_date_time
+           ,(SELECT CASE WHEN (COUNT(*)-1) < 0 THEN 0 ELSE COUNT(*)-1 END
+               FROM D_DATES
+               WHERE d_dates.PROJECT_ID = ts.PROJECT_ID
+               AND business_day_flag = 'Y'
+               AND d_date BETWEEN DATE_TRUNC('DAY',ts.STATUS_DATE) 
+               AND (CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN DATE_TRUNC('DAY',ts.STATUS_DATE) ELSE CURRENT_DATE() END) ) status_age_in_bus_days                  
+           ,DATEDIFF('DAY',DATE_TRUNC('DAY',ts.STATUS_DATE),CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN DATE_TRUNC('DAY',ts.STATUS_DATE) ELSE CURRENT_DATE() END )  status_age_in_cal_days  
+           ,ts.TASK_ID AS task_id
+           ,COALESCE(ts.OVERRIDE_PRIORITY,ts.DEFAULT_PRIORITY) AS task_priority          
+           ,ts.task_status AS curr_task_status
+           ,tt.TASK_NAME AS task_name
+           ,ts.TASK_TYPE_ID
+           ,sato.TEAM_ID AS curr_team_id           
+           ,CASE WHEN ts.TASK_STATUS NOT IN('Complete','Cancelled') THEN
+              CASE WHEN ts.STAFF_ASSIGNED_TO IS NOT NULL THEN COALESCE(ccd.curr_claim_date_time,ts.UPDATED_ON) ELSE NULL END ELSE NULL END AS curr_claim_date_time
+           ,tt.SLA_DAYS AS sla_days
+           ,tt.SLA_JEOPARDY_DAYS AS sla_jeopardy_days
+           ,tt.SLA_DAYS_TYPE AS sla_days_type
+           ,tt.UNIT_OF_WORK AS unit_of_work
+           ,exdcn.dcn
+            --These fields exist in the current MW implementation but cannot be mapped to CP           
+           ,NULL AS parent_task_id                
+           ,NULL AS source_process_id  
+           ,NULL AS source_process_instance_id 
+           ,NULL AS document_received_date
+            --May not be needed and could be removed
+           ,CURRENT_DATE() AS stg_extract_date_time
+           ,CURRENT_DATE() AS stg_last_update_date_time
+           ,CURRENT_DATE() AS stg_done_date_time
+            --New               
+           ,CASE WHEN ts.ESCALATED_FLAG_HIST THEN thesc.escalated_by_user_id ELSE NULL END AS escalated_by_user_id                  
+           ,CASE WHEN ts.ESCALATED_FLAG_HIST THEN thesc.task_escalated_ts ELSE NULL END AS task_escalated_ts     
+           ,ts.PROJECT_ID AS project_id
+           ,ts.SOURCE AS task_source
+           ,ts.TASK_INFO AS task_info
+           ,ts.TASK_NOTES AS task_notes
+           ,ts.TASK_DISPOSITION AS task_disposition 
+           ,tt.SLA_TARGET_DAYS AS sla_target_days   
+           ,tt.OPERATIONS_GROUP AS ops_group 
+           ,TT.TASK_DESCRIPTION AS task_type_description
+           ,CASE WHEN ts.TASK_STATUS NOT IN('Complete','Cancelled') THEN 
+              CASE WHEN ts.STAFF_ASSIGNED_TO IS NOT NULL THEN sato.owner_is_supervisor ELSE NULL END ELSE NULL END AS owner_is_supervisor
+           ,sato.team_supervisor
+           ,sato.team_name
+           ,CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN NULL ELSE
+              CASE WHEN ts.STAFF_ASSIGNED_TO IS NOT NULL THEN 'CLAIMED' ELSE 'UNCLAIMED' END END AS task_claim_status    
+           ,CASE WHEN ts.TASK_STATUS IN('Complete') THEN ts.STAFF_ASSIGNED_TO ELSE NULL END staff_worked_by_user_id
+           ,ttw.total_time_worked
+           ,CASE WHEN ts.TASK_STATUS = 'Complete' THEN
+              DATEDIFF('DAY',DATE_TRUNC('DAY',fcd.first_claim_date_time),DATE_TRUNC('DAY',ts.STATUS_DATE) ) ELSE NULL END AS total_handle_time 
+           ,fcd.first_claim_date_time 
+           ,sato.business_unit_name
+           ,ts.EDIT_REASON AS TASK_EDIT_REASON
+           ,cb.business_unit_id AS created_by_business_unit_id
+           ,cb.business_unit_name AS created_by_business_unit_name
+           ,ub.business_unit_id AS updated_by_business_unit_id
+           ,ub.business_unit_name AS updated_by_business_unit_name
+           ,stat.business_unit_id AS staff_assigned_to_business_unit_id
+           ,stat.business_unit_name AS staff_assigned_to_business_unit_name  
+  FROM (SELECT * FROM  (SELECT 
+                *
+               ,CASE WHEN EXISTS(SELECT 1 FROM MARSDB.MARSDB_TASKS_HISTORY_VW th
+                                    WHERE th.TASK_ID = ts.TASK_ID AND th.PROJECT_ID = ts.PROJECT_ID
+                                    AND th.TASK_STATUS = 'Escalated') THEN TRUE ELSE FALSE END escalated_flag_hist
+               FROM
+                MARSDB.MARSDB_TASKS_VW AS ts) WHERE escalated_flag_hist = TRUE) ts 
+     LEFT JOIN  MARSDB.CFG_TASK_TYPE tt ON  ts.TASK_TYPE_ID = tt.TASK_TYPE_ID  
+     LEFT JOIN  D_USER_SV cb ON ts.CREATED_BY = TO_CHAR(cb.USER_ID) AND ts.PROJECT_ID = COALESCE(cb.TEAM_PROJECT_ID, cb.USER_PROJECT_ID)
+     LEFT JOIN  D_USER_SV ub ON ts.UPDATED_BY = TO_CHAR(ub.USER_ID) AND ts.PROJECT_ID = COALESCE(ub.TEAM_PROJECT_ID, ub.USER_PROJECT_ID)
+     LEFT JOIN  D_USER_SV stat ON ts.STAFF_ASSIGNED_TO = TO_CHAR(stat.USER_ID) AND ts.PROJECT_ID = COALESCE(stat.TEAM_PROJECT_ID, stat.USER_PROJECT_ID)  
+  --get first claimed date for handle time calculation
+  LEFT JOIN (SELECT *
+                FROM(SELECT th.TASK_ID,th.PROJECT_ID,th.TASK_HISTORY_ID,th.UPDATED_ON AS first_claim_date_time                      
+                      ,RANK() OVER (PARTITION BY th.PROJECT_ID,th.TASK_ID ORDER BY th.task_history_id) fcdrank                     
+                 FROM MARSDB.MARSDB_TASKS_HISTORY_VW th                                      
+                 WHERE th.STAFF_ASSIGNED_TO IS NOT NULL
+                 AND th.TASK_STATUS NOT IN('Complete','Cancelled') ) tmp
+            WHERE fcdrank = 1) fcd ON ts.TASK_ID = fcd.TASK_ID AND ts.PROJECT_ID = fcd.PROJECT_ID  
+  --get current claimed date
+  LEFT JOIN (SELECT TASK_ID,PROJECT_ID,MAX(UPDATED_ON) curr_claim_date_time
+             FROM(SELECT th.TASK_ID,th.PROJECT_ID,th.TASK_HISTORY_ID,th.UPDATED_ON, th.STAFF_ASSIGNED_TO
+                    ,LAG(STAFF_ASSIGNED_TO) OVER (PARTITION BY th.PROJECT_ID,th.TASK_ID ORDER BY th.task_history_id) prev_assigned_to
+                  FROM MARSDB.MARSDB_TASKS_HISTORY_VW th                                      
+                  WHERE  th.TASK_STATUS NOT IN('Complete','Cancelled'))
+             WHERE ((prev_assigned_to IS NULL AND staff_assigned_to IS NOT NULL)
+                OR (staff_assigned_to <> prev_assigned_to) ) 
+             GROUP BY TASK_ID,PROJECT_ID) ccd ON ts.TASK_ID = ccd.TASK_ID and ts.PROJECT_ID = ccd.PROJECT_ID
+  --get staff assigned to team/business unit 
+  LEFT JOIN (SELECT *
+                FROM(SELECT sato.USER_ID,sato.STAFF_ID,tsup.sup_user_id, tsup.team_supervisor, t.TEAM_NAME, t.TEAM_ID, t.PROJECT_ID, b.BUSINESS_UNIT_ID, b.BUSINESS_UNIT_NAME,
+                       CASE WHEN sato.USER_ID = tsup.SUP_USER_ID THEN 'Supervisor' ELSE 'Non Supervisor' END owner_is_supervisor
+                       ,RANK() OVER (PARTITION BY t.PROJECT_ID,sato.USER_ID ORDER BY tu.EFFECTIVE_END_DATE DESC NULLS FIRST, tu.TEAM_USER_ID) turank 
+                FROM MARSDB.MARSDB_USER_VW sato                                       
+                  LEFT JOIN MARSDB.MARSDB_TEAM_USER_VW tu ON sato.USER_ID = tu.USER_ID 
+                  LEFT JOIN MARSDB.MARSDB_TEAM_VW t ON tu.TEAM_ID = t.TEAM_ID 
+                  LEFT JOIN MARSDB.MARSDB_BUSINESS_UNIT_VW b ON t.BUSINESS_UNIT_ID = b.BUSINESS_UNIT_ID AND t.PROJECT_ID = b.PROJECT_ID
+                  LEFT JOIN (SELECT tsup.TEAM_ID, tsup.USER_ID AS sup_user_id, CONCAT(sup.FIRST_NAME,' ',sup.LAST_NAME)  team_supervisor
+                             FROM MARSDB.MARSDB_TEAM_USER_VW tsup
+                               JOIN MARSDB.MARSDB_USER_VW ust ON tsup.USER_ID = ust.USER_ID 
+                               JOIN MARSDB.MARSDB_STAFF_VW sup ON ust.STAFF_ID = sup.STAFF_ID
+                             WHERE tsup.SUPERVISOR_FLAG = 1 
+                             AND tsup.EFFECTIVE_END_DATE IS NULL) tsup ON t.TEAM_ID = tsup.TEAM_ID ) tmp
+               WHERE turank = 1) sato ON TO_CHAR(sato.USER_ID) = ts.STAFF_ASSIGNED_TO AND sato.PROJECT_ID = ts.PROJECT_ID    
+     --get escalated to/by staff
+     LEFT JOIN (SELECT *
+                FROM(SELECT th.TASK_ID,th.PROJECT_ID,th.TASK_HISTORY_ID,th.UPDATED_ON,th.STAFF_ASSIGNED_TO AS escalated_to_user_id,
+                      task_escalated_ts,escalated_by_user_id
+                      ,RANK() OVER (PARTITION BY th.PROJECT_ID,th.TASK_ID ORDER BY th.task_history_id DESC) thrank                     
+                 FROM MARSDB.MARSDB_TASKS_HISTORY_VW th
+                   JOIN (SELECT *
+                         FROM (SELECT the.TASK_HISTORY_ID AS escalated_hist_id, the.PROJECT_ID,the.TASK_ID, the.UPDATED_ON AS task_escalated_ts,the.UPDATED_BY AS escalated_by_user_id,                              
+                                RANK() OVER (PARTITION BY the.PROJECT_ID,the.TASK_ID ORDER BY the.task_history_id DESC) esrank
+                            FROM MARSDB.MARSDB_TASKS_HISTORY_VW the                               
+                            WHERE the.TASK_STATUS = 'Escalated') tmp
+                         WHERE esrank = 1) the ON th.TASK_ID = the.TASK_ID AND th.PROJECT_ID = the.PROJECT_ID                     
+                 WHERE th.STAFF_ASSIGNED_TO IS NOT NULL
+                 AND th.TASK_STATUS = 'In-Progress'             
+                 AND th.TASK_HISTORY_ID > the.escalated_hist_id ) tmp
+            WHERE thrank = 1) thesc ON ts.TASK_ID = thesc.TASK_ID AND ts.PROJECT_ID = thesc.PROJECT_ID  
+  -- get total time worked
+     LEFT JOIN (SELECT PROJECT_ID, TASK_ID, SUM(IFF(TASK_STATUS = 'In-Progress', time_elapsed, NULL)) AS total_time_worked
+                FROM(SELECT PROJECT_ID,TASK_ID,TASK_STATUS,                                 
+                        DATEDIFF('seconds', UPDATED_ON, COALESCE((LEAD(UPDATED_ON) OVER (PARTITION BY PROJECT_ID,TASK_ID ORDER BY PROJECT_ID, TASK_ID, UPDATED_ON, LOG_CREATED_ON)),CURRENT_DATE()) ) AS time_elapsed
+                     FROM MARSDB.MARSDB_TASKS_HISTORY_VW) th
+                GROUP BY PROJECT_ID, TASK_ID) ttw ON ts.TASK_ID = ttw.TASK_ID AND ts.PROJECT_ID = ttw.PROJECT_ID
+  -- get the latest linked case            
+      LEFT JOIN (SELECT *
+                 FROM(SELECT ex.PROJECT_ID,ex.INTERNAL_ID,ex.EXTERNAL_REF_ID AS case_id,RANK() OVER (PARTITION BY ex.PROJECT_ID,ex.INTERNAL_ID ORDER BY ex.EXTERNAL_LINK_ID DESC) exrnk
+                      FROM MARSDB.MARSDB_EXTERNAL_LINKS_VW ex
+                      WHERE UPPER(ex.INTERNAL_REF_TYPE) = 'TASK'
+                      AND UPPER(ex.EXTERNAL_REF_TYPE) = 'CASE'
+                      AND ex.EFFECTIVE_END_DATE IS NULL ) tmp 
+                  WHERE exrnk = 1) exc ON exc.INTERNAL_ID = ts.TASK_ID AND exc.PROJECT_ID = ts.PROJECT_ID
+    -- get the latest linked client		
+      LEFT JOIN (SELECT *
+                 FROM(SELECT ex.PROJECT_ID,ex.INTERNAL_ID,ex.EXTERNAL_REF_ID AS client_id,RANK() OVER (PARTITION BY ex.PROJECT_ID,ex.INTERNAL_ID ORDER BY ex.EXTERNAL_LINK_ID DESC) exrnk
+                      FROM MARSDB.MARSDB_EXTERNAL_LINKS_VW ex
+                      WHERE UPPER(ex.INTERNAL_REF_TYPE) = 'TASK'
+                      AND UPPER(ex.EXTERNAL_REF_TYPE) = 'CONSUMER'
+                      AND ex.EFFECTIVE_END_DATE IS NULL ) tmp 
+                  WHERE exrnk = 1) exclnt ON exclnt.INTERNAL_ID = ts.TASK_ID AND exclnt.PROJECT_ID = ts.PROJECT_ID
+    -- get the latest linked reference	
+      LEFT JOIN (SELECT *
+                 FROM(SELECT ex.PROJECT_ID,ex.INTERNAL_ID,ex.EXTERNAL_REF_ID AS source_reference_id,ex.EXTERNAL_REF_TYPE AS source_reference_type
+                         ,RANK() OVER (PARTITION BY ex.PROJECT_ID,ex.INTERNAL_ID ORDER BY ex.EXTERNAL_LINK_ID DESC) exrnk
+                      FROM MARSDB.MARSDB_EXTERNAL_LINKS_VW ex
+                      WHERE UPPER(ex.INTERNAL_REF_TYPE) = 'TASK'
+                      AND UPPER(ex.EXTERNAL_REF_TYPE) NOT IN('CONSUMER','CASE')
+                      AND ex.EFFECTIVE_END_DATE IS NULL ) tmp 
+                  WHERE exrnk = 1) exo ON exo.INTERNAL_ID = ts.TASK_ID AND exo.PROJECT_ID = ts.PROJECT_ID                   
+    -- get Document Id
+      LEFT JOIN (SELECT *
+                 FROM(SELECT ex.PROJECT_ID,ex.INTERNAL_ID,ex.EXTERNAL_REF_ID AS dcn,RANK() OVER (PARTITION BY ex.PROJECT_ID,ex.INTERNAL_ID ORDER BY ex.EXTERNAL_LINK_ID) exrnk
+                      FROM MARSDB.MARSDB_EXTERNAL_LINKS_VW ex
+                      WHERE UPPER(ex.INTERNAL_REF_TYPE) = 'TASK'
+                      AND UPPER(ex.EXTERNAL_REF_TYPE) = 'INBOUND_CORRESPONDENCE'
+                      AND ex.EFFECTIVE_END_DATE IS NULL ) tmp 
+                  WHERE exrnk = 1) exdcn ON exdcn.INTERNAL_ID = ts.TASK_ID AND exdcn.PROJECT_ID = ts.PROJECT_ID    
+ )
+ SELECT mw.*    
+  ,CASE WHEN mw.sla_days_type IS NULL THEN 'N'
+         WHEN mw.sla_days_type = 'B' AND mw.sla_days IS NOT NULL AND mw.age_in_business_days >= mw.sla_days THEN 'Y'
+         WHEN mw.sla_days_type = 'C' AND mw.sla_days IS NOT NULL AND mw.age_in_calendar_days >= mw.sla_days THEN 'Y'
+    ELSE 'N' END AS sla_flag   
+    ,CASE WHEN  mw.age_in_business_days <= 15 THEN '0-15'
+          WHEN  mw.age_in_business_days > 15 AND mw.age_in_business_days <= 25 THEN '16-25'
+          WHEN  mw.age_in_business_days > 25 AND mw.age_in_business_days <= 35 THEN '26-35'
+     ELSE '36+' END AS age_in_business_days_group   
+     ,CASE WHEN mw.curr_task_status NOT IN('Complete','Cancelled') THEN
+        CASE WHEN mw.age_in_calendar_days < mw.sla_jeopardy_days -1 THEN 'In Compliance'
+             WHEN mw.age_in_calendar_days >= mw.sla_jeopardy_days -1
+               AND mw.age_in_calendar_days < mw.sla_jeopardy_days THEN '1 Day Before Jeopardy'
+             WHEN mw.age_in_calendar_days >= mw.sla_jeopardy_days -1
+               AND mw.age_in_calendar_days < mw.sla_days THEN 'In Jeopardy'
+             WHEN mw.age_in_calendar_days >= mw.sla_days  THEN 'Exceeds SLA'
+         ELSE 'No SLA' END ELSE 'No SLA' END AS inventory_sla_age_group   
+     ,CASE WHEN mw.sla_days_type IS NULL THEN 'N'
+           WHEN mw.sla_days_type = 'B' AND mw.sla_jeopardy_days IS NOT NULL AND mw.age_in_business_days >= mw.sla_jeopardy_days THEN 'Y'
+           WHEN mw.sla_days_type = 'C' AND mw.sla_jeopardy_days IS NOT NULL AND mw.age_in_calendar_days >= mw.sla_jeopardy_days THEN 'Y'
+      ELSE 'N' END AS jeopardy_flag
+     ,CASE  WHEN mw.curr_task_status NOT IN('Complete','Cancelled') THEN 'Not Complete'
+            WHEN mw.curr_task_status = 'Cancelled' THEN 'Not Required'
+            WHEN mw.sla_days IS NULL THEN 'Not Required'
+            WHEN mw.sla_days_type = 'B' AND mw.age_in_business_days > COALESCE(mw.sla_days,0) THEN 'Untimely'
+            WHEN mw.sla_days_type = 'C' AND mw.age_in_calendar_days > COALESCE(mw.sla_days,0) THEN 'Untimely'  ELSE 'Timely' END AS timeliness_status
+     ,CASE  WHEN mw.curr_task_status IN('Complete') THEN 
+       CASE WHEN mw.sla_days_type = 'B' THEN mw.age_in_business_days
+            WHEN mw.sla_days_type = 'C' THEN mw.age_in_calendar_days 
+         ELSE NULL END ELSE NULL END AS task_cycle_time 
+     ,CASE WHEN mw.sla_days_type = 'B' THEN mw.age_in_business_days ELSE mw.age_in_calendar_days END AS task_age
+FROM mw;

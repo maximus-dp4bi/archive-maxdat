@@ -171,6 +171,74 @@ Steps
     </attributes>
   </connection>
   <connection>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>LOCAL_AVAYA_CCMS_STAT</name>
     <server>${DB_LOCAL_AVAYA_HOSTNAME}</server>
     <type>CACHE</type>
@@ -240,13 +308,13 @@ Steps
   </connection>
   <connection>
     <name>MOTS</name>
-    <server/>
+    <server>localhost</server>
     <type>ORACLE</type>
     <access>JNDI</access>
     <database>${JNDI_MOTS_SOURCE}</database>
     <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <username>amp</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb14af688f9fba9e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -375,7 +443,7 @@ Steps
       <update>Y</update>
       <fields>
         <key>
-          <name>AGENT_GROUP</name>
+          <name>GROUP_NAME</name>
           <lookup>GROUP_NAME</lookup>
         </key>
         <date>
@@ -450,8 +518,8 @@ Steps
            </partitioning>
     <connection>MAXDAT</connection>
     <rowlimit>0</rowlimit>
-    <sql>SELECT DISTINCT AGENT_GROUP
-FROM CC_S_AGENT sa</sql>
+    <sql>SELECT DISTINCT GROUP_NAME
+FROM CC_S_AGENT_GROUP </sql>
     <outer_join>N</outer_join>
     <replace_vars>N</replace_vars>
     <parameter>
@@ -505,7 +573,7 @@ FROM CC_S_AGENT sa</sql>
       <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>AGENT_GROUP</name>
+        <name>GROUP_NAME</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
       </field>
@@ -540,7 +608,7 @@ Distinct Groups
         <name>singleDate</name>
         </field>
       <field>
-        <name>AGENT_GROUP</name>
+        <name>GROUP_NAME</name>
         </field>
       </fields>
      <cluster_schema/>

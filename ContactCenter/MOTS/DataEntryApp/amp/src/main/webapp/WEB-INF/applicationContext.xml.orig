@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+
+    <!-- Activates scanning of @Repository and @Service -->
+    <context:component-scan base-package="com.maximus.amp"/>
+
+    <!-- Add new DAOs here -->
+
+    <!-- Add new Managers here -->
+    <bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+	    <constructor-arg ref="ldapBindAuthenticator"/>
+	    <constructor-arg ref="ldapAuthoritiesPopulator"/>
+	    <!-- property name="userDetailsContextMapper" ref="ldapUserDetailsContextMapper"/ -->
+	</bean>
+	 
+	<bean id="ldapBindAuthenticator" class="org.springframework.security.ldap.authentication.BindAuthenticator">
+	    <constructor-arg ref="ldapContextSource"/>
+	    <property name="userSearch" ref="ldapSearchBean"/>
+	</bean>
+	 
+	<bean id="ldapSearchBean" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+	    <constructor-arg value="${ldap.user.search.baseurl}"/><!-- user-search-base -->
+	    <constructor-arg value="${ldap.user.search.filter}"/> <!-- user-search-filter -->
+	    <constructor-arg ref="ldapContextSource"/>
+	</bean>
+	 
+<!-- 	<bean id="cppAuthoritiesUserDetailsServiceImpl" class="com.maximus.amp.webapp.util.CppAuthoritiesUserDetailsServiceImpl"> -->
+<!--         <constructor-arg ref="userDao"/> -->
+<!-- 	</bean> -->
+	 
+	<bean id="ldapAuthoritiesPopulator"
+	    class="org.springframework.security.ldap.authentication.UserDetailsServiceLdapAuthoritiesPopulator">
+	    <constructor-arg ref="userDao"/>
+	</bean>
+    
+    
+    <!-- Configure and Alternative PasswordTokenManager -->
+	<!-- <bean id="passwordTokenManager" class="com.maximus.amp.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->
+</beans>

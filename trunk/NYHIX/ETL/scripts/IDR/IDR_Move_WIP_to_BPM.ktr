@@ -75,28 +75,6 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
-    <name>EMRS</name>
-    <server>${DB_EMRS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_EMRS_NAME}</database>
-    <port>${DB_EMRS_PORT}</port>
-    <username>${DB_EMRS_USER}</username>
-    <password>${DB_EMRS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -120,64 +98,6 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
-    <port>${DB_OLTP_PORT}</port>
-    <username>${DB_OLTP_USER}</username>
-    <password>${DB_OLTP_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
@@ -232,8 +152,8 @@ SVN_REVISION_AUTHOR = $Author$
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>557</xloc>
-      <yloc>305</yloc>
+      <xloc>550</xloc>
+      <yloc>310</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -256,8 +176,8 @@ SVN_REVISION_AUTHOR = $Author$
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>555</xloc>
-      <yloc>221</yloc>
+      <xloc>550</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -288,8 +208,8 @@ SVN_REVISION_AUTHOR = $Author$
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>557</xloc>
-      <yloc>407</yloc>
+      <xloc>550</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -304,43 +224,51 @@ SVN_REVISION_AUTHOR = $Author$
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>NEII_ID</name>
+    <fields>      <field>        <name>ABOUT_PLAN_CODE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_ID</name>
+      </field>      <field>        <name>ABOUT_PROVIDER_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CREATED_BY_GROUP</name>
+      </field>      <field>        <name>ACCOUNT_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CREATED_BY_NAME</name>
+      </field>      <field>        <name>ACTION_COMMENTS</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>TRACKING_NUMBER</name>
+      </field>      <field>        <name>ACTION_TYPE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CREATE_DT</name>
+      </field>      <field>        <name>APPELLANT_TYPE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_TYPE</name>
+      </field>      <field>        <name>APPELLANT_TYPE_DESC</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CLIENT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASSD_IDR_REVIEW_DOCS</name>
+      </field>      <field>        <name>ASED_GATHER_MISS_INFO</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>ASED_IDR_REVIEW_DOCS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ASF_GATHER_MISS_INFO</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ASF_IDR_REVIEW_DOCS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ASPB_GATHER_MISS_INFO</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -352,23 +280,7 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ASED_GATHER_MISS_INFO</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASPB_GATHER_MISS_INFO</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ABOUT_PLAN_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ABOUT_PROVIDER_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ACTION_TYPE</name>
+      </field>      <field>        <name>ASSD_IDR_REVIEW_DOCS</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -388,67 +300,39 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>CASE_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CHANNEL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLIENT_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CREATED_BY_GROUP</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CREATED_BY_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CREATE_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CURRENT_STEP</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>      <field>        <name>CURRENT_TASK_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>ENROLLMENT_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_ABOUT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_STATUS_DT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INSTANCE_COMPLETE_DT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>INSTANCE_STATUS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>LAST_UPDATE_BY_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>LAST_UPDATE_BY_DT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>UPDATED_BY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>OTHER_PARTY_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PRIORITY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>REPORTED_BY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>REPORTER_RELATIONSHIP</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RESOLUTION_TYPE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CASE_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -460,35 +344,39 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ASF_IDR_REVIEW_DOCS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ASF_GATHER_MISS_INFO</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>GWF_CONTINUE_APPEAL</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>STG_EXTRACT_DATE</name>
+      </field>      <field>        <name>INCIDENT_ABOUT</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>STG_LAST_UPDATE_DATE</name>
+      </field>      <field>        <name>INCIDENT_DESCRIPTION</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>STAGE_DONE_DATE</name>
+      </field>      <field>        <name>INCIDENT_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>MAX_INCI_STAT_HIST_ID</name>
+      </field>      <field>        <name>INCIDENT_STATUS</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>UPDATED_FLG</name>
+      </field>      <field>        <name>INCIDENT_STATUS_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INCIDENT_TYPE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INSTANCE_COMPLETE_DT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INSTANCE_STATUS</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -500,15 +388,35 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>CURRENT_STEP</name>
+      </field>      <field>        <name>LAST_UPDATE_BY_DT</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>APPELLANT_TYPE</name>
+      </field>      <field>        <name>LAST_UPDATE_BY_NAME</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>APPELLANT_TYPE_DESC</name>
+      </field>      <field>        <name>MAX_INCI_STAT_HIST_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NEII_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>OTHER_PARTY_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREF_LANGUAGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PRIORITY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>REPORTED_BY</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -520,7 +428,7 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>INCIDENT_DESCRIPTION</name>
+      </field>      <field>        <name>REPORTER_RELATIONSHIP</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -528,7 +436,31 @@ SVN_REVISION_AUTHOR = $Author$
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ACTION_COMMENTS</name>
+      </field>      <field>        <name>RESOLUTION_TYPE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STAGE_DONE_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STG_EXTRACT_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STG_LAST_UPDATE_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TRACKING_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>UPDATED_BY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>UPDATED_FLG</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -662,7 +594,7 @@ WHERE w.UPDATED_FLG = ${gv_IDR_YES}</sql>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>770</xloc>
-      <yloc>407</yloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -679,7 +611,7 @@ WHERE w.UPDATED_FLG = ${gv_IDR_YES}</sql>
            </partitioning>
     <connection>MAXDAT</connection>
     <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
+    <commit>1000</commit>
     <use_batch>N</use_batch>
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
@@ -869,6 +801,10 @@ WHERE w.UPDATED_FLG = ${gv_IDR_YES}</sql>
         <rename>REPORTER_PHONE</rename>
         </value>
       <value>
+        <name>CHANNEL</name>
+        <rename>CHANNEL</rename>
+        </value>
+      <value>
         <name>RESOLUTION_DESCRIPTION</name>
         <rename>RESOLUTION_DESCRIPTION</rename>
         </value>
@@ -880,11 +816,19 @@ WHERE w.UPDATED_FLG = ${gv_IDR_YES}</sql>
         <name>ACTION_COMMENTS</name>
         <rename>ACTION_COMMENTS</rename>
         </value>
+      <value>
+        <name>ACCOUNT_ID</name>
+        <rename>ACCOUNT_ID</rename>
+        </value>
+      <value>
+        <name>PREF_LANGUAGE</name>
+        <rename>PREF_LANGUAGE</rename>
+        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>552</xloc>
-      <yloc>123</yloc>
+      <xloc>550</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

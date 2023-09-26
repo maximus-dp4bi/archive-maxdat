@@ -1,0 +1,32 @@
+create table ERRLOG_LTRLINK
+(
+  ora_err_number$           NUMBER,
+  ora_err_mesg$             VARCHAR2(2000),
+  ora_err_rowid$            UROWID(4000),
+  ora_err_optyp$            VARCHAR2(2),
+  ora_err_tag$              VARCHAR2(2000),
+  dp_letter_link_id         VARCHAR2(4000),
+  lmlink_id                 VARCHAR2(4000),
+  letter_request_id         VARCHAR2(4000),
+  reference_type            VARCHAR2(4000),
+  reference_id              VARCHAR2(4000),
+  created_by                VARCHAR2(4000),
+  create_ts                 VARCHAR2(4000),
+  updated_by                VARCHAR2(4000),
+  update_ts                 VARCHAR2(4000),
+  additional_reference_type VARCHAR2(4000),
+  additional_reference_id   VARCHAR2(4000),
+  client_id                 VARCHAR2(4000),
+  client_enroll_status_id   VARCHAR2(4000),
+  dp_updated_by             VARCHAR2(4000),
+  dp_date_updated           VARCHAR2(4000),
+  dp_created_by             VARCHAR2(4000),
+  dp_date_created           VARCHAR2(4000)
+)
+;
+comment on table ERRLOG_LTRLINK
+  is 'DML Error Logging table for "D_LETTER_REQUEST_LINK"';
+grant select, insert, update on ERRLOG_LTRLINK to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on ERRLOG_LTRLINK to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on ERRLOG_LTRLINK to MAXDAT_MITRAN_READ_ONLY;
+

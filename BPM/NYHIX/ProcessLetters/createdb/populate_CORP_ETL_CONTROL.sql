@@ -22,6 +22,11 @@ Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,RE
 Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Target_Days','TASK_TYPE','XA-Application Material Request','2','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'The number of days in which the letter request should be completed, as defined by the project',SYSDATE,SYSDATE);
 Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Target_Days','TASK_TYPE','XX-Material Request','2','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'The number of days in which the letter request should be completed, as defined by the project',SYSDATE,SYSDATE);
 
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days','TASK_TYPE','RE-Return Email Material Request','2','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'The number of days after which the letter request is determined to be processed untimely.',SYSDATE,SYSDATE);
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Days_Type','TASK_TYPE','RE-Return Email Material Request','B','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'Indicates if the SLA DAYS should be measured in Business Days or Calendar Days.',SYSDATE,SYSDATE);
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Jeopardy_Days','TASK_TYPE','RE-Return Email Material Request','1','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'Age at which time the letter request is determined to be in jeopardy of becoming untimely',SYSDATE,SYSDATE);
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) values (Seq_cell_Id.Nextval,'ProcLetters_SLA_Target_Days','TASK_TYPE','RE-Return Email Material Request','2','LETTER_TYPE',null,SYSDATE,to_date('07-JUL-2077','DD-MON-YYYY'),'The number of days in which the letter request should be completed, as defined by the project',SYSDATE,SYSDATE);
+
 Insert INTO CORP_ETL_LIST_LKUP ( CELL_ID, name, LIST_TYPE, value, OUT_VAR, REF_TYPE, REF_ID, START_DATE, END_DATE, COMMENTS, CREATED_TS, UPDATED_TS ) 
 VALUES (SEQ_CELL_ID.NEXTVAL, 'LAST_ETL_COMP_PIVOT', 'PIVOT', 'Process_Letters_runall', '12' , 'BPM_EVENT_MASTER', 12, TRUNC(sysdate - 1), TO_DATE('07077777', 'mmddyyyy'), 'Pivot to connect the job stats table to BPM tables, out is BSL_ID, ref type is BPM event master and ref id is BEM_ID' , sysdate, sysdate );
 
@@ -52,5 +57,8 @@ I will change to 4/24, i.e., 4 hours.
 */
 insert into CORP_ETL_CONTROL(name,VALUE_TYPE,value,DESCRIPTION,CREATED_TS,UPDATED_TS) 
 values ('PL_SUCCESSFUL_RUN_LOOK_BACK_DAYS','N',30,'Last Successful ETL run date minus these many days. Ex: use 180 to go back 6 months. 0.25 to go back 6 hours.',sysdate,sysdate);
+
+insert into CORP_ETL_CONTROL(name,VALUE_TYPE,value,DESCRIPTION,CREATED_TS,UPDATED_TS) 
+values ('LETTERS_STG_LOOK_BACK_DAYS','N','2','Number of days to look back when inserting/updating letters so records will not be missed',sysdate,sysdate);
 
 commit;

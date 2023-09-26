@@ -41,14 +41,12 @@ tablespace MAXDAT_DATA parallel;
 
 alter table D_ONL_CURRENT add constraint DONLCUR_PK primary key (ONL_BI_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym D_ONL_CURRENT for D_ONL_CURRENT;
 grant select on D_ONL_CURRENT to MAXDAT_READ_ONLY;
   
 create or replace view D_ONL_CURRENT_SV as
 select * from D_ONL_CURRENT 
 with read only;  
 
-create or replace public synonym D_ONL_CURRENT_SV for D_ONL_CURRENT_SV;
 grant select on D_ONL_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -69,14 +67,12 @@ alter table D_ONL_INSTANCE_STATUS add constraint DONLIS_PK primary key (DONLIS_I
 
 create unique index DONLIS_PK_UIX1 on D_ONL_INSTANCE_STATUS(INSTANCE_STATUS) tablespace MAXDAT_INDX parallel compute statistics;   
 
-create or replace public synonym D_ONL_INSTANCE_STATUS for D_ONL_INSTANCE_STATUS;
 grant select on D_ONL_INSTANCE_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_ONL_INSTANCE_STATUS_SV as
 select * from D_ONL_INSTANCE_STATUS
 with read only;
 
-create or replace public synonym D_ONL_INSTANCE_STATUS_SV for D_ONL_INSTANCE_STATUS_SV;
 grant select on D_ONL_INSTANCE_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_ONL_INSTANCE_STATUS (DONLIS_ID,INSTANCE_STATUS) values (SEQ_DONLIS_ID.NEXTVAL,null);
@@ -122,7 +118,6 @@ create index FONLBD_IXL2 on F_ONL_BY_DATE (ONL_BI_ID) local online tablespace MA
 create index FONLBD_IXL3 on F_ONL_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FONLBD_IXL4 on F_ONL_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_ONL_BY_DATE for F_ONL_BY_DATE;
 grant select on F_ONL_BY_DATE to MAXDAT_READ_ONLY;
 
 
@@ -198,5 +193,4 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_ONL_BY_DATE_SV for F_ONL_BY_DATE_SV;
 grant select on F_ONL_BY_DATE_SV to MAXDAT_READ_ONLY;

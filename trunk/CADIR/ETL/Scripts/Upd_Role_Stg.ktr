@@ -76,6 +76,69 @@ SVN_REVISION_AUTHOR = $Author$
   <modified_date>2014&#47;07&#47;07 14:51:55.332</modified_date>
   </info>
   <notepads>
+    <notepad>
+      <note>To extract role information from Entellitrack</note>
+      <xloc>245</xloc>
+      <yloc>175</yloc>
+      <width>258</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>To extract role information from SQID.</note>
+      <xloc>245</xloc>
+      <yloc>373</yloc>
+      <width>230</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>To extract user role intersection table information</note>
+      <xloc>247</xloc>
+      <yloc>558</yloc>
+      <width>292</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>DMS</name>
@@ -131,10 +194,10 @@ SVN_REVISION_AUTHOR = $Author$
   <connection>
     <name>KOFAX_ARS</name>
     <server>${DB_KOFAX_ARS_HOSTNAME}</server>
-    <type>MSSQLNATIVE</type>
+    <type>MSSQL</type>
     <access>Native</access>
     <database>${DB_KOFAX_ARS_DB}</database>
-    <port>1433</port>
+    <port>${DB_KOFAX_ARS_PORT}</port>
     <username>${DB_KOFAX_ARS_USER}</username>
     <password>${DB_KOFAX_ARS_PASSWORD}</password>
     <servername/>
@@ -145,21 +208,20 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_ARS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
     <name>KOFAX_CENTRAL</name>
     <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
-    <type>MSSQLNATIVE</type>
+    <type>MSSQL</type>
     <access>Native</access>
     <database>${DB_KOFAX_CENTRAL_DB}</database>
-    <port>1433</port>
+    <port>${DB_KOFAX_CENTRAL_PORT}</port>
     <username>${DB_KOFAX_CENTRAL_USER}</username>
     <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
     <servername/>
@@ -170,9 +232,8 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
       <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_CENTRAL_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -217,18 +278,13 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_MAXDAT_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =maxdat;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -399,20 +455,191 @@ SVN_REVISION_AUTHOR = $Author$
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
-      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${OLTP_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = ${OLTP_DB_SCHEMA};</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>SQID</name>
+    <server>${DB_SQID_HOSTNAME}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${DB_SQID_NAME}</database>
+    <port>${DB_SQID_PORT}</port>
+    <username>${DB_SQID_USER}</username>
+    <password>${DB_SQID_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SQID_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input - Get RoleInfo</from><to>Table output - Load RoleInfo</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - Get CADIR RoleInfo</from><to>Insert &#47; Update - Role Info</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Get SQID RoleInfo</from><to>Insert &#47; Update - SQID Role Info</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Get SQID User Role </from><to>Insert &#47; Update - SQID User Role</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Table input - Get RoleInfo</name>
+    <name>Insert &#47; Update - Role Info</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <table>CADIR_ROLE_STG</table>
+      <key>
+        <name>ROLE_ID</name>
+        <field>ROLE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>ROLE_ID</name>
+        <rename>ROLE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>NAME</name>
+        <rename>NAME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>DESCRIPTION</name>
+        <rename>DESCRIPTION</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>BUSINESS_KEY</name>
+        <rename>BUSINESS_KEY</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>502</xloc>
+      <yloc>86</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update - SQID Role Info</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <table>CADIR_ROLE_STG</table>
+      <key>
+        <name>ROLE_ID</name>
+        <field>ROLE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>ROLE_ID</name>
+        <rename>ROLE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>NAME</name>
+        <rename>NAME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>DESCRIPTION</name>
+        <rename>DESCRIPTION</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>BUSINESS_KEY</name>
+        <rename>BUSINESS_KEY</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>502</xloc>
+      <yloc>284</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update - SQID User Role</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <table>SQID_USER_ROLE_STG</table>
+      <key>
+        <name>SEC_USER_ROLE_ID</name>
+        <field>SEC_USER_ROLE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>SEC_USER_ROLE_ID</name>
+        <rename>SEC_USER_ROLE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SEC_USER_ID</name>
+        <rename>SEC_USER_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SEC_ROLE_ID</name>
+        <rename>SEC_ROLE_ID</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>502</xloc>
+      <yloc>472</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Get CADIR RoleInfo</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -422,12 +649,14 @@ SVN_REVISION_AUTHOR = $Author$
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <sql>SELECT
-  ROLE_ID
+    <sql>&#47;* Role ID is set aside for Admin Role for both in Entellitrack and SQUID databases, so avoid insert or update *&#47;
+SELECT
+  To_number(ROLE_ID) Role_id
 , NAME
 , DESCRIPTION
 , BUSINESS_KEY
 FROM ETK_ROLE
+WHERE ROLE_ID != 1
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -436,15 +665,15 @@ FROM ETK_ROLE
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>133</xloc>
-      <yloc>140</yloc>
+      <xloc>210</xloc>
+      <yloc>86</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Load RoleInfo</name>
-    <type>TableOutput</type>
+    <name>Table input - Get SQID RoleInfo</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -452,50 +681,70 @@ FROM ETK_ROLE
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CADIR_ROLE_STG</table>
-    <commit>100</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>Y</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>N</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>ROLE_ID</column_name>
-          <stream_name>ROLE_ID</stream_name>
-        </field>
-        <field>
-          <column_name>NAME</column_name>
-          <stream_name>NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DESCRIPTION</column_name>
-          <stream_name>DESCRIPTION</stream_name>
-        </field>
-        <field>
-          <column_name>BUSINESS_KEY</column_name>
-          <stream_name>BUSINESS_KEY</stream_name>
-        </field>
-    </fields>
+    <connection>SQID</connection>
+    <sql>&#47;* Role ID is set aside for Admin Role for both in Entellitrack and SQUID databases, so avoid insert or update *&#47;
+SELECT
+  SEC_ROLE_ID ROLE_ID
+, ROLE_NAME NAME
+, ROLE_NAME DESCRIPTION
+, ROLE_NAME BUSINESS_KEY
+FROM SEC_ROLE
+WHERE SEC_ROLE_ID != 1
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>456</xloc>
-      <yloc>140</yloc>
+      <xloc>210</xloc>
+      <yloc>284</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Get SQID User Role </name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>SQID</connection>
+    <sql>SELECT  SEC_USER_ROLE_ID ,
+		SEC_USER_ID ,
+		SEC_ROLE_ID 
+  FROM SEC_USER_ROLE</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>210</xloc>
+      <yloc>472</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
+      <error>
+        <source_step>Insert &#47; Update - Role Info</source_step>
+        <target_step/>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>noferr</nr_valuename>
+        <descriptions_valuename>errdesc</descriptions_valuename>
+        <fields_valuename>errflds</fields_valuename>
+        <codes_valuename>errcode</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
   </step_error_handling>
    <slave-step-copy-partition-distribution>
 </slave-step-copy-partition-distribution>

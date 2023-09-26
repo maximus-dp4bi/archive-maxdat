@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Dispute_Task</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -360,7 +373,7 @@ FROM WR_STATUSES wr
 JOIN WR_TYPES wrt
 ON WR.WRT_id    = wrt.wrt_id
 AND wrt.driver  = &apos;ACCOUNT&apos;
-WHERE WR.WRT_id   in (45,67)
+WHERE WR.WRT_id   in (45,65,67)
 GROUP BY wr.driver_key</sql>
     <limit>0</limit>
     <lookup/>

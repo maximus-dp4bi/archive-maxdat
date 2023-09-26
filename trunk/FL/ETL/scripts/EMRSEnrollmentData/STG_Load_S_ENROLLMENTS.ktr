@@ -73,6 +73,27 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
   <modified_date>2013&#47;05&#47;14 16:11:22.625</modified_date>
   </info>
   <notepads>
+    <notepad>
+      <note>Outer join in for eligibility_results as if there is no eligibility there&apos;s no enrollment.</note>
+      <xloc>250</xloc>
+      <yloc>530</yloc>
+      <width>470</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>EMRS</name>
@@ -184,7 +205,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table output - Enrollment Staging</from><to>Text file output - STG_LOAD_S_ENROLLMENT</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Enrollment from Vida</from><to>Database join - Get enrollment client info</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>Table output - Enrollment Staging</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Elig Rcpt Date</from><to>Select values - Selection Segment records</to><enabled>Y</enabled> </hop>  <hop> <from>Select values - Selection Segment records</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get enrollment client info</from><to>Calc People_in_family</to><enabled>Y</enabled> </hop>  <hop> <from>Calc People_in_family</from><to>Database join - Get Elig Rcpt Date</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Insert - Enrollment Staging</from><to>Text file output - STG_LOAD_S_ENROLLMENT</to><enabled>Y</enabled> </hop>  <hop> <from>Get enrollment client info</from><to>Calc People_in_family</to><enabled>Y</enabled> </hop>  <hop> <from>Join Renewals</from><to>Get enrollment client info</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>Join Renewals</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Coverage data from Vida</from><to>Join Eligibility_results</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility_results</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Calc People_in_family</from><to>Insert - Enrollment Staging</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Calc People_in_family</name>
     <type>DBJoin</type>
@@ -196,15 +217,15 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
+    <rowlimit>1</rowlimit>
     <sql>SELECT 
-	SUM(CHILD_FLAG) AS PEOPLE_IN_FAMILY
+	SUM(APPLYING_FOR_BENEFITS_IND) AS PEOPLE_IN_FAMILY
 FROM 
 	ACCOUNT_MEMBERSHIP A
 WHERE
 	APPLYING_FOR_BENEFITS_IND=&apos;1&apos; AND 
-	CHILD_FLAG=&apos;1&apos; AND 
-	A.ACCOUNT_ID = ?</sql>
+    parent_type is null AND
+	ACCOUNT_ID = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -215,14 +236,14 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>210</yloc>
+      <xloc>590</xloc>
+      <yloc>390</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Database join - Get Elig Rcpt Date</name>
+    <name>Get enrollment client info</name>
     <type>DBJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -233,43 +254,12 @@ WHERE
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>1</rowlimit>
-    <sql>SELECT er.insert_date eligibility_receipt_date -- MEDICAID clients can get diff eligibility dates for diff types
-FROM eligibility_result er
---           join account_membership am on er.account_membership_id = am.account_membership_id  ---CHANGED
---left outer join account_renewal ar on am.account_id = ar.account_id  ---CHANGED
-WHERE ER.ELIGIBILITY_RESULT_ID = ?</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ELIGIBILITY_RESULT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>310</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Database join - Get enrollment client info</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>SELECT  NVL(p.CITIZENSHIP_VERIFIED_TYPE, 0)   citizenship_status_code
+    <sql>SELECT  p.person_number                     source_client_id
+       ,NVL(p.CITIZENSHIP_VERIFIED_TYPE, 0) citizenship_status_code
        ,NVL(LANGUAGE_PREFERENCE,&apos;en&apos;)       language_code
        ,ai.ssn                              clnt_ssn
        ,aci.mailing_county                  county_code
+       ,aci.mailing_county                  csda_code
        ,a.account_number                    source_case_id
        ,ai.race_1                           race_code
 FROM person p 
@@ -277,942 +267,39 @@ left outer join applicant_info ai        on ai.person_number = p.person_number
            join account_membership am    on p.person_id = am.person_id
            join account a                on am.account_id = a.account_id
            join account_contact_info aci on a.account_id = aci.account_id 
-WHERE p.person_id = ?</sql>
+WHERE p.person_number = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
-        <name>SOURCE_CLIENT_ID</name>
+        <name>PERSON_NUMBER</name>
         <type>Integer</type>
       </field>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>100</yloc>
+      <xloc>380</xloc>
+      <yloc>390</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Select values - Selection Segment records</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>      <field>        <name>ACCOUNT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>AID_CATEGORY_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CHANGE_REASON_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CHIP_ANNUAL_ENROLL_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CITIZENSHIP_STATUS_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CLNT_SSN</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COUNTY_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COUNTY_CODE_1</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COVERAGE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>COVERAGE_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CO_PAY_AMOUNT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CREATED_BY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CREATE_TS</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CREATE_TS_HRMIN</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CREATE_TS_SECOND</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>CSDA_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DATE_CREATED</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>DATE_UPDATED</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ELIGIBILITY_RECEIPT_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ELIGIBILITY_RESULT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>END_ND</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_FEE_PAID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>LANGUAGE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MANAGED_CARE_END_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MANAGED_CARE_START_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>NUMBER_COUNT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PEOPLE_IN_FAMILY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PLAN_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PLAN_TYPE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PROGRAM_TYPE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>PROVIDER_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RACE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RISK_GROUP_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SEGMENT_TYPE_CD</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SELECTION_REASON_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SELECTION_SOURCE_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_CASE_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_CLIENT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_NETWORK_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_PLAN_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_RECORD_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SOURCE_TABLE_NAME</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>STATUS_IN_GROUP_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>SUB_PROGRAM_CODE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>UPDATED_BY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-      <meta>        <name>ACCOUNT_ID</name>
-        <rename>ACCOUNT_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>AID_CATEGORY_CODE</name>
-        <rename>AID_CATEGORY_CODE</rename>
-        <type>String</type>
-        <length>10</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CHANGE_REASON_CODE</name>
-        <rename>CHANGE_REASON_CODE</rename>
-        <type>String</type>
-        <length>30</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CHIP_ANNUAL_ENROLL_DATE</name>
-        <rename>CHIP_ANNUAL_ENROLL_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CITIZENSHIP_STATUS_CODE</name>
-        <rename>CITIZENSHIP_STATUS_CODE</rename>
-        <type>String</type>
-        <length>30</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CLNT_SSN</name>
-        <rename>CLNT_SSN</rename>
-        <type>String</type>
-        <length>9</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>COUNTY_CODE</name>
-        <rename>COUNTY_CODE</rename>
-        <type>String</type>
-        <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>COUNTY_CODE_1</name>
-        <rename>COUNTY_CODE_1</rename>
-        <type>String</type>
-        <length>40</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>COVERAGE_CODE</name>
-        <rename>COVERAGE_CODE</rename>
-        <type>String</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>COVERAGE_ID</name>
-        <rename>COVERAGE_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CO_PAY_AMOUNT</name>
-        <rename>CO_PAY_AMOUNT</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CREATED_BY</name>
-        <rename>CREATED_BY</rename>
-        <type>String</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CREATE_TS</name>
-        <rename>CREATE_TS</rename>
-        <type>String</type>
-        <length>10</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CREATE_TS_HRMIN</name>
-        <rename>CREATE_TS_HRMIN</rename>
-        <type>String</type>
-        <length>5</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CREATE_TS_SECOND</name>
-        <rename>CREATE_TS_SECOND</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>CSDA_CODE</name>
-        <rename>CSDA_CODE</rename>
-        <type>String</type>
-        <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DATE_CREATED</name>
-        <rename>DATE_CREATED</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>DATE_UPDATED</name>
-        <rename>DATE_UPDATED</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ELIGIBILITY_RECEIPT_DATE</name>
-        <rename>ELIGIBILITY_RECEIPT_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ELIGIBILITY_RESULT_ID</name>
-        <rename>ELIGIBILITY_RESULT_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>END_ND</name>
-        <rename>END_ND</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
-        <rename>ENROLLMENT_ACTION_STATUS_CODE</rename>
-        <type>String</type>
-        <length>80</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ENROLLMENT_FEE_PAID</name>
-        <rename>ENROLLMENT_FEE_PAID</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
-        <rename>ENROLLMENT_STATUS_CHANGE_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>LANGUAGE_CODE</name>
-        <rename>LANGUAGE_CODE</rename>
-        <type>String</type>
-        <length>2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>MANAGED_CARE_END_DATE</name>
-        <rename>MANAGED_CARE_END_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>MANAGED_CARE_START_DATE</name>
-        <rename>MANAGED_CARE_START_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>NUMBER_COUNT</name>
-        <rename>NUMBER_COUNT</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PEOPLE_IN_FAMILY</name>
-        <rename>PEOPLE_IN_FAMILY</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PLAN_ID</name>
-        <rename>PLAN_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PLAN_TYPE_CODE</name>
-        <rename>PLAN_TYPE_CODE</rename>
-        <type>String</type>
-        <length>20</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PROGRAM_TYPE_CODE</name>
-        <rename>PROGRAM_TYPE_CODE</rename>
-        <type>String</type>
-        <length>20</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>PROVIDER_ID</name>
-        <rename>PROVIDER_ID</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RACE_CODE</name>
-        <rename>RACE_CODE</rename>
-        <type>String</type>
-        <length>255</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RISK_GROUP_CODE</name>
-        <rename>RISK_GROUP_CODE</rename>
-        <type>String</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SEGMENT_TYPE_CD</name>
-        <rename>SEGMENT_TYPE_CD</rename>
-        <type>String</type>
-        <length>2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SELECTION_REASON_CODE</name>
-        <rename>SELECTION_REASON_CODE</rename>
-        <type>String</type>
-        <length>20</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SELECTION_SOURCE_CODE</name>
-        <rename>SELECTION_SOURCE_CODE</rename>
-        <type>String</type>
-        <length>255</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_CASE_ID</name>
-        <rename>SOURCE_CASE_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_CLIENT_ID</name>
-        <rename>SOURCE_CLIENT_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_NETWORK_ID</name>
-        <rename>SOURCE_NETWORK_ID</rename>
-        <type>Number</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_PLAN_CODE</name>
-        <rename>SOURCE_PLAN_CODE</rename>
-        <type>String</type>
-        <length>10</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_RECORD_ID</name>
-        <rename>SOURCE_RECORD_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SOURCE_TABLE_NAME</name>
-        <rename>SOURCE_TABLE_NAME</rename>
-        <type>String</type>
-        <length>8</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>STATUS_IN_GROUP_CODE</name>
-        <rename>STATUS_IN_GROUP_CODE</rename>
-        <type>String</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>SUB_PROGRAM_CODE</name>
-        <rename>SUB_PROGRAM_CODE</rename>
-        <type>String</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>UPDATED_BY</name>
-        <rename>UPDATED_BY</rename>
-        <type>String</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>410</xloc>
-      <yloc>310</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>10000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>SOURCE_CLIENT_ID</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-      <field>
-        <name>SOURCE_CASE_ID</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-      <field>
-        <name>SOURCE_PLAN_CODE</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>310</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table input - Enrollment from Vida</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <sql>SELECT DISTINCT &apos;COVERAGE&apos;                                 source_table_name
-       ,P.PERSON_NUMBER						               source_client_id
-       ,CR.COVERAGE_REQUEST_ID                             source_record_id
-       ,COALESCE(hp.PROGRAM_SHORT_NAME, &apos;MDCD&apos;)            program_type_code
-       ,hp.HEALTH_PLAN_TYPE                                plan_type_code
-       ,NVL(hp.health_plan_short_name,&apos;0&apos;)                 source_plan_code
-       ,0                                                  source_network_id
-       ,co.COVERAGE_REASON                                 change_reason_code
-       ,app.source                                         selection_source_code
-       ,CASE WHEN cr.REQUEST_TYPE IS NULL 
-             then &apos;0&apos;
-             else cr.request_type 
-             END                                           selection_reason_code
-       ,CASE WHEN er.schip_status in (&apos;ELIGIBLE&apos;, &apos;NOT ELIGIBLE&apos;, &apos;FULL PAY&apos;)
-             THEN &apos;TBD&apos; 
-             ELSE er.schip_status END                      enrollment_action_status_code               
-       ,co.COVERAGE_BEGIN_DATE                             managed_care_start_date
-       ,LAST_DAY(co.COVERAGE_BEGIN_DATE)                   managed_care_end_date
-       ,co.COVERAGE_BEGIN_DATE                             end_nd   --segment start date in number format
-       ,co.COVERAGE_STATUS_DATE                            enrollment_status_change_date
-       ,1                                                  number_count -- always set to 1
-       ,&apos;ME&apos;                                               segment_type_cd   --???
-       ,TO_CHAR(co.insert_date,&apos;mm&#47;dd&#47;yyyy&apos;)               create_ts
-       ,TO_CHAR(co.insert_date,&apos;hh24:mi&apos;)                  create_ts_hrmin
-       ,TO_NUMBER(TO_CHAR(co.insert_date,&apos;ss&apos;))            create_ts_second
-       ,hp.health_plan_id                                  plan_id 
-       ,&apos;0&apos;                                                status_in_group_code
-       ,&apos;0&apos;                                                risk_group_code
-       ,&apos;0&apos;                                                coverage_code
-       ,0                                                  provider_id
-       ,0                                                  co_pay_amount
-       ,0                                                  ENROLLMENT_FEE_PAID
-       ,hpc.county_name                                    CSDA_CODE  
-       ,hpc.county_name                                    county_code
-       ,nvl(co.premium_level_code,&apos;0&apos;)                     aid_category_code
-       ,&apos;0&apos;                                                sub_program_code 
-       ,nvl(ar.next_renewal_date, to_date(&apos;03-OCT-2014&apos;))  CHIP_ANNUAL_ENROLL_DATE
-       ,co.insert_date                                     date_created
-       ,co.insert_user                                     created_by
-       ,co.update_date                                     date_updated
-       ,co.LAST_UPDATE_USER                                updated_by
-       ,co.ELIGIBILITY_RESULT_ID                           eligibility_result_id
-       ,COVERAGE_ID                                        coverage_id
-       ,am.account_id                                      account_id                            
-FROM ACCOUNT_MEMBERSHIP am
-JOIN PROGRAM_REFERRAL_QUEUE pfq            on am.ACCOUNT_MEMBERSHIP_ID  = pfq.ACCOUNT_MEMBERSHIP_ID 
-                                          AND pfq.PROGRAM_SHORT_NAME = &apos;MDCD&apos;
-join person p                              on am.person_id              = p.person_id 
-JOIN ELIGIBILITY_RESULT ER                 on ER.ACCOUNT_MEMBERSHIP_ID  = AM.ACCOUNT_MEMBERSHIP_ID
-JOIN APPLICATION app                       on AM.ACCOUNT_ID             = APP.ACCOUNT_ID
-JOIN COVERAGE co                           on ER.ELIGIBILITY_RESULT_ID  = CO.ELIGIBILITY_RESULT_ID
-join coverage_request cr                   on am.account_membership_id  = cr.account_membership_id
-LEFT OUTER JOIN ACCOUNT_RENEWAL ar         on AM.ACCOUNT_ID             = AR.ACCOUNT_ID
-LEFT OUTER JOIN HEALTH_PLAN_ASSIGNMENT hpa on hpa.account_membership_id = AM.ACCOUNT_MEMBERSHIP_ID
-LEFT OUTER join health_plan_county hpc     on hpa.health_plan_county_id = hpc.health_plan_county_id 
-LEFT OUTER join health_plan hp             on hpc.health_plan_id        = hp.health_plan_id
-WHERE co.insert_user !=&apos;CONVERSION&apos;
-   and (co.COVERAGE_REASON is not null and  
-   ar.NEXT_RENEWAL_DATE IS NULL
-   OR ar.NEXT_RENEWAL_DATE &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
-   OR co.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
-   OR co.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;))
-   AND ER.ELIGIBILITY_RESULT_ID  = ( SELECT MAX(ELIGIBILITY_RESULT_ID)  
-                                  FROM ELIGIBILITY_RESULT  ER
-                                  WHERE er.coverage_request_id = cr.coverage_request_id
-                                  group by er.coverage_request_id ) </sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>Y</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>10</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output - Enrollment Staging</name>
+    <name>Insert - Enrollment Staging</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
-    <copies>8</copies>
+    <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>EMRS</connection>
+    <connection>MAXDAT</connection>
     <schema/>
     <table>EMRS_S_ENROLLMENT_STG</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
+    <ignore_errors>Y</ignore_errors>
     <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
@@ -1274,6 +361,10 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
           <stream_name>CSDA_CODE</stream_name>
         </field>
         <field>
+          <column_name>DATE_CREATED</column_name>
+          <stream_name>DATE_CREATED</stream_name>
+        </field>
+        <field>
           <column_name>DATE_UPDATED</column_name>
           <stream_name>DATE_UPDATED</stream_name>
         </field>
@@ -1284,6 +375,10 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <field>
           <column_name>ENROLLMENT_ACTION_STATUS_CODE</column_name>
           <stream_name>ENROLLMENT_ACTION_STATUS_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>ENROLLMENT_FEE_PAID</column_name>
+          <stream_name>ENROLLMENT_FEE_PAID</stream_name>
         </field>
         <field>
           <column_name>ENROLLMENT_STATUS_CHANGE_DATE</column_name>
@@ -1310,6 +405,14 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
           <stream_name>PEOPLE_IN_FAMILY</stream_name>
         </field>
         <field>
+          <column_name>PLAN_NAME</column_name>
+          <stream_name>PLAN_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>PLAN_SERVICE_TYPE</column_name>
+          <stream_name>PROGRAM_TYPE_CODE</stream_name>
+        </field>
+        <field>
           <column_name>PLAN_TYPE_CODE</column_name>
           <stream_name>PLAN_TYPE_CODE</stream_name>
         </field>
@@ -1320,6 +423,10 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <field>
           <column_name>RACE_CODE</column_name>
           <stream_name>RACE_CODE</stream_name>
+        </field>
+        <field>
+          <column_name>RECORD_STATUS</column_name>
+          <stream_name>RECORD_STATUS</stream_name>
         </field>
         <field>
           <column_name>RISK_GROUP_CODE</column_name>
@@ -1369,19 +476,190 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
           <column_name>UPDATED_BY</column_name>
           <stream_name>UPDATED_BY</stream_name>
         </field>
-        <field>
-          <column_name>ENROLLMENT_FEE_PAID</column_name>
-          <stream_name>ENROLLMENT_FEE_PAID</stream_name>
-        </field>
-        <field>
-          <column_name>DATE_CREATED</column_name>
-          <stream_name>DATE_CREATED</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1030</xloc>
-      <yloc>310</yloc>
+      <xloc>790</xloc>
+      <yloc>390</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Eligibility_results</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>SELECT distinct er.ELIGIBILITY_SOURCE                      selection_source_code
+       ,p.person_number                                    person_number
+       ,p.person_id                                        client_id
+       ,CASE WHEN cr.REQUEST_TYPE IS NULL 
+             then &apos;0&apos;
+             else cr.request_type 
+             END                                           selection_reason_code
+       ,CASE WHEN er.schip_status in (&apos;ELIGIBLE&apos;, &apos;NOT ELIGIBLE&apos;, &apos;FULL PAY&apos;)
+             THEN &apos;TBD&apos; 
+             ELSE er.schip_status END                      enrollment_action_status_code               
+       ,am.account_id                                      account_id  
+       ,AM.ACCOUNT_MEMBERSHIP_ID                           ACCOUNT_MEMBERSHIP_ID
+       ,CR.Coverage_request_id                             COVERAGE_REQUEST_ID
+       ,er.insert_date 									   eligibility_receipt_date 
+FROM ELIGIBILITY_RESULT ER             
+join coverage_request cr                   on er.account_membership_id  = cr.account_membership_id
+join ACCOUNT_MEMBERSHIP am                 on am.ACCOUNT_MEMBERSHIP_ID  = er.account_membership_id 
+join person p                              on am.person_id              = p.person_id 
+WHERE ER.ELIGIBILITY_RESULT_ID = ?
+and cr.REQUEST_TYPE = &apos;INITIAL&apos;
+order by CR.Coverage_request_id desc</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>eligibility_result_id</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Health plan</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>select       COALESCE(hp.PROGRAM_SHORT_NAME, &apos;HK&apos;)              program_type_code
+            ,hp.health_plan_short_name                          source_plan_code
+            ,hp.health_plan_type                                plan_type_code
+            ,hp.health_plan_id                                  plan_id 
+            ,hpc.county_name                                    county_code
+            ,pr.description                                     plan_name
+from         HEALTH_PLAN_ASSIGNMENT hpa 
+LEFT OUTER join health_plan_county hpc     on hpa.health_plan_county_id = hpc.health_plan_county_id 
+LEFT OUTER join health_plan hp             on hpc.health_plan_id        = hp.health_plan_id
+LEFT outer join program_ref pr             on pr.program_short_name     = hp.PROGRAM_SHORT_NAME
+where hpa.account_membership_id = ?
+and hp.HEALTH_PLAN_TYPE = &apos;MEDICAL&apos;</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>ACCOUNT_MEMBERSHIP_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>290</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Renewals</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>select nvl(ar.next_renewal_date, to_date(&apos;03-OCT-2014&apos;))  CHIP_ANNUAL_ENROLL_DATE
+from   ACCOUNT_RENEWAL ar 
+where AR.ACCOUNT_ID = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>ACCOUNT_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>390</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Coverage data from Vida</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT DISTINCT &apos;COVERAGE&apos;                                 source_table_name 
+       ,0                                                  source_network_id
+       ,co.COVERAGE_REASON                                 change_reason_code              
+       ,co.COVERAGE_BEGIN_DATE                             managed_care_start_date
+       ,LAST_DAY(co.COVERAGE_BEGIN_DATE)                   managed_care_end_date
+       ,co.COVERAGE_BEGIN_DATE                             end_nd   --segment start date in number format
+       ,co.COVERAGE_STATUS_DATE                            enrollment_status_change_date
+       ,1                                                  number_count -- always set to 1
+       ,&apos;ME&apos;                                               segment_type_cd   --???
+       ,TO_CHAR(co.insert_date,&apos;mm&#47;dd&#47;yyyy&apos;)               create_ts
+       ,TO_CHAR(co.insert_date,&apos;hh24:mi&apos;)                  create_ts_hrmin
+       ,TO_NUMBER(TO_CHAR(co.insert_date,&apos;ss&apos;))            create_ts_second
+       ,&apos;0&apos;                                                status_in_group_code
+       ,&apos;0&apos;                                                risk_group_code
+       ,co.coverage_status                                 coverage_code
+       ,0                                                  provider_id
+       ,0                                                  co_pay_amount
+       ,0                                                  ENROLLMENT_FEE_PAID
+       ,nvl(co.premium_level_code,0)                       aid_category_code
+       ,&apos;0&apos;                                                sub_program_code 
+       ,co.insert_date                                     date_created
+       ,co.insert_user                                     created_by
+       ,co.update_date                                     date_updated
+       ,co.LAST_UPDATE_USER                                updated_by
+       ,co.ELIGIBILITY_RESULT_ID                           eligibility_result_id
+       ,COVERAGE_ID                                        source_record_id       
+       ,co.ACCOUNT_MEMBERSHIP_ID	                       ACCOUNT_MEMBERSHIP_id  
+       ,case when  co.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;) then &apos;new&apos;
+        else &apos;changed&apos;   
+        end  	record_status   
+FROM COVERAGE_TEMP CO
+WHERE (co.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;)
+    OR co.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;,&apos;MM&#47;DD&#47;YYYY&apos;))
+order by co.ELIGIBILITY_RESULT_ID
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>Y</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>180</xloc>
+      <yloc>70</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1396,7 +674,7 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <separator>;</separator>
+    <separator>|</separator>
     <enclosure>&quot;</enclosure>
     <enclosure_forced>N</enclosure_forced>
     <enclosure_fix_disabled>N</enclosure_fix_disabled>
@@ -1429,54 +707,6 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
     </file>
     <fields>
       <field>
-        <name>COVERAGE_ID</name>
-        <type>Integer</type>
-        <format>0</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>ELIGIBILITY_RESULT_ID</name>
-        <type>Integer</type>
-        <format>0</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>SOURCE_CASE_ID</name>
-        <type>Integer</type>
-        <format>0</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>SOURCE_CLIENT_ID</name>
-        <type>Integer</type>
-        <format>0</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>both</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
         <name>SOURCE_RECORD_ID</name>
         <type>Integer</type>
         <format>0</format>
@@ -1489,9 +719,9 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
-        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
-        <type>String</type>
-        <format/>
+        <name>ACCOUNT_ID</name>
+        <type>Integer</type>
+        <format>0</format>
         <currency/>
         <decimal/>
         <group/>
@@ -1501,9 +731,21 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
-        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
-        <type>Date</type>
-        <format/>
+        <name>ACCOUNT_MEMBERSHIP_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ACCOUNT_MEMBERSHIP_ID_1</name>
+        <type>Integer</type>
+        <format>0</format>
         <currency/>
         <decimal/>
         <group/>
@@ -1585,8 +827,44 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
+        <name>COUNTY_CODE_1</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>COVERAGE_CODE</name>
         <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>COVERAGE_REQUEST_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CO_PAY_AMOUNT</name>
+        <type>BigNumber</type>
         <format/>
         <currency/>
         <decimal/>
@@ -1657,6 +935,18 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
+        <name>DATE_CREATED</name>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>DATE_UPDATED</name>
         <type>Date</type>
         <format/>
@@ -1681,7 +971,55 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
+        <name>ELIGIBILITY_RESULT_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>END_ND</name>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ENROLLMENT_ACTION_STATUS_CODE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ENROLLMENT_FEE_PAID</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ENROLLMENT_STATUS_CHANGE_DATE</name>
         <type>Date</type>
         <format/>
         <currency/>
@@ -1741,9 +1079,45 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
+        <name>PEOPLE_IN_FAMILY</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PERSON_NUMBER</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>PLAN_ID</name>
         <type>Integer</type>
         <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>PLAN_NAME</name>
+        <type>String</type>
+        <format/>
         <currency/>
         <decimal/>
         <group/>
@@ -1777,7 +1151,31 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <precision>-1</precision>
       </field>
       <field>
+        <name>PROVIDER_ID</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
         <name>RACE_CODE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>RECORD_STATUS</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -1828,6 +1226,30 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
         <name>SELECTION_SOURCE_CODE</name>
         <type>String</type>
         <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>SOURCE_CASE_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>SOURCE_CLIENT_ID</name>
+        <type>Integer</type>
+        <format>0</format>
         <currency/>
         <decimal/>
         <group/>
@@ -1959,43 +1381,15 @@ WHERE co.insert_user !=&apos;CONVERSION&apos;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1030</xloc>
-      <yloc>450</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Unique rows</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <count_rows>N</count_rows>
-      <count_field/>
-      <reject_duplicate_row>N</reject_duplicate_row>
-      <error_description/>
-    <fields>      <field>        <name>SOURCE_CLIENT_ID</name>
-        <case_insensitive>N</case_insensitive>
-        </field>      <field>        <name>SOURCE_CASE_ID</name>
-        <case_insensitive>N</case_insensitive>
-        </field>      <field>        <name>SOURCE_PLAN_CODE</name>
-        <case_insensitive>N</case_insensitive>
-        </field>      </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>840</xloc>
-      <yloc>310</yloc>
+      <xloc>790</xloc>
+      <yloc>210</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
       <error>
-        <source_step>Table output - Enrollment Staging</source_step>
+        <source_step>Insert - Enrollment Staging</source_step>
         <target_step>Text file output - STG_LOAD_S_ENROLLMENT</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>num_error</nr_valuename>

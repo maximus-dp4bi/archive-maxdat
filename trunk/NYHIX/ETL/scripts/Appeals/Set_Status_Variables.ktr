@@ -78,28 +78,6 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
-    <name>EMRS</name>
-    <server>${DB_EMRS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_EMRS_NAME}</database>
-    <port>${DB_EMRS_PORT}</port>
-    <username>${DB_EMRS_USER}</username>
-    <password>${DB_EMRS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -123,64 +101,6 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
-    <port>${DB_OLTP_PORT}</port>
-    <username>${DB_OLTP_USER}</username>
-    <password>${DB_OLTP_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
@@ -397,6 +317,27 @@ SVN_REVISION_AUTHOR = $Author$
           </field>
         <field>
           <name>PA_OLD_UPD17_STATUS</name>
+          </field>
+        <field>
+          <name>PA_UPD20_10</name>
+          </field>
+        <field>
+          <name>PA_UPD20_20</name>
+          </field>
+        <field>
+          <name>PA_UPD20_30</name>
+          </field>
+        <field>
+          <name>PA_UPD20_40</name>
+          </field>
+        <field>
+          <name>PA_UPD20_50</name>
+          </field>
+        <field>
+          <name>PA_UPD20_60</name>
+          </field>
+        <field>
+          <name>PA_UPD20_70</name>
           </field>
         </fields>
      <cluster_schema/>
@@ -678,6 +619,34 @@ SVN_REVISION_AUTHOR = $Author$
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>PA_OLD_UPD17_STATUS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_10</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_20</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_30</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_40</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_50</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_60</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PA_UPD20_70</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -1270,6 +1239,90 @@ SVN_REVISION_AUTHOR = $Author$
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_10</name>
+        <rename>PA_UPD20_10</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_20</name>
+        <rename>PA_UPD20_20</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_30</name>
+        <rename>PA_UPD20_30</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_40</name>
+        <rename>PA_UPD20_40</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_50</name>
+        <rename>PA_UPD20_50</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_60</name>
+        <rename>PA_UPD20_60</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PA_UPD20_70</name>
+        <rename>PA_UPD20_70</rename>
+        <type>-</type>
+        <length>500</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
       </meta>      <meta>        <name>PA_EXCLUDE_STATUS</name>
         <rename>PA_EXCLUDE_STATUS</rename>
         <type>-</type>
@@ -1784,6 +1837,48 @@ SVN_REVISION_AUTHOR = $Author$
       <field>
         <field_name>PA_UPD18_40</field_name>
         <variable_name>PA_UPD18_40</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_10</field_name>
+        <variable_name>PA_UPD20_10</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_20</field_name>
+        <variable_name>PA_UPD20_20</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_30</field_name>
+        <variable_name>PA_UPD20_30</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_40</field_name>
+        <variable_name>PA_UPD20_40</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_50</field_name>
+        <variable_name>PA_UPD20_50</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_60</field_name>
+        <variable_name>PA_UPD20_60</variable_name>
+        <variable_type>JVM</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>PA_UPD20_70</field_name>
+        <variable_name>PA_UPD20_70</variable_name>
         <variable_type>JVM</variable_type>
         <default_value/>
         </field>

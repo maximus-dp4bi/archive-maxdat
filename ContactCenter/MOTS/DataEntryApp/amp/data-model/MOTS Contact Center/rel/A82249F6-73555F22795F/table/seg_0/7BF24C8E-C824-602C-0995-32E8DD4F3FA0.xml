@@ -1,0 +1,708 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7BF24C8E-C824-602C-0995-32E8DD4F3FA0" name="CC_F_AGENT_BY_DATE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>F_AGENT_BY_DATE captures metrics relevant to the time that the agent spent on calls as well as information on the agent&apos;s scheduland work day.  Call metrics include client calls, internal calls and external calls.  Internal calls are defined as those that are with parties inside of the contact center, e.g. an agent calls their supervisor.  External calls are defined as those that are with parties outside of the contact center, e.g. an agent calls home.  The information captured related to the schedule and work day are the amount of time the agent was scheduled to work for the day, how much time they actually worked and how much time they worked above and beyond the normal work day.  This information is recorded by Date, Agent, Supervisor, Manager, Project, Group and Site.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>0D3006A7-5D34-F74E-805E-8E12980A0FA3</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="F_AGENT_BY_DATE_ID" id="C7DCA89C-0F0A-1C83-1687-AEE786A85768">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>D8E4E4B8-BBCE-59F9-534D-95DDA8966FE0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_DATE_ID" id="15B87CD7-587F-3137-4B22-AFC8FBC22242">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_DATES.  This field indicates the day the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>42C4B3F8-31F0-5E19-5C91-BC851F313EC3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<delegate>0F22F570-5924-7BD3-29C5-828D5CBC2F9A</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="15BE526D-4198-07E0-AFB5-940D90B74513" referredColumn="0F22F570-5924-7BD3-29C5-828D5CBC2F9A"/>
+</associations>
+</Column>
+<Column name="D_AGENT_ID" id="5F093BC8-7535-E3C6-1C0F-B49A4D58D137">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_AGENT.  This field indicates which agent the metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>06839D64-7B89-4B08-8A2D-9AE3714A1C0E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5E1B8478-948C-51F4-0504-923E2F041C02" referredColumn="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</associations>
+</Column>
+<Column name="SUPERVISOR_D_AGENT_ID" id="BC2FA308-6394-E8B5-A711-30B424494AD5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_AGENT.  This field indicates the supervisor of the agent the metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F2AE13AB-B7F9-D63D-AF2F-5D36508D8301</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7BD33C6B-9A51-A96E-3F59-8C88EE2C0123" referredColumn="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</associations>
+</Column>
+<Column name="MANAGER_D_AGENT_ID" id="9E6ED1F6-07F4-4120-C342-3BFBA08BAEAA">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_AGENT.  This field indicates the manager of the agent the metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>6D3B6A5B-3920-D076-20C6-73EC02CE3DA7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="293E012A-82A7-9FFE-312F-D5ADE1FAF735" referredColumn="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</associations>
+</Column>
+<Column name="D_PROJECT_TARGETS_ID" id="A2892865-6378-B3D0-99B4-6B59B5AED049">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_PROJECT_TARGETS.  This field associates the agent&apos;s metrics to the agent&apos;s project targets that were current for that particular day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>B8957315-B472-2318-721B-C2D1B5B9A384</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0FF8CC84-92AF-7244-9474-C83635F06C25</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B7661DF5-2264-DE75-E2DB-9F046FB61287" referredColumn="0FF8CC84-92AF-7244-9474-C83635F06C25"/>
+</associations>
+</Column>
+<Column name="D_PROGRAM_ID" id="3C41B511-0305-ADD2-ED5C-69950D3A88A6">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to D_PROGRAM.  This field indicates which program the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>54482FF8-17B2-01D4-4F92-A1D6FB1DF494</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9F1F638F-6D4C-38D2-21F6-A1C89D2E0BF3" referredColumn="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E"/>
+</associations>
+</Column>
+<Column name="D_GEOGRAPHY_MASTER_ID" id="E75FF198-092F-3AC4-BE64-341977645636">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to the D_GEOGRAPHY_MASTER.  This field indicates which geographical location the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>B6B677E2-DC82-9672-6AED-5D29C670C9B0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3454E2DE-E6FD-89CC-3E04-34F2B1633774</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FF9C0C50-B96F-B412-A69F-70E7F1113320" referredColumn="3454E2DE-E6FD-89CC-3E04-34F2B1633774"/>
+</associations>
+</Column>
+<Column name="D_GROUP_ID" id="93F6C804-1441-9E9D-DFDB-1222FB2C514B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>FK to CC_D_GROUP.  This field indicates which group the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>1F10C4C7-366B-22D7-393E-91D08130D121</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>6B3BFE72-B51D-73D5-44C3-9D0E4BCDEF6D</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="586BC592-57E8-2309-78DE-C1EED59D76FB" referredColumn="6B3BFE72-B51D-73D5-44C3-9D0E4BCDEF6D"/>
+</associations>
+</Column>
+<Column name="D_SITE_ID" id="670317A6-1F70-1540-8A69-FCFB699DDC07">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-01 20:10:38 UTC</createdTime>
+<comment>FK to CC_D_SITE.  This field indicates which site the agent&apos;s metrics are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>BAD98ED6-2632-3E92-BCE4-500829A970C9</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EA754550-14F1-7A01-213A-99C389CBAC79" referredColumn="BAD98ED6-2632-3E92-BCE4-500829A970C9"/>
+</associations>
+</Column>
+<Column name="HANDLE_CALLS_COUNT" id="C2312BC4-DAD8-7401-172D-AD84A24F4147">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of calls handled by the agent for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E656766F-024E-489B-5975-4762DE305001</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HANDLE_TIME_SECONDS" id="141DB754-010B-545E-3B76-0179AF284E11">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of seconds the agent spent handling calls for the day.  Handle time = Talk time + Hold Time + After Call Work Time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>50BB8300-6954-77D9-2E9E-C1C47B4B76DF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="INTERNAL_CALLS_COUNT" id="1444193C-5E89-79D1-6975-5C9E051EBDFC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The number of calls with a party inside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C48D1F07-4A39-C766-BE2B-3F985F1A0C9A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="INTERNAL_SECONDS" id="7EA51F21-B51F-2C88-4094-77FFA77CD74C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The duration of all calls with a party inside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>4E1D7729-9333-5C2D-B683-9B96B0A1B9B2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EXTERNAL_CALLS_COUNT" id="2421B41C-0CA0-5351-E4D3-A43A5F2E33D1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The number of calls with a party outside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>09BAD828-AFB0-B569-0850-E609C994C041</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EXTERNAL_SECONDS" id="3ED8C6CD-DDAD-01D7-1135-84FA7AD8B7AE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The duration of all calls with a party outside of the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>0AB7EC42-7B58-A2F3-78E9-CB4825AFC080</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOLD_SECONDS" id="D6F2F2AD-3B3E-B353-CEE6-7CFBC87ACA70">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of seconds the agent had callers on hold for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>8DFE0392-D547-B9F9-E6EE-BBE379CC124A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RING_SECONDS" id="1D296FFF-8464-19AD-549E-A65D8FA2E031">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of seconds the agent allowed their phone to ring for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>4362B682-0C66-1BD8-DA5C-D5E9C86AC36B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TALK_SECONDS" id="08C46B37-C41B-B6E0-201E-3276D6E4F661">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of seconds the agent was talking to clients for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>844CB831-9767-080C-4E72-C7AFD8FA3E9B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WRAP_SECONDS" id="2DBFBA38-D150-7093-02F0-6467888C8AEC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Number of seconds the agent spent doing work to support calls after talking to clients for the day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>03BD311D-B2E1-3CBD-FD81-FA53D3C16B57</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_LOGIN" id="7C87B26C-11BC-9349-75F8-CB549B357C96">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The date and time of the agent&apos;s initial login to the ACD.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>441674DE-1561-CBAC-7B54-C21817EE6FDE</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_LOGOUT" id="A4E2639C-EBBB-29FF-B7D0-2EB50E803A25">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The date and time of the agent&apos;s initial login to the ACD.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>9314A7C9-6A17-5715-793D-D5A53259AAFF</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOGIN_SECONDS" id="ECC25AA1-4C27-C321-AFDA-527056F69A03">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The total number of seconds that the agent was logged into the ACD for the day.  This should equal the last logout - first login.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>7D5CC965-A61C-C273-6C35-801E7EF203B4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<defaultValue>0</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SCHEDULED_SHIFT_MINUTES" id="01296176-B79F-1A4D-9059-F7F19D5527AC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The duration of time in minutes that the agent is expected to work for a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>036AF137-B69B-92AE-A140-D38B0C1FFE3F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_SHIFT_MINUTES" id="E3FCCBF9-70F9-5CAA-3F7B-91996888E0FE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The duration of time in minutes that an agent actually worked on a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>5C73FEB6-0CA1-FD22-DC9F-E645301FE6BD</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTUAL_OVERTIME_MINUTES" id="3D8B089E-5837-49DB-E5CE-5145AB7F1AFB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The duration that an agent worked beyond normal workings hours for a given day.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>3F2BC05B-5E47-6377-F151-86A76F795F67</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDLE_SECONDS" id="E4C30DF8-8017-A6C5-B512-3FD637767295">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The duration of time an agent was in a not active state and ready to take calls.  &lt;br/&gt;&lt;br/&gt;Idle time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<defaultValue>0</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NOT_READY_SECONDS" id="9B1820C1-7E8C-FFC0-4C23-2EA373444590">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The duration of time an agent was in a not ready state and unavailable to handle calls.  &lt;br/&gt;&lt;br/&gt;Not ready time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>710</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<defaultValue>0</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TALK_RESERVE_SECONDS" id="14BC0A18-E80A-1119-FD64-08A602DF2965">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The duration of time an agent spent talking while handling reservation calls.&lt;br/&gt;&lt;br/&gt;Talk reserve time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PREDICTIVE_TALK_SECONDS" id="33556B3E-DD1E-98C0-8B92-3EACF3A51723">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The duration an agent spent talking on AutoOut/Predictive calls during the reporting interval. &lt;br/&gt;&lt;br/&gt;Predictive talk time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PREVIEW_TALK_SECONDS" id="29B58BF2-269C-12CC-D31C-08DF3142CE3C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The duration an agent spent talking on outbound Preview calls during the reporting interval.&lt;br/&gt;&lt;br/&gt;Preview talk time is a component of logged in time.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PREDICTIVE_CALLS_COUNT" id="31CBDC16-43BE-5C01-51E8-60EA38C6069E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>The total number of AutoOut (predictive) calls made by an agent.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PREVIEW_CALLS_COUNT" id="E2C28EF9-27F0-43EC-0643-6311413355D3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-13 18:05:43 UTC</createdTime>
+<comment>Total number of outbound Preview calls made by an agent.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYROLL_COUNT" id="B006688B-2A6E-6200-9FA7-9859B301F2CA">
+<createdBy>CB58433</createdBy>
+<createdTime>2014-09-12 15:55:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ATTRITION_COUNT" id="092BF865-519F-E5AE-7DF4-742C5CC05CC6">
+<createdBy>CB58433</createdBy>
+<createdTime>2014-09-12 15:56:16 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATE_DATE" id="26DF7A5F-054B-4E52-0CC3-96C56520F40F">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 19:43:27 UTC</createdTime>
+<comment>the record&apos;s creation date.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>SYSDATE</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPDATE_DATE" id="5A6D8B11-0FD7-FD89-35A4-6C5D81C3A433">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-10 19:43:27 UTC</createdTime>
+<comment>date the record was last updated.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>SYSDATE</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A9973067-8CCE-9929-234A-FB9343DCC278" name="CC_F_AGENT_CALLS_BY_DATE_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>614BB9BF-C995-81F5-E519-88D75853407E</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="C7DCA89C-0F0A-1C83-1687-AEE786A85768"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CEB8A290-90E6-BAF6-CF76-8B4C71F7CFA3" name="CC_F_AGENT_BY_DATE__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>515D4529-8D9A-E524-5811-ACAB046DB6EE</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="15B87CD7-587F-3137-4B22-AFC8FBC22242"/>
+<colUsage columnID="5F093BC8-7535-E3C6-1C0F-B49A4D58D137"/>
+<colUsage columnID="BC2FA308-6394-E8B5-A711-30B424494AD5"/>
+<colUsage columnID="9E6ED1F6-07F4-4120-C342-3BFBA08BAEAA"/>
+<colUsage columnID="A2892865-6378-B3D0-99B4-6B59B5AED049"/>
+<colUsage columnID="3C41B511-0305-ADD2-ED5C-69950D3A88A6"/>
+<colUsage columnID="E75FF198-092F-3AC4-BE64-341977645636"/>
+<colUsage columnID="93F6C804-1441-9E9D-DFDB-1222FB2C514B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EEC6E6B3-58CE-7C02-4010-A7430F569108" name="CC_F_AGNT_BY_DT_D_DT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AGENT_CALLS_BY_DATE_ID).</notes>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>658FF0EF-253B-1B13-7002-B4B83D94325C</importedID>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="C7DCA89C-0F0A-1C83-1687-AEE786A85768"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5545AF74-81A4-0B03-8ED5-D085014207E5" name="CC_F_AGNT_BY_DT_D_AGNT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>FB1958B3-4BE3-18F4-FC42-E5352CE2FF2F</importedID>
+<indexColumnUsage>
+<colUsage columnID="5F093BC8-7535-E3C6-1C0F-B49A4D58D137"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="711EAB8E-3D16-5534-076A-A42524D1DF71" name="CC_F_AGNT_BY_DT_SPRVSR_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>D27ACF9E-406B-E85E-65DB-7F31533DF9AF</importedID>
+<indexColumnUsage>
+<colUsage columnID="BC2FA308-6394-E8B5-A711-30B424494AD5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B26DF352-57B6-9055-2276-AEA50C48EF97" name="CC_F_AGNT_BY_DT_MNGR_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>91824F57-C3CF-2197-A8BE-29831D7E3A2D</importedID>
+<indexColumnUsage>
+<colUsage columnID="9E6ED1F6-07F4-4120-C342-3BFBA08BAEAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="14A9697F-AD6E-450B-9C92-F9B548508E0E" name="CC_F_AGNT_BY_DT_PRJ_TRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>FACBAB36-EA47-B2C0-883E-92EDB287DA23</importedID>
+<indexColumnUsage>
+<colUsage columnID="A2892865-6378-B3D0-99B4-6B59B5AED049"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DA969875-D82F-7F80-382D-F5008876FA53" name="CC_F_AGNT_BY_DT_D_PRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>6FE18323-8B76-795D-F8EC-A8A29B19D32E</importedID>
+<indexColumnUsage>
+<colUsage columnID="3C41B511-0305-ADD2-ED5C-69950D3A88A6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2D1CD6EF-9E38-CC2E-34A6-2170C496E969" name="CC_F_AGNT_BY_DT_D_GEO_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>1440672C-31FB-94E7-B1EE-C91949CD6978</importedID>
+<indexColumnUsage>
+<colUsage columnID="E75FF198-092F-3AC4-BE64-341977645636"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="80271472-E597-AA11-4369-A248CFC6269F" name="CC_F_AGNT_BY_DT_D_GRP_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>EC468982-14F6-FDAE-AE20-AE6AF6217027</importedID>
+<indexColumnUsage>
+<colUsage columnID="93F6C804-1441-9E9D-DFDB-1222FB2C514B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AEE2CDCD-51C1-17F6-E49F-577F06BFA01C" name="CC_F_AGENT_DATE_D_AGENT_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="5F093BC8-7535-E3C6-1C0F-B49A4D58D137"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AFEE376B-34EF-A3F2-0470-D958216CE5BE" name="CC_F_AGENT_DATE_D_AGENT_MGR_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="9E6ED1F6-07F4-4120-C342-3BFBA08BAEAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="90E51F12-1590-7255-3EEF-19A9150CF960" name="CC_F_AGENT_DATE_D_PROGRAM_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="3C41B511-0305-ADD2-ED5C-69950D3A88A6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="179EC946-C082-F7CD-6D88-6B3A09E7DD40" name="CC_F_AGENT_DATE_D_PRJ_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="A2892865-6378-B3D0-99B4-6B59B5AED049"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A48F52FC-44F3-91C1-99F4-B551DA43FF38" name="CC_F_AGENT_DATE_D_GROUP_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="93F6C804-1441-9E9D-DFDB-1222FB2C514B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A2A0CCCF-D269-2780-C04E-8EEB94D2F1E5" name="CC_F_AGENT_DATE_D_AGENT_SUP_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="BC2FA308-6394-E8B5-A711-30B424494AD5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CED6C878-66C7-7EC7-2D6F-57D120F3954E" name="CC_F_AGENT_DATE_D_DATES_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="15B87CD7-587F-3137-4B22-AFC8FBC22242"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="069FA57E-5314-F911-FBA8-EF5312C5DF71" name="CC_F_AGENT_DATE_D_SITE_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-01 20:13:26 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="670317A6-1F70-1540-8A69-FCFB699DDC07"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3FB01A78-6DA7-1477-C654-8CA754A433F7" name="CC_F_AGENT_DATE_D_GEO_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="E75FF198-092F-3AC4-BE64-341977645636"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -28,6 +28,29 @@ SVN_REVISION_AUTHOR = $Author$
     <parameters>
     </parameters>
   <connection>
+    <name>ACD</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_ACD_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>DMS</name>
     <server>${DB_DMS_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -172,6 +195,28 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>WFM</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_WFM_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -285,12 +330,27 @@ SVN_REVISION_AUTHOR = $Author$
       <type>CHECK_DB_CONNECTIONS</type>
       <connections>
         <connection>
+          <name>DMS</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+        <connection>
+          <name>KOFAX_ARS</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+        <connection>
           <name>MAXDAT</name>
           <waitfor>0</waitfor>
           <waittime>millisecond</waittime>
         </connection>
         <connection>
           <name>OLTP_SOURCE</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+        <connection>
+          <name>WFM</name>
           <waitfor>0</waitfor>
           <waittime>millisecond</waittime>
         </connection>

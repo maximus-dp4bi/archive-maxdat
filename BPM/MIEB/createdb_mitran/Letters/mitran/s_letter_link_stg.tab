@@ -1,0 +1,22 @@
+create table S_LETTER_LINK_STG
+(
+  lmlink_id                 NUMBER(18) not null,
+  letter_request_id         NUMBER(18),
+  reference_type            VARCHAR2(40),
+  reference_id              NUMBER(18),
+  created_by                VARCHAR2(80),
+  create_ts                 DATE,
+  updated_by                VARCHAR2(80),
+  update_ts                 DATE,
+  additional_reference_type VARCHAR2(30),
+  additional_reference_id   NUMBER(18),
+  client_id                 NUMBER(18),
+  client_enroll_status_id   NUMBER(18)
+)
+;
+alter table S_LETTER_LINK_STG
+  add constraint S_LETTER_LINK_STG_PK primary key (LMLINK_ID);
+grant select, insert, update on S_LETTER_LINK_STG to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on S_LETTER_LINK_STG to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on S_LETTER_LINK_STG to MAXDAT_MITRAN_READ_ONLY;
+

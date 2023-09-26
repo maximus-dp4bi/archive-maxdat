@@ -3,7 +3,20 @@
   <info>
     <name>InitiateRenewals_Update2</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -67,31 +80,6 @@
   <modified_date>2012&#47;11&#47;26 11:07:37.777</modified_date>
   </info>
   <notepads>
-    <notepad>
-      <note>UPD2 - Update Cancel Initiate Renewal related attributes
-UPD3 - Update Identify Renewal requests related attributes
-UPD4 - Update Request Notification activity related attributes
-UPD5 - Determine routing after completion of request notification Activity
-UPD6 - Update Wait until all members are disenrolled Activity related attributes</note>
-      <xloc>290</xloc>
-      <yloc>500</yloc>
-      <width>464</width>
-      <heigth>85</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>MAXDAT</name>
@@ -145,9 +133,9 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
     </attributes>
   </connection>
   <order>
-  <hop> <from>Set field value - UPD3_10</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4</from><to>Filter rows - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD4_10</from><to>Set field value - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD4_10</from><to>Filter rows - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD4_20</from><to>Set field value - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD4_10</from><to>Filter rows - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>UPD4</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>Filter rows - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5_10</from><to>Set field value - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6_10</from><to>Set field value - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - Updates</from><to>Update - Move Update to WIP</to><enabled>Y</enabled> </hop>  <hop> <from>Extract OLTP_STG and WIP_STG for UPD2 thru UPD7</from><to>Filter rows - UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD2_10</from><to>Filter rows - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2-20</from><to>Set field value - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD3_10</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD3_10</from><to>Set field value - UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2_10</from><to>Set field value - UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD3</from><to>UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD3</from><to>Filter rows - UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2_10</from><to>Filter rows - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2-20</from><to>Filter rows - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2_30</from><to>Filter rows - UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD2-20</from><to>Filter rows - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD2_30</from><to>Set field - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field - UPD2_30</from><to>Filter rows - UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD4_20</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD4_20</from><to>Filter rows - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5_10</from><to>Filter rows - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5_20</from><to>Filter rows -UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5_20</from><to>Set field value - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD5_10</from><to>Filter rows - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD5_20</from><to>Filter rows -UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD5</from><to>Filter rows - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - UPD6_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - UPD6_10</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows -UPD6</from><to>Filter rows - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows -UPD6</from><to>Filter rows - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Update - Move Update to WIP</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants Driver Table</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants Driver Table</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Set values - UPD3_10</from><to>Filter - UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4</from><to>Filter - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4_10</from><to>Set values - UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4_10</from><to>Filter - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4_20</from><to>Set values - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD4_10</from><to>Filter - UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4</from><to>Filter - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5</from><to>Filter - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5_10</from><to>Set values - UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD6_10</from><to>Set values - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Extract for UPD2 thru UPD7</from><to>Filter - UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD2_10</from><to>Filter - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2-20</from><to>Set values - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD3_10</from><to>Filter - UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD3_10</from><to>Set values - UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2_10</from><to>Set values - UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD3</from><to>Filter - UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD3</from><to>Filter - UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2_10</from><to>Filter - UPD2-20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2-20</from><to>Filter - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2_30</from><to>Filter - UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD2-20</from><to>Filter - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD2_30</from><to>Set values - UPD2_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD2_30</from><to>Filter - UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD4_20</from><to>Filter - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD4_20</from><to>Filter - UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5_10</from><to>Filter - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5_20</from><to>Filter -UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5_20</from><to>Set values - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD5_10</from><to>Filter - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD5_20</from><to>Filter -UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD5</from><to>Filter - UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter -UPD6</from><to>Filter - UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Update - WIP_BPM</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Output WIP_BPM- error</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - Updates</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - Updates</from><to>Update - WIP_BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Filter -UPD6</from><to>Filter - UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD6_10</from><to>Filter - UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Set values - UPD6_10</from><to>Filter - UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD8</from><to>Filter - Updates</to><enabled>Y</enabled> </hop>  <hop> <from>Filter - UPD8</from><to>Set value - UPD8_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set value - UPD8_10</from><to>Filter - Updates</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Add constants Driver Table</name>
+    <name>Add constants</name>
     <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
@@ -204,8 +192,8 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1550</xloc>
-      <yloc>280</yloc>
+      <xloc>950</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -222,14 +210,14 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1390</xloc>
-      <yloc>280</yloc>
+      <xloc>1110</xloc>
+      <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Extract OLTP_STG and WIP_STG for UPD2 thru UPD7</name>
+    <name>Extract for UPD2 thru UPD7</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -241,7 +229,7 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
     <connection>MAXDAT</connection>
     <sql>SELECT  &apos;Y&apos; as con_yes 
 , &apos;N&apos; as con_no
-, SYSDATE as IN_SYSTEM_DATE
+, current_date  as IN_SYSTEM_DATE
 , to_char(null) as IN_NULL_CHAR
 , &apos;Complete&apos; as IN_COMPLETE
 , &apos;Account logically deleted&apos; as CANCEL_REASON1
@@ -249,49 +237,43 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
 , &apos;No members eligible for renewal&apos; as CANCEL_REASON3
 , &apos;COMPLETE&apos; as CON_COMPLETE
 , &apos;VIDA&apos;  as CON_SYSTEM
-, OSTG.IR_ID N_IR_ID 
-, OSTG.ACCOUNT_ID N_ACCOUNT_ID
-, OSTG.RENEWAL_PERIOD_START_DATE N_RENEWAL_PERIOD_START_DATE
-, OSTG.APPLICATION_ID N_APPLICATION_ID
-, OSTG.RENEWAL_PERIOD_END_DATE N_RENEWAL_PERIOD_END_DATE
-, OSTG.RENEWAL_STATUS N_RENEWAL_STATUS
-, OSTG.RENEWAL_STATUS_DATE N_RENEWAL_STATUS_DATE
-, OSTG.CANCEL_DATE  N_CANCEL_DATE
-, OSTG.CANCEL_REASON N_CANCEL_REASON
-, OSTG.COMPLETE_DATE N_COMPLETE_DATE
-, OSTG.RENEWAL_LETTER_REQ_ID N_RENEWAL_LETTER_REQ_ID
-, OSTG.TIME_TO_RENEWAL_CALL_ID  N_TIME_TO_RENEWAL_CALL_ID
-, OSTG.RENEWAL_REMINDER_CALL_ID  N_RENEWAL_REMINDER_CALL_ID
-, OSTG.RENEWAL_CANCELLATION_CALL_ID N_RENEWAL_CANCELLATION_CALL_ID
-, OSTG.DOR_MATCH_STATUS  N_DOR_MATCH_STATUS
-, OSTG.DOR_MATCH_STATUS_DATE  N_DOR_MATCH_STATUS_DATE
-, OSTG.DEO_MATCH_STATUS  N_DEO_MATCH_STATUS
-, OSTG.DEO_MATCH_STATUS_DATE  N_DEO_MATCH_STATUS_DATE
-, OSTG.ASSD_IDENTIFY_RENEWAL_ACCTS   N_ASSD_IDENTIFY_RENEWAL_ACCTS
-, OSTG.ASED_IDENTIFY_RENEWAL_ACCTS  N_ASED_IDENTIFY_RENEWAL_ACCTS
-, OSTG.ASF_IDENTIFY_RENEWAL_ACCTS    N_ASF_IDENTIFY_RENEWAL_ACCTS
-, OSTG.ASPB_IDENTIFY_RENEWAL_ACCTS   N_ASPB_IDENTIFY_RENEWAL_ACCTS
-, OSTG.ASSD_REQUEST_NOTIFICATION  N_ASSD_REQUEST_NOTIFICATION
-, OSTG.ASED_REQUEST_NOTIFICATION  N_ASED_REQUEST_NOTIFICATION
-, OSTG.ASF_REQUEST_NOTIFICATION   N_ASF_REQUEST_NOTIFICATION
-, OSTG.ASPB_REQUEST_NOTIFICATION  N_ASPB_REQUEST_NOTIFICATION
-, OSTG.ASSD_WAIT_FOR_ALL_DISENROLLED  N_ASSD_WAIT_FOR_ALL_DISENROLL
-, OSTG.ASED_WAIT_FOR_ALL_DISENROLLED  N_ASED_WAIT_FOR_ALL_DISENROLL
-, OSTG.ASF_WAIT_FOR_ALL_DISENROLLED  N_ASF_WAIT_FOR_ALL_DISENROLL
-, OSTG.ASPB_WAIT_FOR_ALL_DISENROLLED N_ASPB_WAIT_FOR_ALL_DISENROLL
-, OSTG.ASED_CANCEL_RENEWAL  N_ASED_CANCEL_RENEWAL
-, OSTG.ASF_CANCEL_RENEWAL  N_ASF_CANCEL_RENEWAL
-, OSTG.GWF_APP_RECEIVED   N_GWF_APP_RECEIVED
-, OSTG.STAGE_DONE_DATE  N_STAGE_DONE_DATE
-, OSTG.STG_EXTRACT_DATE N_STG_EXTRACT_DATE
-, OSTG.STG_LAST_UPDATE_DATE N_STG_LAST_UPDATE_DATE
-, OSTG.INSTANCE_STATUS  N_INSTANCE_STATUS
-, OSTG.IR_PROCESSED  N_IR_PROCESSED
-, OSTG.INSTANCE_COMPLETE_DATE N_INSTANCE_COMPLETE_DATE
-, OSTG.COUNT_OF_ELIGIBLE_MEMBERS N_COUNT_OF_ELIGIBLE_MEMBERS
-, OSTG.APP_RECEIVED_DATE N_APP_RECEIVED_DATE
-, OSTG.APP_ENTERED_BY N_APP_ENTERED_BY
-, OSTG.WAITING_FOR_DISENROLLMENT N_WAITING_FOR_DISENROLLMENT
+, OSTG.ACCOUNT_ID                          N_ACCOUNT_ID
+, OSTG.APP_ENTERED_BY                      N_APP_ENTERED_BY
+, OSTG.APP_RECEIVED_DATE                   N_APP_RECEIVED_DATE
+, OSTG.APPLICATION_ID                      N_APPLICATION_ID
+, OSTG.ASED_CANCEL_RENEWAL                 N_ASED_CANCEL_RENEWAL
+, OSTG.ASED_IDENTIFY_RENEWAL_ACCTS         N_ASED_IDENTIFY_RENEWAL_ACCTS
+, OSTG.ASED_REQUEST_NOTIFICATION           N_ASED_REQUEST_NOTIFICATION
+, OSTG.ASED_WAIT_FOR_ALL_DISENROLLED       N_ASED_WAIT_FOR_ALL_DISENROLL
+, OSTG.ASF_CANCEL_RENEWAL                  N_ASF_CANCEL_RENEWAL
+, OSTG.ASF_IDENTIFY_RENEWAL_ACCTS          N_ASF_IDENTIFY_RENEWAL_ACCTS
+, OSTG.ASF_REQUEST_NOTIFICATION            N_ASF_REQUEST_NOTIFICATION
+, OSTG.ASF_WAIT_FOR_ALL_DISENROLLED        N_ASF_WAIT_FOR_ALL_DISENROLL
+, OSTG.ASPB_IDENTIFY_RENEWAL_ACCTS         N_ASPB_IDENTIFY_RENEWAL_ACCTS
+, OSTG.ASPB_REQUEST_NOTIFICATION           N_ASPB_REQUEST_NOTIFICATION
+, OSTG.ASPB_WAIT_FOR_ALL_DISENROLLED       N_ASPB_WAIT_FOR_ALL_DISENROLL
+, OSTG.ASSD_IDENTIFY_RENEWAL_ACCTS         N_ASSD_IDENTIFY_RENEWAL_ACCTS
+, OSTG.ASSD_REQUEST_NOTIFICATION           N_ASSD_REQUEST_NOTIFICATION
+, OSTG.ASSD_WAIT_FOR_ALL_DISENROLLED       N_ASSD_WAIT_FOR_ALL_DISENROLL
+, OSTG.CANCEL_DATE                         N_CANCEL_DATE
+, OSTG.CANCEL_REASON                       N_CANCEL_REASON
+, OSTG.COMPLETE_DATE                       N_COMPLETE_DATE
+, NVL(OSTG.COUNT_OF_ELIGIBLE_MEMBERS, 0)   N_COUNT_OF_ELIGIBLE_MEMBERS
+, OSTG.GWF_APP_RECEIVED                    N_GWF_APP_RECEIVED
+, OSTG.INSTANCE_COMPLETE_DATE              N_INSTANCE_COMPLETE_DATE
+, OSTG.INSTANCE_STATUS                     N_INSTANCE_STATUS
+, OSTG.IR_ID                               N_IR_ID 
+, &apos;N&apos;                                      N_IR_PROCESSED
+, OSTG.RENEWAL_LETTER_REQ_ID               N_RENEWAL_LETTER_REQ_ID
+, OSTG.RENEWAL_PERIOD_END_DATE             N_RENEWAL_PERIOD_END_DATE
+, OSTG.RENEWAL_PERIOD_START_DATE           N_RENEWAL_PERIOD_START_DATE
+, OSTG.RENEWAL_STATUS                      N_RENEWAL_STATUS
+, OSTG.RENEWAL_STATUS_DATE                 N_RENEWAL_STATUS_DATE
+, OSTG.STAGE_DONE_DATE                     N_STAGE_DONE_DATE
+, OSTG.STG_EXTRACT_DATE                    N_STG_EXTRACT_DATE
+, OSTG.STG_LAST_UPDATE_DATE                N_STG_LAST_UPDATE_DATE
+, OSTG.WAITING_FOR_DISENROLLMENT           N_WAITING_FOR_DISENROLLMENT
+, OSTG.INTENT_TO_RENEW                     N_INTENT_TO_RENEW
 , WIP.O_IR_ID 
 , WIP.O_ACCOUNT_ID 
 , WIP.O_RENEWAL_PERIOD_START_DATE 
@@ -303,13 +285,6 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
 , WIP.O_CANCEL_REASON 
 , WIP.O_COMPLETE_DATE
 , WIP.O_RENEWAL_LETTER_REQ_ID 
-, WIP.O_TIME_TO_RENEWAL_CALL_ID  
-, WIP.O_RENEWAL_REMINDER_CALL_ID 
-, WIP.O_RENEWAL_CANCELLATION_CALL_ID 
-, WIP.O_DOR_MATCH_STATUS  
-, WIP.O_DOR_MATCH_STATUS_DATE 
-, WIP.O_DEO_MATCH_STATUS  
-, WIP.O_DEO_MATCH_STATUS_DATE  
 , WIP.O_ASSD_IDENTIFY_RENEWAL_ACCTS  
 , WIP.O_ASED_IDENTIFY_RENEWAL_ACCTS  
 , WIP.O_ASF_IDENTIFY_RENEWAL_ACCTS    
@@ -335,6 +310,7 @@ UPD6 - Update Wait until all members are disenrolled Activity related attributes
 , WIP.O_APP_RECEIVED_DATE
 , WIP.O_APP_ENTERED_BY
 , WIP.O_WAITING_FOR_DISENROLLMENT
+, WIP.O_INTENT_TO_RENEW
 FROM FLHK_INITIATE_RENEWAL_OLTP_STG OSTG
 left outer join (
 SELECT IR_ID O_IR_ID
@@ -348,13 +324,7 @@ SELECT IR_ID O_IR_ID
 ,  CANCEL_REASON O_CANCEL_REASON
 ,  COMPLETE_DATE O_COMPLETE_DATE
 ,  RENEWAL_LETTER_REQ_ID O_RENEWAL_LETTER_REQ_ID
-,  TIME_TO_RENEWAL_CALL_ID O_TIME_TO_RENEWAL_CALL_ID
-,  RENEWAL_REMINDER_CALL_ID  O_RENEWAL_REMINDER_CALL_ID
 ,  RENEWAL_CANCELLATION_CALL_ID O_RENEWAL_CANCELLATION_CALL_ID
-,  DOR_MATCH_STATUS O_DOR_MATCH_STATUS
-,  DOR_MATCH_STATUS_DATE O_DOR_MATCH_STATUS_DATE
-,  DEO_MATCH_STATUS O_DEO_MATCH_STATUS
-,  DEO_MATCH_STATUS_DATE O_DEO_MATCH_STATUS_DATE
 ,  ASSD_IDENTIFY_RENEWAL_ACCTS O_ASSD_IDENTIFY_RENEWAL_ACCTS
 ,  ASED_IDENTIFY_RENEWAL_ACCTS O_ASED_IDENTIFY_RENEWAL_ACCTS
 ,  ASF_IDENTIFY_RENEWAL_ACCTS O_ASF_IDENTIFY_RENEWAL_ACCTS
@@ -380,24 +350,25 @@ SELECT IR_ID O_IR_ID
 ,  APP_RECEIVED_DATE O_APP_RECEIVED_DATE
 ,  APP_ENTERED_BY O_APP_ENTERED_BY
 ,  WAITING_FOR_DISENROLLMENT O_WAITING_FOR_DISENROLLMENT
+,  INTENT_TO_RENEW  O_INTENT_TO_RENEW
 FROM FLHK_INITIATE_RENEWALS_WIP_BPM 
 ) WIP on OSTG.ACCOUNT_ID = WIP.O_ACCOUNT_ID
-      and OSTG.RENEWAL_PERIOD_START_DATE = WIP.O_RENEWAL_PERIOD_START_DATE</sql>
+      and OSTG.IR_ID = WIP.O_IR_ID</sql>
     <limit/>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>70</xloc>
-      <yloc>20</yloc>
+      <yloc>70</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD2-20</name>
+    <name>Filter - UPD2-20</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -406,17 +377,22 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD2-20</send_true_to>
-<send_false_to>Filter rows - UPD2_30</send_false_to>
+<send_true_to>Set values - UPD2-20</send_true_to>
+<send_false_to>Filter - UPD2_30</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>O_ACCOUNT_ID</leftvalue>
-   <function>IS NOT NULL</function>
-   <rightvalue/>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>N_ACCOUNT_ID</leftvalue>
+     <function>IS NOT NULL</function>
+     <rightvalue/>
+     </condition>
+    </conditions>
    </condition>
   <condition>
    <negated>N</negated>
@@ -431,7 +407,7 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     <condition>
      <negated>N</negated>
      <operator>AND</operator>
-     <leftvalue>O_RENEWAL_PERIOD_START_DATE</leftvalue>
+     <leftvalue>N_RENEWAL_PERIOD_START_DATE</leftvalue>
      <function>IS NOT NULL</function>
      <rightvalue/>
      </condition>
@@ -440,7 +416,7 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
+   <leftvalue>N_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
    <function>&gt;</function>
    <rightvalue/>
    <value><name>constant</name><type>BigNumber</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value>   </condition>
@@ -449,14 +425,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>190</xloc>
-      <yloc>150</yloc>
+      <xloc>160</xloc>
+      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD2_10</name>
+    <name>Filter - UPD2_10</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -465,8 +441,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD2_10</send_true_to>
-<send_false_to>Filter rows - UPD2-20</send_false_to>
+<send_true_to>Set values - UPD2_10</send_true_to>
+<send_false_to>Filter - UPD2-20</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -486,7 +462,7 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_CANCEL_DATE</leftvalue>
+   <leftvalue>N_CANCEL_DATE</leftvalue>
    <function>IS NULL</function>
    <rightvalue/>
    </condition>
@@ -496,13 +472,13 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>70</xloc>
-      <yloc>110</yloc>
+      <yloc>170</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD2_30</name>
+    <name>Filter - UPD2_30</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -511,15 +487,15 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field - UPD2_30</send_true_to>
-<send_false_to>Filter rows - UPD3</send_false_to>
+<send_true_to>Set values - UPD2_30</send_true_to>
+<send_false_to>Filter - UPD3</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>O_ACCOUNT_ID</leftvalue>
+   <leftvalue>N_ACCOUNT_ID</leftvalue>
    <function>IS NOT NULL</function>
    <rightvalue/>
    </condition>
@@ -539,15 +515,15 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
      <conditions>
       <condition>
        <negated>N</negated>
-       <leftvalue>O_RENEWAL_PERIOD_START_DATE</leftvalue>
+       <leftvalue>N_RENEWAL_PERIOD_START_DATE</leftvalue>
        <function>IS NULL</function>
        <rightvalue/>
        </condition>
       <condition>
        <negated>N</negated>
        <operator>AND</operator>
-       <leftvalue>O_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
-       <function>=</function>
+       <leftvalue>N_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
+       <function>&gt;</function>
        <rightvalue/>
        <value><name>constant</name><type>BigNumber</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value>       </condition>
       </conditions>
@@ -559,14 +535,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>310</xloc>
-      <yloc>170</yloc>
+      <xloc>250</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD3</name>
+    <name>Filter - UPD3</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -575,8 +551,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Filter rows - UPD3_10</send_true_to>
-<send_false_to>UPD4</send_false_to>
+<send_true_to>Filter - UPD3_10</send_true_to>
+<send_false_to>Filter - UPD4</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -587,21 +563,21 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
    <conditions>
     <condition>
      <negated>N</negated>
-     <leftvalue>O_INSTANCE_STATUS</leftvalue>
+     <leftvalue>N_INSTANCE_STATUS</leftvalue>
      <function>=</function>
      <rightvalue/>
      <value><name>constant</name><type>String</type><text>ACTIVE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>     </condition>
     <condition>
      <negated>N</negated>
      <operator>AND</operator>
-     <leftvalue>O_ASSD_IDENTIFY_RENEWAL_ACCTS</leftvalue>
+     <leftvalue>N_ASSD_IDENTIFY_RENEWAL_ACCTS</leftvalue>
      <function>IS NOT NULL</function>
      <rightvalue/>
      <value><name>constant</name><type>String</type><text>Active</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>     </condition>
     <condition>
      <negated>N</negated>
      <operator>AND</operator>
-     <leftvalue>O_ASED_IDENTIFY_RENEWAL_ACCTS</leftvalue>
+     <leftvalue>N_ASED_IDENTIFY_RENEWAL_ACCTS</leftvalue>
      <function>IS NULL</function>
      <rightvalue/>
      </condition>
@@ -612,14 +588,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>450</xloc>
-      <yloc>70</yloc>
+      <xloc>360</xloc>
+      <yloc>90</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD3_10</name>
+    <name>Filter - UPD3_10</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -628,26 +604,26 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD3_10</send_true_to>
-<send_false_to>UPD4</send_false_to>
+<send_true_to>Set values - UPD3_10</send_true_to>
+<send_false_to>Filter - UPD4</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>O_RENEWAL_PERIOD_START_DATE</leftvalue>
+ <leftvalue>N_RENEWAL_PERIOD_START_DATE</leftvalue>
  <function>&gt;=</function>
  <rightvalue>IN_SYSTEM_DATE</rightvalue>
  </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>450</xloc>
+      <xloc>360</xloc>
       <yloc>170</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD4_10</name>
+    <name>Filter - UPD4</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -656,8 +632,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD4_10</send_true_to>
-<send_false_to>Filter rows - UPD4_20</send_false_to>
+<send_true_to>Filter - UPD4_10</send_true_to>
+<send_false_to>Filter - UPD5</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -665,14 +641,72 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_APPLICATION_ID</leftvalue>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>N_INSTANCE_STATUS</leftvalue>
+     <function>=</function>
+     <rightvalue/>
+     <value><name>constant</name><type>String</type><text>ACTIVE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>     </condition>
+    <condition>
+     <negated>N</negated>
+     <operator>AND</operator>
+     <conditions>
+      <condition>
+       <negated>N</negated>
+       <leftvalue>N_ASSD_REQUEST_NOTIFICATION</leftvalue>
+       <function>IS NOT NULL</function>
+       <rightvalue/>
+       </condition>
+      <condition>
+       <negated>N</negated>
+       <operator>AND</operator>
+       <leftvalue>N_ASED_REQUEST_NOTIFICATION</leftvalue>
+       <function>IS NULL</function>
+       <rightvalue/>
+       </condition>
+      </conditions>
+     </condition>
+    </conditions>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>470</xloc>
+      <yloc>170</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter - UPD4_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set values - UPD4_10</send_true_to>
+<send_false_to>Filter - UPD4_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>N_APPLICATION_ID</leftvalue>
    <function>IS NOT NULL</function>
    <rightvalue>CON_YES</rightvalue>
    </condition>
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_APP_RECEIVED_DATE</leftvalue>
+   <leftvalue>N_APP_RECEIVED_DATE</leftvalue>
    <function>&gt;=</function>
    <rightvalue>N_RENEWAL_PERIOD_START_DATE</rightvalue>
    </condition>
@@ -681,14 +715,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>200</yloc>
+      <xloc>470</xloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD4_20</name>
+    <name>Filter - UPD4_20</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -697,8 +731,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD4_20</send_true_to>
-<send_false_to>Filter rows - UPD5</send_false_to>
+<send_true_to>Set values - UPD4_20</send_true_to>
+<send_false_to>Filter - UPD5</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -714,14 +748,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>730</xloc>
-      <yloc>200</yloc>
+      <xloc>570</xloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD5</name>
+    <name>Filter - UPD5</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -730,32 +764,32 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Filter rows - UPD5_10</send_true_to>
-<send_false_to>Filter rows - UPD5_20</send_false_to>
+<send_true_to>Filter - UPD5_10</send_true_to>
+<send_false_to>Filter - UPD5_20</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>O_INSTANCE_STATUS</leftvalue>
+   <leftvalue>N_INSTANCE_STATUS</leftvalue>
    <function>=</function>
    <rightvalue/>
-   <value><name>constant</name><type>String</type><text>OPEN</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+   <value><name>constant</name><type>String</type><text>ACTIVE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
    <conditions>
     <condition>
      <negated>N</negated>
-     <leftvalue>O_ASF_REQUEST_NOTIFICATION</leftvalue>
+     <leftvalue>N_ASF_REQUEST_NOTIFICATION</leftvalue>
      <function>=</function>
      <rightvalue>CON_YES</rightvalue>
      </condition>
     <condition>
      <negated>N</negated>
      <operator>AND</operator>
-     <leftvalue>O_ASSD_WAIT_FOR_ALL_DISENROLL</leftvalue>
+     <leftvalue>N_ASSD_WAIT_FOR_ALL_DISENROLL</leftvalue>
      <function>IS NULL</function>
      <rightvalue/>
      </condition>
@@ -766,14 +800,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>890</xloc>
-      <yloc>100</yloc>
+      <xloc>680</xloc>
+      <yloc>170</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD5_10</name>
+    <name>Filter - UPD5_10</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -782,8 +816,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD5_10</send_true_to>
-<send_false_to>Filter rows - UPD5_20</send_false_to>
+<send_true_to>Set values - UPD5_10</send_true_to>
+<send_false_to>Filter - UPD5_20</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -791,7 +825,7 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_GWF_APP_RECEIVED</leftvalue>
+   <leftvalue>N_GWF_APP_RECEIVED</leftvalue>
    <function>=</function>
    <rightvalue>CON_YES</rightvalue>
    </condition>
@@ -800,14 +834,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>890</xloc>
-      <yloc>220</yloc>
+      <xloc>680</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - UPD5_20</name>
+    <name>Filter - UPD5_20</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -816,66 +850,38 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Set field value - UPD5_20</send_true_to>
-<send_false_to>Filter rows -UPD6</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>O_GWF_APP_RECEIVED</leftvalue>
- <function>=</function>
- <rightvalue>CON_YES</rightvalue>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1020</xloc>
-      <yloc>190</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter rows - UPD6_10</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Set field value - UPD6_10</send_true_to>
-<send_false_to>Filter rows - Updates</send_false_to>
+<send_true_to>Set values - UPD5_20</send_true_to>
+<send_false_to>Filter -UPD6</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
  <conditions>
   <condition>
    <negated>N</negated>
-   <leftvalue>O_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
+   <leftvalue>N_GWF_APP_RECEIVED</leftvalue>
    <function>=</function>
-   <rightvalue/>
-   <value><name>constant</name><type>Integer</type><text>0</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value>   </condition>
+   <rightvalue>CON_NO</rightvalue>
+   </condition>
   <condition>
    <negated>N</negated>
    <operator>AND</operator>
-   <leftvalue>O_WAITING_FOR_DISENROLLMENT</leftvalue>
-   <function>=</function>
+   <leftvalue>N_ASED_REQUEST_NOTIFICATION</leftvalue>
+   <function>IS NOT NULL</function>
    <rightvalue/>
-   <value><name>constant</name><type>Integer</type><text>0</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value>   </condition>
+   </condition>
   </conditions>
  </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1150</xloc>
-      <yloc>210</yloc>
+      <xloc>790</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows - Updates</name>
+    <name>Filter - UPD6_10</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -884,7 +890,68 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Update - Move Update to WIP</send_true_to>
+<send_true_to>Set values - UPD6_10</send_true_to>
+<send_false_to>Filter - UPD8</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>N_COUNT_OF_ELIGIBLE_MEMBERS</leftvalue>
+   <function>&lt;</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>900</xloc>
+      <yloc>270</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter - UPD8</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set value - UPD8_10</send_true_to>
+<send_false_to>Filter - Updates</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>N_RENEWAL_STATUS</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>INTENT_RECEIVED</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1020</xloc>
+      <yloc>210</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter - Updates</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update - WIP_BPM</send_true_to>
 <send_false_to>Dummy (do nothing)</send_false_to>
     <compare>
 <condition>
@@ -896,14 +963,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1390</xloc>
-      <yloc>90</yloc>
+      <xloc>1110</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows -UPD6</name>
+    <name>Filter -UPD6</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -912,8 +979,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Filter rows - UPD6_10</send_true_to>
-<send_false_to>Filter rows - Updates</send_false_to>
+<send_true_to>Filter - UPD6_10</send_true_to>
+<send_false_to>Filter - UPD8</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -923,24 +990,24 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
    <conditions>
     <condition>
      <negated>N</negated>
-     <leftvalue>O_INSTANCE_STATUS</leftvalue>
+     <leftvalue>N_INSTANCE_STATUS</leftvalue>
      <function>=</function>
      <rightvalue/>
-     <value><name>constant</name><type>String</type><text>OPEN</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>     </condition>
+     <value><name>constant</name><type>String</type><text>ACTIVE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>     </condition>
     <condition>
      <negated>N</negated>
      <operator>AND</operator>
      <conditions>
       <condition>
        <negated>N</negated>
-       <leftvalue>O_ASSD_WAIT_FOR_ALL_DISENROLL</leftvalue>
+       <leftvalue>N_ASSD_WAIT_FOR_ALL_DISENROLL</leftvalue>
        <function>IS NOT NULL</function>
        <rightvalue/>
        </condition>
       <condition>
        <negated>N</negated>
        <operator>AND</operator>
-       <leftvalue>O_ASED_WAIT_FOR_ALL_DISENROLL</leftvalue>
+       <leftvalue>N_ASED_WAIT_FOR_ALL_DISENROLL</leftvalue>
        <function>IS NULL</function>
        <rightvalue/>
        </condition>
@@ -953,8 +1020,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1150</xloc>
-      <yloc>90</yloc>
+      <xloc>900</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -977,394 +1044,14 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1550</xloc>
-      <yloc>200</yloc>
+      <xloc>1110</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Set field - UPD2_30</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_CANCEL_REASON</name>
-        <replaceby>CANCEL_REASON3</replaceby>
-        </field>
-      <field>
-        <name>O_CANCEL_DATE</name>
-        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASED_CANCEL_RENEWAL</name>
-        <replaceby>N_CANCEL_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_CANCEL_RENEWAL</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_COMPLETE_DATE</name>
-        <replaceby>N_CANCEL_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_STATUS</name>
-        <replaceby>CON_COMPLETE</replaceby>
-        </field>
-      <field>
-        <name>O_STAGE_DONE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>310</xloc>
-      <yloc>310</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD2-20</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_CANCEL_REASON</name>
-        <replaceby>CANCEL_REASON2</replaceby>
-        </field>
-      <field>
-        <name>O_CANCEL_DATE</name>
-        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASED_CANCEL_RENEWAL</name>
-        <replaceby>N_CANCEL_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_CANCEL_RENEWAL</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_COMPLETE_DATE</name>
-        <replaceby>N_CANCEL_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_STATUS</name>
-        <replaceby>CON_COMPLETE</replaceby>
-        </field>
-      <field>
-        <name>O_STAGE_DONE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>190</xloc>
-      <yloc>280</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD2_10</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_CANCEL_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_CANCEL_REASON</name>
-        <replaceby>CANCEL_REASON1</replaceby>
-        </field>
-      <field>
-        <name>O_ASED_CANCEL_RENEWAL</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_COMPLETE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_STATUS</name>
-        <replaceby>IN_COMPLETE</replaceby>
-        </field>
-      <field>
-        <name>O_STAGE_DONE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_CANCEL_RENEWAL</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>70</xloc>
-      <yloc>250</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD3_10</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_ASED_IDENTIFY_RENEWAL_ACCTS</name>
-        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_IDENTIFY_RENEWAL_ACCTS</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_ASSD_REQUEST_NOTIFICATION</name>
-        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>450</xloc>
-      <yloc>290</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD4_10</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_ASED_REQUEST_NOTIFICATION</name>
-        <replaceby>N_APP_RECEIVED_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_ASPB_REQUEST_NOTIFICATION</name>
-        <replaceby>N_APP_ENTERED_BY</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_IDENTIFY_RENEWAL_ACCTS</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_GWF_APP_RECEIVED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_COMPLETE_DATE</name>
-        <replaceby>N_ASED_REQUEST_NOTIFICATION</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>310</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD4_20</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_ASED_REQUEST_NOTIFICATION</name>
-        <replaceby>N_RENEWAL_PERIOD_END_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_ASPB_REQUEST_NOTIFICATION</name>
-        <replaceby>N_APP_ENTERED_BY</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_ASF_REQUEST_NOTIFICATION</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_GWF_APP_RECEIVED</name>
-        <replaceby>CON_NO</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>730</xloc>
-      <yloc>350</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD5_10</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_STAGE_DONE_DATE</name>
-        <replaceby>N_ASED_REQUEST_NOTIFICATION</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_COMPLETE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_STATUS</name>
-        <replaceby>CON_COMPLETE</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>890</xloc>
-      <yloc>350</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD5_20</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_ASSD_WAIT_FOR_ALL_DISENROLL</name>
-        <replaceby>N_ASED_REQUEST_NOTIFICATION</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1020</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Set field value - UPD6_10</name>
-    <type>SetValueField</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>O_ASF_WAIT_FOR_ALL_DISENROLL</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_STAGE_DONE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_IR_PROCESSED</name>
-        <replaceby>CON_YES</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_COMPLETE_DATE</name>
-        <replaceby>IN_SYSTEM_DATE</replaceby>
-        </field>
-      <field>
-        <name>O_INSTANCE_STATUS</name>
-        <replaceby>CON_COMPLETE</replaceby>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1150</xloc>
-      <yloc>340</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Table output OLTP - error</name>
+    <name>Output WIP_BPM- error</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1392,16 +1079,20 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     <return_field/>
     <fields>
         <field>
+          <column_name>CREATE_TS</column_name>
+          <stream_name>IN_SYSTEM_DATE</stream_name>
+        </field>
+        <field>
           <column_name>DRIVER_KEY_NUMBER</column_name>
           <stream_name>O_IR_ID</stream_name>
         </field>
         <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>IN_SYSTEM_DATE</stream_name>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
         </field>
         <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>ERR_NR</stream_name>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>ERR_CD</stream_name>
         </field>
         <field>
           <column_name>ERROR_DESC</column_name>
@@ -1412,20 +1103,8 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
           <stream_name>ERR_FLD</stream_name>
         </field>
         <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>ERR_CD</stream_name>
-        </field>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>END_TS</stream_name>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>IN_SYSTEM_DATE</stream_name>
         </field>
         <field>
           <column_name>ERR_LEVEL</column_name>
@@ -1433,24 +1112,32 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
         </field>
         <field>
           <column_name>JOB_NAME</column_name>
-          <stream_name>O_WAITING_FOR_DISENROLLMENT</stream_name>
+          <stream_name>JOB_NAME</stream_name>
         </field>
         <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>IN_SYSTEM_DATE</stream_name>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>ERR_NR</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>PROCESS_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>UPDATE_TS</column_name>
+          <stream_name>END_TS</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1550</xloc>
-      <yloc>400</yloc>
+      <xloc>770</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>UPD4</name>
-    <type>FilterRows</type>
+    <name>Set value - UPD8_10</name>
+    <type>SetValueField</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -1458,66 +1145,486 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Filter rows - UPD4_10</send_true_to>
-<send_false_to>Filter rows - UPD5</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <conditions>
-  <condition>
-   <negated>N</negated>
-   <conditions>
-    <condition>
-     <negated>N</negated>
-     <operator>AND</operator>
-     <conditions>
-      <condition>
-       <negated>N</negated>
-       <conditions>
-        <condition>
-         <negated>N</negated>
-         <leftvalue>N_INSTANCE_STATUS</leftvalue>
-         <function>=</function>
-         <rightvalue/>
-         <value><name>constant</name><type>String</type><text>ACTIVE</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>         </condition>
-        <condition>
-         <negated>N</negated>
-         <operator>AND</operator>
-         <conditions>
-          <condition>
-           <negated>N</negated>
-           <leftvalue>O_ASSD_REQUEST_NOTIFICATION</leftvalue>
-           <function>IS NOT NULL</function>
-           <rightvalue/>
-           </condition>
-          <condition>
-           <negated>N</negated>
-           <operator>AND</operator>
-           <leftvalue>O_ASED_REQUEST_NOTIFICATION</leftvalue>
-           <function>IS NULL</function>
-           <rightvalue/>
-           </condition>
-          </conditions>
-         </condition>
-        </conditions>
-       </condition>
-      </conditions>
-     </condition>
-    </conditions>
-   </condition>
-  </conditions>
- </condition>
-    </compare>
+    <fields>
+      <field>
+        <name>N_INTENT_TO_RENEW</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>100</yloc>
+      <xloc>1020</xloc>
+      <yloc>350</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Update - Move Update to WIP</name>
+    <name>Set values - UPD2-20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_CANCEL_RENEWAL</name>
+        <replaceby>N_CANCEL_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_CANCEL_RENEWAL</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_CANCEL_DATE</name>
+        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_CANCEL_REASON</name>
+        <replaceby>CANCEL_REASON2</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>N_CANCEL_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>CON_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>160</xloc>
+      <yloc>340</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD2_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_CANCEL_RENEWAL</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_CANCEL_RENEWAL</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_CANCEL_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_CANCEL_REASON</name>
+        <replaceby>CANCEL_REASON1</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>70</xloc>
+      <yloc>310</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD2_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_CANCEL_REASON</name>
+        <replaceby>CANCEL_REASON3</replaceby>
+        </field>
+      <field>
+        <name>N_CANCEL_DATE</name>
+        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASED_CANCEL_RENEWAL</name>
+        <replaceby>N_CANCEL_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_CANCEL_RENEWAL</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>N_CANCEL_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>CON_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>250</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD3_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_IDENTIFY_RENEWAL_ACCTS</name>
+        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_IDENTIFY_RENEWAL_ACCTS</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_ASPB_IDENTIFY_RENEWAL_ACCTS</name>
+        <replaceby>CON_SYSTEM</replaceby>
+        </field>
+      <field>
+        <name>N_ASSD_REQUEST_NOTIFICATION</name>
+        <replaceby>N_RENEWAL_PERIOD_START_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>360</xloc>
+      <yloc>340</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD4_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_REQUEST_NOTIFICATION</name>
+        <replaceby>N_APP_RECEIVED_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_IDENTIFY_RENEWAL_ACCTS</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_ASPB_REQUEST_NOTIFICATION</name>
+        <replaceby>N_APP_ENTERED_BY</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>N_APP_RECEIVED_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_GWF_APP_RECEIVED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>N_APP_RECEIVED_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>CON_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>470</xloc>
+      <yloc>370</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD4_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_REQUEST_NOTIFICATION</name>
+        <replaceby>N_RENEWAL_PERIOD_END_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASPB_REQUEST_NOTIFICATION</name>
+        <replaceby>N_APP_ENTERED_BY</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_REQUEST_NOTIFICATION</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_GWF_APP_RECEIVED</name>
+        <replaceby>CON_NO</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>570</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD5_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>N_ASED_REQUEST_NOTIFICATION</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>CON_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>680</xloc>
+      <yloc>430</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD5_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASSD_WAIT_FOR_ALL_DISENROLL</name>
+        <replaceby>N_ASED_REQUEST_NOTIFICATION</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>790</xloc>
+      <yloc>410</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set values - UPD6_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>N_ASED_WAIT_FOR_ALL_DISENROLL</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_ASF_WAIT_FOR_ALL_DISENROLL</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_INSTANCE_STATUS</name>
+        <replaceby>CON_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>N_IR_PROCESSED</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      <field>
+        <name>N_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_STG_LAST_UPDATE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>N_COMPLETE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>900</xloc>
+      <yloc>390</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update - WIP_BPM</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -1533,198 +1640,140 @@ FROM FLHK_INITIATE_RENEWALS_WIP_BPM
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
     <lookup>
-      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <schema/>
       <table>FLHK_INITIATE_RENEWALS_WIP_BPM</table>
       <key>
-        <name>O_IR_ID</name>
+        <name>N_IR_ID</name>
         <field>IR_ID</field>
         <condition>=</condition>
         <name2/>
         </key>
-      <value>
-        <name>IR_ID</name>
-        <rename>O_IR_ID</rename>
-        </value>
+      <key>
+        <name>N_ACCOUNT_ID</name>
+        <field>ACCOUNT_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
       <value>
         <name>ACCOUNT_ID</name>
-        <rename>O_ACCOUNT_ID</rename>
-        </value>
-      <value>
-        <name>RENEWAL_PERIOD_START_DATE</name>
-        <rename>O_RENEWAL_PERIOD_START_DATE</rename>
-        </value>
-      <value>
-        <name>APPLICATION_ID</name>
-        <rename>O_APPLICATION_ID</rename>
-        </value>
-      <value>
-        <name>RENEWAL_PERIOD_END_DATE</name>
-        <rename>O_RENEWAL_PERIOD_END_DATE</rename>
-        </value>
-      <value>
-        <name>RENEWAL_STATUS</name>
-        <rename>O_RENEWAL_STATUS</rename>
-        </value>
-      <value>
-        <name>RENEWAL_STATUS_DATE</name>
-        <rename>O_RENEWAL_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>CANCEL_DATE</name>
-        <rename>O_CANCEL_DATE</rename>
-        </value>
-      <value>
-        <name>CANCEL_REASON</name>
-        <rename>O_CANCEL_REASON</rename>
-        </value>
-      <value>
-        <name>COMPLETE_DATE</name>
-        <rename>O_COMPLETE_DATE</rename>
-        </value>
-      <value>
-        <name>RENEWAL_LETTER_REQ_ID</name>
-        <rename>O_RENEWAL_LETTER_REQ_ID</rename>
-        </value>
-      <value>
-        <name>TIME_TO_RENEWAL_CALL_ID</name>
-        <rename>O_TIME_TO_RENEWAL_CALL_ID</rename>
-        </value>
-      <value>
-        <name>RENEWAL_REMINDER_CALL_ID</name>
-        <rename>O_RENEWAL_REMINDER_CALL_ID</rename>
-        </value>
-      <value>
-        <name>RENEWAL_CANCELLATION_CALL_ID</name>
-        <rename>O_RENEWAL_CANCELLATION_CALL_ID</rename>
-        </value>
-      <value>
-        <name>DOR_MATCH_STATUS</name>
-        <rename>O_DOR_MATCH_STATUS</rename>
-        </value>
-      <value>
-        <name>DOR_MATCH_STATUS_DATE</name>
-        <rename>O_DOR_MATCH_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>DEO_MATCH_STATUS</name>
-        <rename>O_DEO_MATCH_STATUS</rename>
-        </value>
-      <value>
-        <name>DEO_MATCH_STATUS_DATE</name>
-        <rename>O_DEO_MATCH_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>ASSD_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>O_ASSD_IDENTIFY_RENEWAL_ACCTS</rename>
-        </value>
-      <value>
-        <name>ASED_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>O_ASED_IDENTIFY_RENEWAL_ACCTS</rename>
-        </value>
-      <value>
-        <name>ASF_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>O_ASF_IDENTIFY_RENEWAL_ACCTS</rename>
-        </value>
-      <value>
-        <name>ASPB_IDENTIFY_RENEWAL_ACCTS</name>
-        <rename>O_ASPB_IDENTIFY_RENEWAL_ACCTS</rename>
-        </value>
-      <value>
-        <name>ASSD_REQUEST_NOTIFICATION</name>
-        <rename>O_ASSD_REQUEST_NOTIFICATION</rename>
-        </value>
-      <value>
-        <name>ASED_REQUEST_NOTIFICATION</name>
-        <rename>O_ASED_REQUEST_NOTIFICATION</rename>
-        </value>
-      <value>
-        <name>ASF_REQUEST_NOTIFICATION</name>
-        <rename>O_ASF_REQUEST_NOTIFICATION</rename>
-        </value>
-      <value>
-        <name>ASPB_REQUEST_NOTIFICATION</name>
-        <rename>O_ASPB_REQUEST_NOTIFICATION</rename>
-        </value>
-      <value>
-        <name>ASSD_WAIT_FOR_ALL_DISENROLLED</name>
-        <rename>O_ASSD_WAIT_FOR_ALL_DISENROLL</rename>
-        </value>
-      <value>
-        <name>ASED_WAIT_FOR_ALL_DISENROLLED</name>
-        <rename>O_ASED_WAIT_FOR_ALL_DISENROLL</rename>
-        </value>
-      <value>
-        <name>ASF_WAIT_FOR_ALL_DISENROLLED</name>
-        <rename>O_ASF_WAIT_FOR_ALL_DISENROLL</rename>
-        </value>
-      <value>
-        <name>ASPB_WAIT_FOR_ALL_DISENROLLED</name>
-        <rename>O_ASPB_WAIT_FOR_ALL_DISENROLL</rename>
+        <rename>N_ACCOUNT_ID</rename>
         </value>
       <value>
         <name>ASED_CANCEL_RENEWAL</name>
-        <rename>O_ASED_CANCEL_RENEWAL</rename>
+        <rename>N_ASED_CANCEL_RENEWAL</rename>
+        </value>
+      <value>
+        <name>ASED_IDENTIFY_RENEWAL_ACCTS</name>
+        <rename>N_ASED_IDENTIFY_RENEWAL_ACCTS</rename>
+        </value>
+      <value>
+        <name>ASED_REQUEST_NOTIFICATION</name>
+        <rename>N_ASED_REQUEST_NOTIFICATION</rename>
+        </value>
+      <value>
+        <name>ASED_WAIT_FOR_ALL_DISENROLLED</name>
+        <rename>N_ASED_WAIT_FOR_ALL_DISENROLL</rename>
         </value>
       <value>
         <name>ASF_CANCEL_RENEWAL</name>
-        <rename>O_ASF_CANCEL_RENEWAL</rename>
+        <rename>N_ASF_CANCEL_RENEWAL</rename>
         </value>
       <value>
-        <name>GWF_APP_RECEIVED</name>
-        <rename>O_GWF_APP_RECEIVED</rename>
+        <name>ASF_IDENTIFY_RENEWAL_ACCTS</name>
+        <rename>N_ASF_IDENTIFY_RENEWAL_ACCTS</rename>
         </value>
       <value>
-        <name>STAGE_DONE_DATE</name>
-        <rename>O_STAGE_DONE_DATE</rename>
+        <name>ASF_REQUEST_NOTIFICATION</name>
+        <rename>N_ASF_REQUEST_NOTIFICATION</rename>
         </value>
       <value>
-        <name>STG_EXTRACT_DATE</name>
-        <rename>O_STG_EXTRACT_DATE</rename>
+        <name>ASF_WAIT_FOR_ALL_DISENROLLED</name>
+        <rename>N_ASF_WAIT_FOR_ALL_DISENROLL</rename>
         </value>
       <value>
-        <name>STG_LAST_UPDATE_DATE</name>
-        <rename>O_STG_LAST_UPDATE_DATE</rename>
+        <name>ASPB_IDENTIFY_RENEWAL_ACCTS</name>
+        <rename>N_ASPB_IDENTIFY_RENEWAL_ACCTS</rename>
         </value>
       <value>
-        <name>INSTANCE_STATUS</name>
-        <rename>O_INSTANCE_STATUS</rename>
+        <name>ASPB_REQUEST_NOTIFICATION</name>
+        <rename>N_ASPB_REQUEST_NOTIFICATION</rename>
         </value>
       <value>
-        <name>IR_PROCESSED</name>
-        <rename>O_IR_PROCESSED</rename>
+        <name>ASPB_WAIT_FOR_ALL_DISENROLLED</name>
+        <rename>N_ASPB_WAIT_FOR_ALL_DISENROLL</rename>
         </value>
       <value>
-        <name>INSTANCE_COMPLETE_DATE</name>
-        <rename>O_INSTANCE_COMPLETE_DATE</rename>
+        <name>ASSD_IDENTIFY_RENEWAL_ACCTS</name>
+        <rename>N_ASSD_IDENTIFY_RENEWAL_ACCTS</rename>
+        </value>
+      <value>
+        <name>ASSD_REQUEST_NOTIFICATION</name>
+        <rename>N_ASSD_REQUEST_NOTIFICATION</rename>
+        </value>
+      <value>
+        <name>ASSD_WAIT_FOR_ALL_DISENROLLED</name>
+        <rename>N_ASSD_WAIT_FOR_ALL_DISENROLL</rename>
+        </value>
+      <value>
+        <name>CANCEL_DATE</name>
+        <rename>N_CANCEL_DATE</rename>
+        </value>
+      <value>
+        <name>CANCEL_REASON</name>
+        <rename>N_CANCEL_REASON</rename>
+        </value>
+      <value>
+        <name>COMPLETE_DATE</name>
+        <rename>N_COMPLETE_DATE</rename>
         </value>
       <value>
         <name>COUNT_OF_ELIGIBLE_MEMBERS</name>
-        <rename>O_COUNT_OF_ELIGIBLE_MEMBERS</rename>
+        <rename>N_COUNT_OF_ELIGIBLE_MEMBERS</rename>
         </value>
       <value>
-        <name>APP_RECEIVED_DATE</name>
-        <rename>O_APP_RECEIVED_DATE</rename>
+        <name>GWF_APP_RECEIVED</name>
+        <rename>N_GWF_APP_RECEIVED</rename>
         </value>
       <value>
-        <name>APP_ENTERED_BY</name>
-        <rename>O_APP_ENTERED_BY</rename>
+        <name>INSTANCE_COMPLETE_DATE</name>
+        <rename>N_INSTANCE_COMPLETE_DATE</rename>
+        </value>
+      <value>
+        <name>INSTANCE_STATUS</name>
+        <rename>N_INSTANCE_STATUS</rename>
+        </value>
+      <value>
+        <name>INTENT_TO_RENEW</name>
+        <rename>N_INTENT_TO_RENEW</rename>
+        </value>
+      <value>
+        <name>IR_PROCESSED</name>
+        <rename>N_IR_PROCESSED</rename>
+        </value>
+      <value>
+        <name>STAGE_DONE_DATE</name>
+        <rename>N_STAGE_DONE_DATE</rename>
+        </value>
+      <value>
+        <name>STG_LAST_UPDATE_DATE</name>
+        <rename>N_STG_LAST_UPDATE_DATE</rename>
         </value>
       <value>
         <name>WAITING_FOR_DISENROLLMENT</name>
-        <rename>O_WAITING_FOR_DISENROLLMENT</rename>
+        <rename>N_WAITING_FOR_DISENROLLMENT</rename>
         </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1550</xloc>
-      <yloc>90</yloc>
+      <xloc>1110</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
       <error>
-        <source_step>Update - Move Update to WIP</source_step>
+        <source_step>Update - WIP_BPM</source_step>
         <target_step>Get System Info</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>ERR_NR</nr_valuename>

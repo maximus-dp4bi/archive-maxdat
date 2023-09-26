@@ -3,7 +3,19 @@
   <info>
     <name>load_CC_S_AGENT_WORK_DAY</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+---------------------------------
+
+SVN_FILE_URL        = $URL$ 
+
+SVN_REVISION        = $Revision$ 
+
+SVN_REVISION_DATE   = $Date$
+
+SVN_REVISION_AUTHOR = $Author$
+
+---------------------------------</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -105,8 +117,8 @@ Steps:
 14.  Insert &#47; Update CC_S_AGENT_WORK_DAY - insert records into the staging table</note>
       <xloc>0</xloc>
       <yloc>0</yloc>
-      <width>697</width>
-      <heigth>533</heigth>
+      <width>908</width>
+      <heigth>694</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -128,12 +140,68 @@ in order to filter out
 agents belonging to other
 staff groups, rather than
 log them as errors</note>
-      <xloc>884</xloc>
-      <yloc>675</yloc>
-      <width>164</width>
-      <heigth>85</heigth>
+      <xloc>1249</xloc>
+      <yloc>679</yloc>
+      <width>211</width>
+      <heigth>108</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>LEFT OUTER JOIN with 
+scheduled and activity minutes
+on the left so that absent agents 
+with no first login&#47;last logout
+are not excluded</note>
+      <xloc>933</xloc>
+      <yloc>691</yloc>
+      <width>235</width>
+      <heigth>110</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UNION schedule records
+and actual records with 
+append streams, then
+group and sum to combine
+the data sets;  this is done as 
+an alternative to an outer join
+so that any corner cases where
+schedule data exists without 
+actual data or vice versa does
+not inadvertantly exclude agent
+data;</note>
+      <xloc>734</xloc>
+      <yloc>1067</yloc>
+      <width>226</width>
+      <heigth>229</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>
@@ -151,7 +219,7 @@ log them as errors</note>
   <connection>
     <name>ACD</name>
     <server/>
-    <type>CACHE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_ACD_SOURCE}</database>
     <port>1521</port>
@@ -164,6 +232,7 @@ log them as errors</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -187,6 +256,74 @@ log them as errors</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_AVAYA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -240,24 +377,32 @@ log them as errors</note>
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -284,13 +429,13 @@ log them as errors</note>
   </connection>
   <connection>
     <name>MOTS</name>
-    <server/>
+    <server>${DB_MOTS_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MOTS_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -298,16 +443,120 @@ log them as errors</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MOTS;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYHXMXP</name>
+    <server>nyhxmxp.maximus.com</server>
+    <type>ORACLE</type>
+    <access>ODBC</access>
+    <database>NYHXMXP</database>
+    <port>1557</port>
+    <username>lg74078</username>
+    <password>Encrypted 2be98afc86aa7f2e4a81da6699ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TESTLOCALCO</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>TESTLOCALCO</database>
+    <port>1521</port>
+    <username>system</username>
+    <password>Encrypted 2be98afc86aa7c1a3ae14bd45cd97bd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>WFM</name>
     <server/>
-    <type>ORACLE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_WFM_SOURCE}</database>
     <port>1521</port>
@@ -320,6 +569,7 @@ log them as errors</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -327,7 +577,89 @@ log them as errors</note>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get Actual Login Times</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Denormalize LOG_TIME</to><enabled>Y</enabled> </hop>  <hop> <from>Denormalize LOG_TIME</from><to>Get leading LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Get leading LOGOUT</from><to>Calculate WORK_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE</from><to>Sort rows 2 </to><enabled>Y</enabled> </hop>  <hop> <from>Is S_AGENT ID not null?</from><to>Calculate Overtime Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Overtime Minutes</from><to>Is ACTUAL_OVERTIME_MINUTES negative?</to><enabled>Y</enabled> </hop>  <hop> <from>Is ACTUAL_OVERTIME_MINUTES negative?</from><to>Insert &#47; Update CC_S_AGENT_WORK_DAY</to><enabled>Y</enabled> </hop>  <hop> <from>Is ACTUAL_OVERTIME_MINUTES negative?</from><to>Set Overtime Minutes to 0</to><enabled>Y</enabled> </hop>  <hop> <from>Set Overtime Minutes to 0</from><to>Insert &#47; Update CC_S_AGENT_WORK_DAY</to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message</from><to>Log Missing AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Is S_AGENT ID not null?</from><to>Generate Error Message</to><enabled>Y</enabled> </hop>  <hop> <from>Get Actual Activity Times</from><to>Calculate Actual Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Get Scheduled Activity Times</from><to>Calculate Scheduled Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Actual Minutes</from><to>Calculate WORK_DATE 3</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Scheduled Minutes</from><to>Calculate WORK_DATE 2</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE 2</from><to>Sort rows 3</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows 3</from><to>Group by - get scheduled minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE 3</from><to>Sort rows 4</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows 4</from><to>Group by - get actuals minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Group by - get scheduled minutes</from><to>Merge Join - STAFF_ID, WORK_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Group by - get actuals minutes</from><to>Merge Join - STAFF_ID, WORK_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows 2 </from><to>Merge Join - STAFF_ID, WORK_DATE 2</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join - STAFF_ID, WORK_DATE</from><to>Merge Join - STAFF_ID, WORK_DATE 2</to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message </from><to>Log Null LAST_LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Is LAST_LOGOUT not null?</from><to>Generate Error Message </to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message </from><to>Set LAST_LOGOUT to Midnight</to><enabled>Y</enabled> </hop>  <hop> <from>Set LAST_LOGOUT to Midnight</from><to>Set default LAST_LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Set default LAST_LOGOUT</from><to>Remove extraneous fields</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join - STAFF_ID, WORK_DATE 2</from><to>Get Agent</to><enabled>Y</enabled> </hop>  <hop> <from>Is LAST_LOGOUT not null?</from><to>Is S_AGENT ID not null?</to><enabled>Y</enabled> </hop>  <hop> <from>Remove extraneous fields</from><to>Is S_AGENT ID not null?</to><enabled>Y</enabled> </hop>  <hop> <from>Get Agent</from><to>Lookup CC_S_AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup CC_S_AGENT</from><to>Is LAST_LOGOUT not null?</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Get Actual Login Times</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Denormalize LOG_TIME</to><enabled>Y</enabled> </hop>  <hop> <from>Denormalize LOG_TIME</from><to>Get leading LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Get leading LOGOUT</from><to>Calculate WORK_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Is S_AGENT ID not null?</from><to>Calculate Overtime Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Overtime Minutes</from><to>Is ACTUAL_OVERTIME_MINUTES negative?</to><enabled>Y</enabled> </hop>  <hop> <from>Is ACTUAL_OVERTIME_MINUTES negative?</from><to>Insert &#47; Update CC_S_AGENT_WORK_DAY</to><enabled>Y</enabled> </hop>  <hop> <from>Is ACTUAL_OVERTIME_MINUTES negative?</from><to>Set Overtime Minutes to 0</to><enabled>Y</enabled> </hop>  <hop> <from>Set Overtime Minutes to 0</from><to>Insert &#47; Update CC_S_AGENT_WORK_DAY</to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message</from><to>Log Missing AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Is S_AGENT ID not null?</from><to>Generate Error Message</to><enabled>Y</enabled> </hop>  <hop> <from>Get Actual Activity Times</from><to>Calculate Actual Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Get Scheduled Activity Times</from><to>Calculate Scheduled Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Actual Minutes</from><to>Calculate WORK_DATE 3</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Scheduled Minutes</from><to>Calculate WORK_DATE 2</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE 2</from><to>Sort rows 3</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows 3</from><to>Group by - get scheduled minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE 3</from><to>Sort rows 4</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows 4</from><to>Group by - get actuals minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message </from><to>Log Null LAST_LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Is LAST_LOGOUT not null?</from><to>Generate Error Message </to><enabled>Y</enabled> </hop>  <hop> <from>Generate Error Message </from><to>Set LAST_LOGOUT to Midnight</to><enabled>Y</enabled> </hop>  <hop> <from>Set LAST_LOGOUT to Midnight</from><to>Set default LAST_LOGOUT</to><enabled>Y</enabled> </hop>  <hop> <from>Set default LAST_LOGOUT</from><to>Remove extraneous fields</to><enabled>Y</enabled> </hop>  <hop> <from>Is LAST_LOGOUT not null?</from><to>Is S_AGENT ID not null?</to><enabled>Y</enabled> </hop>  <hop> <from>Remove extraneous fields</from><to>Is S_AGENT ID not null?</to><enabled>Y</enabled> </hop>  <hop> <from>Get Agent</from><to>Lookup CC_S_AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup CC_S_AGENT</from><to>Is LAST_LOGOUT not null?</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate WORK_DATE</from><to>Filter rows - WORK_DATE IS NOT NULL</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - WORK_DATE IS NOT NULL</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Group by - get scheduled minutes</from><to>Add ACTUAL_SHIFT_MINUTES</to><enabled>Y</enabled> </hop>  <hop> <from>Group by - get actuals minutes</from><to>Add SCHEDULED_SHIFT_MINUTES</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - WORK_DATE IS NOT NULL</from><to>Select values - Remove EOA</to><enabled>Y</enabled> </hop>  <hop> <from>Select values - Remove EOA</from><to>Sort by STAFF_ID, WORK_DATE 2 </to><enabled>Y</enabled> </hop>  <hop> <from>Add ACTUAL_SHIFT_MINUTES</from><to>Append streams</to><enabled>Y</enabled> </hop>  <hop> <from>Add SCHEDULED_SHIFT_MINUTES</from><to>Select values - Move SCHEDULED_SHIFT_MINUTES</to><enabled>Y</enabled> </hop>  <hop> <from>Select values - Move SCHEDULED_SHIFT_MINUTES</from><to>Append streams</to><enabled>Y</enabled> </hop>  <hop> <from>Append streams</from><to>Sort by STAFF_ID, WORK_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by STAFF_ID, WORK_DATE</from><to>Group by</to><enabled>Y</enabled> </hop>  <hop> <from>Group by</from><to>Merge Join LEFT OUTER JOIN</to><enabled>Y</enabled> </hop>  <hop> <from>Sort by STAFF_ID, WORK_DATE 2 </from><to>Merge Join LEFT OUTER JOIN</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join LEFT OUTER JOIN</from><to>Get Agent</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add ACTUAL_SHIFT_MINUTES</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ACTUAL_SHIFT_MINUTES</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>574</xloc>
+      <yloc>917</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add SCHEDULED_SHIFT_MINUTES</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>SCHEDULED_SHIFT_MINUTES</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>574</xloc>
+      <yloc>1056</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Append streams</name>
+    <type>Append</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<head_name>Add ACTUAL_SHIFT_MINUTES</head_name>
+<tail_name>Select values - Move SCHEDULED_SHIFT_MINUTES</tail_name>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>725</xloc>
+      <yloc>869</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Calculate Actual Minutes</name>
     <type>ScriptValueMod</type>
@@ -357,8 +689,8 @@ var numActualMinutes = (actualEnd - actualStart)&#47;60000; &#47;&#47; convert t
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>194</xloc>
-      <yloc>1030</yloc>
+      <xloc>168</xloc>
+      <yloc>1066</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -389,8 +721,8 @@ var numActualMinutes = (actualEnd - actualStart)&#47;60000; &#47;&#47; convert t
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1492</xloc>
-      <yloc>787</yloc>
+      <xloc>1832</xloc>
+      <yloc>788</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -423,8 +755,8 @@ var numScheduledMinutes = (scheduledEnd - scheduledStart)&#47;60000; &#47;&#47; 
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>194</xloc>
-      <yloc>880</yloc>
+      <xloc>168</xloc>
+      <yloc>916</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -455,8 +787,8 @@ var numScheduledMinutes = (scheduledEnd - scheduledStart)&#47;60000; &#47;&#47; 
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>471</xloc>
-      <yloc>592</yloc>
+      <xloc>433</xloc>
+      <yloc>593</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -487,8 +819,8 @@ var numScheduledMinutes = (scheduledEnd - scheduledStart)&#47;60000; &#47;&#47; 
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>292</xloc>
-      <yloc>806</yloc>
+      <xloc>266</xloc>
+      <yloc>842</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -519,8 +851,8 @@ var numScheduledMinutes = (scheduledEnd - scheduledStart)&#47;60000; &#47;&#47; 
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>292</xloc>
-      <yloc>955</yloc>
+      <xloc>266</xloc>
+      <yloc>991</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -576,8 +908,54 @@ var numScheduledMinutes = (scheduledEnd - scheduledStart)&#47;60000; &#47;&#47; 
         </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>292</xloc>
-      <yloc>592</yloc>
+      <xloc>254</xloc>
+      <yloc>593</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>513</xloc>
+      <yloc>769</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows - WORK_DATE IS NOT NULL</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Select values - Remove EOA</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>WORK_DATE</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>515</xloc>
+      <yloc>692</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -607,8 +985,8 @@ var errorMessage = &quot;No AGENT_ID found in CC_S_AGENT for staff_id: &quot; + 
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1370</xloc>
-      <yloc>957</yloc>
+      <xloc>1710</xloc>
+      <yloc>958</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -638,8 +1016,8 @@ var errorMessage = &quot;LAST_LOGOUT is null for agent with LOGIN_ID: &quot; + L
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>945</xloc>
-      <yloc>954</yloc>
+      <xloc>1285</xloc>
+      <yloc>955</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -663,7 +1041,7 @@ inner join cc_c_activity_type at
   on e.name = at.activity_type_name
 where t.scenario_group_id = 5 -- standard flag to indicate actuals tasks
   and t.task_edit_id = 0 -- standard flag to indicate tasks of interest
-  and at.is_paid_flag = 1</sql>
+  and (at.is_paid_flag = 1 and at.is_absence_flag= 0)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -671,8 +1049,8 @@ where t.scenario_group_id = 5 -- standard flag to indicate actuals tasks
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>949</yloc>
+      <xloc>74</xloc>
+      <yloc>985</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -708,8 +1086,8 @@ group by t.staff_id, trunc(t.local_task_start, &apos;dd&apos;), e.event_type_gro
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>592</yloc>
+      <xloc>62</xloc>
+      <yloc>593</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -749,8 +1127,8 @@ group by t.staff_id, trunc(t.local_task_start, &apos;dd&apos;), e.event_type_gro
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>774</xloc>
-      <yloc>879</yloc>
+      <xloc>1176</xloc>
+      <yloc>789</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -774,7 +1152,8 @@ inner join cc_c_activity_type at
   on e.name = at.activity_type_name
 where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
   and t.task_edit_id = 0 -- standard flag to indicate tasks of interest
-  and at.is_paid_flag = 1</sql>
+and at.scheduled_to_work = 1
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -782,8 +1161,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>806</yloc>
+      <xloc>74</xloc>
+      <yloc>842</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -810,8 +1189,56 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>685</yloc>
+      <xloc>335</xloc>
+      <yloc>686</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Group by</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <all_rows>N</all_rows>
+      <ignore_aggregate>N</ignore_aggregate>
+      <field_ignore/>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>grp</prefix>
+      <add_linenr>N</add_linenr>
+      <linenr_fieldname/>
+      <give_back_row>N</give_back_row>
+      <group>
+        <field>
+          <name>STAFF_ID</name>
+        </field>
+        <field>
+          <name>WORK_DATE</name>
+        </field>
+      </group>
+      <fields>
+        <field>
+          <aggregate>SCHEDULED_SHIFT_MINUTES</aggregate>
+          <subject>SCHEDULED_SHIFT_MINUTES</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+        <field>
+          <aggregate>ACTUAL_SHIFT_MINUTES</aggregate>
+          <subject>ACTUAL_SHIFT_MINUTES</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>913</xloc>
+      <yloc>978</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -852,8 +1279,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>471</xloc>
-      <yloc>957</yloc>
+      <xloc>445</xloc>
+      <yloc>993</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -894,8 +1321,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>471</xloc>
-      <yloc>806</yloc>
+      <xloc>445</xloc>
+      <yloc>842</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -966,8 +1393,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1740</xloc>
-      <yloc>787</yloc>
+      <xloc>2080</xloc>
+      <yloc>788</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -994,8 +1421,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1584</xloc>
-      <yloc>879</yloc>
+      <xloc>1924</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1022,8 +1449,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>945</xloc>
-      <yloc>879</yloc>
+      <xloc>1285</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1050,8 +1477,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1370</xloc>
-      <yloc>879</yloc>
+      <xloc>1710</xloc>
+      <yloc>880</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1094,8 +1521,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1370</xloc>
-      <yloc>1031</yloc>
+      <xloc>1710</xloc>
+      <yloc>1032</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1138,8 +1565,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     <allow_multiple_output>N</allow_multiple_output>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>945</xloc>
-      <yloc>1029</yloc>
+      <xloc>1285</xloc>
+      <yloc>1030</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1179,14 +1606,14 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>947</xloc>
-      <yloc>788</yloc>
+      <xloc>1287</xloc>
+      <yloc>789</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Merge Join - STAFF_ID, WORK_DATE</name>
+    <name>Merge Join LEFT OUTER JOIN</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -1195,9 +1622,9 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>INNER</join_type>
-<step1>Group by - get scheduled minutes</step1>
-<step2>Group by - get actuals minutes</step2>
+<join_type>LEFT OUTER</join_type>
+<step1>Group by</step1>
+<step2>Sort by STAFF_ID, WORK_DATE 2 </step2>
     <keys_1>
       <key>STAFF_ID</key>
       <key>WORK_DATE</key>
@@ -1208,37 +1635,8 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>576</xloc>
-      <yloc>880</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Merge Join - STAFF_ID, WORK_DATE 2</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>INNER</join_type>
-<step1>Sort rows 2 </step1>
-<step2>Merge Join - STAFF_ID, WORK_DATE</step2>
-    <keys_1>
-      <key>STAFF_ID</key>
-      <key>WORK_DATE</key>
-    </keys_1>
-    <keys_2>
-      <key>STAFF_ID</key>
-      <key>WORK_DATE</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>687</xloc>
-      <yloc>787</yloc>
+      <xloc>1054</xloc>
+      <yloc>860</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1258,8 +1656,78 @@ where t.scenario_group_id = 1 -- standard flag to indicate scheduled tasks
       </remove>      <remove>        <name>errorMessage</name>
       </remove>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1128</xloc>
-      <yloc>1110</yloc>
+      <xloc>1468</xloc>
+      <yloc>1111</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values - Move SCHEDULED_SHIFT_MINUTES</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>STAFF_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WORK_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SCHEDULED_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ACTUAL_SHIFT_MINUTES</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>680</xloc>
+      <yloc>989</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values - Remove EOA</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>STAFF_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WORK_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FIRST_LOGIN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_LOGOUT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>598</xloc>
+      <yloc>603</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1293,8 +1761,8 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1128</xloc>
-      <yloc>954</yloc>
+      <xloc>1468</xloc>
+      <yloc>955</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1319,8 +1787,8 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1740</xloc>
-      <yloc>957</yloc>
+      <xloc>2080</xloc>
+      <yloc>958</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1343,8 +1811,82 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1128</xloc>
-      <yloc>1029</yloc>
+      <xloc>1468</xloc>
+      <yloc>1030</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by STAFF_ID, WORK_DATE</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>STAFF_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>WORK_DATE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>846</xloc>
+      <yloc>907</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort by STAFF_ID, WORK_DATE 2 </name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>STAFF_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>WORK_DATE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>701</xloc>
+      <yloc>710</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1380,45 +1922,8 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>194</xloc>
-      <yloc>685</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort rows 2 </name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>STAFF_ID</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-      <field>
-        <name>WORK_DATE</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>576</xloc>
-      <yloc>685</yloc>
+      <xloc>156</xloc>
+      <yloc>686</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1454,8 +1959,8 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>880</yloc>
+      <xloc>347</xloc>
+      <yloc>916</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1491,8 +1996,8 @@ LAST_LOGOUT_default = dateAdd(LAST_LOGOUT_default, &quot;ss&quot;, 59);</jsScrip
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>373</xloc>
-      <yloc>1032</yloc>
+      <xloc>347</xloc>
+      <yloc>1068</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

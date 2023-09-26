@@ -98,7 +98,6 @@ begin
 end;
 /
 
-
 create or replace trigger TRG_AI_CORP_ETL_MFB_BATCH_Q
 after insert on CORP_ETL_MFB_BATCH
 for each row
@@ -115,13 +114,14 @@ declare
       
   v_sql_code number := null;
   v_log_message clob := null;
-  
+  v_cejs_job_id number := null;
   v_event_date date := null;
   
 begin
 
   v_event_date := :new.STG_LAST_UPDATE_DATE;
   v_identifier := :new.BATCH_GUID;
+  v_cejs_job_id := :new.CEJS_JOB_ID;
   
   /* 
   Include: 
@@ -163,6 +163,7 @@ begin
         <BATCH_CLASS_DES><![CDATA[' || :new.BATCH_CLASS_DES || ']]></BATCH_CLASS_DES>
         <BATCH_COMPLETE_DT>' || to_char(:new.BATCH_COMPLETE_DT,BPM_COMMON.GET_DATE_FMT) || '</BATCH_COMPLETE_DT>
         <BATCH_DELETED><![CDATA[' || :new.BATCH_DELETED || ']]></BATCH_DELETED>
+		<BATCH_DESCRIPTION><![CDATA[' || :new.BATCH_DESCRIPTION || ']]></BATCH_DESCRIPTION>
         <BATCH_DOC_COUNT>' || :new.BATCH_DOC_COUNT || '</BATCH_DOC_COUNT>
         <BATCH_ENVELOPE_COUNT>' || :new.BATCH_ENVELOPE_COUNT || '</BATCH_ENVELOPE_COUNT>
         <BATCH_GUID><![CDATA[' || :new.BATCH_GUID || ']]></BATCH_GUID>
@@ -194,6 +195,7 @@ begin
         <PAGES_REPLACED_FLAG><![CDATA[' || :new.PAGES_REPLACED_FLAG || ']]></PAGES_REPLACED_FLAG>
         <PAGES_SCANNED_FLAG><![CDATA[' || :new.PAGES_SCANNED_FLAG || ']]></PAGES_SCANNED_FLAG>
         <RECOGNITION_DT>' || to_char(:new.RECOGNITION_DT,BPM_COMMON.GET_DATE_FMT) || '</RECOGNITION_DT>
+        <REPROCESSED_FLAG><![CDATA[' || :new.REPROCESSED_FLAG || ']]></REPROCESSED_FLAG>
         <SOURCE_SERVER><![CDATA[' || :new.SOURCE_SERVER || ']]></SOURCE_SERVER>
         <STG_LAST_UPDATE_DATE>' || to_char(:new.STG_LAST_UPDATE_DATE,BPM_COMMON.GET_DATE_FMT) || '</STG_LAST_UPDATE_DATE>
         <VALIDATION_DT>' || to_char(:new.VALIDATION_DT,BPM_COMMON.GET_DATE_FMT) || '</VALIDATION_DT>
@@ -203,8 +205,8 @@ begin
 
     
 insert into BPM_UPDATE_EVENT_QUEUE
-    (BUEQ_ID,BSL_ID,BIL_ID,IDENTIFIER,EVENT_DATE,QUEUE_DATE,DATA_VERSION,NEW_DATA)
-  values (SEQ_BUEQ_ID.nextval,v_bsl_id,v_bil_id,v_identifier,v_event_date,sysdate,v_data_version,xmltype(v_xml_string_new));
+    (BUEQ_ID,BSL_ID,BIL_ID,IDENTIFIER,CEJS_JOB_ID,EVENT_DATE,QUEUE_DATE,DATA_VERSION,NEW_DATA)
+  values (SEQ_BUEQ_ID.nextval,v_bsl_id,v_bil_id,v_identifier,v_cejs_job_id,v_event_date,sysdate,v_data_version,xmltype(v_xml_string_new));
         
 exception
          
@@ -238,6 +240,7 @@ declare
       
   v_sql_code number := null;
   v_log_message clob := null;
+  v_cejs_job_id number := null;
   
   v_event_date date := null;
   
@@ -245,6 +248,7 @@ begin
 
   v_event_date := :new.STG_LAST_UPDATE_DATE;
   v_identifier := :new.BATCH_GUID;
+  v_cejs_job_id := :new.CEJS_JOB_ID;
   
   /* 
   Include: 
@@ -285,6 +289,7 @@ begin
         <BATCH_CLASS_DES><![CDATA[' || :old.BATCH_CLASS_DES || ']]></BATCH_CLASS_DES>
         <BATCH_COMPLETE_DT>' || to_char(:old.BATCH_COMPLETE_DT,BPM_COMMON.GET_DATE_FMT) || '</BATCH_COMPLETE_DT>
         <BATCH_DELETED><![CDATA[' || :old.BATCH_DELETED || ']]></BATCH_DELETED>
+		<BATCH_DESCRIPTION><![CDATA[' || :old.BATCH_DESCRIPTION || ']]></BATCH_DESCRIPTION>
         <BATCH_DOC_COUNT>' || :old.BATCH_DOC_COUNT || '</BATCH_DOC_COUNT>
         <BATCH_ENVELOPE_COUNT>' || :old.BATCH_ENVELOPE_COUNT || '</BATCH_ENVELOPE_COUNT>
         <BATCH_GUID><![CDATA[' || :old.BATCH_GUID || ']]></BATCH_GUID>
@@ -315,6 +320,7 @@ begin
         <PAGES_REPLACED_FLAG><![CDATA[' || :old.PAGES_REPLACED_FLAG || ']]></PAGES_REPLACED_FLAG>
         <PAGES_SCANNED_FLAG><![CDATA[' || :old.PAGES_SCANNED_FLAG || ']]></PAGES_SCANNED_FLAG>
         <RECOGNITION_DT>' || to_char(:old.RECOGNITION_DT,BPM_COMMON.GET_DATE_FMT) || '</RECOGNITION_DT>
+        <REPROCESSED_FLAG><![CDATA[' || :old.REPROCESSED_FLAG || ']]></REPROCESSED_FLAG>
         <SOURCE_SERVER><![CDATA[' || :old.SOURCE_SERVER || ']]></SOURCE_SERVER>
         <STG_LAST_UPDATE_DATE>' || to_char(:old.STG_LAST_UPDATE_DATE,BPM_COMMON.GET_DATE_FMT) || '</STG_LAST_UPDATE_DATE>
         <VALIDATION_DT>' || to_char(:old.VALIDATION_DT,BPM_COMMON.GET_DATE_FMT) || '</VALIDATION_DT>
@@ -361,6 +367,7 @@ begin
         <BATCH_CLASS_DES><![CDATA[' || :new.BATCH_CLASS_DES || ']]></BATCH_CLASS_DES>
         <BATCH_COMPLETE_DT>' || to_char(:new.BATCH_COMPLETE_DT,BPM_COMMON.GET_DATE_FMT) || '</BATCH_COMPLETE_DT>
         <BATCH_DELETED><![CDATA[' || :new.BATCH_DELETED || ']]></BATCH_DELETED>
+		<BATCH_DESCRIPTION><![CDATA[' || :new.BATCH_DESCRIPTION || ']]></BATCH_DESCRIPTION>
         <BATCH_DOC_COUNT>' || :new.BATCH_DOC_COUNT || '</BATCH_DOC_COUNT>
         <BATCH_ENVELOPE_COUNT>' || :new.BATCH_ENVELOPE_COUNT || '</BATCH_ENVELOPE_COUNT>
         <BATCH_GUID><![CDATA[' || :new.BATCH_GUID || ']]></BATCH_GUID>
@@ -391,6 +398,7 @@ begin
         <PAGES_REPLACED_FLAG><![CDATA[' || :new.PAGES_REPLACED_FLAG || ']]></PAGES_REPLACED_FLAG>
         <PAGES_SCANNED_FLAG><![CDATA[' || :new.PAGES_SCANNED_FLAG || ']]></PAGES_SCANNED_FLAG>
         <RECOGNITION_DT>' || to_char(:new.RECOGNITION_DT,BPM_COMMON.GET_DATE_FMT) || '</RECOGNITION_DT>
+        <REPROCESSED_FLAG><![CDATA[' || :new.REPROCESSED_FLAG || ']]></REPROCESSED_FLAG>
         <SOURCE_SERVER><![CDATA[' || :new.SOURCE_SERVER || ']]></SOURCE_SERVER>
         <STG_LAST_UPDATE_DATE>' || to_char(:new.STG_LAST_UPDATE_DATE,BPM_COMMON.GET_DATE_FMT) || '</STG_LAST_UPDATE_DATE>
         <VALIDATION_DT>' || to_char(:new.VALIDATION_DT,BPM_COMMON.GET_DATE_FMT) || '</VALIDATION_DT>
@@ -399,8 +407,8 @@ begin
     ';
     
  insert into BPM_UPDATE_EVENT_QUEUE
-    (BUEQ_ID,BSL_ID,BIL_ID,IDENTIFIER,EVENT_DATE,QUEUE_DATE,DATA_VERSION,OLD_DATA,NEW_DATA)
-  values (SEQ_BUEQ_ID.nextval,v_bsl_id,v_bil_id,v_identifier,v_event_date,sysdate,v_data_version,xmltype(v_xml_string_old),xmltype(v_xml_string_new));
+    (BUEQ_ID,BSL_ID,BIL_ID,IDENTIFIER,CEJS_JOB_ID,EVENT_DATE,QUEUE_DATE,DATA_VERSION,OLD_DATA,NEW_DATA)
+  values (SEQ_BUEQ_ID.nextval,v_bsl_id,v_bil_id,v_identifier,v_cejs_job_id,v_event_date,sysdate,v_data_version,xmltype(v_xml_string_old),xmltype(v_xml_string_new));
           
 exception
              

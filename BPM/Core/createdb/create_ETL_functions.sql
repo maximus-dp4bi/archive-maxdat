@@ -6,7 +6,7 @@ alter session set plsql_code_type = native;
   create or replace function BUS_DAYS_BETWEEN
     (p_start_date in date,
      p_end_date in date)
-    return integer
+    return integer parallel_enable
   as
   begin
     return ETL_COMMON.BUS_DAYS_BETWEEN(p_start_date,p_end_date);
@@ -20,7 +20,7 @@ alter session set plsql_code_type = native;
   create or replace function GET_WEEKDAY
     (p_start_date in date, 
      p_days2add in number) 
-    return date
+    return date parallel_enable
   as
   begin
     return ETL_COMMON.GET_WEEKDAY(p_start_date,p_days2add);
@@ -34,7 +34,7 @@ alter session set plsql_code_type = native;
   create or replace function GET_BUS_DATE
     (p_start_date in date,
      p_number_days in number)
-    return date
+    return date parallel_enable
   as
   begin
     return ETL_COMMON.GET_BUS_DATE(p_start_date,p_number_days);
@@ -47,7 +47,7 @@ alter session set plsql_code_type = native;
   create or replace function GET_INLIST_STR2
     (p_task_type in varchar2,
      p_list_type in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     return ETL_COMMON.GET_INLIST_STR2(p_task_type,p_list_type);
@@ -60,7 +60,7 @@ alter session set plsql_code_type = native;
   create or replace function GET_INLIST_STR3
     (p_name in varchar2,
      p_list_type in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     return ETL_COMMON.GET_INLIST_STR3(p_name,p_list_type);

@@ -103,14 +103,12 @@ alter table D_NYEC_PMI_CURRENT add constraint DNPMIC_PK primary key (NYEC_PMI_BI
 
 create index DNPMICUR_UIX1 on D_NYEC_PMI_CURRENT ("Cur Application ID") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PMI_CURRENT for D_NYEC_PMI_CURRENT;
 grant select on D_NYEC_PMI_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_CURRENT_SV as
 select * from D_NYEC_PMI_CURRENT 
 with read only;
 
-create or replace public synonym D_NYEC_PMI_CURRENT_SV for D_NYEC_PMI_CURRENT_SV;
 grant select on D_NYEC_PMI_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_CURRENT_APP_SV as
@@ -226,7 +224,6 @@ from D_NYEC_PMI_CURRENT dnpmicur
 inner join D_NYEC_PA_CURRENT dnpacur on (dnpmicur."Cur Application ID" = dnpacur."Application ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_CURRENT_TASK for D_NYEC_PMI_CURRENT_TASK;
 grant select on D_NYEC_PMI_CURRENT_TASK to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_CURRENT_TASK_SV as
@@ -272,7 +269,6 @@ from D_NYEC_PMI_CURRENT dnpmicur
 inner join D_MW_CURRENT dmwcur on (dnpmicur."MI Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_CURRENT_TASK_SV for D_NYEC_PMI_CURRENT_TASK_SV;
 grant select on D_NYEC_PMI_CURRENT_TASK_SV to MAXDAT_READ_ONLY;
 
 --D_NYEC_PMI_STATE_RVW_TASK_SV
@@ -318,7 +314,6 @@ select
   inner join D_MW_CURRENT_SV dmwcur on (dnpmicur."Cur State Review Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_STATE_RVW_TASK_SV for D_NYEC_PMI_STATE_RVW_TASK_SV;
 grant select on D_NYEC_PMI_STATE_RVW_TASK_SV to MAXDAT_READ_ONLY;
 
 --D_NYEC_PMI_RESEARCH_TASK_SV
@@ -364,7 +359,6 @@ select
   inner join D_MW_CURRENT_SV dmwcur on (dnpmicur."Cur Research Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_RESEARCH_TASK_SV for D_NYEC_PMI_RESEARCH_TASK_SV;
 grant select on D_NYEC_PMI_RESEARCH_TASK_SV to MAXDAT_READ_ONLY;
 
 --D_NYEC_PMI_QC_TASK_SV
@@ -409,7 +403,6 @@ select   dnpmicur."Cur QC Task ID",
   inner join D_MW_CURRENT_SV dmwcur on (dnpmicur."Cur QC Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_QC_TASK_SV for D_NYEC_PMI_QC_TASK_SV;
 grant select on D_NYEC_PMI_QC_TASK_SV to MAXDAT_READ_ONLY;
 
 --D_NYEC_PMI_MI_TASK_SV
@@ -455,7 +448,6 @@ select
   inner join D_MW_CURRENT_SV dmwcur on (dnpmicur."MI Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_MI_TASK_SV for D_NYEC_PMI_MI_TASK_SV;
 grant select on D_NYEC_PMI_MI_TASK_SV to MAXDAT_READ_ONLY;
 
 --D_NYEC_PMI_CURRENT_TASK_SV
@@ -501,7 +493,6 @@ select
   inner join D_MW_CURRENT_SV dmwcur on (dnpmicur."Current Task ID" = dmwcur."Task ID")
 with read only;
 
-create or replace public synonym D_NYEC_PMI_CURRENT_TASK_SV for D_NYEC_PMI_CURRENT_TASK_SV;
 grant select on D_NYEC_PMI_CURRENT_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -522,14 +513,12 @@ alter table D_NYEC_PMI_APP_ID add constraint DNPMIAI_PK primary key (DNPMIAI_ID)
 
 create unique index DNPMIAI_UIX1 on D_NYEC_PMI_APP_ID ("Application ID") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_APP_ID for D_NYEC_PMI_APP_ID;
 grant select on D_NYEC_PMI_APP_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_APP_ID_SV as
 select * from D_NYEC_PMI_APP_ID
 with read only;
 
-create or replace public synonym D_NYEC_PMI_APP_ID_SV for D_NYEC_PMI_APP_ID_SV;
 grant select on D_NYEC_PMI_APP_ID_SV to MAXDAT_READ_ONLY;
 
 
@@ -550,14 +539,12 @@ alter table D_NYEC_PMI_LETTER_STATUS add constraint DNPMILS_PK primary key (DNPM
 
 create unique index DNPMILS_UIX1 on D_NYEC_PMI_LETTER_STATUS ("MI Letter Status") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_LETTER_STATUS for D_NYEC_PMI_LETTER_STATUS;
 grant select on D_NYEC_PMI_LETTER_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_LETTER_STATUS_SV as
 select * from D_NYEC_PMI_LETTER_STATUS
 with read only;
 
-create or replace public synonym D_NYEC_PMI_LETTER_STATUS_SV for D_NYEC_PMI_LETTER_STATUS_SV;
 grant select on D_NYEC_PMI_LETTER_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_LETTER_STATUS (DNPMILS_ID,"MI Letter Status") values (SEQ_DNPMILS_ID.nextval,null);
@@ -581,14 +568,12 @@ alter table D_NYEC_PMI_INBOUND_MI_TYPE add constraint DNPMIIMIT_PK primary key (
 
 create unique index DNPMIIMIT_UIX1 on D_NYEC_PMI_INBOUND_MI_TYPE ("Inbound MI Type") online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_NYEC_PMI_INBOUND_MI_TYPE for D_NYEC_PMI_INBOUND_MI_TYPE;
 grant select on D_NYEC_PMI_INBOUND_MI_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_INBOUND_MI_TYPE_SV as
 select * from D_NYEC_PMI_INBOUND_MI_TYPE
 with read only;
 
-create or replace public synonym D_NYEC_PMI_INBOUND_MI_TYPE_SV for D_NYEC_PMI_INBOUND_MI_TYPE_SV;
 grant select on D_NYEC_PMI_INBOUND_MI_TYPE_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_INBOUND_MI_TYPE (DNPMIIMIT_ID,"Inbound MI Type") values (SEQ_DNPMIIMIT_ID.nextval,null);
@@ -612,14 +597,12 @@ alter table D_NYEC_PMI_PENDING_MI_TYPE add constraint DNPMIPMIT_PK primary key (
 
 create unique index DNPMIPMIT_UIX1 on D_NYEC_PMI_PENDING_MI_TYPE ("Pending MI Type") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_PENDING_MI_TYPE for D_NYEC_PMI_PENDING_MI_TYPE;
 grant select on D_NYEC_PMI_PENDING_MI_TYPE to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_PENDING_MI_TYPE_SV as
 select * from D_NYEC_PMI_PENDING_MI_TYPE
 with read only;
 
-create or replace public synonym D_NYEC_PMI_PENDING_MI_TYPE_SV for D_NYEC_PMI_PENDING_MI_TYPE_SV;
 grant select on D_NYEC_PMI_PENDING_MI_TYPE_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_PENDING_MI_TYPE (DNPMIPMIT_ID,"Pending MI Type") values (SEQ_DNPMIPMIT_ID.nextval,null);
@@ -643,14 +626,12 @@ alter table D_NYEC_PMI_QC_TASK_ID add constraint DNPMIQTI_PK primary key (DNPMIQ
 
 create unique index DNPMIQTI_UIX1 on D_NYEC_PMI_QC_TASK_ID ("QC Task ID") online tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_QC_TASK_ID for D_NYEC_PMI_QC_TASK_ID;
 grant select on D_NYEC_PMI_QC_TASK_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_QC_TASK_ID_SV as
 select * from D_NYEC_PMI_QC_TASK_ID
 with read only;
 
-create or replace public synonym D_NYEC_PMI_QC_TASK_ID_SV for D_NYEC_PMI_QC_TASK_ID_SV;
 grant select on D_NYEC_PMI_QC_TASK_ID_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_QC_TASK_ID (DNPMIQTI_ID,"QC Task ID") values (SEQ_DNPMIQTI_ID.nextval,null);
@@ -674,14 +655,12 @@ alter table D_NYEC_PMI_RESEARCH_REASON add constraint DNPMIRR_PK primary key (DN
 
 create unique index DNPMIRR_UIX1 on D_NYEC_PMI_RESEARCH_REASON ("Research Reason") tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_RESEARCH_REASON for D_NYEC_PMI_RESEARCH_REASON;
 grant select on D_NYEC_PMI_RESEARCH_REASON to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_RESEARCH_REASON_SV as
 select * from D_NYEC_PMI_RESEARCH_REASON
 with read only;
 
-create or replace public synonym D_NYEC_PMI_RESEARCH_REASON_SV for D_NYEC_PMI_RESEARCH_REASON_SV;
 grant select on D_NYEC_PMI_RESEARCH_REASON_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_RESEARCH_REASON (DNPMIRR_ID,"Research Reason") values (SEQ_DNPMIRR_ID.nextval,null);
@@ -705,14 +684,12 @@ alter table D_NYEC_PMI_RESEARCH_TASK_ID add constraint DNPMIRTI_PK primary key (
 
 create unique index DNPMIRTI_UIX1 on D_NYEC_PMI_RESEARCH_TASK_ID ("Research Task ID") tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_RESEARCH_TASK_ID for D_NYEC_PMI_RESEARCH_TASK_ID;
 grant select on D_NYEC_PMI_RESEARCH_TASK_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_RESEARCH_TASK_ID_SV as
 select * from D_NYEC_PMI_RESEARCH_TASK_ID
 with read only;
 
-create or replace public synonym D_NYEC_PMI_RESEARCH_TASK_ID_SV for D_NYEC_PMI_RESEARCH_TASK_ID_SV;
 grant select on D_NYEC_PMI_RESEARCH_TASK_ID_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_RESEARCH_TASK_ID (DNPMIRTI_ID,"Research Task ID") values (SEQ_DNPMIRTI_ID.nextval,null);
@@ -736,14 +713,12 @@ alter table D_NYEC_PMI_ST_REV_TASK_ID add constraint DNPMISRTI_PK primary key (D
 
 create unique index DNPMISRTI_UIX1 on D_NYEC_PMI_ST_REV_TASK_ID ("State Review Task ID") tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_NYEC_PMI_ST_REV_TASK_ID for D_NYEC_PMI_ST_REV_TASK_ID;
 grant select on D_NYEC_PMI_ST_REV_TASK_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_NYEC_PMI_ST_REV_TASK_ID_SV as
 select * from D_NYEC_PMI_ST_REV_TASK_ID
 with read only;
 
-create or replace public synonym D_NYEC_PMI_ST_REV_TASK_ID_SV for D_NYEC_PMI_ST_REV_TASK_ID_SV;
 grant select on D_NYEC_PMI_ST_REV_TASK_ID_SV to MAXDAT_READ_ONLY;
 
 insert into D_NYEC_PMI_ST_REV_TASK_ID (DNPMISRTI_ID,"State Review Task ID") values (SEQ_DNPMISRTI_ID.nextval,null);
@@ -800,7 +775,6 @@ create index FNPMIBD_IXL2 on F_NYEC_PMI_BY_DATE (NYEC_PMI_BI_ID) local online ta
 create index FNPMIBD_IXL3 on F_NYEC_PMI_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FNPMIBD_IXL4 on F_NYEC_PMI_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_NYEC_PMI_BY_DATE for F_NYEC_PMI_BY_DATE;
 grant select on F_NYEC_PMI_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_NYEC_PMI_BY_DATE_SV as
@@ -899,5 +873,4 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_NYEC_PMI_BY_DATE_SV for F_NYEC_PMI_BY_DATE_SV;
 grant select on F_NYEC_PMI_BY_DATE_SV to MAXDAT_READ_ONLY;

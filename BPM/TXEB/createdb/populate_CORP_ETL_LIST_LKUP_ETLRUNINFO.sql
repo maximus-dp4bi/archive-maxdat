@@ -26,4 +26,8 @@ values (seq_cell_id.nextval,'LAST_ETL_COMP_PIVOT','PIVOT','ProcessManageEnroll_R
 Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) 
 values (seq_cell_id.nextval,'LAST_ETL_COMP_PIVOT','PIVOT','ManageJobs_RunAll','11','BPM_EVENT_MASTER',11,to_date('2013-08-18 00:00:00','YYYY-MM-DD HH24:MI:SS'),to_date('7777-07-07 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Pivot to connect the job stats table to BPM tables, out is BSL_ID, ref type is BPM event master and ref id is BEM_ID',sysdate,sysdate);
 
+Insert into CORP_ETL_LIST_LKUP (CELL_ID,NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS,CREATED_TS,UPDATED_TS) 
+values (seq_cell_id.nextval,'LAST_ETL_COMP_PIVOT','PIVOT','ChipEligibilityEvents_RunAll','26','BPM_SOURCE_LKUP',26,to_date('2015-05-20 00:00:00','YYYY-MM-DD HH24:MI:SS'),to_date('7777-07-07 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Pivot to connect the job stats table to BPM tables, out is BSL_ID, ref type is BPM_SOURCE_LKUP and ref id is BSL_ID',sysdate,sysdate);
+
+
 commit;

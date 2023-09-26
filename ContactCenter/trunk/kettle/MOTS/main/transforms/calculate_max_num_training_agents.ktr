@@ -3,7 +3,20 @@
   <info>
     <name>calculate_max_num_training_agents</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -134,6 +147,74 @@
     </attributes>
   </connection>
   <connection>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>LOCAL_AVAYA_CCMS_STAT</name>
     <server>${DB_LOCAL_AVAYA_HOSTNAME}</server>
     <type>CACHE</type>
@@ -179,13 +260,13 @@
   </connection>
   <connection>
     <name>MOTS</name>
-    <server>rcmxdb4d.maximus.com</server>
+    <server>localhost</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>MAXDTDEV</database>
-    <port>1542</port>
-    <username>ab58581[MOTS]</username>
-    <password>Encrypted 2be98afc81ec29f94ea09af63cdc3fd89</password>
+    <access>JNDI</access>
+    <database>${JNDI_MOTS_SOURCE}</database>
+    <port>1521</port>
+    <username>amp</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb14af688f9fba9e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -193,7 +274,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1542</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -330,10 +411,22 @@
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>ACTIVITY_TYPE_CATEGORY</leftvalue>
- <function>CONTAINS</function>
- <rightvalue/>
- <value><name>constant</name><type>String</type><text>Training</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ACTIVITY_TYPE_CATEGORY</leftvalue>
+   <function>CONTAINS</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Training</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ACTIVITY_MINUTES</leftvalue>
+   <function>&gt;=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>Number</type><text>30.0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.#;-#.#</mask></value>   </condition>
+  </conditions>
+ </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -540,6 +633,12 @@
       <field>
         <name>ACTIVITY_TYPE_CATEGORY</name>
         <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ACTIVITY_MINUTES</name>
+        <type>Number</type>
         <length>-1</length>
         <precision>-1</precision>
       </field>

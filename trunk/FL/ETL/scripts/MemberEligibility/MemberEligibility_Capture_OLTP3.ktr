@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_Capture_OLTP3</name>
     <description>MemberEligibility_Capture_OLTP3</description>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -171,7 +184,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table Input - WIP BPM Table</from><to>Database join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Database join OLTP data</from><to>error  log - OLTP - join</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG3</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>join missing_info letters</from><to>join notify_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>join notify_timeout</from><to>join pending_elig_ntfy</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig_ntfy</from><to>join cancel letters</to><enabled>Y</enabled> </hop>  <hop> <from>join missing_info letters</from><to>error  receive_process_mi</to><enabled>Y</enabled> </hop>  <hop> <from>join notify_timeout</from><to>error  notify_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig_ntfy</from><to>error  pending_elig_ntfy</to><enabled>Y</enabled> </hop>  <hop> <from>join cancel letters</from><to>error  cancel letter</to><enabled>Y</enabled> </hop>  <hop> <from>join cancel letters</from><to>If ntfy timeout is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ntfy timeout is null</from><to>If receive_process_mi is null</to><enabled>Y</enabled> </hop>  <hop> <from>If receive_process_mi is null</from><to>If ntfy_outcome is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ntfy_outcome is null</from><to>If pending elig is null</to><enabled>Y</enabled> </hop>  <hop> <from>If pending elig is null</from><to>If cancel date is null</to><enabled>Y</enabled> </hop>  <hop> <from>join ntfy_outcome</from><to>error  ntfy outcome</to><enabled>Y</enabled> </hop>  <hop> <from>join receive_process_mi</from><to>error  missing info</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig</from><to>error  pending elig </to><enabled>Y</enabled> </hop>  <hop> <from>join Cancel letter</from><to>error  cancel</to><enabled>Y</enabled> </hop>  <hop> <from>If cancel date is null</from><to>join ntfy_outcome</to><enabled>Y</enabled> </hop>  <hop> <from>join ntfy_outcome</from><to>join receive_process_mi</to><enabled>Y</enabled> </hop>  <hop> <from>join receive_process_mi</from><to>join pending_elig</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig</from><to>join Cancel letter</to><enabled>Y</enabled> </hop>  <hop> <from>join Cancel letter</from><to>Set ntfy_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>Database join OLTP data</from><to>join letter outcome</to><enabled>Y</enabled> </hop>  <hop> <from>join letter outcome</from><to>error  outcome letter</to><enabled>Y</enabled> </hop>  <hop> <from>join letter outcome</from><to>join missing_info letters</to><enabled>Y</enabled> </hop>  <hop> <from>Set ntfy_timeout</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Update OLTP_STG3</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table Input - WIP BPM Table</from><to>Database join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Database join OLTP data</from><to>error  log - OLTP - join</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG3</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>join missing_info letters</from><to>join notify_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>join notify_timeout</from><to>join pending_elig_ntfy</to><enabled>Y</enabled> </hop>  <hop> <from>join missing_info letters</from><to>error  receive_process_mi</to><enabled>Y</enabled> </hop>  <hop> <from>join notify_timeout</from><to>error  notify_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig_ntfy</from><to>error  pending_elig_ntfy</to><enabled>Y</enabled> </hop>  <hop> <from>If ntfy timeout is null</from><to>If receive_process_mi is null</to><enabled>Y</enabled> </hop>  <hop> <from>If receive_process_mi is null</from><to>If ntfy_outcome is null</to><enabled>Y</enabled> </hop>  <hop> <from>If ntfy_outcome is null</from><to>If pending elig is null</to><enabled>Y</enabled> </hop>  <hop> <from>join ntfy_outcome</from><to>error  ntfy outcome</to><enabled>Y</enabled> </hop>  <hop> <from>join receive_process_mi</from><to>error  missing info</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig</from><to>error  pending elig </to><enabled>Y</enabled> </hop>  <hop> <from>join ntfy_outcome</from><to>join receive_process_mi</to><enabled>Y</enabled> </hop>  <hop> <from>join receive_process_mi</from><to>join pending_elig</to><enabled>Y</enabled> </hop>  <hop> <from>Database join OLTP data</from><to>join letter outcome</to><enabled>Y</enabled> </hop>  <hop> <from>join letter outcome</from><to>error  outcome letter</to><enabled>Y</enabled> </hop>  <hop> <from>join letter outcome</from><to>join missing_info letters</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig</from><to>Set ntfy_timeout</to><enabled>Y</enabled> </hop>  <hop> <from>join pending_elig_ntfy</from><to>If ntfy timeout is null</to><enabled>Y</enabled> </hop>  <hop> <from>If pending elig is null</from><to>join ntfy_outcome</to><enabled>Y</enabled> </hop>  <hop> <from>Set ntfy_timeout</from><to>Update OLTP_STG3</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Database join OLTP data</name>
     <type>DBJoin</type>
@@ -206,37 +219,6 @@ order by account_id</sql>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>80</xloc>
       <yloc>170</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>If cancel date is null</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>CANCEL_FLAG</name>
-        <value>N</value>
-        <mask/>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>970</xloc>
-      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -297,7 +279,7 @@ order by account_id</sql>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>650</xloc>
+      <xloc>760</xloc>
       <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
@@ -328,7 +310,7 @@ order by account_id</sql>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
+      <xloc>970</xloc>
       <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
@@ -359,7 +341,7 @@ order by account_id</sql>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>460</xloc>
+      <xloc>540</xloc>
       <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
@@ -383,39 +365,7 @@ order by account_id</sql>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>360</xloc>
-      <yloc>410</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>10000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>ME_ID</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
+      <xloc>450</xloc>
       <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
@@ -540,189 +490,11 @@ order by COV_RQST_ID, ME_ID
         <name>PRE_ELIG_RUN_DATE</name>
         <rename>PRE_ELIG_RUN_DATE</rename>
         </value>
-      <value>
-        <name>ASED_CANCEL_REQUEST</name>
-        <rename>ASED_CANCEL_REQUEST</rename>
-        </value>
-      <value>
-        <name>CANCEL_DATE</name>
-        <rename>CANCEL_DATE</rename>
-        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>110</xloc>
+      <xloc>200</xloc>
       <yloc>410</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error  cancel</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>490</xloc>
-      <yloc>570</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error  cancel letter</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>950</xloc>
-      <yloc>20</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1316,7 +1088,7 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>740</xloc>
+      <xloc>830</xloc>
       <yloc>10</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1486,76 +1258,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>110</xloc>
+      <xloc>200</xloc>
       <yloc>530</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join Cancel letter</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <rowlimit>0</rowlimit>
-    <sql>select lr.requested_on   ASED_CANCEL_REQUEST,
-       lr.requested_on   CANCEL_DATE
-from lm_letter_requests_tmp lr 
-where lr.lmreq_id = ?
-</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>CANCEL_REQUEST_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>490</xloc>
-      <yloc>410</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join cancel letters</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select  max(lr.lmreq_id)   CANCEL_REQUEST_ID,
-        &apos;Y&apos;                CANCEL_FLAG
-from lm_letter_requests_tmp lr
-where driver_primary_key = ? 
-and  lmdef_id in (19,20)
-group by &apos;Y&apos;
-order by &apos;Y&apos;</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Integer</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>950</xloc>
-      <yloc>190</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1573,12 +1277,17 @@ order by &apos;Y&apos;</sql>
     <connection>MAXDAT</connection>
     <rowlimit>1</rowlimit>
     <sql>select  max(lr.lmreq_id)   ELIG_OUTCOME_NTFY_RQST_ID,
-        &apos;Y&apos;                ASF_NTFY_OUTCOME
+        case when lr.status = &apos;MLD&apos;
+           then &apos;Y&apos; 
+           else &apos;N&apos;  
+           end             ASF_NTFY_OUTCOME
 from lm_letter_requests_tmp lr
 where  driver_primary_key = ? 
 and LMDEF_ID in (1,3,13,14,15,19)
-group by  &apos;Y&apos;
-order by  &apos;Y&apos;</sql>
+group by   case when lr.status  = &apos;MLD&apos;
+             then &apos;Y&apos;  else &apos;N&apos; end
+order by max(lr.lmreq_id) desc
+</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -1607,13 +1316,17 @@ order by  &apos;Y&apos;</sql>
            </partitioning>
     <connection>MAXDAT</connection>
     <rowlimit>1</rowlimit>
-    <sql>select  max(lr.lmreq_id)   RECEIVE_PROCESS_MI_ID,
-        &apos;Y&apos;                ASF_RECEIVE_PROCESS_MI
+    <sql>select max(lr.lmreq_id)       RECEIVE_PROCESS_MI_ID,
+       case when lr.status = &apos;MLD&apos;
+           then &apos;Y&apos; 
+           else &apos;N&apos;  
+          end  ASF_RECEIVE_PROCESS_MI      
 from lm_letter_requests_tmp lr
-where  driver_primary_key = ? 
-and LMDEF_ID in (3,11,34)
-group by   &apos;Y&apos;
-order by   &apos;Y&apos;</sql>
+where LMDEF_ID in (3,12,34) 
+and driver_primary_key = ?
+group by   case when lr.status  = &apos;MLD&apos;
+             then &apos;Y&apos;  else &apos;N&apos; end
+order by max(lr.lmreq_id) desc</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -1643,12 +1356,16 @@ order by   &apos;Y&apos;</sql>
     <connection>MAXDAT</connection>
     <rowlimit>1</rowlimit>
     <sql>select  max(lr.lmreq_id)   NTFY_TIMEOUT_ID,
-        &apos;Y&apos;                ASF_NTFY_TIMEOUT
+        case when lr.status = &apos;MLD&apos;
+             then &apos;Y&apos; 
+             else &apos;N&apos;  
+             end                 ASF_NTFY_TIMEOUT
 from lm_letter_requests_tmp lr
 where  driver_primary_key = ? 
 and lmdef_id in (3,12)
-group by &apos;Y&apos;
-order by  &apos;Y&apos;</sql>
+group by   case when lr.status  = &apos;MLD&apos;
+             then &apos;Y&apos;  else &apos;N&apos; end
+order by max(lr.lmreq_id) desc</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -1741,13 +1458,16 @@ where lr.lmreq_id = ?</sql>
     <connection>MAXDAT</connection>
     <rowlimit>1</rowlimit>
     <sql>select   max(lr.lmreq_id)   PENDING_ELIG_NTFY_RQST_ID,
-        &apos;Y&apos;                 ASF_NTFY_PENDING_ELIG
+         case when lr.status = &apos;MLD&apos;
+              then &apos;Y&apos; 
+              else &apos;N&apos;  
+              end           ASF_NTFY_PENDING_ELIG
 from lm_letter_requests_tmp lr
 where driver_primary_key = ? 
 and  lmdef_id in (1,15)
-group by  &apos;Y&apos;
-order by  &apos;Y&apos;
-</sql>
+group by   case when lr.status  = &apos;MLD&apos;
+             then &apos;Y&apos;  else &apos;N&apos; end
+order by max(lr.lmreq_id) desc</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -1758,7 +1478,7 @@ order by  &apos;Y&apos;
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>740</xloc>
+      <xloc>830</xloc>
       <yloc>170</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1815,30 +1535,6 @@ where lr.lmreq_id = ?</sql>
         <nr_valuename>nr_err_desc_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join Cancel letter</source_step>
-        <target_step>error  cancel</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fields_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join cancel letters</source_step>
-        <target_step>error  cancel letter</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fields_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
         <max_errors>10000</max_errors>
         <max_pct_errors/>

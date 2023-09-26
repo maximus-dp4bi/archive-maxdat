@@ -3,11 +3,11 @@
 
 
 -- Ordered list of files to deploy to install MAXDAT ETL core database schema.
--- All files can be found in SVN at:		svn://rcmxapp1d.maximus.com/maxdat/
+-- All files can be found in SVN at: svn://rcmxapp1d.maximus.com/maxdat/
 
-BPM/Core/createdb/create_ETL _tables.sql
-BPM/Core/createdb/create_ETL _sequences.sql
-BPM/Core/createdb/create_ETL _triggers.sql
+BPM/Core/createdb/create_ETL_tables.sql
+BPM/Core/createdb/create_ETL_sequences.sql
+BPM/Core/createdb/create_ETL_triggers.sql
 BPM/Core/createdb/ETL_COMMON_pkg.sql
 BPM/Core/createdb/CORP_ETL_STAGE_pkg.sql
 BPM/Core/createdb/create_ETL_functions.sql
@@ -33,7 +33,7 @@ BPM/DataModel/BpmSemantic/createdb/BPM_SEMANTIC_pkg.sql
 BPM/EventQueue/createdb/PROCESS_BPM_QUEUE_JOB.sql
 BPM/EventQueue/createdb/PROCESS_BPM_QUEUE_pkg.sql
 BPM/EventQueue/createdb/PBQJ_ADJUST_REASON_pkg.sql
-BPM/EventQueue/createdb/PROCESS_BPM_QUEUE_JOB_CONTROL_pkg.sql
 BPM/Admin /createdb/MAXDAT_ADMIN_AUDIT_LOGGING.sql
+BPM/EventQueue/createdb/PROCESS_BPM_QUEUE_JOB_CONTROL_pkg.sql
 BPM/Admin /createdb/MAXDAT_ADMIN_pkg.sql
 

@@ -1,0 +1,16 @@
+create table D_LETTER_SOURCE
+(
+  letter_source_code  VARCHAR2(32) not null,
+  letter_source_name  VARCHAR2(100),
+  description         VARCHAR2(240),
+  report_label        VARCHAR2(100),
+  effective_from_date DATE,
+  effective_thru_date DATE
+)
+;
+alter table D_LETTER_SOURCE
+  add constraint D_LETTER_SOURCE_PK primary key (LETTER_SOURCE_CODE);
+grant select, insert, update on D_LETTER_SOURCE to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on D_LETTER_SOURCE to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on D_LETTER_SOURCE to MAXDAT_MITRAN_READ_ONLY;
+

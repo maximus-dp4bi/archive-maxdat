@@ -1,0 +1,1818 @@
+CREATE or replace PROCEDURE createProjectLogsForIngestion(reIngestFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+       
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     //get date string for today
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     var todayDateString = yyyy + mm + dd;
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}         
+
+var project_array=[];
+var sqlCommand = "select projectid from public.d_pi_projects where active=true;"
+var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var projectid = rs.getColumnValue(1);
+     project_array.push(projectid);
+    }
+  
+  for (const projectid of project_array) {
+//create table log table
+    sqlCommand = `create or replace TABLE INGEST_PI_DATA_DET_LOG_`+ projectid +` (
+	TS NUMBER(38,0),
+	PROJECTID VARCHAR(16777216),
+	OBJECT_CATEGORY VARCHAR(16777216),
+	OBJECT_NAME VARCHAR(16777216),
+	STATUS_STRING VARCHAR(16777216),
+	MSG VARCHAR(16777216)
+);`;
+    
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(projectid, "LOG"+REINGEST_SFX, "NA", "FAILED","Failed to create log table for project " + projectid +  ": "+ err); 
+        return "3"; 
+}
+
+}     
+
+    return "0";  
+  $$;
+
+ CREATE or replace PROCEDURE MergeProjectLogsForIngestion(reIngestFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+       
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     //get date string for today
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     var todayDateString = yyyy + mm + dd;
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}         
+
+var project_array=[];
+var sqlCommand = "select projectid from public.d_pi_projects where active=true;"
+var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var projectid = rs.getColumnValue(1);
+     project_array.push(projectid);
+    }
+  
+  for (const projectid of project_array) {
+//mrge into main log table
+    sqlCommand = `insert into raw.ingest_pi_data_det_log select * from raw.INGEST_PI_DATA_DET_LOG_`+ projectid +`;`;
+    
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(projectid, "LOG"+REINGEST_SFX, "NA", "FAILED","Failed to insert project log into main log for project " + projectid +  ": "+ err); 
+        return "3"; 
+}
+
+}     
+
+    return "0";  
+  $$;
+  
+  
+  
+   CREATE or replace PROCEDURE INGESTPIDATA (TABLENAME VARCHAR, STAGENAME VARCHAR, AWSFOLDERNAME VARCHAR, PROJECTID VARCHAR, PROJECTNAME VARCHAR, TRUNCATEFLAG BOOLEAN, REINGESTFLAG BOOLEAN,runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$  
+  
+  REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+} 
+    //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+     
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+}
+
+     //default stage
+     var stageName = STAGENAME;
+     if (! stageName){
+        stageName = 'PUREINSIGHTS_S3_2';
+     } 
+
+var LOG_CATEGORY="TABLE";
+if (REINGESTFLAG){
+   LOG_CATEGORY="TABLE REINGEST";
+}
+//TABLENAME = TABLENAME + "_nope";
+    //truncate table
+   if (TRUNCATEFLAG) {
+   //log("truncating table");
+    //sqlCommand = "truncate table raw."+TABLENAME+";";
+    //sqlCommand = "CALL truncateTable('" + TABLENAME + "','" + PROJECTID + "');";
+   sqlCommand = "delete from raw."+TABLENAME+" where projectid = '" + PROJECTID + "';";
+    //log(sqlCommand);
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to truncate table " +TABLENAME+ " for projectid " + PROJECTID + ": "+ err); 
+        return "1";
+        }
+   }     
+
+    //ingest data from parquet file    
+    var sqlCommand = "copy into raw." + TABLENAME + " (projectid, projectname, ingestionDateTime, raw) from (select '"+ PROJECTID +"','" + PROJECTNAME + "',convert_timezone('UTC','America/New_York',sysdate()), * from @" + stageName + "/" + TABLENAME + "/) PATTERN='.*.parquet' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;";
+ //log("ingesting data")
+try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID,LOG_CATEGORY, TABLENAME, "FAILED","Failed to load table " + TABLENAME + " for projectid " + PROJECTID + ": "+ err);
+        return "1";
+        }        
+
+     //generate warning if 0 records for any table not listed in unavailable tables table
+     sqlCommand = "select case when not exists (select 1 from public.d_pi_project_unavailable_tables ua where ua.project_id = '" + PROJECTID + "' and ua.table_name = '" + TABLENAME + "' and ((ua.end_unavailable_date is null) or (ua.end_unavailable_date >= current_date()))) then count(*) else 1 end from raw." + TABLENAME + " rw where rw.projectid = '" + PROJECTID + "';"; 
+     try {
+            stmt = snowflake.createStatement({sqlText: sqlCommand});
+            var result1 = stmt.execute();
+            result1.next();
+            rowCount = result1.getColumnValue(1); 
+         }
+     catch (err)  {
+        log(PROJECTID, "TABLE ROW COUNT"+REINGEST_SFX, TABLENAME, "FAILED","Failed to count records after ingestion: "+ err);
+        return "1";
+        }
+
+        log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"INFO","rowcount: " + rowCount); 
+        
+     if (rowCount < 1) {
+       log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"WARNING","Table " + TABLENAME + " has 0 records though it is configured as an available table for this project."); 
+} 
+
+        log(PROJECTID, LOG_CATEGORY, TABLENAME, "SUCCEEDED","Succeeded loading table " + TABLENAME + " for projectid " + PROJECTID);
+  return "0";  
+  $$;            
+  
+  CREATE or replace PROCEDURE ingestPIDataSegments(stageName VARCHAR,AWSFolderName VARCHAR, projectid VARCHAR,projectname varchar, truncateFlag Boolean, reIngestFlag Boolean, runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$    
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+} 
+
+    //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+     
+function log(projectid, object_category,object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+   
+
+var TABLENAME = 'segments';
+
+     //default stage
+     var stageName = STAGENAME;
+     if (! stageName){
+        stageName = 'PUREINSIGHTS_S3_2';
+     } 
+     
+var LOG_CATEGORY="TABLE";
+if (REINGESTFLAG){
+   LOG_CATEGORY="TABLE REINGEST";
+}     
+
+    //truncate table
+   if (TRUNCATEFLAG) {
+    //sqlCommand = "truncate table raw."+TABLENAME+";";
+    //sqlCommand = "CALL truncateTable('" + TABLENAME + "','" + PROJECTID + "');";
+    sqlCommand = "delete from raw."+TABLENAME+" where projectid = '" + PROJECTID + "';";
+    
+    
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, LOG_CATEGORY, TABLENAME, "FAILED", "Failed to truncate table " +TABLENAME+ " for projectid " + PROJECTID + ": "+ err);   // Return a success/error indicator.
+        return "1";
+        }
+    }
+    //ingest date from parquet file    
+    //var sqlCommand = "copy into raw.segments (projectid, projectname, ingestionDateTime, raw) from (select '" + PROJECTID + "','" + PROJECTNAME + "',sysdate(), parse_json(cast('{' || 'audioMuted:\"'|| $1:audioMuted || '\",' || 'conference:\"'|| $1:conference || '\",' || 'conversationId:\"'|| $1:conversationId || '\",' || 'disconnecttype:\"'|| $1:disconnecttype || '\",' || 'participantid:\"'|| $1:participantid || '\",' || 'queueId:\"'|| $1:queueId || '\",' || 'segmentduration:\"'|| $1:segmentduration || '\",' || 'segmentEndTime:\"'|| $1:segmentEndTime || '\",' || 'segmentStartTime:\"'|| $1:segmentStartTime || '\",' || 'segmenttype:\"'|| $1:segmenttype || '\",' || 'sessionId:\"'|| $1:sessionId || '\",' || 'subject:\"'|| $1:subject || '\",' || 'wrapupCode:\"' || $1:wrapupCode || '\"}' as variant)) from @" + stageName + "/segments/) PATTERN='.*.parquet' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;";
+    var sqlCommand = "copy into raw.segments (projectid, projectname, ingestionDateTime, raw) from (select '" + PROJECTID + "','" + PROJECTNAME + "',convert_timezone('UTC','America/New_York',sysdate()), parse_json(cast('{' || 'errorCode:\"'|| $1:errorCode || '\",' || 'audioMuted:\"'|| $1:audioMuted || '\",' || 'conference:\"'|| $1:conference || '\",' || 'conversationId:\"'|| $1:conversationId || '\",' || 'disconnecttype:\"'|| $1:disconnecttype || '\",' || 'participantid:\"'|| $1:participantid || '\",' || 'queueId:\"'|| $1:queueId || '\",' || 'segmentduration:\"'|| $1:segmentduration || '\",' || 'segmentEndTime:\"'|| $1:segmentEndTime || '\",' || 'segmentStartTime:\"'|| $1:segmentStartTime || '\",' || 'segmenttype:\"'|| $1:segmenttype || '\",' || 'sessionId:\"'|| $1:sessionId || '\",' || 'subject:\"'|| $1:subject || '\",' || 'wrapupCode:\"' || $1:wrapupCode || '\"}' as variant)) from @" + stageName + "/segments/) PATTERN='.*.parquet' FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;";
+
+try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID,LOG_CATEGORY, TABLENAME, "FAILED","Failed to load table " + TABLENAME + " for projectid " + PROJECTID + ": "+ err);
+        
+        return "1";
+        }
+        
+     //generate warning if 0 records for any table not listed in unavailable tables table
+     sqlCommand = "select case when not exists (select 1 from public.d_pi_project_unavailable_tables ua where ua.project_id = '" + PROJECTID + "' and ua.table_name = '" + TABLENAME + "' and ((ua.end_unavailable_date is null) or (ua.end_unavailable_date >= current_date()))) then count(*) else 1 end from raw." + TABLENAME + " rw where rw.projectid = '" + PROJECTID + "';"; 
+     try {
+            stmt = snowflake.createStatement({sqlText: sqlCommand});
+            var result1 = stmt.execute();
+            result1.next();
+            rowCount = result1.getColumnValue(1); 
+         }
+     catch (err)  {
+        log(PROJECTID, "TABLE ROW COUNT"+REINGEST_SFX, TABLENAME, "FAILED","Failed to count records after ingestion: "+ err);
+        return "1";
+        }
+
+        log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"INFO","rowcount: " + rowCount); 
+        
+     if (rowCount < 1) {
+       log(PROJECTID,"TABLE"+REINGEST_SFX,TABLENAME,"WARNING","Table " + TABLENAME + " has 0 records though it is configured as an available table for this project."); 
+}        
+        
+        
+  log(PROJECTID, LOG_CATEGORY, TABLENAME, "SUCCEEDED","Succeeded loading table " + TABLENAME + " for projectid " + PROJECTID);      
+  return "0";
+  $$;
+ 
+ 
+ 
+CREATE or replace PROCEDURE ingestUningestedPIData(ProjectId VARCHAR,reIngestFlag Boolean, ingestAllFlag Boolean,waitForS3Flag Boolean, runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+//    if (PROJECTID == '5555'){
+//     var sqlCommand = "USE WAREHOUSE COVERVA_LOAD_DEV_WH;";
+//     snowflake.execute ({sqlText: sqlCommand});
+//  }
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     //if (RUNFROMBASHFLAG) {
+      //sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     //}
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+       
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     //get date string for today
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     var todayDateString = yyyy + mm + dd;
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}     
+         
+    
+ //log start
+     log(PROJECTID, "INGESTION STARTED"+REINGEST_SFX, "NA", "SUCCEEDED","Starting ingestion for PI data");
+ 
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+  
+ 
+//get project fields 
+    var PROJECTNAME = "";
+    var AWSFOLDERNAME = "";
+    var ingest_wh = "";
+    var stageName = "PI_STAGE_" + PROJECTID;
+    var truncateFlag = true;
+    var sqlCommand = "select pr.projectname, pr.awsfoldername, pr.ingest_wh from public.d_pi_projects pr where pr.projectid = '"+PROJECTID+"';";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            result1.next();
+            PROJECTNAME = result1.getColumnValue(1);
+            AWSFOLDERNAME = result1.getColumnValue(2);
+            ingest_wh = result1.getColumnValue(3);
+         }
+    catch (err)  {
+        log(PROJECTID, "PROJECT INFO"+REINGEST_SFX, "NA", "FAILED","Failed to get project info from project table: " + err);
+        return "2";
+        }    
+   
+   //set ingestion warehouse
+     var sqlCommand = "USE WAREHOUSE "+ingest_wh +";";
+     try {
+     snowflake.execute ({sqlText: sqlCommand});
+     } 
+     catch(err){
+      log(PROJECTID, "WAREHOUSE"+REINGEST_SFX, "NA", "FAILED","Failed to set project ingestion warehouse: " + err + sqlCommand);
+     }
+   
+    //drop stage if still exists
+    var blah = 0;
+    sqlCommand = "call dropPIStage('" + stageName + "');";
+    try { 
+    snowflake.execute ({sqlText: sqlCommand}); 
+    }
+    catch (err){ 
+      blah=1;
+    }
+
+       
+    //create stage for today's data
+    sqlCommand = "call createPIStage('" + AWSFOLDERNAME + "','" + stageName + "','" + todayDateString + "');";
+    
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "STAGE"+REINGEST_SFX, stageName, "FAILED","Failed to create stage" + stageName + " for " +AWSFOLDERNAME+ + " for "+todayDateString+ ": "+ err); 
+        return "3"; 
+}
+  
+
+     
+//check and wait for S3 files to be available
+if (WAITFORS3FLAG){
+var missingCount = 0;
+var i;
+for (i = 0; i <= 100; i++) {
+
+    sqlCommand = "list @"+ stageName + " pattern='.*/_SUCCESS';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log( PROJECTID, "S3 DATA"+REINGEST_SFX, "_SUCCESS FILE", "FAILED", "Failed to list _SUCCESS files for projectid " + PROJECTID + ": "+ err); 
+        return "4";
+        }
+
+
+    sqlCommand = "select count(table_name) from d_pi_tables ta where ta.active = true and ta.s3_sourced = true and not exists (select \"name\" FROM table(result_scan(last_query_id())) where contains(\"name\",ta.table_name)) and not exists (select 1 from d_pi_project_unavailable_tables ua where ua.table_name = ta.table_name and ua.project_id = '"+PROJECTID+"' and (ua.end_unavailable_date is null or ua.end_unavailable_date >= date(current_timestamp())));";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            result1.next();
+            missingCount = result1.getColumnValue(1); 
+         }
+    catch (err)  {
+        log(PROJECTID, "S3 DATA"+REINGEST_SFX, "_SUCCESS FILE", "FAILED","Failed to count success files for projectid " + PROJECTID + ": "+ err);
+        return "1";
+        }
+        
+   if (missingCount == 0) {
+   log(PROJECTID, "S3 DATA"+REINGEST_SFX, "_SUCCESS FILE", "SUCCEEDED","All success files now available for projectid " + PROJECTID);
+       break;
+   } else {
+      if (i < 100){
+       log(PROJECTID,"S3 DATA"+REINGEST_SFX,"_SUCCESS FILE","WAITING","Not all success files available yet.");
+       missingCount = 0;
+       sqlCommand = "call SYSTEM$WAIT(3,'MINUTES');";
+       snowflake.execute ({sqlText: sqlCommand});
+      } else {
+         log(PROJECTID,"S3 DATA"+REINGEST_SFX,"_SUCCESS FILE","FAILED","All success files not available during ingestion window.Aborting ingestion.");
+         return "1"
+      }
+   }
+}  
+}  
+    
+
+  //generate warning if success files available for tables claimed to be unavailable in projet unavailable tables table
+var extraCount = 0;
+
+    sqlCommand = "list @"+ stageName + " pattern='.*/_SUCCESS';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log( PROJECTID, "S3 DATA"+REINGEST_SFX, "_SUCCESS FILE", "FAILED", "Failed to list _SUCCESS files for projectid " + PROJECTID + ": "+ err); 
+        return "4";
+        }
+
+
+    sqlCommand = "select count(table_name) from d_pi_tables ta where ta.active = true and ta.s3_sourced = true and exists (select \"name\" FROM table(result_scan(last_query_id())) where contains(\"name\",ta.table_name)) and exists (select 1 from d_pi_project_unavailable_tables ua where ua.table_name = ta.table_name and ua.project_id = '"+PROJECTID+"' and (ua.end_unavailable_date is null or ua.end_unavailable_date >= date(current_timestamp())));";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            result1.next();
+            extraCount = result1.getColumnValue(1); 
+         }
+    catch (err)  {
+        log(PROJECTID, "S3 DATA"+REINGEST_SFX, "_SUCCESS FILE", "FAILED","Failed to count success files for projectid " + PROJECTID + ": "+ err);
+        return "1";
+        }
+        
+   if (extraCount > 0) {
+       log(PROJECTID,"S3 DATA"+REINGEST_SFX,"_SUCCESS FILE","WARNING","_SUCCESS FILE found for table listed as unavailable in d_pi_project_unavailable_tables. Configuration entries have been modified to match available data in S3 bucket."); 
+
+
+  //reconfigure unavailable tables table based on availability of data
+      sqlCommand = "call raw.configurePIUnavailableTablesDuringIngest('" + PROJECTID + "','" + stageName + "','" + REINGEST_SFX + "',"+RUNFROMBASHFLAG+");";
+    
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to reconfigure unavailable tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "3"; 
+}
+}
+
+  
+  //get list of tables yet to be ingested today
+    var table_array=[];
+    if (INGESTALLFLAG){
+       sqlCommand = "select ta.table_name from public.d_pi_projects pr left outer join public.d_pi_tables ta where pr.projectid = '"+PROJECTID+"' and ta.s3_sourced = true and ta.active = true order by ta.table_name; "; 
+    } else {
+       sqlCommand = "select ta.table_name from public.d_pi_projects pr left outer join public.d_pi_tables ta where pr.projectid = '"+PROJECTID+"' and ta.s3_sourced = true and ta.active = true and not exists (select 1 from raw.ingest_pi_data_det_log dl where dl.projectid = pr.projectid and dl.object_category in ('TABLE','TABLE REINGEST') and dl.object_name = ta.table_name and dl.status_string = 'SUCCEEDED' and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl.ts)))) = date(current_timestamp())) order by ta.table_name; "; 
+    }
+    var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var table_name = rs.getColumnValue(1);
+     table_array.push(table_name);
+    }
+  
+  //ingest tables in list
+  var rowCount=0;
+  var stmt="";
+  for (const table_name of table_array) {
+     if (table_name != 'segments'){
+        sqlCommand = "call ingestPIData('"+ table_name +"','" + stageName + "','" + AWSFOLDERNAME + "','" + PROJECTID + "','" + PROJECTNAME + "',"+ truncateFlag +","+ REINGESTFLAG + ","+RUNFROMBASHFLAG+");";
+     } else {
+       sqlCommand = "call ingestPIDataSegments('" + stageName + "','" + AWSFOLDERNAME + "','" + PROJECTID + "','" + PROJECTNAME + "',"+ truncateFlag +","+ REINGESTFLAG + ","+RUNFROMBASHFLAG+");";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+     
+     
+/*     
+     //generate warning if 0 records for any table not listed in unavailable tables table
+     sqlCommand = "select case when not exists (select 1 from public.d_pi_project_unavailable_tables ua where ua.project_id = '" + PROJECTID + "' and ua.table_name = '" + table_name + "' and ((ua.end_unavailable_date is null) or (ua.end_unavailable_date >= current_date()))) then count(*) else 1 end from raw." + table_name + " rw where rw.projectid = '" + PROJECTID + "';"; 
+     try {
+            stmt = snowflake.createStatement({sqlText: sqlCommand});
+            var result1 = stmt.execute();
+            result1.next();
+            rowCount = result1.getColumnValue(1); 
+         }
+     catch (err)  {
+        log(PROJECTID, "TABLE ROW COUNT"+REINGEST_SFX, table_name, "FAILED","Failed to count records after ingestion: "+ err);
+        return "1";
+        }
+
+        log(PROJECTID,"TABLE"+REINGEST_SFX,table_name,"INFO","rowcount: " + rowCount); 
+        
+     if (rowCount < 1) {
+       log(PROJECTID,"TABLE"+REINGEST_SFX,table_name,"WARNING","Table " + table_name + " has 0 records though it is configured as an available table for this project."); 
+}
+*/  
+  }
+  
+ 
+    
+//call sps
+  //get list of sps
+    var sp_array=[];
+    sqlCommand = "select sp.sp_name,sp.schema_name from public.d_pi_ingestion_sps sp order by sp.sp_name; "; 
+    var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var sp_name = rs.getColumnValue(1);
+     var schema_name = rs.getColumnValue(2)
+     sp_array.push(schema_name + "." + sp_name);
+    }
+  
+  //call sps in list
+  var rowCount=0;
+  var stmt="";
+  for (const sp of sp_array) {
+     sqlCommand = "call "+ sp + "('"+PROJECTID+"','"+REINGESTFLAG+"',"+RUNFROMBASHFLAG+");"
+     snowflake.execute ({sqlText: sqlCommand});
+  }    
+        
+//sqlCommand = "call stage.S_PI_PRJ_SESSION_CONTACT_SUMMARY_LOAD('"+PROJECTID+"');"
+//snowflake.execute ({sqlText: sqlCommand});
+    
+//sqlCommand = "call stage.update_groups_membership_daily_snapshot('"+PROJECTID+"','"+REINGESTFLAG+"');"
+//snowflake.execute ({sqlText: sqlCommand});
+    
+      
+    //drop stage
+    sqlCommand = "call dropPIStage('" + stageName + "');";
+      try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "STAGE"+REINGEST_SFX, stageName, "FAILED","Failed to drop stage" + stageName + " for " +AWSFOLDERNAME+ + " for "+todayDateString+ ": "+ err); 
+        return "5"; 
+}
+
+    log(PROJECTID, "INGESTION COMPLETED"+REINGEST_SFX, "NA", "SUCCEEDED","Succeeded ingesting PI data");
+    return "0";  
+  $$;
+ 
+ CREATE or replace PROCEDURE ConfigurePIUnavailableTablesDuringIngest(projectid VARCHAR,stageName VARCHAR,REINGEST_SFX VARCHAR,runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS  
+  $$
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+  
+
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     //get date string for today
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     var todayDateString = yyyy + mm + dd;
+
+//get project fields 
+    var PROJECTNAME = "";
+    var AWSFOLDERNAME = "";
+    var stageName = STAGENAME;
+    var truncateFlag = true;
+    var sqlCommand = "select pr.projectname, pr.awsfoldername from public.d_pi_projects pr where pr.projectid = '"+PROJECTID+"';";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            result1.next();
+            PROJECTNAME = result1.getColumnValue(1);
+            AWSFOLDERNAME = result1.getColumnValue(2);
+         }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to get project info for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to get project info";
+        }    
+    
+    
+    sqlCommand = "list @"+ stageName + " pattern='.*/_SUCCESS';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to list _SUCCESS files for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to list _SUCCESS files";
+        }
+
+    var table_list = "";
+    var sql_inserts = new Array();
+    sqlCommand = "select table_name from public.d_pi_tables ta where ta.active = true and ta.s3_sourced = true and not exists (select \"name\" FROM table(result_scan(last_query_id())) where contains(\"name\",ta.table_name));";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            var tablename = "";
+            while (result1.next()){
+                tablename = result1.getColumnValue(1);
+                table_list += ", "+ tablename;
+                sql_inserts.push("call raw.insertPIUnavailableTablesDuringIngest('" + tablename + "','" + PROJECTID + "','" + PROJECTNAME + "')");
+            }
+            
+         }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to list missing tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to list missing tables";
+        }    
+  
+  //delete existing entries from unavailable tables table
+     sqlCommand = "delete from public.d_pi_project_unavailable_tables where project_id = '" + PROJECTID + "';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+         log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to delete from unavailable tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to delete existing entries in unavailable tables";
+        }     
+
+  
+  
+  //insert into unavalable tables table
+  
+  for (i = 0; i < sql_inserts.length; i++) {
+        try {
+            snowflake.execute (
+                {sqlText: sql_inserts[i]}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to insert into unavailable tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err);  
+        return "failed to insert new entries int unavailable tables"; 
+}
+}
+  
+  return "0";
+  $$;
+  
+  CREATE or replace PROCEDURE stage.S_PI_PRJ_SESSION_CONTACT_SUMMARY_LOAD(projectid varchar, REINGESTFLAG boolean,runFromBashFlag boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+
+    //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+     
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call RAW.do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+}
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+} 
+
+   //truncate table
+   //log("truncating table");
+    sqlCommand = "delete from STAGE.S_PI_SESSION_CONTACT_SUMMARY where projectid = '" + PROJECTID + "';";
+    //log(sqlCommand);
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "SP"+REINGEST_SFX, "S_PI_PRJ_SESSION_CONTACT_SUMMARY_LOAD", "FAILED", "Failed to truncate table STAGE.S_PI_SESSION_CONTACT_SUMMARY for projectid " + PROJECTID + ": "+ err); 
+        return "1";
+        }
+     
+
+    //ingest data from parquet file    
+    var sqlCommand = "INSERT INTO STAGE.S_PI_SESSION_CONTACT_SUMMARY (CONVERSATIONID, SESSIONID, PROJECTID, FIRST_ENDPOINT, CONTRACTUAL_FIRSTQUEUE, FIRSTQUEUE, CONTACTTYPE, SESSIONTYPE) WITH a11(prior_mediatype, prior_transferred, prior_transfertopurpose, prior_username, next_username, conversationid, sessionid, projectid, purpose, sessionindex, sessioncount, originatingdirection, direction, abandoned, transferred, monitoringduration, flowout, agentanswered, mediatype, userhandled, disconnecttype, transfertopurpose, username) AS ( SELECT lag(mediatype) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS prior_mediatype, lag(transferred) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS prior_transferred, lag(transfertopurpose) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS prior_transfertopurpose, lag(username) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS prior_username, lead(username, 1) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS next_username, conversationid, sessionid, projectid, purpose, sessionindex, sessioncount, originatingdirection, direction, abandoned, transferred, monitoringduration, flowout, agentanswered, mediatype, userhandled, disconnecttype, transfertopurpose, username FROM PUBLIC.F_PI_SESSION_SUMMARY_VW WHERE PROJECTID='" + PROJECTID + "') , a12(conversationid, first_endpoint, contractual_firstqueue) AS ( SELECT c11.conversationid, c11.first_endpoint, c12.queuename FROM ( SELECT conversationId, min(sessionIndex) AS first_endpoint FROM ( SELECT lead(username) OVER (PARTITION BY conversationid ORDER BY sessionindex) AS next_username, conversationid, sessionindex, userhandled, mediatype, direction, originatingdirection, username, totalagenttalkduration, sessioncount FROM PUBLIC.F_PI_SESSION_SUMMARY_VW WHERE PROJECTID='" + PROJECTID + "' ) WHERE (userhandled = 1 AND mediatype = 'voice' AND direction = 'outbound' AND originatingdirection = 'inbound' AND nvl(next_username, '') != username) AND totalagenttalkduration > 0 OR originatingdirection = 'outbound' AND direction = 'outbound' OR direction = 'inbound' AND userhandled = 1 OR sessionindex = sessioncount GROUP BY 1) c11 INNER JOIN ( SELECT conversationid, queuename, sessionindex FROM PUBLIC.F_PI_SESSION_SUMMARY_VW WHERE PROJECTID='" + PROJECTID + "' ) c12 ON c11.conversationid = c12.conversationid AND c11.first_endpoint = c12.sessionindex) , a13(conversationid, first_queue_index, firstqueue) AS ( SELECT f11.conversationid, f11.first_queue_index, f12.queuename FROM ( SELECT conversationid, min(sessionindex) AS first_queue_index FROM PUBLIC.F_PI_SESSION_SUMMARY_VW WHERE purpose = 'acd' AND PROJECTID='" + PROJECTID + "' GROUP BY 1) f11 INNER JOIN ( SELECT conversationid, queuename, sessionindex FROM PUBLIC.F_PI_SESSION_SUMMARY_VW WHERE PROJECTID='" + PROJECTID + "' ) f12 ON f11.conversationid = f12.conversationid AND f11.first_queue_index = f12.sessionindex ) SELECT a14.conversationid, a14.sessionid, a14.projectid, a14.first_endpoint, a14.contractual_firstqueue, a14.firstqueue, CASE WHEN a14.sessiontype = 'Transfer Sessions'THEN 'Transfer' WHEN a14.sessiontype = 'Inbound Sessions'THEN 'Inbound' WHEN a14.sessiontype = 'Courtesy Callback Sessions'THEN 'Courtesy Callback' WHEN a14.sessiontype = 'Outbound Sessions'THEN 'Outbound' WHEN a14.sessiontype = 'Outbound Callback Sessions'THEN 'Outbound Callback' WHEN a14.sessiontype = 'Agent Scheduled Callback Sessions'THEN 'Agent Scheduled Callback' WHEN a14.sessiontype = 'IVR Sessions'THEN 'IVR' ELSE 'N / A' END AS contacttype , a14.sessiontype FROM ( SELECT a11.projectid, a11.conversationid, a11.sessionid, a11.sessionIndex, a12.first_endpoint, a12.contractual_firstqueue, a13.firstqueue, CASE WHEN purpose = 'ivr'THEN 'IVR Sessions' WHEN a11.purpose = 'USER' AND a11.originatingdirection = 'inbound' AND a11.direction = 'outbound'THEN 'Wrong Outbound Sessions' WHEN a11.originatingdirection = 'outbound' AND a11.direction = 'outbound' AND a11.userhandled = 1 AND a11.mediatype = 'voice'THEN 'Outbound Sessions' WHEN a11.sessionIndex > a12.first_endpoint AND a11.originatingdirection = 'outbound' AND a11.mediatype = 'callback' AND agentanswered = 1 THEN 'Outbound Callback Screen Sessions' WHEN a11.sessionIndex > a12.first_endpoint AND a11.originatingdirection = 'outbound' AND (a11.mediatype = 'callback' OR (a11.mediatype = 'voice' AND a11.direction = 'outbound')) THEN 'Outbound Callback Sessions' WHEN a11.originatingdirection = 'outbound' AND a11.direction = 'inbound'THEN 'Transfer Sessions' WHEN a11.sessionindex != sessioncount AND a11.abandoned = 1 AND a11.disconnecttype != 'peer'THEN 'Cancel Abandon Sessions' WHEN a11.purpose = 'USER' AND monitoringduration > 0 THEN 'Monitoring Sessions' WHEN a11.flowout = 1 AND a11.purpose = 'acd'THEN 'Inbound Flowout Sessions' WHEN a11.originatingdirection = 'inbound' AND a11.sessionIndex <= a12.first_endpoint AND a11.mediatype = 'callback' AND a11.agentanswered = 1 THEN 'Courtesy Callback Screen Sessions' WHEN a11.originatingdirection = 'inbound' AND a11.sessionIndex <= a12.first_endpoint AND (a11.mediatype = 'callback' OR (mediatype = 'voice' AND a11.direction = 'outbound')) THEN 'Courtesy Callback Sessions' WHEN a11.originatingdirection = 'inbound' AND a11.sessionIndex <= a12.first_endpoint AND a11.mediatype = 'voice' AND a11.purpose != 'callback'THEN 'Inbound Sessions' WHEN a11.sessionIndex > a12.first_endpoint AND a11.mediatype = 'callback' AND a11.agentanswered = 1 THEN 'Agent Scheduled Callback Screen Sessions' WHEN a11.sessionIndex > a12.first_endpoint AND (a11.mediatype = 'callback' OR (a11.mediatype = 'voice' AND a11.direction = 'outbound')) THEN 'Agent Scheduled Callback Sessions' WHEN a11.purpose = 'voicemail'THEN 'Voicemail Sessions' WHEN a11.purpose = 'agent' AND a11.username = a11.prior_username AND a11.direction = 'outbound' AND prior_mediatype = 'voice'THEN 'Agent Followup Sessions' WHEN a11.sessionIndex > a12.first_endpoint AND mediatype = 'voice'THEN 'Transfer Sessions' ELSE 'N/A' END AS sessionType FROM a11 LEFT OUTER JOIN a12 ON a11.conversationid = a12.conversationid LEFT OUTER JOIN a13 ON a11.conversationid = a13.conversationid)a14;";
+ //log("ingesting data")
+try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID,"SP"+REINGEST_SFX, "S_PI_PRJ_SESSION_CONTACT_SUMMARY_LOAD", "FAILED","Failed to load table STAGE.S_PI_SESSION_CONTACT_SUMMARY for projectid " + PROJECTID + ": "+ err);
+        return "1";
+        }        
+
+        log(PROJECTID, "SP"+REINGEST_SFX, "S_PI_PRJ_SESSION_CONTACT_SUMMARY_LOAD", "SUCCEEDED","Succeeded loading table STAGE.S_PI_SESSION_CONTACT_SUMMARY for projectid " + PROJECTID);
+  return "0";  
+  
+  $$;
+  
+  
+  CREATE or replace PROCEDURE stage.update_groups_membership_daily_snapshot(projectId varchar, reIngestFlag Boolean, runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+  
+ 
+REINGEST_SFX = "";
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}     
+  
+if (PROJECTID == ""){
+PROJECTID = "ALL";
+}  
+  
+var sqlCommand = `merge into stage.d_pi_groups_membership_history nh
+using stage.pi_groups_membership_change_data m 
+   on  nh.projectid = m.projectid
+   and nh.projectname = m.projectname
+   and equal_null(nh.programid, m.programid)
+   and equal_null(nh.programname,m.programname)
+   and nh.raw = m.raw
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (projectid, projectname, programid, programname, raw, start_time, end_time, current_flag)
+    values (m.projectid, m.projectname, m.programid, m.programname, m.raw, m.start_time, m.end_time, m.current_flag)`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot: "+ err); 
+return 1;
+}
+
+sqlCommand = `update stage.d_pi_groups_membership_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select projectid, projectname, programid, programname, raw, start_time, end_time,
+    lead (start_time) over (partition by projectid, projectname, programid, programname, raw order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from stage.d_pi_groups_membership_history) as temp
+where hist.projectid = temp.projectid
+and hist.projectname = temp.projectname
+and equal_null(hist.programid, temp.programid)
+and equal_null(hist.programname, temp.programname)
+and hist.raw = temp.raw
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(2): "+ err); 
+return 1;
+}
+
+//config objects
+var sqlCommand = `merge into stage.d_pi_configuration_objects_history nh
+using stage.pi_configuration_objects_change_data m 
+   on  nh.projectid = m.projectid
+   and nh.projectname = m.projectname
+   and equal_null(nh.programid, m.programid)
+   and equal_null(nh.programname,m.programname)
+   and nh.raw = m.raw
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (projectid, projectname, programid, programname, raw, start_time, end_time, current_flag)
+    values (m.projectid, m.projectname, m.programid, m.programname, m.raw, m.start_time, m.end_time, m.current_flag)`;
+
+try{
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(3): "+ err); 
+return 1;
+}
+
+
+sqlCommand = `update stage.d_pi_configuration_objects_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select projectid, projectname, programid, programname, raw, start_time, end_time,
+    lead (start_time) over (partition by projectid, projectname, programid, programname, raw order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from stage.d_pi_configuration_objects_history) as temp
+where hist.projectid = temp.projectid
+and hist.projectname = temp.projectname
+and equal_null(hist.programid, temp.programid)
+and equal_null(hist.programname, temp.programname)
+and hist.raw = temp.raw
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(4): "+ err); 
+return 1;
+}
+
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "SUCCEEDED","SP succeeded updating groups membership snapshot."); 
+return 0;
+$$;
+  
+  
+    create or replace view PUREINSIGHTS_DEV.PUBLIC.ADMIN_PI_INGESTION_ZERO_MEANS_DONE_VW as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts asc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+                               and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+latest_base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED','INGESTION STARTED REINGEST')
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, dl1.ts, dd.date as status_date, dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+                               where dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+latest_table_failure as (
+  select dl2.projectid, dl2.object_name, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','TABLE REINGEST')
+               and dl2.status_string = 'FAILED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid, dl2.object_name
+),
+max_table_ingest_ts as (
+  select dl2.projectid, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','ABLE REINGEST')
+               and dl2.status_string = 'SUCCEEDED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid
+),
+main as (
+select count(*) as zero_means_done from 
+public.d_pi_projects pr
+join public.d_pi_tables ta
+left outer join base on pr.projectid = base.projectid
+left outer join final on pr.projectid = final.projectid
+where pr.active = true
+and ta.active = true
+and ta.s3_sourced = true
+and not exists (
+                 select 1 from public.d_pi_project_unavailable_tables ua
+                 where ua.project_id = pr.projectid
+                 and ua.table_name = ta.table_name
+                 and ((ua.end_unavailable_date is null) or (ua.end_unavailable_date >= date(convert_timezone('America/New_York',current_timestamp()))  ))
+                )
+and (not exists (
+                select 1 from raw.ingest_pi_data_det_log dl
+  left outer join latest_table_failure fail
+  on dl.projectid = fail.projectid
+  and dl.object_name = fail.object_name
+                where dl.projectid = pr.projectid
+                and dl.object_category in ('TABLE','TABLE REINGEST')
+                and dl.object_name = ta.table_name
+                and dl.status_string = 'SUCCEEDED'
+                and dl.ts >= base.ts 
+                and (fail.ts is null or dl.ts > fail.ts)
+                 and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = 
+                                  date(convert_timezone('America/New_York',current_timestamp())) 
+)
+or not (final.object_category in ('INGESTION COMPLETED','INGESTION COMPLETED REINGEST') and final.status_string != 'SUCCESS')
+)
+),
+sp_main as (
+select count(*) as zero_means_done from 
+public.d_pi_projects pr
+join public.d_pi_ingestion_sps sp
+left outer join latest_base as base on pr.projectid = base.projectid
+left outer join final on pr.projectid = final.projectid
+where pr.active = true
+and sp.active = true
+and (not exists (
+                select 1 from raw.ingest_pi_data_det_log dl
+  left outer join max_table_ingest_ts max_table
+  on dl.projectid = max_table.projectid 
+                where dl.projectid = pr.projectid
+                and dl.object_category in ('SP','SP REINGEST')
+                and dl.object_name = sp.sp_name
+                and dl.status_string = 'SUCCEEDED'
+                and dl.ts >= base.ts 
+  -- (and what else : must be after the latest table success (for any table for the project))
+  and dl.ts >= max_table.ts
+                 and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = 
+                                  date(convert_timezone('America/New_York',current_timestamp())) 
+)
+or not (final.object_category in ('INGESTION COMPLETED','INGESTION COMPLETED REINGEST') and final.status_string != 'SUCCESS')
+)
+)
+  select (main.zero_means_done + sp_main.zero_means_done) as zero_means_done
+  from main
+  left outer join sp_main
+;
+
+--------------------------------------------------------------------------------
+
+create or replace view PUREINSIGHTS_DEV.PUBLIC.ADMIN_PI_INGESTION_ZERO_MEANS_DONE_BY_PROJECT_BY_DATE_VW as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts asc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+               ) where row_num=1
+),
+latest_base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED','INGESTION STARTED REINGEST')
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, to_timestamp_ltz(to_varchar(dl1.ts)) as status_time_ltz, dd.date as status_date_est, 
+                               dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+  where dl1.projectid != 'ALL'
+                               --and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+min_date as (
+              select to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(min(dl2.ts))))) as min_date 
+              from raw.ingest_pi_data_det_log dl2 
+),
+latest_table_failure as (
+  select dl2.projectid, dl2.object_name, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','TABLE REINGEST')
+               and dl2.status_string = 'FAILED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid, dl2.object_name
+),
+max_table_ingest_ts as (
+  select dl2.projectid, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','ABLE REINGEST')
+               and dl2.status_string = 'SUCCEEDED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid
+),
+
+projects_tables_list as (
+                                                   
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,thist.table_name as active_table_name,uthist.table_name as unavailable_table_name
+from final
+
+left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+
+left outer join public.d_pi_tables_history thist
+on final.status_time_ltz >= thist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= thist.end_time
+and thist.active = true
+and thist.s3_sourced = true
+                                                   
+left outer join public.d_pi_project_unavailable_tables_history uthist
+on final.projectid = uthist.project_id
+and thist.table_name = uthist.table_name
+and final.status_time_ltz >= uthist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= uthist.end_time
+and (uthist.end_unavailable_date is null or uthist.end_unavailable_date >= final.status_date_est)
+),
+sp_list as (
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,sphist.sp_name as sp_name
+from final
+  left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+  left outer join public.d_pi_ingestion_sps_history sphist
+on final.status_time_ltz >= sphist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= sphist.end_time
+and sphist.active = true
+  
+),
+sp_runs as (
+  select * from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, dl1.msg,
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time, high_base.status_date_est,
+                         RANK() OVER (PARTITION BY dl1.object_name,high_base.status_date_est ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date_est,max(ts) as ts from base where base.projectid not in ('9999') group by status_date_est) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date_est
+                         where object_category = 'SP'
+                         and projectid = 'ALL'
+                         and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  ),
+  main as (
+select ptlist.status_date_est,ptlist.projectid,ptlist.active_table_name as table_name
+from projects_tables_list ptlist
+join final 
+on ptlist.projectid = final.projectid
+and ptlist.status_date_est = final.status_date_est 
+where ptlist.projectid is not null
+and ptlist.active_table_name is not null
+and ptlist.unavailable_table_name is null
+and (not exists (
+                select 1 from raw.ingest_pi_data_det_log dl
+                join base
+                on dl.projectid = base.projectid
+                and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est
+                left outer join latest_table_failure fail
+                on dl.projectid = fail.projectid
+                and dl.object_name = fail.object_name
+                where dl.projectid = ptlist.projectid
+                and dl.object_category in ('TABLE','TABLE REINGEST')
+                and dl.object_name = ptlist.active_table_name
+                and dl.status_string = 'SUCCEEDED'
+                and dl.ts >= base.ts 
+                and (fail.ts is null or dl.ts > fail.ts)
+                and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = ptlist.status_date_est
+)
+or not (final.object_category in ('INGESTION COMPLETED','INGESTION COMPLETED REINGEST') and final.status_string != 'SUCCESS')
+)
+),
+sp_main as (
+select splist.status_date_est,splist.projectid,splist.sp_name as sp_name
+from sp_list splist
+join final 
+on splist.projectid = final.projectid
+and splist.status_date_est = final.status_date_est 
+where splist.projectid is not null
+and splist.sp_name is not null
+and (not exists (
+                select 1 from raw.ingest_pi_data_det_log dl
+                join latest_base as base
+                on dl.projectid = base.projectid
+                and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est
+    left outer join max_table_ingest_ts max_table
+  on dl.projectid = max_table.projectid 
+                where dl.projectid = splist.projectid
+                and dl.object_category in ('SP','SP REINGEST')
+                and dl.object_name = splist.sp_name
+                and dl.status_string = 'SUCCEEDED'
+                and dl.ts >= base.ts 
+   and dl.ts >= max_table.ts
+                and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = splist.status_date_est
+)
+or not (final.object_category in ('INGESTION COMPLETED','INGESTION COMPLETED REINGEST') and final.status_string != 'SUCCESS')
+)
+)
+
+(select ptlist.projectid, ptlist.status_date_est, (count(main.table_name) + count(sp_main.sp_name)) as zero_means_done
+from projects_tables_list ptlist
+left outer join main
+on ptlist.projectid = main.projectid
+and ptlist.active_table_name = main.table_name
+and ptlist.status_date_est = main.status_date_est
+left outer join sp_main
+ on ptlist.projectid = sp_main.projectid
+ and ptlist.status_date_est = sp_main.status_date_est
+group by 1,2 order by 2,1)
+
+union all
+
+select 'ALL' as projectid, d_dates.date,(2 - ifnull(count(sp_runs.*),0)) as zero_means_done
+from public.d_dates left outer join sp_runs
+on d_dates.date = sp_runs.status_date_est
+left outer join min_date
+where d_dates.date >= min_date
+and d_dates.date <= date(convert_timezone('America/New_York',current_timestamp()))
+group by 1,2 order by 1,2;
+    
+
+----------------------------------------------------------------  
+    
+ create or replace view PUREINSIGHTS_DEV.PUBLIC.ADMIN_PI_INGESTION_STATUS_BY_PROJECT_VW as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts asc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+                               and dd.date >= date('2021-06-01')
+               ) where row_num=1
+),
+latest_base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED','INGESTION STARTED REINGEST')
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, to_timestamp_ltz(to_varchar(dl1.ts)) as status_time_ltz, dd.date as status_date_est, 
+                               dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+                               --and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+min_date as (
+              select to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(min(dl2.ts))))) as min_date 
+              from raw.ingest_pi_data_det_log dl2 
+),
+latest_table_failure as (
+  select dl2.projectid, dl2.object_name, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','TABLE REINGEST')
+               and dl2.status_string = 'FAILED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid, dl2.object_name
+),
+max_table_ingest_ts as (
+  select dl2.projectid, max(dl2.ts) as ts from raw.ingest_pi_data_det_log dl2
+               where dl2.object_category in ('TABLE','ABLE REINGEST')
+               and dl2.status_string = 'SUCCEEDED'
+                and date(convert_timezone('UTC','America/New_York',to_timestamp(to_varchar(dl2.ts)))) = date(current_timestamp())
+group by dl2.projectid
+),
+
+projects_tables_list as (
+                                                   
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid, phist.projectname, thist.table_name as active_table_name,uthist.table_name as unavailable_table_name
+from final
+
+left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+
+left outer join public.d_pi_tables_history thist
+on final.status_time_ltz >= thist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= thist.end_time
+and thist.active = true
+and thist.s3_sourced = true
+                                                   
+left outer join public.d_pi_project_unavailable_tables_history uthist
+on final.projectid = uthist.project_id
+and thist.table_name = uthist.table_name
+and final.status_time_ltz >= uthist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= uthist.end_time
+and (uthist.end_unavailable_date is null or uthist.end_unavailable_date >= final.status_date_est)
+),
+table_ingested_count as (
+                         select dl1.projectid, ptlist.status_date_est as status_date,
+                         count(distinct dl1.object_name) as nmbr_tables_ingested
+                         from raw.ingest_pi_data_det_log dl1
+                         join base
+                         on dl1.projectid = base.projectid
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = base.status_date_est
+                         join projects_tables_list ptlist
+                         on dl1.projectid = ptlist.projectid
+                         and dl1.object_name = ptlist.active_table_name
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = ptlist.status_date_est
+  left outer join latest_table_failure fail
+                on dl1.projectid = fail.projectid
+                and dl1.object_name = fail.object_name
+                         where dl1.object_category in ('TABLE','TABLE REINGEST') 
+                         and dl1.status_string = 'SUCCEEDED'
+                         and dl1.ts >= base.ts
+  and (fail.ts is null or dl1.ts > fail.ts)
+                         and ptlist.projectid is not null
+                         and ptlist.active_table_name is not null
+                         and ptlist.unavailable_table_name is null         
+                         group by 1,2
+),
+table_ingested_zero_count as (
+                         select dl1.projectid, ptlist.status_date_est as status_date,
+                         count(distinct dl1.object_name) as nmbr_tables_ingested_zero
+                         from raw.ingest_pi_data_det_log dl1
+                         join base
+                         on dl1.projectid = base.projectid
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = base.status_date_est
+                         join projects_tables_list ptlist
+                         on dl1.projectid = ptlist.projectid
+                         and dl1.object_name = ptlist.active_table_name
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = ptlist.status_date_est
+  left outer join latest_table_failure fail
+                on dl1.projectid = fail.projectid
+                and dl1.object_name = fail.object_name
+                         where dl1.object_category in ('TABLE','TABLE REINGEST') 
+                         and dl1.status_string = 'WARNING'
+                         and dl1.msg like '%has 0 records%'
+                         and dl1.ts >= base.ts
+                         and (fail.ts is null or dl1.ts > fail.ts)
+                         and ptlist.projectid is not null
+                         and ptlist.active_table_name is not null
+                         and ptlist.unavailable_table_name is null         
+                         group by 1,2
+),
+table_configured_count as (
+                           select ptlist.projectid, ptlist.status_date_est as status_date,count(*) as nmbr_tables_configured 
+                           from projects_tables_list ptlist
+                           where ptlist.projectid is not null
+                           and ptlist.active_table_name is not null
+                           and ptlist.unavailable_table_name is null
+                           group by 1,2
+),
+table_unavailable_count as (
+                           select ptlist.projectid, ptlist.status_date_est as status_date,count(*) as nmbr_tables_unavailable 
+                           from projects_tables_list ptlist
+                           where ptlist.projectid is not null
+                           and ptlist.active_table_name is not null
+                           and ptlist.unavailable_table_name is not null
+                           group by 1,2
+),
+sp_list as (
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,sphist.sp_name as sp_name
+from final
+  left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+  left outer join public.d_pi_ingestion_sps_history sphist
+on final.status_time_ltz >= sphist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= sphist.end_time
+and sphist.active = true
+
+),
+sp_configured_count as (
+  select splist.projectid, splist.status_date_est as status_date_est,count(*) as nmbr_sps_configured 
+                           from sp_list splist
+                           where splist.projectid is not null
+                           and splist.sp_name is not null
+                           group by 1,2
+),
+sp_completed_count as (
+ select dl1.projectid, splist.status_date_est as status_date_est,
+                         count(distinct dl1.object_name) as nmbr_sps_completed
+                         from raw.ingest_pi_data_det_log dl1
+                         join latest_base as base
+                         on dl1.projectid = base.projectid
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = base.status_date_est
+                         join sp_list splist
+                         on dl1.projectid = splist.projectid
+                         and dl1.object_name = splist.sp_name
+                         and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = splist.status_date_est
+      left outer join max_table_ingest_ts max_table
+  on dl1.projectid = max_table.projectid 
+                         where dl1.object_category in ('SP','SP REINGEST') 
+                         and dl1.status_string = 'SUCCEEDED'
+                         and dl1.ts >= base.ts
+  and dl1.ts >= max_table.ts
+                         and splist.projectid is not null
+                         and splist.sp_name is not null         
+                         group by 1,2
+),
+sp_runs as (
+  select * from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, 
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time, high_base.status_date_est,
+                         RANK() OVER (PARTITION BY dl1.object_name,high_base.status_date_est ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date_est,max(ts) as ts from base group by status_date_est) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date_est
+                         where object_category = 'SP'
+                         and projectid = 'ALL'
+                         --and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  ),
+    data_found_time as (
+ select * from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, 
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time_est, high_base.status_date_est,
+                         RANK() OVER (PARTITION BY dl1.projectid,high_base.status_date_est ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date_est,max(ts) as ts from base group by status_date_est) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date_est
+                         where object_name = '_SUCCESS FILE'
+                         and status_string = 'SUCCEEDED'
+                         --and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  ),
+zero_means_done as (
+select projectid, status_date_est, zero_means_done from admin_pi_ingestion_zero_means_done_by_project_by_date_vw
+)
+
+select results.projectid, results.projectname,        
+       table_configured_count.nmbr_tables_configured as tables_available,
+       table_ingested_count.nmbr_tables_ingested as tables_ingested,
+       ifnull(table_ingested_zero_count.nmbr_tables_ingested_zero,0) as tables_ingested_zero_records,
+       table_unavailable_count.nmbr_tables_unavailable as tables_unavailable,
+       ifnull(sp_configured_count.nmbr_sps_configured,0) as stored_procedures_configured,
+       ifnull(sp_completed_count.nmbr_sps_completed,0) as stored_procedures_completed,
+       results.status,  
+       data_found_time.status_time_est as data_available_time,
+       results.status_time, results.status_date
+from 
+     (select relevant.projectid, relevant.projectname,
+      case 
+           when relevant.status_string = 'FAILED' and relevant.object_category not like '%REINGEST'
+           then 'INGESTION FAILED'
+
+           when relevant.status_string = 'FAILED' and relevant.object_category like '%REINGEST'
+           then 'RE-INGESTION FAILED'
+
+           when relevant.object_category = 'INGESTION STARTED' then 'INGESTION STARTED'
+           when relevant.object_category = 'INGESTION STARTED REINGEST' then 'RE-INGESTION STARTED'
+           when relevant.object_category = 'INGESTION COMPLETED' and relevant.status_string = 'SUCCEEDED'
+           and relevant.zero_means_done = 0
+           and not exists (select 1 from raw.ingest_PI_data_det_log dl5
+                           join base on dl5.projectid = base.projectid
+                           and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.status_string = 'WARNING'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'INGESTION COMPLETED'
+             when relevant.object_category = 'INGESTION COMPLETED REINGEST' and relevant.status_string = 'SUCCEEDED'
+             and relevant.zero_means_done = 0
+             and not exists (select 1 from raw.ingest_PI_data_det_log dl5
+                           join base on dl5.projectid = base.projectid
+                           and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.status_string = 'WARNING'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'RE-INGESTION COMPLETED'      
+      
+      
+            when relevant.object_category = 'INGESTION COMPLETED' and relevant.status_string = 'SUCCEEDED'
+            and relevant.zero_means_done = 0
+            and exists (select 1 from raw.ingest_PI_data_det_log dl5
+                           join base on dl5.projectid = base.projectid
+                           and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.status_string = 'WARNING'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'INGESTION COMPLETED WITH WARNINGS'
+             when relevant.object_category = 'INGESTION COMPLETED REINGEST' and relevant.status_string = 'SUCCEEDED'
+              and relevant.zero_means_done = 0
+             and exists (select 1 from raw.ingest_PI_data_det_log dl5
+                           join base on dl5.projectid = base.projectid
+                           and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.status_string = 'WARNING'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'RE-INGESTION COMPLETED WITH WARNINGS'        
+      
+           when relevant.object_category = 'INGESTION COMPLETED' and relevant.status_string = 'SUCCEEDED'
+           and relevant.zero_means_done != 0
+          then 'INGESTION COMPLETED WITH ERRORS'
+      
+          when relevant.object_category = 'INGESTION COMPLETED REINGEST' and relevant.status_string = 'SUCCEEDED'
+          and relevant.zero_means_done != 0
+          then 'RE-INGESTION COMPLETED WITH ERRORS'
+     
+             
+             when relevant.object_category = 'S3 DATA' and relevant.status_string = 'WAITING' 
+             and not exists (select 1 from raw.ingest_PI_data_det_log dl5
+                             join base on dl5.projectid = base.projectid
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.object_category = 'INGESTION STARTED REINGEST'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'INGESTION WAITING FOR S3 DATA'
+               
+             when relevant.object_category = 'S3 DATA' and relevant.status_string = 'WAITING' 
+             and exists (select 1 from raw.ingest_PI_data_det_log dl5
+                             join base on dl5.projectid = base.projectid
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.object_category = 'INGESTION STARTED REINGEST'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'RE-INGESTION WAITING FOR S3 DATA'        
+      
+             when relevant.object_category not in ('INGESTION STARTED','INGESTION COMPLETED') and relevant.status_string != 'WAITING'
+             and not exists (select 1 from raw.ingest_PI_data_det_log dl5
+                             join base on dl5.projectid = base.projectid
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.object_category = 'INGESTION STARTED REINGEST'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'INGESTION IN-PROCESS'
+             
+             when relevant.object_category not in ('INGESTION STARTED','INGESTION COMPLETED') and relevant.status_string != 'WAITING'
+             and exists (select 1 from raw.ingest_PI_data_det_log dl5
+                             join base on dl5.projectid = base.projectid
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts)))) = base.status_date_est
+                             where dl5.projectid = relevant.projectid
+                             and dl5.object_category = 'INGESTION STARTED REINGEST'
+                             and dl5.ts >= base.ts
+                             and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl5.ts))))= relevant.status_date )
+             then 'RE-INGESTION IN-PROCESS'     
+      else 'INGESTION STATUS UNKOWN'
+      
+      end as status,
+      status_time, status_date 
+
+     from (
+           SELECT pr.projectname,dl2.*,  
+           convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl2.ts))) as status_time,
+           dd.date as status_date, zero_means_done.zero_means_done,
+           RANK() OVER (PARTITION BY dl2.projectid,dd.date ORDER BY dl2.ts desc) as row_num  
+           FROM raw.ingest_pi_data_det_log dl2
+           join public.d_pi_projects pr
+           on dl2.projectid = pr.projectid
+           join base
+           on dl2.projectid = base.projectid
+           and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl2.ts)))) = base.status_date_est
+           join public.d_dates dd
+           on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl2.ts)))) = dd.date
+           join zero_means_done on pr.projectid = zero_means_done.projectid 
+           and zero_means_done.status_date_est = dd.date
+       where dl2.ts >= base.ts
+          ) relevant
+     where row_num = 1
+
+     union all
+
+     select pr.projectid, pr.projectname,
+            'INGESTION NOT YET STARTED' as status,
+            convert_timezone('America/New_York',current_timestamp) as status_time, 
+            date (convert_timezone('America/New_York',current_timestamp)) as status_date
+     from public.d_pi_projects pr
+     left outer join base
+     on pr.projectid = base.projectid
+      and base.status_date_est = date(convert_timezone('America/New_York',current_timestamp())) 
+     where pr.active = true
+     and not exists
+                    (select 1 from raw.ingest_PI_data_det_log dl3
+                              where dl3.projectid = pr.projectid
+                              and dl3.object_category = 'INGESTION STARTED'
+                              and dl3.ts >= base.ts
+                              and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl3.ts)))) = 
+                                  date(convert_timezone('America/New_York',current_timestamp()))  )
+     )results
+left outer join
+table_ingested_count
+on results.projectid = table_ingested_count.projectid
+and results.status_date = table_ingested_count.status_date
+left outer join
+table_configured_count
+on results.projectid = table_configured_count.projectid
+and results.status_date = table_configured_count.status_date
+left outer join
+table_unavailable_count
+on results.projectid = table_unavailable_count.projectid
+and results.status_date = table_unavailable_count.status_date
+left outer join
+table_ingested_zero_count
+on results.projectid = table_ingested_zero_count.projectid
+and results.status_date = table_ingested_zero_count.status_date
+left outer join sp_configured_count 
+on results.projectid = sp_configured_count.projectid
+and results.status_date = sp_configured_count.status_date_est
+left outer join sp_completed_count 
+on results.projectid = sp_completed_count.projectid
+and results.status_date = sp_completed_count.status_date_est
+left outer join data_found_time
+on results.projectid = data_found_time.projectid
+and results.status_date = data_found_time.status_date_est
+union all
+select 'ALL', 'NA' as projectname, null,null,null,null, 1,1,'SP ' || sp.object_name || ' ' || sp.status_string as status, null, sp.status_time, sp.status_date_est
+from sp_runs sp
+;   
+
+
+create or replace view PUBLIC.ADMIN_PI_INGESTION_STATUS_BY_TABLE_VW as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts asc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+                               and dd.date >= date('2021-06-01')
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, to_timestamp_ltz(to_varchar(dl1.ts)) as status_time_ltz, dd.date as status_date_est, dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+                               --and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+projects_tables_list as (
+                                                   
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,phist.projectname, thist.table_name as active_table_name,uthist.table_name as unavailable_table_name
+from final
+
+left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+
+left outer join public.d_pi_tables_history thist
+on final.status_time_ltz >= thist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= thist.end_time
+and thist.active = true
+and thist.s3_sourced = true
+                                                   
+left outer join public.d_pi_project_unavailable_tables_history uthist
+on final.projectid = uthist.project_id
+and thist.table_name = uthist.table_name
+and final.status_time_ltz >= uthist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= uthist.end_time
+and (uthist.end_unavailable_date is null or uthist.end_unavailable_date >= final.status_date_est)
+),
+sp_list as (
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,phist.projectname, sphist.sp_name as sp_name
+from final
+  left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+  left outer join public.d_pi_ingestion_sps_history sphist
+on final.status_time_ltz >= sphist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= sphist.end_time
+and sphist.active = true
+
+),
+sp_runs as (
+  select * from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, dl1.msg,
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time, high_base.status_date_est,
+                         RANK() OVER (PARTITION BY dl1.object_name,high_base.status_date_est ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date_est,max(ts) as ts from base group by status_date_est) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date_est
+                         where object_category = 'SP'
+                         and projectid in ('ALL')
+                         --and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  )
+
+
+select dl.projectid,ptlist.projectname, dl.object_name as table_name, dl.status_string as status, dl.msg as log_msg,
+convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts))) as status_time, ptlist.status_date_est as status_date 
+
+from raw.ingest_pi_data_det_log dl
+left outer join projects_tables_list ptlist
+on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = ptlist.status_date_est
+and dl.projectid = ptlist.projectid
+and dl.object_name = ptlist.active_table_name
+
+join base
+on dl.projectid = base.projectid
+and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est  
+where dl.object_category in ('TABLE','TABLE REINGEST')
+and dl.ts >= base.ts
+and ptlist.projectid is not null
+and ptlist.active_table_name is not null
+and ptlist.unavailable_table_name is null
+--order by  ptlist.status_date_est desc, dl.ts desc
+
+union all
+
+select projectid, 'NA' as projectname,'NA' as table_name, 'SP ' || sp.object_name || ' ' || sp.status_string as status, 
+msg as log_msg,sp.status_time, sp.status_date_est
+from sp_runs sp
+
+union all
+
+
+select dl.projectid,splist.projectname, 'SP: ' || dl.object_name as table_name, dl.status_string as status, dl.msg as log_msg,
+convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts))) as status_time, splist.status_date_est as status_date 
+
+from raw.ingest_pi_data_det_log dl
+left outer join sp_list splist
+on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = splist.status_date_est
+and dl.projectid = splist.projectid
+and dl.object_name = splist.sp_name
+
+join base
+on dl.projectid = base.projectid
+and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est  
+where dl.object_category in ('SP','SP REINGEST')
+and dl.ts >= base.ts
+and splist.projectid is not null
+and splist.sp_name is not null
+;
+
+
+CREATE or replace PROCEDURE LogIngestionStart(ProjectId varchar,reIngestFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}  
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+ 
+  //log start
+     log(PROJECTID, "INGESTION STARTED"+REINGEST_SFX, "NA", "SUCCEEDED","Starting ingestion for PI data");
+
+return 0;
+
+$$;
+
+CREATE or replace PROCEDURE LogIngestionStartAllProjects(reIngestFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+
+REINGEST_SFX = ""
+if (REINGESTFLAG){
+REINGEST_SFX=" REINGEST";
+}  
+  
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+ 
+ var project_array=[];
+var sqlCommand = "select projectid from public.d_pi_projects where active=true;"
+var createdSQL = snowflake.createStatement( { sqlText: sqlCommand } );
+    var rs = createdSQL.execute();
+    while (rs.next()) {
+     var projectid = rs.getColumnValue(1);
+     project_array.push(projectid);
+    }
+  
+for (const projectid of project_array) {
+  //log start
+     log(projectid, "INGESTION STARTED"+REINGEST_SFX, "NA", "SUCCEEDED","Starting ingestion for PI data");
+
+}     
+
+
+return 0;
+
+$$;
+

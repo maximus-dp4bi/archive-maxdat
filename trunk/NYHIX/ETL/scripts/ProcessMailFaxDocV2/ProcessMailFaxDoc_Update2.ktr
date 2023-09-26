@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_Update2</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -200,8 +222,72 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1227</xloc>
-      <yloc>531</yloc>
+      <xloc>1226</xloc>
+      <yloc>534</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>806</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing) 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>981</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update - NYHIX_ETL_MAIL_FAX_DOC_WIP_V2</send_true_to>
+<send_false_to>Dummy (do nothing) 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>OLD_UPDATED</leftvalue>
+ <function>=</function>
+ <rightvalue>CON_Y</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>945</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -382,8 +468,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1227</xloc>
-      <yloc>336</yloc>
+      <xloc>1226</xloc>
+      <yloc>339</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -413,8 +499,8 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1227</xloc>
-      <yloc>445</yloc>
+      <xloc>1226</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -539,7 +625,7 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
 	ostg.INSTANCE_STATUS NEW_INSTANCE_STATUS,
 	ostg.DOC_STATUS_CD NEW_DOC_STATUS_CD,
 	ostg.DOC_STATUS_DT NEW_DOC_STATUS_DT,
-	ostg.CANCEL_DT NEW_CANCEL_DT,
+    ostg.CANCEL_DT NEW_CANCEL_DT,
 	ostg.CANCEL_BY NEW_CANCEL_BY,
 	ostg.ASF_CANCEL_DOC NEW_ASF_CANCEL_DOC,
 	ostg.CANCEL_REASON NEW_CANCEL_REASON,
@@ -647,8 +733,8 @@ WHERE wstg.CANCEL_DT is NULL and wstg.INSTANCE_STATUS = &apos;Active&apos;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1228</xloc>
-      <yloc>646</yloc>
+      <xloc>1227</xloc>
+      <yloc>649</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -709,72 +795,8 @@ WHERE wstg.CANCEL_DT is NULL and wstg.INSTANCE_STATUS = &apos;Active&apos;
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1221</xloc>
-      <yloc>189</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>811</xloc>
-      <yloc>193</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to>Update - NYHIX_ETL_MAIL_FAX_DOC_WIP_V2</send_true_to>
-<send_false_to>Dummy (do nothing) 2</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>OLD_UPDATED</leftvalue>
- <function>=</function>
- <rightvalue>CON_Y</rightvalue>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>946</xloc>
-      <yloc>189</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Dummy (do nothing) 2</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>982</xloc>
-      <yloc>301</yloc>
+      <xloc>1220</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

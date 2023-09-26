@@ -2,7 +2,20 @@
 <job>
   <name>load_Contact_Center</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -269,7 +282,7 @@
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;download_daily_HI_files_csv.kjb</filename>
+      <filename>${Internal.Job.Filename.Directory}&#47;download_daily_DMCS_files_csv.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -684,7 +697,7 @@ endDate = ${endDate}</logmessage>
     </notepad>
     <notepad>
       <note>Description:
-This job executes the jobs to load the staging and dimensional data for the HIHIX project.  Note that we only run the dimensional load for the range of dates 
+This job executes the jobs to load the staging and dimensional data for the DMCS project.  Note that we only run the dimensional load for the range of dates 
 contained in the ACD_Interval, IVR_Interval, and Agent_Activity export files.  If we do not process any staging data, we do not run the dimensional load process. 
 
 Input:

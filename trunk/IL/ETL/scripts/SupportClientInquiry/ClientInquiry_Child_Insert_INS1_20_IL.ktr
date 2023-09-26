@@ -125,6 +125,29 @@ SVN_REVISION_AUTHOR = $Author$
     </attributes>
   </connection>
   <connection>
+    <name>DP_SCORECARD</name>
+    <server>${DB_SCORECARD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_SCORECARD_NAME}</database>
+    <port>${DB_SCORECARD_PORT}</port>
+    <username>${DB_SCORECARD_USER}</username>
+    <password>${DB_SCORECARD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SCORECARD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = DP_SCORECARD;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -139,18 +162,13 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -263,18 +281,12 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
@@ -391,41 +403,92 @@ SVN_REVISION_AUTHOR = $Author$
 &#47;* 
 For IL, there is only one program code so, it has been hardcoded here *&#47;
 
-with DRIVER as (select SUBPROGRAM_TYPE,
-case  when ELIG_STATUS_CD = &apos;V&apos; and SUBPROGRAM_TYPE =&apos;VMC&apos; then 5
-when ELIG_STATUS_CD = &apos;M&apos; then 4 
-when ELIG_STATUS_CD = &apos;V&apos; and (select count(*) from CLIENT_ELIG_STATUS 
-where CLIENT_ID =?
-and (END_DATE is null or END_DATE&gt;sysdate) and ELIG_STATUS_CD = &apos;V&apos; ) = 1 then 3 
-when ELIG_STATUS_CD = &apos;V&apos; and (select count(*) from CLIENT_ELIG_STATUS 
-where CLIENT_ID =?
-and (END_DATE is null or END_DATE&gt;sysdate) and ELIG_STATUS_CD = &apos;V&apos; ) &gt; 1 then 2 
---when ELIG_STATUS_CD = &apos;X&apos; then 1
-else 0 
-end weight 
-from CLIENT_ELIG_STATUS 
-where CLIENT_ID = ?
-and (END_DATE is null or END_DATE&gt;sysdate)) 
-select distinct case when weight &gt;= 3 then SUBPROGRAM_TYPE
-when weight = 2 then &apos;Other&apos;
-else null 
-end OLTP_PROGRAM_SUBTYPE,&apos;MEDICAID&apos;   OLTP_PROGRAM_TYPE
-from DRIVER 
-where weight = (select max(weight) from driver)</sql>
+WITH driver AS
+(SELECT COALESCE(debug,subprogram_type) subprogram_type
+        ,ROW_NUMBER() OVER (ORDER BY DECODE(elig_status_cd,&apos;X&apos;,9,1),client_elig_status_id DESC) drn
+        ,CASE
+            WHEN elig_status_cd in (&apos;M&apos;,&apos;V&apos;) AND
+                  subprogram_type = &apos;MMAI&apos;                   
+             THEN  1        
+             WHEN elig_status_cd in (&apos;M&apos;,&apos;V&apos;) AND
+                  subprogram_type = &apos;MMCP&apos; AND DEBUG = &apos;ICP&apos; AND
+                  EXISTS (SELECT 1 FROM client_elig_status
+                    WHERE client_id = cl.client_id
+                    AND start_ndt &lt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND end_ndt &gt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND elig_status_cd = &apos;X&apos; AND subprogram_type = &apos;MMAI&apos;)
+             THEN  2
+                WHEN elig_status_cd in (&apos;M&apos;,&apos;V&apos;) AND
+                  subprogram_type = &apos;MMCP&apos; AND DEBUG = &apos;FHP&apos; AND
+                  EXISTS (SELECT 1 FROM client_elig_status
+                    WHERE client_id = cl.client_id
+                    AND start_ndt &lt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND end_ndt &gt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND elig_status_cd = &apos;X&apos; and subprogram_type = &apos;MMAI&apos;)
+             THEN  3
+             WHEN elig_status_cd in (&apos;M&apos;,&apos;V&apos;) AND
+                  subprogram_type = &apos;MMCP&apos; AND DEBUG = &apos;LTSS&apos; AND
+                  EXISTS (SELECT 1 FROM client_elig_status
+                    WHERE client_id = cl.client_id
+                    AND start_ndt &lt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND end_ndt &gt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+                    AND elig_status_cd = &apos;X&apos; and subprogram_type = &apos;MMAI&apos;)
+             THEN  4
+             ELSE
+              0
+         END weight
+    FROM client_elig_status cl
+    WHERE client_id = ?
+    AND start_ndt &lt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+    AND end_ndt &gt;= TO_NUMBER(TO_CHAR(?,&apos;yyyymmddhh24mi&apos;)||&apos;00000&apos;)
+    AND elig_status_cd IN(&apos;M&apos;,&apos;V&apos;)
+)
+SELECT subprogram_type oltp_program_subtype,&apos;MEDICAID&apos; oltp_program_type
+FROM (
+SELECT subprogram_type,ROW_NUMBER() OVER(ORDER BY weight DESC) rn 
+FROM driver
+--WHERE drn = 1
+)
+WHERE rn =1
+</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
       <field>
-        <name>CLIENT_ID</name>
-        <type>Integer</type>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
       </field>
       <field>
         <name>CLIENT_ID</name>
         <type>Integer</type>
       </field>
       <field>
-        <name>CLIENT_ID</name>
-        <type>Integer</type>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>INQ_CREATE_DT</name>
+        <type>Date</type>
       </field>
     </parameter>
      <cluster_schema/>
@@ -859,6 +922,7 @@ where weight = (select max(weight) from driver)</sql>
      , &apos;Participant&apos;     part_status
      , &apos;Non-Participant&apos; nonpart_status
      , &apos;Y&apos; yes
+     , create_dt inq_create_dt
   FROM corp_etl_client_inquiry inq
  WHERE instance_status = &apos;Active&apos;
    AND contact_end_dt IS NOT NULL

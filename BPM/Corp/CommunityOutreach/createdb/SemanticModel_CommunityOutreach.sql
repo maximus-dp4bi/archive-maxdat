@@ -17,7 +17,7 @@ create table D_CMOR_CURRENT
    ALTERNATIVE_DATE_1             date,
    ALTERNATIVE_DATE_2             date,
    ALTERNATIVE_DATE_3             date,
-   DURATION 			                varchar2(256),
+   DURATION 			  varchar2(256),
    PREPARATION_TIME               varchar2(20),
    TRAVEL_TIME                    varchar2(20),
    PRESENTER_NAME                 varchar2(256),
@@ -98,14 +98,12 @@ tablespace MAXDAT_DATA parallel;
 
 alter table D_CMOR_CURRENT add constraint DCMORCUR_PK primary key (CMOR_BI_ID) using index tablespace MAXDAT_INDX;
 
-create or replace public synonym D_CMOR_CURRENT for D_CMOR_CURRENT;
 grant select on D_CMOR_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_CMOR_CURRENT_SV as
 select * from D_CMOR_CURRENT 
 with read only;
 
-create or replace public synonym D_CMOR_CURRENT_SV for D_CMOR_CURRENT_SV;
 grant select on D_CMOR_CURRENT_SV to MAXDAT_READ_ONLY;
 
 create or replace view D_CMOR_CLIENT_SV  as
@@ -132,7 +130,6 @@ create or replace view D_CMOR_ACTIVITIES_SV as
 select * from CORP_ETL_COMMUNITY_ACTIVITIES
 with read only;
 
-create or replace public synonym D_CMOR_ACTIVITIES_SV for D_CMOR_ACTIVITIES_SV;
 grant select on D_CMOR_ACTIVITIES_SV to MAXDAT_READ_ONLY;
 
 
@@ -141,7 +138,6 @@ create or replace view D_CMOR_ACTIVITIES_DETAILS_SV as
 select * from CORP_ETL_COMM_ACTY_DETAIL_CHLD
 with read only;
 
-create or replace public synonym D_CMOR_ACTIVITIES_DETAILS_SV for D_CMOR_ACTIVITIES_DETAILS_SV;
 grant select on D_CMOR_ACTIVITIES_DETAILS_SV to MAXDAT_READ_ONLY;
 
 
@@ -162,14 +158,12 @@ alter table D_CMOR_SESSION_STATUS add constraint DCMORSS_PK primary key (DCMORSS
 
 create unique index DCMORSS_UIX1 on D_CMOR_SESSION_STATUS (SESSION_STATUS) online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym D_CMOR_SESSION_STATUS for D_CMOR_SESSION_STATUS;
 grant select on D_CMOR_SESSION_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_CMOR_SESSION_STATUS_SV as
 select * from D_CMOR_SESSION_STATUS
 with read only;
 
-create or replace public synonym D_CMOR_SESSION_STATUS_SV for D_CMOR_SESSION_STATUS_SV;
 grant select on D_CMOR_SESSION_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_CMOR_SESSION_STATUS (DCMORSS_ID,SESSION_STATUS) values (SEQ_DCMORSS_ID.NEXTVAL,null);
@@ -213,7 +207,6 @@ create index FCMORBD_IXL2 on F_CMOR_BY_DATE (CMOR_BI_ID) local online tablespace
 create index FCMORBD_IXL3 on F_CMOR_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FCMORBD_IXL4 on F_CMOR_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_CMOR_BY_DATE for F_CMOR_BY_DATE;
 grant select on F_CMOR_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_CMOR_BY_DATE_SV as
@@ -288,6 +281,5 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_CMOR_BY_DATE_SV for F_CMOR_BY_DATE_SV;
 grant select on F_CMOR_BY_DATE_SV to MAXDAT_READ_ONLY;
 

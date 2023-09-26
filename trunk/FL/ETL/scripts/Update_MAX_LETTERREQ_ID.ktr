@@ -3,7 +3,20 @@
   <info>
     <name>Update_MAX_LETTERREQ_ID</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -66,27 +79,6 @@
   <modified_date>2014&#47;05&#47;15 16:50:04.968</modified_date>
   </info>
   <notepads>
-    <notepad>
-      <note>Update control table with ID of last row captured from OLTP</note>
-      <xloc>310</xloc>
-      <yloc>314</yloc>
-      <width>300</width>
-      <heigth>22</heigth>
-      <fontname>Microsoft Sans Serif</fontname>
-      <fontsize>8</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>LETTERS_SOURCE</name>
@@ -155,7 +147,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Update - Corp_ETL_Control 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - LM_LETTER_REQUESTS_TEMP</from><to>Filter rows</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Filter rows</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Update - Corp_ETL_Control 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - LM_LETTER_REQUESTS_TEMP</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - LM_LETTER_IMAGES_TEMP</from><to>Filter greater then 0</to><enabled>Y</enabled> </hop>  <hop> <from>Filter greater then 0</from><to>Update - Corp_ETL_Control2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter greater then 0</from><to>Dummy (do nothing) 2</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Dummy (do nothing)</name>
     <type>Dummy</type>
@@ -170,6 +162,52 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>350</xloc>
       <yloc>184</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing) 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>350</xloc>
+      <yloc>450</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter greater then 0</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update - Corp_ETL_Control2</send_true_to>
+<send_false_to>Dummy (do nothing) 2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>PREV_LMLI_ID</leftvalue>
+ <function>&gt;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>BigNumber</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>350</xloc>
+      <yloc>330</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -198,6 +236,40 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>350</xloc>
       <yloc>44</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - LM_LETTER_IMAGES_TEMP</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT  to_char(NVL(MAX(LMLI_ID), 0)) Prev_LMLI_ID 
+        ,&apos;PL_LAST_NEW_MAX_LMLI_ID&apos; MAX_LETTER_REQID
+		,&apos;Run_Initialization&apos; as process_name
+		,&apos;Save variables LM_LETTER_IMAGES_TEMP&apos; as job_name
+		,sysdate as system_date
+		,&apos;LM_LETTER_REQUESTS_TEMP&apos; as driver_table_name
+		,&apos;CRITICAL&apos; AS ERR_LEVEL
+        ,&apos;PL_LAST_NEW_MAX_LMLI_ID&apos; as name 
+FROM   LM_LETTER_IMAGES_TEMP    
+</sql>
+    <limit>1</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>140</xloc>
+      <yloc>330</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -273,6 +345,48 @@ FROM LM_LETTER_REQUESTS_TEMP</sql>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>580</xloc>
       <yloc>44</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update - Corp_ETL_Control2</name>
+    <type>Update</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>1</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>CORP_ETL_CONTROL</table>
+      <key>
+        <name>NAME</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>VALUE</name>
+        <rename>PREV_LMLI_ID</rename>
+        </value>
+      <value>
+        <name>UPDATED_TS</name>
+        <rename>SYSTEM_DATE</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>580</xloc>
+      <yloc>330</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

@@ -3,17 +3,25 @@
   <info>
     <name>SupportMemberInquiry_CreateRule</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
-        <parameter>
-            <name>schema_name</name>
-            <default_value>SKODALI_LETTERS</default_value>
-            <description/>
-        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -179,7 +187,7 @@
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>&#47;&#47;Script here
 
-var CONTACT_NOTE = substr(NOTE_TEXT,0,2000)</jsScript_script>
+var CONTACT_NOTE = substr(NOTE_TEXT,0,2200)</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>CONTACT_NOTE</name>
         <rename>CONTACT_NOTE</rename>
         <type>String</type>
@@ -409,8 +417,8 @@ var CONTACT_NOTE = substr(NOTE_TEXT,0,2000)</jsScript_script>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>652</xloc>
-      <yloc>105</yloc>
+      <xloc>650</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -530,12 +538,12 @@ var CONTACT_NOTE = substr(NOTE_TEXT,0,2000)</jsScript_script>
   &apos;ACTIVE&apos;    									AS INSTANCE_STATUS,
   SYSDATE  										AS INSTANCE_STATUS_DATE,
   CAST((from_tz(cast(A.INSERT_DATE AS TIMESTAMP),&apos;MST&apos;) AT TIME ZONE &apos;EST&apos;) AS DATE) AS INSTANCE_CREATE_DATE,
-  CASE WHEN A.CONTACT_SOURCE IN (&apos;CALL_IN&apos;) THEN &apos;PHONE&apos;
-	   WHEN A.CONTACT_SOURCE IN (&apos;CHAT&apos;) THEN &apos;WEB&apos;
+  CASE WHEN A.CONTACT_SOURCE IN (&apos;CALL_IN&apos;, &apos;CALL_OUT&apos;, &apos;PHONE&apos;) THEN &apos;PHONE&apos;
+       ELSE &apos;WEB&apos;
   END AS CHANNEL
 FROM CONTACT A
 WHERE A.USER_NAME != &apos;XEROX&apos; 
-AND A.CONTACT_SOURCE IN (&apos;CHAT&apos;,&apos;CALL_IN&apos;)
+AND A.CONTACT_SOURCE is Not NULL
 AND A.INSERT_DATE &gt; sysdate - ${CONTACT_LOOK_BACK_DAYS}
 </sql>
     <limit>0</limit>
@@ -560,7 +568,7 @@ AND A.INSERT_DATE &gt; sysdate - ${CONTACT_LOOK_BACK_DAYS}
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>1000000</max_errors>
+        <max_errors>10000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
       </error>

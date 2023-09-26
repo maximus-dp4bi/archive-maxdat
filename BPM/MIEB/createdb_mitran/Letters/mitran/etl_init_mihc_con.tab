@@ -1,0 +1,40 @@
+create table ETL_INIT_MIHC_CON
+(
+  job_id         NUMBER(18) not null,
+  row_num        NUMBER(18) not null,
+  error_count    NUMBER(18),
+  error_text     VARCHAR2(512),
+  error_fields   VARCHAR2(512),
+  record_content VARCHAR2(1024),
+  letter_req_id  NUMBER(18),
+  clnt_fname     VARCHAR2(80),
+  clnt_lname     VARCHAR2(80),
+  clnt_mname     VARCHAR2(80),
+  attention_line VARCHAR2(80),
+  house_no       VARCHAR2(80),
+  street1        VARCHAR2(80),
+  street2        VARCHAR2(80),
+  city           VARCHAR2(80),
+  state          VARCHAR2(80),
+  zip            VARCHAR2(32),
+  zip_four       VARCHAR2(32),
+  status_code    VARCHAR2(80),
+  update_code    VARCHAR2(80),
+  case_cin       VARCHAR2(32),
+  mail_ts        DATE,
+  control_num    VARCHAR2(80),
+  recipient_id   VARCHAR2(80),
+  micrd_id       VARCHAR2(80),
+  process_ind    NUMBER(1),
+  process_ts     DATE,
+  job_ctrl_id    NUMBER(38) not null
+)
+;
+create index IDX01_ETL_INIT_MIHC_CON on ETL_INIT_MIHC_CON (LETTER_REQ_ID, JOB_ID);
+create index IDX02_ETL_INIT_MIHC_CON on ETL_INIT_MIHC_CON (RECIPIENT_ID, JOB_ID);
+alter table ETL_INIT_MIHC_CON
+  add constraint ETL_INIT_MIHC_CON_PK primary key (ROW_NUM, JOB_ID);
+grant select, insert, update on ETL_INIT_MIHC_CON to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on ETL_INIT_MIHC_CON to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on ETL_INIT_MIHC_CON to MAXDAT_MITRAN_READ_ONLY;
+

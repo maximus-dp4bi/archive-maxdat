@@ -201,12 +201,11 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
            <schema_name/>
            </partitioning>
     <connection>EMRS</connection>
-    <sql>--SELECT to_char(add_months(sysdate,-6),&apos;MM&#47;DD&#47;YYYY&apos;) as todays_date 
---FROM dual
-
+    <sql>
 SELECT CASE WHEN job_start_date = TRUNC(sysdate) THEN TO_CHAR(sysdate,&apos;MM&#47;DD&#47;YYYY&apos;) --in case of same day re-runs
           ELSE TO_CHAR(job_start_date+1,&apos;MM&#47;DD&#47;YYYY&apos;) END todays_date --get the following day after last successful run
-FROM (SELECT TRUNC(NVL(MAX(job_start_date),sysdate)) job_start_date
+----select TO_CHAR(job_start_date-30,&apos;MM&#47;DD&#47;YYYY&apos;) todays_date
+from (SELECT TRUNC(NVL(MAX(job_start_date),sysdate)) job_start_date
 FROM corp_etl_job_statistics
 WHERE job_name = &apos;ETL_Enrollment&apos;
 AND job_status_cd = &apos;COMPLETED&apos;)</sql>

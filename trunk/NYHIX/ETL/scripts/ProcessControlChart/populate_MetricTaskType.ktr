@@ -278,6 +278,28 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Temp NYHIX</name>
+    <server>${DB_TEMP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_TEMP_NAME}</database>
+    <port>1557</port>
+    <username>${DB_TEMP_USER}</username>
+    <password>${DB_TEMP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
   <hop> <from>Table input - Reporting periods</from><to>Database join - Get unclaimed tasks</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get unclaimed tasks</from><to>Database join - Get cycle times and percent completed timely</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get cycle times and percent completed timely</from><to>Row Normaliser</to><enabled>Y</enabled> </hop>  <hop> <from>Row Normaliser</from><to>Database lookup - Get metric_definition_id</to><enabled>Y</enabled> </hop>  <hop> <from>Database lookup - Get metric_definition_id</from><to>Filter rows - check if metric is needed</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - check if metric is needed</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows - check if metric is needed</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Insert &#47; Update - Task Type Metrics</to><enabled>Y</enabled> </hop>  </order>
   <step>
@@ -300,15 +322,17 @@
        MAX(cycle_time_busdays) max_cyle_time_busdays,
        ROUND(AVG(cycle_time_busdays),2) avg_cyle_time_busdays
 FROM(
-  SELECT CASE WHEN &quot;Timeliness Status&quot; = &apos;Timely&apos; THEN 1 ELSE 0 END cnt_timely
+  SELECT CASE WHEN timeliness_status = &apos;Timely&apos; THEN 1 ELSE 0 END cnt_timely
          ,1 cnt_completed  
-         ,TRUNC(&quot;Complete Date&quot;) - TRUNC(&quot;Create Date&quot;) cycle_time_caldays
-         ,BPM_COMMON.BUS_DAYS_BETWEEN(TRUNC(&quot;Create Date&quot;),TRUNC(&quot;Complete Date&quot;)) cycle_time_busdays
-  FROM d_mw_current
-  WHERE &quot;Complete Date&quot; IS NOT NULL
-  AND TRUNC(&quot;Complete Date&quot;) &gt;= ?
-  AND TRUNC(&quot;Complete Date&quot;) &lt;= ?
-  AND &quot;Current Task Type&quot; = ?)</sql>
+         ,TRUNC(complete_date) - TRUNC(vc.create_date) cycle_time_caldays
+         ,BPM_COMMON.BUS_DAYS_BETWEEN(TRUNC(vc.create_date),TRUNC(complete_date)) cycle_time_busdays
+         ,task_name
+  FROM d_mw_v2_current vc, d_task_types tt
+  WHERE vc.task_type_id = tt.task_type_id
+  AND complete_date IS NOT NULL
+  AND TRUNC(complete_date) &gt;= ?
+  AND TRUNC(complete_date) &lt;= ?
+  AND tt.task_name = ?)</sql>
     <outer_join>N</outer_join>
     <replace_vars>N</replace_vars>
     <parameter>
@@ -327,8 +351,8 @@ FROM(
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>423</xloc>
-      <yloc>140</yloc>
+      <xloc>605</xloc>
+      <yloc>62</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -349,12 +373,13 @@ FROM(
        MAX(age_unclaimed_task) max_age_unclaimed, 
        AVG(age_unclaimed_task) avg_age_unclaimed 
 FROM 
- (SELECT CASE WHEN &quot;SLA Days Type&quot; = &apos;B&apos; THEN &quot;Age in Business Days&quot; ELSE &quot;Age in Calendar Days&quot; END age_unclaimed_task
-  FROM d_mw_current
-  WHERE &quot;Current Task Status&quot; = &apos;UNCLAIMED&apos;
-  AND trunc(&quot;Create Date&quot;) &gt;= ?
-  AND trunc(&quot;Create Date&quot;) &lt;= ?
-  AND &quot;Current Task Type&quot; = ?)</sql>
+ (SELECT CASE WHEN sla_days_type = &apos;B&apos; THEN age_in_business_days ELSE age_in_calendar_days END age_unclaimed_task
+  FROM d_mw_v2_current vc, d_task_types tt
+  WHERE vc.task_type_id = tt.task_type_id
+  AND curr_task_status = &apos;UNCLAIMED&apos;
+  AND trunc(vc.create_date) &gt;= ?
+  AND trunc(vc.create_date) &lt;= ?
+  AND tt.task_name = ?)</sql>
     <outer_join>N</outer_join>
     <replace_vars>N</replace_vars>
     <parameter>
@@ -373,7 +398,7 @@ FROM
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>289</xloc>
+      <xloc>300</xloc>
       <yloc>62</yloc>
       <draw>Y</draw>
       </GUI>
@@ -414,8 +439,8 @@ FROM
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>683</xloc>
-      <yloc>172</yloc>
+      <xloc>213</xloc>
+      <yloc>195</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -432,8 +457,8 @@ FROM
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1013</xloc>
-      <yloc>54</yloc>
+      <xloc>743</xloc>
+      <yloc>132</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -460,8 +485,8 @@ FROM
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>788</xloc>
-      <yloc>52</yloc>
+      <xloc>511</xloc>
+      <yloc>195</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -517,8 +542,8 @@ FROM
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>913</xloc>
-      <yloc>284</yloc>
+      <xloc>938</xloc>
+      <yloc>196</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -566,8 +591,8 @@ FROM
         <norm>actual_value</norm>
         </field>      </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>40</yloc>
+      <xloc>872</xloc>
+      <yloc>62</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -601,8 +626,8 @@ FROM
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>909</xloc>
-      <yloc>173</yloc>
+      <xloc>742</xloc>
+      <yloc>195</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -654,8 +679,8 @@ AND current_reporting_period &lt;= TO_DATE(&apos;${MW_CURRENT_REPORTING_PERIOD}&
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
-      <yloc>145</yloc>
+      <xloc>97</xloc>
+      <yloc>62</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

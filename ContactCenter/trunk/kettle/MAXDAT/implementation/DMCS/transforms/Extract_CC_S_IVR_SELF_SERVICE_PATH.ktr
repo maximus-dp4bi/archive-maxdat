@@ -3,7 +3,20 @@
   <info>
     <name>Extract_CC_S_IVR_SELF_SERVICE_PATH</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -95,8 +108,8 @@ Steps:
 9. Copy Interval rows to result - copies the file data to the result</note>
       <xloc>26</xloc>
       <yloc>301</yloc>
-      <width>1013</width>
-      <heigth>384</heigth>
+      <width>1322</width>
+      <heigth>499</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -162,11 +175,11 @@ Steps:
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <server/>
     <type>ORACLE</type>
     <access>Native</access>
     <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
+    <port>1521</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
@@ -183,7 +196,7 @@ Steps:
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
@@ -286,7 +299,7 @@ Steps:
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get files from result</from><to>Filter path = MAXDMCS_CC_S_IVR_INTERVAL</to><enabled>Y</enabled> </hop>  <hop> <from>Filter path = MAXDMCS_CC_S_IVR_INTERVAL</from><to>IVR_SELF_SERVICE_PATH CSV input</to><enabled>Y</enabled> </hop>  <hop> <from>Filter path = MAXDMCS_CC_S_IVR_INTERVAL</from><to>Ignore Other File Names</to><enabled>Y</enabled> </hop>  <hop> <from>IVR_SELF_SERVICE_PATH CSV input</from><to>Copy CONTACT rows to result</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>IVR_SELF_SERVICE_PATH CSV input</from><to>Copy CONTACT rows to result</to><enabled>Y</enabled> </hop>  <hop> <from>IVR_SELF_SERVICE_PATH CSV input</from><to>Table output</to><enabled>N</enabled> </hop>  <hop> <from>Get files from result</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Filter path = MAXDMCS_CC_S_IVR_SELF_SERVICE_PATH</to><enabled>Y</enabled> </hop>  <hop> <from>Filter path = MAXDMCS_CC_S_IVR_SELF_SERVICE_PATH</from><to>IVR_SELF_SERVICE_PATH CSV input</to><enabled>Y</enabled> </hop>  <hop> <from>Filter path = MAXDMCS_CC_S_IVR_SELF_SERVICE_PATH</from><to>Ignore Other File Names</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Copy CONTACT rows to result</name>
     <type>RowsToResult</type>
@@ -299,14 +312,14 @@ Steps:
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>511</xloc>
-      <yloc>20</yloc>
+      <xloc>630</xloc>
+      <yloc>25</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter path = MAXDMCS_CC_S_IVR_INTERVAL</name>
+    <name>Filter path = MAXDMCS_CC_S_IVR_SELF_SERVICE_PATH</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -323,7 +336,7 @@ Steps:
  <leftvalue>path</leftvalue>
  <function>CONTAINS</function>
  <rightvalue/>
- <value><name>constant</name><type>String</type><text>CC_S_SELF_SERVICE_PATH</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+ <value><name>constant</name><type>String</type><text>MAXDMCS_CC_S_IVR_SELF_SERVICE_PATH</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -345,8 +358,8 @@ Steps:
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>69</xloc>
-      <yloc>30</yloc>
+      <xloc>33</xloc>
+      <yloc>0</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -376,95 +389,7 @@ Steps:
     <encoding/>
     <fields>
       <field>
-        <name>IVR_INTERVAL_ID</name>
-        <type>Integer</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>INTERVAL_DATE</name>
-        <type>Date</type>
-        <format>yyyy-MM-dd HH:mm:ss</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>CONTACTS_CREATED</name>
-        <type>Integer</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>CONTACTS_OFFERED_TO_ACD</name>
-        <type>Integer</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>CONTACTS_CONTAINED_IN_IVR</name>
-        <type>Integer</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>MIN_TIME_IN_THE_IVR</name>
-        <type>Number</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>MAX_TIME_IN_THE_IVR</name>
-        <type>Number</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>MEAN_TIME_IN_THE_IVR</name>
-        <type>Number</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>MEDIAN_TIME_IN_THE_IVR</name>
+        <name>IVR_SELF_SERVICE_PATH_ID</name>
         <type>Number</type>
         <format/>
         <currency/>
@@ -475,18 +400,62 @@ Steps:
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>STDDEV_TIME_IN_THE_IVR</name>
-        <type>Number</type>
+        <name>CODE</name>
+        <type>String</type>
         <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>15</length>
+        <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>EXTRACT_DT</name>
+        <name>DESCRIPTION</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>BEGIN_NODE</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>END_NODE</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>RECORD_EFF_DT</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>RECORD_END_DT</name>
         <type>Date</type>
         <format>yyyy-MM-dd HH:mm:ss</format>
         <currency>$</currency>
@@ -523,7 +492,125 @@ Steps:
       </GUI>
     </step>
 
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema>SYSTEM</schema>
+    <table>TEST_IVR</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>IVR_SELF_SERVICE_PATH_ID</column_name>
+          <stream_name>IVR_SELF_SERVICE_PATH_ID</stream_name>
+        </field>
+        <field>
+          <column_name>CODE</column_name>
+          <stream_name>CODE</stream_name>
+        </field>
+        <field>
+          <column_name>DESCRIPTION</column_name>
+          <stream_name>DESCRIPTION</stream_name>
+        </field>
+        <field>
+          <column_name>BEGIN_NODE</column_name>
+          <stream_name>BEGIN_NODE</stream_name>
+        </field>
+        <field>
+          <column_name>END_NODE</column_name>
+          <stream_name>END_NODE</stream_name>
+        </field>
+        <field>
+          <column_name>RECORD_EFF_DT</column_name>
+          <stream_name>RECORD_EFF_DT</stream_name>
+        </field>
+        <field>
+          <column_name>RECORD_END_DT</column_name>
+          <stream_name>RECORD_END_DT</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>621</xloc>
+      <yloc>137</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_rowlevel</loglevel>
+      <displayHeader>Y</displayHeader>
+      <logmessage>inside extract</logmessage>
+    <fields>
+      <field>
+        <name>type</name>
+        </field>
+      <field>
+        <name>path</name>
+        </field>
+      <field>
+        <name>parentorigin</name>
+        </field>
+      <field>
+        <name>origin</name>
+        </field>
+      <field>
+        <name>comment</name>
+        </field>
+      <field>
+        <name>timestamp</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>97</xloc>
+      <yloc>59</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step_error_handling>
+      <error>
+        <source_step>IVR_SELF_SERVICE_PATH CSV input</source_step>
+        <target_step>Table output</target_step>
+        <is_enabled>N</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
   </step_error_handling>
    <slave-step-copy-partition-distribution>
 </slave-step-copy-partition-distribution>

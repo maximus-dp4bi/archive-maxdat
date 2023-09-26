@@ -1,0 +1,8 @@
+UPDATE D_NYHIX_MFD_CURRENT_V2
+SET SLA_TIMELINESS_STATUS = NYHIX_MAIL_FAX_DOC_V2.GET_SLA_TIMELINESS_STATUS(DOC_TYPE_CD,SLA_COMPLETE,SLA_COMPLETE_DT,CREATE_DT,RECEIVED_DT,SCAN_DT,KOFAX_DCN)      
+WHERE kofax_dcn LIKE 'V%'
+AND sla_timeliness_status = 'Not Required'
+AND instance_status = 'Complete'
+AND complete_dt >= to_date('08/26/2020','mm/dd/yyyy');
+
+COMMIT;

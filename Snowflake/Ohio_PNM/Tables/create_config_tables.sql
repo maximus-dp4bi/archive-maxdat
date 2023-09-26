@@ -1,0 +1,64 @@
+CREATE OR REPLACE TABLE PUBLIC.D_DATES (
+   D_DATE            DATE        NOT NULL  
+  ,D_MONTH_NAME      CHAR(3) NOT NULL
+  ,D_MONTH           CHAR(15) NOT NULL 
+  ,D_DAY             CHAR(3) NOT NULL
+  ,D_DAY_NAME        CHAR(10) NOT NULL  
+  ,DAY_OF_WEEK       VARCHAR(9)  NOT NULL
+  ,DAY_OF_MON        SMALLINT    NOT NULL
+  ,DAY_OF_YEAR       SMALLINT    NOT NULL
+  ,D_YEAR            SMALLINT    NOT NULL
+  ,D_MONTH_NUM       SMALLINT    NOT NULL
+  ,D_WEEK_NUM        SMALLINT    NOT NULL
+  ,D_WEEK_OF_MONTH   SMALLINT NOT NULL  
+  ,WEEKEND_FLAG      CHAR(1)
+  ,BUSINESS_DAY_FLAG CHAR(1) 
+)
+AS
+  WITH CTE_MY_DATE AS (
+    SELECT 
+         D_DATE        
+    FROM
+        (SELECT 
+            DATEADD(DAY, SEQ4(), TO_DATE('2019-01-01')) AS D_DATE        
+        FROM 
+            TABLE(GENERATOR(ROWCOUNT=>1826))) DATES 
+-- Number of days after reference date in previous line
+  )
+  SELECT A.D_DATE       
+        ,MONTHNAME(D_DATE)
+        ,TO_CHAR(D_DATE,'MMMM')
+        ,DAYNAME(D_DATE)
+        ,DECODE(DAYNAME(D_DATE), 'Mon','Monday', 'Tue','Tuesday','Wed','Wednesday','Thu','Thursday','Fri','Friday','Sat','Saturday','Sun','Sunday')
+        ,DAYOFWEEK(D_DATE)
+        ,DAY(D_DATE)
+        ,DAYOFYEAR(D_DATE)
+        ,YEAR(D_DATE)
+        ,MONTH(D_DATE)
+        ,WEEKISO(D_DATE)
+        ,CAST(ROUND((DAY( D_DATE ) +6)/7,0) as VARCHAR) AS WEEK_OF_MONTH
+        ,CASE WHEN DAYOFWEEK(D_DATE) IN(0,6) THEN 'Y' ELSE 'N' END AS WEEKEND_FLAG
+        ,CASE WHEN WEEKEND_FLAG ='N' THEN 'Y' ELSE 'N' END AS BUSINESS_DAY_FLAG
+       -- ,CASE WHEN WEEKISO(D_DATE) = 1 THEN 
+    FROM 
+        CTE_MY_DATE A        
+   ;	
+
+
+CREATE OR REPLACE TABLE OHPNM_DP4BI_DEV.CTL_OHPNM_DP_COUNT_COMPARE(TIMESTAMP TIMESTAMP_NTZ(9),
+TABLE_SCHEMA VARCHAR(100),
+TABLE_NAME VARCHAR(2000),
+LOG_CREATED_ON TIMESTAMP_NTZ(9),
+OHPNM_SOURCE_COUNT NUMBER(38,0),
+OHPNM_DP_COUNT NUMBER(38,0));
+
+-- View to compare values between MARS and Snowflake
+create or replace view PUBLIC.CTL_OHPNM_DP_COUNT_COMPARE_SV AS 
+SELECT
+    t.TABLE_SCHEMA
+    ,t.TABLE_NAME    
+    ,t.LOG_CREATED_ON    
+    ,t.OHPNM_SOURCE_COUNT
+    ,t.OHPNM_DP_COUNT
+from
+   OHPNM_DP4BI_DEV.CTL_OHPNM_DP_COUNT_COMPARE t    ;  

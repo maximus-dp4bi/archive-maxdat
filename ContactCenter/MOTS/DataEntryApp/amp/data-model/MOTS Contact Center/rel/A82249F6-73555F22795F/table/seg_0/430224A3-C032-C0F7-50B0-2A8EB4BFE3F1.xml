@@ -1,0 +1,192 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="430224A3-C032-C0F7-50B0-2A8EB4BFE3F1" name="CC_D_ACTIVITY_TYPE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>CC_D_ACTIVITY_TYPE contains the agent activity types that are relevant to the Agent Performance module.  The table will contain the list of activities for which agent activity should be captured.  The expectation is that if an activity type exists in this table, the ETL process should load data from the contact center specifying when and for how long agents engaged in these actvities.&lt;br/&gt;&lt;br/&gt;The data source for this table is the CC_C_ACTIVITY_TYPE staging table.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>A52BFC12-7BED-8967-7102-48FBBD3B30B6</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="D_ACTIVITY_TYPE_ID" id="24A77914-B5FA-C620-8DCD-2A2297917295">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F7727849-B671-F4CE-B9D9-52E5CD90CBB0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_PROJECT_ID" id="7C0BEDE9-0374-E32E-9C03-27FB2D113920">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-06 02:05:26 UTC</createdTime>
+<comment>FK to the D_PROJECT table.  This indicates to which project the activity is associated</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_NAME" id="5272900C-5DE0-C1F7-144E-BA6FBB9B73BB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>The human readable unique identifier for an activity type.  This value describes how the agent spent their time.  Examples are Ready, Not Ready, Talking, After Call Work, Break, Lunch, Training, Meeting, etc.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>714CD1D7-476B-D2F3-7B9F-68C54C8D5EC4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_DESC" id="6941B4B1-1CE6-990E-A1B0-C0D9F3D17B8C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>This field contains an explanation of the activity type and its relevance to the contact center.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>45278948-A63C-02CE-4AE8-EBA093185F3E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_CATEGORY" id="B5D64DF5-D7AC-198B-FF94-7BE74D9A7597">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>This field is used to categorize activity types.  &lt;br/&gt;&lt;br/&gt;**  NEED INPUT ON BUSINESS REQUIREMENTS TO DEFINE VALID VALUES.  CANDIDATES FROM BLUE PUMPKIN INCLUDE:  Assigned Work Activities, Shift Events, Planned Events, Absence Activities, Learning Activities</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>7F842FA6-F60C-6165-D7AB-396B52B04D4F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<defaultValue>Unknown</defaultValue>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_PAID_FLAG" id="5A41691D-1CF0-5D91-B4B9-E50532B41B1D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>This field indicates whether or not the agent is paid for time spent in this activity.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>03D19146-6373-1885-AEB5-DA8F94AD8A73</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_AVAILABLE_FLAG" id="967A7998-D810-69B4-8587-F13DD583FF22">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>This field indicates whether or not the time spent in this activity is time that the agent is handling or can handle client calls.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>79426B53-139A-4B0C-DC03-B82D46A18073</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_READY_FLAG" id="8A4DE94B-0520-E49D-7F34-AA3766A83508">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-21 10:19:04 UTC</createdTime>
+<comment>This field indicates whether or not the time spent in this activity is time that the agent is ready to handle client calls.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_ABSENCE_FLAG" id="77141887-979D-55C6-641E-822DA01777EF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-21 10:19:04 UTC</createdTime>
+<comment>This field indicates whether or not this activity type represents time that the agent is not at work.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VERSION" id="6F431AA0-8CA5-468B-82FE-F5207C18BC36">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>2DF3C9FE-B023-2AE0-1847-B95DC3D8C7FD</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_EFF_DT" id="A1206428-8E0E-EF8F-E93D-0760347414F8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>Effective date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>0FCF42B9-C9D9-951F-0D94-3A9D6805F18F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_END_DT" id="7288EE87-5885-D435-F8AB-B03CA4CA0ED2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<comment>End date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F7F163B7-AE1B-E23A-F100-4545756151B7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4AA89DEB-C1D0-21DB-E21A-395E52FA63D3" name="CC_D_AVAILABILITY_TYPE_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>89962EC1-82A1-DFE1-A340-3273FDB95B7F</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="24A77914-B5FA-C620-8DCD-2A2297917295"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="798AB565-5901-5441-3724-1EC196D37398" name="CC_D_ACTIVITY_TYPE__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>745D161F-4F7B-9D58-B1F4-5413C1A883D3</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="5272900C-5DE0-C1F7-144E-BA6FBB9B73BB"/>
+<colUsage columnID="A1206428-8E0E-EF8F-E93D-0760347414F8"/>
+<colUsage columnID="7C0BEDE9-0374-E32E-9C03-27FB2D113920"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A683BF3E-7B0E-C58D-E359-AF6D7FF40891" name="CC_D_AVAILABILITY_TYPE__IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:58:41 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AVAILABILITY_TYPE_ID).</notes>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>11D7145A-CDAE-C80D-C10B-EB37C7EF935E</importedID>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="24A77914-B5FA-C620-8DCD-2A2297917295"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

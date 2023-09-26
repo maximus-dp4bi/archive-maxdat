@@ -184,7 +184,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input - CHANGE_REASONS from EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>N</enabled> </hop>  <hop> <from>Table input -CHANGE_REASONS from Vida</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - CHANGE_REASONS from EMRS</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff) - Compare Vida vs. EMRS</from><to>Synchronize after merge</to><enabled>Y</enabled> </hop>  <hop> <from>Synchronize after merge</from><to>Text file output - Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -CHANGE_REASONS from Vida</from><to>Unique rows</to><enabled>Y</enabled> </hop>  <hop> <from>Unique rows</from><to>Merge Rows (diff) - Compare Vida vs. EMRS</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Merge Rows (diff) - Compare Vida vs. EMRS</name>
     <type>MergeRows</type>
@@ -309,8 +309,8 @@ ORDER BY change_reason_code, change_reason_code_plan,managed_care_program</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>280</yloc>
+      <xloc>130</xloc>
+      <yloc>180</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -537,8 +537,8 @@ ORDER BY change_reason_code, change_reason_code_plan, managed_care_program </sql
   <step_error_handling>
       <error>
         <source_step>Synchronize after merge</source_step>
-        <target_step/>
-        <is_enabled>N</is_enabled>
+        <target_step>Text file output - Error Log</target_step>
+        <is_enabled>Y</is_enabled>
         <nr_valuename>number_errors</nr_valuename>
         <descriptions_valuename>error_descriptions</descriptions_valuename>
         <fields_valuename>error_fields</fields_valuename>

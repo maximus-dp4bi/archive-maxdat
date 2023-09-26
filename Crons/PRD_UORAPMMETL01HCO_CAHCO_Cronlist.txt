@@ -1,0 +1,14 @@
+#00 * * * * /u01/maximus/maxdat/CAHCO/scripts/CAHCO_run_informing_materials.sh > /u01/maximus/maxdat/CAHCO/logs/InformingMaterials/CAHCO_run_informing_materials_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#MAXDAT-7757
+#00 * * * * /u01/maximus/maxdat/CAHCO/scripts/CAHCO_run_information_systems.sh > /u01/maximus/maxdat/CAHCO/logs/InformationSystems/CAHCO_run_information_systems_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#30 03 * * * /u01/maximus/maxdat/CAHCO/scripts/CAHCO_run_emrs_all.sh > /u01/maximus/maxdat/CAHCO/logs/EMRS/CAHCO_run_emrs_all_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+00 06-18 * * * /u01/maximus/maxdat/CAHCO8/scripts/CAHCO_run_calls.sh > /u01/maximus/maxdat/CAHCO8/logs/EMRS/CAHCO_run_calls_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#MAXDAT-9240 - 20190327
+0 6 * * * /u01/maximus/maxdat/CAHCO8/scripts/CAHCO_run_bpm.sh >> /u01/maximus/maxdat/CAHCO8/logs/MW/CAHCO_run_bpm.$(date +\%Y-\%m-\%d).log 2>&1
+0 7 * * * /u01/maximus/maxdat/CAHCO8/scripts/CAHCO_run_instance_load.sh >> /u01/maximus/maxdat/CAHCO8/logs/MW/CAHCO_run_instance_load.$(date +\%Y-\%m-\%d).log 2>&1
+#Ansible: log_purge
+0 3 * * * /u01/app/appadmin/scripts/log_purge.sh
+#MAXDAT-9292
+00 03 * * * /u01/maximus/maxdat/CAHCO8/scripts/CAHCO_run_emrs_all.sh > /u01/maximus/maxdat/CAHCO8/logs/EMRS/CAHCO_run_emrs_all_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#MAXDAT-11070
+0 6-18 * * * /u01/maximus/maxdat/CAHCO8/scripts/CAHCO_run_emrs_hourly.sh >> /u01/maximus/maxdat/CAHCO8/logs/EMRS/CAHCO_run_emrs_hourly.$(date +\%Y-\%m-\%d).log 2>&1

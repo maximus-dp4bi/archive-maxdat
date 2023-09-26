@@ -3,7 +3,20 @@
   <info>
     <name>load_metrics_actuals_CC_F_AGENT_BY_DATE_Payroll_Attrition</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -271,7 +284,7 @@ metric and reporting period
   <connection>
     <name>ACD</name>
     <server/>
-    <type>CACHE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_ACD_SOURCE}</database>
     <port>1521</port>
@@ -284,6 +297,7 @@ metric and reporting period
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -307,6 +321,74 @@ metric and reporting period
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_AVAYA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -404,13 +486,13 @@ metric and reporting period
   </connection>
   <connection>
     <name>MOTS</name>
-    <server/>
+    <server>localhost</server>
     <type>ORACLE</type>
     <access>JNDI</access>
     <database>${JNDI_MOTS_SOURCE}</database>
     <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <username>amp</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb14af688f9fba9e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -427,7 +509,7 @@ metric and reporting period
   <connection>
     <name>WFM</name>
     <server/>
-    <type>ORACLE</type>
+    <type>MSSQL</type>
     <access>JNDI</access>
     <database>${JNDI_WFM_SOURCE}</database>
     <port>1521</port>
@@ -440,6 +522,7 @@ metric and reporting period
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
@@ -460,7 +543,7 @@ metric and reporting period
            </partitioning>
     <fields>
       <field>
-        <name>ACTUAL_VALUE_PROVIDED_BY</name>
+        <name>NEW_ACTUAL_VALUE_PROVIDED_BY</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -471,7 +554,7 @@ metric and reporting period
         <precision>-1</precision>
       </field>
       <field>
-        <name>FORECAST_VALUE_PROVIDED_BY</name>
+        <name>NEW_FORECAST_VALUE_PROVIDED_BY</name>
         <type>String</type>
         <format/>
         <currency/>
@@ -988,12 +1071,12 @@ AND ACTUAL_EFF_DT &lt;= to_date(&apos;${endDate}&apos;, &apos;yyyy-mm-dd&apos;)<
       </value>
       <value>
         <name>ACTUAL_VALUE_PROVIDED_BY</name>
-        <rename>ACTUAL_VALUE_PROVIDED_BY</rename>
+        <rename>NEW_ACTUAL_VALUE_PROVIDED_BY</rename>
         <update>N</update>
       </value>
       <value>
         <name>FORECAST_VALUE_PROVIDED_BY</name>
-        <rename>FORECAST_VALUE_PROVIDED_BY</rename>
+        <rename>NEW_FORECAST_VALUE_PROVIDED_BY</rename>
         <update>N</update>
       </value>
     </lookup>

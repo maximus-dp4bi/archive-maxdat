@@ -3,7 +3,20 @@
   <info>
     <name>ManageWork_Move_updates</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -42,7 +55,7 @@
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
-    <size_rowset>10000</size_rowset>
+    <size_rowset>8000</size_rowset>
     <sleep_time_empty>50</sleep_time_empty>
     <sleep_time_full>50</sleep_time_full>
     <unique_connections>N</unique_connections>
@@ -72,7 +85,7 @@
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>OCI</access>
+    <access>Native</access>
     <database>${DB_MAXDAT_NAME}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
@@ -139,45 +152,45 @@
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <sql>SELECT
-  MW_ID
-, TASK_ID
-, PARENT_TASK_ID
-, WRSTATUS_ID
-, TASK_TYPE
-, TASK_STATUS
-, STATUS_DATE
-, STATUS_REASON
-, CREATE_DATE
-, CREATED_BY_NAME
-, PRIORITY
-, DUE_DATE
-, ASSIGNED_TO
-, QUEUE
-, CONTEXT
-, DRIVER_TYPE
-, DRIVER_KEY
-, ACTION_CATEGORY
-, RULE_EXECUTED
-, ROLE_NAME
-, CANCEL_WORK_DATE
-, COMPLETE_DATE
-, INSTANCE_STATUS
-, LAST_UPDATE_DATE
-, LAST_UPDATE_BY_NAME
-, ASF_CANCEL_WORK
-, STAGE_DONE_DATE
-, STG_EXTRACT_DATE
-, STG_LAST_UPDATE_DATE
-, ASF_COMPLETE_WORK
-, &apos;Manage Work&apos; as process_name
-, &apos;ManageWork Move Updates&apos; as job_name
-, MW_ID as driver_key_number 
-, sysdate as system_date
-, &apos;FLHK_ETL_MANAGE_WORK&apos; as driver_table_name
-FROM FLHK_ETL_MANAGE_WORK_WIP_BPM
-where MW_PROCESSED = &apos;Y&apos;
-</sql>
+    <sql>SELECT MW_ID,
+TASK_ID,
+PARENT_TASK_ID,
+TASK_TYPE,
+TASK_STATUS,
+STATUS_DATE,
+STATUS_REASON,
+CREATE_DATE,
+CREATED_BY_NAME,
+PRIORITY,
+DUE_DATE,
+ASSIGNED_TO,
+QUEUE,
+CONTEXT,
+DRIVER_TYPE,
+DRIVER_KEY,
+ACTION_CATEGORY,
+RULE_EXECUTED,
+ROLE_NAME,
+CANCEL_WORK_DATE,
+COMPLETE_DATE,
+INSTANCE_STATUS,
+LAST_UPDATE_DATE,
+LAST_UPDATE_BY_NAME,
+ASF_CANCEL_WORK,
+STAGE_DONE_DATE,
+STG_EXTRACT_DATE,
+STG_LAST_UPDATE_DATE,
+ASF_COMPLETE_WORK,
+MW_PROCESSED,
+WRSTATUS_ID, 
+&apos;Manage Work&apos; as process_name, 
+&apos;ManageWork Move Updates&apos; as job_name, 
+MW_ID as driver_key_number,
+sysdate as system_date,
+&apos;FLHK_ETL_MANAGE_WORK&apos; as driver_table_name,
+&apos;CRITICAL&apos; error_level
+FROM FLHK_ETL_MANAGE_WORK_WIP_BPM A
+where MW_PROCESSED = &apos;Y&apos;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -186,7 +199,7 @@ where MW_PROCESSED = &apos;Y&apos;
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>170</xloc>
-      <yloc>269</yloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -204,7 +217,7 @@ where MW_PROCESSED = &apos;Y&apos;
     <connection>MAXDAT</connection>
     <schema/>
     <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
+    <commit>100</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>N</use_batch>
@@ -232,28 +245,8 @@ where MW_PROCESSED = &apos;Y&apos;
           <stream_name>JOB_NAME</stream_name>
         </field>
         <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
           <column_name>ERR_DATE</column_name>
           <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
         </field>
         <field>
           <column_name>UPDATE_TS</column_name>
@@ -262,6 +255,30 @@ where MW_PROCESSED = &apos;Y&apos;
         <field>
           <column_name>CREATE_TS</column_name>
           <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>nr_of_err_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>nr_err_desc_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>nr_err_fields_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>nr_err_codes_fieldname</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_LEVEL</stream_name>
         </field>
     </fields>
      <cluster_schema/>
@@ -277,13 +294,13 @@ where MW_PROCESSED = &apos;Y&apos;
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
-    <copies>4</copies>
+    <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <skip_lookup>Y</skip_lookup>
+    <skip_lookup>N</skip_lookup>
     <commit>1000</commit>
     <use_batch>N</use_batch>
     <error_ignored>N</error_ignored>
@@ -292,92 +309,26 @@ where MW_PROCESSED = &apos;Y&apos;
       <schema/>
       <table>FLHK_ETL_MANAGE_WORK</table>
       <key>
-        <name>MW_ID</name>
-        <field>MW_ID</field>
-        <condition>=</condition>
-        <name2/>
-        </key>
-      <key>
         <name>TASK_ID</name>
         <field>TASK_ID</field>
         <condition>=</condition>
         <name2/>
         </key>
       <value>
-        <name>MW_ID</name>
-        <rename>MW_ID</rename>
-        </value>
-      <value>
-        <name>TASK_ID</name>
-        <rename>TASK_ID</rename>
-        </value>
-      <value>
-        <name>PARENT_TASK_ID</name>
-        <rename>PARENT_TASK_ID</rename>
-        </value>
-      <value>
-        <name>TASK_TYPE</name>
-        <rename>TASK_TYPE</rename>
-        </value>
-      <value>
-        <name>TASK_STATUS</name>
-        <rename>TASK_STATUS</rename>
-        </value>
-      <value>
-        <name>STATUS_DATE</name>
-        <rename>STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>STATUS_REASON</name>
-        <rename>STATUS_REASON</rename>
-        </value>
-      <value>
-        <name>CREATE_DATE</name>
-        <rename>CREATE_DATE</rename>
-        </value>
-      <value>
-        <name>CREATED_BY_NAME</name>
-        <rename>CREATED_BY_NAME</rename>
-        </value>
-      <value>
-        <name>PRIORITY</name>
-        <rename>PRIORITY</rename>
-        </value>
-      <value>
-        <name>DUE_DATE</name>
-        <rename>DUE_DATE</rename>
-        </value>
-      <value>
-        <name>ASSIGNED_TO</name>
-        <rename>ASSIGNED_TO</rename>
-        </value>
-      <value>
-        <name>QUEUE</name>
-        <rename>QUEUE</rename>
-        </value>
-      <value>
-        <name>CONTEXT</name>
-        <rename>CONTEXT</rename>
-        </value>
-      <value>
-        <name>DRIVER_TYPE</name>
-        <rename>DRIVER_TYPE</rename>
-        </value>
-      <value>
-        <name>DRIVER_KEY</name>
-        <rename>DRIVER_KEY</rename>
-        </value>
-      <value>
         <name>ACTION_CATEGORY</name>
         <rename>ACTION_CATEGORY</rename>
         </value>
       <value>
-        <name>RULE_EXECUTED</name>
-        <rename>RULE_EXECUTED</rename>
+        <name>ASF_CANCEL_WORK</name>
+        <rename>ASF_CANCEL_WORK</rename>
         </value>
       <value>
-        <name>ROLE_NAME</name>
-        <rename>ROLE_NAME</rename>
+        <name>ASF_COMPLETE_WORK</name>
+        <rename>ASF_COMPLETE_WORK</rename>
+        </value>
+      <value>
+        <name>ASSIGNED_TO</name>
+        <rename>ASSIGNED_TO</rename>
         </value>
       <value>
         <name>CANCEL_WORK_DATE</name>
@@ -388,24 +339,76 @@ where MW_PROCESSED = &apos;Y&apos;
         <rename>COMPLETE_DATE</rename>
         </value>
       <value>
-        <name>INSTANCE_STATUS</name>
-        <rename>INSTANCE_STATUS</rename>
+        <name>CONTEXT</name>
+        <rename>CONTEXT</rename>
         </value>
       <value>
-        <name>LAST_UPDATE_DATE</name>
-        <rename>LAST_UPDATE_DATE</rename>
+        <name>CREATED_BY_NAME</name>
+        <rename>CREATED_BY_NAME</rename>
+        </value>
+      <value>
+        <name>CREATE_DATE</name>
+        <rename>CREATE_DATE</rename>
+        </value>
+      <value>
+        <name>DRIVER_KEY</name>
+        <rename>DRIVER_KEY</rename>
+        </value>
+      <value>
+        <name>DRIVER_TYPE</name>
+        <rename>DRIVER_TYPE</rename>
+        </value>
+      <value>
+        <name>DUE_DATE</name>
+        <rename>DUE_DATE</rename>
+        </value>
+      <value>
+        <name>INSTANCE_STATUS</name>
+        <rename>INSTANCE_STATUS</rename>
         </value>
       <value>
         <name>LAST_UPDATE_BY_NAME</name>
         <rename>LAST_UPDATE_BY_NAME</rename>
         </value>
       <value>
-        <name>ASF_CANCEL_WORK</name>
-        <rename>ASF_CANCEL_WORK</rename>
+        <name>LAST_UPDATE_DATE</name>
+        <rename>LAST_UPDATE_DATE</rename>
+        </value>
+      <value>
+        <name>MW_ID</name>
+        <rename>MW_ID</rename>
+        </value>
+      <value>
+        <name>PARENT_TASK_ID</name>
+        <rename>PARENT_TASK_ID</rename>
+        </value>
+      <value>
+        <name>PRIORITY</name>
+        <rename>PRIORITY</rename>
+        </value>
+      <value>
+        <name>QUEUE</name>
+        <rename>QUEUE</rename>
+        </value>
+      <value>
+        <name>ROLE_NAME</name>
+        <rename>ROLE_NAME</rename>
+        </value>
+      <value>
+        <name>RULE_EXECUTED</name>
+        <rename>RULE_EXECUTED</rename>
         </value>
       <value>
         <name>STAGE_DONE_DATE</name>
         <rename>STAGE_DONE_DATE</rename>
+        </value>
+      <value>
+        <name>STATUS_DATE</name>
+        <rename>STATUS_DATE</rename>
+        </value>
+      <value>
+        <name>STATUS_REASON</name>
+        <rename>STATUS_REASON</rename>
         </value>
       <value>
         <name>STG_EXTRACT_DATE</name>
@@ -416,8 +419,12 @@ where MW_PROCESSED = &apos;Y&apos;
         <rename>STG_LAST_UPDATE_DATE</rename>
         </value>
       <value>
-        <name>ASF_COMPLETE_WORK</name>
-        <rename>ASF_COMPLETE_WORK</rename>
+        <name>TASK_STATUS</name>
+        <rename>TASK_STATUS</rename>
+        </value>
+      <value>
+        <name>TASK_TYPE</name>
+        <rename>TASK_TYPE</rename>
         </value>
       <value>
         <name>WRSTATUS_ID</name>
@@ -437,8 +444,8 @@ where MW_PROCESSED = &apos;Y&apos;
         <source_step>Update - FLHK_ETL_MANAGE_WORK</source_step>
         <target_step>Table output OLTP - error</target_step>
         <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
+        <nr_valuename>nr_of_err_fieldname</nr_valuename>
+        <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
         <max_errors>10000</max_errors>

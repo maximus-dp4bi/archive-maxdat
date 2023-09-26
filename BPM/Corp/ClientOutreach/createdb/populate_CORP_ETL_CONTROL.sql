@@ -19,5 +19,8 @@ values ('RUN_DAILY_CLIENT_OUTREACH_END','V','235959','End Time for Client Outrea
 Insert into CORP_ETL_CONTROL (NAME,VALUE_TYPE,VALUE,DESCRIPTION,CREATED_TS,UPDATED_TS) 
 values ('CO_MAX_OUTREACH_ID','N',28541501,'Used to fetch a range of data from OLTP for Client Outreach Adhoc process',SYSDATE,SYSDATE);
 
+Insert into CORP_ETL_CONTROL (NAME,VALUE_TYPE,VALUE,DESCRIPTION,CREATED_TS,UPDATED_TS) values ('OUTREACH_EVENT_HISTORY_ID','N','27698694','Used to get the new outreach events from source',SYSDATE,SYSDATE);
+
+
 
 commit;

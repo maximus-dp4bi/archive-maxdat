@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_CDC_MAXe</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -68,50 +90,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>DMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Local</name>
-    <server>localhost</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>nyhixmdsp</database>
-    <port>1521</port>
-    <username>sp57859[maxdat]</username>
-    <password>Encrypted 2be98afc86aa7f2e48618b6348fc0fc8e</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -126,18 +104,42 @@
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>20</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>20</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MOTS</name>
+    <server>${DB_MOTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -157,6 +159,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -200,8 +203,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>459</yloc>
+      <xloc>820</xloc>
+      <yloc>470</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -316,8 +319,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>264</yloc>
+      <xloc>820</xloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -347,8 +350,8 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>373</yloc>
+      <xloc>820</xloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -391,18 +394,56 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
   d.LAST_TRASHED_BY TRASHED_BY,
   d.LAST_TRASHED_TS TRASHED_DT,
   d.DOCUMENT_SET_ID,
-  case when d.UPDATE_TS &gt; ad.UPDATE_TS and d.UPDATE_TS &gt; o.last_event_date then d.UPDATE_TS 
-       when ad.UPDATE_TS &gt; d.UPDATE_TS and ad.UPDATE_TS &gt; o.last_event_date then ad.UPDATE_TS
-       else o.last_event_date end as LAST_EVENT_DATE,
+  case when 
+      (ad.DOCUMENT_TYPE_CD &lt;&gt; o.DOC_TYPE_CD or 
+	   ad.STATUS_CD &lt;&gt; o.DOC_STATUS_CD or
+	   ad.STATUS_TS &lt;&gt; o.DOC_STATUS_DT or
+	   ad.DOCUMENT_SUB_TYPE &lt;&gt; o.FORM_TYPE_CD) and 
+	   ad.update_ts &gt; o.last_event_date 
+       then ad.update_ts else o.last_event_date end as last_event_date,
   d.UPDATE_TS doc_update_ts,
-  ad.UPDATE_TS app_update_ts
+  ad.UPDATE_TS app_update_ts,
+  d.TR_DOC_STATUS_CD TR_DOC_STATUS_CD,
+  AD.MINOR_APPLICANT_FLAG,
+  AD.BIRTH_DATE
 FROM
   DOCUMENT_STG d
 INNER JOIN APP_DOC_DATA_STG ad
 ON
   d.DCN = ad.DCN
 INNER JOIN NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 o 
-ON d.DCN = o.DCN</sql>
+ON d.DCN = o.DCN
+WHERE
+  coalesce(ad.RECEIVED_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.RECEIVED_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ad.CREATE_TS,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.MAXE_ORIGINATION_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ad.DOCUMENT_TYPE_CD,&apos;X&apos;) &lt;&gt; coalesce(o.DOC_TYPE_CD,&apos;X&apos;) or
+  coalesce(ad.STATUS_CD,&apos;X&apos;) &lt;&gt; coalesce(o.DOC_STATUS_CD,&apos;X&apos;) or
+  coalesce(ad.STATUS_TS,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.DOC_STATUS_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ad.DOCUMENT_SUB_TYPE,&apos;X&apos;) &lt;&gt; coalesce(o.FORM_TYPE_CD,&apos;X&apos;) or
+  coalesce(ad.UPDATE_TS,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.DOC_UPDATE_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ad.UPDATED_BY,&apos;X&apos;) &lt;&gt; coalesce(o.DOC_UPDATED_BY_STAFF_ID,&apos;X&apos;) or
+  coalesce(ad.PRIORITY,1) &lt;&gt; coalesce(o.PRIORITY,1) or
+  coalesce(ad.APP_DOC_DATA_ID,1) &lt;&gt; coalesce(o.APP_DOC_DATA_ID,1) or
+  coalesce(d.SCAN_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.SCAN_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(d.RELEASE_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.RELEASE_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(case when d.RESCAN_IND = 0 then &apos;N&apos; else &apos;Y&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.RESCANNED_IND,&apos;X&apos;) or
+  coalesce(case when d.RETURN_MAIL_IND = 0 then &apos;N&apos; else &apos;Y&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.RETURNED_MAIL_IND,&apos;X&apos;) or
+  coalesce(d.RETURN_MAIL_REASON_CD,&apos;X&apos;) &lt;&gt; coalesce(o.RETURNED_MAIL_REASON,&apos;X&apos;) or
+  coalesce(d.RESCAN_COUNT,1) &lt;&gt; coalesce(o.RESCAN_COUNT,1) or
+  coalesce(d.NOTE_REF_ID,&apos;X&apos;) &lt;&gt; coalesce(o.NOTE_ID,&apos;X&apos;) or
+  coalesce(case when d.EXPEDITED_IND = 0 then &apos;N&apos; else &apos;Y&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.EXPEDIATED_IND,&apos;X&apos;) or
+  coalesce(case when d.RESEARCH_REQUESTED_IND = 0 then &apos;N&apos; else &apos;Y&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.RESEARCH_REQ_IND,&apos;X&apos;) or
+  coalesce(d.ORIG_DOC_TYPE_CD,&apos;X&apos;)  &lt;&gt; coalesce(o.ORIG_DOC_TYPE_CD,&apos;X&apos;) or
+  coalesce(d.ORIG_DOC_FORM_TYPE,&apos;X&apos;) &lt;&gt; coalesce(o.ORIG_DOC_FORM_TYPE_CD,&apos;X&apos;) or
+  coalesce(case when d.TRASHED_DOC_IND = 0 then &apos;N&apos; else &apos;Y&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.TRASHED_IND,&apos;X&apos;) or
+  coalesce(d.LAST_TRASHED_BY,&apos;X&apos;) &lt;&gt; coalesce(o.TRASHED_BY,&apos;X&apos;) or
+  coalesce(d.LAST_TRASHED_TS,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.TRASHED_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(d.DOCUMENT_SET_ID,1) &lt;&gt; coalesce(o.DOCUMENT_SET_ID,1) or
+  coalesce(d.TR_DOC_STATUS_CD,&apos;X&apos;) &lt;&gt; coalesce(o.TR_DOC_STATUS_CD,&apos;X&apos;) or
+  coalesce(ad.BIRTH_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.BIRTH_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ad.MINOR_APPLICANT_FLAG,&apos;X&apos;) &lt;&gt; coalesce(o.MINOR_APPLICANT_FLAG,&apos;X&apos;) 
+
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -488,7 +529,7 @@ ON d.DCN = o.DCN</sql>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>820</xloc>
-      <yloc>574</yloc>
+      <yloc>590</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -621,6 +662,18 @@ ON d.DCN = o.DCN</sql>
       <value>
         <name>LAST_EVENT_DATE</name>
         <rename>LAST_EVENT_DATE</rename>
+        </value>
+      <value>
+        <name>TR_DOC_STATUS_CD</name>
+        <rename>TR_DOC_STATUS_CD</rename>
+        </value>
+      <value>
+        <name>MINOR_APPLICANT_FLAG</name>
+        <rename>MINOR_APPLICANT_FLAG</rename>
+        </value>
+      <value>
+        <name>BIRTH_DATE</name>
+        <rename>BIRTH_DATE</rename>
         </value>
       </lookup>
      <cluster_schema/>

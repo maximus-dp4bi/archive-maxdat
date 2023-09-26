@@ -18,12 +18,12 @@ create or replace package MANAGE_WORK as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_JEOPARDY_FLAG
     (p_sla_days_type in varchar,
@@ -31,17 +31,17 @@ create or replace package MANAGE_WORK as
      p_age_in_calendar_days in number,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable;
 
   function GET_STATUS_AGE_IN_BUS_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_STATUS_AGE_IN_CAL_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_TIMELINESS_STATUS
     (p_complete_date in date,
@@ -49,7 +49,7 @@ create or replace package MANAGE_WORK as
      p_age_in_business_days in number,
      p_age_in_calendar_days in number,
      p_sla_days in number)
-    return varchar2;
+    return varchar2 parallel_enable;
 
   /*
   Include:
@@ -111,7 +111,8 @@ create or replace package MANAGE_WORK as
      CLAIM_DATE varchar2(19),
      LAST_TASK varchar2(100),
      PREV_TASK_NAME varchar2(100),
-     PREV_TASK_CREATE_DATE varchar2(100)
+     PREV_TASK_CREATE_DATE varchar2(100),
+     PERSON_ID number
     );
 
   /*
@@ -172,7 +173,8 @@ create or replace package MANAGE_WORK as
      CLAIM_DATE varchar2(19),
      LAST_TASK varchar2(100),
      PREV_TASK_NAME varchar2(100),
-     PREV_TASK_CREATE_DATE varchar2(100)      
+     PREV_TASK_CREATE_DATE varchar2(100),
+     PERSON_ID number
     );
 
   procedure INSERT_BPM_SEMANTIC
@@ -186,6 +188,7 @@ create or replace package MANAGE_WORK as
 
 end;
 /
+
 create or replace package body MANAGE_WORK as
 
   v_bem_id number := 1; -- 'OPS Manage Work'
@@ -200,7 +203,7 @@ create or replace package body MANAGE_WORK as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -210,7 +213,7 @@ create or replace package body MANAGE_WORK as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -223,7 +226,7 @@ create or replace package body MANAGE_WORK as
      p_age_in_calendar_days in number,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if (p_sla_days_type = 'B'
@@ -245,7 +248,7 @@ create or replace package body MANAGE_WORK as
   function GET_STATUS_AGE_IN_BUS_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_status_date,nvl(p_complete_date,sysdate));
@@ -255,7 +258,7 @@ create or replace package body MANAGE_WORK as
   function GET_STATUS_AGE_IN_CAL_DAYS
     (p_status_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_status_date);
@@ -268,7 +271,7 @@ create or replace package body MANAGE_WORK as
      p_age_in_business_days in number,
      p_age_in_calendar_days in number,
      p_sla_days in number)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if p_complete_date is null then
@@ -550,7 +553,13 @@ create or replace package body MANAGE_WORK as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'GET_DMWTT_ID';
     v_sql_code number := null;
     v_log_message clob := null;
+    v_team_name varchar2(100);
   begin
+
+    -- Both ETK and SQID tasks do not need this column for reporting and have been used differently, so default it to UnAssigned.
+    -- For SQID tasks, DCN value is stored in Team Name Column
+    v_team_name := 'UNASSIGNED';
+
     select DMWTT_ID into p_dmwtt_id
     from D_MW_TASK_TYPE
     where
@@ -558,7 +567,7 @@ create or replace package body MANAGE_WORK as
       and ("Group Parent Name" = p_group_parent_name or ("Group Parent Name" is null and p_group_parent_name is null))
       and ("Group Supervisor Name" = p_group_supervisor_name or ("Group Supervisor Name" is null and p_group_supervisor_name is null))
       and ("Task Type" = p_task_type or ("Task Type" is null and p_task_type is null))
-      and ("Team Name" = p_team_name or ("Team Name" is null and p_team_name is null))
+      and ("Team Name" = v_team_name or ("Team Name" is null and v_team_name is null))
       and ("Team Parent Name" = p_team_parent_name or ("Team Parent Name" is null and p_team_parent_name is null))
       and ("Team Supervisor Name" = p_team_supervisor_name or ("Team Supervisor Name" is null and p_team_supervisor_name is null));
   exception
@@ -570,7 +579,7 @@ create or replace package body MANAGE_WORK as
            "Task Type","Team Name","Team Parent Name","Team Supervisor Name")
         values
           (p_dmwtt_id,p_group_name,p_group_parent_name,p_group_supervisor_name,
-           p_task_type,p_team_name,p_team_parent_name,p_team_supervisor_name);
+           p_task_type,v_team_name,p_team_parent_name,p_team_supervisor_name);
         commit;
       exception
         when DUP_VAL_ON_INDEX then
@@ -581,7 +590,7 @@ create or replace package body MANAGE_WORK as
             and ("Group Parent Name" = p_group_parent_name or ("Group Parent Name" is null and p_group_parent_name is null))
             and ("Group Supervisor Name" = p_group_supervisor_name or ("Group Supervisor Name" is null and p_group_supervisor_name is null))
             and ("Task Type" = p_task_type or ("Task Type" is null and p_task_type is null))
-            and ("Team Name" = p_team_name or ("Team Name" is null and p_team_name is null))
+            and ("Team Name" = v_team_name or ("Team Name" is null and v_team_name is null))
             and ("Team Parent Name" = p_team_parent_name or ("Team Parent Name" is null and p_team_parent_name is null))
             and ("Team Supervisor Name" = p_team_supervisor_name or ("Team Supervisor Name" is null and p_team_supervisor_name is null));
         when OTHERS then
@@ -662,7 +671,8 @@ create or replace package body MANAGE_WORK as
         extractValue(p_data_xml,'/ROWSET/ROW/CLAIM_DATE') "CLAIM_DATE",        
         extractValue(p_data_xml,'/ROWSET/ROW/LAST_TASK') "LAST_TASK",                
         extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_NAME') "PREV_TASK_NAME",
-        extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_CREATE_DATE') "PREV_TASK_CREATE_DATE"        
+        extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_CREATE_DATE') "PREV_TASK_CREATE_DATE",
+        extractValue(p_data_xml,'/ROWSET/ROW/PERSON_ID') "PERSON_ID"                
     into p_data_record
     from dual;
 
@@ -740,7 +750,8 @@ create or replace package body MANAGE_WORK as
       extractValue(p_data_xml,'/ROWSET/ROW/CLAIM_DATE') "CLAIM_DATE",        
       extractValue(p_data_xml,'/ROWSET/ROW/LAST_TASK') "LAST_TASK",
       extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_NAME') "PREV_TASK_NAME",
-      extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_CREATE_DATE') "PREV_TASK_CREATE_DATE"               
+      extractValue(p_data_xml,'/ROWSET/ROW/PREV_TASK_CREATE_DATE') "PREV_TASK_CREATE_DATE",
+      extractValue(p_data_xml,'/ROWSET/ROW/PERSON_ID') "PERSON_ID"                    
      into p_data_record
     from dual;
 
@@ -916,7 +927,8 @@ create or replace package body MANAGE_WORK as
        p_claim_date in varchar2,
        p_last_task in varchar2,
        p_prev_task_name in varchar2,
-       p_prev_task_create_date in varchar2
+       p_prev_task_create_date in varchar2,
+       p_person_id number
        )
   as
 
@@ -993,7 +1005,8 @@ create or replace package body MANAGE_WORK as
     r_dmwcur.LAST_TASK  := p_last_task;
     r_dmwcur.HANDLE_TIME := Round((to_date(p_complete_date,BPM_COMMON.DATE_FMT) - to_date(p_claim_date,BPM_COMMON.DATE_FMT) ) * 24 * 60,2);
     r_dmwcur.PREV_TASK_NAME  := p_prev_task_name;    
-    r_dmwcur.PREV_TASK_CREATE_DATE := to_date(p_prev_task_create_date,BPM_COMMON.DATE_FMT);    
+    r_dmwcur.PREV_TASK_CREATE_DATE := to_date(p_prev_task_create_date,BPM_COMMON.DATE_FMT);   
+    r_dmwcur.PERSON_ID := p_person_id; 
 
     if p_set_type = 'INSERT' then
       insert into D_MW_CURRENT
@@ -1089,7 +1102,7 @@ create or replace package body MANAGE_WORK as
          v_new_data.CANCEL_METHOD,v_new_data.CANCEL_REASON,v_new_data.CANCEL_BY,v_new_data.TASK_PRIORITY,
          v_new_data.received_Date, v_new_data.assigned_date, v_new_data.original_creation_date, v_new_data.case_number, 
          v_new_data.parent_task_id, v_new_data.role_name, v_new_data.claim_date, v_new_data.last_task,
-         v_new_data.prev_task_name, v_new_data.prev_task_create_date );
+         v_new_data.prev_task_name, v_new_data.prev_task_create_date, v_new_data.person_id );
 
       INS_FMWBD(v_identifier,v_start_date,v_end_date,v_bi_id,v_dmwtt_id,v_dmwe_id,v_dmwf_id,v_dmwo_id,v_dmwts_id,v_dmwlubn_id,v_new_data.LAST_UPDATE_DATE,v_new_data.STATUS_DATE,
                  v_new_data.received_Date, v_new_data.assigned_date, v_fmwbd_id);
@@ -1405,7 +1418,7 @@ create or replace package body MANAGE_WORK as
          v_new_data.CANCEL_METHOD,v_new_data.CANCEL_REASON,v_new_data.CANCEL_BY,v_new_data.TASK_PRIORITY,
          v_new_data.received_Date, v_new_data.assigned_date, v_new_data.original_creation_date, v_new_data.case_number,
          v_new_data.parent_task_id, v_new_data.role_name, v_new_data.claim_date, v_new_data.last_task,
-         v_new_data.prev_task_name, v_new_data.prev_task_create_date );
+         v_new_data.prev_task_name, v_new_data.prev_task_create_date, v_new_data.person_id );
 
       UPD_FMWBD(v_identifier,v_end_date,v_bi_id,v_dmwtt_id,v_dmwe_id,v_dmwf_id,v_dmwo_id,v_dmwts_id,v_dmwlubn_id,v_new_data.LAST_UPDATE_DATE,v_new_data.STG_LAST_UPDATE_DATE,v_new_data.STATUS_DATE,
                 v_new_data.received_Date, v_new_data.assigned_date,v_fmwbd_id);

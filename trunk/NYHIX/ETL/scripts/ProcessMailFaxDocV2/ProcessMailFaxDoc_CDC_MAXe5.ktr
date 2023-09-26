@@ -3,9 +3,33 @@
   <info>
     <name>ProcessMailFaxDoc_CDC_MAXe5</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+
+
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -68,50 +92,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>DMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Local</name>
-    <server>localhost</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>nyhixmdsp</database>
-    <port>1521</port>
-    <username>sp57859[maxdat]</username>
-    <password>Encrypted 2be98afc86aa7f2e48618b6348fc0fc8e</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -126,18 +106,42 @@
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>20</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>100</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>20</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>100</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = CISCO_ENTERPRISE_CC;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MOTS</name>
+    <server>${DB_MOTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -157,78 +161,14 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Add constants</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables - System</from><to>Modified Java Script Value - Modify ERROR DESC</to><enabled>Y</enabled> </hop>  <hop> <from>Modified Java Script Value - Modify ERROR DESC</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</from><to>APP_DOC_INDIVIDUAL</to><enabled>Y</enabled> </hop>  <hop> <from>APP_DOC_INDIVIDUAL</from><to>Update - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</to><enabled>Y</enabled> </hop>  <hop> <from>Update - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</from><to>Get Variables - System</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>APP_DOC_INDIVIDUAL</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>APP_DOC_INDIVIDUAL</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>Y</eat_row_on_failure>
-      <key>
-        <name>APP_DOC_INDV_ID</name>
-        <field>APP_DOC_INDV_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>OLD_LINK_UPDATE_DT</name>
-        <field>UPDATE_TS</field>
-        <condition>&lt;&gt;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>UPDATE_TS</name>
-        <rename>NEW_LINK_UPDATE_DT</rename>
-        <default/>
-        <type>Date</type>
-      </value>
-      <value>
-        <name>CIN</name>
-        <rename>HXID</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>CASE_NUMBER</name>
-        <rename>HX_ACCOUNT_ID</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>APP_DOC_DATA_ID</name>
-        <rename>APP_DOC_DATA_ID</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>460</xloc>
-      <yloc>206</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
+  <hop> <from>Add constants</from><to>Table output-CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables - System</from><to>Modified Java Script Value - Modify ERROR DESC</to><enabled>Y</enabled> </hop>  <hop> <from>Modified Java Script Value - Modify ERROR DESC</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Update - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</from><to>Get Variables - System</to><enabled>Y</enabled> </hop>  <hop> <from>Database join CASES</from><to>Update - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - APP_DOC_INDIVIDUAL</from><to>Join minor applicant flag</to><enabled>Y</enabled> </hop>  <hop> <from>Join minor applicant flag</from><to>Database join CASES</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Add constants</name>
     <type>Constant</type>
@@ -265,8 +205,44 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>435</yloc>
+      <xloc>880</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join CASES</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT C.CASE_CIN HX_ACCOUNT_ID_LINK
+FROM APP_DOC_DATA A
+INNER JOIN DOC_LINK D
+ON A.DOCUMENT_ID = D.DOCUMENT_ID
+LEFT JOIN CASES C
+ON D.CASE_ID = C.CASE_ID
+where a.app_doc_data_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>APP_DOC_DATA_ID</name>
+        <type>Integer</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>600</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -381,8 +357,46 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>240</yloc>
+      <xloc>880</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join minor applicant flag</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>select Case When trunc(months_between(ad.received_date, adi.birth_date)) &lt; 216
+    then &apos;Y&apos;
+    else &apos;N&apos; end    minor_applicant_flag
+    ,adi.birth_date birth_date 
+from app_doc_data ad
+inner join app_doc_individual adi
+    on adi.app_doc_data_id = ad.app_doc_data_id
+    and adi.primary_person_ind = 1
+where ad.APP_DOC_DATA_ID = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>APP_DOC_DATA_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>390</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -412,14 +426,14 @@ var ERROR_DESC_MOD = &quot;APP_DOC_INDV_ID = &quot;+APP_DOC_INDV_ID+&quot;,ERROR
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>349</yloc>
+      <xloc>880</xloc>
+      <yloc>340</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table input - NYHIX_ETL_MAIL_FAX_DOC_APP_V2</name>
+    <name>Table input - APP_DOC_INDIVIDUAL</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -428,20 +442,32 @@ var ERROR_DESC_MOD = &quot;APP_DOC_INDV_ID = &quot;+APP_DOC_INDV_ID+&quot;,ERROR
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>MAXDAT</connection>
-    <sql>SELECT 
-	APP_DOC_INDV_ID,
-	LINK_UPDATE_DT OLD_LINK_UPDATE_DT
-FROM NYHIX_ETL_MAIL_FAX_DOC_APP_V2</sql>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT
+  app_doc_data_id	APP_DOC_DATA_ID,
+  APP_DOC_INDV_ID APP_DOC_INDV_ID,
+  UPDATE_TS LINK_UPDATE_DT,
+  CIN HXID,
+  case_number HX_ACCOUNT_ID,
+  first_name FIRST_NAME,
+  last_name LAST_NAME,
+  HOH_IND HOH_IND,
+  PRIMARY_PERSON_IND PRIMARY_PERSON_IND 
+FROM
+  app_doc_individual 
+Where UPDATE_TS &gt; TO_DATE(&apos;${MAX_UPDATE_DATE_APP}&apos;,&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;)
+and create_ts &lt;= TO_DATE(&apos;${MAX_CREATE_DATE_APP}&apos;,&apos;YYYY&#47;MM&#47;DD HH24:MI:SS&apos;)
+and APP_DOC_INDV_ID &lt;= ${MAX_APP_DOC_INDV_ID}
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>239</xloc>
-      <yloc>110</yloc>
+      <xloc>140</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -517,8 +543,8 @@ FROM NYHIX_ETL_MAIL_FAX_DOC_APP_V2</sql>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>769</xloc>
-      <yloc>550</yloc>
+      <xloc>880</xloc>
+      <yloc>590</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -540,7 +566,7 @@ FROM NYHIX_ETL_MAIL_FAX_DOC_APP_V2</sql>
     <error_ignored>N</error_ignored>
     <ignore_flag_field/>
     <lookup>
-      <schema/>
+      <schema>MAXDAT</schema>
       <table>NYHIX_ETL_MAIL_FAX_DOC_APP_V2</table>
       <key>
         <name>APP_DOC_INDV_ID</name>
@@ -558,17 +584,45 @@ FROM NYHIX_ETL_MAIL_FAX_DOC_APP_V2</sql>
         </value>
       <value>
         <name>LINK_UPDATE_DT</name>
-        <rename>NEW_LINK_UPDATE_DT</rename>
+        <rename>LINK_UPDATE_DT</rename>
         </value>
       <value>
         <name>APP_DOC_DATA_ID</name>
         <rename>APP_DOC_DATA_ID</rename>
         </value>
+      <value>
+        <name>FIRST_NAME</name>
+        <rename>FIRST_NAME</rename>
+        </value>
+      <value>
+        <name>LAST_NAME</name>
+        <rename>LAST_NAME</rename>
+        </value>
+      <value>
+        <name>HOH_IND</name>
+        <rename>HOH_IND</rename>
+        </value>
+      <value>
+        <name>PRIMARY_PERSON_IND</name>
+        <rename>PRIMARY_PERSON_IND</rename>
+        </value>
+      <value>
+        <name>HX_ACCOUNT_ID_LINK</name>
+        <rename>HX_ACCOUNT_ID_LINK</rename>
+        </value>
+      <value>
+        <name>MINOR_APPLICANT_FLAG</name>
+        <rename>MINOR_APPLICANT_FLAG</rename>
+        </value>
+      <value>
+        <name>BIRTH_DATE</name>
+        <rename>BIRTH_DATE</rename>
+        </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>101</yloc>
+      <xloc>880</xloc>
+      <yloc>60</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

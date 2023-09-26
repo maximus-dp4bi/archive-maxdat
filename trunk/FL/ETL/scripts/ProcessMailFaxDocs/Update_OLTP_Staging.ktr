@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Staging</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -157,7 +170,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>SELECT OLTP</from><to>INBOUND_DOCUMENT COLUMNS</to><enabled>Y</enabled> </hop>  <hop> <from>Update FLHK_ETL_DOCUMENTS_OLTP 2</from><to>Error 1 6 10 7 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>INBOUND_DOCUMENT COLUMNS</from><to>Update FLHK_ETL_DOCUMENTS_OLTP 2</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>SELECT OLTP</from><to>INBOUND_DOCUMENT COLUMNS</to><enabled>Y</enabled> </hop>  <hop> <from>Update FLHK_ETL_DOCUMENTS_OLTP</from><to>Error 1 6 10 7 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>INBOUND_DOCUMENT COLUMNS</from><to>Filter DOC_TYPE</to><enabled>Y</enabled> </hop>  <hop> <from>Filter DOC_TYPE</from><to>Set field value</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value</from><to>Update FLHK_ETL_DOCUMENTS_OLTP</to><enabled>Y</enabled> </hop>  <hop> <from>Filter DOC_TYPE</from><to>Update FLHK_ETL_DOCUMENTS_OLTP</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Error 1 6 10 7 2 2</name>
     <type>TableOutput</type>
@@ -237,8 +250,36 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>221</yloc>
+      <xloc>720</xloc>
+      <yloc>330</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter DOC_TYPE</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value</send_true_to>
+<send_false_to>Update FLHK_ETL_DOCUMENTS_OLTP</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>RENEWAL_DOC_FLAG</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>F24_RENEWAL</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>490</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -254,7 +295,7 @@
            <schema_name/>
            </partitioning>
     <connection>OLTP_SOURCE</connection>
-    <rowlimit>0</rowlimit>
+    <rowlimit>1</rowlimit>
     <sql>SELECT
 	A.INBOUND_DOCUMENT_TYPE AS DOC_TYPE,
 	A.INBOUND_DOCUMENT_SOURCE AS CHANNEL,
@@ -263,12 +304,12 @@
 	A.RECEIVED_DATE AS RECEIPT_DT,
 	A.SCAN_DATE,
     A.ACCOUNT_ID,
-	decode(A.ENV_HAS_RENEW_DOC_FLAG,0,&apos;N&apos;,&apos;Y&apos;) AS RENEWAL_DOC_FLAG,
+	decode(AR.RENEWAL_date,null,&apos;N&apos;,&apos;Y&apos;) AS RENEWAL_DOC_FLAG,
 	decode(A.ENV_HAS_APP_DOC_FLAG,0,&apos;N&apos;,&apos;Y&apos;) AS NEW_APP_FLAG,
 	decode(A.ALREADY_WORKED_FLAG,0,&apos;N&apos;,&apos;Y&apos;)	AS ALREADY_WORKED
-	
 FROM
 	INBOUND_DOCUMENT A
+    left outer join account_renewal ar on a.account_id = ar.account_id
 WHERE
 	A.DOCUMENT_CONTROL_NUMBER = ?</sql>
     <outer_join>Y</outer_join>
@@ -281,8 +322,8 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>309</xloc>
-      <yloc>86</yloc>
+      <xloc>300</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -300,11 +341,13 @@ WHERE
     <connection>MAXDAT</connection>
     <sql>SELECT
 	DCN,
-	&apos;ProcessMailFaxDocs&apos; as PROCESS_NAME,
+	&apos;ProcessMailFaxDocs&apos;  as PROCESS_NAME,
 	&apos;Update_OLTP_Staging&apos; as JOB_NAME,
-	&apos;FLHK_ETL_DOCUMENTS&apos; as DRIVER_TABLE_NAME,
-	sysdate as ERR_DATE,
-	&apos;CRITICAL&apos; as ERR_LEVEL
+	&apos;FLHK_ETL_DOCUMENTS&apos;  as DRIVER_TABLE_NAME,
+	sysdate               as ERR_DATE,
+	&apos;CRITICAL&apos;            as ERR_LEVEL,
+    &apos;Y&apos;                   as CON_YES,
+    &apos;N&apos;                   as CON_NO            
 FROM 
 	FLHK_ETL_DOCUMENTS_OLTP
 order by DCN</sql>
@@ -315,14 +358,38 @@ order by DCN</sql>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>99</xloc>
-      <yloc>86</yloc>
+      <xloc>100</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Update FLHK_ETL_DOCUMENTS_OLTP 2</name>
+    <name>Set field value</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>RENEWAL_DOC_FLAG</name>
+        <replaceby>CON_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>490</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update FLHK_ETL_DOCUMENTS_OLTP</name>
     <type>Update</type>
     <description/>
     <distribute>N</distribute>
@@ -393,8 +460,8 @@ order by DCN</sql>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>86</yloc>
+      <xloc>720</xloc>
+      <yloc>130</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -413,7 +480,7 @@ order by DCN</sql>
         <min_pct_rows/>
       </error>
       <error>
-        <source_step>Update FLHK_ETL_DOCUMENTS_OLTP 2</source_step>
+        <source_step>Update FLHK_ETL_DOCUMENTS_OLTP</source_step>
         <target_step>Error 1 6 10 7 2 2</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>

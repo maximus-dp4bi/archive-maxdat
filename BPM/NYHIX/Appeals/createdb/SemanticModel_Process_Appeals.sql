@@ -4,7 +4,7 @@ create table D_APPEALS_CURRENT
    ABOUT_PLAN_NAME varchar2(64),
    ABOUT_PROVIDER_ID number,
    ABOUT_PROVIDER_NAME varchar2(100),
-   ACTION_TYPE varchar2(	64	),
+   ACTION_TYPE varchar2(64),
    ADVISE_TO_WTHD_IN_WRITING_END date,
    ADVISE_TO_WTHD_IN_WRITING_ST date,
    ADVISE_TO_WTHD_IN_WRT_PERF_BY varchar2(100),
@@ -87,9 +87,9 @@ create table D_APPEALS_CURRENT
    SLA_JEOPARDY_DATE date,
    SLA_JEOPARDY_DAYS number,
    SLA_TARGET_DAYS number,
-   STATE_REVIEW_PERFORMED_BY varchar2(	100),
+   STATE_REVIEW_PERFORMED_BY varchar2(100),
    VALIDITY_AMENDMENT_END	date,
-   VALIDITY_AMENDMENT_PERFORM_BY varchar2(	100),
+   VALIDITY_AMENDMENT_PERFORM_BY varchar2(100),
    VALIDITY_AMENDMENT_START	date,
    APPEAL_DATE varchar2(64),
    APPELLANT_TYPE varchar2(32),
@@ -103,23 +103,28 @@ create table D_APPEALS_CURRENT
    CUR_COMPLETE_DATE date,
    INSTANCE_COMPLETE_DATE date,
    CURRENT_STEP VARCHAR2(256),
-   RECEIVED_DATE DATE) 
-tablespace MAXDAT_DATA parallel;
+   RECEIVED_DATE DATE,
+   FAIR_HEARING_TRACKING_NBR VARCHAR2(100),
+   APL_PRIMARY_MEMBER_ID NUMBER(18,0),
+   ACCOUNT_ID VARCHAR2(30),
+   NYHIX_ID VARCHAR2(30),
+   PREF_LANGUAGE  varchar2(256),
+   DECISION_DETAILS varchar2(30)
+  )   
+tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_CURRENT add constraint DAPPEALSCUR_PK primary key (APL_BI_ID) using index tablespace MAXDAT_INDX;
 
---create unique index DAPPEALSICD_UIX1 on  D_APPEALS_CURRENT (INSTANCE_COMPLETE_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index DAPPEALSII_UIX1 on D_APPEALS_CURRENT (INCIDENT_ID) online tablespace MAXDAT_INDX parallel compute statistics;
+--create unique index DAPPEALSICD_UIX1 on  D_APPEALS_CURRENT (INSTANCE_COMPLETE_DATE) online tablespace MAXDAT_INDX compute statistics; 
+create unique index DAPPEALSII_UIX1 on D_APPEALS_CURRENT (INCIDENT_ID) online tablespace MAXDAT_INDX compute statistics;
 create index DAPPEALSCUR_IDX1 on D_APPEALS_CURRENT (INCIDENT_TRACKING_NUMBER) tablespace MAXDAT_INDX;
 
-create or replace public synonym D_APPEALS_CURRENT for D_APPEALS_CURRENT;
 grant select on D_APPEALS_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_CURRENT_SV as
 select * from D_APPEALS_CURRENT
 with read only;
 
-create or replace public synonym D_APPEALS_CURRENT_SV for D_APPEALS_CURRENT_SV;
 grant select on D_APPEALS_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -138,16 +143,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_ACTION_COMMENTS add constraint DAPLAC_PK primary key (DAPLAC_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLAC_UIX1 on D_APPEALS_ACTION_COMMENTS (ACTION_COMMENTS) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index DAPLAC_UIX1 on D_APPEALS_ACTION_COMMENTS (ACTION_COMMENTS) online tablespace MAXDAT_INDX compute statistics;
 
-create or replace public synonym D_APPEALS_ACTION_COMMENTS for D_APPEALS_ACTION_COMMENTS;
 grant select on D_APPEALS_ACTION_COMMENTS to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_ACTION_COMMENTS_SV as
 select * from D_APPEALS_ACTION_COMMENTS
 with read only;
 
-create or replace public synonym D_APPEALS_ACTION_COMMENTS_SV for D_APPEALS_ACTION_COMMENTS_SV;
 grant select on D_APPEALS_ACTION_COMMENTS_SV to MAXDAT_READ_ONLY;
 
 insert into D_APPEALS_ACTION_COMMENTS (DAPLAC_ID,ACTION_COMMENTS) values (SEQ_DAPLAC_ID.nextval,null);
@@ -169,16 +172,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_INCIDENT_ABOUT add constraint DAPLIA_PK primary key (DAPLIA_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLIA_UIX1 on D_APPEALS_INCIDENT_ABOUT(INCIDENT_ABOUT) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DAPLIA_UIX1 on D_APPEALS_INCIDENT_ABOUT(INCIDENT_ABOUT) online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_APPEALS_ACTION_COMMENTS for D_APPEALS_ACTION_COMMENTS;
 grant select on D_APPEALS_ACTION_COMMENTS to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_INCIDENT_ABOUT_SV as
 select * from D_APPEALS_INCIDENT_ABOUT
 with read only;
 
-create or replace public synonym D_APPEALS_ACTION_COMMENTS_SV for D_APPEALS_ACTION_COMMENTS_SV;
 grant select on D_APPEALS_ACTION_COMMENTS_SV to MAXDAT_READ_ONLY;
 
 insert into D_APPEALS_INCIDENT_ABOUT (DAPLIA_ID,INCIDENT_ABOUT ) values (SEQ_DAPLIA_ID.nextval,null);
@@ -200,20 +201,19 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_INCIDENT_DESC add constraint DAPLID_PK primary key (DAPLID_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLID_UIX1 on D_APPEALS_INCIDENT_DESC (INCIDENT_DESCRIPTION) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DAPLID_UIX1 on D_APPEALS_INCIDENT_DESC (INCIDENT_DESCRIPTION) online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_APPEALS_INCIDENT_DESC for D_APPEALS_INCIDENT_DESC;
 grant select on D_APPEALS_INCIDENT_DESC to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_INCIDENT_DESC_SV as
 select * from D_APPEALS_INCIDENT_DESC
 with read only;
 
-create or replace public synonym D_APPEALS_INCIDENT_DESC_SV for D_APPEALS_INCIDENT_DESC_SV;
 grant select on D_APPEALS_INCIDENT_DESC_SV to MAXDAT_READ_ONLY;
 
 insert into D_APPEALS_INCIDENT_DESC (DAPLID_ID,INCIDENT_DESCRIPTION) values (SEQ_DAPLID_ID.nextval,null);
 commit;
+
 
 --D_APPEALS_INCIDENT_STATUS  DAPLIS_ID
 create sequence SEQ_DAPLIS_ID
@@ -230,16 +230,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_INCIDENT_STATUS add constraint DAPLIS_PK primary key (DAPLIS_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLIS_UIX1 on D_APPEALS_INCIDENT_STATUS (INCIDENT_STATUS) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DAPLIS_UIX1 on D_APPEALS_INCIDENT_STATUS (INCIDENT_STATUS) online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_APPEALS_INCIDENT_STATUS for D_APPEALS_INCIDENT_STATUS;
 grant select on D_APPEALS_INCIDENT_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_INCIDENT_STATUS_SV as
 select * from D_APPEALS_INCIDENT_STATUS
 with read only;
 
-create or replace public synonym D_APPEALS_INCIDENT_STATUS_SV for D_APPEALS_INCIDENT_STATUS_SV;
 grant select on D_APPEALS_INCIDENT_STATUS_SV to MAXDAT_READ_ONLY;
 
 
@@ -258,16 +256,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_INSTANCE_STATUS add constraint DAPLIN_PK primary key (DAPLIN_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLIN_UIX1 on D_APPEALS_INSTANCE_STATUS (INSTANCE_STATUS) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DAPLIN_UIX1 on D_APPEALS_INSTANCE_STATUS (INSTANCE_STATUS) online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_APPEALS_INSTANCE_STATUS for D_APPEALS_INSTANCE_STATUS;
 grant select on D_APPEALS_INSTANCE_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_INSTANCE_STATUS_SV as
 select * from D_APPEALS_INSTANCE_STATUS
 with read only;
 
-create or replace public synonym D_APPEALS_INSTANCE_STATUS_SV for D_APPEALS_INSTANCE_STATUS_SV;
 grant select on D_APPEALS_INSTANCE_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_APPEALS_INSTANCE_STATUS (DAPLIN_ID,INSTANCE_STATUS) values (SEQ_DAPLIN_ID.nextval,'Active');
@@ -290,16 +286,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_APPEALS_CVPB add constraint DAPLCVPB_PK primary key (DAPLCVPB_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DAPLCVPB_UIX1 on D_APPEALS_CVPB (CONDUCT_VALIDITY_PERFORMED_BY) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DAPLCVPB_UIX1 on D_APPEALS_CVPB (CONDUCT_VALIDITY_PERFORMED_BY) online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_APPEALS_CVPB for D_APPEALS_CVPB;
 grant select on D_APPEALS_CVPB to MAXDAT_READ_ONLY;
 
 create or replace view D_APPEALS_CVPB_SV as
 select * from D_APPEALS_CVPB
 with read only;
 
-create or replace public synonym D_APPEALS_CVPB_SV for D_APPEALS_CVPB_SV;
 grant select on D_APPEALS_CVPB_SV to MAXDAT_READ_ONLY;
 
 insert into D_APPEALS_CVPB (DAPLCVPB_ID,CONDUCT_VALIDITY_PERFORMED_BY) values (SEQ_DAPLCVPB_ID.nextval,null);
@@ -339,7 +333,7 @@ create table F_APPEALS_BY_DATE
 partition BY range (BUCKET_START_DATE)
 interval (numtodsinterval(1,'day'))
 (partition PT_BUCKET_START_DATE_LT_2013 values less than (to_DATE('20130101','YYYYMMDD')))   
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA;
 
 alter table F_APPEALS_BY_DATE add constraint FAPLBD_PK primary key (FAPLBD_ID) using index tablespace MAXDAT_INDX;
 
@@ -352,20 +346,19 @@ alter table F_APPEALS_BY_DATE add constraint FAPLBD_DAPLIS_FK foreign key (DAPLI
 alter table F_APPEALS_BY_DATE add constraint FAPLBD_DAPLIN_FK foreign key (DAPLIN_ID) references D_APPEALS_INSTANCE_STATUS (DAPLIN_ID);
 alter table F_APPEALS_BY_DATE add constraint FAPLBD_DAPLCVPB_FK foreign key (DAPLCVPB_ID) references D_APPEALS_CVPB (DAPLCVPB_ID);
 
-create unique index FAPLBD_UIX1 on F_APPEALS_BY_DATE (APL_BI_ID,D_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index FAPLBD_UIX2 on F_APPEALS_BY_DATE (APL_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index FAPLBD_UIX1 on F_APPEALS_BY_DATE (APL_BI_ID,D_DATE) online tablespace MAXDAT_INDX compute statistics; 
+create unique index FAPLBD_UIX2 on F_APPEALS_BY_DATE (APL_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX compute statistics; 
 
-create index FAPLBD_IX1 on F_APPEALS_BY_DATE (INCIDENT_STATUS_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FAPLBD_IX2 on F_APPEALS_BY_DATE (CONDUCT_VALIDITY_START) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FAPLBD_IX3 on F_APPEALS_BY_DATE (CONDUCT_VALIDITY_END) online tablespace MAXDAT_INDX parallel compute statistics;
-create index FAPLBD_IX4 on F_APPEALS_BY_DATE (COMPLETE_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create index FAPLBD_IX1 on F_APPEALS_BY_DATE (INCIDENT_STATUS_DATE) online tablespace MAXDAT_INDX compute statistics;
+create index FAPLBD_IX2 on F_APPEALS_BY_DATE (CONDUCT_VALIDITY_START) online tablespace MAXDAT_INDX compute statistics;
+create index FAPLBD_IX3 on F_APPEALS_BY_DATE (CONDUCT_VALIDITY_END) online tablespace MAXDAT_INDX compute statistics;
+create index FAPLBD_IX4 on F_APPEALS_BY_DATE (COMPLETE_DATE) online tablespace MAXDAT_INDX compute statistics;
 
-create index FAPLBD_IXL1 on F_APPEALS_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FAPLBD_IXL2 on F_APPEALS_BY_DATE (APL_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FAPLBD_IXL3 on F_APPEALS_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index FNPABD_IXL4 on F_APPEALS_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FAPLBD_IXL1 on F_APPEALS_BY_DATE (BUCKET_END_DATE) local online tablespace MAXDAT_INDX compute statistics;
+create index FAPLBD_IXL2 on F_APPEALS_BY_DATE (APL_BI_ID) local online tablespace MAXDAT_INDX compute statistics;
+create index FAPLBD_IXL3 on F_APPEALS_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX compute statistics;
+create index FNPABD_IXL4 on F_APPEALS_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX compute statistics;
 
-create or replace public synonym F_APPEALS_BY_DATE for F_APPEALS_BY_DATE;
 grant select on F_APPEALS_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_APPEALS_BY_DATE_SV as
@@ -476,14 +469,65 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_APPEALS_BY_DATE_SV for F_APPEALS_BY_DATE_SV;
 grant select on F_APPEALS_BY_DATE_SV to MAXDAT_READ_ONLY;
+
 
 --view for current incident reasons
 create or replace view D_APPEALS_CURRENT_REASONS_SV as
-select INCIDENT_ID, INCIDENT_REASON
+select 
+  INCIDENT_ID, 
+  INCIDENT_REASON
 from NYHBE_ETL_PROCESS_APPEALS_RSN
 with read only;
 
-create or replace public synonym D_APPEALS_CURRENT_REASONS_SV for D_APPEALS_CURRENT_REASONS_SV;
 grant select on D_APPEALS_CURRENT_REASONS_SV to MAXDAT_READ_ONLY;
+
+create OR REPLACE VIEW D_APPEALS_SCHEDULER_SV    
+(
+NEPAS_ID                       
+,INCIDENT_APPOINTMENT_LINK_ID   
+,INCIDENT_HEADER_ID             
+,CREATED_BY                     
+,CREATE_DT                      
+,ITEM_STATUS_CD                 
+,CATEGORY_CD                    
+,PRIORITY_CD                    
+,START_DT                       
+,END_DT                         
+,UPDATE_DT                      
+)  AS
+SELECT 
+NEPAS_ID                       
+,INCIDENT_APPOINTMENT_LINK_ID   
+,INCIDENT_HEADER_ID             
+,CREATED_BY                     
+,CREATE_DT                      
+,ITEM_STATUS_CD                 
+,CATEGORY_CD                    
+,PRIORITY_CD                    
+,START_DT                       
+,END_DT                         
+,UPDATE_DT  
+FROM NYHBE_ETL_APPEALS_SCHEDULER
+WITH READ ONLY;
+
+GRANT SELECT ON D_APPEALS_SCHEDULER_SV TO MAXDAT_READ_ONLY;
+GRANT SELECT ON D_APPEALS_SCHEDULER_SV TO DP_SCORECARD;  
+
+declare  c int;
+begin
+   select count(*) into c from user_objects where object_type = 'SEQUENCE' and object_name ='SEQ_NEPAS_ID';
+   if c = 1 then
+      execute immediate 'DROP SEQUENCE SEQ_NEPAS_ID';
+   end if;
+end;
+/
+
+CREATE SEQUENCE SEQ_NEPAS_ID -- FOR NYHBE_ETL_APPEALS_SCHEDULER
+    START WITH 10
+    INCREMENT BY 1
+    NOMINVALUE
+    NOMAXVALUE
+    NOCYCLE
+    NOORDER
+    CACHE 20;

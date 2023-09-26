@@ -15,39 +15,39 @@ create or replace package DPY_PROCESS_INCIDENTS as
       ( p_receipt_date in date,
         p_complete_date in date
        )
-  return number;
+  return number parallel_enable;
   
   function GET_AGE_IN_CALENDAR_DAYS
     (p_receipt_date in date,
      p_complete_date in date
      )
-    return number;
+    return number parallel_enable;
     
 function GET_STATUS_AGE_IN_BUS_DAYS
       (p_incident_status_dt in date,
        p_instance_status in varchar2
        )
-  return number;
+  return number parallel_enable;
 
 function GET_STATUS_AGE_IN_CAL_DAYS
       (p_incident_status_dt in date,
        p_instance_status in varchar2
        )
-  return number;
+  return number parallel_enable;
 
 function GET_JEOPARDY_STATUS
     (p_receipt_date in date,  
      p_instance_status in varchar,
      p_priority in varchar2
     )
-    return varchar2;
+    return varchar2 parallel_enable;
 
 function GET_JEOPARDY_STATUS_DATE
     (p_receipt_date in date,  
      p_instance_status in varchar,
      p_priority in varchar
     )
-    return varchar2;
+    return date parallel_enable;
 
 function GET_TIMELINESS_STATUS
     (p_receipt_date in date, 
@@ -56,7 +56,7 @@ function GET_TIMELINESS_STATUS
      p_cancel_date in date,
      p_priority in varchar
      )
-return varchar2;
+return varchar2 parallel_enable;
 
   /* 
   Include: 
@@ -248,7 +248,7 @@ function GET_AGE_IN_BUSINESS_DAYS
     (p_receipt_date in date,
      p_complete_date in date
      )
-    return number
+    return number parallel_enable
   as
   begin
   return BPM_COMMON.BUS_DAYS_BETWEEN(p_receipt_date,nvl(p_complete_date,sysdate));
@@ -258,7 +258,7 @@ function GET_AGE_IN_BUSINESS_DAYS
   function GET_AGE_IN_CALENDAR_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_receipt_date);
@@ -268,7 +268,7 @@ function GET_STATUS_AGE_IN_BUS_DAYS
       (p_incident_status_dt in date,
        p_instance_status in varchar2
        )
-  return number
+  return number parallel_enable
   as
   begin
   if (p_instance_status='Active') then
@@ -283,7 +283,7 @@ function GET_STATUS_AGE_IN_CAL_DAYS
       (p_incident_status_dt in date,
        p_instance_status in varchar2
        )
-  return number
+  return number parallel_enable
 as
 begin
    if (p_instance_status='Active') then
@@ -298,7 +298,7 @@ FUNCTION GET_JEOPARDY_STATUS(
     p_receipt_date    IN DATE,
     p_instance_status IN VARCHAR,
     p_priority        IN VARCHAR2 )
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 AS
 
 driver varchar2(20) := null;
@@ -309,18 +309,18 @@ v_jeopardy_threshold NUMBER;
 v_jeopardy_status varchar2(20) := null;
 BEGIN
 
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into driver
   from corp_etl_list_lkup
   where name='PI_INCIDENT_SLA_BASIS';
 
   --added 3/17 for TXEB-2309
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into v_timeliness_calc
   from corp_etl_list_lkup
   where name='PI_TIMELINESS_CALC';
 
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into v_jeopardy_threshold
   from corp_etl_list_lkup
   where name='PI_JEOPARDY_DAYS';
@@ -338,12 +338,14 @@ BEGIN
     if (p_instance_status           ='Active') then   
     --added 3/17 for TXEB_2309
       BEGIN   
-        SELECT 'Y'
+      
+        SELECT /*+ RESULT_CACHE +*/ 'Y'
         INTO v_jeopardy_status
         FROM corp_etl_list_lkup
         WHERE list_type = 'JEOPARDY_PRIORITY_CALC'
         AND v_jeopardy_days >= to_number(value)
         AND out_var = p_priority;
+        
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
           v_jeopardy_status := 'N';
@@ -373,11 +375,11 @@ function GET_JEOPARDY_STATUS_DATE
      p_instance_status in varchar,
      p_priority in varchar
     )
-    return varchar2
+    return date parallel_enable
    as
    begin
    if (GET_JEOPARDY_STATUS(p_receipt_date,p_instance_status,p_priority) is not null) then
-   return to_char(sysdate,BPM_COMMON.DATE_FMT);
+   return sysdate;
    else
    return null; -- do nothing
    end if;
@@ -390,7 +392,7 @@ function GET_TIMELINESS_STATUS
      p_cancel_date in date,
      p_priority in varchar
      )
-return varchar2
+return varchar2 parallel_enable
   as
    driver varchar2(20) := null;
    v_timeliness_threshold NUMBER;
@@ -399,18 +401,18 @@ return varchar2
    v_timeliness_status varchar2(30) := null;
   begin
  
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into driver
   from corp_etl_list_lkup
   where name='PI_INCIDENT_SLA_BASIS';
   
   --added 3/17 for TXEB_2309
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into v_timeliness_calc
   from corp_etl_list_lkup
   where name='PI_TIMELINESS_CALC';
 
-  select out_var 
+  select /*+ RESULT_CACHE +*/ out_var 
   into v_timeliness_threshold
   from corp_etl_list_lkup
   where name='PI_TIMELINESS_DAYS';
@@ -427,12 +429,14 @@ return varchar2
   if (p_instance_status='Complete') then
     --added 3/17 for TXEB_2309
     BEGIN   
-      SELECT 'Processed Timely'
+    
+      SELECT /*+ RESULT_CACHE +*/ 'Processed Timely'
       INTO v_timeliness_status
       FROM corp_etl_list_lkup
       WHERE list_type = 'TIMELINESS_PRIORITY_CALC'
       AND v_timeliness_days <= to_number(value)
       AND out_var = p_priority;
+      
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         v_timeliness_status := 'Processed Untimely';
@@ -477,12 +481,11 @@ update D_PI_CURRENT
     set
       "Age in Business Days" = GET_AGE_IN_BUSINESS_DAYS("Receipt Date","Complete Date"),
       "Age in Calendar Days" = GET_AGE_IN_CALENDAR_DAYS("Receipt Date","Complete Date"),
-      "Status Age in Business Days"= GET_STATUS_AGE_IN_BUS_DAYS("Cur Incident Status Date","Cur Instance Status"),
-      "Status Age in Calendar Days"=GET_STATUS_AGE_IN_CAL_DAYS("Cur Incident Status Date","Cur Instance Status"),
-      "Cur Jeopardy Status"=GET_JEOPARDY_STATUS("Receipt Date","Cur Instance Status",PRIORITY),
-      "Jeopardy Status Date"= to_date(GET_JEOPARDY_STATUS_DATE("Receipt Date","Cur Instance Status",PRIORITY),BPM_COMMON.DATE_FMT),
-     "Timeliness Status" = GET_TIMELINESS_STATUS("Receipt Date","Cur Incident Status Date","Cur Instance Status","Cancel Date",PRIORITY)
-     
+      "Status Age in Business Days" = GET_STATUS_AGE_IN_BUS_DAYS("Cur Incident Status Date","Cur Instance Status"),
+      "Status Age in Calendar Days" = GET_STATUS_AGE_IN_CAL_DAYS("Cur Incident Status Date","Cur Instance Status"),
+      "Cur Jeopardy Status" = GET_JEOPARDY_STATUS("Receipt Date","Cur Instance Status",PRIORITY),
+      "Jeopardy Status Date" = GET_JEOPARDY_STATUS_DATE("Receipt Date","Cur Instance Status",PRIORITY),
+      "Timeliness Status" = GET_TIMELINESS_STATUS("Receipt Date","Cur Incident Status Date","Cur Instance Status","Cancel Date",PRIORITY)
     where 
       "Complete Date" is null 
       and "Cancel Date" is null;
@@ -1414,7 +1417,7 @@ update D_PI_CURRENT
   r_dpicur."Status Age in Business Days"  :=  GET_STATUS_AGE_IN_BUS_DAYS(r_dpicur."Cur Incident Status Date",r_dpicur."Cur Instance Status");	
   r_dpicur."Status Age in Calendar Days"  :=  GET_STATUS_AGE_IN_CAL_DAYS(r_dpicur."Cur Incident Status Date",r_dpicur."Cur Instance Status");
   r_dpicur."Cur Jeopardy Status"          :=  GET_JEOPARDY_STATUS(r_dpicur."Receipt Date",r_dpicur."Cur Instance Status",r_dpicur.PRIORITY );
-  r_dpicur."Jeopardy Status Date" 	      :=  to_date(GET_JEOPARDY_STATUS_DATE(r_dpicur."Receipt Date",r_dpicur."Cur Instance Status",r_dpicur.PRIORITY),BPM_COMMON.DATE_FMT);
+  r_dpicur."Jeopardy Status Date" 	      :=  GET_JEOPARDY_STATUS_DATE(r_dpicur."Receipt Date",r_dpicur."Cur Instance Status",r_dpicur.PRIORITY);
   r_dpicur."Timeliness Status" 		        :=  GET_TIMELINESS_STATUS(r_dpicur."Receipt Date",r_dpicur."Cur Incident Status Date",r_dpicur."Cur Instance Status",r_dpicur."Cancel Date",r_dpicur.PRIORITY);
   
   

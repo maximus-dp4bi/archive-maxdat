@@ -2,8 +2,30 @@
 <job>
   <name>ProcessMailFaxDoc_Insert</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <job_version/>
+    <job_status>0</job_status>
   <directory>&#47;</directory>
   <created_user>-</created_user>
   <created_date>2014&#47;07&#47;08 16:05:03.091</created_date>
@@ -155,8 +177,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1058</xloc>
-      <yloc>650</yloc>
+      <xloc>1042</xloc>
+      <yloc>642</yloc>
       </entry>
     <entry>
       <name>ProcessMailFaxDoc_CaptureNewDocs_DMS</name>
@@ -251,8 +273,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>355</xloc>
-      <yloc>300</yloc>
+      <xloc>363</xloc>
+      <yloc>466</yloc>
       </entry>
     <entry>
       <name>ProcessMailFaxDoc_Capture_indv</name>
@@ -315,8 +337,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>354</xloc>
-      <yloc>474</yloc>
+      <xloc>363</xloc>
+      <yloc>300</yloc>
       </entry>
     <entry>
       <name>ProcessMailFaxDoc_Update_Control</name>
@@ -347,8 +369,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1060</xloc>
-      <yloc>474</yloc>
+      <xloc>1044</xloc>
+      <yloc>466</yloc>
       </entry>
     <entry>
       <name>ProcessMailFaxDoc_Copy_to_WIP</name>
@@ -379,20 +401,11 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>745</xloc>
-      <yloc>474</yloc>
+      <xloc>729</xloc>
+      <yloc>466</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>ProcessMailFaxDoc_Active_to_OLTPTemp</from>
-      <to>ProcessMailFaxDoc_Copy_to_WIP</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>START</from>
       <to>ProcessMailFaxDoc_CaptureNewDocs_DMS</to>
@@ -421,24 +434,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>ProcessMailFaxDoc_Capture_indv</from>
-      <to>ProcessMailFaxDoc_Capture_CSC_Errors</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>ProcessMailFaxDoc_Capture_CSC_Errors</from>
-      <to>ProcessMailFaxDoc_Active_to_OLTPTemp</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>ProcessMailFaxDoc_Copy_to_WIP</from>
       <to>ProcessMailFaxDoc_Update_Control</to>
       <from_nr>0</from_nr>
@@ -450,6 +445,33 @@
     <hop>
       <from>ProcessMailFaxDoc_Update_Control</from>
       <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ProcessMailFaxDoc_Active_to_OLTPTemp</from>
+      <to>ProcessMailFaxDoc_Capture_CSC_Errors</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ProcessMailFaxDoc_Capture_CSC_Errors</from>
+      <to>ProcessMailFaxDoc_Copy_to_WIP</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ProcessMailFaxDoc_Capture_indv</from>
+      <to>ProcessMailFaxDoc_Active_to_OLTPTemp</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

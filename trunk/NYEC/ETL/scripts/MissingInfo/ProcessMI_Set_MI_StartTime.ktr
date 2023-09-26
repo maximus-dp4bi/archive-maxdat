@@ -3,7 +3,20 @@
   <info>
     <name>ProcessMI_Set_MI_StartTime</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -168,11 +181,10 @@
            <schema_name/>
            </partitioning>
     <connection>MAXDAT</connection>
-    <sql>select to_char(min(process_mi_start_time),&apos;yyyy&#47;MM&#47;dd HH24:mm:ss&apos;) as Inprocess_mi_start_time_char,
+    <sql>select to_char(nvl(min(process_mi_start_time),current_date - 60),&apos;yyyy&#47;MM&#47;dd HH24:mi:ss&apos;) as Inprocess_mi_start_time_char,
        &apos;PRO_MI_CDC_START_TIME&apos; as v_Pro_MI_CDC_Start_Time,
-       min(process_mi_start_time)  as Inprocess_mi_start_time_DATE
-from app_mis_stg
---to_char(min(process_mi_start_time),&apos;yyyy&#47;MM&#47;dd HH:mm:ss PM&apos;)
+       nvl(min(process_mi_start_time),current_date-60)  as Inprocess_mi_start_time_DATE
+from maxdat.app_mis_stg
 
 </sql>
     <limit>0</limit>

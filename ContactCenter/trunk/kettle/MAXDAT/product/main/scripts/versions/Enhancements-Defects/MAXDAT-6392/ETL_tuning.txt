@@ -1,0 +1,48 @@
+1. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_TMP_CISCO_ALL.ktr
+--> Get Call_Type_Interval step: Remove the filter on Call Type ID and instead make it variable driven
+--> Get Termination Call Detail: Remove the filter on Call Type ID and instead make it variable driven
+--> Truncate Termination Call Detail Landing: Use truncate instead of delete
+--> Truncate Agent landing: Use truncate instead of delete
+--> Truncate Activity Type Landing: Use truncate instead of delete
+--> Truncate Agent Event Detail Landing : Use truncate instead of delete
+--> Truncate Agent Supervior landing: Use truncate instead of delete
+
+Create indexes on the tmp tables
+
+2. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_ACD_INTERVAL.ktr
+--> Get Date of Interval step: Remove this step and instead extract trunc(interval_start_date) as interval_Date from Get Applicable Stg_Interval Records ASC step 
+--> Remove the step: Filter out no Agent ID and its associated steps
+
+3. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_CONTACT_QUEUE.ktr
+--> Get Call Type Id Filters: Remove the filter on Call Type ID and instead make it variable driven
+
+4. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_ACD_QUEUE_INTERVAL.ktr
+--> Get Date of Interval step: Remove this step and instead extract trunc(interval_start_date) as interval_Date from Get Applicable Stg_Interval Records ASC step 
+--> Remove the step: Filter out no Agent ID and its associated steps
+
+5. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_AGENT_RTG_GRP_INTERVAL.ktr
+--> Filter out no Agent ID: Remove this step as we are already joining to the agent table in step Get Agent Skill Group Time. Also, if an agent_id is null the transform does nothing. 
+                            So instead, in the lookup step Filter out no S_AGENT ID check the "Do not pass the row if the lookup fails" checkbox
+
+6. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_WFM_AGENT_ACTIVITY.ktr
+--> Steps: Lookup Reason code, Add IS_ABSENCE_FLAG, Lookup Activity Type can be accomodated in Get CC_S_TMP_AGT_EVENT_DETAIL
+--> Remove Filter no AGENT_ID and its associated steps instead check the "Do not pass the row if the lookup fails" option in step Lookup CC_S_AGENT
+
+7. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_ACD_AGENT_ACTIVITY.ktr
+--> Filter out no Agent ID: Remove this step as we are already joining to the agent table in step Get Agent Skill Group Time. Also, if an agent_id is null the transform does nothing. 
+                            So instead, in the lookup step Filter out no S_AGENT ID check the "Do not pass the row if the lookup fails" checkbox
+                            
+8. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_ACD_AGENT_INTERVAL.ktr
+--> Created MAXDAT-6393 to see if this piece is actually used
+
+9. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/staging/Cisco/load_CC_S_CALL_DETAIL.ktr
+--> Tracking via MAXDAT-6379
+
+10. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/dimensional/Cisco/load_CC_F_AGENT_BY_DATE.ktr
+--> Database join - Get Supervisor ID: looks like this can be a simple db lookup. There are no multiple rows for a single agent in CC_S_AGENT_SUPERVISOR table
+--> Database join  - Get Manager ID: looks like this can be a simple db lookup. There are no multiple rows for a single agent in CC_S_AGENT_SUPERVISOR table
+
+11. svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/product/main/transforms/dimensional/Cisco/load_CC_F_AGENT_RTG_GRP_INTERVAL.ktr
+--> Database join - Get Supervisor ID: looks like this can be a simple db lookup. There are no multiple rows for a single agent in CC_S_AGENT_SUPERVISOR table
+--> Database join  - Get Manager ID: looks like this can be a simple db lookup. There are no multiple rows for a single agent in CC_S_AGENT_SUPERVISOR table
+

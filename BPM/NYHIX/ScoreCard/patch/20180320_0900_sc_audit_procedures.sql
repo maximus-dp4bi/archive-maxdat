@@ -1,0 +1,265 @@
+CREATE OR REPLACE Procedure DP_SCORECARD.Update_SC_AUDIT_PAYROLL
+   (
+  IN_DELETE_FLAG					IN  NUMBER, 	
+  IN_PAYROLL_AUDIT_ID              	IN	NUMBER,     
+  IN_PAYROLL_AUDIT_UPDATE_USER     	IN	VARCHAR2,   
+  IN_PAYROLL_AUDIT_DATE            	IN	DATE,
+  IN_AGENT_STAFF_ID                	IN	NUMBER,
+  IN_CORRECT_PROJECT_CODE          	IN	VARCHAR2,
+  IN_HOLIDAY_PTO_ENTRY_ACCURATE    	IN	VARCHAR2,
+  IN_APPLICABLE_LEAVE_ACCURATE     	IN	VARCHAR2,
+  IN_TOTAL_HOURS_ACCURATE          	IN	VARCHAR2,
+  IN_TIMESHEET_REVISION_REQUIRED   	IN	VARCHAR2,
+  IN_COACHING_OR_CORRECTIVE_STEP  	IN	VARCHAR2,
+  IN_PAYROLL_AUDIT_SUMMARY         	IN	VARCHAR2,
+  IN_AUDIT_SYSTEM                  	IN	VARCHAR2,
+  IN_PAYROLL_AUDIT_AMOUNT_OF_TM  	IN	NUMBER
+   )
+
+AS
+ --  v_username varchar2(100);
+BEGIN
+
+	if IN_PAYROLL_AUDIT_ID IS NULL
+	or Trunc(IN_PAYROLL_AUDIT_DATE) > trunc(sysdate)
+	then
+		null;
+    elsif in_delete_flag = 1 then
+		delete from dp_scorecard.SC_AUDIT_PAYROLL where PAYROLL_AUDIT_ID = IN_PAYROLL_AUDIT_ID;
+		commit;
+   else
+       
+       
+       update dp_scorecard.SC_AUDIT_PAYROLL
+          set 
+		  PAYROLL_AUDIT_DATE           =	IN_PAYROLL_AUDIT_DATE,           
+		  PAYROLL_AUDIT_UPDATE_DATE    =	sysdate,
+		  PAYROLL_AUDIT_UPDATE_USER    =	IN_PAYROLL_AUDIT_UPDATE_USER,   
+		  AGENT_STAFF_ID               =	IN_AGENT_STAFF_ID,               
+		  CORRECT_PROJECT_CODE         =	IN_CORRECT_PROJECT_CODE,         
+		  HOLIDAY_PTO_ENTRY_ACCURATE   =	IN_HOLIDAY_PTO_ENTRY_ACCURATE,   
+		  APPLICABLE_LEAVE_ACCURATE    =	IN_APPLICABLE_LEAVE_ACCURATE,    
+		  TOTAL_HOURS_ACCURATE         =	IN_TOTAL_HOURS_ACCURATE,         
+		  TIMESHEET_REVISION_REQUIRED  =	IN_TIMESHEET_REVISION_REQUIRED,  
+		  COACHING_OR_CORRECTIVE_STEPS =	IN_COACHING_OR_CORRECTIVE_STEP, 
+		  PAYROLL_AUDIT_SUMMARY        =	IN_PAYROLL_AUDIT_SUMMARY,        
+		  AUDIT_SYSTEM                 =	IN_AUDIT_SYSTEM,                 
+		  PAYROLL_AUDIT_AMOUNT_OF_TIME =	IN_PAYROLL_AUDIT_AMOUNT_OF_TM 
+        where PAYROLL_AUDIT_ID = IN_PAYROLL_AUDIT_ID;
+
+       commit;
+
+   end if;
+
+END;
+/
+
+show errors
+
+grant execute on DP_SCORECARD.Update_SC_AUDIT_PAYROLL to maxdat;
+
+grant execute on DP_SCORECARD.Update_SC_AUDIT_PAYROLL to maxdat_reports;
+
+grant debug on DP_SCORECARD.Update_SC_AUDIT_PAYROLL to dp_scorecard_read_only;
+
+
+CREATE OR REPLACE Procedure DP_SCORECARD.Update_SC_AUDIT_SCORECARD
+   (
+  IN_DELETE_FLAG					in  NUMBER, 	
+  IN_SCORECARD_AUDIT_ID             in NUMBER,		
+  IN_SCORECARD_AUDIT_UPDATE_USER    in VARCHAR2,    
+  IN_SCORECARD_AUDIT_DATE           in DATE,
+  IN_AGENT_STAFF_ID                 in NUMBER,
+  IN_ATTEND_TRKR_UPDT_ACCURATELY    in VARCHAR2,
+  IN_CORRECTIVE_ACTIONS_UP_TO_DT  in VARCHAR2,
+  IN_PERFORMANCE_TRKR_UP_TO_DATE    in VARCHAR2,
+  IN_GOALS_UPDATED                  in VARCHAR2,
+  IN_SCORECARD_AUDIT_SUMMARY        in VARCHAR2
+   )
+
+   
+AS
+ --  v_username varchar2(100);
+BEGIN
+
+	if IN_SCORECARD_AUDIT_ID IS NULL
+	or Trunc(IN_SCORECARD_AUDIT_DATE) > trunc(sysdate)
+	then
+		null;
+    elsif in_delete_flag = 1 then
+		delete from dp_scorecard.SC_AUDIT_SCORECARD where SCORECARD_AUDIT_ID = IN_SCORECARD_AUDIT_ID;
+		commit;
+   else
+       
+       update dp_scorecard.SC_AUDIT_SCORECARD
+          set 
+		  SCORECARD_AUDIT_DATE           = IN_SCORECARD_AUDIT_DATE,         
+		  SCORECARD_AUDIT_UPDATE_USER    = IN_SCORECARD_AUDIT_UPDATE_USER,  
+		  AGENT_STAFF_ID                 = IN_AGENT_STAFF_ID,               
+		  ATTEND_TRKR_UPDT_ACCURATELY    = IN_ATTEND_TRKR_UPDT_ACCURATELY,  
+		  CORRECTIVE_ACTIONS_UP_TO_DATE  = IN_CORRECTIVE_ACTIONS_UP_TO_DT,
+		  PERFORMANCE_TRKR_UP_TO_DATE    = IN_PERFORMANCE_TRKR_UP_TO_DATE,  
+		  GOALS_UPDATED                  = IN_GOALS_UPDATED,                
+		  SCORECARD_AUDIT_SUMMARY        = IN_SCORECARD_AUDIT_SUMMARY      
+        where SCORECARD_AUDIT_ID = IN_SCORECARD_AUDIT_ID;
+
+       commit;
+
+   end if;
+
+END;
+/
+
+show errors
+
+grant execute on DP_SCORECARD.Update_SC_AUDIT_SCORECARD to maxdat;
+
+grant execute on DP_SCORECARD.Update_SC_AUDIT_SCORECARD to maxdat_reports;
+
+grant debug on DP_SCORECARD.Update_SC_AUDIT_SCORECARD to dp_scorecard_read_only;
+
+
+CREATE OR REPLACE Procedure DP_SCORECARD.INSERT_SC_AUDIT_PAYROLL
+   (
+  IN_PAYROLL_AUDIT_create_USER     IN	VARCHAR2,   
+  IN_PAYROLL_AUDIT_DATE            IN	DATE,
+  IN_AGENT_STAFF_ID                IN	NUMBER,
+  IN_CORRECT_PROJECT_CODE          IN	VARCHAR2,
+  IN_HOLIDAY_PTO_ENTRY_ACCURATE    IN	VARCHAR2,
+  IN_APPLICABLE_LEAVE_ACCURATE     IN	VARCHAR2,
+  IN_TOTAL_HOURS_ACCURATE          IN	VARCHAR2,
+  IN_TIMESHEET_REVISION_REQUIRED   IN	VARCHAR2,
+  IN_COACHING_OR_CORRECTIVE_STEP  IN	VARCHAR2,
+  IN_PAYROLL_AUDIT_SUMMARY         IN	VARCHAR2,
+  IN_AUDIT_SYSTEM                  IN	VARCHAR2,
+  IN_PAYROLL_AUDIT_AMOUNT_OF_TM  IN	NUMBER
+   )
+
+AS
+ --  v_username varchar2(100);
+BEGIN
+
+	if Trunc(IN_PAYROLL_AUDIT_DATE) > trunc(sysdate)
+	then 
+		null;
+	else
+     INSERT INTO dp_scorecard.SC_AUDIT_PAYROLL
+     (
+		PAYROLL_AUDIT_CREATE_USER,
+		PAYROLL_AUDIT_CREATE_DATE,	
+		PAYROLL_AUDIT_UPDATE_USER,    
+		PAYROLL_AUDIT_UPDATE_DATE,    
+		PAYROLL_AUDIT_DATE,
+		AGENT_STAFF_ID,               
+		CORRECT_PROJECT_CODE,         
+		HOLIDAY_PTO_ENTRY_ACCURATE,   
+		APPLICABLE_LEAVE_ACCURATE,    
+		TOTAL_HOURS_ACCURATE,         
+		TIMESHEET_REVISION_REQUIRED,  
+		COACHING_OR_CORRECTIVE_STEPS, 
+		PAYROLL_AUDIT_SUMMARY,        
+		AUDIT_SYSTEM,                 
+		PAYROLL_AUDIT_AMOUNT_OF_TIME 
+    )
+	values 
+		(
+		IN_PAYROLL_AUDIT_create_USER,   
+        sysdate,
+		IN_PAYROLL_AUDIT_create_USER,   
+		sysdate,
+		IN_PAYROLL_AUDIT_DATE,   
+		IN_AGENT_STAFF_ID,               
+		IN_CORRECT_PROJECT_CODE,         
+		IN_HOLIDAY_PTO_ENTRY_ACCURATE,   
+		IN_APPLICABLE_LEAVE_ACCURATE,    
+		IN_TOTAL_HOURS_ACCURATE,         
+		IN_TIMESHEET_REVISION_REQUIRED,  
+		IN_COACHING_OR_CORRECTIVE_STEP, 
+		IN_PAYROLL_AUDIT_SUMMARY,        
+		IN_AUDIT_SYSTEM,                 
+		IN_PAYROLL_AUDIT_AMOUNT_OF_TM 
+	);
+	
+	end if;	
+	
+	commit;
+	
+END;
+/
+
+show errors
+
+show errors
+
+grant execute on DP_SCORECARD.INSERT_SC_AUDIT_PAYROLL to maxdat;
+
+grant execute on DP_SCORECARD.INSERT_SC_AUDIT_PAYROLL to maxdat_reports;
+
+grant debug on DP_SCORECARD.INSERT_SC_AUDIT_PAYROLL to dp_scorecard_read_only;
+
+
+CREATE OR REPLACE Procedure DP_SCORECARD.INSERT_SC_AUDIT_SCORECARD
+   (
+  IN_SCORECARD_AUDIT_create_USER    in VARCHAR2,     	
+  IN_SCORECARD_AUDIT_DATE           in DATE,
+  IN_AGENT_STAFF_ID                 in NUMBER,
+  IN_ATTEND_TRKR_UPDT_ACCURATELY    in VARCHAR2,
+  IN_CORRECTIVE_ACTIONS_UP_TO_DT  in VARCHAR2,
+  IN_PERFORMANCE_TRKR_UP_TO_DATE    in VARCHAR2,
+  IN_GOALS_UPDATED                  in VARCHAR2,
+  IN_SCORECARD_AUDIT_SUMMARY        in VARCHAR2
+   )
+   
+AS
+--   v_username varchar2(100);
+BEGIN
+
+	if Trunc(IN_SCORECARD_AUDIT_DATE) > trunc(sysdate)
+	then 
+		null;
+	else
+	insert into dp_scorecard.SC_AUDIT_SCORECARD
+		(
+		SCORECARD_AUDIT_create_USER, 
+		SCORECARD_AUDIT_create_date,
+		SCORECARD_AUDIT_update_USER, 
+		SCORECARD_AUDIT_update_date,
+		--
+		SCORECARD_AUDIT_DATE,          
+		AGENT_STAFF_ID,                
+		ATTEND_TRKR_UPDT_ACCURATELY,   
+		CORRECTIVE_ACTIONS_UP_TO_DATE, 
+		PERFORMANCE_TRKR_UP_TO_DATE,   
+		GOALS_UPDATED,                 
+		SCORECARD_AUDIT_SUMMARY       
+		)
+	values
+		(
+		IN_SCORECARD_AUDIT_create_USER,    
+		sysdate,
+		IN_SCORECARD_AUDIT_create_USER,    
+		sysdate,
+		--
+		IN_SCORECARD_AUDIT_DATE,           
+		IN_AGENT_STAFF_ID,                 
+		IN_ATTEND_TRKR_UPDT_ACCURATELY,    
+		IN_CORRECTIVE_ACTIONS_UP_TO_DT, 
+		IN_PERFORMANCE_TRKR_UP_TO_DATE,    
+		IN_GOALS_UPDATED,                  
+		IN_SCORECARD_AUDIT_SUMMARY        
+		);
+		
+	end if;
+		
+    commit;
+
+END;
+/
+
+show errors
+
+grant execute on DP_SCORECARD.INSERT_SC_AUDIT_SCORECARD to maxdat;
+
+grant execute on DP_SCORECARD.INSERT_SC_AUDIT_SCORECARD to maxdat_reports;
+
+grant debug on DP_SCORECARD.INSERT_SC_AUDIT_SCORECARD to dp_scorecard_read_only;

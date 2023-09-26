@@ -10,7 +10,7 @@ create table CORP_ETL_PROC_LETTERS
   letter_type               VARCHAR2(100),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
-  county_code               VARCHAR2(10),
+  county_code               VARCHAR2(64),
   zip_code                  NUMBER,
   language                  VARCHAR2(32),
   reprint                   VARCHAR2(1),
@@ -24,7 +24,7 @@ create table CORP_ETL_PROC_LETTERS
   return_dt                 DATE,
   return_reason             VARCHAR2(100),
   reject_reason             VARCHAR2(100),
-  error_reason              VARCHAR2(100),
+  error_reason              VARCHAR2(4000),
   transmit_file_name        VARCHAR2(100),
   transmit_file_dt          DATE,
   letter_resp_file_name     VARCHAR2(100),
@@ -112,7 +112,7 @@ create table CORP_ETL_PROC_LETTERS_OLTP
   letter_type               VARCHAR2(100),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
-  county_code               VARCHAR2(10),
+  county_code               VARCHAR2(64),
   zip_code                  NUMBER,
   language                  VARCHAR2(32),
   reprint                   VARCHAR2(1),
@@ -126,7 +126,7 @@ create table CORP_ETL_PROC_LETTERS_OLTP
   return_dt                 DATE,
   return_reason             VARCHAR2(100),
   reject_reason             VARCHAR2(100),
-  error_reason              VARCHAR2(100),
+  error_reason              VARCHAR2(4000),
   transmit_file_name        VARCHAR2(100),
   transmit_file_dt          DATE,
   letter_resp_file_name     VARCHAR2(100),
@@ -201,7 +201,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
   letter_type               VARCHAR2(100),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
-  county_code               VARCHAR2(10),
+  county_code               VARCHAR2(64),
   zip_code                  NUMBER,
   language                  VARCHAR2(32),
   reprint                   VARCHAR2(1),
@@ -215,7 +215,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
   return_dt                 DATE,
   return_reason             VARCHAR2(100),
   reject_reason             VARCHAR2(100),
-  error_reason              VARCHAR2(100),
+  error_reason              VARCHAR2(4000),
   transmit_file_name        VARCHAR2(100),
   transmit_file_dt          DATE,
   letter_resp_file_name     VARCHAR2(100),
@@ -273,69 +273,3 @@ alter table CORP_ETL_PROC_LETTERS_WIP_BPM
 
 -- Grant/Revoke object privileges 
 grant select on CORP_ETL_PROC_LETTERS_WIP_BPM to MAXDAT_READ_ONLY;
-
-
--- LETTERS_STG
-create table LETTERS_STG
-(
-  letter_id               NUMBER(18) not null,
-  letter_requested_on     DATE,
-  letter_status_cd        VARCHAR2(32),
-  letter_status           VARCHAR2(32),
-  letter_create_ts        DATE,
-  letter_update_ts        DATE,
-  letter_sent_on          DATE,
-  program_code            VARCHAR2(32),
-  program                 VARCHAR2(50),
-  driver_table_name       VARCHAR2(60),
-  letter_mailed_date      DATE,
-  letter_reject_reason_cd VARCHAR2(32),
-  letter_reject_reason    VARCHAR2(100),
-  letter_printed_on       DATE,
-  letter_error_codes      VARCHAR2(4000),
-  residence_county        VARCHAR2(64),
-  residence_zip_code      VARCHAR2(32),
-  letter_case_id          NUMBER(18),
-  letter_parent_lmreq_id  NUMBER(18),
-  letter_ref_type         VARCHAR2(40),
-  letter_type_cd          VARCHAR2(40),
-  letter_type             VARCHAR2(100),
-  letter_request_type     VARCHAR2(2),
-  letter_lang_cd          VARCHAR2(32),
-  language                VARCHAR2(20),
-  letter_driver_type      VARCHAR2(4),
-  let_material_request_id NUMBER(18),
-  letter_created_by       VARCHAR2(80),
-  letter_return_reason_cd VARCHAR2(32),
-  return_reason           VARCHAR2(100),
-  letter_updated_by       VARCHAR2(80),
-  letter_return_date      DATE
-)
-tablespace MAXDAT_DATA;
-
--- Create/Recreate indexes 
-create index LETTERS_ID_STG_IDX on LETTERS_STG (LETTER_ID)
-  tablespace MAXDAT_INDX;
-
-create index LETTERS_REQUEST_TYPE_STG_IDX on LETTERS_STG (LETTER_REQUEST_TYPE)
-  tablespace MAXDAT_INDX;
-
-create index LETTERS_SENT_ON_STG_IDX on LETTERS_STG (LETTER_SENT_ON)
-  tablespace MAXDAT_INDX;
-
-create index LETTERS_STG_IDX on LETTERS_STG (LETTER_TYPE_CD, LETTER_ID)
-  tablespace MAXDAT_INDX;
-
-create index LETTERS_TYPE_CD_STG_IDX on LETTERS_STG (LETTER_TYPE_CD)
-  tablespace MAXDAT_INDX;
-
-create index LETTER_CASE_ID_IDX on LETTERS_STG (LETTER_CASE_ID)
-  tablespace MAXDAT_DATA;
-
-create index LETTER_REQ_ON_IDX on LETTERS_STG (LETTER_REQUESTED_ON)
-  tablespace MAXDAT_DATA;
-
--- Grant/Revoke object privileges 
-grant select on LETTERS_STG to MAXDAT_READ_ONLY;
-
-

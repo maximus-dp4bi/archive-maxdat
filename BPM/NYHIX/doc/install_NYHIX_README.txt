@@ -55,8 +55,6 @@ Prerequisites:
 	BPM/Admin/createdb/SVN_REVISION_KEYWORD_pkg.sql
 	BPM/Admin/createdb/SVN_REVISION_DEPLOYED.sql
 	BPM/EventQueue/createdb/BPM_UPDATE_EVENT_QUEUE.sql
-	BPM/DataModel/BpmEvent/createdb/BPM_EVENT_PROJECT_pkg_spec.sql
-	BPM/DataModel/BpmEvent/createdb/BPM_EVENT_pkg.sql
 	BPM/DataModel/BpmSemantic/createdb/BPM_SEMANTIC_PROJECT_pkg_spec.sql
 	BPM/DataModel/BpmSemantic/createdb/BPM_SEMANTIC_pkg.sql
 	BPM/EventQueue/createdb/PROCESS_BPM_QUEUE_JOB.sql
@@ -79,11 +77,11 @@ Prerequisites:
 
 	Run order 
 
-	1.create_ETL_initialize_tables.sql
-	2.create_ETL_initialize_views.sql
-	3.create_ETL_initialize_triggers.sql
+	1. create_ETL_initialize_tables.sql
+	2. create_ETL_initialize_views.sql
+	3. create_ETL_initialize_triggers.sql
+	4. BPM_LAST_ETL_RUN_SV.sql
         
-
 ----------------------------------------
 3. NYHIX PROJECT SCRIPTS SECTION - Part 1
 ----------------------------------------
@@ -154,8 +152,7 @@ Prerequisites:
 
         Run order 
 	
-	1. BPM_EVENT_PROJECT_pkg_body.sql
-	2. BPM_SEMANTIC_PROJECT_pkg_body.sql
+	1. BPM_SEMANTIC_PROJECT_pkg_body.sql
 
 
 -----------------

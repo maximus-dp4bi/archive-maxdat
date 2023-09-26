@@ -13,26 +13,26 @@ create or replace package MANAGE_MAIL_FAX_DOC as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_DCN_JEOPARDY_STATUS
     (p_dcn_create_dt in date,
      p_complete_dt in date,
      p_document_type in varchar2
  )
-    return varchar2;
+    return varchar2 parallel_enable;
 
   function GET_TIMELINESS_STATUS
     (p_dcn_create_dt in date,
      p_complete_dt in date,
      p_document_type in varchar2
 )
-    return varchar2;
+    return varchar2 parallel_enable;
   
   /* 
   Include: 
@@ -169,7 +169,7 @@ create or replace package body MANAGE_MAIL_FAX_DOC as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -177,7 +177,7 @@ create or replace package body MANAGE_MAIL_FAX_DOC as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -189,16 +189,18 @@ create or replace package body MANAGE_MAIL_FAX_DOC as
      p_complete_dt in date,
      p_document_type in varchar2
   )
-    return varchar2
+    return varchar2 parallel_enable
       as
   begin
   if p_document_type is not null then
-    select  to_number(out_var)
+  
+    select /*+ RESULT_CACHE +*/ to_number(out_var)
     into    v_jeopardy_hours
     from    corp_etl_list_lkup
     where   name = 'ProcessMail_jeop_threshold'
     and     list_type = 'DOC_TYPE'
     and     value = p_document_type;
+    
     if (p_dcn_create_dt + (3*v_jeopardy_hours)/24) < nvl(p_complete_dt,SYSDATE ) then
        return 'Y';
     else
@@ -215,16 +217,18 @@ create or replace package body MANAGE_MAIL_FAX_DOC as
      p_complete_dt in date,
      p_document_type in varchar2
 )
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
  if p_document_type is not null then
-    select  to_number(out_var)
+ 
+    select /*+ RESULT_CACHE +*/ to_number(out_var)
     into    v_timeliness_hours
     from    corp_etl_list_lkup
     where   name = 'ProcessMail_timeli_threshold'
     and     list_type = 'DOC_TYPE'
     and     value = p_document_type;
+    
     if (p_dcn_create_dt + (3*v_timeliness_hours)/24) < nvl(p_complete_dt,SYSDATE)  then
        return 'Processed Untimely';
     else

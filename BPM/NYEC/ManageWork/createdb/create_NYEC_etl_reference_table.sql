@@ -37,14 +37,12 @@ CONSTRAINT nyec_etl_mw_reference_uk
   UNIQUE ( task_id, incident_header_id )
   ENABLE VALIDATE;
 
-CREATE PUBLIC SYNONYM nyec_etl_manage_work_reference FOR nyec_etl_manage_work_reference;
 GRANT SELECT ON nyec_etl_manage_work_reference TO MAXDAT_READ_ONLY;
 
 
 -- Sequence
 CREATE SEQUENCE seq_nemwr_id START WITH 1;
 
---CREATE PUBLIC SYNONYM seq_nemwr_id FOR seq_nemwr_id;
 --GRANT SELECT ON seq_nemwr_id TO MAXDAT_READ_ONLY;
 
 -- Trigger

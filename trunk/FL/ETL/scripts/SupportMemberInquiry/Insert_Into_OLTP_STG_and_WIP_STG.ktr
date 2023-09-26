@@ -3,7 +3,20 @@
   <info>
     <name>Insert_Into_OLTP_STG_and_WIP_STG</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -71,8 +84,8 @@
 </note>
       <xloc>95</xloc>
       <yloc>486</yloc>
-      <width>1040</width>
-      <heigth>25</heigth>
+      <width>1358</width>
+      <heigth>30</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -89,6 +102,32 @@
       <drawshadow>Y</drawshadow>
     </notepad>
   </notepads>
+  <connection>
+    <name>KOFAX_CENTRAL</name>
+    <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
+    <type>MSSQLNATIVE</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_CENTRAL_DB}</database>
+    <port>1433</port>
+    <username>${DB_KOFAX_CENTRAL_USER}</username>
+    <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>LETTERS_SOURCE</name>
     <server>${DB_OLTP_HOSTNAME}</server>
@@ -128,8 +167,11 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = FLCPD0_MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
@@ -148,11 +190,18 @@
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -434,7 +483,7 @@
     <connection>MAXDAT</connection>
     <sql>SELECT 
 	&apos;SupportMemberInqury&apos; as PROCESS_NAME,
-	&apos;SupportMemberInqury_CreateRule&apos; as JOB_NAME,
+	&apos;Insert_Into_OLTP_STG_and_WIP_STG&apos; as JOB_NAME,
 	&apos;FLHK_ETL_SUPP_MEMBR_INQY&apos; as DRIVER_TABLE_NAME,
 	sysdate as ERR_DATE,
 	&apos;CRITICAL&apos; as ERR_LEVEL,
@@ -442,7 +491,7 @@
 FROM 
 	FLHK_ETL_SUPP_MEMBR_INQY V
 WHERE 
-	STAGE_DONE_DATE IS NULL or STG_EXTRACT_DATE +1 &lt;= sysdate
+	STAGE_DONE_DATE IS NULL
 
 </sql>
     <limit>0</limit>
@@ -524,7 +573,7 @@ WHERE
         </field>
         <field>
           <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>LETTER_REQ_ID</stream_name>
+          <stream_name>FEMSI_ID</stream_name>
         </field>
         <field>
           <column_name>CREATE_TS</column_name>
@@ -537,8 +586,8 @@ WHERE
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>703</xloc>
-      <yloc>61</yloc>
+      <xloc>724</xloc>
+      <yloc>103</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -597,7 +646,7 @@ WHERE
         </field>
         <field>
           <column_name>ERR_DATE</column_name>
-          <stream_name>ERROR_DATE</stream_name>
+          <stream_name>ERR_DATE</stream_name>
         </field>
         <field>
           <column_name>ERR_LEVEL</column_name>
@@ -609,21 +658,21 @@ WHERE
         </field>
         <field>
           <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>LETTER_REQ_ID</stream_name>
+          <stream_name>FEMSI_ID</stream_name>
         </field>
         <field>
           <column_name>CREATE_TS</column_name>
-          <stream_name>ERROR_DATE</stream_name>
+          <stream_name>ERR_DATE</stream_name>
         </field>
         <field>
           <column_name>UPDATE_TS</column_name>
-          <stream_name>ERROR_DATE</stream_name>
+          <stream_name>ERR_DATE</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>703</xloc>
-      <yloc>286</yloc>
+      <xloc>711</xloc>
+      <yloc>319</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

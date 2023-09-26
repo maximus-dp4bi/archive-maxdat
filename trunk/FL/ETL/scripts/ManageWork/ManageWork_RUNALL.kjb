@@ -2,7 +2,20 @@
 <job>
   <name>ManageWork_RUNALL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -16,8 +29,8 @@
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
@@ -389,7 +402,7 @@ COMMIT;</sql>
       <description/>
       <type>DELETE_FILE</type>
       <filename>${MAXDAT_LOG_DIRECTORY}&#47;ManageWork_done.txt</filename>
-      <fail_if_file_not_exists>N</fail_if_file_not_exists>
+      <fail_if_file_not_exists>Y</fail_if_file_not_exists>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>

@@ -1,0 +1,19 @@
+USE ROLE SYSADMIN;
+use warehouse PUREINSIGHTS_DEV_LOAD_DAILY_WH;
+use database PUREINSIGHTS_DEV;
+use schema RAW;
+
+CREATE OR REPLACE TABLE session_requested_routing_skills CLONE DIALER_DETAIL;
+TRUNCATE TABLE session_requested_routing_skills;
+
+delete from pi_files_to_ingest where tablename = 'session_requested_routing_skills';
+
+GRANT UPDATE, TRUNCATE, SELECT, REFERENCES, REBUILD, INSERT, DELETE ON session_requested_routing_skills TO ROLE GEN_DP4BI_DEV;
+GRANT SELECT, REFERENCES ON TABLE session_requested_routing_skills TO ROLE KYVOS_DP4BI_DEV_READ;
+GRANT SELECT, REFERENCES ON TABLE session_requested_routing_skills TO ROLE MAX_QA;
+GRANT UPDATE, TRUNCATE, SELECT, REFERENCES, REBUILD, INSERT, DELETE ON session_requested_routing_skills TO ROLE PUREINSIGHTS_DEV_POC;
+GRANT SELECT, REFERENCES ON TABLE session_requested_routing_skills TO ROLE PUREINSIGHTS_DEV_READ;
+GRANT UPDATE, TRUNCATE, SELECT, REFERENCES, REBUILD, INSERT, DELETE ON session_requested_routing_skills TO ROLE PUREINSIGHTS_GEN_DP4BI_DEV;
+GRANT UPDATE, TRUNCATE, SELECT, REFERENCES, REBUILD, INSERT, DELETE ON session_requested_routing_skills TO ROLE PI_DATA_INGEST_DEV_ALERT_USER;
+
+

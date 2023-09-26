@@ -1,0 +1,62 @@
+#CiscoEnterprise
+35 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/manage_adhoc_contact_center_jobs.log 2>&1
+10,40 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/scheduled_contact_center_job_executions.log
+30 04 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/bin/load_Agent_First_Call_Dt.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/load_Agent_First_Call_Dt.sh_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/bin/run_initialize_contact_center.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/manage_scheduled_init_job_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+20 7 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_scheduled_IVR_Menu_Group.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/manage_scheduled_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_adhoc_IVR_Menu_Group.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/manage_adhoc_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+0 0-4,10-23 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+25,55 5-9 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+5 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_Survey_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/Run_Daily_Survey_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+10,15,20,25,35,40,45,50,55 7 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/run_ivr_jobs.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/IVR_Enhance/cron_run_ivr_jobs_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+5,15,25,35,45,55 8 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/run_ivr_jobs.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/IVR_Enhance/cron_run_ivr_jobs_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+0,30 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/run_ivr_jobs.sh > /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/logs/IVR_Enhance/cron_run_ivr_jobs_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+45 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_adhoc_extracts.sh
+30 6 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_scheduled_extracts.sh
+0 5 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_scheduled_Call_Back.sh
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_adhoc_Call_Back.sh
+
+0 12 * * * /u01/maximus/maxdat-prd/CiscoEnterprise8/ETL/scripts/ContactCenter/main/bin/purge_cc_logs.sh
+
+#DMCS
+30 * * * * /u01/maximus/maxdat-prd/DMCS/ETL/scripts/ContactCenter/implementation/DMCS/bin/run_load_contact_center.sh > /u01/maximus/maxdat-prd/DMCS/ETL/logs/ContactCenter/run_load_contact_center.log
+
+#AO8
+0 7 16 * * /u01/maximus/maxdat-prd/AO8/ETL/main/bin/run_ao_input_jobs.sh > /u01/maximus/maxdat-prd/AO8/logs/cron_ao_input_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>/u01/maximus/maxdat-prd/AO8/logs/cron_error.log
+00,30 * 17,18,19,20,21,22,23,24,25 * * /u01/maximus/maxdat-prd/AO8/ETL/main/bin/run_ao_extract_jobs.sh > /u01/maximus/maxdat-prd/AO8/logs/cron_ao_extract_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>/u01/maximus/maxdat-prd/AO8/logs/cron_error_ext.log
+
+#CALL8
+0 6 * * * /u01/maximus/maxdat-prd/CALL8/scripts/main/bin/run_call_provider_load.sh > /u01/maximus/maxdat-prd/CALL8/logs/cron_call_prov_load_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#NC_GENESYS
+0 1 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_purge.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/purge_GENESYS_logs.log 2>&1
+0 9-21 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_do_pull_H.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Do_GENESYS_Pull_H.log 2>&1
+5 5 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_do_pull.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Do_GENESYS_Pull.log 2>&1
+0 7 * * 1-6 /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_load.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Load_GENESYS_Data.log 2>&1
+10 8 * * * /u01/maximus/maxdat-prd/NC_GENESYS/scripts/cronfiles/cron_NC_GENESYS_run_load.sh > /u01/maximus/maxdat-prd/NC_GENESYS/logs/Load_GENESYS_Data.log 2>&1
+
+#PAIEB8
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * bash /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+00 02 * * * find /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/PAIEB8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+0 10 * * * /u01/maximus/maxdat-prd/PAIEB8/scripts/purge_logs.sh > /u01/maximus/maxdat-prd/PAIEB8/scripts/purge_logs.log 2>&1
+
+#PAIECC8
+1,16 * * * * bash /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/logs/removed_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log
+00 02 * * * find /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/PAIECC8/ETLJobControl/logs/removed_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log
+0 12 * * * /u01/maximus/maxdat-prd/PAIECC8/scripts/ContactCenter/main/bin/purge_cc_logs.sh
+
+#DCHIX8
+21,31 * * * * bash /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+00 02 * * * find /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/DCHIX8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+0 10 * * * /u01/maximus/maxdat-prd/DCHIX8/scripts/purge_logs.sh
+
+#LAEBCC8
+#1,16 * * * * bash /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+#00 02 * * * find /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+#00 02 * * * find /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/LAEBCC8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+#0 10 * * * /u01/maximus/maxdat-prd/LAEBCC8/scripts/purge_logs.sh

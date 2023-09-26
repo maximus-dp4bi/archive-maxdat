@@ -1,0 +1,20 @@
+#ILEB-5952
+#15 * * * * sh /u01/maximus/maxdat-prd/ILEBCC8/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh > /u01/maximus/maxdat-prd/ILEBCC8/logs/ContactCenter/manage_all_adhoc_jobs_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 * * * * /u01/maximus/maxdat-prd/ILEBCC8/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh > /u01/maximus/maxdat-prd/ILEBCC8/logs/ContactCenter/scheduled_contact_center_job_executions_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#0 6 * * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/load_New_Queue_Flag_for_Alert$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#ILEB-5994
+#5 3 * * 1 /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "WEEKLY" > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/cron_run_weekly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#10 3 2 * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "MONTHLY" > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/cron_run_monthly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#MAXDAT-3840
+#ILEB-6193
+#0,20,40 * * * * /u01/maximus/maxdat-prd/ILEBCC8/scripts/ContactCenter/implementation/ILEBCC/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/ILEBCC8/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#ILEB-7422
+0 12 * * * /u01/maximus/maxdat-prd/ILEBCC8/scripts/ContactCenter/main/bin/purge_cc_logs.sh > /u01/maximus/maxdat-prd/ILEBCC8/logs/purge_cc_logs.log 2>&1
+#Ansible: log_purge
+#0 3 * * * /u01/app/appadmin/scripts/log_purge.sh
+#MAXDAT-9994
+#0 6 * * * /u01/maximus/maxdat-prd/ILEBCC8/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh > /u01/maximus/maxdat-prd/ILEBCC8/logs/load_New_Queue_Flag_for_Alert.log 2>&1
+#PAXTECH-2164
+1,16,21,41 * * * * bash /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/scripts/etl_job_control.bash 2>&1 >> /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/logs/etl_job_control_$(date +\%Y-\%m-\%d).log
+00 02 * * * find /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/logs/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log
+00 02 * * * find /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/data/ -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat-prd/ILEBCC8/ETLJobControl/logs/removed_$(date +'\%Y\%m\%d_\%H\%M\%S_\%3N').log

@@ -3,7 +3,20 @@
   <info>
     <name>Load_CC_D_AGENT_UPDATE</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -70,11 +83,11 @@
   </notepads>
   <connection>
     <name>MAXDAT</name>
-    <server>rcmxdb09d.maximus.com</server>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
     <database>${DB_MAXDAT_NAME}</database>
-    <port>1547</port>
+    <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
@@ -91,8 +104,10 @@
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1547</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT_CADR;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -165,7 +180,9 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>etk_maximus_wc_prod2</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = etk_maximus_wc_uatest;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -193,7 +210,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get rows from result</from><to>CC_D_AGENT Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Filter out new Agents</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Update</to><enabled>Y</enabled> </hop>  <hop> <from>CC_D_AGENT Lookup</from><to>Filter out new Agents</to><enabled>Y</enabled> </hop>  <hop> <from>Filter out new Agents</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Filter out new Agents</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Filter out new Agents</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Dimension lookup&#47;update</to><enabled>Y</enabled> </hop>  <hop> <from>Get rows from result</from><to>Get System Info</to><enabled>Y</enabled> </hop>  <hop> <from>Get System Info</from><to>CC_D_AGENT Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CC_D_AGENT Lookup</from><to>Filter out new Agents</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>CC_D_AGENT Lookup</name>
     <type>DBLookup</type>
@@ -232,6 +249,12 @@
         <condition>=</condition>
         <name2/>
       </key>
+      <key>
+        <name>sysDate</name>
+        <field>RECORD_END_DT</field>
+        <condition>&gt;=</condition>
+        <name2/>
+      </key>
       <value>
         <name>D_AGENT_ID</name>
         <rename>NEW_AGENT_ID</rename>
@@ -243,6 +266,70 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>370</xloc>
       <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dimension lookup&#47;update</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>CC_D_AGENT</table>
+      <connection>MAXDAT</connection>
+      <commit>100</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>AgentName</name>
+          <lookup>LOGIN_ID</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>RECORD_EFF_DT</from>
+          <to>RECORD_END_DT</to>
+        </date>
+        <field>
+          <name>Job_Title</name>
+          <lookup>JOB_TITLE</lookup>
+          <update>Update</update>
+        </field>
+        <field>
+          <name>Termination_Date</name>
+          <lookup>TERMINATION_DATE</lookup>
+          <update>Update</update>
+        </field>
+        <field>
+          <name>Hire_Date</name>
+          <lookup>HIRE_DATE</lookup>
+          <update>Update</update>
+        </field>
+        <return>
+          <name>D_AGENT_ID</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>VERSION</version>
+        </return>
+      </fields>
+      <sequence>SEQ_CC_D_AGENT</sequence>
+      <min_year>2014</min_year>
+      <max_year>2199</max_year>
+      <cache_size>-1</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>Y</use_start_date_alternative>
+      <start_date_alternative>sysdate</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>996</xloc>
+      <yloc>95</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -333,54 +420,8 @@
         <precision>-1</precision>
         </field>      </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>182</xloc>
-      <yloc>87</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Update</name>
-    <type>Update</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>100</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
-    <lookup>
-      <schema/>
-      <table>CC_D_AGENT</table>
-      <key>
-        <name>NEW_AGENT_ID</name>
-        <field>D_AGENT_ID</field>
-        <condition>=</condition>
-        <name2/>
-        </key>
-      <value>
-        <name>JOB_TITLE</name>
-        <rename>Job_Title</rename>
-        </value>
-      <value>
-        <name>TERMINATION_DATE</name>
-        <rename>Termination_Date</rename>
-        </value>
-      <value>
-        <name>HIRE_DATE</name>
-        <rename>Hire_Date</rename>
-        </value>
-      </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>933</xloc>
-      <yloc>96</yloc>
+      <xloc>104</xloc>
+      <yloc>74</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -395,9 +436,9 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <loglevel>log_level_rowlevel</loglevel>
+      <loglevel>log_level_basic</loglevel>
       <displayHeader>Y</displayHeader>
-      <logmessage>CC_D_AGENT</logmessage>
+      <logmessage>CC_D_AGENT****</logmessage>
     <fields>
       <field>
         <name>AgentName</name>
@@ -423,11 +464,38 @@
       <field>
         <name>Hire_Date</name>
         </field>
+      <field>
+        <name>sysDate</name>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>788</xloc>
       <yloc>93</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>sysDate</name>
+        <type>system date (fixed)</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>194</xloc>
+      <yloc>77</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

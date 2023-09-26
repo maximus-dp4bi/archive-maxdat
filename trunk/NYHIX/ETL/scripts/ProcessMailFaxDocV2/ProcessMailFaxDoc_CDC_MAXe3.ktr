@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_CDC_MAXe4</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -372,12 +394,18 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
   ADT.UPDATED_BY ENV_UPDATED_BY_STAFF_ID,
   ADT.STATUS_DATE ENV_STATUS_DT,
   ADT.ECN,
-  CASE WHEN O.LAST_EVENT_DATE &gt; ADT.UPDATED_TS THEN O.LAST_EVENT_DATE ELSE ADT.UPDATED_TS END AS LAST_EVENT_DATE
-FROM
-  NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 O
-INNER JOIN APP_DOC_TRACKER_STG ADT
-ON
-  O.DOCUMENT_SET_ID = ADT.DOCUMENT_SET_ID</sql>
+  CASE WHEN (ADT.STATUS_CD &lt;&gt; o.ENV_STATUS_CD or
+			 ADT.STATUS_DATE &lt;&gt; o.ENV_STATUS_DT) and
+			 ADT.UPDATED_TS &gt; o.LAST_EVENT_DATE 
+  then ADT.UPDATED_TS else o.LAST_EVENT_DATE END AS LAST_EVENT_DATE
+FROM NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 O INNER JOIN APP_DOC_TRACKER_STG ADT ON O.DOCUMENT_SET_ID = ADT.DOCUMENT_SET_ID
+where 
+  coalesce(ADT.APP_DOC_TRACKER_ID,1) &lt;&gt; coalesce(o.APP_DOC_TRACKER_ID,1) or
+  coalesce(ADT.STATUS_CD,&apos;X&apos;) &lt;&gt; coalesce(o.ENV_STATUS_CD,&apos;X&apos;) or
+  coalesce(ADT.UPDATED_TS,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.ENV_UPDATE_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ADT.UPDATED_BY,&apos;X&apos;) &lt;&gt; coalesce(o.ENV_UPDATED_BY_STAFF_ID,&apos;X&apos;) or
+  coalesce(ADT.STATUS_DATE,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) &lt;&gt; coalesce(o.ENV_STATUS_DT,to_date(&apos;01-01-1900&apos;,&apos;mm-dd-yyyy&apos;)) or
+  coalesce(ADT.ECN,&apos;X&apos;) &lt;&gt; coalesce(o.ECN,&apos;X&apos;)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

@@ -1,0 +1,32 @@
+0,30 05-21 * * 1-6 /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mailfaxbatch_V2.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/MailFaxBatch/nyhix_run_mailfaxbatch_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+0,30 09-21 * * 0 /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mailfaxbatch_V2.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/MailFaxBatch/nyhix_run_mailfaxbatch_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# AgentTimeline
+0 23 * * * /u01/maximus/maxdat/NYHIX8/scripts/Run_PP_WFM_RUNALL.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/AgentTimeline/Run_PP_WFM_RUNALL_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# DP_SCORECARD JOBS
+#00 * * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_egain_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/Egain/nyhix_run_egain_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log 2>&1
+
+00 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_engage_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/Engage/nyhix_run_engage_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+00 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_sc_pp_wfm_tables_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_sc_pp_wfm_tables_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+
+45 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_dp_scorecard_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_dp_scorecard_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+00 01 * * * /u01/maximus/maxdat/NYHIX8/scripts/pp_wfm_task_bo_30D_SYNC.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/pp_wfm_task_bo_30D_SYNC.sh_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+45 01 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# Note the Agent_Clocking_Extract is really AgentTimeline but the kjb(s) and ktr(s) are in the DP_Scorecard directory and the data comes from Pipkins
+#Monday thru Friday Every 15 minutes 4PM till 9PM Eastern ( Note the Agent_Clocking_Extract is really AgentTimeline
+10,25,40,55 16-21 * * 1-5 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/PIPKINS_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#Every DAY at 5:00 AM
+00 05 * * 1-7 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#On Saturday Every 15 minutes Noon to 1PM Eastern
+        10,25,40,55 12-13 * * 6 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#NYHIX-62640 :run script every 90 days
+0 5 */90 * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_table_cleanup_schedule.sql >> /u01/maximus/maxdat/NYHIX8/logs/nyhix_table_cleanup_schedule.log

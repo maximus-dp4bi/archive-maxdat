@@ -2,7 +2,20 @@
 <job>
   <name>InitiateRenewals_Runall</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -102,8 +115,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>40</xloc>
-      <yloc>160</yloc>
+      <xloc>110</xloc>
+      <yloc>250</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -112,11 +125,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1100</xloc>
-      <yloc>410</yloc>
+      <xloc>960</xloc>
+      <yloc>450</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Create</name>
+      <name>Create</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -144,16 +157,16 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>310</xloc>
-      <yloc>410</yloc>
+      <xloc>260</xloc>
+      <yloc>340</yloc>
       </entry>
     <entry>
-      <name>InitateRenewals_Save_Variables</name>
+      <name>Save_Variables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;InitateRenewals_Save_Variables.ktr</filename>
+      <filename>${Internal.Job.Filename.Directory}&#47;InitiateRenewals_Save_Variables.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -176,11 +189,11 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1020</xloc>
-      <yloc>140</yloc>
+      <xloc>820</xloc>
+      <yloc>100</yloc>
       </entry>
     <entry>
-      <name>SQL- truncate &amp; load work tables</name>
+      <name>truncate &amp; load work tables</name>
       <description/>
       <type>SQL</type>
       <sql>
@@ -201,11 +214,11 @@ COMMIT;
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>430</xloc>
-      <yloc>140</yloc>
+      <xloc>320</xloc>
+      <yloc>500</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Update_1</name>
+      <name>Update_1</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -233,16 +246,16 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>730</xloc>
-      <yloc>410</yloc>
+      <xloc>670</xloc>
+      <yloc>490</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Get_Variables</name>
+      <name>Get_Variables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;InitateRenewals_Get_Vars.ktr</filename>
+      <filename>${Internal.Job.Filename.Directory}&#47;InitiateRenewals_Get_Vars.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -265,11 +278,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>210</xloc>
-      <yloc>150</yloc>
+      <xloc>220</xloc>
+      <yloc>230</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Capture_OLTP</name>
+      <name>Capture_OLTP</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -297,11 +310,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>530</xloc>
-      <yloc>410</yloc>
+      <xloc>380</xloc>
+      <yloc>360</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals Move Updates</name>
+      <name>Move Updates</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -329,11 +342,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>920</xloc>
-      <yloc>410</yloc>
+      <xloc>790</xloc>
+      <yloc>200</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Update_2</name>
+      <name>Update_2</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -361,23 +374,23 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>840</xloc>
-      <yloc>140</yloc>
+      <xloc>740</xloc>
+      <yloc>330</yloc>
       </entry>
     <entry>
       <name>Delete Done file</name>
       <description/>
       <type>DELETE_FILE</type>
-      <filename>${MAXDAT_LOG_DIRECTORY}&#47;InitateRenewals_Done.txt</filename>
+      <filename>${MAXDAT_LOG_DIRECTORY}&#47;InitiateRenewals_Done.txt</filename>
       <fail_if_file_not_exists>Y</fail_if_file_not_exists>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>100</xloc>
-      <yloc>410</yloc>
+      <xloc>170</xloc>
+      <yloc>110</yloc>
       </entry>
     <entry>
-      <name>InitiateRenewals_Capture_OLTP1</name>
+      <name>Capture_OLTP1</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -405,14 +418,133 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>650</xloc>
-      <yloc>140</yloc>
+      <xloc>430</xloc>
+      <yloc>230</yloc>
+      </entry>
+    <entry>
+      <name>Capture_OLTP2</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;InitiateRenewals_Capture_OLTP2.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>480</xloc>
+      <yloc>110</yloc>
+      </entry>
+    <entry>
+      <name>Update calculated values</name>
+      <description/>
+      <type>SQL</type>
+      <sql>UPDATE 
+FLHK_ETL_INITIATE_RENEWALS 
+SET 
+AGE_IN_BUSINESS_DAYS = abs(business_days_between(RENEWAL_PERIOD_START_DATE, NVL(COMPLETE_DATE, sysdate))), 
+AGE_IN_CALENDAR_DAYS = abs(Get_age_in_calendar_days(RENEWAL_PERIOD_START_DATE,nvl(complete_date,sysdate)))
+where stage_done_date is null;
+COMMIT;
+</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>MAXDAT</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>900</xloc>
+      <yloc>300</yloc>
+      </entry>
+    <entry>
+      <name>Capture_OLTP3</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;InitiateRenewals_Capture_OLTP3.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>540</xloc>
+      <yloc>230</yloc>
+      </entry>
+    <entry>
+      <name>Capture_OLTP4</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;InitiateRenewals_Capture_OLTP4.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>600</xloc>
+      <yloc>350</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
-      <from>InitiateRenewals_Create</from>
-      <to>SQL- truncate &amp; load work tables</to>
+      <from>Create</from>
+      <to>truncate &amp; load work tables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -420,8 +552,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitateRenewals_Save_Variables</from>
-      <to>Success</to>
+      <from>Get_Variables</from>
+      <to>Create</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -429,8 +561,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitiateRenewals_Get_Variables</from>
-      <to>InitiateRenewals_Create</to>
+      <from>truncate &amp; load work tables</from>
+      <to>Capture_OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -438,8 +570,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>SQL- truncate &amp; load work tables</from>
-      <to>InitiateRenewals_Capture_OLTP</to>
+      <from>Move Updates</from>
+      <to>Save_Variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -447,8 +579,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitiateRenewals Move Updates</from>
-      <to>InitateRenewals_Save_Variables</to>
+      <from>Update_1</from>
+      <to>Update_2</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -456,17 +588,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitiateRenewals_Update_1</from>
-      <to>InitiateRenewals_Update_2</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>InitiateRenewals_Update_2</from>
-      <to>InitiateRenewals Move Updates</to>
+      <from>Update_2</from>
+      <to>Move Updates</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -484,7 +607,7 @@ COMMIT;
     </hop>
     <hop>
       <from>Delete Done file</from>
-      <to>InitiateRenewals_Get_Variables</to>
+      <to>Get_Variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -492,8 +615,8 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitiateRenewals_Capture_OLTP</from>
-      <to>InitiateRenewals_Capture_OLTP1</to>
+      <from>Capture_OLTP</from>
+      <to>Capture_OLTP1</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -501,8 +624,53 @@ COMMIT;
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>InitiateRenewals_Capture_OLTP1</from>
-      <to>InitiateRenewals_Update_1</to>
+      <from>Capture_OLTP1</from>
+      <to>Capture_OLTP2</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Save_Variables</from>
+      <to>Update calculated values</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update calculated values</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Capture_OLTP2</from>
+      <to>Capture_OLTP3</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Capture_OLTP3</from>
+      <to>Capture_OLTP4</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Capture_OLTP4</from>
+      <to>Update_1</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

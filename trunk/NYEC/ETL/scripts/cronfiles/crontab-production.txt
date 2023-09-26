@@ -1,0 +1,13 @@
+#1.Format:
+#2.minutes_of_hour hours_of_day days_of_month months_of_year days_of_the_week command_to_execute
+45 * * * * /home/appadmin/scripts/rsync_sysgrp.tcl /home/appadmin/scripts/RSYNC_CONFIG.txt /home/appadmin/scripts/RSYNC_EXCLUDE.txt
+#BEGIN_NYEC-2525/NYEC-5357
+#01 00 * * * /u01/maximus/maxdat-prd/ETL/scripts/run_Nightly_bpm.sh >> /u01/maximus/maxdat-prd/ETL/logs/run_Nightly_bpm.log
+0 2-22 * * * /u01/maximus/maxdat-prd/ETL/scripts/run_bpm.sh 2>&1 | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-prd/ETL/logs/run_bpm.log
+#END_NYEC-2525/NYEC-5357
+#3.enabled in NYEC-4000, disabled in NYEC-5433, Disabled NYEC-6242
+#30 2 * * * /u01/maximus/maxdat-prd/ETL/scripts/run_inbound.sh >> /u01/maximus/maxdat-prd/ETL/logs/run_inbound.log
+#NYEC-3391
+30 0 * * 1 /u01/maximus/maxdat-prd/ETL/scripts/Run_CIN_Snapshot.sh >> /u01/maximus/maxdat-prd/ETL/logs/CIN.log
+#NYEC-4115
+0 2 * * * /home/appadmin/scripts/NYEC-4115.clean.sh > /dev/null 2>&1

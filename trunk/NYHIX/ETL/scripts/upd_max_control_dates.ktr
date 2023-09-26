@@ -77,72 +77,6 @@ SVN_REVISION_AUTHOR = $Author$
   <notepads>
   </notepads>
   <connection>
-    <name>DMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>EMRS</name>
-    <server>${DB_EMRS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_EMRS_NAME}</database>
-    <port>${DB_EMRS_PORT}</port>
-    <username>${DB_EMRS_USER}</username>
-    <password>${DB_EMRS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Local</name>
-    <server>localhost</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>nyhixmdsp</database>
-    <port>1521</port>
-    <username>sp57859[maxdat]</username>
-    <password>Encrypted 2be98afc86aa7f2e48618b6348fc0fc8e</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
@@ -157,73 +91,15 @@ SVN_REVISION_AUTHOR = $Author$
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>NYECDMS</name>
-    <server>${DB_DMS_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_DMS_NAME}</database>
-    <port>${DB_DMS_PORT}</port>
-    <username>${DB_DMS_USER}</username>
-    <password>${DB_DMS_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>OLTP_SOURCE</name>
-    <server>${DB_OLTP_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
-    <port>${DB_OLTP_PORT}</port>
-    <username>${DB_OLTP_USER}</username>
-    <password>${DB_OLTP_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input - Doc Notif Max Date</from><to>Update corp_etl_control</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Document max date</from><to>Update corp_etl_control 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Data Ext max date</from><to>Update corp_etl_control 3</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Data max date</from><to>Update corp_etl_control 4</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Set max date</from><to>Update corp_etl_control 5</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Link max date</from><to>Update corp_etl_control 6</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - App Doc Tracker max date</from><to>Update corp_etl_control 7</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Incident Header max date</from><to>Update corp_etl_control 8</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Enum ENV max date</from><to>Update corp_etl_control 8 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Enum Form max date</from><to>Update corp_etl_control 8 3</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - Doc Notif Max Date</from><to>Update corp_etl_control</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Document max date</from><to>Update corp_etl_control 2</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Data Ext max date</from><to>Update corp_etl_control 3</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Data max date</from><to>Update corp_etl_control 4</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Set max date</from><to>Update corp_etl_control 5</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Doc Link max date</from><to>Update corp_etl_control 6</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - App Doc Tracker max date</from><to>Update corp_etl_control 7</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Incident Header max date</from><to>Update corp_etl_control 8</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Enum ENV max date</from><to>Update corp_etl_control 9</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Enum Form max date</from><to>Update corp_etl_control 10</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - DOC_LINK_HIST_STG</from><to>Update corp_etl_control 11</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - CLIENT_STG</from><to>Update corp_etl_control 12</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Table input - App Doc Tracker max date</name>
     <type>TableInput</type>
@@ -254,6 +130,35 @@ FROM(SELECT  MAX(updated_ts) update_ts, MAX(created_ts) create_ts,
     </step>
 
   <step>
+    <name>Table input - DOC_LINK_HIST_STG</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT TO_CHAR(create_ts,&apos;yyyy&#47;MM&#47;dd HH24:mi:ss&apos;) as max_create_ts, var_control_name
+FROM(SELECT  MAX(create_ts) create_ts,
+          &apos;MAX_DOC_LINK_HIST_STG&apos; as var_control_name
+     FROM DOC_LINK_HIST_STG)
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1144</xloc>
+      <yloc>90</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Table input - Doc Data Ext max date</name>
     <type>TableInput</type>
     <description/>
@@ -277,7 +182,7 @@ FROM(SELECT  MAX(updated_ts) update_ts, MAX(created_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>180</xloc>
+      <xloc>167</xloc>
       <yloc>314</yloc>
       <draw>Y</draw>
       </GUI>
@@ -307,7 +212,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>178</xloc>
+      <xloc>167</xloc>
       <yloc>421</yloc>
       <draw>Y</draw>
       </GUI>
@@ -336,7 +241,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
+      <xloc>703</xloc>
       <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
@@ -364,7 +269,7 @@ FROM(SELECT  MAX(updated_ts) update_ts, MAX(created_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>184</xloc>
+      <xloc>167</xloc>
       <yloc>97</yloc>
       <draw>Y</draw>
       </GUI>
@@ -394,7 +299,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>707</xloc>
+      <xloc>703</xloc>
       <yloc>102</yloc>
       <draw>Y</draw>
       </GUI>
@@ -422,7 +327,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>185</xloc>
+      <xloc>167</xloc>
       <yloc>198</yloc>
       <draw>Y</draw>
       </GUI>
@@ -478,7 +383,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>714</xloc>
+      <xloc>703</xloc>
       <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
@@ -507,7 +412,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>706</xloc>
+      <xloc>703</xloc>
       <yloc>408</yloc>
       <draw>Y</draw>
       </GUI>
@@ -545,7 +450,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>446</xloc>
+      <xloc>440</xloc>
       <yloc>97</yloc>
       <draw>Y</draw>
       </GUI>
@@ -583,7 +488,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>447</xloc>
+      <xloc>440</xloc>
       <yloc>198</yloc>
       <draw>Y</draw>
       </GUI>
@@ -621,7 +526,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>442</xloc>
+      <xloc>440</xloc>
       <yloc>314</yloc>
       <draw>Y</draw>
       </GUI>
@@ -735,7 +640,7 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>966</xloc>
+      <xloc>956</xloc>
       <yloc>197</yloc>
       <draw>Y</draw>
       </GUI>
@@ -773,8 +678,46 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>975</xloc>
+      <xloc>956</xloc>
       <yloc>303</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update corp_etl_control 11</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>1</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>corp_etl_control</table>
+      <key>
+        <name>VAR_CONTROL_NAME</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>VALUE</name>
+        <rename>max_create_ts</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1416</xloc>
+      <yloc>90</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -811,14 +754,14 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>983</xloc>
+      <xloc>956</xloc>
       <yloc>408</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Update corp_etl_control 8 2</name>
+    <name>Update corp_etl_control 9</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -849,14 +792,14 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>444</xloc>
+      <xloc>440</xloc>
       <yloc>525</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Update corp_etl_control 8 3</name>
+    <name>Update corp_etl_control 10</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -887,8 +830,75 @@ FROM(SELECT  MAX(update_ts) update_ts, MAX(create_ts) create_ts,
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>991</xloc>
+      <xloc>956</xloc>
       <yloc>512</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - CLIENT_STG</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT TO_CHAR(GREATEST(last_update_date,creation_date),&apos;yyyy&#47;MM&#47;dd HH24:mi:ss&apos;) as max_update_ts, var_control_name
+FROM(SELECT  MAX(last_update_date) last_update_date, MAX(creation_date) creation_date,
+          &apos;MAX_CLIENT_STG&apos; as var_control_name
+     FROM CLIENT_STG)
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1143</xloc>
+      <yloc>206</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update corp_etl_control 12</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>1</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>corp_etl_control</table>
+      <key>
+        <name>VAR_CONTROL_NAME</name>
+        <field>NAME</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>VALUE</name>
+        <rename>max_update_ts</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1415</xloc>
+      <yloc>206</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

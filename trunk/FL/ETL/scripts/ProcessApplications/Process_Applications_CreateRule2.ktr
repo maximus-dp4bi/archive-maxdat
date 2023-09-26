@@ -3,7 +3,20 @@
   <info>
     <name>Process_Applications_CreateRule2</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -135,7 +148,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>NUM_CHILDREN_APP</from><to>Update FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  <hop> <from>Update FLHK_ETL_PROCESS_APP</from><to>Table output - Update  Error 2 2 2</to><enabled>Y</enabled> </hop>  <hop> <from>VIDA_SELECT</from><to>APPLICANT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_ID</from><to>APPLICANT_NUM</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_NUM</from><to>CURRENT_TASK_ID</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>NUM_CHILDREN_APP</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Update FLHK_ETL_PROCESS_APP</from><to>Update error - create_rule2</to><enabled>Y</enabled> </hop>  <hop> <from>VIDA_SELECT</from><to>APPLICANT_ID</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_ID</from><to>APPLICANT_NUM</to><enabled>Y</enabled> </hop>  <hop> <from>APPLICANT_NUM</from><to>CURRENT_TASK_ID</to><enabled>Y</enabled> </hop>  <hop> <from>CURRENT_TASK_ID</from><to>NUM_CHILDREN_APP</to><enabled>Y</enabled> </hop>  <hop> <from>NUM_CHILDREN_APP</from><to>Update FLHK_ETL_PROCESS_APP</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>APPLICANT_ID</name>
     <type>DBJoin</type>
@@ -173,7 +186,7 @@ GROUP BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
+      <xloc>290</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
@@ -215,7 +228,7 @@ GROUP BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
+      <xloc>440</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
@@ -231,16 +244,14 @@ GROUP BY
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>TASK_SOURCE</connection>
+    <connection>MAXDAT</connection>
     <rowlimit>0</rowlimit>
     <sql>SELECT
 	MAX(WR.TASK_ID) AS CURRENT_TASK_ID
 FROM
-	WR_STATUSES WR,
-	WR_TYPES WRT
+	WR_STATUSES_TMP WR
 WHERE
-	WR.WRT_ID = WRT.WRT_ID AND
-	WRT.DRIVER = &apos;APPLICATION&apos; AND
+	WR.WRT_ID = 55  AND
 	WR.DRIVER_KEY = ?
 GROUP BY 
 	WR.DRIVER_KEY</sql>
@@ -254,7 +265,7 @@ GROUP BY
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>540</xloc>
+      <xloc>590</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
@@ -273,12 +284,11 @@ GROUP BY
     <connection>OLTP_SOURCE</connection>
     <rowlimit>0</rowlimit>
     <sql>SELECT 
-	SUM(CHILD_FLAG) AS NUM_CHILDREN_APP
+	SUM(APPLYING_FOR_BENEFITS_IND) AS NUM_CHILDREN_APP
 FROM 
 	ACCOUNT_MEMBERSHIP A
 WHERE
 	APPLYING_FOR_BENEFITS_IND=&apos;1&apos; AND 
-	CHILD_FLAG=&apos;1&apos; AND 
     parent_type is null AND
 	A.ACCOUNT_ID = ?
 </sql>
@@ -292,14 +302,72 @@ WHERE
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
+      <xloc>760</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table output - Update  Error 2 2 2</name>
+    <name>Update FLHK_ETL_PROCESS_APP</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>16</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>1000</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>FLHK_ETL_PROCESS_APP</table>
+      <key>
+        <name>APP_ID</name>
+        <field>APP_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>APP_ID</name>
+        <rename>APP_ID</rename>
+        </value>
+      <value>
+        <name>APPLICANT_ID</name>
+        <rename>APPLICANT_ID</rename>
+        </value>
+      <value>
+        <name>APPLICANT_NUM</name>
+        <rename>APPLICANT_NUM</rename>
+        </value>
+      <value>
+        <name>APP_CLEARANCE_DATE</name>
+        <rename>APP_CLEARANCE_DATE</rename>
+        </value>
+      <value>
+        <name>NUM_CHILDREN_APP</name>
+        <rename>NUM_CHILDREN_APP</rename>
+        </value>
+      <value>
+        <name>CURRENT_TASK_ID</name>
+        <rename>CURRENT_TASK_ID</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>980</xloc>
+      <yloc>250</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update error - create_rule2</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -377,66 +445,8 @@ WHERE
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
+      <xloc>980</xloc>
       <yloc>410</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Update FLHK_ETL_PROCESS_APP</name>
-    <type>Update</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>16</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <skip_lookup>N</skip_lookup>
-    <commit>1000</commit>
-    <use_batch>N</use_batch>
-    <error_ignored>N</error_ignored>
-    <ignore_flag_field/>
-    <lookup>
-      <schema/>
-      <table>FLHK_ETL_PROCESS_APP</table>
-      <key>
-        <name>APP_ID</name>
-        <field>APP_ID</field>
-        <condition>=</condition>
-        <name2/>
-        </key>
-      <value>
-        <name>APP_ID</name>
-        <rename>APP_ID</rename>
-        </value>
-      <value>
-        <name>APPLICANT_ID</name>
-        <rename>APPLICANT_ID</rename>
-        </value>
-      <value>
-        <name>APPLICANT_NUM</name>
-        <rename>APPLICANT_NUM</rename>
-        </value>
-      <value>
-        <name>APP_CLEARANCE_DATE</name>
-        <rename>APP_CLEARANCE_DATE</rename>
-        </value>
-      <value>
-        <name>NUM_CHILDREN_APP</name>
-        <rename>NUM_CHILDREN_APP</rename>
-        </value>
-      <value>
-        <name>CURRENT_TASK_ID</name>
-        <rename>CURRENT_TASK_ID</rename>
-        </value>
-      </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -454,7 +464,7 @@ WHERE
     <connection>MAXDAT</connection>
     <sql>SELECT DISTINCT
 	&apos;ProcessApplications&apos; as PROCESS_NAME,
-	&apos;ProcessApplications_CreateRule&apos; as JOB_NAME,
+	&apos;ProcessApplications_CreateRule2&apos; as JOB_NAME,
 	&apos;FLHK_ETL_PROCESS_APPLICATIONS&apos; as DRIVER_TABLE_NAME,
 	sysdate as ERR_DATE,
     sysdate as STG_EXTRACT_DATE,
@@ -463,11 +473,10 @@ WHERE
 	A.ACCOUNT_ID,
     to_char(A.APPLICATION_ID, &apos;999999999999&apos;) DRIVER_KEY,
 (SELECT at.STATUS_DATE FROM APPLICATION_TEMP at WHERE at.STATUS=&apos;CLEARED&apos;  AND at.APPLICATION_ID = A.APPLICATION_ID) as APP_CLEARANCE_DATE
-FROM
-	APPLICATION_TEMP A
-WHERE  A.APPLICATION_ID  BETWEEN ${NEW_MAX_APPLICATION_APPID} AND  ${NEW_END_APPLICATION_APPID}
-ORDER BY
-	A.APPLICATION_ID
+FROM	APPLICATION_TEMP A
+join flhk_etl_process_app B on A.APPLICATION_ID = B.APP_ID
+WHERE  A.APPLICATION_ID  &gt; ${NEW_MAX_APPLICATION_APPID}
+ORDER BY A.APPLICATION_ID
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -476,7 +485,7 @@ ORDER BY
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>80</xloc>
+      <xloc>130</xloc>
       <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
@@ -485,7 +494,7 @@ ORDER BY
   <step_error_handling>
       <error>
         <source_step>Update FLHK_ETL_PROCESS_APP</source_step>
-        <target_step>Table output - Update  Error 2 2 2</target_step>
+        <target_step>Update error - create_rule2</target_step>
         <is_enabled>Y</is_enabled>
         <nr_valuename>nr_err_fieldname</nr_valuename>
         <descriptions_valuename>nr_err_desc_fieldname</descriptions_valuename>

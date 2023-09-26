@@ -1,0 +1,83 @@
+create or replace view RAW.PI_INGESTION_SPS_CHANGE_DATA as
+select sp_name, schema_name, active, start_time, end_time, current_flag, 'I' as dml_type
+from (select sp_name, schema_name, active, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by sp_name order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag
+      from (select sp_name, schema_name, active, update_timestamp
+            from pi_ingestion_sps_stream
+            where metadata$action = 'INSERT'
+            and metadata$isupdate = 'FALSE'))
+union
+select sp_name, schema_name, active, start_time, end_time, current_flag, dml_type
+from (select sp_name, schema_name, active, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by sp_name order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag,dml_type
+      from (-- Identify data to insert into nation_history table
+        select sp_name, schema_name, active, update_timestamp, 'I' as dml_type
+        from pi_ingestion_sps_stream
+        where metadata$action = 'INSERT'
+        and metadata$isupdate = 'TRUE'
+union
+select sp_name, null, null, start_time, 'U' as dml_type
+from public.d_pi_ingestion_sps_history
+where sp_name in (select distinct sp_name 
+                             from pi_ingestion_sps_stream
+                             where metadata$action = 'INSERT'
+                             and metadata$isupdate = 'TRUE')
+        and current_flag = 1))
+union
+select str.sp_name, null, null, hist.start_time, current_timestamp()::timestamp_ntz, null, 'D'
+from public.d_pi_ingestion_sps_history hist
+inner join pi_ingestion_sps_stream str
+on hist.sp_name = str.sp_name
+where str.metadata$action = 'DELETE'
+and str.metadata$isupdate = 'FALSE'
+and hist.current_flag = 1;
+
+--create sp
+CREATE or replace PROCEDURE update_ingestion_sps_history ()
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+  
+var sqlCommand = `merge into public.d_pi_ingestion_sps_history nh
+using pi_ingestion_sps_change_data m 
+   on  nh.sp_name = m.sp_name 
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (sp_name, schema_name, active, start_time, end_time, current_flag)
+    values (m.sp_name, m.schema_name, m.active, m.start_time, m.end_time, m.current_flag);`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+sqlCommand = `update public.d_pi_ingestion_sps_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select sp_name, start_time, end_time ,
+    lead (start_time) over (partition by sp_name order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from public.d_pi_ingestion_sps_history) as temp
+where hist.sp_name = temp.sp_name
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+return 0;
+
+$$;
+ 

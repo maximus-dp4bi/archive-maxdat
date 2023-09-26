@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_D_METRIC_PROJECT" directorySegmentName="seg_0" id="DA48A5FF-DCDD-A7FB-076E-879D2AAC2EC3">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-11-25 20:29:26 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_METRIC_PROJECT_ID IS NULL THEN &lt;br/&gt;	SELECT SEQ_D_METRIC_PROJECT.NEXTVAL INTO :NEW.D_METRIC_PROJECT_ID FROM DUAL;&lt;br/&gt;	:NEW.CREATE_DATE := SYSDATE;  &lt;br/&gt;	:NEW.CREATED_BY := USER;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.UPDATED_BY := USER;&lt;br/&gt;:NEW.LAST_MODIFIED_DATE := SYSDATE;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>A82F0872-D98B-E11A-8262-A00711DCEE79</table>
+</TriggerOraclev10g>

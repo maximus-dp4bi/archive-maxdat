@@ -1,0 +1,2629 @@
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_AUDIO_QUALITY_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CODEC,
+	SESSIONID,
+	CONVERSATIONENDTIME,
+	CONVERSATIONENDDATE,
+	PROJECTCONVERSATIONENDTIME,
+	PROJECTCONVERSATIONENDDATE,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	CONVERSATIONID,
+	DISCARDEDPACKETS,
+	DUPLICATEPACKETS,
+	DURATION,
+	EDGEID,
+	INVALIDPACKETS,
+	MAXLATENCYMS,
+	MEDIASTATSMINCONVERSATIONMOS,
+	MEDIASTATSMINCONVERSATIONRFACTOR,
+	MINMOS,
+	MINRFACTOR,
+	ORIGINATINGDIRECTION,
+	OVERRUNPACKETS,
+	PARTICIPANTID,
+	PARTICIPANTNAME,
+	PROCESSTIME,
+	PROCESSDATE,
+	PROJECTPROCESSTIME,
+	PROJECTPROCESSDATE,
+	PURPOSE,
+	RECEIVEDPACKETS,
+	UNDERRUNPACKETS,
+	USERID
+) as
+WITH
+a AS (SELECT RAW:id AS userId , RAW:name AS userName FROM raw.configuration_objects  WHERE RAW:type = 'user')
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,                
+  cast (rt.RAW:codec as VARCHAR(255)) as codec,  
+  cast (rt.RAW:sessionId as VARCHAR(255)) as sessionId,
+  cast (rt.RAW:conversationEndTime as DATETIME) as conversationEndTime,
+  cast (rt.RAW:conversationEndTime as DATE) as conversationEndDate,           
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationEndTime as DATETIME)) as projectConversationEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationEndTime as DATETIME))) as projectConversationEndDate,       
+  cast (rt.RAW:conversationStartTime as DATETIME) as conversationStartTime,
+  cast (rt.RAW:conversationStartTime as DATE) as conversationStartDate,         
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME)) as projectConversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME))) as projectConversationStartDate,         
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationid,
+  cast (rt.RAW:discardedPackets as INT) as discardedPackets,
+  cast (rt.RAW:duplicatePackets as INT) as duplicatePackets,
+  cast (rt.RAW:duration as INT) as duration,            
+  cast (rt.RAW:edgeId as VARCHAR(255)) as edgeId,
+  cast (rt.RAW:invalidPackets as INT) as invalidPackets,
+  cast (rt.RAW:maxLatencyMs as INT) as maxLatencyMs,             
+  cast (rt.RAW:mediaStatsMinConversationMos as DECIMAL(8,3)) as mediaStatsMinConversationMos,
+  cast (rt.RAW:mediaStatsMinConversationRFactor as DECIMAL(8,3)) as mediaStatsMinConversationRFactor,
+  cast (rt.RAW:minMos as DECIMAL(8,3)) as minMos,
+  cast (rt.RAW:minRFactor as DECIMAL(8,3)) as minRFactor,
+  cast (rt.RAW:originatingDirection as VARCHAR(255)) as originatingDirection,               
+  cast (rt.RAW:overrunPackets as INT) as overrunPackets, 
+  cast (rt.RAW:participantId as VARCHAR(255)) as participantid,
+  cast (coalesce(a.userName,rt.RAW:participantName) as VARCHAR(255)) as participantName,             
+  cast (rt.RAW:processTime as DATETIME) as processTime,
+  cast (rt.RAW:processTime as DATE) as processDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:processTime as DATETIME)) as projectProcessTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:processTime as DATETIME))) as projectProcessDate,             
+  cast (rt.RAW:purpose as VARCHAR(255)) as purpose, 
+  cast (rt.RAW:receivedPackets as INT) as receivedPackets,
+  cast (rt.RAW:underrunPackets as INT) as underrunPackets,               
+  cast (rt.RAW:userId as VARCHAR(255)) as userId           
+  from RAW.AUDIO_QUALITY rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+LEFT OUTER JOIN a ON rt.RAW:participantName = a.userId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_BILLABLE_USAGE_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	DEPARTMENT,
+	DIVISIONID,
+	DIVISIONNAME,
+	ID,
+	LICENSEDENTITY,
+	LICENSENAME,
+	NAME,
+	OBSERVEDDATETIME,
+	OBSERVEDDATE,
+	PROJECTOBSERVEDDATETIME,
+	PROJECTOBSERVEDDATE
+) as
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,              
+  cast (rt.RAW:department as VARCHAR(255)) as department, 
+  cast (rt.RAW:divisionId as VARCHAR(255)) as divisionid, 
+  cast (rt.RAW:divisionName as VARCHAR(255)) as divisionname,              
+  cast (rt.RAW:id as VARCHAR(255)) as id, 
+  cast (rt.RAW:licensedEntity as VARCHAR(255)) as licensedentity,
+  cast (rt.RAW:licenseName as VARCHAR(255)) as licenseName,  
+  cast (rt.RAW:name as VARCHAR(255)) as name, 
+  cast (rt.RAW:observedDate as DATETIME) as observeddatetime,
+  cast (rt.RAW:observedDate as DATE) as observeddate,           
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:observedDate as DATETIME)) as projectObservedDateTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:observedDate as DATETIME))) as projectObservedDate         
+  from RAW.BILLABLE_USAGE rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_CONFIGURATION_OBJECTS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	DIVISIONID,
+	DIVISIONNAME,
+	ID,
+	NAME,
+	TYPE
+) as
+  select
+  PROJECTID as projectid,
+  PROJECTNAME as projectname,
+  PROGRAMID as programid,
+  PROGRAMNAME as programname,
+  cast (RAW:DivisionId as varchar(255)) as DivisionId,
+  cast (RAW:DivisionName as varchar(255)) as DivisionName,
+  cast (RAW:id as varchar(255)) as id,
+  cast (RAW:name as varchar(255)) as name,
+  cast (RAW:type as varchar(255)) as type  
+from RAW.CONFIGURATION_OBJECTS;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_CONTACT_CENTER_SETTINGS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	ABANDONINTERVALADURATION,
+	ABANDONINTERVALBDURATION,
+	ABANDONINTERVALCDURATION,
+	ABANDONINTERVALDDURATION,
+	ABANDONINTERVALEDURATION,
+	ABANDONINTERVALFDURATION,
+	FLOWSHORTDISCONNECTDURATION,
+	INCLUDEABANDONSINSERVICELEVEL,
+	INCLUDEFLOWOUTSINSERVICELEVEL,
+	INCLUDESHORTABANDONSINSERVICELEVEL
+) as
+  select
+  ccs.projectId as projectId,
+  ccs.projectName as projectName,
+  ccs.programId as programId,
+  ccs.programName as programName,
+  cast (ccs.RAW:abandonIntervalADuration as INT) as abandonIntervalADuration,       
+  cast (ccs.RAW:abandonIntervalBDuration as INT) as abandonIntervalBDuration,        
+  cast (ccs.RAW:abandonIntervalCDuration as INT) as abandonIntervalCDuration,        
+  cast (ccs.RAW:abandonIntervalDDuration as INT) as abandonIntervalDDuration,
+  cast (ccs.RAW:abandonIntervalEDuration as INT) as abandonIntervalEDuration,
+  cast (ccs.RAW:abandonIntervalFDuration as INT) as abandonIntervalFDuration,
+  cast (ccs.RAW:flowShortDisconnectDuration as INT) as flowShortDisconnectDuration,
+  cast (ccs.RAW:includeAbandonsInServiceLevel as INT) as includeAbandonsInServiceLevel,
+  cast (ccs.RAW:includeFlowOutsInServiceLevel as INT) as includeFlowOutsInServiceLevel,
+  cast (ccs.RAW:includeShortAbandonsInServiceLevel as INT) as includeShortAbandonsInServiceLevel
+  from RAW.CONTACT_CENTER_SETTINGS ccs;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_CONVERSATIONS_DETAIL_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	ADDRESSFROM,
+	ADDRESSTO,
+	ANI,
+	CAMPAIGNNAME,
+	CONTACTLISTNAME,
+	CONVERSATIONENDTIME,
+	CONVERSATIONENDDATE,
+	PROJECTCONVERSATIONENDTIME,
+	PROJECTCONVERSATIONENDDATE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	DIRECTION,
+	DISCONNECTTYPE,
+	DISPOSITIONANALYZER,
+	DISPOSITIONNAME,
+	DNIS,
+	DURATION,
+	MEDIATYPE,
+	ORIGINATINGDIRECTION,
+	OUTBOUNDCAMPAIGNID,
+	OUTBOUNDCONTACTID,
+	OUTBOUNDCONTACTLISTID,
+	PARTICIPANTNAME,
+	PARTICIPANTID,
+	PROCESSTIME,
+	PROCESSDATE,
+	PROJECTPROCESSTIME,
+	PROJECTPROCESSDATE,
+	PURPOSE,
+	QUEUENAME,
+	SEGMENTDURATION,
+	SEGMENTENDTIME,
+	SEGMENTENDDATE,
+	SEGMENTINDEX,
+	PROJECTSEGMENTENDTIME,
+	PROJECTSEGMENTENDDATE,
+	SEGMENTSTARTTIME,
+	SEGMENTSTARTDATE,
+	PROJECTSEGMENTSTARTTIME,
+	PROJECTSEGMENTSTARTDATE,
+	SEGMENTTYPE,
+	SESSIONDNIS,
+	SESSIONENDTIME,
+	SESSIONENDDATE,
+	PROJECTSESSIONENDTIME,
+	PROJECTSESSIONENDDATE,
+	SESSIONID,
+	SESSIONSTARTTIME,
+	SESSIONSTARTDATE,
+	PROJECTSESSIONSTARTTIME,
+	PROJECTSESSIONSTARTDATE,
+	USERID,
+	USERNAME,
+	WRAPUPCODE,
+	WRAPUPCODENAME
+) as
+WITH
+    a AS (SELECT projectid, RAW:id AS userId , RAW:name AS userName FROM raw.configuration_objects  WHERE RAW:type = 'user'),
+    q AS (SELECT projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue'),
+    wrap AS (SELECT projectid, RAW:id AS wrapupcode, RAW:name AS wrapupCodeName FROM raw.configuration_objects  WHERE RAW:type = 'wrapupcode'),
+    campaign as (SELECT projectid, RAW:id as campaignid  , RAW:name AS campaignName FROM raw.configuration_objects  WHERE RAW:type = 'campaign'),
+    contactlist as (SELECT projectid, RAW:id as contactListId  , RAW:name AS contactListName FROM raw.configuration_objects  WHERE RAW:type = 'contactlist')
+  select
+  cd.PROJECTID as projectid,
+  cd.PROJECTNAME as projectname,
+  cd.PROGRAMID as programid,
+  cd.PROGRAMNAME as programname,
+  cast (RAW:addressFrom as VARCHAR(255)) as addressFrom,	
+  cast (RAW:addressTo as VARCHAR(255)) as addressTo,
+  cast (RAW:ani as VARCHAR(255)) as ani,
+  cast (RAW:campaignName as varchar(255)) as campaignName,
+  cast (RAW:contactListName as varchar(255)) as contactListName,
+  cast (RAW:conversationEndTime as datetime) as conversationEndTime,
+  cast (RAW:conversationEndTime as date) as conversationEndDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationEndTime as DATETIME)) as projectConversationEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationEndTime as DATETIME))) as projectConversationEndDate,      
+  cast (RAW:conversationId as varchar(255)) as ConversationId,
+  cast (RAW:conversationStartTime as datetime) as conversationStartTime,
+  cast (RAW:conversationStartTime as date) as conversationStartDate,             
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationStartTime as DATETIME)) as projectConversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationStartTime as DATETIME))) as projectConversationStartDate,          
+  cast (RAW:direction	as varchar(255))as	Direction,
+  cast (RAW:disconnectType as varchar(255)) as disconnectType,
+  cast (RAW:dispositionAnalyzer as varchar(255)) as dispositionAnalyzer,
+  cast (RAW:dispositionName as varchar(255)) as dispositionName,
+  cast (RAW:dnis as varchar(255)) as dnis,
+  cast (RAW:duration as int) as Duration,
+  cast (RAW:mediaType as varchar(255)) as mediaType,
+  cast (RAW:originatingDirection as varchar(255)) as originatingDirection,
+  cast (RAW:outboundCampaignId as varchar(255)) as outboundCampaignId,
+  cast (RAW:outboundContactId as varchar(255)) as outboundContactId,	
+  cast (RAW:outboundContactListId as varchar(255)) as outboundContactListId,
+  CASE
+        WHEN RAW:purpose = 'acd' THEN coalesce(cast(q.queueName as varchar), cast(RAW:participantName as varchar))
+        WHEN RAW:purpose = 'agent' or RAW:purpose = 'user' or RAW:purpose = 'voicemail' THEN coalesce(cast(a.userName as varchar), cast(RAW:participantName as varchar))
+        ELSE cast(RAW:participantName as varchar)
+        END as participantname,
+  cast (RAW:participantId as varchar(255)) as participantid,	
+  cast (RAW:processTime as datetime) as processTime,
+  cast (RAW:processTime as date) as processDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:processTime as DATETIME)) as ProjectprocessTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:processTime as DATETIME))) as ProjectprocessDate,
+  cast (RAW:purpose as varchar(255)) as purpose,
+  cast (q.queueName as varchar(255)) as queueName,
+  cast (RAW:segmentDuration as int) as segmentDuration,
+  cast (RAW:segmentEndTime as	datetime) as segmentEndTime,
+    cast (RAW:segmentEndTime as	date) as segmentEndDate,
+  cast (RAW:segmentIndex as int) as segmentIndex, 
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:segmentEndTime as DATETIME)) as projectSegmentEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:segmentEndTime as DATETIME))) as projectSegmentEndDate,      
+  cast (RAW:segmentStartTime as datetime) as segmentStartTime,
+    cast (RAW:segmentStartTime as date) as segmentStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:segmentStartTime as DATETIME)) as projectSegmentStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:segmentStartTime as DATETIME))) as projectSegmentStartDate,
+  cast (RAW:segmentType as varchar(255)) as segmentType,
+  cast (RAW:sessionDnis as varchar(255)) as sessionDnis,
+  cast (RAW:sessionEndTime as	datetime) as sessionEndTime,
+  cast (RAW:sessionEndTime as date) as sessionEndDate,           
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:sessionEndTime as DATETIME)) as projectSessionEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:sessionEndTime as DATETIME))) as projectSessionEndDate,
+  cast (RAW:sessionId as varchar(255)) as sessionId,
+  cast (RAW:sessionStartTime as datetime) as sessionStartTime,
+  cast (RAW:sessionStartTime as date) as sessionStartDate,             
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:sessionStartTime as DATETIME)) as projectSessionStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:sessionStartTime as DATETIME))) as projectSessionStartDate,
+  cast (RAW:userId as varchar(255)) as userId,
+  cast (a.username as varchar(255)) as userName,
+  cast (RAW:wrapupCode as varchar(255)) as wrapUpCode,
+  cast (wrap.wrapupCodeName as varchar(255)) as wrapupCodeName
+FROM RAW.CONVERSATIONS_DETAIL cd
+  join PUBLIC.D_PI_PROJECTS pr
+  on cd.projectId = pr.projectId
+         LEFT OUTER JOIN a ON  a.projectId = pr.projectId AND cd.RAW:userId               = a.userId
+         LEFT OUTER JOIN q ON  q.projectId = pr.projectId AND cd.RAW:queueId               = q.queueId
+         LEFT OUTER JOIN wrap ON wrap.projectId = pr.projectId  AND cd.RAW:wrapupCode               = wrap.wrapupCode
+         LEFT OUTER JOIN campaign ON  campaign.projectId = pr.projectId AND cd.RAW:outboundCampaignId               = campaign.campaignId
+         LEFT OUTER JOIN contactList ON  contactList.projectId = pr.projectId AND cd.RAW:outboundContactlistId               = contactList.contactListId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_CONVERSATIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CONVERSATIONENDTIME,
+	CONVERSATIONENDDATE,
+	PROJECTCONVERSATIONENDTIME,
+	PROJECTCONVERSATIONENDDATE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	DURATION,
+	MEDIASTATSMINCONVERSATIONMOS,
+	MEDIASTATSMINCONVERSATIONRFACTOR,
+	ORIGINATINGDIRECTION,
+	PROCESSTIME,
+	PROCESSDATE,
+	PROJECTPROCESSTIME,
+	PROJECTPROCESSDATE,
+	INGESTTIME,
+	INGESTDATE,
+	PROJECTINGESTTIME,
+	PROJECTINGESTDATE
+) as
+  select
+  cd.PROJECTID as projectid,
+  pr.PROJECTNAME as projectname,
+  cd.PROGRAMID as programid,
+  cd.PROGRAMNAME as programname,
+  cast (RAW:conversationEndTime as DATETIME) as conversationEndTime,
+  cast (RAW:conversationEndTime as DATE) as conversationEndDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationEndTime as DATETIME)) as projectconversationEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationEndTime as DATETIME))) as projectconversationEndDate,        
+  cast (RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (RAW:conversationStartTime as DATETIME) as conversationStartTime,
+  cast (RAW:conversationStartTime as DATE) as conversationStartDate,          
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationStartTime as DATETIME)) as projectconversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:conversationStartTime as DATETIME))) as projectconversationStartDate,
+  cast (RAW:duration as INT) as duration,
+  cast (RAW:mediaStatsMinConversationMos as VARCHAR(255)) as mediastatsminconversationmos,
+  cast (RAW:mediaStatsMinConversationRFactor as VARCHAR(255)) as mediastatsminconversationrfactor,
+  cast (RAW:originatingDirection as VARCHAR(255)) as originatingDirection,
+  cast (RAW:processTime as DATETIME) as processTime,
+  cast (RAW:processTime as DATE) as processDate,         
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:processTime as DATETIME)) as projectprocessTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:processTime as DATETIME))) as projectprocessDate,
+  cast (RAW:ingestTime as DATETIME) as ingestTime,
+  cast (RAW:ingestTime as DATE) as ingestDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:ingestTime as DATETIME)) as projectIngestTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (cd.RAW:ingestTime as DATETIME))) as projectIngestDate
+ from RAW.CONVERSATIONS cd
+join PUBLIC.D_PI_PROJECTS pr
+  on cd.projectId = pr.projectId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_CONVERSATION_ATTRIBUTES_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CONVERSATIONID,
+	KEY,
+	PARTICIPANTENDTIME,
+	PARTICIPANTENDDATE,
+	PROJECTPARTICIPANTENDTIME,
+	PROJECTPARTICIPANTENDDATE,
+	PARTICIPANTID,
+	PARTICIPANTNAME,
+	PARTICIPANTSTARTTIME,
+	PARTICIPANTSTARTDATE,
+	PROJECTPARTICIPANTSTARTTIME,
+	PROJECTPARTICIPANTSTARTDATE,
+	PURPOSE,
+	USERID,
+	VALUE
+) as
+  select
+  rt.projectId as projectId,
+  rt.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:key as VARCHAR(255)) as key,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndTime,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME)) as projectParticipantEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME))) as projectParticipantEndDate,
+  cast (coalesce(rt.RAW:participantId,rt.RAW:participantid) as VARCHAR(255)) as participantid,
+  cast (coalesce(rp.RAW:participantName,rt.RAW:participantName) as VARCHAR(255)) as participantName,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartTime,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME)) as projectParticipantStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME))) as projectParticipantStartDate,
+  cast (rp.RAW:purpose as VARCHAR(255)) as purpose,
+  cast (rp.RAW:userId as VARCHAR(255)) as userId,
+  cast (rt.RAW:value as VARCHAR(255)) as value
+  from RAW.CONVERSATION_ATTRIBUTES rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+  left join RAW.participants rp
+  on rt.projectid = rp.projectid
+  and rt.RAW:participantId =rp.RAW:participantId;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_DIALER_DETAIL_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	ABANDONED,
+	ATTEMPT,
+	ATTEMPTRESULT,
+	ATTEMPTTIME,
+	ATTEMPTDATE,
+	PROJECTATTEMPTTIME,
+	PROJECTATTEMPTDATE,
+	CAMPAIGNNAME,
+	CONTACTLISTNAME,
+	CONTACTUNCALLABLE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	DISPOSITIONANALYZER,
+	DISPOSITIONNAME,
+	DNIS,
+	FIRSTAGENTNAME,
+	FIRSTAGENTWRAPUP,
+	FIRSTIVRWRAPUP,
+	NUMBERUNCALLABLE,
+	REACHEDAGENT,
+	REACHEDFLOW,
+	RIGHTPARTYCONTACT,
+	TOTALATTEMPTS,
+	CONTACTID,
+	DURATION,
+	TIMETOABANDONDURATION,
+	TIMETOAGENTDURATION,
+	TIMETOFLOWDURATION,
+	WRAPUPDURATION
+) as
+WITH
+    a AS (SELECT projectid, RAW:id AS userId , RAW:name AS firstAgentName FROM raw.configuration_objects  WHERE RAW:type = 'user'),
+    wrap AS (SELECT projectid, RAW:id AS wrapupcode, RAW:name AS wrapupCodeName FROM RAW.configuration_objects  WHERE RAW:type = 'wrapupcode'),
+    campaign as (SELECT projectid, RAW:id as campaignid  , RAW:name AS campaignName FROM RAW.configuration_objects  WHERE RAW:type = 'campaign'),
+    contactlist as (SELECT projectid, RAW:id as contactListId  , RAW:name AS contactListName FROM RAW.configuration_objects  WHERE RAW:type = 'contactlist'),
+   wrapMapping as (select * from RAW.wrapup_mapping)
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,              
+  cast (rt.RAW:abandoned as INT) as abandoned, 
+  cast (rt.RAW:attempt as INT) as attempt, 
+  cast (coalesce(attemptResult.wrapupCodeName, rt.RAW:wrapupCode) as VARCHAR(255)) as attemptResult,
+  cast (rt.RAW:attemptTime as DATETIME) as attemptTime,
+  cast (rt.RAW:attemptTime as DATE) as attemptDate,          
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptTime as DATETIME)) as projectAttemptTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptTime as DATETIME))) as projectAttemptDate,          
+  cast (campaign.campaignName as VARCHAR(255)) as campaignName, 
+  cast (contactList.contactListName as VARCHAR(255)) as contactListName,
+    case when(cast(wrapMappingFirstAgent.RAW:contactUncallable as boolean)  or cast(wrapMappingFirstIvr.RAW:contactUncallable as boolean)  or cast(wrapMappingAttemptResult.RAW:contactUncallable as boolean)) THEN 1 ELSE 0 END as contactUncallable,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:conversationStartTime as DATETIME) as conversationStartTime,
+  cast (rt.RAW:conversationStartTime as DATE) as conversationStartDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME)) as projectConversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME))) as projectConversationStartDate,           
+  cast (rt.RAW:dispositionAnalyzer as VARCHAR(255)) as dispositionAnalyzer,
+  cast (rt.RAW:dispositionName as VARCHAR(255)) as dispositionName,
+  cast (rt.RAW:dnis as VARCHAR(255)) as dnis,
+  cast (a.firstAgentName as VARCHAR(255)) as firstAgentName,
+  cast (firstAgentWrapup.wrapupCodeName as VARCHAR(255)) as firstAgentWrapup,
+  cast (firstIvrWrapup.wrapupCodeName as VARCHAR(255)) as firstIvrWrapup,
+    case when(cast(wrapMappingFirstAgent.RAW:numberUncallable as boolean)  or cast(wrapMappingFirstIvr.RAW:numberUncallable as boolean)  or cast(wrapMappingAttemptResult.RAW:numberUncallable as boolean)) THEN 1 ELSE 0 END as numberUncallable,
+  cast (rt.RAW:reachedAgent as INT) as ReachedAgent,
+  cast (rt.RAW:reachedFlow as INT) as ReachedFlow,
+    case when(cast(wrapMappingFirstAgent.RAW:rightPartyContact as boolean)  or cast(wrapMappingFirstIvr.RAW:rightPartyContact as boolean)  or cast(wrapMappingAttemptResult.RAW:rightPartyContact as boolean)) THEN 1 ELSE 0 END as rightpartycontact,
+  cast (rt.RAW:totalAttempts as INT) as totalAttempts,
+  cast (rt.RAW:contactId as VARCHAR(255)) as contactId,
+  cast (rt.RAW:duration as INT) as duration,
+  cast (rt.RAW:timeToAbandonDuration as INT) as timeToAbandonDuration,
+  cast (rt.RAW:timeToAgentDuration as INT) as timeToAgentDuration,
+  cast (rt.RAW:timeToFlowDuration as INT) as timeToFlowDuration,
+  cast (rt.RAW:wrapupDuration as INT) as wrapupDuration   
+  from RAW.DIALER_DETAIL rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+         LEFT OUTER JOIN a ON  rt.projectid = a.projectid and  rt.RAW:firstAgentId = a.userId
+         LEFT OUTER JOIN wrap attemptResult ON  rt.projectid = attemptResult.projectid and rt.RAW:wrapupCode  = attemptResult.wrapupCode
+         LEFT OUTER JOIN wrap firstAgentWrapup ON  rt.projectid = firstAgentWrapup.projectid and rt.RAW:firstAgentWrapupId  = firstAgentWrapup.wrapupCode
+         LEFT OUTER JOIN wrap firstIvrWrapup ON  rt.projectid = firstIvrWrapup.projectid and rt.RAW:firstIvrWrapupId = firstIvrWrapup.wrapupCode
+         LEFT OUTER JOIN campaign ON  rt.projectid = campaign.projectid and  rt.RAW:campaignId = campaign.campaignId
+         LEFT OUTER JOIN contactList ON rt.projectid = contactList.projectid and   rt.RAW:contactListId = contactList.contactListId
+         LEFT OUTER JOIN wrapMapping wrapMappingFirstAgent ON rt.projectid = wrapMappingFirstAgent.projectid  AND rt.RAW:firstAgentWrapupId = wrapMappingFirstAgent.RAW:wrapupCodeId
+         LEFT OUTER JOIN wrapMapping wrapMappingFirstIvr ON  rt.projectid = wrapMappingFirstIvr.projectid AND rt.RAW:firstIvrWrapupId = wrapMappingFirstIvr.RAW:wrapupCodeId
+         LEFT OUTER JOIN wrapMapping wrapMappingAttemptResult ON  rt.projectid = wrapMappingAttemptResult.projectid AND rt.RAW:wrapupCode = wrapMappingAttemptResult.RAW:wrapupCodeId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_DIALER_PREVIEW_DETAIL_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	AGENTDURATION,
+	AGENTNAME,
+	ATTEMPTDURATION,
+	ATTEMPTENDTIME,
+	ATTEMPTENDDATE,
+	PROJECTATTEMPTENDTIME,
+	PROJECTATTEMPTENDDATE,
+	ATTEMPTRESULT,
+	ATTEMPTSTARTTIME,
+	ATTEMPTSTARTDATE,
+	PROJECTATTEMPTSTARTTIME,
+	PROJECTATTEMPTSTARTDATE,
+	CAMPAIGNNAME,
+	CONTACTUNCALLABLE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	DNIS,
+	NUMBERUNCALLABLE,
+	PREVIEWDURATION,
+	QUEUENAME,
+	RIGHTPARTYCONTACT,
+	SESSIONENDTIME,
+	SESSIONENDDATE,
+	PROJECTSESSIONENDTIME,
+	PROJECTSESSIONENDDATE,
+	SESSIONID,
+	SESSIONSTARTTIME,
+	SESSIONSTARTDATE,
+	PROJECTSESSIONSTARTTIME,
+	PROJECTSESSIONSTARTDATE,
+	SKIPPED,
+	TOTALATTEMPTDURATION,
+	WRAPUPCODENAME
+) as
+WITH
+    a AS (SELECT projectid, RAW:id AS userId , RAW:name AS agentName FROM raw.configuration_objects  WHERE RAW:type = 'user'),
+    q AS (SELECT projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue'),
+    wrap AS (SELECT projectid, RAW:id AS wrapupcode, RAW:name AS wrapupCodeName FROM raw.configuration_objects  WHERE RAW:type = 'wrapupcode'),
+    campaign as (SELECT projectid, RAW:id as campaignid  , RAW:name AS campaignName FROM raw.configuration_objects  WHERE RAW:type = 'campaign'),
+    wrapMapping as (select * from RAW.wrapup_mapping)
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,              
+  cast (rt.RAW:agentDuration as INT) as agentDuration, 
+  cast (a.agentName as VARCHAR(255)) as agentName,
+  cast (rt.RAW:attemptDuration as INT) as attemptDuration, 
+  cast (rt.RAW:attemptEndTime as DATETIME) as attemptEndTime,
+  date(cast (rt.RAW:attemptEndTime as DATETIME)) as attemptEndDate,            
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptEndTime as DATETIME)) as projectAttemptEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptEndTime as DATETIME))) as projectAttemptEndDate,           
+  cast (coalesce(wrapAttemptResult.wrapupCodeName, rt.RAW:attemptResultId)  as VARCHAR(255)) as attemptResult, 
+  cast (rt.RAW:attemptStartTime as DATETIME) as attemptStartTime,
+  date(cast (rt.RAW:attemptStartTime as DATETIME)) as attemptStartDate,           
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptStartTime as DATETIME)) as projectAttemptStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:attemptStartTime as DATETIME))) as projectAttemptStartDate,      
+  cast (campaign.campaignName as VARCHAR(255)) as campaignName, 
+    case when(cast(wrapMappingFirstAgent.RAW:contactUncallable as boolean)  or cast(wrapMappingFirstIvr.RAW:contactUncallable as boolean)  or cast(wrapMappingAttemptResult.RAW:contactUncallable as boolean)) THEN 1 ELSE 0 END as contactUncallable,     
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:conversationStartTime as DATETIME) as conversationStartTime,
+  date(cast (rt.RAW:conversationStartTime as DATETIME)) as conversationStartDate,         
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME)) as projectConversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME))) as projectConversationStartDate,          
+  cast (rt.RAW:dnis as VARCHAR(255)) as dnis,
+    case when(cast(wrapMappingFirstAgent.RAW:numberUncallable as boolean)  or cast(wrapMappingFirstIvr.RAW:numberUncallable as boolean)  or cast(wrapMappingAttemptResult.RAW:numberUncallable as boolean)) THEN 1 ELSE 0 END as numberUncallable, 
+  cast (rt.RAW:previewDuration as INT) as previewDuration,
+  cast (q.queueName as VARCHAR(255)) as queueName,
+    case when(cast(wrapMappingFirstAgent.RAW:rightPartyContact as boolean)  or cast(wrapMappingFirstIvr.RAW:rightPartyContact as boolean)  or cast(wrapMappingAttemptResult.RAW:rightPartyContact as boolean)) THEN 1 ELSE 0 END as rightpartycontact,
+  cast (rt.RAW:sessionEndTime as DATETIME) as sessionEndTime,
+  date(cast (rt.RAW:sessionEndTime as DATETIME)) as sessionEndDate,         
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME)) as projectSessionEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME))) as projectSessionEndDate,         
+  cast (rt.RAW:sessionId as VARCHAR(255)) as sessionId,
+  cast (rt.RAW:sessionStartTime as DATETIME) as sessionStartTime,
+  date(cast (rt.RAW:sessionStartTime as DATETIME)) as sessionStartDate,        
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME)) as projectSessionStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME))) as projectSessionStartDate,    
+  cast (rt.RAW:skipped as INT) as skipped,
+  cast (rt.RAW:totalAttemptDuration as INT) as totalAttemptDuration,          
+  cast (coalesce(wrap.wrapupCodeName,rt.RAW:wrapupCode) as VARCHAR(255)) as wrapupCodeName
+  from RAW.DIALER_PREVIEW_DETAIL rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+         LEFT OUTER JOIN a ON rt.projectid = a.projectid and   rt.RAW:agentId               = a.userId
+         LEFT OUTER JOIN q ON  rt.projectid = q.projectid and  rt.RAW:queueId               = q.queueId
+         LEFT OUTER JOIN wrap ON rt.projectid = wrap.projectid and  rt.RAW:wrapupCode               = wrap.wrapupCode
+         LEFT OUTER JOIN wrap wrapattemptResult ON rt.projectid = wrapattemptResult.projectid and   rt.RAW:attemptResultId = wrapattemptResult.wrapupCode
+         LEFT OUTER JOIN campaign ON  rt.projectid = campaign.projectid and  RAW:campaignId = campaign.campaignId
+         LEFT OUTER JOIN wrapMapping wrapMappingFirstAgent ON rt.projectid = wrapMappingFirstAgent.projectid  AND rt.RAW:firstAgentWrapupId = wrapMappingFirstAgent.RAW:wrapupCodeId
+         LEFT OUTER JOIN wrapMapping wrapMappingFirstIvr ON  rt.projectid = wrapMappingFirstIvr.projectid AND rt.RAW:firstIvrWrapupId = wrapMappingFirstIvr.RAW:wrapupCodeId
+         LEFT OUTER JOIN wrapMapping wrapMappingAttemptResult ON  rt.projectid = wrapMappingAttemptResult.projectid AND rt.RAW:wrapupCode = wrapMappingAttemptResult.RAW:wrapupCodeId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_DIALER_WRAPUP_MAPPING_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	WRAPUPCODEID,
+	WRAPUPCODENAME,
+	CONTACTUNCALLABLE,
+	NUMBERUNCALLABLE,
+	RIGHTPARTYCONTACT
+) as 
+SELECT 
+   CAST(DWM.PROJECTID AS VARCHAR) AS PROJECTID,
+   CAST(DWM.PROJECTNAME AS VARCHAR) AS PROJECTNAME,
+   CAST(DWM.PROGRAMID AS VARCHAR) AS PROGRAMID,
+   CAST(DWM.PROGRAMNAME AS VARCHAR) AS PROGRAMNAME,
+   CAST(DWM.WRAPUPCODEID AS VARCHAR) AS WRAPUPCODEID,
+   CAST(DWM.WRAPUPCODENAME AS VARCHAR) AS WRAPUPCODENAME,
+   CAST(DWM.CONTACTUNCALLABLE AS INT) AS CONTACTUNCALLABLE,
+   CAST(DWM.NUMBERUNCALLABLE AS INT) AS NUMBERUNCALLABLE,
+   CAST(DWM.RIGHTPARTYCONTACT AS INT) AS RIGHTPARTYCONTACT 
+FROM RAW.DIALER_WRAPUP_MAPPING DWM
+ JOIN PUBLIC.D_PI_PROJECTS PR
+on DWM.PROJECTID = PR.PROJECTID;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_DIVISIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CONVERSATIONID,
+	DIVISIONID,
+	DIVISIONNAME
+) as
+WITH c as (SELECT projectid, RAW:id as divisionId, RAW:name as divisionName FROM raw.configuration_objects where RAW:type = 'division')
+  select
+  d.PROJECTID as projectid,
+  pr.PROJECTNAME as projectname,
+  d.PROGRAMID as programid,
+  d.PROGRAMNAME as programname,
+  cast (RAW:conversationId as varchar(255)) as conversationId,
+  cast (RAW:divisionId as varchar(255)) as divisionId,
+  cast (c.divisionName as varchar(255)) as divisionName
+from RAW.DIVISIONS d
+join d_pi_projects pr on pr.projectid = d.projectid
+left join c ON d.projectid = c.projectid and  d.RAW:divisionId = c.divisionId;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_EVALUATIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	AGENTCOMMENTS,
+	AGENTHASREAD,
+	AGENTID,
+	AGENTNAME,
+	ANSWERID,
+	ANSWERTEXT,
+	ANSWERVALUE,
+	ANYFAILEDKILLQUESTIONS,
+	ASSIGNEDDATETIME,
+	ASSIGNEDDATE,
+	PROJECTASSIGNEDDATETIME,
+	PROJECTASSIGNEDDATE,
+	CALIBRATIONID,
+	CHANGEDDATETIME,
+	CHANGEDDATE,
+	PROJECTCHANGEDDATETIME,
+	PROJECTCHANGEDDATE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	EVALUATIONCOMMENTS,
+	EVALUATIONFORMNAME,
+	EVALUATIONID,
+	EVALUATIONFORMID,
+	EVALUATIONFORMCONTEXTID,
+	EVALUATIONFORMLASTMODIFIED,
+	ISPUBLISHED,
+	EVALUATORID,
+	EVALUATORNAME,
+	FAILEDKILLQUESTION,
+	MARKEDNA,
+	MAXQUESTIONSCORE,
+	MAXQUESTIONSCOREWEIGHTED,
+	MAXGROUPTOTALCRITICALSCORE,
+	MAXGROUPTOTALCRITICALSCOREUNWEIGHTED,
+	MAXGROUPTOTALSCORE,
+	MAXGROUPTOTALSCOREUNWEIGHTED,
+	NEVERRELEASE,
+	QUESTIONGROUPMARKEDNA,
+	QUESTIONGROUPNAME,
+	QUESTIONGROUPWEIGHT,
+	QUESTIONSCORECOMMENT,
+	QUESTIONTEXT,
+	QUESTIONGROUPID,
+	QUESTIONID,
+	QUESTIONSCORE,
+	QUESTIONSCOREWEIGHTED,
+	QUEUENAME,
+	RELEASEDATETIME,
+	RELEASEDATE,
+	PROJECTRELEASEDATETIME,
+	PROJECTRELEASEDATE,
+	STATUS,
+	TOTALEVALUATIONCRITICALSCORE,
+	TOTALEVALUATIONSCORE,
+	TOTALGROUPCRITICALSCORE,
+	TOTALGROUPCRITICALSCOREUNWEIGHTED,
+	QUESTIONISCRITICAL,
+	QUESTIONISKILL,
+	WEIGHTMODE,
+	EVALUATION_FORM_DISPLAY_NAME,
+	QUESTION_DISPLAY_NAME,
+	QUESTION_SORT_ORDER,
+	QUESTION_GROUP_DISPLAY_NAME,
+	QUESTIONHELPTEXT,
+	QUESTION_GROUP_SORT_ORDER,
+	QUESTIONGROUPDEFAULTANSWERSTOHIGHEST,
+	QUESTIONGROUPDEFAULTANSWERSTONA,
+	QUESTIONGROUPMANUALWEIGHT,
+	QUESTIONGROUPNAENABLED,
+	QUESTIONGROUPTYPE,
+	QUESTIONCOMMENTSREQUIRED,
+	QUESTIONNAENABLED,
+	QUESTIONTYPE
+) as
+  WITH
+ a AS (SELECT cob.RAW:id AS agentId , cob.RAW:name AS agentName, cob.projectid as projectid FROM raw.configuration_objects cob  WHERE cob.RAW:type = 'user'),
+ e AS (SELECT cob2.RAW:id AS evaluatorId , cob2.RAW:name AS evaluatorName, cob2.projectid as projectid FROM raw.configuration_objects cob2 WHERE cob2.RAW:type = 'user'),
+ q AS (SELECT  projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue'),
+ conversations AS (SELECT co.RAW:userId as aId, co.RAW:conversationId as cid, co.RAW:organizationid as orgid, 
+                  co.RAW:queueId as queueId, co.projectid, min(co.RAW:conversationStartTime) as conversationStartTime from raw.conversations_detail co group by 1,2, 3,4,5),
+ forms as (select projectid,
+                  RAW:id as evaluationFormId, RAW:questionID as questionId, RAW:questionGroupId as questionGroupId, RAW:questionGroupManualWeight as questionGroupManualWeight,
+                  RAW:questionGroupNaEnabled as questionGroupNaEnabled, RAW:questionGroupType as questionGroupType, RAW:questionCommentsRequired as questionCommentsRequired,
+                  RAW:questionNaEnabled as questionNaEnabled, RAW:questionType as questionType, RAW:contextId as contextId, RAW:modifiedDate as modifiedDate,
+                  RAW:published as published, RAW:questionHelpText as questionHelpText, min(RAW:questionGroupName) as questiongroupname,
+                  min(RAW:questionText) as questiontext, min(RAW:questionGroupWeight) as questiongroupweight, min(RAW:name) AS evaluationFormName,
+                  min(RAW:weightMode) as weightMode, min(RAW:questionIsKill) as questionIsKill, min(RAW:questionIsCritical) as questionIsCritical,
+                  min(RAW:questionGroupDefaultAnswersToHighest) as questionGroupDefaultAnswersToHighest, min(RAW:questionGroupDefaultAnswersToNA) as questionGroupDefaultAnswersToNA,
+                  max(RAW:answerValue) as maxQuestionScore
+              FROM RAW.evaluation_forms
+              group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+ select
+  ev.projectId as projectId,
+  ev.projectName as projectName,
+  ev.programId as programId,
+  ev.programName as programName,
+  trim(cast (ev.RAW:answersAgentComments as VARCHAR)) as agentComments,
+  cast (ev.RAW:agentHasRead as BOOLEAN) as agentHasRead,
+  trim(cast (ev.RAW:agentId as VARCHAR(255))) as agentId,
+  trim(cast (a.agentName as VARCHAR(255))) as agentName,
+  trim(cast (ef.RAW:answerId as VARCHAR(255))) as answerId,
+--cast (ev.RAW:questionAnswerID as VARCHAR(255)) as answerID,
+  trim(cast (ef.RAW:answerText as VARCHAR(4000))) as answerText,
+  cast (ef.RAW:answerValue as INT) as answerValue,
+  cast (ev.RAW:answersAnyFailedKillQuestions as BOOLEAN) as anyFailedKillQuestions,    
+  cast (ev.RAW:assignedDate as DATETIME) as assignedDateTime,
+  to_date(cast (ev.RAW:assignedDate as DATETIME)) as assignedDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:assignedDate as DATETIME)) as projectAssignedDateTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:assignedDate as DATETIME))) as projectAssignedDate,
+  trim(cast (ev.RAW:calibrationId as VARCHAR(255))) as calibrationId,
+  cast (ev.RAW:changedDate as DATETIME) as changedDateTime,
+  to_date(cast (ev.RAW:changedDate as DATETIME)) as changedDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:changedDate as DATETIME)) as projectChangedDateTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:changedDate as DATETIME))) as projectChangedDate,
+  trim(cast (ev.RAW:conversationId as VARCHAR(255))) as conversationId,
+  cast (conversations.conversationStartTime as DATETIME) as conversationStartTime,
+  to_date(cast (conversations.conversationStartTime as DATETIME)) as conversationStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (conversations.ConversationStartTime as DATETIME)) as projectConversationStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (conversations.ConversationStartTime as DATETIME))) as projectConversationStartDate,
+  trim(cast(ev.RAW:answersComments as varchar(5000))) as evaluationComments,
+  trim(cast (replace (replace(replace(ef2.evaluationFormName,'\t',' '),'\r',' '),'\n',' ') as VARCHAR(255))) as evaluationFormName,       
+  trim(cast (ev.RAW:id as VARCHAR(255))) as evaluationId,        
+  trim(cast (ev.RAW:evaluationFormId as VARCHAR(255))) as evaluationFormId,       
+  trim(cast (ef2.contextId as VARCHAR(255))) as evaluationFormContextId,    
+  cast (ef2.modifiedDate as DATETIME) as evaluationFormLastModified,     
+  cast (ef2.published as BOOLEAN) as isPublished,                
+  trim(cast (ev.RAW:EvaluatorId as VARCHAR(255))) as EvaluatorId,
+  trim(cast (e.evaluatorName as VARCHAR(255))) as evaluatorName,
+  cast (ev.RAW:questionFailedKillQuestion as BOOLEAN) as failedKillQuestion,
+  cast (ev.RAW:questionMarkedNA as BOOLEAN) as markedNA,
+  cast (to_double(ef2.maxQuestionScore) as DECIMAL(38,19)) as maxQuestionScore,
+  Case when weightmode ='OFF' then  to_double(ef2.maxquestionscore)/100.0 else (to_double(ef2.maxquestionscore)*(to_double(ef2.questionGroupWeight)/100.0)) end as maxquestionscoreweighted,
+  cast (to_double(ev.RAW:questionGroupMaxTotalCriticalScore) as DECIMAL(38,19)) as maxgrouptotalcriticalscore,
+  cast (to_double(ev.RAW:questionGroupMaxTotalCriticalScoreUnweighted) as DECIMAL(38,19)) as maxgrouptotalcriticalscoreunweighted,        
+  cast (to_double(ev.RAW:questionGroupMaxTotalScore) as DECIMAL(38,19)) as maxgrouptotalscore,
+  cast (to_double(ev.RAW:questionGroupMaxTotalScoreUnweighted) as DECIMAL(38,19)) as maxgrouptotalscoreunweighted,        
+  cast (ev.RAW:neverRelease as BOOLEAN) as neverRelease,
+  cast (ev.RAW:questionGroupMarkedNA as BOOLEAN) as questionGroupMarkedNA,
+  trim(cast (replace (replace(replace(ef2.questionGroupName,'\t',' '),'\r',' '),'\n',' ') as VARCHAR(255))) as questionGroupName,
+  cast (to_double(ef2.questionGroupWeight) as DECIMAL(38,19)) as questionGroupWeight, 
+  trim(cast (ev.RAW:questionComments as VARCHAR)) as questionScoreComment,
+  trim(replace (replace(replace(ef2.questionText,'\t',' '),'\r',' '),'\n',' ')) as questionText,
+  trim(cast (ef2.questionGroupID as VARCHAR(255))) as questionGroupId,
+  trim(cast (ev.RAW:questionId as VARCHAR(255))) as questionId,
+  cast (ev.RAW:questionScore as INT) as questionScore,
+  Case when weightmode ='OFF' then to_double(ev.RAW:questionScore)/100.0 else (to_double(ev.RAW:questionScore)*(to_double(ef2.questionGroupWeight)/100.0)) end as questionscoreweighted,
+  trim(cast (q.queueName as VARCHAR(255))) as queueName,        
+  cast (ev.RAW:releaseDate as DATETIME) as releaseDateTime,
+  to_date(cast (ev.RAW:releaseDate as DATETIME)) as releaseDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:releaseDate as DATETIME)) as projectReleaseDateTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:releaseDate as DATETIME))) as projectReleaseDate,
+  trim(cast (ev.RAW:status as VARCHAR(255))) as status,
+  cast (to_double(ev.RAW:answersTotalCriticalScore) as DECIMAL(38,19)) as totalEvaluationCriticalScore,  
+  cast (to_double(ev.RAW:answersTotalScore) as DECIMAL(38,19)) as totalEvaluationScore,     
+  cast (to_double(ev.RAW:questionGroupTotalCriticalScore) as DECIMAL(38,19)) as totalgroupcriticalscore,
+  cast (to_double(ev.RAW:questionGroupTotalCriticalScoreUnweighted) as DECIMAL(38,19)) as totalgroupcriticalscoreunweighted,
+  cast (ef2.questionIsCritical as BOOLEAN) as questionisCritical,
+  cast (ef2.questionIsKill as BOOLEAN) as questionisKill,
+  trim(cast (ef2.weightMode as VARCHAR(255))) as weightMode,
+  trim(eqi.EVALUATION_FORM_DISPLAY_NAME) as evaluation_form_display_name,
+  trim(eqi.QUESTION_DISPLAY_NAME) as question_display_name,
+  eqi.QUESTION_SORT_ORDER,
+  trim(eqi.QUESTION_GROUP_DISPLAY_NAME) as question_group_display_name,	      
+  trim(ef2.questionHelpText) as questionHelpText, 
+  eqi.QUESTION_GROUP_SORT_ORDER,
+  cast (ef2.questionGroupDefaultAnswersToHighest as boolean) as questionGroupDefaultAnswersToHighest,
+  cast (ef2.questionGroupDefaultAnswersToNA as boolean) as questionGroupDefaultAnswersToNA,
+  cast (ef2.questionGroupManualWeight as decimal(38,19)) as questionGroupManualWeight,
+  cast (ef2.questionGroupNaEnabled as boolean) as questionGroupNaEnabled,  
+  trim( cast (ef2.questionGroupType as varchar)) as questionGroupType,
+  cast (ef2.questionCommentsRequired as boolean) as questionCommentsRequired,
+  cast (ef2.questionNaEnabled as boolean) as questionNaEnabled,
+  trim( cast(ef2.questionType as varchar)) as questionType
+  --below not in DD 
+  --cast (RAW:questionGroupTotalScore as DECIMAL(38,38)) as questionGroupTotalScore,
+  --cast (RAW:questionGroupTotalScoreUnweighted as DECIMAL(38,38)) as questionGroupTotalScoreUnweighted,
+  from RAW.EVALUATIONS ev
+  inner join PUBLIC.D_PI_PROJECTS pr
+  on ev.projectId = pr.projectId
+  LEFT OUTER JOIN RAW.EVALUATION_FORMS ef 
+  ON ev.RAW:evaluationFormId = ef.RAW:id
+  and ev.RAW:questionAnswerID = ef.RAW:answerId
+  and ev.projectid = ef.projectid
+  LEFT OUTER JOIN forms ef2 
+  ON ev.RAW:evaluationFormId = ef2.evaluationFormId
+  and ev.RAW:questionId = ef2.questionId
+  and ev.projectid = ef2.projectid
+  INNER JOIN conversations conversations
+  ON ev.RAW:conversationId = conversations.cid 
+  and ev.RAW:agentId = conversations.aId
+  and ev.projectid = conversations.projectid
+  --and ev.RAW:organizationid = conversations.orgid
+  LEFT OUTER JOIN a a ON ev.RAW:agentId = a.agentid and ev.projectid = a.projectid
+LEFT OUTER JOIN e e ON ev.RAW:EvaluatorId = e.evaluatorId and ev.projectid = e.projectid
+LEFT OUTER JOIN q q ON conversations.queueId = q.queueId and ev.projectid = q.projectid
+LEFT OUTER JOIN d_evaluations_questions_info eqi ON ev.projectid = eqi.projectid and ev.RAW:questionId = eqi.question_id
+and (to_date(convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:assignedDate as DATETIME))) >= eqi.effective_start_dt)
+and (to_date(convert_timezone('UTC',pr.projectTimezone,cast (ev.RAW:assignedDate as DATETIME))) <= eqi.effective_end_dt or eqi.effective_end_dt is null)
+where ev.RAW:calibrationId = '' or ev.RAW:calibrationId is NULL;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_GROUPS_MEMBERSHIP_DAILY_VW COPY GRANTS (
+	INGESTION_DATE_EST,
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	GROUPID,
+	GROUPNAME,
+	USERID,
+	USERNAME
+) as
+select  ingestion_date_est, projectid, projectname, programid, programname,groupid, groupname, userid,username from (
+with base as (
+               select * from (
+                               select convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts))) as high_base, dd.date as status_date_est,
+                               ROW_NUMBER() OVER (PARTITION BY dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED','INGESTION STARTED REINGEST')
+                               --and dd.date >= date('2021-06-01')
+               ) where row_num=1
+),
+u AS (SELECT raw:id AS userid , raw:name AS userName, projectid as projectid, base.status_date_est
+      FROM stage.d_pi_configuration_objects_history
+      join base
+      on date(convert_timezone('America/New_York',start_time)) <= base.status_date_est
+      and date(convert_timezone('America/New_York',end_time)) > base.status_date_est
+      WHERE raw:type = 'user'
+     ),
+g AS (SELECT raw:id AS groupid , raw:name AS groupname, projectid as projectid,base.status_date_est 
+      FROM stage.d_pi_configuration_objects_history
+      join base
+      on date(convert_timezone('America/New_York',start_time)) <= base.status_date_est
+      and date(convert_timezone('America/New_York',end_time)) > base.status_date_est
+      WHERE raw:type = 'group'
+     ),
+     gm as (
+SELECT
+  base.status_date_est as ingestion_date_est,
+  gm.projectId as projectId,
+  gm.projectName as projectName,
+  gm.programId as programId,
+  gm.programName as programName,
+  gm.raw
+FROM stage.d_pi_groups_membership_history gm
+join base
+on date(convert_timezone('America/New_York',gm.start_time)) <= base.status_date_est
+and date(convert_timezone('America/New_York',gm.end_time)) > base.status_date_est
+)
+select gm.ingestion_date_est,gm.projectid,gm.projectname,gm.programid,gm.programname,
+  cast (g.groupid as VARCHAR(255)) as groupId,
+  cast (g.groupname as VARCHAR(255)) as groupName,
+  cast (u.userid as VARCHAR(255)) as userId,
+  cast (u.userName as VARCHAR(255)) as userName
+from gm
+LEFT OUTER JOIN g 
+ON gm.raw:name = g.groupid and gm.projectid = g.projectid and gm.ingestion_date_est = g.status_date_est
+ LEFT OUTER JOIN u 
+ON gm.raw:userId = u.userid and gm.projectid = u.projectid and gm.ingestion_date_est = u.status_date_est
+)
+;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_GROUPS_MEMBERSHIP_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	GROUPID,
+	GROUPNAME,
+	USERID,
+	USERNAME
+) as
+WITH u AS (SELECT raw:id AS userid , raw:name AS userName, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'user'),
+g AS (SELECT raw:id AS groupid , raw:name AS groupname, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'group')
+SELECT
+  gm.projectId as projectId,
+  gm.projectName as projectName,
+  gm.programId as programId,
+  gm.programName as programName,
+  cast (g.groupid as VARCHAR(255)) as groupId,
+  cast (g.groupname as VARCHAR(255)) as groupName,
+  cast (u.userid as VARCHAR(255)) as userId,
+  cast (u.userName as VARCHAR(255)) as userName
+FROM raw.groups_membership gm
+LEFT OUTER JOIN g ON gm.raw:name = g.groupid and gm.projectid = g.projectid 
+LEFT OUTER JOIN u ON gm.raw:userId = u.userid and gm.projectid = u.projectid
+;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_PARTICIPANTS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CONVERSATIONID,
+	PARTICIPANTDURATION,
+	PARTICIPANTENDTIME,
+	PARTICIPANTENDDATE,
+	PROJECTPARTICIPANTENDTIME,
+	PROJECTPARTICIPANTENDDATE,
+	PARTICIPANTENDTIMEMILLIS,
+	PARTICIPANTID,
+	PARTICIPANTNAME,
+	PARTICIPANTSTARTTIME,
+	PARTICIPANTSTARTDATE,
+	PROJECTPARTICIPANTSTARTTIME,
+	PROJECTPARTICIPANTSTARTDATE,
+	PARTICIPANTSTARTTIMEMILLIS,
+	PURPOSE,
+	USERID
+) as
+WITH
+a AS (SELECT projectid, RAW:id AS userId , RAW:name AS userName FROM raw.configuration_objects  WHERE RAW:type = 'user'),
+q AS (SELECT projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue')
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:duration as INT) as participantDuration, 
+  cast (rt.RAW:participantEndTime as DATETIME) as participantEndTime,
+  cast (rt.RAW:participantEndTime as DATE) as participantEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:participantEndTime as DATETIME)) as projectParticipantEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:participantEndTime as DATETIME))) as projectParticipantEndDate,
+  cast (DATE_PART('EPOCH_MILLISECOND',TO_TIMESTAMP(rt.RAW:participantEndTime)) as INT) as participantEndTimeMillis,
+  cast (rt.RAW:participantId as VARCHAR(255)) as participantid,
+  cast (coalesce(a.userName, q.queueName, rt.RAW:participantName) as VARCHAR(255)) as participantName,
+  cast (rt.RAW:participantStartTime as DATETIME) as participantStartTime,
+  cast (rt.RAW:participantStartTime as DATE) as participantStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:participantStartTime as DATETIME)) as projectParticipantStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:participantStartTime as DATETIME))) as projectParticipantStartDate,
+  cast (DATE_PART('EPOCH_MILLISECOND',TO_TIMESTAMP(rt.RAW:participantStartTime)) as INT) as participantStartTimeMillis,
+  cast (rt.RAW:purpose as VARCHAR(255)) as purpose,
+  cast (rt.RAW:userId as VARCHAR(255)) as userId
+  from RAW.PARTICIPANTS rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+LEFT OUTER JOIN a ON rt.projectid = a.projectid and rt.RAW:participantName = a.userId
+LEFT OUTER JOIN q ON rt.projectid = q.projectid and rt.RAW:participantName = q.queueId;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_PRIMARY_PRESENCE_DAILY_DURATION_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	USERID,
+	USERNAME,
+	PROJECTPRESENCESTARTTIME,
+	PROJECTPRESENCESTARTDATE,
+	SYSTEMPRESENCE,
+	ORGANIZATIONPRESENCE,
+	PROJECTPRESENCEENDTIME,
+	PROJECTPRESENCEENDDATE,
+	DAILYDURATION,
+	TOTALDURATION
+) as
+   with rtable as (select rt.projectid, date(max(rt.ingestiondatetime)) as maxingest from raw.primary_presence rt group by 1)
+   select distinct
+   pp.projectid,
+   pr.projectname,
+   pp.programid, 
+   pp.programname,
+   pp.userid,
+   pp.userName,
+   case when dd.date = pp.projectPresenceStartDate then pp.projectPresenceStartTime else dd.date end as PROJECTPRESENCESTARTTIME, 
+   dd.date as PROJECTPRESENCESTARTDATE,
+   pp.systempresence,
+   pp.organizationpresence,
+   case when pp.projectPresenceEndDate is not null and dd.date = pp.projectPresenceEndDate 
+    then pp.projectPresenceEndTime else DATEADD(second,86399,dd.date) end as PROJECTPRESENCEENDTIME,
+   dd.date as PROJECTPRESENCEENDDATE,
+   case when dd.date  = pp.projectPresenceStartDate and pp.projectPresenceEndDate is not null and pp.projectPresenceEndDate = pp.projectPresenceStartDate
+    then datediff(millisecond,pp.projectPresenceStartTime,pp.projectPresenceEndTime)
+   when dd.date = pp.projectPresenceStartDate and (pp.projectPresenceEndDate is null or dd.date < pp.projectPresenceEndDate )  
+    then datediff(millisecond, pp.projectPresenceStartTime, DATEADD(day,1,pp.projectPresenceStartDate))
+   when dd.date > pp.projectPresenceStartDate and (pp.projectPresenceEndDate is null or dd.date < pp.projectPresenceEndDate )
+    then 24 * 60*60*1000 
+   when dd.date > pp.projectPresenceStartDate and (pp.projectPresenceEndDate is not null and dd.date = pp.projectPresenceEndDate )
+    then datediff(milliseconds, dd.date, pp.projectPresenceEndTime)
+   else null end as dailyduration,
+   case when pp.projectPresenceEndDate is not null and dd.date = pp.projectPresenceEndDate then pp.duration else null end as totalDuration
+   from d_pi_primary_presence_vw pp
+   join rtable on rtable.projectid = pp.projectid
+   join d_pi_projects pr on pr.projectid = pp.projectid
+   join d_dates dd 
+   on dd.date >= pp.projectPresenceStartDate 
+   and (dd.date <= pp.projectPresenceEndDate or pp.projectPresenceEndDate is NULL)
+   and dd.date < date(rtable.maxingest)
+   --and dd.date <= (select case when date_part(hour, max(mx.projectpresencestarttime)) >= 06 
+   --                 then max(mx.projectpresencestartdate) else max(mx.projectpresencestartdate) -1 end  from d_pi_primary_presence_vw mx) 
+   
+   order by pp.projectid, pp.programid, pp.userid,dd.date, pp.systempresence, pp.organizationpresence;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_QUEUE_CONFIGURATION_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CALLSERVICELEVELDURATION,
+	CALLSERVICELEVELPERCENT,
+	CALLBACKSERVICELEVELDURATION,
+	CALLBACKSERVICELEVELPERCENT,
+	CHATSERVICELEVELDURATION,
+	CHATSERVICELEVELPERCENT,
+	DIVISIONID,
+	DIVISIONNAME,
+	EMAILSERVICELEVELDURATION,
+	EMAILSERVICELEVELPERCENT,
+	ID,
+	MESSAGESERVICELEVELDURATION,
+	MESSAGESERVICELEVELPERCENT,
+	NAME,
+	SOCIALSERVICELEVELDURATION,
+	SOCIALSERVICELEVELPERCENT,
+	VIDEOSERVICELEVELDURATION,
+	VIDEOSERVICELEVELPERCENT
+) as
+  select
+  projectId as projectId,
+  projectName as projectName,
+  programId as programId,
+  programName as programName,
+  cast (RAW:callServiceLevelDuration as INT) as callServiceLevelDuration,
+  cast (RAW:callServiceLevelPercent as DECIMAL(38,19)) as callServiceLevelPercent,
+  cast (RAW:callbackServiceLevelDuration as INT) as callbackServiceLevelDuration,
+  cast (RAW:callbackServiceLevelPercent as DECIMAL(38,19)) as callbackServiceLevelPercent,
+  cast (RAW:chatServiceLevelDuration as INT) as chatServiceLevelDuration,
+  cast (RAW:chatServiceLevelPercent as DECIMAL(38,19)) as chatServiceLevelPercent,
+  cast (RAW:divisionId as VARCHAR(255)) as divisionId,
+  cast (RAW:divisionName as VARCHAR(255)) as divisionName,
+  cast (RAW:emailServiceLevelDuration as INT) as emailServiceLevelDuration,
+  cast (RAW:emailServiceLevelPercent as DECIMAL(38,19)) as emailServiceLevelPercent,
+  cast (RAW:id as VARCHAR(255)) as id,
+  cast (RAW:messageServiceLevelDuration as INT) as messageServiceLevelDuration,
+  cast (RAW:messageServiceLevelPercent as DECIMAL(38,19)) as messageServiceLevelPercent,
+  cast (RAW:name as VARCHAR(255)) as name,
+  cast (RAW:socialServiceLevelDuration as INT) as socialServiceLevelDuration,
+  cast (RAW:socialServiceLevelPercent as DECIMAL(38,19)) as socialServiceLevelPercent,
+  cast (RAW:videoServiceLevelDuration as INT) as videoServiceLevelDuration,
+  cast (RAW:videoServiceLevelPercent as DECIMAL(38,19)) as videoServiceLevelPercent
+ from RAW.QUEUE_CONFIGURATION;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_SESSIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	PEERID,
+	ADDRESSFROM,
+	ADDRESSTO,
+	ANI,
+	CONVERSATIONID,
+	DIRECTION,
+	DISPOSITIONANALYZER,
+	DISPOSITIONNAME,
+	DNIS,
+	EDGEID,
+	MEDIATYPE,
+	OUTBOUNDCAMPAIGNID,
+	OUTBOUNDCONTACTID,
+	OUTBOUNDCONTACTLISTID,
+	PARTICIPANTID,
+	SESSIONDNIS,
+	SESSIONDURATION,
+	SESSIONENDTIME,
+	SESSIONENDDATE,
+	PROJECTSESSIONENDTIME,
+	PROJECTSESSIONENDDATE,
+	SESSIONENDTIMEMILLIS,
+	SESSIONID,
+	SESSIONSTARTTIME,
+	SESSIONSTARTDATE,
+	PROJECTSESSIONSTARTTIME,
+	PROJECTSESSIONSTARTDATE,
+	SESSIONSTARTTIMEMILLIS,
+	ASSIGNERID,
+	USEDROUTING,
+	SELECTEDAGENTID,
+	RECORDED
+) as
+  select
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:peerId as VARCHAR(255)) as peerId,
+  cast (rt.RAW:addressFrom as VARCHAR(255)) as addressFrom,
+  cast (rt.RAW:addressTo as VARCHAR(255)) as addressTo,
+  cast (rt.RAW:ani as VARCHAR(255)) as ani,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:direction as VARCHAR(255)) as direction,
+  cast (rt.RAW:dispositionAnalyzer as VARCHAR(255)) as dispositionAnalyzer,
+  cast (rt.RAW:dispositionName as VARCHAR(255)) as dispositionName,
+  cast (rt.RAW:dnis as VARCHAR(255)) as dnis,
+  cast (rt.RAW:edgeId as VARCHAR(255)) as edgeId,
+  cast (rt.RAW:mediaType as VARCHAR(255)) as mediatype,
+  cast (rt.RAW:outboundCampaignId as VARCHAR(255)) as outboundCampaignId,
+  cast (rt.RAW:outboundContactId as VARCHAR(255)) as outboundContactId,
+  cast (rt.RAW:outboundContactListId as VARCHAR(255)) as outboundContactListId,
+  cast (rt.RAW:participantId as VARCHAR(255)) as participantid,
+  cast (rt.RAW:sessionDnis as VARCHAR(255)) as sessionDnis,
+  cast (rt.RAW:duration as INT) as sessionDuration,
+  cast (rt.RAW:sessionEndTime as DATETIME) as sessionEndTime,
+  cast (rt.RAW:sessionEndTime as DATE) as sessionEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME)) as projectSessionEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME))) as projectSessionEndDate,
+  cast (DATE_PART('EPOCH_MILLISECOND',TO_TIMESTAMP(rt.RAW:sessionEndTime)) as INT) as sessionEndTimeMillis,
+  cast (rt.RAW:sessionId as VARCHAR(255)) as sessionId,
+  cast (rt.RAW:sessionStartTime as DATETIME) as sessionStartTime,
+  cast (rt.RAW:sessionStartTime as DATE) as sessionStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME)) as projectSessionStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME))) as projectSessionStartDate,
+  cast (DATE_PART('EPOCH_MILLISECOND',TO_TIMESTAMP(rt.RAW:sessionStartTime)) as INT) as sessionStartTimeMillis,
+  cast(rt.RAW:assignerId as VARCHAR(255)) as assignerId,
+  cast(rt.RAW:usedRouting as VARCHAR(255)) as usedRouting,
+  cast(rt.RAW:selectedAgentId as VARCHAR(255)) as selectedAgentId,
+  cast(rt.RAW:recording as boolean) as recorded
+  from RAW.SESSIONS rt
+    join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_USER_DETAILS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	DEPARTMENT,
+	DIVISIONID,
+	DIVISIONNAME,
+	EMAIL,
+	EMPLOYEEID,
+	ID,
+	MANAGERID,
+	MANAGERNAME,
+	NAME,
+	STATE,
+	TITLE,
+	STATECHANGEREASON,
+	STATECHANGEDATE,
+	EMPLOYEETYPE,
+	HIREDATE
+) as 
+  select
+  UD.projectId as projectId,
+  UD.projectName as projectName,
+  UD.programId as programId,
+  UD.programName as programName,
+  cast (UD.RAW:department as VARCHAR(255)) as department,
+  cast (UD.RAW:divisionId as VARCHAR(255)) as divisionId,
+  cast (UD.RAW:divisionName as VARCHAR(255)) as divisionName,
+  cast (UD.RAW:email as VARCHAR(255)) as email,
+  cast (UD.RAW:employeeId as VARCHAR(255)) as employeeId,
+  cast (UD.RAW:id as VARCHAR(255)) as id,
+  cast (UD.RAW:managerId as VARCHAR(255)) as managerId,
+  cast (CO.RAW:name as VARCHAR(255)) as managerName,
+  cast (UD.RAW:name as VARCHAR(255)) as name,
+  cast (UD.RAW:state as VARCHAR(255)) as state,
+  cast (UD.RAW:title as VARCHAR(255)) as title, 
+  cast (UD.RAW:stateChangeReason as VARCHAR(255)) as stateChangeReason,
+  CAST (UD.RAW:stateChangeDate as VARCHAR(255)) AS stateChangeDate,
+  CAST (UD.RAW:employeeType  as VARCHAR(255)) AS employeeType,
+  CAST (UD.RAW:hireDate as VARCHAR(255)) AS hireDate
+ from RAW.USER_DETAILS UD
+ left outer join RAW.CONFIGURATION_OBJECTS CO
+ on UD.RAW:managerId = CO.RAW:id
+ and CO.RAW:type = 'user'
+ and UD.projectid = CO.projectid;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_USER_LOCATIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CITY,
+	COUNTRY,
+	COUNTRYNAME,
+	LOCATIONID,
+	LOCATIONNAME,
+	NAME,
+	NOTES,
+	STATE,
+	STREET1,
+	USERID,
+	ZIPCODE,
+	LOCATIONEMERGENCYNUMBER
+) as
+  select
+  UL.projectId as projectId,
+  UL.projectName as projectName,
+  UL.programId as programId,
+  UL.programName as programName,
+  cast (L.RAW:city as VARCHAR(255)) as city,
+  cast (L.RAW:country as VARCHAR(255)) as country,
+  cast (L.RAW:countryname as VARCHAR(255)) as countryname,
+  cast (UL.RAW:locationId as VARCHAR(255)) as locationId,
+  cast (L.RAW:name as VARCHAR(255)) as locationName,
+  cast (UL.RAW:name as VARCHAR(255)) as name,
+  cast (L.RAW:notes as VARCHAR(255)) as notes,
+  cast (L.RAW:state as VARCHAR(255)) as state,
+  cast (L.RAW:street1 as VARCHAR(255)) as street1,
+  cast (UL.RAW:id as VARCHAR(255)) as userId,
+  cast (L.RAW:zipcode as VARCHAR(255)) as zipcode,  
+  cast (L.RAW:emergencyNumber as VARCHAR(255)) as locationEmergencyNumber
+ from RAW.USER_LOCATIONS UL
+ left outer join RAW.LOCATIONS L
+ on (UL.RAW:locationId = L.RAW:id
+    and UL.projectId = L.projectId);
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_USER_ROLES_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	USERID,
+	NAME,
+	ROLEID,
+	ROLENAME
+) as
+  select
+  projectId as projectId,
+  projectName as projectName,
+  programId as programId,
+  programName as programName,
+  cast (RAW:userId as VARCHAR(255)) as userId,
+  cast (RAW:name as VARCHAR(255)) as name,
+  cast (RAW:roleId as VARCHAR(255)) as roleId,
+  cast (RAW:roleName as VARCHAR(255)) as roleName
+  from RAW.USER_ROLES;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.D_PI_USER_SKILLS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	NAME,
+	PROFICIENCY,
+	SKILLID,
+	SKILLNAME,
+	STATE,
+	USERID
+) as
+  select
+  projectId as projectId,
+  projectName as projectName,
+  programId as programId,
+  programName as programName,
+  --cast (RAW:id as VARCHAR(255)) as id,
+  cast (RAW:name as VARCHAR(255)) as name,
+  cast (RAW:proficiency as INT) as proficiency,
+  cast (RAW:skillId as VARCHAR(255)) as skillId,
+  cast (RAW:skillName as VARCHAR(255)) as skillName,
+  cast (RAW:state as VARCHAR(255)) as state,
+  cast (RAW:id as VARCHAR(255)) as userid
+ from RAW.USER_SKILLS;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_QUEUE_ABANDONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	CONVERSATIONID,
+	SESSIONID,
+	SESSIONSTARTTIME,
+	PROJECTSESSIONSTARTTIME,
+	DNIS,
+	QUEUENAME,
+	MEDIATYPE,
+	SESSIONDURATION,
+	ABANDONEDINTERVALA,
+	ABANDONEDINTERVALB,
+	ABANDONEDINTERVALC,
+	ABANDONEDINTERVALD,
+	ABANDONEDINTERVALE,
+	ABANDONEDINTERVALF,
+	ABANDONEDINTERVALG
+) as
+WITH intervals as (SELECT  projectid, RAW:abandonIntervalADuration as intervalA,RAW:abandonIntervalBDuration as intervalB,RAW:abandonIntervalCDuration as intervalC,
+                   RAW:abandonIntervalDDuration as intervalD,RAW:abandonIntervalEDuration as intervalE,RAW:abandonIntervalFDuration as intervalF 
+                   FROM RAW.contact_center_settings),
+     q AS (SELECT projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue')
+  select cast(ss.projectid as varchar) as projectid, 
+    cast(pr.projectname as varchar) as projectname,
+    cast(ss.programid as varchar) as programid, 
+    cast(ss.programname as varchar) as programname,
+    cast(ss.RAW:conversationID as varchar) as conversationid,
+    cast(ss.RAW:sessionID as varchar) as sessionid,
+    cast(ss.RAW:sessionStartTime as datetime) as sessionstarttime,
+    convert_timezone('UTC',pr.projectTimezone,cast (ss.RAW:sessionStartTime as DATETIME)) as projectSessionStartTime,
+    cast(ss.RAW:dnis as varchar) as dnis,
+    cast(q.queueName as varchar) as queuename,
+    cast(ss.RAW:mediaType as varchar) as mediatype,
+    cast(ss.RAW:sessionDuration as int) as sessionduration,
+    cast(case when (ss.RAW:sessionDuration < iv.intervalA) then 1 else 0 end as int) as abandonedIntervalA,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalA and ss.RAW:sessionDuration < iv.intervalB) then 1 else 0 end as int) as abandonedIntervalB,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalB and ss.RAW:sessionDuration < iv.intervalC) then 1 else 0 end as int) as abandonedIntervalC,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalC and ss.RAW:sessionDuration < iv.intervalD) then 1 else 0 end as int) as abandonedIntervalD,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalD and ss.RAW:sessionDuration < iv.intervalE) then 1 else 0 end as int) as abandonedIntervalE,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalE and ss.RAW:sessionDuration < iv.intervalF) then 1 else 0 end as int) as abandonedIntervalF,
+    cast(case when (ss.RAW:sessionDuration >= iv.intervalF) then 1 else 0 end as int) as abandonedIntervalG
+  from RAW.session_summary ss
+  inner join PUBLIC.D_PI_PROJECTS pr
+  on ss.projectId = pr.projectId
+  inner join intervals iv on ss.projectid = iv.projectid
+   LEFT OUTER JOIN q ON ss.projectid = q.projectid and ss.RAW:queueId = q.queueId
+  where ss.RAW:abandoned = 1
+  and ss.RAW:purpose = 'acd';
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_ROUTING_STATUS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	DURATION,
+	ROUTINGSTATUS,
+	STATUSENDTIME,
+	STATUSENDDATE,
+	PROJECTSTATUSENDTIME,
+	PROJECTSTATUSENDDATE,
+	STATUSSTARTTIME,
+	STATUSSTARTDATE,
+	PROJECTSTATUSSTARTTIME,
+	PROJECTSTATUSSTARTDATE,
+	USERNAME,
+	USERID
+) as
+select PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	DURATION,
+	ROUTINGSTATUS,
+	cast(STATUSENDTIME as DATETIME) as STATUSENDTIME,
+    to_date(cast(STATUSENDTIME as DATETIME)) as	STATUSENDDATE,
+	convert_timezone('UTC',projectTimezone,cast (STATUSENDTIME as DATETIME)) as PROJECTSTATUSENDTIME,
+	to_date(convert_timezone('UTC',projectTimezone,cast (STATUSENDTIME as DATETIME))) as PROJECTSTATUSENDDATE,
+	STATUSSTARTTIME,
+	STATUSSTARTDATE,
+	PROJECTSTATUSSTARTTIME,
+    PROJECTSTATUSSTARTDATE,
+	USERNAME,
+	USERID from
+(WITH u AS (SELECT projectid, RAW:id as userId , RAW:name AS userName FROM raw.configuration_objects  WHERE RAW:type = 'user')
+select distinct
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  
+       iff(RAW:endTime < date '2000-01-01',
+          coalesce(DATEDIFF('millisecond', RAW:startTime, lead(RAW:startTime,1,null) over (partition by  RAW:userId order by RAW:startTime)), 0),
+          RAW:duration) as duration,
+  cast (RAW:routingStatus as varchar(255)) as routingStatus,
+  iff(RAW:endTime < date '2000-01-01',
+          lead(RAW:startTime) over (partition by  RAW:userId order by RAW:startTime) ,
+          RAW:endTime) as statusendtime,      
+  cast (RAW:startTime as DATETIME) as statusStartTime,
+  cast (RAW:startTime as DATE) as statusStartDate,          
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:startTime as DATETIME)) as projectstatusStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:startTime as DATETIME))) as projectstatusStartDate,
+  cast (u.userName as varchar(255)) as userName,
+  cast (RAW:userId as VARCHAR(255)) as userid,
+  pr.projectTimezone as projecttimezone
+from RAW.ROUTING_STATUS rt
+    join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+    LEFT OUTER JOIN u ON rt.projectid = u.projectid and rt.RAW:userId = u.userId);
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_SEGMENTS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	AUDIOMUTED,
+	CONFERENCE,
+	CONVERSATIONID,
+	DISCONNECTTYPE,
+	ERRORID,
+	ERRORCODE,
+	PARTICIPANTID,
+	QUEUEID,
+	SEGMENTDURATION,
+	SEGMENTENDTIME,
+	SEGMENTENDDATE,
+	SEGMENTINDEX,
+	PROJECTSEGMENTENDTIME,
+	PROJECTSEGMENTENDDATE,
+	SEGMENTSTARTTIME,
+	SEGMENTSTARTDATE,
+	PROJECTSEGMENTSTARTTIME,
+	PROJECTSEGMENTSTARTDATE,
+	SEGMENTTYPE,
+	SESSIONID,
+	SUBJECT,
+	WRAPUPCODE
+) as 
+  SELECT 
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:audioMuted as BOOLEAN) as audioMuted,
+  cast (rt.RAW:conference as BOOLEAN) as conference,             
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:disconnectType as VARCHAR(255)) as disconnectType, 
+  c.errorid AS errorId,
+  cast (rt.RAW:errorCode as VARCHAR(255)) as errorCode,  
+  cast (rt.RAW:participantId as VARCHAR(255)) as participantId,  
+  cast (rt.RAW:queueId as VARCHAR(255)) as queueId, 
+  cast (rt.RAW:duration as INT) as segmentDuration,
+  cast (rt.RAW:segmentEndTime as DATETIME) as segmentEndTime,
+  cast (rt.RAW:segmentEndTime as DATE) as segmentEndDate, 
+  cast (rt.RAW:segmentIndex as INT) as segmentIndex,	
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:segmentEndTime as DATETIME)) as projectSegmentEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:segmentEndTime as DATETIME))) as projectSegmentEndDate,             
+  cast (rt.RAW:segmentStartTime as DATETIME) as segmentStartTime,
+  cast (rt.RAW:segmentStartTime as DATE) as segmentStartDate,           
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:segmentStartTime as DATETIME)) as projectSegmentStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:segmentStartTime as DATETIME))) as projectSegmentStartDate,            
+  cast (rt.RAW:segmentType as VARCHAR(255)) as segmentType, 
+  cast (rt.RAW:sessionId as VARCHAR(255)) as sessionId, 
+  cast (rt.RAW:subject as VARCHAR(255)) as subject, 
+  --cast (rt.RAW:wrapUpNote as VARCHAR(255)) as wrapUpNote, 
+  cast (rt.RAW:wrapUpCode as VARCHAR(255)) as wrapupCode 
+  from RAW.SEGMENTS rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+LEFT JOIN raw.C_SOURCE_ERROR_CODES C
+ON rt.RAW:errorCode=c.ERRORCODE ;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_SESSION_SUMMARY_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	ABANDONED,
+	ADDRESSFROM,
+	ADDRESSTO,
+	AGENTANSWERED,
+	ALERTNOANSWER,
+	ANI,
+	BLINDTRANSFERRED,
+	CAMPAIGNNAME,
+	CONSULTCOUNT,
+	CONSULTTRANSFERRED,
+	CONVERSATIONENDTIME,
+	CONVERSATIONENDDATE,
+	PROJECTCONVERSATIONENDTIME,
+	PROJECTCONVERSATIONENDDATE,
+	CONVERSATIONID,
+	CONVERSATIONSTARTTIME,
+	CONVERSATIONSTARTDATE,
+	PROJECTCONVERSATIONSTARTTIME,
+	PROJECTCONVERSATIONSTARTDATE,
+	DIRECTION,
+	DISCONNECTTYPE,
+	DNIS,
+	ERRORS,
+	EXTERNALTAG,
+	MESSAGETYPE,
+	PEERID,
+	FLOWOUT,
+	HOLDCOUNT,
+	MEDIATYPE,
+	MONITORINGDURATION,
+	OFFERED,
+	ORIGINATINGDIRECTION,
+	ORIGINATINGDNIS,
+	PARTICIPANTID,
+	PARTICIPANTNAME,
+	PURPOSE,
+	QUEUEANSWERED,
+	QUEUENAME,
+	SESSIONCOUNT,
+	SESSIONDURATION,
+	SESSIONENDTIME,
+	SESSIONENDDATE,
+	PROJECTSESSIONENDTIME,
+	PROJECTSESSIONENDDATE,
+	SESSIONID,
+	SESSIONINDEX,
+	SESSIONSTARTTIME,
+	SESSIONSTARTDATE,
+	PROJECTSESSIONSTARTTIME,
+	PROJECTSESSIONSTARTDATE,
+	TOTALACDWAITDURATION,
+	TOTALAGENTALERTDURATION,
+	TOTALAGENTHOLDDURATION,
+	TOTALAGENTTALKDURATION,
+	TOTALAGENTWRAPUPDURATION,
+	TOTALCONTACTINGDURATION,
+	TOTALDIALINGDURATION,
+	TRANSFERTO,
+	TRANSFERTOPURPOSE,
+	TRANSFERRED,
+	USERHANDLED,
+	USERID,
+	USERNAME,
+	WRAPUPCODE,
+	WRAPUPCODENAME,
+	CALLSERVICELEVELDURATION,
+	CALLSERVICELEVELPERCENT,
+	CALLBACKSERVICELEVELDURATION,
+	CALLBACKSERVICELEVELPERCENT,
+	CHATSERVICELEVELDURATION,
+	CHATSERVICELEVELPERCENT,
+	EMAILSERVICELEVELDURATION,
+	EMAILSERVICELEVELPERCENT,
+	MESSAGESERVICELEVELDURATION,
+	MESSAGESERVICELEVELPERCENT,
+	SOCIALSERVICELEVELDURATION,
+	SOCIALSERVICELEVELPERCENT,
+	VIDEOSERVICELEVELDURATION,
+	VIDEOSERVICELEVELPERCENT,
+	ABANDONEDINTERVALA,
+	ABANDONEDINTERVALB,
+	ABANDONEDINTERVALC,
+	ABANDONEDINTERVALD,
+	ABANDONEDINTERVALE,
+	ABANDONEDINTERVALF,
+	ABANDONEDINTERVALG,
+	ABANDONINTERVALADURATION,
+	ABANDONINTERVALBDURATION,
+	ABANDONINTERVALCDURATION,
+	ABANDONINTERVALDDURATION,
+	ABANDONINTERVALEDURATION,
+	ABANDONINTERVALFDURATION,
+	FLOWSHORTDISCONNECTDURATION,
+	INCLUDEABANDONSINSERVICELEVEL,
+	INCLUDEFLOWOUTSINSERVICELEVEL,
+	INCLUDESHORTABANDONSINSERVICELEVEL
+) as
+WITH
+    a AS (SELECT projectid, RAW:id AS userId , RAW:name AS userName FROM raw.configuration_objects  WHERE RAW:type = 'user'),
+    q AS (SELECT projectid, RAW:id AS queueId , RAW:name AS queueName FROM raw.configuration_objects  WHERE RAW:type = 'queue'),
+    wrap AS (SELECT projectid, RAW:id AS wrapupCodeId, RAW:name AS wrapupCodeName FROM raw.configuration_objects  WHERE RAW:type = 'wrapupcode'),
+    campaign as (SELECT projectid, RAW:id as campaignid  , RAW:name AS campaignName FROM raw.configuration_objects  WHERE RAW:type = 'campaign')
+select
+rt.projectId as projectId,
+pr.projectName as projectName,
+rt.programId as programId,
+rt.programName as programName,
+cast (rt.RAW:abandoned as INT) as abandoned,
+cast (rt.RAW:addressFrom as VARCHAR(255)) as addressFrom,
+cast (rt.RAW:addressTo as VARCHAR(255)) as addressTo,
+cast (rt.RAW:agentAnswered as INT) as agentAnswered,
+cast (rt.RAW:alertNoAnswer as INT) as alertNoAnswer,
+cast (rt.RAW:ani as VARCHAR(255)) as ani,
+cast (rt.RAW:blindTransferred as INT) as blindTransferred,
+nvl(cast (campaign.campaignName as VARCHAR(255)),'') as campaignName,
+cast (rt.RAW:consultCount as INT) as consultCount,
+cast (rt.RAW:consultTransferred as INT) as consultTransferred,
+cast (rt.RAW:conversationEndTime as DATETIME) as conversationEndTime,
+cast (rt.RAW:conversationEndTime as DATE) as conversationEndDate,
+convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationEndTime as DATETIME)) as projectConversationEndTime,
+to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationEndTime as DATETIME))) as projectConversationEndDate,
+cast (rt.RAW:conversationID as VARCHAR(255)) as conversationId,
+cast (rt.RAW:conversationStartTime as DATETIME) as conversationStartTime,
+cast (rt.RAW:conversationStartTime as DATE) as conversationStartDate,
+convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME)) as projectConversationStartTime,
+to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:conversationStartTime as DATETIME))) as projectConversationStartDate,
+cast (rt.RAW:direction as VARCHAR(255)) as direction,
+case when len(trim(cast(rt.RAW:disconnectType as VARCHAR(255)))) = 0 then null else cast(rt.RAW:disconnectType as VARCHAR(255)) end as disconnectType,
+cast (rt.RAW:dnis as VARCHAR(255)) as dnis,
+cast (rt.RAW:errors as INT) as errors,
+cast (rt.RAW:externalTag as VARCHAR(255)) as externalTag,
+case when len(cast (rt.RAW:messageType as VARCHAR(255))) = 0 then null else cast (rt.RAW:messageType as VARCHAR(255)) end as messageType,
+case when len(cast (rt.RAW:peerId as VARCHAR(255))) = 0 then null else cast (rt.RAW:peerId as VARCHAR(255)) end as peerId,
+cast (rt.RAW:flowOut as INT) as flowOut,
+cast (rt.RAW:holdCount as INT) as holdCount,
+cast (rt.RAW:mediaType as VARCHAR(255)) as mediaType,
+cast (rt.RAW:monitoringDuration as INT) as monitoringDuration,
+cast (rt.RAW:offered as INT) as offered,
+cast (rt.RAW:originatingDirection as VARCHAR(255)) as originatingDirection,
+cast (rt.RAW:originatingDnis as VARCHAR(255)) as originatingDnis,
+cast (rt.RAW:participantId as VARCHAR(255)) as participantId,
+case when len(cast (coalesce(a.userName, q.queueName, rt.RAW:participantName) as VARCHAR(255))) = 0 then null else cast (coalesce(a.userName, q.queueName, rt.RAW:participantName) as VARCHAR(255)) end as participantName,
+cast (rt.RAW:purpose as VARCHAR(255)) as purpose,
+cast (rt.RAW:queueAnswered as INT) as queueAnswered,
+cast (q.queueName as VARCHAR(255)) as queueName,
+cast (rt.RAW:sessionCount as INT) as sessionCount,
+cast (rt.RAW:sessionDuration as INT) as sessionDuration,
+cast (rt.RAW:sessionEndTime as DATETIME) as sessionEndTime,
+cast (rt.RAW:sessionEndTime as DATE) as sessionEndDate,
+convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME)) as projectSessionEndTime,
+to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionEndTime as DATETIME))) as projectSessionEndDate,
+cast (rt.RAW:sessionID as VARCHAR(255)) as sessionId,
+cast (rt.RAW:sessionIndex as INT) as sessionIndex,
+cast (rt.RAW:sessionStartTime as DATETIME) as sessionStartTime,
+cast (rt.RAW:sessionStartTime as DATE) as sessionStartDate,
+convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME)) as projectSessionStartTime,
+to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:sessionStartTime as DATETIME))) as projectSessionStartDate,
+cast (rt.RAW:totalAcdWaitDuration as INT) as totalAcdWaitDuration,
+cast (rt.RAW:totalAgentAlertDuration as INT) as totalAgentAlertDuration,
+cast (rt.RAW:totalAgentHoldDuration as INT) as totalAgentHoldDuration,
+cast (rt.RAW:totalAgentTalkDuration as INT) as totalAgentTalkDuration,
+cast (rt.RAW:totalAgentWrapupDuration as INT) as totalAgentWrapupDuration,
+cast (rt.RAW:totalContactingDuration as INT) as totalContactingDuration ,
+cast (rt.RAW:totalDialingDuration as INT) as totalDialingDuration,
+case when len(cast (coalesce(TransferToAgent.userName, TransferToQueue.queueName, rt.RAW:transferTo) as VARCHAR(255))) = 0 then null else cast (coalesce(TransferToAgent.userName, TransferToQueue.queueName, rt.RAW:transferTo) as VARCHAR(255)) end as transferTo,
+case when len(trim(cast(rt.RAW:transferToPurpose as varchar(255)))) = 0 then null else cast(rt.RAW:transferToPurpose as varchar(255))  end  as transferToPurpose,
+cast (rt.RAW:transferred as INT) as transferred,
+cast (rt.RAW:userHandled as INT) as userHandled,
+cast (rt.RAW:userId as VARCHAR(255)) as userId,
+cast (a.userName as VARCHAR(255)) as userName,
+cast (rt.RAW:wrapupCodeId as VARCHAR(255)) as wrapupCode,
+case when len(cast (coalesce(wrap.wrapupCodeName,rt.RAW:wrapupCodeId)  as VARCHAR(255))) = 0 then null else cast (coalesce(wrap.wrapupCodeName,rt.RAW:wrapupCodeId)  as VARCHAR(255)) end as wrapupCodeName,
+cast (qc.RAW:callServiceLevelDuration as INT) as callServiceLevelDuration,
+cast (qc.RAW:callServiceLevelPercent as DECIMAL(38,19)) as callServiceLevelPercent,
+cast (qc.RAW:callbackServiceLevelDuration as INT) as callbackServiceLevelDuration,
+cast (qc.RAW:callbackServiceLevelPercent as DECIMAL(38,19)) as callbackServiceLevelPercent,
+cast (qc.RAW:chatServiceLevelDuration as INT) as chatServiceLevelDuration,
+cast (qc.RAW:chatServiceLevelPercent as DECIMAL(38,19)) as chatServiceLevelPercent,
+cast (qc.RAW:emailServiceLevelDuration as INT) as emailServiceLevelDuration,
+cast (qc.RAW:emailServiceLevelPercent as DECIMAL(38,19)) as emailServiceLevelPercent,
+cast (qc.RAW:messageServiceLevelDuration as INT) as messageServiceLevelDuration,
+cast (qc.RAW:messageServiceLevelPercent as DECIMAL(38,19)) as messageServiceLevelPercent,
+cast (qc.RAW:socialServiceLevelDuration as INT) as socialServiceLevelDuration,
+cast (qc.RAW:socialServiceLevelPercent as DECIMAL(38,19)) as socialServiceLevelPercent,
+cast (qc.RAW:videoServiceLevelDuration as INT) as videoServiceLevelDuration,
+cast (qc.RAW:videoServiceLevelPercent as DECIMAL(38,19)) as videoServiceLevelPercent,
+cast(qa.ABANDONEDINTERVALA as int) as ABANDONEDINTERVALA,
+qa.abandonedIntervalB,
+qa.abandonedIntervalC,
+qa.abandonedIntervalD,
+qa.abandonedIntervalE,
+qa.abandonedIntervalF,
+qa.abandonedIntervalG,
+cast (ccs.RAW:abandonIntervalADuration as INT) as abandonIntervalADuration,       
+  cast (ccs.RAW:abandonIntervalBDuration as INT) as abandonIntervalBDuration,        
+  cast (ccs.RAW:abandonIntervalCDuration as INT) as abandonIntervalCDuration,        
+  cast (ccs.RAW:abandonIntervalDDuration as INT) as abandonIntervalDDuration,
+  cast (ccs.RAW:abandonIntervalEDuration as INT) as abandonIntervalEDuration,
+  cast (ccs.RAW:abandonIntervalFDuration as INT) as abandonIntervalFDuration,
+  cast (ccs.RAW:flowShortDisconnectDuration as INT) as flowShortDisconnectDuration,
+  cast (ccs.RAW:includeAbandonsInServiceLevel as INT) as includeAbandonsInServiceLevel,
+  cast (ccs.RAW:includeFlowOutsInServiceLevel as INT) as includeFlowOutsInServiceLevel,
+  cast (ccs.RAW:includeShortAbandonsInServiceLevel as INT) as includeShortAbandonsInServiceLevel
+from RAW.SESSION_SUMMARY rt
+join PUBLIC.D_PI_PROJECTS pr
+on rt.projectId = pr.projectId
+left join RAW.QUEUE_CONFIGURATION qc
+on rt.projectId = qc.projectId
+and rt.RAW:queueId = qc.RAW:id
+left join F_PI_QUEUE_ABANDONS_VW qa
+on rt.RAW:conversationID = qa.CONVERSATIONID
+and rt.projectid = qa.PROJECTID
+and rt.RAW:sessionID = qa.SESSIONID
+left join RAW.CONTACT_CENTER_SETTINGS ccs
+on ccs.projectid = rt.projectid
+         LEFT OUTER JOIN a ON rt.projectid = a.projectid and rt.RAW:userId = a.userId
+         LEFT OUTER JOIN q ON rt.projectid = q.projectid and rt.RAW:queueId = q.queueId
+         LEFT OUTER JOIN wrap ON rt.projectid = wrap.projectid and rt.RAW:wrapupCodeId  = wrap.wrapupCodeId
+         LEFT OUTER JOIN campaign ON rt.projectid = campaign.projectid and rt.RAW:campaignID  = campaign.campaignId
+         LEFT OUTER JOIN a TransferToAgent ON  rt.projectid = TransferToAgent.projectid AND rt.RAW:transferTo = TransferToAgent.userId
+         LEFT OUTER JOIN q TransferToQueue ON  rt.projectid = TransferToQueue.projectid AND rt.RAW:transferTo = TransferToQueue.queueId;
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_SURVEY_RESULTS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	SURVEYNAME,
+	QUESTIONNR,
+	QUESTIONNAME,
+	QUESTIONGROUP,
+	QUESTIONLVL,
+	ANSWERNR,
+	ANSWERNAME,
+	ANSWERRPTNAME,
+	ANSWERPOINTS,
+	QUESTIONWEIGHT,
+	QUESTIONMAXSCORE,
+	ANSWERSKIPOPTION,
+	EFFECTIVESTARTDT,
+	EFFECTIVEENDDT,
+	MAXIMUS_FLAG,
+	TOTAL_QUESTIONS,
+	ANSWERVALUE,
+	CONVERSATIONID,
+	LANGUAGE,
+	PARTICIPANTENDTIME,
+	PARTICIPANTENDDATE,
+	PROJECTPARTICIPANTENDTIME,
+	PROJECTPARTICIPANTENDDATE,
+	PARTICIPANTID,
+	PARTICIPANTNAME,
+	PARTICIPANTSTARTTIME,
+	PARTICIPANTSTARTDATE,
+	PROJECTPARTICIPANTSTARTTIME,
+	PROJECTPARTICIPANTSTARTDATE,
+	PURPOSE,
+	USERID,
+	ORIGINATINGDIRECTION,
+	DIRECTION,
+	CSAT_AGENT_ID,
+	CSAT_AGENT_NAME,
+	QUEUENAME,
+	WRAPUPCODENAME,
+	VALUE
+) as
+((with ca3 as (select distinct
+projectId,
+projectName,
+programId,
+programName,
+conversationid,
+key as SURVEYNAME,
+Substr(right(key,6),1,3) as LANGUAGE,
+value,
+case when len(value) = 4 then left(value, 2)
+when (len(value) = 5  and substr(value,3,1) = 'A') then left(value, 2)
+when (len(value) = 5  and substr(value,4,1) = 'A') then left(value, 3)
+when len(value) = 8 then left(value, 2)
+when len(value) = 9 then left(value, 2)
+when len(value) = 10 then left(value, 2)
+when len(value) = 12 then left(value, 2)
+when len(value) = 13 then left(value, 2)
+when len(value) = 14 then left(value, 3)
+when len(value) = 15 then left(value,2)
+else null end as QUESTIONNR,
+case when len(value) = 4 then right(value, 2)
+when (len(value) = 5 and substr(value,3,1) = 'A') then right(value, 3)
+when (len(value) = 5 and substr(value,4,1) = 'A') then right(value, 2)
+when len(value) = 8 then substr(value,3,2)
+when (len(value) = 9  and substr(value,6,1) = '_' and substr(value,4,1) != '9') then substr(value,4,2)
+when (len(value) = 9  and substr(value,6,1) = '_' and substr(value,4,1) = '9') then substr(value,3,3)
+when (len(value) = 9  and substr(value,6,1) != '_') then substr(value,3,2)
+when (len(value) = 10 and substr(value,3,1) != '9') then substr(value,3,2)
+when (len(value) = 10 and substr(value,3,1) = '9') then substr(value, 3,3)
+when len(value) = 12 then substr(value,3,2)
+when len(value) = 13 then substr(value,3,2)
+when (len(value) = 14 and substr(value,5,1) = '_') then substr(value, 3,2)
+when (len(value) = 14 and substr(value,6,1) = '_') then substr(value, 3,3)
+when len(value) = 15 then substr(value,3,3)
+else '' end as ANSWERNR,
+participantEndTime,
+participantEndDate,
+projectParticipantEndTime,
+projectParticipantEndDate,
+participantid,
+participantName,
+participantStartTime,
+participantStartDate,
+projectParticipantStartTime,
+projectParticipantStartDate,
+purpose,
+userId
+from
+(select
+  rt.projectId as projectId,
+  rt.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:key as VARCHAR(255)) as key,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndTime,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME)) as projectParticipantEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME))) as projectParticipantEndDate,
+  cast (coalesce(rt.RAW:participantId,rt.RAW:participantid) as VARCHAR(255)) as participantid,
+  cast (coalesce(rp.RAW:participantName,rt.RAW:participantName) as VARCHAR(255)) as participantName,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartTime,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME)) as projectParticipantStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME))) as projectParticipantStartDate,
+  cast (rp.RAW:purpose as VARCHAR(255)) as purpose,
+  cast (rp.RAW:userId as VARCHAR(255)) as userId,
+  cast (rt.RAW:value as VARCHAR(255)) as col
+  from RAW.CONVERSATION_ATTRIBUTES rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+  left join RAW.participants rp
+  on rt.projectid = rp.projectid
+  and rt.RAW:participantId =rp.RAW:participantId
+      --     or rt.RAW:participantid =rp.RAW:participantId)
+ --where participantstartdate between add_months(last_day(current_date())+1, -1) and current_date() - 1
+  where key like ('%CSAT%') or key like ('CoverVA%')
+),  lateral split_to_table(COL, '||')
+where VALUE <> '')
+  select si.PROJECTID,
+si.PROJECTNAME,
+si.PROGRAMID,
+si.PROGRAMNAME,
+si.SURVEYNAME,
+si.QUESTIONNR,
+si.QUESTIONNAME,
+si.QUESTIONGROUP,
+si.QUESTIONLVL,
+si.ANSWERNR,
+si.ANSWERNAME,
+si.ANSWERRPTNAME,
+si.ANSWERPOINTS,
+si.QUESTIONWEIGHT,
+si.QUESTIONMAXSCORE,
+si.ANSWERSKIPOPTION,
+si.EFFECTIVESTARTDT,
+si.EFFECTIVEENDDT,
+si.MAXIMUS_FLAG,
+cast(a12.total_questions as INT) as total_questions,
+cast(trim(case when len(ca3.ANSWERNR) = 2 then right(ca3.ANSWERNR, 1)
+when (len(ca3.ANSWERNR) = 3 and left(ca3.ANSWERNR,1) = 'S') then right(ca3.ANSWERNR, 1)
+when (len(ca3.ANSWERNR) = 3 and left(ca3.ANSWERNR,1) = 'A') then right(ca3.ANSWERNR, 2)
+when len(ca3.ANSWERNR) = 4 then right(value, 2) 
+else null end) as int) as ANSWERVALUE,
+ ca3.conversationid,
+ ca3.language,
+ca3.participantEndTime,
+ca3.participantEndDate,
+ca3.projectParticipantEndTime,
+ca3.projectParticipantEndDate,
+ca3.participantid,
+ca3.participantName,
+ca3.participantStartTime,
+ca3.participantStartDate,
+ca3.projectParticipantStartTime,
+ca3.projectParticipantStartDate,
+ca3.purpose,
+ca3.userId,
+csa.originatingdirection,
+csa.direction,
+csa.csat_agent_id,
+csa.csat_agent_name,
+csa.queuename,
+csa.wrapupcodename,
+cast(ca3.value as varchar(50)) as value
+from PUBLIC.D_CSAT_QUESTIONS_INFO SI
+LEFT JOIN CA3
+on ca3.projectID = si.projectId
+and ca3.SURVEYNAME = si.SURVEYNAME
+and ca3.QUESTIONNR = si.QUESTIONNR
+and ca3.ANSWERNR = si.ANSWERNR
+LEFT OUTER JOIN
+(select
+conversationid,
+originatingdirection,
+direction,
+queuename,
+wrapupcodename,
+userid as csat_agent_id,
+username as csat_agent_name
+from F_PI_SESSION_SUMMARY_VW
+where 
+purpose in ('agent', 'user')
+and transfertopurpose = 'ivr' 
+and UPPER(transferto) like '%SURVEY%' OR UPPER(TRANSFERTO) like '%CSAT%' OR UPPER(TRANSFERTO) like '%PCS%'
+group by 1,2,3,4,5,6,7
+) csa
+on ca3.conversationid = csa.conversationid
+left join 
+    (select surveyname,
+            effectivestartdt,
+            projectid,
+            count( distinct left(questionnr, 3)) as total_questions
+     from D_CSAT_QUESTIONS_INFO
+      where questionnr not like '%A%'
+        group by 1,2,3) a12
+on si.surveyname = a12.surveyname 
+and si.effectivestartdt = a12.effectivestartdt
+and si.projectid = a12.projectid)
+UNION ALL
+(with ca2 as (select distinct
+projectId,
+projectName,
+programId,
+programName,
+conversationid,
+key as SURVEYNAME,
+Substr(right(key,6),1,3) as LANGUAGE,
+value,
+case when len(value) = 8 then left(value, 4)
+when (len(value) = 9 and substr(value,6,1) = '_') then left(value, 5)
+when (len(value) = 9 and substr(value,6,1) != '_') then left(value, 4)
+when len(value) = 10 then left(value,5)
+when len(value) = 12 then left(value, 4)
+when (len(value) = 13 and substr(value,6,1) != '_') then left(value,4)
+when (len(value) = 13 and substr(value,6,1) = '_') then left(value,5)
+when (len(value) = 14 and substr(value,5,1) = '_') then left(value,4)
+when (len(value) = 14 and substr(value,6,1) = '_') then left(value,5)
+when len(value) = 15 then left(value,5)
+else null end as QUESTIONNR,
+case when len(value) = 8 then right(value, 3)
+when (len(value) = 9 and substr(value,6,1) = '_') then right(value, 3)
+when (len(value) = 9 and substr(value,6,1) != '_') then right(value, 4)
+when len(value) = 10 then right(value,4)
+when len(value) = 12 then substr(value,6,3)
+when (len(value) = 13 and substr(value,6,1) != '_') then substr(value,6,3)
+when (len(value) = 13 and substr(value,6,1) = '_') then substr(value,7,3)
+when (len(value) = 14 and substr(value,5,1) = '_' and substr(value,6,1) = 'A') then substr(value,6,4)
+when (len(value) = 14 and substr(value,6,1) = '_' and substr(value,7,1) = 'A' and substr(value,8,1) != '9') then substr(value,6.3)
+when (len(value) = 14 and substr(value,6,1) = '_' and substr(value,7,1) = 'A' and substr(value,8,1) = '9') then substr(value,6.4)
+when len(value) = 15 then substr(value,7,4)
+else '' end as ANSWERNR,
+participantEndTime,
+participantEndDate,
+projectParticipantEndTime,
+projectParticipantEndDate,
+participantid,
+participantName,
+participantStartTime,
+participantStartDate,
+projectParticipantStartTime,
+projectParticipantStartDate,
+purpose,
+userId
+from
+(select
+  rt.projectId as projectId,
+  rt.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:key as VARCHAR(255)) as key,
+ cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndTime,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME)) as projectParticipantEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME))) as projectParticipantEndDate,
+  cast (coalesce(rt.RAW:participantId,rt.RAW:participantid) as VARCHAR(255)) as participantid,
+  cast (coalesce(rp.RAW:participantName,rt.RAW:participantName) as VARCHAR(255)) as participantName,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartTime,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME)) as projectParticipantStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME))) as projectParticipantStartDate,
+  cast (rp.RAW:purpose as VARCHAR(255)) as purpose,
+  cast (rt.RAW:userId as VARCHAR(255)) as userId,
+  cast (rp.RAW:value as VARCHAR(255)) as col
+  from RAW.CONVERSATION_ATTRIBUTES rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+  left join RAW.participants rp
+  on rt.projectid = rp.projectid
+  and rt.RAW:participantId =rp.RAW:participantId
+      --     or rt.RAW:participantid =rp.RAW:participantId)
+--where participantstartdate between add_months(last_day(current_date())+1, -1) and current_date() - 1
+  where key like ('%CSAT%') or key like ('CoverVA%')
+),  lateral split_to_table(COL, '||')
+where VALUE <> '')
+ select  si.PROJECTID,
+si.PROJECTNAME,
+si.PROGRAMID,
+si.PROGRAMNAME,
+si.SURVEYNAME,
+si.QUESTIONNR,
+si.QUESTIONNAME,
+si.QUESTIONGROUP,
+si.QUESTIONLVL,
+si.ANSWERNR,
+si.ANSWERNAME,
+si.ANSWERRPTNAME,
+si.ANSWERPOINTS,
+si.QUESTIONWEIGHT,
+si.QUESTIONMAXSCORE,
+si.ANSWERSKIPOPTION,
+si.EFFECTIVESTARTDT,
+si.EFFECTIVEENDDT,
+si.MAXIMUS_FLAG,
+cast(a12.total_questions as INT) as total_questions,
+cast(trim(case when len(ca2.ANSWERNR) = 2 then right(ca2.ANSWERNR, 1)
+when (len(ca2.ANSWERNR) = 3 and left(ca2.ANSWERNR,1) = 'S') then right(ca2.ANSWERNR, 1)
+when (len(ca2.ANSWERNR) = 3 and left(ca2.ANSWERNR,1) = 'A') then right(ca2.ANSWERNR,2)
+when len(ca2.ANSWERNR) = 4 then right(value, 2) 
+else null end) as int) as ANSWERVALUE,
+ ca2.conversationid,
+ ca2.language,
+ca2.participantEndTime,
+ca2.participantEndDate,
+ca2.projectParticipantEndTime,
+ca2.projectParticipantEndDate,
+ca2.participantid,
+ca2.participantName,
+ca2.participantStartTime,
+ca2.participantStartDate,
+ca2.projectParticipantStartTime,
+ca2.projectParticipantStartDate,
+ca2.purpose,
+ca2.userId,
+csa.originatingdirection,
+csa.direction,
+csa.csat_agent_id,
+csa.csat_agent_name,
+csa.queuename,
+csa.wrapupcodename,
+cast(ca2.value as varchar(50)) as value
+from PUBLIC.D_CSAT_QUESTIONS_INFO SI
+LEFT JOIN CA2
+on ca2.projectID = si.projectId
+and ca2.SURVEYNAME = si.SURVEYNAME
+and ca2.QUESTIONNR = si.QUESTIONNR
+and ca2.ANSWERNR = si.ANSWERNR
+LEFT OUTER JOIN
+(select
+conversationid,
+originatingdirection,
+direction,
+queuename,
+wrapupcodename,
+userid as csat_agent_id,
+username as csat_agent_name
+from F_PI_SESSION_SUMMARY_VW
+where 
+purpose in ('agent', 'user')
+and transfertopurpose = 'ivr' 
+and UPPER(transferto) like '%SURVEY%' OR UPPER(TRANSFERTO) like '%CSAT%' OR UPPER(TRANSFERTO) like '%PCS%'
+group by 1,2,3,4,5,6,7
+) csa
+on ca2.conversationid = csa.conversationid
+left join 
+    (select surveyname,
+            effectivestartdt,
+            projectid,
+            count( distinct left(questionnr, 3)) as total_questions
+     from D_CSAT_QUESTIONS_INFO
+      where questionnr not like '%A%'
+        group by 1,2,3) a12
+on si.surveyname = a12.surveyname 
+and si.effectivestartdt = a12.effectivestartdt
+and si.projectid = a12.projectid)
+UNION ALL
+(with ca as (select distinct
+projectId,
+projectName,
+programId,
+programName,
+conversationid,
+key as SURVEYNAME,
+Substr(right(key,6),1,3) as LANGUAGE,
+value,
+case when len(value) = 12 then left(value, 8)
+when (len(value) = 13 and substr(value,5,1) = '_') then left(value,8)
+when (len(value) = 13 and substr(value,6,1) = '_') then left(value,9)
+when (len(value) = 14 and substr(value,5,1) = '_' and substr(value,10,1) = '_') then left(value,9)
+when (len(value) = 14 and substr(value,6,1) = '_' and substr(value,11,1) = '_') then left(value,10)
+when len(value) = 15 then left(value,10)
+else null end as QUESTIONNR,
+case when len(value) = 12 then right(value,3)
+when (len(value) = 13 and substr(value,5,1) = '_') then right(value,4)
+when (len(value) = 13 and substr(value,6,1) = '_') then right(value,3)
+when (len(value) = 14 and substr(value,10,1) = '_') then right(value,4)
+when (len(value) = 14 and substr(value,6,1) = '_' and substr(value,11,1) = '_') then right(value,3)
+when len(value) = 15 then right(value,4)
+else '' end as ANSWERNR,
+participantEndTime,
+participantEndDate,
+projectParticipantEndTime,
+projectParticipantEndDate,
+participantid,
+participantName,
+participantStartTime,
+participantStartDate,
+projectParticipantStartTime,
+projectParticipantStartDate,
+purpose,
+userId
+from
+(select
+  rt.projectId as projectId,
+  rt.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (rt.RAW:conversationId as VARCHAR(255)) as conversationId,
+  cast (rt.RAW:key as VARCHAR(255)) as key,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndTime,
+  cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME) as participantEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME)) as projectParticipantEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantEndTime,rt.RAW:participantEndTime) as DATETIME))) as projectParticipantEndDate,
+  cast (coalesce(rt.RAW:participantId,rt.RAW:participantid) as VARCHAR(255)) as participantid,
+  cast (coalesce(rp.RAW:participantName,rt.RAW:participantName) as VARCHAR(255)) as participantName,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartTime,
+  cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME) as participantStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME)) as projectParticipantStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (coalesce(rp.RAW:participantStartTime,rt.RAW:participantStartTime) as DATETIME))) as projectParticipantStartDate,
+  cast (rp.RAW:purpose as VARCHAR(255)) as purpose,
+  cast (rp.RAW:userId as VARCHAR(255)) as userId,
+  cast (rt.RAW:value as VARCHAR(255)) as col
+  from RAW.CONVERSATION_ATTRIBUTES rt
+  join PUBLIC.D_PI_PROJECTS pr
+  on rt.projectId = pr.projectId
+  left join RAW.participants rp
+  on rt.projectid = rp.projectid
+  and rt.RAW:participantId =rp.RAW:participantId
+         --  or rt.RAW:participantid =rp.RAW:participantId)
+--where participantstartdate between add_months(last_day(current_date())+1, -1) and current_date() - 1
+  where key like ('%CSAT%') or key like ('CoverVA%')
+),  lateral split_to_table(COL, '||')
+where VALUE <> '')
+select si.PROJECTID,
+si.PROJECTNAME,
+si.PROGRAMID,
+si.PROGRAMNAME,
+si.SURVEYNAME,
+si.QUESTIONNR,
+si.QUESTIONNAME,
+si.QUESTIONGROUP,
+si.QUESTIONLVL,
+si.ANSWERNR,
+si.ANSWERNAME,
+si.ANSWERRPTNAME,
+si.ANSWERPOINTS,
+si.QUESTIONWEIGHT,
+si.QUESTIONMAXSCORE,
+si.ANSWERSKIPOPTION,
+si.EFFECTIVESTARTDT,
+si.EFFECTIVEENDDT,
+si.MAXIMUS_FLAG,
+cast(a12.total_questions as INT) as total_questions,
+cast(trim(case when len(ca.ANSWERNR) = 2 then right(ca.ANSWERNR, 1)
+when (len(ca.ANSWERNR) = 3 and left(ca.ANSWERNR,1) = 'S') then right(ca.ANSWERNR, 1)
+when (len(ca.ANSWERNR) = 3 and left(ca.ANSWERNR,1) = 'A') then right(ca.ANSWERNR, 2)
+when len(ca.ANSWERNR) = 4 then right(value, 2) 
+else null end) as int) as ANSWERVALUE,
+ ca.conversationid,
+ ca.language,
+ca.participantEndTime,
+ca.participantEndDate,
+ca.projectParticipantEndTime,
+ca.projectParticipantEndDate,
+ca.participantid,
+ca.participantName,
+ca.participantStartTime,
+ca.participantStartDate,
+ca.projectParticipantStartTime,
+ca.projectParticipantStartDate,
+ca.purpose,
+ca.userId,
+csa.originatingdirection,
+csa.direction,
+csa.csat_agent_id,
+csa.csat_agent_name,
+csa.queuename,
+csa.wrapupcodename,
+cast(ca.value as varchar(50)) as value
+from PUBLIC.D_CSAT_QUESTIONS_INFO SI
+LEFT OUTER JOIN CA
+on ca.projectID = si.projectId
+and ca.SURVEYNAME = si.SURVEYNAME
+and ca.QUESTIONNR = si.QUESTIONNR
+and ca.ANSWERNR = si.ANSWERNR
+LEFT OUTER JOIN
+(select
+conversationid,
+originatingdirection,
+direction,
+queuename,
+wrapupcodename,
+userid as csat_agent_id,
+username as csat_agent_name
+from F_PI_SESSION_SUMMARY_VW
+where 
+purpose in ('agent', 'user')
+and transfertopurpose = 'ivr' 
+and UPPER(transferto) like '%SURVEY%' OR UPPER(TRANSFERTO) like '%CSAT%' OR UPPER(TRANSFERTO) like '%PCS%'
+group by 1,2,3,4,5,6,7
+) csa
+on ca.conversationid = csa.conversationid
+left join 
+    (select surveyname,
+            effectivestartdt,
+            projectid,
+            count( distinct left(questionnr, 3)) as total_questions
+     from D_CSAT_QUESTIONS_INFO
+      where questionnr not like '%A%'
+        group by 1,2,3) a12
+on si.surveyname = a12.surveyname 
+and si.effectivestartdt = a12.effectivestartdt
+and si.projectid = a12.projectid));
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_ACTIVITY_CODES_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	ACTIVE,
+	ACTIVITYCODEID,
+	ACTIVITYCODENAME,
+	AGENTTIMEOFFSELECTABLE,
+	BUSINESSUNITID,
+	CATEGORY,
+	COUNTSASPAIDTIME,
+	COUNTSASWORKTIME,
+	DEFAULTCODE,
+	LENGTHINMINUTES,
+	LENGTHINSECONDS,
+	BUSINESSUNITNAME
+) as
+SELECT pr.PROJECTID ,pr.PROJECTNAME, ac.PROGRAMID, ac.PROGRAMNAME ,
+  CAST(AC.RAW:active AS VARCHAR (255)) AS active,
+  CAST(AC.RAW:id AS VARCHAR (255)) AS activityCodeid,
+  CAST(AC.RAW:name AS VARCHAR (255))  AS activityCodename,
+  CAST(AC.RAW:agentTimeOffSelectable AS VARCHAR (255))  AS agentTimeOffSelectable,
+  CAST(AC.RAW:businessUnitId AS VARCHAR (255))  AS businessUnitId,
+  CAST(AC.RAW:category AS VARCHAR (255))  AS category,
+  CAST(AC.RAW:countsAsPaidTime AS VARCHAR (255))  AS countsAsPaidTime,
+  CAST(AC.RAW:countsAsWorkTime AS VARCHAR (255))  AS countsAsWorkTime,
+  CAST(AC.RAW:defaultCode AS VARCHAR (255)) AS defaultCode,  
+  CAST(AC.RAW:lengthInMinutes AS INT) AS lengthInMinutes,
+  CAST((AC.RAW:lengthInMinutes * 60) AS INT) AS lengthInSeconds,
+  CAST(CO.RAW:name as VARCHAR (255)) as businessUnitName
+  FROM RAW.WFM_ACTIVITY_CODES AC
+join PUBLIC.D_PI_PROJECTS pr
+on AC.projectId = pr.projectId
+join RAW.CONFIGURATION_OBJECTS CO
+on CAST(AC.RAW:businessUnitId AS VARCHAR (255)) = CAST(CO.RAW:id AS VARCHAR (255))
+;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_ADHERENCE_ACTUAL_ACTIVITIES_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	MANAGEMENTUNITNAME,
+	USERNAME,
+	MANAGEMENTUNITID,
+	USERID,
+	ACTIVITYCATEGORY,
+	ACTIVITYSTARTTIME,
+	ACTIVITYSTARTDATE,
+	PROJECTACTIVITYSTARTTIME,
+	PROJECTACTIVITYSTARTDATE,
+	ACTIVITYENDTIME,
+	ACTIVITYENDDATE,
+	PROJECTACTIVITYENDTIME,
+	PROJECTACTIVITYENDDATE,
+	DURATIONSECONDS
+) as
+WITH
+ mu AS (SELECT RAW:id AS managementunitid, RAW:name AS managementunitname, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'managementunit'),
+ u AS (SELECT RAW:id AS userid, RAW:name AS userName, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'user')
+SELECT
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (mu.managementunitname as VARCHAR(255)) as managementunitname, 
+  cast (u.userName as VARCHAR(255)) as userName,
+  cast (rt.raw:managementUnitId as VARCHAR(255)) as managementUnitId,
+  cast (rt.raw:userId as VARCHAR(255)) as userId,
+  cast (rt.raw:activityCategory as VARCHAR(255)) as activityCategory,
+  cast (rt.raw:activityStartTime as DATETIME) as activityStartTime,
+  cast (rt.raw:activityStartTime as DATE) as activityStartDate, 
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityStartTime as DATETIME)) as projectActivityStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityStartTime as DATETIME))) as projectActivityStartDate,
+  cast (rt.raw:activityEndTime as DATETIME) as activityEndTime,
+  cast (rt.raw:activityEndTime as DATE) as activityEndDate, 
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityEndTime as DATETIME)) as projectActivityEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityEndTime as DATETIME))) as projectActivityEndDate,
+  cast (rt.raw:durationSeconds as INT) as durationSeconds
+  //cast (rt.raw:organizationId as VARCHAR(255)) as organizationIds
+FROM RAW.wfm_historical_actuals rt
+join PUBLIC.D_PI_PROJECTS pr on rt.projectId = pr.projectId
+LEFT OUTER JOIN mu ON rt.raw:managementUnitId = mu.managementunitid and rt.projectid = mu.projectid
+LEFT OUTER JOIN u ON rt.raw:userId = u.userid and rt.projectid = mu.projectid;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_ADHERENCE_EXCEPTIONS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	MANAGEMENTUNITNAME,
+	USERNAME,
+	SCHEDULEDACTIVITYNAME,
+	SCHEDULEDACTIVITYCATEGORY,
+	MANAGEMENTUNITID,
+	USERID,
+	ACTUALACTIVITYCATEGORY,
+	EXCEPTIONSTARTTIME,
+	EXCEPTIONSTARTDATE,
+	PROJECTEXCEPTIONSTARTTIME,
+	PROJECTEXCEPTIONSTARTDATE,
+	EXCEPTIONENDTIME,
+	EXCEPTIONENDDATE,
+	PROJECTEXCEPTIONENDTIME,
+	PROJECTEXCEPTIONENDDATE,
+	DURATIONSECONDS,
+	SYSTEMPRESENCE,
+	ROUTINGSTATUS,
+	IMPACT,
+	SECONDARYPRESENCEID,
+	SECONDAYPRESENCENAME
+) as
+WITH
+ mu AS (SELECT raw:id AS managementunitid , raw:name AS managementunitname, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'managementunit'),
+ u AS (SELECT raw:id AS userid , raw:name AS userName , projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'user'),
+ sp AS (SELECT raw:id AS secondaryPresenceId , raw:name AS secondaryPresenceName , projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'statuses'),
+ codes AS (SELECT raw:id as activityCodeId, raw:name as scheduledActivityName, raw:category as scheduledActivityCategory, raw:businessUnitId as businessunitid, projectid as projectid  FROM raw.wfm_activity_codes)
+SELECT
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (mu.managementunitname as VARCHAR(255)) as managementunitname, 
+  cast (u.USERNAME as VARCHAR(255)) as userName,
+  --cast (rt.raw:scheduledActivityId as VARCHAR(255)) as scheduledActivityCodeId,
+  cast (codes.scheduledActivityName as VARCHAR(255)) as scheduledActivityName,
+  cast (codes.scheduledActivityCategory as VARCHAR(255)) as scheduledActivityCategory,
+  cast(rt.RAW:managementUnitId as VARCHAR(255)) as managementUnitId,
+  cast(rt.RAW:userId as VARCHAR(255)) as userId,
+  cast(rt.RAW:actualActivityCategory as VARCHAR(255)) as actualActivityCategory,
+  cast(rt.RAW:exceptionStartTime as DATETIME) as exceptionStartTime,
+  cast(rt.RAW:exceptionStartTime as DATE) as exceptionStartDate, 
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:exceptionStartTime as DATETIME)) as projectExceptionStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:exceptionStartTime as DATETIME))) as projectExceptionStartDate,           
+  cast(rt.RAW:exceptionEndTime as DATETIME) as exceptionEndTime,
+  cast(rt.RAW:exceptionEndTime as DATE) as exceptionEndDate, 
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:exceptionEndTime as DATETIME)) as projectExceptionEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:exceptionEndTime as DATETIME))) as projectExceptionEndDate,
+  cast(rt.RAW:durationSeconds as INT) as durationSeconds,
+  cast(rt.RAW:systemPresence as VARCHAR(255)) as systemPresence,
+  cast(rt.RAW:routingStatus as VARCHAR(255)) as routingStatus,
+  cast(rt.RAW:impact as VARCHAR(255)) as impact,
+  cast(rt.RAW:secondaryPresenceId as VARCHAR(255)) as secondaryPresenceId,   
+  cast(sp.secondaryPresenceName as VARCHAR(255)) as secondayPresenceName
+FROM raw.wfm_historical_exceptions rt
+join PUBLIC.D_PI_PROJECTS pr on rt.projectId = pr.projectId
+LEFT OUTER JOIN mu ON rt.RAW:managementUnitId= mu.managementUnitId and rt.projectid = mu.projectid
+LEFT OUTER JOIN u ON rt.RAW:userId= u.userid and rt.projectid = u.projectid
+LEFT OUTER JOIN sp ON rt.RAW:secondaryPresenceId= sp.secondaryPresenceId and rt.projectid = sp.projectid
+LEFT OUTER JOIN codes ON rt.RAW:scheduledActivityCodeId= codes.activityCodeId and rt.RAW:businessUnitId  = codes.businessunitid and rt.projectid = codes.projectid;
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_DAY_METRICS_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	BUSINESSUNITNAME,
+	MANAGEMENTUNITNAME,
+	USERNAME,
+	ADHERENCESCHEDULESECONDS,
+	CONFORMANCESCHEDULESECONDS,
+	CONFORMANCEACTUALSECONDS,
+	EXCEPTIONCOUNT,
+	SCHEDULELENGTHSECONDS,
+	EXCEPTIONDURATIONSECONDS,
+	EXCEPTIONDURATIONADHERENCESECONDS,
+	ADHERENCEEXCEPTIONTHRESHOLDSECONDS,
+	DAYSTARTTIME,
+	PROJECTDAYSTARTTIME,
+	PROJECTDAYSTARTDATE,
+	USERID,
+	MANAGEMENTUNITID,
+	BUSINESSUNITID
+) as
+with
+ u AS (SELECT CAST(CO.RAW:id AS VARCHAR (255)) AS userId , CAST(CO.RAW:name AS VARCHAR (255)) AS userName FROM RAW.configuration_objects CO  WHERE CO.RAW:type = 'user'),
+ bu AS (SELECT CAST(CO.RAW:id AS VARCHAR (255)) AS businessunitid , CAST(CO.RAW:name AS VARCHAR (255)) AS businessunitname FROM RAW.configuration_objects CO  WHERE CO.RAW:type = 'businessunit'),
+ mu AS (SELECT CAST(CO.RAW:id AS VARCHAR (255)) AS managementunitid , CAST(CO.RAW:name AS VARCHAR (255)) AS managementunitname FROM RAW.configuration_objects CO  WHERE CO.RAW:type = 'managementunit'),
+ muConfig AS (SELECT CAST(WMU.RAW:id AS VARCHAR (255)) AS managementunitid , CAST(WMU.RAW:adherenceExceptionThresholdSeconds AS INT) AS adherenceExceptionThresholdSeconds FROM RAW.wfm_management_unit_configuration WMU)
+SELECT PR.PROJECTID ,
+PR.PROJECTNAME ,
+WDM.PROGRAMID ,
+WDM.PROGRAMNAME ,
+bu.businessunitname AS businessunitname ,
+mu.managementunitname,
+u.userName,
+CAST(WDM.RAW:adherenceScheduleSeconds AS INT) AS adherenceScheduleSeconds,
+CAST(WDM.RAW:conformanceScheduleSeconds AS INT) AS conformanceScheduleSeconds,
+CAST(WDM.RAW:conformanceActualSeconds  AS INT) AS conformanceActualSeconds,
+CAST(WDM.RAW:exceptionCount  AS INT) AS exceptionCount,
+CAST(WDM.RAW:scheduleLengthSeconds AS INT) AS scheduleLengthSeconds,
+(WDM.RAW:exceptionCount * muConfig.adherenceExceptionThresholdSeconds) + WDM.RAW:exceptionDurationAdherenceSeconds as exceptionDurationSeconds,
+CAST(WDM.RAW:exceptionDurationAdherenceSeconds  AS INT) AS exceptionDurationAdherenceSeconds,
+CAST(muConfig.adherenceExceptionThresholdSeconds AS INT) AS adherenceExceptionThresholdSeconds,
+CAST(WDM.RAW:dayStartTime AS DATETIME) AS dayStartTime,
+convert_timezone('UTC',pr.projectTimezone,cast (WDM.RAW:dayStartTime as DATETIME)) as projectdayStartTime,
+to_date(convert_timezone('UTC',pr.projectTimezone,cast (WDM.RAW:dayStartTime as DATETIME))) as projectdayStartDate,
+CAST(WDM.RAW:userId AS VARCHAR(255)) AS userId,
+CAST(WDM.RAW:managementUnitId AS VARCHAR(255)) AS managementUnitId,
+CAST(WDM.RAW:businessUnitId AS VARCHAR(255)) AS businessunitId
+FROM RAW.wfm_day_metrics WDM
+join PUBLIC.D_PI_PROJECTS pr
+on WDM.projectId = pr.projectId
+LEFT OUTER JOIN bu ON WDM.RAW:businessUnitId= bu.businessunitid
+LEFT OUTER JOIN mu ON WDM.RAW:managementUnitId= mu.managementunitid
+LEFT OUTER JOIN u ON WDM.RAW:userId=u.userid
+LEFT OUTER JOIN muConfig ON WDM.RAW:managementUnitId=muConfig.managementunitid;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_MANAGEMENT_UNIT_CONFIGURATION_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	BUSINESSUNITID,
+	BUSINESSUNITNAME,
+	MANAGEMENTUNITID,
+	MANAGEMENTUNITNAME,
+	STARTDAYOFWEEK,
+	STARTDAYOFWEEKEND,
+	TIMEZONE,
+	DIVISIONID,
+	ADHERENCESEVEREALERTTHRESHOLDSECONDS,
+	ADHERENCETARGETPERCENT,
+	ADHERENCEEXCEPTIONTHRESHOLDSECONDS,
+	ADHERENCENONONQUEUEACTIVITIESEQUIVALENT,
+	ADHERENCETRACKONQUEUEACTIVITY,
+	ADHERENCEIGNOREDACTIVITYCATEGORIES
+) as
+WITH
+ bu AS (SELECT CAST(CO.RAW:id AS VARCHAR (255)) AS businessunitid , CAST(CO.RAW:name AS VARCHAR (255)) AS businessunitname FROM RAW.configuration_objects CO  WHERE CO.RAW:type = 'businessunit'),
+ mu AS (SELECT CAST(CO.RAW:id  AS VARCHAR (255)) AS managementunitid , CAST(CO.RAW:name AS VARCHAR (255)) AS managementunitname FROM RAW.configuration_objects CO  WHERE CO.RAW:type = 'managementunit')
+SELECT pr.PROJECTID ,
+pr.PROJECTNAME ,
+MUC.PROGRAMID ,
+MUC.PROGRAMNAME ,
+bu.businessunitid,
+bu.businessunitname,
+CAST(MUC.RAW:id  AS VARCHAR (255))as managementUnitId,
+CAST(MUC.RAW:name AS VARCHAR (255))as managementUnitName,
+CAST(MUC.RAW:startDayOfWeek AS VARCHAR (255)) AS startDayOfWeek ,
+CAST(MUC.RAW:startDayOfWeekend AS VARCHAR (255)) AS startDayOfWeekend,
+CAST(MUC.RAW:timeZone AS VARCHAR (255)) AS timezone,
+CAST(MUC.RAW:divisionId AS VARCHAR (255)) AS divisionId,
+CAST(MUC.RAW:adherenceSevereAlertThresholdSeconds AS INT) AS adherenceSevereAlertThresholdSeconds,
+CAST(MUC.RAW:adherenceTargetPercent AS INT) AS adherenceTargetPercent,
+CAST(MUC.RAW:adherenceExceptionThresholdSeconds AS INT)  AS adherenceExceptionThresholdSeconds,
+CAST(MUC.RAW:adherenceNonOnQueueActivitiesEquivalent  AS VARCHAR (255)) AS adherenceNonOnQueueActivitiesEquivalent,
+CAST(MUC.RAW:adherenceTrackOnQueueActivity  AS VARCHAR (255)) AS adherenceTrackOnQueueActivity,
+CAST(MUC.RAW:adherenceIgnoredActivityCategories  AS VARCHAR (255)) AS adherenceIgnoredActivityCategories
+FROM RAW.wfm_management_unit_configuration MUC
+join PUBLIC.D_PI_PROJECTS pr
+on MUC.projectId = pr.projectId
+LEFT OUTER JOIN bu ON MUC.RAW:businessUnitId= bu.businessunitid;
+
+
+
+
+create or replace view PUREINSIGHTS_UAT.PUBLIC.F_PI_WFM_SCHEDULES_VW COPY GRANTS (
+	PROJECTID,
+	PROJECTNAME,
+	PROGRAMID,
+	PROGRAMNAME,
+	BUSINESSUNITNAME,
+	MANAGEMENTUNITNAME,
+	USERNAME,
+	ACTIVITYNAME,
+	ACTIVITYCATEGORY,
+	BUSINESSUNITID,
+	MANAGEMENTUNITID,
+	USERID,
+	SHIFTID,
+	MANUALLYEDITED,
+	DURATIONMINUTES,
+	DESCRIPTION,
+	PAID,
+	ACTIVITYSTARTTIME,
+	ACTIVITYSTARTDATE,
+	PROJECTACTIVITYSTARTTIME,
+	PROJECTACTIVITYSTARTDATE,
+	ACTIVITYENDTIME,
+	ACTIVITYENDDATE,
+	PROJECTACTIVITYENDTIME,
+	PROJECTACTIVITYENDDATE,
+	SCHEDULEID
+) as
+WITH
+ bu AS (SELECT raw:id AS businessunitid , raw:name AS businessunitname, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'businessunit'),
+ mu AS (SELECT raw:id AS managementunitid , raw:name AS managementunitname, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'managementunit'),
+ u AS (SELECT raw:id AS userid , raw:name AS userName, projectid as projectid FROM raw.configuration_objects  WHERE raw:type = 'user'),
+ codes AS (SELECT raw:id as activityCodeId, raw:name as activityName, raw:category as activityCategory, raw:businessUnitId as businessunitid, projectid as projectid FROM raw.wfm_activity_codes)
+SELECT 
+  rt.projectId as projectId,
+  pr.projectName as projectName,
+  rt.programId as programId,
+  rt.programName as programName,
+  cast (bu.businessunitName as VARCHAR(255)) as businessunitname, 
+  cast (mu.managementunitName as VARCHAR(255)) as managementunitname, 
+  cast (u.userName as VARCHAR(255)) as userName,
+  cast (codes.activityName as VARCHAR(255)) as activityName,
+  cast (codes.activityCategory as VARCHAR(255)) as activityCategory,
+  cast (rt.RAW:businessUnitId as VARCHAR(255)) as businessUnitId,
+  cast (rt.RAW:managementUnitId as VARCHAR(255)) as managementUnitId,
+  cast (rt.RAW:userId as VARCHAR(255)) as userId,
+  cast (rt.RAW:shiftId as VARCHAR(255)) as shiftId,
+  cast (rt.RAW:manuallyEdited as BOOLEAN) as manuallyEdited,
+  cast (rt.RAW:durationMinutes as INT) as durationMinutes,
+  cast (rt.RAW:description as VARCHAR(255)) as description,
+  cast (rt.RAW:paid as BOOLEAN) as paid,
+  cast (rt.RAW:activityStartTime as DATETIME) as activityStartTime,           
+  cast (rt.RAW:activityStartTime as DATE) as activityStartDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityStartTime as DATETIME)) as projectActivityStartTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityStartTime as DATETIME))) as projectActivityStartDate,
+  cast (rt.RAW:activityEndTime as DATETIME) as activityEndTime,
+  cast (rt.RAW:activityEndTime as DATE) as activityEndDate,
+  convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityEndTime as DATETIME)) as projectActivityEndTime,
+  to_date(convert_timezone('UTC',pr.projectTimezone,cast (rt.RAW:activityEndTime as DATETIME))) as projectActivityEndDate,
+  cast( rt.RAW:scheduleID as varchar) as scheduleId
+FROM raw.wfm_schedule rt
+join PUBLIC.D_PI_PROJECTS pr on rt.projectId = pr.projectId
+LEFT OUTER JOIN bu ON rt.RAW:businessUnitId= bu.businessunitId and rt.projectid = bu.projectid
+LEFT OUTER JOIN mu ON rt.RAW:managementUnitId= mu.managementunitId and rt.projectid = mu.projectid
+LEFT OUTER JOIN u ON rt.RAW:userId= u.userId and rt.projectid = u.projectid
+LEFT OUTER JOIN codes ON rt.RAW:activityCodeId= codes.activityCodeId and rt.RAW:businessUnitId  = codes.businessunitid and rt.projectid = codes.projectid;
+
+

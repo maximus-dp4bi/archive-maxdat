@@ -2,7 +2,20 @@
 <job>
   <name>Process_Letters_RUNALL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -129,8 +142,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>596</xloc>
-      <yloc>14</yloc>
+      <xloc>320</xloc>
+      <yloc>60</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -139,8 +152,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>180</xloc>
-      <yloc>390</yloc>
+      <xloc>30</xloc>
+      <yloc>330</yloc>
       </entry>
     <entry>
       <name>Update_Rule_1</name>
@@ -171,8 +184,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1009</xloc>
-      <yloc>702</yloc>
+      <xloc>740</xloc>
+      <yloc>530</yloc>
       </entry>
     <entry>
       <name>Update_Rule_2</name>
@@ -203,8 +216,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>924</xloc>
-      <yloc>784</yloc>
+      <xloc>680</xloc>
+      <yloc>590</yloc>
       </entry>
     <entry>
       <name>Update_Rule_4</name>
@@ -235,8 +248,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>579</xloc>
-      <yloc>802</yloc>
+      <xloc>470</xloc>
+      <yloc>620</yloc>
       </entry>
     <entry>
       <name>Update_BPM_From_WIP</name>
@@ -267,8 +280,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>322</xloc>
-      <yloc>690</yloc>
+      <xloc>230</xloc>
+      <yloc>500</yloc>
       </entry>
     <entry>
       <name>Update_MAX_LETTERREQ_ID</name>
@@ -300,7 +313,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>180</xloc>
-      <yloc>520</yloc>
+      <yloc>330</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging</name>
@@ -331,8 +344,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>975</xloc>
-      <yloc>107</yloc>
+      <xloc>600</xloc>
+      <yloc>20</yloc>
       </entry>
     <entry>
       <name>Delete file</name>
@@ -343,8 +356,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>229</xloc>
-      <yloc>128</yloc>
+      <xloc>180</xloc>
+      <yloc>260</yloc>
       </entry>
     <entry>
       <name>START</name>
@@ -363,8 +376,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>177</xloc>
-      <yloc>264</yloc>
+      <xloc>30</xloc>
+      <yloc>260</yloc>
       </entry>
     <entry>
       <name>Update_Rule_3</name>
@@ -395,8 +408,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>753</xloc>
-      <yloc>818</yloc>
+      <xloc>580</xloc>
+      <yloc>620</yloc>
       </entry>
     <entry>
       <name>Process_Letters_Get_Variables</name>
@@ -427,8 +440,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>352</xloc>
-      <yloc>41</yloc>
+      <xloc>240</xloc>
+      <yloc>150</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging_3</name>
@@ -459,8 +472,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1112</xloc>
-      <yloc>278</yloc>
+      <xloc>810</xloc>
+      <yloc>200</yloc>
       </entry>
     <entry>
       <name>Update_Rule_6</name>
@@ -491,40 +504,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>434</xloc>
-      <yloc>741</yloc>
-      </entry>
-    <entry>
-      <name>Process_Letters_Copy_to_temp</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;Process_Letters_Copy_to_temp.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>837</xloc>
-      <yloc>33</yloc>
+      <xloc>290</xloc>
+      <yloc>570</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging_2</name>
@@ -555,8 +536,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1054</xloc>
-      <yloc>190</yloc>
+      <xloc>750</xloc>
+      <yloc>130</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging_4</name>
@@ -587,8 +568,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1151</xloc>
-      <yloc>386</yloc>
+      <xloc>840</xloc>
+      <yloc>280</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging_5</name>
@@ -619,8 +600,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1108</xloc>
-      <yloc>494</yloc>
+      <xloc>830</xloc>
+      <yloc>380</yloc>
       </entry>
     <entry>
       <name>Update_OLTP_Staging_6</name>
@@ -651,8 +632,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1067</xloc>
-      <yloc>597</yloc>
+      <xloc>790</xloc>
+      <yloc>460</yloc>
       </entry>
     <entry>
       <name>Update calculated values</name>
@@ -661,10 +642,36 @@
       <sql>UPDATE 
 FLHK_ETL_PROCESS_LETTERS 
 SET 
-AGE_IN_BUSINESS_DAYS =  business_days_between(CREATE_DATE, sysdate), 
-AGE_IN_CALENDAR_DAYS = round(sysdate - create_date,0), 
-STATUS_AGE_IN_BUS_DAYS =  business_days_between(STATUS_DATE, sysdate), 
-STATUS_AGE_IN_CAL_DAYS = round(sysdate - STATUS_DATE,0);
+AGE_IN_BUSINESS_DAYS =  business_days_between(CREATE_DATE, CURRENT_DATE), 
+AGE_IN_CALENDAR_DAYS = round(CURRENT_DATE - create_date,0), 
+STATUS_AGE_IN_BUS_DAYS =  business_days_between(STATUS_DATE, CURRENT_DATE), 
+STATUS_AGE_IN_CAL_DAYS = round(CURRENT_DATE - STATUS_DATE,0) 
+WHERE STAGE_DONE_DATE is null;
+COMMIT;
+
+delete from FLHK_ETL_PROCESS_LETTERS where stage_done_date &lt; current_date -90;
+commit;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>MAXDAT</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>190</xloc>
+      <yloc>420</yloc>
+      </entry>
+    <entry>
+      <name>SQL- truncate &amp;load WIP &amp; OLTP</name>
+      <description/>
+      <type>SQL</type>
+      <sql>
+truncate table FLHK_ETL_PROCESS_LETTERS_WIP;
+truncate table FLHK_ETL_PROCESS_LETTERS_OLTP; 
+insert into FLHK_ETL_PROCESS_LETTERS_WIP select * from FLHK_ETL_PROCESS_LETTERS where stage_done_date is null;
+commit;
+insert into FLHK_ETL_PROCESS_LETTERS_OLTP select * from FLHK_ETL_PROCESS_LETTERS where stage_done_date is null;
 COMMIT;
 </sql>
       <useVariableSubstitution>F</useVariableSubstitution>
@@ -675,8 +682,72 @@ COMMIT;
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>250</xloc>
-      <yloc>600</yloc>
+      <xloc>450</xloc>
+      <yloc>10</yloc>
+      </entry>
+    <entry>
+      <name>Update_OLTP_Staging1</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;Update_OLTP_Staging1.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>690</xloc>
+      <yloc>60</yloc>
+      </entry>
+    <entry>
+      <name>Update_Rule_5</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;Process_Letters_Updates5_From_OLTP_STG_to_WIP_STG.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>370</xloc>
+      <yloc>590</yloc>
       </entry>
   </entries>
   <hops>
@@ -710,42 +781,6 @@ COMMIT;
     <hop>
       <from>Process_Letters_Get_Variables</from>
       <to>Process_Letters_CreateRule</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Update_Rule_4</from>
-      <to>Update_Rule_6</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process_Letters_CreateRule</from>
-      <to>Process_Letters_Copy_to_temp</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process_Letters_Copy_to_temp</from>
-      <to>Update_OLTP_Staging</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Update_OLTP_Staging</from>
-      <to>Update_OLTP_Staging_2</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -851,14 +886,68 @@ COMMIT;
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>Process_Letters_CreateRule</from>
+      <to>SQL- truncate &amp;load WIP &amp; OLTP</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>SQL- truncate &amp;load WIP &amp; OLTP</from>
+      <to>Update_OLTP_Staging</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update_OLTP_Staging</from>
+      <to>Update_OLTP_Staging1</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update_OLTP_Staging1</from>
+      <to>Update_OLTP_Staging_2</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update_Rule_4</from>
+      <to>Update_Rule_5</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update_Rule_5</from>
+      <to>Update_Rule_6</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
     <notepad>
       <note>This job will start all Process Letters Transformations </note>
-      <xloc>465</xloc>
-      <yloc>328</yloc>
-      <width>412</width>
-      <heigth>29</heigth>
+      <xloc>370</xloc>
+      <yloc>310</yloc>
+      <width>318</width>
+      <heigth>25</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

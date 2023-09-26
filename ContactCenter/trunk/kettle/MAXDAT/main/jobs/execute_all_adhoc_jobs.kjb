@@ -49,43 +49,104 @@ SVN_REVISION_AUTHOR = $Author$
     </attributes>
   </connection>
   <connection>
-    <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
-    <type>ORACLE</type>
+    <name>EB ACD JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
     <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
-    <username>${DB_MAXDAT_USER}</username>
-    <password>${DB_MAXDAT_PASSWORD}</password>
+    <database>ebhdsdb</database>
+    <port>1433</port>
+    <username>ebhdsuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce75dcc3fd89</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
-      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
-      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
-      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
-      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB MAXDAT JDBC</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10bebffd8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>EB WFM JDBC</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>project_user</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <connection>
     <name>MOTS</name>
-    <server>${DB_MOTS_HOSTNAME}</server>
+    <server>localhost</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MOTS_DATABASENAME}</database>
-    <port>${DB_MOTS_PORT}</port>
-    <username>${DB_MOTS_USER}</username>
-    <password>${DB_MOTS_PASSWORD}</password>
+    <access>JNDI</access>
+    <database>${JNDI_MOTS_SOURCE}</database>
+    <port>1521</port>
+    <username>amp</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb14af688f9fba9e</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -93,7 +154,7 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -222,7 +283,7 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1270</xloc>
+      <xloc>1011</xloc>
       <yloc>379</yloc>
       </entry>
     <entry>
@@ -232,8 +293,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1520</xloc>
-      <yloc>379</yloc>
+      <xloc>1166</xloc>
+      <yloc>488</yloc>
       </entry>
     <entry>
       <name>load_contact_center?</name>
@@ -254,7 +315,7 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1020</xloc>
+      <xloc>768</xloc>
       <yloc>379</yloc>
       </entry>
     <entry>
@@ -276,8 +337,8 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>379</yloc>
+      <xloc>381</xloc>
+      <yloc>378</yloc>
       </entry>
     <entry>
       <name>Scheduled Job Currently Running?</name>
@@ -298,8 +359,8 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>379</yloc>
+      <xloc>579</xloc>
+      <yloc>378</yloc>
       </entry>
     <entry>
       <name>Abort job</name>
@@ -309,7 +370,7 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>520</xloc>
+      <xloc>381</xloc>
       <yloc>633</yloc>
       </entry>
     <entry>
@@ -320,7 +381,7 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>770</xloc>
+      <xloc>579</xloc>
       <yloc>633</yloc>
       </entry>
     <entry>
@@ -355,8 +416,8 @@ WHERE IS_RUNNING = 1</custom_sql>
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>499</yloc>
+      <xloc>381</xloc>
+      <yloc>498</yloc>
       </entry>
     <entry>
       <name>Log Scheduled Job Running</name>
@@ -390,8 +451,8 @@ WHERE IS_RUNNING = 1</custom_sql>
             </parameter>      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>501</yloc>
+      <xloc>579</xloc>
+      <yloc>500</yloc>
       </entry>
     <entry>
       <name>load_production_planning?</name>
@@ -412,8 +473,8 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1020</xloc>
-      <yloc>499</yloc>
+      <xloc>767</xloc>
+      <yloc>457</yloc>
       </entry>
     <entry>
       <name> Abort job   </name>
@@ -423,8 +484,8 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1020</xloc>
-      <yloc>633</yloc>
+      <xloc>768</xloc>
+      <yloc>802</yloc>
       </entry>
     <entry>
       <name>execute_adhoc_load_production_planning_job</name>
@@ -453,8 +514,8 @@ WHERE IS_RUNNING = 1</custom_sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1270</xloc>
-      <yloc>499</yloc>
+      <xloc>1010</xloc>
+      <yloc>457</yloc>
       </entry>
     <entry>
       <name>manage_adhoc_jobs_preprocessing</name>
@@ -485,7 +546,7 @@ WHERE IS_RUNNING = 1</custom_sql>
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>270</xloc>
+      <xloc>177</xloc>
       <yloc>379</yloc>
       </entry>
     <entry>
@@ -508,6 +569,162 @@ WHERE IS_RUNNING = 1</custom_sql>
       <xloc>20</xloc>
       <yloc>379</yloc>
       </entry>
+    <entry>
+      <name>load_agent_by_date?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>jobType</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>load_agent_by_date</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>767</xloc>
+      <yloc>535</yloc>
+      </entry>
+    <entry>
+      <name>execute_adhoc_load_agent_by_date_job</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;execute_adhoc_load_agent_by_date_job.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1010</xloc>
+      <yloc>535</yloc>
+      </entry>
+    <entry>
+      <name>load_agent_performance?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>jobType</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>load_agent_performance</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>767</xloc>
+      <yloc>612</yloc>
+      </entry>
+    <entry>
+      <name>execute_adhoc_load_agent_performance_job</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;execute_adhoc_load_agent_performance.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1010</xloc>
+      <yloc>612</yloc>
+      </entry>
+    <entry>
+      <name>export_amp_metrics?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>jobType</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>export_amp_metrics</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>767</xloc>
+      <yloc>704</yloc>
+      </entry>
+    <entry>
+      <name>execute_adhoc_export_amp_metrics</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;amp&#47;execute_adhoc_export_amp_metrics.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1010</xloc>
+      <yloc>702</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -518,15 +735,6 @@ WHERE IS_RUNNING = 1</custom_sql>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>manage_adhoc_jobs_preprocessing</from>
-      <to>Adhoc Job Currently Running?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Adhoc Job Currently Running?</from>
@@ -592,15 +800,6 @@ WHERE IS_RUNNING = 1</custom_sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>load_production_planning?</from>
-      <to> Abort job   </to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Scheduled Job Currently Running?</from>
       <to>Log Scheduled Job Running</to>
       <from_nr>0</from_nr>
@@ -630,6 +829,105 @@ WHERE IS_RUNNING = 1</custom_sql>
     <hop>
       <from>Log Scheduled Job Running</from>
       <to>Abort job  </to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_production_planning?</from>
+      <to>load_agent_by_date?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_agent_by_date?</from>
+      <to>execute_adhoc_load_agent_by_date_job</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>execute_adhoc_load_agent_by_date_job</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_agent_by_date?</from>
+      <to>load_agent_performance?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_agent_performance?</from>
+      <to>execute_adhoc_load_agent_performance_job</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>execute_adhoc_load_agent_performance_job</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load_agent_performance?</from>
+      <to>export_amp_metrics?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>export_amp_metrics?</from>
+      <to> Abort job   </to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>execute_adhoc_export_amp_metrics</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>export_amp_metrics?</from>
+      <to>execute_adhoc_export_amp_metrics</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>manage_adhoc_jobs_preprocessing</from>
+      <to>Adhoc Job Currently Running?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

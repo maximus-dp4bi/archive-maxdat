@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+<Properties>
+    <Property name="csvLog.fileName">csvLog</Property>
+    <Property name="file-header">eventType,eventName,genericFieldNumber3,preferredLanguageCode,genericFieldNumber2,callDuration,genericFieldNumber1,contactChannelType,consumerLastName,linkRefId,consumerPhone,contactType,createdOn,genericFieldNumber4,inboundCallQueue,contactRecordId,contactRecordEndTime,uiid,correlationId,contactRecordStartTime,programTypes,genericFieldDate3,genericFieldDate4,contactCompaignType,genericFieldText4,genericFieldDate1,updatedBy,genericFieldDate2,genericFieldText2,contactRecordActions,organizationName,genericFieldText3,genericFieldText1,contactRecordStatusType,updatedOn,linkRefType,consumerFirstName,contactOutcome,consumerType,wrapUpTime,createdBy,contactRecordType,consumerAuthenticatedInd,contactReasonEditType,consumerEmail,mergedConsumerId,consumerDateOfBirth,dateOfDeathNotifiedBy,notBornInd,ssnValidationCode,dateOfDeath,usResidentStatusCode,ethinicityCode,aiNa,caseId,consumerIdentificationNo,consumerSuffix,dateOfDeathNotifiedDate,consumerStatus,consumerMiddleName,optIn,consumerSSN,mergeReason,communicationPreferences,ssnValidationAgency,genderCode,dateOfSsnValidation,contacts,raceCode,uuiid,address,keys</Property>
+</Properties>
+<Appenders>
+    <RollingFile name="csvFile"
+                 fileName="C:/Users/202557/Desktop/MARS/MARS_Events_Today.tmp"
+                 filePattern="C:/Users/202557/Desktop/MARS/MARS_Events_Historical-%d{yyyy-MM-dd-HH}-%i.csv" >
+        <CsvParameterLayout delimiter="," header="${file-header}\n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+        </Policies>
+    </RollingFile>
+    <File name="errorLog" fileName="C:/Users/202557/Desktop/MARS/DetailedLogging.log" immediateFlush="false" append="true">
+        <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+</Appenders>
+<Loggers>
+    <Logger name="RollingFileLogger" level="debug">
+        <AppenderRef ref="csvFile" />
+    </Logger>
+    <Logger name="DetailedLogger" level="info">
+        <AppenderRef ref="errorLog" />
+    </Logger>
+    <Root level="off" additivity="false">
+    </Root>
+</Loggers>
+</Configuration>

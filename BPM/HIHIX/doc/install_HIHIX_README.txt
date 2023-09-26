@@ -137,9 +137,7 @@ Prerequisites:
 
     Run order:
 	
-	1. BPM_EVENT_PROJECT_pkg_body.sql
-	2. BPM_SEMANTIC_PROJECT_pkg_body.sql
-	3. create_all_grants_public_syn.sql
+	1. BPM_SEMANTIC_PROJECT_pkg_body.sql
 
 -----------------
 6. START BPM JOBS

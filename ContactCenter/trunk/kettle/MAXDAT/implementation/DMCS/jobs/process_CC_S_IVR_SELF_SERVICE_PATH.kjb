@@ -2,7 +2,20 @@
 <job>
   <name>process_CC_S_IVR_SELF_SERVICE_PATH</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
   <directory>&#47;</directory>
   <created_user>-</created_user>
@@ -164,8 +177,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>150</xloc>
-      <yloc>11</yloc>
+      <xloc>211</xloc>
+      <yloc>10</yloc>
       </entry>
     <entry>
       <name>Load_CC_S_IVR_SELF_SERVICE_PATH</name>
@@ -333,8 +346,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>153</xloc>
-      <yloc>108</yloc>
+      <xloc>195</xloc>
+      <yloc>120</yloc>
       </entry>
     <entry>
       <name>Set Loading Error</name>
@@ -358,15 +371,6 @@
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>START</from>
-      <to>Extract_CC_S_IVR_SELF_SERVICE_PATH</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>Extract_CC_S_IVR_SELF_SERVICE_PATH</from>
       <to>Load_CC_S_IVR_SELF_SERVICE_PATH</to>
@@ -439,6 +443,15 @@
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
     </hop>
+    <hop>
+      <from>START</from>
+      <to>Extract_CC_S_IVR_SELF_SERVICE_PATH</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
   </hops>
   <notepads>
     <notepad>
@@ -465,8 +478,8 @@ Steps:
 *Suggestion to refine the Move to Error step so that only the file which errors out is moved.  Currently if files from multiple dates are being processed and one errors out, all the files will be moved.</note>
       <xloc>31</xloc>
       <yloc>351</yloc>
-      <width>1126</width>
-      <heigth>345</heigth>
+      <width>1470</width>
+      <heigth>421</heigth>
       <fontname/>
       <fontsize>-1</fontsize>
       <fontbold>N</fontbold>

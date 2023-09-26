@@ -1,0 +1,245 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="95AC529B-40FC-B5C2-72E1-05EE233C6629" name="CC_D_AGENT">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>CC_D_AGENT contains records for any agents known to the contact center.  &lt;br/&gt;&lt;br/&gt;This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The source for this data will be the CC_S_AGENT staging table.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>A4DC0851-711F-0F0B-DDAE-14FB237DA5E9</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="D_AGENT_ID" id="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key for agent records</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>9B419AE7-B4FE-7CC5-01BB-532D74F216FB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_PROJECT_ID" id="8562B137-3CA7-4C4E-C913-EE1971A0631A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-06 02:03:09 UTC</createdTime>
+<comment>FK to the D_PROJECT table.  This indicates to which project the agent is associated</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOGIN_ID" id="70E53AD7-EB8A-378B-52EE-535DC80F624C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Login ID agent uses to access the phone system.  Numeric and not necessarily unique across projects.  Natural key.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>947BE674-98EE-8088-8F00-1BC75AA66171</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="4CF01736-A21A-2222-BA15-0FCF3266AE59">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The agent&apos;s first name</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C809A92C-2490-6873-62FC-EEA81C730E0B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MIDDLE_INITIAL" id="58E2138E-3C67-9592-911A-2ADCB10FE463">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The agent&apos;s middle initial, if available, used to differentiate similarly named people</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C4FA13AE-1463-C89E-D8C9-5A3857400439</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="ACA44A57-026A-BD17-3FBD-21096985367F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The agent&apos;s last name</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>3630C0D0-6B57-22F0-B517-D5968034404D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="JOB_TITLE" id="EFEA8D94-4564-E80D-0A2D-000C1BC0544C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The agents job title or role, e.g. CSR, SEU CSR, Supervisor, QC&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>9B1CA6E7-D38A-F814-4390-4FFB7132FB46</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LANGUAGE" id="271E659A-7ACD-AF17-B7DD-3B9E30E50F43">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Language the agent is skilled for, e.g. English, Spanish, Bilingual</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>3D2430D5-0D80-FB1C-B386-F893CF7F1A65</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SITE_NAME" id="1AFFC120-A153-92B3-4EFE-B3B5566409C9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-01 15:51:32 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS contact center site serving the project.  This is the natural key for the site dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOURLY_RATE" id="B78B1DF7-BA13-A4EA-FF8B-CEA90E53B212">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Agent&apos;s hourly pay rate.  This column should be used in conjunction with the RATE_CURRENCY column.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>0D00C1EE-873F-EC87-674B-B1B27B9D72E8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RATE_CURRENCY" id="78D366C0-DE6B-98CB-1259-3AAD67AC6EB9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The currency in which the agent is paid as identified by the country&apos;s ISO 4217 code.  E.g. the Euro = EUR, the U.S. Dollar = USD.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>FDDE8361-05D3-FA82-34A2-EFD4BA0CF5EA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VERSION" id="1911A97E-B07D-B0A0-3375-1A4525774283">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>24F90751-1FAC-D47D-2CB4-9393B53211B5</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HIRE_DATE" id="6F73FA0D-331C-16C3-C18B-6263A90EA7AB">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-15 14:44:37 UTC</createdTime>
+<comment>Date the agent was hired.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TERMINATION_DATE" id="C6CDB8E7-7185-A1BB-4A29-AD060FC2B425">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-15 14:44:37 UTC</createdTime>
+<comment>Date the agent was terminated (NULL if agent is active)</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_EFF_DT" id="9D927F95-E157-3A18-A84B-061946152B5B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Effective date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>A117F216-D4ED-8043-6005-1B2D877D2285</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_END_DT" id="EFA1FD78-A282-4C0A-2527-C2451F22C88A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>End date for type-2 slow changing dimension. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E089FCC1-0AD2-E99C-05C5-AB4C4D3F3E61</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0D8A269F-7FB5-2529-4689-BC3F185DB238" name="CC_D_AGENT_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F1327D11-2C22-D533-DB7A-4802F1454F6D</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A1F1514C-EDA2-9F5D-1ACF-354650522934" name="CC_D_AGENT__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-06 02:03:09 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="70E53AD7-EB8A-378B-52EE-535DC80F624C"/>
+<colUsage columnID="9D927F95-E157-3A18-A84B-061946152B5B"/>
+<colUsage columnID="8562B137-3CA7-4C4E-C913-EE1971A0631A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A2ECA146-91C5-5B42-C35F-173A48CE4F39" name="CC_D_AGENT__IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AGENT_ID).</notes>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E85BDAF9-6DC8-4479-BB88-59A49806276C</importedID>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="DA88CBE3-7279-43D5-7B3A-010DBA9E5CD4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints itemClass="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint">
+<tableCheckConstraint name="CC_D_AGENT_REC_DATE_CK" directorySegmentName="seg_1" id="88624182-E4CB-A6C7-B04B-A15DA6471D41">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0FB9A280-B159-1C6D-45DE-74DD77179A9F</importedID>
+<rule>RECORD_EFF_DT &lt;= RECORD_END_DT</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

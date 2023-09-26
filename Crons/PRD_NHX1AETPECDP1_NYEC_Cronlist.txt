@@ -1,0 +1,12 @@
+#1.Format:
+#2.minutes_of_hour hours_of_day days_of_month months_of_year days_of_the_week command_to_execute
+45 * * * * /home/appadmin/scripts/rsync_sysgrp.tcl /home/appadmin/scripts/RSYNC_CONFIG.txt /home/appadmin/scripts/RSYNC_EXCLUDE.txt >> /u01/maximus/maxdat/NYEC8/logs/RSYNC_EXCLUDE.log
+
+0 2-22 * * * /u01/maximus/maxdat/NYEC8/scripts/run_bpm.sh 2>&1 | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYEC8/logs/Initialization/run_bpm.log
+30 0 * * 1 /u01/maximus/maxdat/NYEC8/scripts/Run_CIN_Snapshot.sh >> /u01/maximus/maxdat/NYEC8/logs/CIN.log
+
+#NYEC-4115  MAXDAT PRD - Delete all files in log directory older than 30 days old
+0 2 * * * find /u01/maximus/maxdat/NYEC8/logs/* -type f -mtime +30 -exec rm {} \; > /dev/null 2>&1
+
+#NYHIX-62684 :run script every 90 days
+0 5 */90 * * /u01/maximus/maxdat/NYEC8/scripts/nyec_table_cleanup_schedule.sql >> /u01/maximus/maxdat/NYEC8/scripts/logs/nyec_table_cleanup_schedule.log

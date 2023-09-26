@@ -21,12 +21,12 @@ gv_jeopardy_target_days number:=null;
 FUNCTION GET_AGE_IN_BUSINESS_DAYS(
     p_create_date   IN DATE,
     p_complete_date IN DATE)
-  RETURN NUMBER;
+  RETURN NUMBER parallel_enable;
   
 FUNCTION GET_AGE_IN_CALENDAR_DAYS(
     p_create_date   IN DATE,
     p_complete_date IN DATE)
-  RETURN NUMBER; 
+  RETURN NUMBER parallel_enable; 
 
 FUNCTION GET_POI_TIMELINESS_STAT(
     p_transaction_type in varchar2,
@@ -34,31 +34,31 @@ FUNCTION GET_POI_TIMELINESS_STAT(
     p_create_date   IN DATE,
     p_complete_date IN DATE 
  )
-  RETURN VARCHAR2;  
+  RETURN VARCHAR2 parallel_enable; 
   
 FUNCTION GET_POI_SLA_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN number; 
+  RETURN number result_cache parallel_enable; 
 
 FUNCTION GET_POI_SLA_DAYS_TYPE(
     p_transaction_type IN VARCHAR2)
-  RETURN VARCHAR2; 
+  RETURN VARCHAR2 result_cache parallel_enable; 
   
 FUNCTION GET_POI_SLA_TARGET_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER;  
+  RETURN NUMBER result_cache parallel_enable;  
   
 FUNCTION GET_POI_JEOPARDY_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER;
+  RETURN NUMBER result_cache parallel_enable;
   
 FUNCTION GET_POI_JEOPARDY_DAYS_TYPE(
     p_transaction_type IN VARCHAR2)
-  RETURN VARCHAR2;
+  RETURN VARCHAR2 result_cache parallel_enable;
   
 FUNCTION GET_POI_JEOPARDY_TARGET_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER;
+  RETURN NUMBER result_cache parallel_enable;
 
  /* 
   Include: 
@@ -172,7 +172,7 @@ create or replace package body PROCESS_ONLINE_INFO as
 FUNCTION GET_AGE_IN_BUSINESS_DAYS(
     p_create_date   IN DATE, 
     p_complete_date IN DATE)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
 AS
 BEGIN
   RETURN BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,NVL(p_complete_date,sysdate));
@@ -182,7 +182,7 @@ END GET_AGE_IN_BUSINESS_DAYS;
 FUNCTION GET_AGE_IN_CALENDAR_DAYS(
     p_create_date   IN DATE,
     p_complete_date IN DATE)
-  RETURN NUMBER
+  RETURN NUMBER parallel_enable
 AS
 BEGIN
   RETURN TRUNC(NVL(p_complete_date,sysdate)) - TRUNC(p_create_date);
@@ -195,7 +195,7 @@ FUNCTION GET_POI_TIMELINESS_STAT(
     p_create_date   IN DATE,
     p_complete_date IN DATE 
  )
-  RETURN VARCHAR2
+  RETURN VARCHAR2 parallel_enable
 IS
 BEGIN
 IF p_transaction_type <> 'Demographic Change' AND  p_instance_status = 'Active' THEN
@@ -212,85 +212,103 @@ END GET_POI_TIMELINESS_STAT;
 
 FUNCTION GET_POI_SLA_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER
+  RETURN NUMBER result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_sla_days
   FROM corp_etl_list_lkup
   WHERE name ='POI_SLA_Days'
   AND value  = p_transaction_type;
+  
   RETURN gv_sla_days;
+  
 END GET_POI_SLA_DAYS;
   
 
 FUNCTION GET_POI_SLA_DAYS_TYPE(
     p_transaction_type IN VARCHAR2)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_sla_days_type
   FROM corp_etl_list_lkup 
   WHERE value = p_transaction_type
   AND name    ='POI_SLA_Days_Type';
+  
   RETURN gv_sla_days_type;
+  
 END GET_POI_SLA_DAYS_TYPE;
 
 
 FUNCTION GET_POI_SLA_TARGET_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER
+  RETURN NUMBER result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_sla_target_days
   FROM corp_etl_list_lkup 
   WHERE value = p_transaction_type
   AND name ='POI_SLA_Target_Days';
+  
   RETURN gv_sla_target_days;
+  
 END GET_POI_SLA_TARGET_DAYS;
 
 
 FUNCTION GET_POI_JEOPARDY_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER
+  RETURN NUMBER result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_jeopardy_days
   FROM corp_etl_list_lkup 
   WHERE value = p_transaction_type
   AND name ='POI_Jeopardy_Days';
+  
   RETURN gv_jeopardy_days;
+  
 END GET_POI_JEOPARDY_DAYS;
   
   
 FUNCTION GET_POI_JEOPARDY_DAYS_TYPE(
     p_transaction_type IN VARCHAR2)
-  RETURN VARCHAR2
+  RETURN VARCHAR2 result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_jeopardy_days_type
   FROM corp_etl_list_lkup 
   WHERE value = p_transaction_type
   AND name ='POI_Jeopardy_Days_Type';
+  
   RETURN gv_jeopardy_days_type;
+  
 END GET_POI_JEOPARDY_DAYS_TYPE;
   
   
 FUNCTION GET_POI_JEOPARDY_TARGET_DAYS(
     p_transaction_type IN VARCHAR2)
-  RETURN NUMBER
+  RETURN NUMBER result_cache parallel_enable
 IS
 BEGIN
+
   SELECT out_var
   INTO gv_jeopardy_target_days
   FROM corp_etl_list_lkup
   WHERE value = p_transaction_type
   AND name ='POI_Jeopardy_Target_Days';
+  
   RETURN gv_jeopardy_target_days;
+  
 END GET_POI_JEOPARDY_TARGET_DAYS; 
 
 
@@ -304,28 +322,27 @@ END GET_POI_JEOPARDY_TARGET_DAYS;
     v_num_rows_updated number := null;
   begin
   
-update D_ONL_CURRENT
+    update D_ONL_CURRENT
     set  
-      AGE_IN_BUSINESS_DAYS= GET_AGE_IN_BUSINESS_DAYS(CREATE_DATE,COMPLETE_DATE),
+      AGE_IN_BUSINESS_DAYS = GET_AGE_IN_BUSINESS_DAYS(CREATE_DATE,COMPLETE_DATE),
       AGE_IN_CALENDAR_DAYS = GET_AGE_IN_CALENDAR_DAYS(CREATE_DATE,COMPLETE_DATE),
       TIMELINESS_STATUS = GET_POI_TIMELINESS_STAT(TRANSACTION_TYPE,CUR_INSTANCE_STATUS,CREATE_DATE,COMPLETE_DATE),
       SLA_DAYS = GET_POI_SLA_DAYS(TRANSACTION_TYPE),
       SLA_DAYS_TYPE = GET_POI_SLA_DAYS_TYPE(TRANSACTION_TYPE),
       SLA_TARGET_DAYS = GET_POI_SLA_TARGET_DAYS(TRANSACTION_TYPE),
-      JEOPARDY_DAYS  = GET_POI_JEOPARDY_DAYS(TRANSACTION_TYPE),
-      JEOPARDY_DAYS_TYPE  = GET_POI_JEOPARDY_DAYS_TYPE(TRANSACTION_TYPE),
-      JEOPARDY_TARGET_DAYS  = GET_POI_JEOPARDY_TARGET_DAYS(TRANSACTION_TYPE)
-    
+      JEOPARDY_DAYS = GET_POI_JEOPARDY_DAYS(TRANSACTION_TYPE),
+      JEOPARDY_DAYS_TYPE = GET_POI_JEOPARDY_DAYS_TYPE(TRANSACTION_TYPE),
+      JEOPARDY_TARGET_DAYS = GET_POI_JEOPARDY_TARGET_DAYS(TRANSACTION_TYPE)
     where 
       COMPLETE_DATE is null 
       and CANCEL_DATE is null;
     
     v_num_rows_updated := sql%rowcount;
  
- commit;
+    commit;
 
-     v_log_message := v_num_rows_updated  || ' D_ONL_CURRENT rows updated with calculated attributes by D_ONL_CURRENT.';
-     BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
+    v_log_message := v_num_rows_updated  || ' D_ONL_CURRENT rows updated with calculated attributes by D_ONL_CURRENT.';
+    BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
      
    exception
    
@@ -336,7 +353,6 @@ update D_ONL_CURRENT
 
   end;
  
-
  
 -- Get dimension ID for BPM Semantic model - Process Online Info - Instance_Status.
   procedure GET_DONLIS_ID

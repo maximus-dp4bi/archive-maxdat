@@ -3,7 +3,20 @@
   <info>
     <name>Update_OLTP_Staging_6</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>&#47;</directory>
@@ -134,7 +147,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>LM_LETTER_REQUESTS</from><to>LM_LETTER_REQ</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Update OLTP Staging </from><to>LM_LETTER_REQ</to><enabled>Y</enabled> </hop>  <hop> <from>LM_LETTER_REQ</from><to>Database join</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT</from><to>ACCOUNT_NUMBER</to><enabled>Y</enabled> </hop>  <hop> <from>Database join</from><to>ACCOUNT_NUMBER</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT_NUMBER</from><to>Update Table  - Update OLTP temp</to><enabled>Y</enabled> </hop>  <hop> <from>Update Table  - Update OLTP temp</from><to>Table output - CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>LM_LETTER_DEFINITIONS_TMP</from><to>LM_LETTER_DEF</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Update OLTP Staging </from><to>LM_LETTER_DEF</to><enabled>Y</enabled> </hop>  <hop> <from>LM_LETTER_DEF</from><to>Join DRIVER_KEY</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT</from><to>ACCOUNT_NUMBER</to><enabled>Y</enabled> </hop>  <hop> <from>Join DRIVER_KEY</from><to>ACCOUNT_NUMBER</to><enabled>Y</enabled> </hop>  <hop> <from>ACCOUNT_NUMBER</from><to>Update Table  - Update OLTP temp</to><enabled>Y</enabled> </hop>  <hop> <from>Update Table  - Update OLTP temp</from><to>Table output - CORP_ETL_ERROR_LOG</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>ACCOUNT</name>
     <type>TableInput</type>
@@ -145,7 +158,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>LETTERS_SOURCE</connection>
+    <connection>OLTP_SOURCE</connection>
     <sql>SELECT
 	A.ACCOUNT_ID, A.ACCOUNT_NUMBER
 FROM ACCOUNT A 
@@ -157,8 +170,8 @@ FROM ACCOUNT A
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>729</xloc>
-      <yloc>598</yloc>
+      <xloc>660</xloc>
+      <yloc>490</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -192,14 +205,14 @@ FROM ACCOUNT A
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>729</xloc>
-      <yloc>298</yloc>
+      <xloc>660</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Database join</name>
+    <name>Join DRIVER_KEY</name>
     <type>DBJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -227,14 +240,14 @@ WHERE LETTER_REQ_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>525</xloc>
-      <yloc>298</yloc>
+      <xloc>450</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>LM_LETTER_REQ</name>
+    <name>LM_LETTER_DEF</name>
     <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -243,7 +256,7 @@ WHERE LETTER_REQ_ID = ?
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <from>LM_LETTER_REQUESTS</from>
+    <from>LM_LETTER_DEFINITIONS_TMP</from>
     <input_sorted>N</input_sorted>
     <preserve_memory>Y</preserve_memory>
     <sorted_list>N</sorted_list>
@@ -280,14 +293,14 @@ WHERE LETTER_REQ_ID = ?
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>300</xloc>
-      <yloc>298</yloc>
+      <xloc>230</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>LM_LETTER_REQUESTS</name>
+    <name>LM_LETTER_DEFINITIONS_TMP</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -296,16 +309,16 @@ WHERE LETTER_REQ_ID = ?
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>LETTERS_SOURCE</connection>
+    <connection>MAXDAT</connection>
     <sql>SELECT 
 D.LMDEF_ID,
-NVL(D.DRIVER_TYPE,&apos;NULL_DRIVER_TYPE&apos;) AS DRIVER_TYPE,
-D.DESCRIPTION AS TYPE,
+NVL(D.DRIVER_TYPE,&apos;NULL_DRIVER_TYPE&apos;) AS driver_TYPE,
 D.NAME AS LETTER_CODE,
+NVL(D.DESCRIPTION,&apos;NULL_TYPE&apos;) TYPE,
 CASE WHEN D.NAME = &apos;FCOUP&apos; THEN &apos;PAYMENTCOUPON&apos; 
      WHEN D.NAME = &apos;F24&apos;   THEN &apos;RENEWALREQUEST&apos; 
      ELSE &apos;OUTBOUND&apos;   END CATEGORY
-FROM LM_LETTER_DEFINITIONS D
+FROM LM_LETTER_DEFINITIONS_TMP D
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -314,8 +327,8 @@ FROM LM_LETTER_DEFINITIONS D
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>300</xloc>
-      <yloc>456</yloc>
+      <xloc>230</xloc>
+      <yloc>440</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -334,7 +347,7 @@ FROM LM_LETTER_DEFINITIONS D
     <sql>SELECT 
 	
 &apos;PROCESSLETTERS&apos; AS PROCESS_NAME,
-&apos;UPDATE_OLTP_STAGING&apos; AS JOB_NAME,
+&apos;UPDATE_OLTP_STAGING6&apos; AS JOB_NAME,
 &apos;FLHK_ETL_PROCESS_LETTERS&apos; AS DRIVER_TABLE_NAME,
 SYSDATE AS ERR_DATE,
 &apos;CRITICAL&apos; AS ERR_LEVEL,
@@ -353,8 +366,8 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>179</xloc>
-      <yloc>96</yloc>
+      <xloc>110</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -438,7 +451,7 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1055</xloc>
+      <xloc>860</xloc>
       <yloc>450</yloc>
       <draw>Y</draw>
       </GUI>
@@ -504,8 +517,8 @@ FROM FLHK_ETL_PROCESS_LETTERS_OLTP
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1055</xloc>
-      <yloc>298</yloc>
+      <xloc>860</xloc>
+      <yloc>280</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

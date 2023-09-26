@@ -3,9 +3,31 @@
   <info>
     <name>ProcessMailFaxDoc_CDC_MAXe6</name>
     <description/>
-    <extended_description/>
+    <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+
+---------------------------------
+
+
+SVN_FILE_URL        = $URL$ 
+
+
+SVN_REVISION        = $Revision$
+
+
+SVN_REVISION_DATE   = $Date$
+
+
+SVN_REVISION_AUTHOR = $Author$
+
+
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#47;</directory>
     <parameters>
     </parameters>
@@ -372,7 +394,10 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
  E2.REPORT_LABEL FORM_TYPE
 from NYHIX_ETL_MAIL_FAX_DOC_OLTP_V2 O
 left outer join ENUM_ENVELOPE_STATUS_STG E1 on E1.value = O.ENV_STATUS_CD
-left outer join ENUM_DOC_CODE_TO_TYPE_STG E2 on E2.value = O.FORM_TYPE_CD</sql>
+left outer join ENUM_DOC_CODE_TO_TYPE_STG E2 on E2.value = O.FORM_TYPE_CD
+WHERE 
+ coalesce(case when E1.REPORT_LABEL is not null then E1.REPORT_LABEL else &apos;Received&apos; end,&apos;X&apos;) &lt;&gt; coalesce(o.ENV_STATUS,&apos;X&apos;) or
+ coalesce(E2.REPORT_LABEL,&apos;X&apos;) &lt;&gt; coalesce(o.FORM_TYPE,&apos;X&apos;)</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

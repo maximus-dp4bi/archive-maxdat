@@ -1704,4 +1704,21 @@ values (seq_cell_id.NEXTVAL
 ,sysdate
 ,sysdate)  ;
 
+UPDATE CORP_ETL_LIST_LKUP
+SET OUT_VAR = '''Dismissed - Death'''
+WHERE NAME = 'PA_UPD18_10';
+
+UPDATE CORP_ETL_LIST_LKUP
+SET OUT_VAR = '''Appeal Closed - Duplicate/Error'''
+WHERE NAME = 'PA_UPD18_20';
+
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_10','APPEAL_STATUS','Various incident status for UPD20_10','''Dismissed''',null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_20','APPEAL_STATUS','Various incident status for UPD20_20','''Appeal Closed - ARU Action Completed''',null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_30','APPEAL_STATUS','Various incident status for UPD20_30','''Appeal Closed - DOH Action Completed''',null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_40','APPEAL_STATUS','Various incident status for UPD20_40','''Appeal Closed - Failed to Attend Hearing''' ,null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_50','APPEAL_STATUS','Various incident status for UPD20_50','''Appeal Closed - Non-Sworn Cancellation''',null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_60','APPEAL_STATUS','Various incident status for UPD20_60','''Appeal Closed - Written Withdrawal''',null,null,sysdate,null,null);
+INSERT INTO MAXDAT.CORP_ETL_LIST_LKUP (NAME,LIST_TYPE,VALUE,OUT_VAR,REF_TYPE,REF_ID,START_DATE,END_DATE,COMMENTS) VALUES ('PA_UPD20_70','APPEAL_STATUS','Various incident status for UPD20_70','''Appeal Closed''',null,null,sysdate,null,null);
+
+
 commit;	      

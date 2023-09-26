@@ -150,28 +150,6 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
       <bordercolorblue>100</bordercolorblue>
       <drawshadow>Y</drawshadow>
     </notepad>
-    <notepad>
-      <note>todo:  remove hardcoded geo master id
-</note>
-      <xloc>121</xloc>
-      <yloc>908</yloc>
-      <width>244</width>
-      <heigth>25</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>ACD</name>
@@ -265,24 +243,32 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
   </connection>
   <connection>
     <name>MAXDAT</name>
-    <server/>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>JNDI</access>
-    <database>${JNDI_MAXDAT_SOURCE}</database>
-    <port>1521</port>
-    <username/>
-    <password>Encrypted </password>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
   </connection>
   <connection>
@@ -325,6 +311,7 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MOTS;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
@@ -375,6 +362,7 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -403,7 +391,7 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
     </attributes>
   </connection>
   <order>
-  <hop> <from>Lookup Site Dim</from><to>Lookup Group Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Sort for Group By</from><to>Group by</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Group Dim</from><to>Lookup Availability Type</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Availability Type</from><to>Set Availability Type Meta</to><enabled>Y</enabled> </hop>  <hop> <from>Set Availability Type Meta</from><to>Insert &#47; Update Availability Fact</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project ID</from><to>Get Program ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project Name</from><to>Get Project ID</to><enabled>Y</enabled> </hop>  <hop> <from>Date Dim Lookup</from><to>Get Project Name</to><enabled>Y</enabled> </hop>  <hop> <from>Hard Code Geo Master ID</from><to>Lookup Agent Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Agent Dim</from><to>Lookup Site Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Format Dates</from><to>Calculate Availability Time in Minutes</to><enabled>Y</enabled> </hop>  <hop> <from>Group by</from><to>Activity Type Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Activity Type Lookup</from><to>Get S_AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Get stg agent activity by date range</from><to>Truncate Datetime</to><enabled>Y</enabled> </hop>  <hop> <from>Truncate Datetime</from><to>Format Dates</to><enabled>Y</enabled> </hop>  <hop> <from>Calculate Availability Time in Minutes</from><to>Sort for Group By</to><enabled>Y</enabled> </hop>  <hop> <from>Get S_AGENT</from><to>Date Dim Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Get Program ID</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Hard Code Geo Master ID</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Lookup Site Dim</from><to>Lookup Group Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Sort for Group By</from><to>Group by</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Group Dim</from><to>Lookup Availability Type</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Availability Type</from><to>Set Availability Type Meta</to><enabled>Y</enabled> </hop>  <hop> <from>Set Availability Type Meta</from><to>Insert &#47; Update Availability Fact</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project ID</from><to>Get Program ID</to><enabled>Y</enabled> </hop>  <hop> <from>Get Project Name</from><to>Get Project ID</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup Agent Dim</from><to>Lookup Site Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Group by</from><to>Activity Type Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Activity Type Lookup</from><to>Get S_AGENT</to><enabled>Y</enabled> </hop>  <hop> <from>Get stg agent activity by date range</from><to>Truncate Datetime</to><enabled>Y</enabled> </hop>  <hop> <from>Truncate Datetime</from><to>Format Dates</to><enabled>Y</enabled> </hop>  <hop> <from>Get Program ID</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get Group Name</from><to>If GROUP_NAME is null</to><enabled>Y</enabled> </hop>  <hop> <from>Date Dim Lookup</from><to>Database join - Get Group Name</to><enabled>Y</enabled> </hop>  <hop> <from>If GROUP_NAME is null</from><to>Get Project Name</to><enabled>Y</enabled> </hop>  <hop> <from>Get C_PROJECT_CONFIG</from><to>Lookup D_PROVINCE</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_COUNTRY</from><to>Lookup D_STATE</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_DISTRICT</from><to>Lookup D_COUNTRY</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_PROVINCE</from><to>Lookup D_REGION</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_REGION</from><to>Lookup D_DISTRICT</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_STATE</from><to>Lookup D_GEOGRAPHY_MASTER</to><enabled>Y</enabled> </hop>  <hop> <from>Get S_AGENT</from><to>Get C_PROJECT_CONFIG</to><enabled>Y</enabled> </hop>  <hop> <from>Lookup D_GEOGRAPHY_MASTER</from><to>Date Dim Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>Lookup Agent Dim</to><enabled>Y</enabled> </hop>  <hop> <from>Format Dates</from><to>Sort for Group By</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Activity Type Lookup</name>
     <type>DBLookup</type>
@@ -439,8 +427,8 @@ TODO: Need to add db constraints about how apprvd exceptions need to be for a si
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>774</xloc>
-      <yloc>664</yloc>
+      <xloc>605</xloc>
+      <yloc>677</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -480,8 +468,58 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>476</xloc>
-      <yloc>795</yloc>
+      <xloc>307</xloc>
+      <yloc>808</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get Group Name</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>with min_pk as
+(
+select agent_id, min(agent_group_id) as agent_group_id
+from cc_s_agent_group
+where record_eff_dt &lt;= ?
+and record_end_dt &gt;= ?
+group by agent_id
+order by agent_id
+)
+select group_name
+from cc_s_agent_group ag, min_pk m
+where ag.agent_group_id = m.agent_group_id
+and ag.agent_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>JUST_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>JUST_DATE</name>
+        <type>Date</type>
+      </field>
+      <field>
+        <name>AGENT_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1525</xloc>
+      <yloc>913</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -521,8 +559,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>985</xloc>
-      <yloc>664</yloc>
+      <xloc>1426</xloc>
+      <yloc>792</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -539,8 +577,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>565</xloc>
-      <yloc>890</yloc>
+      <xloc>1178</xloc>
+      <yloc>1045</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -594,8 +632,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>360</xloc>
-      <yloc>664</yloc>
+      <xloc>191</xloc>
+      <yloc>677</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -635,8 +673,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1236</xloc>
-      <yloc>795</yloc>
+      <xloc>1881</xloc>
+      <yloc>921</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -676,8 +714,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1161</xloc>
-      <yloc>664</yloc>
+      <xloc>1797</xloc>
+      <yloc>800</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -723,8 +761,8 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1087</xloc>
-      <yloc>795</yloc>
+      <xloc>1696</xloc>
+      <yloc>920</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -773,17 +811,11 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
         <default/>
         <type>String</type>
       </value>
-      <value>
-        <name>AGENT_GROUP</name>
-        <rename>AGENT_GROUP</rename>
-        <default/>
-        <type>String</type>
-      </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>892</xloc>
-      <yloc>795</yloc>
+      <xloc>723</xloc>
+      <yloc>808</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -805,6 +837,7 @@ var activityDurationMinutes = activityDurationSeconds&#47;60; &#47;&#47; convert
 , ACTIVITY_TYPE_ID
 , ACTIVITY_START_TIME
 , ACTIVITY_END_TIME
+, (ACTIVITY_DURATION_SECONDS&#47;60) as ACTIVITY_MINUTES
 FROM CC_S_WFM_AGENT_ACTIVITY
 WHERE ACTIVITY_DT BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) AND TO_DATE(&apos;${endDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;)
 UNION ALL
@@ -814,6 +847,7 @@ SELECT
 , ACTIVITY_TYPE_ID
 , ABSENCE_START_TIME as ACTIVITY_START_TIME
 , ABSENCE_END_TIME as ACTIVITY_END_TIME
+, ABSENCE_MINUTES as ACTIVITY_MINUTES
 FROM CC_S_AGENT_ABSENCE
 WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;) AND TO_DATE(&apos;${endDate}&apos;, &apos;YYYY&#47;MM&#47;DD&apos;)
 </sql>
@@ -824,8 +858,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>237</xloc>
-      <yloc>795</yloc>
+      <xloc>68</xloc>
+      <yloc>808</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -862,22 +896,22 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <fields>
         <field>
           <aggregate>ACTIVITY_MINUTES</aggregate>
-          <subject>activityDurationMinutes</subject>
+          <subject>ACTIVITY_MINUTES</subject>
           <type>SUM</type>
           <valuefield/>
         </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>683</xloc>
-      <yloc>795</yloc>
+      <xloc>514</xloc>
+      <yloc>808</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Hard Code Geo Master ID</name>
-    <type>Constant</type>
+    <name>If GROUP_NAME is null</name>
+    <type>IfNull</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -885,23 +919,23 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
            <method>none</method>
            <schema_name/>
            </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
     <fields>
       <field>
-        <name>GEOGRAPHY_MASTER_ID</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>1</nullif>
-        <length>0</length>
-        <precision>0</precision>
-      </field>
-    </fields>
+        <name>GROUP_NAME</name>
+        <value>Unknown</value>
+        <mask/>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>415</xloc>
-      <yloc>911</yloc>
+      <xloc>1624</xloc>
+      <yloc>797</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -940,30 +974,6 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
         <condition>=</condition>
         <name2/>
       </key>
-      <key>
-        <name>PROGRAM_ID</name>
-        <field>D_PROGRAM_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>PROJECT_ID</name>
-        <field>D_PROJECT_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>GEOGRAPHY_MASTER_ID</name>
-        <field>D_GEOGRAPHY_MASTER_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>GROUP_DIM_TECH</name>
-        <field>D_GROUP_ID</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
       <value>
         <name>D_AGENT_ID</name>
         <rename>AGENT_DIM_TECH</rename>
@@ -972,7 +982,7 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <value>
         <name>D_GROUP_ID</name>
         <rename>GROUP_DIM_TECH</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>D_SITE_ID</name>
@@ -997,23 +1007,28 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <value>
         <name>D_PROGRAM_ID</name>
         <rename>PROGRAM_ID</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>D_PROJECT_ID</name>
         <rename>PROJECT_ID</rename>
-        <update>N</update>
+        <update>Y</update>
       </value>
       <value>
         <name>D_GEOGRAPHY_MASTER_ID</name>
-        <rename>GEOGRAPHY_MASTER_ID</rename>
-        <update>N</update>
+        <rename>GEOGRAPHY_MASTER_ID_DIM_TECH</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>AGENT_LOGIN_ID</name>
+        <rename>LOGIN_ID</rename>
+        <update>Y</update>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1061</xloc>
-      <yloc>1018</yloc>
+      <xloc>1674</xloc>
+      <yloc>1173</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1039,7 +1054,7 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
           <lookup>LOGIN_ID</lookup>
         </key>
         <date>
-          <name>ACTIVITY_DT</name>
+          <name>JUST_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1047,6 +1062,16 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
           <name>AGENT_DIM_ID</name>
           <lookup>D_AGENT_ID</lookup>
           <update>BigNumber</update>
+        </field>
+        <field>
+          <name>AGENT_RECORD_EFF_DT</name>
+          <lookup>RECORD_EFF_DT</lookup>
+          <update>Date</update>
+        </field>
+        <field>
+          <name>AGENT_RECORD_END_DT</name>
+          <lookup>RECORD_END_DT</lookup>
+          <update>Date</update>
         </field>
         <return>
           <name>D_AGENT_ID</name>
@@ -1066,8 +1091,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>520</xloc>
-      <yloc>1019</yloc>
+      <xloc>1131</xloc>
+      <yloc>1174</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1093,7 +1118,7 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
           <lookup>ACTIVITY_TYPE_NAME</lookup>
         </key>
         <date>
-          <name>ACTIVITY_DT</name>
+          <name>JUST_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1120,8 +1145,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>875</xloc>
-      <yloc>1018</yloc>
+      <xloc>1488</xloc>
+      <yloc>1173</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1143,11 +1168,11 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <update>N</update>
       <fields>
         <key>
-          <name>AGENT_GROUP</name>
+          <name>GROUP_NAME</name>
           <lookup>GROUP_NAME</lookup>
         </key>
         <date>
-          <name>ACTIVITY_DT</name>
+          <name>JUST_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
@@ -1174,8 +1199,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>782</xloc>
-      <yloc>912</yloc>
+      <xloc>1395</xloc>
+      <yloc>1067</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1201,10 +1226,15 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
           <lookup>SITE_NAME</lookup>
         </key>
         <date>
-          <name>ACTIVITY_DT</name>
+          <name>JUST_DATE</name>
           <from>RECORD_EFF_DT</from>
           <to>RECORD_END_DT</to>
         </date>
+        <field>
+          <name>SITE_DIM_ID</name>
+          <lookup>D_SITE_ID</lookup>
+          <update>BigNumber</update>
+        </field>
         <return>
           <name>D_SITE_ID</name>
           <rename>SITE_DIM_TECH</rename>
@@ -1223,8 +1253,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>689</xloc>
-      <yloc>1018</yloc>
+      <xloc>1302</xloc>
+      <yloc>1173</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1266,8 +1296,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>968</xloc>
-      <yloc>912</yloc>
+      <xloc>1581</xloc>
+      <yloc>1067</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1308,8 +1338,8 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>566</xloc>
-      <yloc>664</yloc>
+      <xloc>397</xloc>
+      <yloc>677</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1340,8 +1370,355 @@ WHERE ABSENCE_DATE BETWEEN TO_DATE(&apos;${startDate}&apos;, &apos;YYYY&#47;MM&#
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>299</xloc>
-      <yloc>729</yloc>
+      <xloc>130</xloc>
+      <yloc>742</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get C_PROJECT_CONFIG</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_C_PROJECT_CONFIG</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROJECT_CONFIG_ID</name>
+        <field>PROJECT_CONFIG_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROJECT_NAME</name>
+        <rename>PROJECT_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROGRAM_NAME</name>
+        <rename>PROGRAM_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>REGION_NAME</name>
+        <rename>REGION_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>STATE_NAME</name>
+        <rename>STATE_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROVINCE_NAME</name>
+        <rename>PROVINCE_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>DISTRICT_NAME</name>
+        <rename>DISTRICT_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>COUNTRY_NAME</name>
+        <rename>COUNTRY_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>807</xloc>
+      <yloc>694</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_COUNTRY</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_COUNTRY</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>COUNTRY_NAME</name>
+        <field>COUNTRY_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>COUNTRY_ID</name>
+        <rename>COUNTRY_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1138</xloc>
+      <yloc>689</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_DISTRICT</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_DISTRICT</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>DISTRICT_NAME</name>
+        <field>DISTRICT_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>DISTRICT_ID</name>
+        <rename>DISTRICT_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1056</xloc>
+      <yloc>795</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_GEOGRAPHY_MASTER</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_GEOGRAPHY_MASTER</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>COUNTRY_ID_DIM_TECH</name>
+        <field>COUNTRY_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>STATE_ID_DIM_TECH</name>
+        <field>STATE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>PROVINCE_ID_DIM_TECH</name>
+        <field>PROVINCE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>DISTRICT_ID_DIM_TECH</name>
+        <field>DISTRICT_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>REGION_ID_DIM_TECH</name>
+        <field>REGION_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>GEOGRAPHY_MASTER_ID</name>
+        <rename>GEOGRAPHY_MASTER_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1336</xloc>
+      <yloc>689</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_PROVINCE</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PROVINCE</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROVINCE_NAME</name>
+        <field>PROVINCE_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROVINCE_ID</name>
+        <rename>PROVINCE_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>880</xloc>
+      <yloc>795</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_REGION</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_REGION</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>REGION_NAME</name>
+        <field>REGION_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>REGION_ID</name>
+        <rename>REGION_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>970</xloc>
+      <yloc>689</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup D_STATE</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_STATE</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>STATE_NAME</name>
+        <field>STATE_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>STATE_ID</name>
+        <rename>STATE_ID_DIM_TECH</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1219</xloc>
+      <yloc>795</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

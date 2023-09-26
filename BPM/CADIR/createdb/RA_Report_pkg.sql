@@ -4,14 +4,14 @@ alter session set plsql_code_type = native;
 CREATE OR REPLACE PACKAGE RA_Report_pkg as
 --  Do not edit these four SVN_* variable values.  They are populated when you commit code
 --  to SVN and used later to identify deployed code.
-   SVN_FILE_URL varchar2(200) := '$URL: svn://rcmxapp1d.maximus.com/maxdat/BPM/CADIR/ManageWork/createdb/cadir_etl_manage_work_pkg.sql $';
-   SVN_REVISION varchar2(20) := '$Revision: 11516 $';
-   SVN_REVISION_DATE varchar2(60) := '$Date: 2014-08-19 08:48:08 -0700 (Tue, 19 Aug 2014) $';
-   SVN_REVISION_AUTHOR varchar2(20) := '$Author: fm18957 $';
+   SVN_FILE_URL varchar2(200) := '$URL$';
+   SVN_REVISION varchar2(20) := '$Revision$';
+   SVN_REVISION_DATE varchar2(60) := '$Date$';
+   SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
 
 
 FUNCTION IMR_MONTH_REPORT_CHECK 
-  RETURN NUMBER;
+  RETURN NUMBER parallel_enable;
 
 END ;
 /
@@ -21,7 +21,7 @@ CREATE OR REPLACE PACKAGE BODY RA_Report_pkg as
    g_Limit   NUMBER;
    gPKG VARCHAR2(30) := 'RA_Report_pkg';
    
-FUNCTION IMR_MONTH_REPORT_CHECK RETURN NUMBER as 
+FUNCTION IMR_MONTH_REPORT_CHECK RETURN NUMBER parallel_enable as 
    v_Result NUMBER;
    v_Days   VARCHAR2(100);
    v_Month  VARCHAR2(6);

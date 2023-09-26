@@ -96,7 +96,7 @@ CONSTRAINT corp_etl_client_inquiry_c05
   CHECK ( note_present IN ('N', 'Y', NULL) )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_client_inquiry for corp_etl_client_inquiry;
+
 grant select on corp_etl_client_inquiry to MAXDAT_READ_ONLY;
 
 
@@ -139,7 +139,6 @@ CREATE INDEX corp_etl_clnt_inqry_dtl_idx02 ON corp_etl_client_inquiry_dtl
  ( contact_record_id )
   LOGGING TABLESPACE MAXDAT_INDX;
 
-create or replace public synonym corp_etl_client_inquiry_dtl for corp_etl_client_inquiry_dtl;
 grant select on corp_etl_client_inquiry_dtl to MAXDAT_READ_ONLY;
 
 
@@ -182,7 +181,6 @@ CREATE INDEX corp_etl_clnt_inqry_eve_idx02 ON corp_etl_client_inquiry_event
  ( contact_record_id )
   LOGGING TABLESPACE MAXDAT_INDX;
 
-create or replace public synonym corp_etl_client_inquiry_event for corp_etl_client_inquiry_event;
 grant select on corp_etl_client_inquiry_event to MAXDAT_READ_ONLY;
 
 
@@ -240,8 +238,8 @@ CONSTRAINT etl_clnt_inqry_oltp_c01
   CHECK ( supp_contact_type_cd IN ('INBOUND', 'OUTBOUND') )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_oltp for corp_etl_clnt_inqry_oltp;
 grant select on corp_etl_clnt_inqry_oltp to MAXDAT_READ_ONLY;
+
 
 CREATE TABLE corp_etl_clnt_inqry_wip
 (ceci_id                NUMBER(18) NOT NULL
@@ -341,7 +339,6 @@ CONSTRAINT etl_clnt_inqry_wip_c06
   CHECK ( note_present IN ('N', 'Y', NULL) )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_wip for corp_etl_clnt_inqry_wip;
 grant select on corp_etl_clnt_inqry_wip to MAXDAT_READ_ONLY;
 
 
@@ -373,7 +370,6 @@ CONSTRAINT etl_clnt_inqry_dtl_oltp_uk
   UNIQUE ( contact_record_link_id )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_dtl_oltp for corp_etl_clnt_inqry_dtl_oltp;
 grant select on corp_etl_clnt_inqry_dtl_oltp to MAXDAT_READ_ONLY;
 
 
@@ -412,7 +408,6 @@ CONSTRAINT etl_clnt_inqry_dtl_wip_c04
   CHECK ( bpm_ind IN ('N', 'Y', NULL) )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_dtl_wip for corp_etl_clnt_inqry_dtl_wip;
 grant select on corp_etl_clnt_inqry_dtl_wip to MAXDAT_READ_ONLY;
 
 
@@ -446,7 +441,6 @@ CONSTRAINT etl_clnt_inqry_dtl_eve_oltp_uk
   UNIQUE ( event_id )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_event_oltp for corp_etl_clnt_inqry_event_oltp;
 grant select on corp_etl_clnt_inqry_event_oltp to MAXDAT_READ_ONLY;
 
 
@@ -487,7 +481,6 @@ CONSTRAINT etl_clnt_inqry_event_wip_c04
   CHECK ( bpm_ind IN ('N', 'Y', NULL) )
   ENABLE VALIDATE;
 
-create or replace public synonym corp_etl_clnt_inqry_event_wip for corp_etl_clnt_inqry_event_wip;
 grant select on corp_etl_clnt_inqry_event_wip to MAXDAT_READ_ONLY;
 
 

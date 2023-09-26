@@ -2,6 +2,7 @@
 2013/07/26 Devin  - Created
 Initialize ETL  should have all db objects that are not part of CORE and not specific to one Work book, 
 These items should also be  Corporate meaning  the are the same across all EB and ATS products
+
 ----------------
 
 
@@ -17,6 +18,4 @@ Run order (svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/createdb):
 
 3.create_ETL_initialize_triggers.sql
 
-4. create_ETL_initialize_synonyms.sql
-
-5. BPM_LAST_ETL_RUN_SV.sql
+4. BPM_LAST_ETL_RUN_SV.sql

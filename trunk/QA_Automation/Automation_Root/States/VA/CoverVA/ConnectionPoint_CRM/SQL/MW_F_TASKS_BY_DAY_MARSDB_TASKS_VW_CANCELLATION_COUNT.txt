@@ -1,0 +1,17 @@
+SELECT SUM(cancellation_count) cancellation_count
+FROM(
+ SELECT d.d_date ,
+    ts.PROJECT_ID,  
+    CASE WHEN ts.TASK_STATUS = 'Complete' AND d.d_date = DATE_TRUNC('DAY',ts.STATUS_DATE) THEN 0 ELSE 1 END AS inventory_count,
+    CASE WHEN d_date = DATE_TRUNC('DAY',ts.CREATED_ON) THEN 1 ELSE 0 END creation_count,
+    CASE WHEN ts.TASK_STATUS = 'Complete' AND d.d_date = DATE_TRUNC('DAY',ts.STATUS_DATE) THEN 1 ELSE 0 END AS completion_count,
+    CASE WHEN ts.TASK_STATUS = 'Cancelled' AND d.d_date = DATE_TRUNC('DAY',ts.STATUS_DATE) THEN 1 ELSE 0 END AS cancellation_count,
+    CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') AND d.d_date = DATE_TRUNC('DAY',ts.STATUS_DATE) THEN 1 ELSE 0 END AS termination_count
+FROM PUBLIC.D_DATES d
+  JOIN MARS_DP4BI_DEV.MARSDB.MARSDB_TASKS_VW AS ts
+     ON d.PROJECT_ID = ts.PROJECT_ID AND d.d_date BETWEEN DATE_TRUNC('DAY',ts.CREATED_ON) AND CASE WHEN ts.TASK_STATUS IN('Complete','Cancelled') THEN DATE_TRUNC('DAY',ts.STATUS_DATE) ELSE CURRENT_DATE() END    
+ )
+ WHERE
+    PROJECT_ID ='419'
+     and D_DATE = '2021-07-22'
+GROUP BY d_date,PROJECT_ID;

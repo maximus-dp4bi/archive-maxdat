@@ -2,7 +2,20 @@
 <job>
   <name>MemberEligibilty_RunAll</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -102,8 +115,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>110</yloc>
+      <xloc>50</xloc>
+      <yloc>30</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -112,11 +125,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1150</xloc>
-      <yloc>480</yloc>
+      <xloc>990</xloc>
+      <yloc>270</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Create</name>
+      <name>Create</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -144,11 +157,11 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>220</xloc>
-      <yloc>510</yloc>
+      <xloc>140</xloc>
+      <yloc>410</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Save_Variables</name>
+      <name>Save_Variables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -176,11 +189,11 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1110</xloc>
-      <yloc>340</yloc>
+      <xloc>920</xloc>
+      <yloc>20</yloc>
       </entry>
     <entry>
-      <name>SQL- truncate &amp;load WIP &amp; OLTP</name>
+      <name>SQL-Load WIP &amp; OLTP</name>
       <description/>
       <type>SQL</type>
       <sql>
@@ -201,16 +214,16 @@ COMMIT;
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>290</xloc>
-      <yloc>300</yloc>
+      <xloc>180</xloc>
+      <yloc>580</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Update_1</name>
+      <name>Update_1A</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Update1.ktr</filename>
+      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Update1A.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -233,11 +246,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>670</xloc>
-      <yloc>50</yloc>
+      <xloc>470</xloc>
+      <yloc>570</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Get_Variables</name>
+      <name>Get_Variables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -265,11 +278,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>360</yloc>
+      <xloc>110</xloc>
+      <yloc>290</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Capture_OLTP 1</name>
+      <name>Capture_OLTP 1</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -297,11 +310,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>420</xloc>
-      <yloc>230</yloc>
+      <xloc>250</xloc>
+      <yloc>310</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility Move Updates</name>
+      <name>Move Updates</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -329,8 +342,8 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1010</xloc>
-      <yloc>80</yloc>
+      <xloc>830</xloc>
+      <yloc>340</yloc>
       </entry>
     <entry>
       <name>Delete Done file</name>
@@ -341,11 +354,11 @@ COMMIT;
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>120</xloc>
-      <yloc>240</yloc>
+      <xloc>90</xloc>
+      <yloc>180</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Capture_OLTP 2</name>
+      <name>Capture_OLTP 2</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -373,11 +386,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>470</xloc>
-      <yloc>360</yloc>
+      <xloc>280</xloc>
+      <yloc>190</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Capture_OLTP 3</name>
+      <name>Capture_OLTP 3</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -405,11 +418,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>520</xloc>
-      <yloc>500</yloc>
+      <xloc>320</xloc>
+      <yloc>30</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Capture_OLTP</name>
+      <name>Capture_OLTP</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -437,11 +450,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>360</xloc>
-      <yloc>80</yloc>
+      <xloc>220</xloc>
+      <yloc>410</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Update_3and4</name>
+      <name>Update_3and4</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -469,11 +482,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>190</yloc>
+      <xloc>610</xloc>
+      <yloc>30</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Update_5and6</name>
+      <name>Update_5and6</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -501,11 +514,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>770</xloc>
-      <yloc>320</yloc>
+      <xloc>670</xloc>
+      <yloc>230</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Update_7thru9</name>
+      <name>Update_7thru9</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -533,11 +546,11 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>840</xloc>
-      <yloc>500</yloc>
+      <xloc>720</xloc>
+      <yloc>380</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Update_10thru12</name>
+      <name>Update_10thru12</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -565,8 +578,8 @@ COMMIT;
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>940</xloc>
-      <yloc>270</yloc>
+      <xloc>770</xloc>
+      <yloc>550</yloc>
       </entry>
     <entry>
       <name>Update calculated values</name>
@@ -575,11 +588,16 @@ COMMIT;
       <sql>UPDATE 
 FLHK_ETL_MEMBER_ELIGIBILITY 
 SET 
-AGE_IN_BUSINESS_DAYS = ABS(CALCULATE_BUSINESS_DAYS(CREATE_DATE, NVL(COMPLETE_DATE, sysdate))), 
-AGE_IN_CALENDAR_DAYS = round(sysdate - create_date,0), 
-STATUS_AGE_IN_BUS_DAYS = ABS(calculate_business_days(ELIG_STATUS_DATE, sysdate)), 
-STATUS_AGE_IN_CAL_DAYS = round(sysdate - ELIG_STATUS_DATE,0);
-COMMIT;</sql>
+AGE_IN_BUSINESS_DAYS = ABS(CALCULATE_BUSINESS_DAYS(CREATE_DATE, NVL(COMPLETE_DATE, CURRENT_DATE))), 
+AGE_IN_CALENDAR_DAYS = round(CURRENT_DATE - create_date,0), 
+STATUS_AGE_IN_BUS_DAYS = ABS(calculate_business_days(ELIG_STATUS_DATE, CURRENT_DATE)), 
+STATUS_AGE_IN_CAL_DAYS = round(CURRENT_DATE - ELIG_STATUS_DATE,0)
+where stage_done_date is null;
+
+COMMIT;
+
+delete from FLHK_ETL_MEMBER_ELIGIBILITY where stage_done_date &lt; current_date -90;
+commit;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -588,11 +606,11 @@ COMMIT;</sql>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1060</xloc>
-      <yloc>210</yloc>
+      <xloc>880</xloc>
+      <yloc>180</yloc>
       </entry>
     <entry>
-      <name>MemberEligibility_Capture_OLTP4</name>
+      <name>Capture_OLTP4</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -620,14 +638,142 @@ COMMIT;</sql>
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>590</xloc>
-      <yloc>300</yloc>
+      <xloc>350</xloc>
+      <yloc>140</yloc>
+      </entry>
+    <entry>
+      <name>Capture_OLTP5</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Capture_OLTP5.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>390</xloc>
+      <yloc>290</yloc>
+      </entry>
+    <entry>
+      <name>Capture_OLTP6</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Capture_OLTP6.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>420</xloc>
+      <yloc>410</yloc>
+      </entry>
+    <entry>
+      <name>Update1B</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Update1B.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>520</xloc>
+      <yloc>380</yloc>
+      </entry>
+    <entry>
+      <name>Update1C</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;MemberEligibility_Update1C.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>560</xloc>
+      <yloc>230</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
-      <from>MemberEligibility_Create</from>
-      <to>SQL- truncate &amp;load WIP &amp; OLTP</to>
+      <from>Create</from>
+      <to>SQL-Load WIP &amp; OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -635,8 +781,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Get_Variables</from>
-      <to>MemberEligibility_Create</to>
+      <from>Get_Variables</from>
+      <to>Create</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -654,7 +800,7 @@ COMMIT;</sql>
     </hop>
     <hop>
       <from>Delete Done file</from>
-      <to>MemberEligibility_Get_Variables</to>
+      <to>Get_Variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -662,8 +808,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Capture_OLTP 1</from>
-      <to>MemberEligibility_Capture_OLTP 2</to>
+      <from>Capture_OLTP 1</from>
+      <to>Capture_OLTP 2</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -671,8 +817,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Capture_OLTP 2</from>
-      <to>MemberEligibility_Capture_OLTP 3</to>
+      <from>Capture_OLTP 2</from>
+      <to>Capture_OLTP 3</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -680,8 +826,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>SQL- truncate &amp;load WIP &amp; OLTP</from>
-      <to>MemberEligibility_Capture_OLTP</to>
+      <from>SQL-Load WIP &amp; OLTP</from>
+      <to>Capture_OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -689,8 +835,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Capture_OLTP</from>
-      <to>MemberEligibility_Capture_OLTP 1</to>
+      <from>Capture_OLTP</from>
+      <to>Capture_OLTP 1</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -698,8 +844,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Update_1</from>
-      <to>MemberEligibility_Update_3and4</to>
+      <from>Update_3and4</from>
+      <to>Update_5and6</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -707,8 +853,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Update_3and4</from>
-      <to>MemberEligibility_Update_5and6</to>
+      <from>Update_5and6</from>
+      <to>Update_7thru9</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -716,8 +862,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Update_5and6</from>
-      <to>MemberEligibility_Update_7thru9</to>
+      <from>Update_7thru9</from>
+      <to>Update_10thru12</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -725,8 +871,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Update_7thru9</from>
-      <to>MemberEligibility_Update_10thru12</to>
+      <from>Update_10thru12</from>
+      <to>Move Updates</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -734,16 +880,7 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Update_10thru12</from>
-      <to>MemberEligibility Move Updates</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>MemberEligibility_Save_Variables</from>
+      <from>Save_Variables</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -752,7 +889,7 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility Move Updates</from>
+      <from>Move Updates</from>
       <to>Update calculated values</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -762,7 +899,7 @@ COMMIT;</sql>
     </hop>
     <hop>
       <from>Update calculated values</from>
-      <to>MemberEligibility_Save_Variables</to>
+      <to>Save_Variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -770,8 +907,8 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Capture_OLTP 3</from>
-      <to>MemberEligibility_Capture_OLTP4</to>
+      <from>Capture_OLTP 3</from>
+      <to>Capture_OLTP4</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -779,8 +916,53 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MemberEligibility_Capture_OLTP4</from>
-      <to>MemberEligibility_Update_1</to>
+      <from>Capture_OLTP4</from>
+      <to>Capture_OLTP5</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Capture_OLTP5</from>
+      <to>Capture_OLTP6</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Capture_OLTP6</from>
+      <to>Update_1A</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update_1A</from>
+      <to>Update1B</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update1B</from>
+      <to>Update1C</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Update1C</from>
+      <to>Update_3and4</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -789,26 +971,5 @@ COMMIT;</sql>
     </hop>
   </hops>
   <notepads>
-    <notepad>
-      <note>This job will start all Member Eligibility Transformations.</note>
-      <xloc>430</xloc>
-      <yloc>560</yloc>
-      <width>329</width>
-      <heigth>25</heigth>
-      <fontname>Arial</fontname>
-      <fontsize>10</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>165</backgroundcolorgreen>
-      <backgroundcolorblue>0</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
 </job>

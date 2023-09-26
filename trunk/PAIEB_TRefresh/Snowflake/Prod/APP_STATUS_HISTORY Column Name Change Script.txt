@@ -1,0 +1,63 @@
+//find latest completed full load jobid and set it ot started if it complete long time ago
+update control.paieb_job_ctrl set status = 'STARTED' where jobid = 81;
+
+//alter table name
+alter table paieb_prd.app_status_history rename column STATUS_DT to STATUS_DATE;
+
+//update the config stmts to reflect the new match
+update control.paieb_Awsdms_tables_list awsdms set 
+merge_full_insert_str = (select replace('insert (' || listagg(s1.column_name,',') || ') values (' || listagg('src.'|| s1.column_name,',') || ')','src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+)
+where awsdms.source_table_name = 'APP_STATUS_HISTORY';
+
+update control.paieb_Awsdms_tables_list awsdms 
+set md5_compare_str = (select
+ 'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'src.' || s1.column_name end ,',') || '),'',''))'  
+|| ' <> ' || 
+'md5(array_to_string(array_construct_compact(' || listagg(case when s1.column_name = a.primary_key_column or s1.column_name = 'COMMITTIMESTAMP' then '0' else 'tgt.'|| s1.column_name end,',') || '),'',''))' md5_compare_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name 
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+)
+where awsdms.source_table_name = 'APP_STATUS_HISTORY';
+
+
+
+update control.paieb_Awsdms_tables_list awsdms 
+set merge_full_update_str = (select
+replace(replace(replace(listagg((case when s1.column_name = a.primary_key_column then 'PKCOLUMN' else 'tgt.' || s1.column_name || ' = src.' || s1.column_name end) ,','),'PKCOLUMN',''),',,',','),'src.COMMITTIMESTAMP','try_to_timestamp(substr(src.COMMITTIMESTAMP,1,19),''YYYY-MM-DD HH24:MI:SS'')')  merge_full_update_str
+from control.paieb_awsdms_tables_list a
+left join information_schema.columns s1 on s1.table_schema = 'PAIEB_PRD' and s1.table_name = a.source_table_name and s1.column_name <> a.primary_key_column
+where exists (select 'x' from information_schema.columns s2 where s2.table_schema = 'FULL1' and s2.table_name = a.source_table_name || '_PQ' and s2.column_name = s1.column_name)
+and a.source_table_name = awsdms.source_table_name
+)
+where awsdms.source_table_name = 'APP_STATUS_HISTORY';
+
+
+update control.paieb_awsdms_tables_list a
+set merge_str = 
+'Merge into TGT_SCHEMANAME.' || a.source_table_name ||' tgt
+using (select * from SRC_SCHEMANAME.'|| a.source_table_name ||'_pq) src on src.'|| a.primary_key_column ||' = tgt.'|| a.primary_key_column ||'
+when matched and '|| a.md5_compare_str ||'
+then update set '|| a.merge_full_update_str ||'
+when not matched then '||a.merge_full_insert_str ||';
+'
+where a.source_table_name = 'APP_STATUS_HISTORY';
+
+//verify the STATUS_DATE column is in the update str
+select * from control.paieb_awsdms_tables_list a where a.source_table_name = 'APP_STATUS_HISTORY';
+
+//call merge data for this table
+call control.merge_full_pq('APP_STATUS_HISTORY','N',81);
+
+//verify the table date for the changed column is updated
+select * from paieb_prd.app_status_history;
+
+//update job back to completed
+update control.paieb_job_ctrl set status = 'COMPLETED' where jobid = 81;
+

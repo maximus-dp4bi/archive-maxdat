@@ -14,63 +14,64 @@ package PROCESS_LETTERS as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
-     
-   FUNCTION GET_TIMELINESS_STATUS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2;
-
-  FUNCTION GET_JEOPARDY_STATUS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2;
+    return number parallel_enable;
 
   function GET_SLA_CATEGORY
-    (p_letter_type in varchar,
-     p_newborn_flag in varchar
-     )
-    return varchar2;
-
-  FUNCTION GET_SLA_DAYS(
-     p_letter_type in varchar,
-     p_newborn_flag in varchar
-      )
-    RETURN VARCHAR2;
-
-  FUNCTION GET_SLA_DAYS_TYPE(
-      p_letter_type in varchar,
-      p_newborn_flag in varchar
-      )
-    RETURN VARCHAR2;
-
-   FUNCTION GET_JEOPARDY_DATE(
-      p_letter_type in varchar,
-      p_newborn_flag in varchar,
-      p_create_date    IN DATE
-      )
-    RETURN date;
-
+    (p_letter_type in varchar2,
+     p_newborn_flag in varchar2)
+    return varchar2 result_cache parallel_enable;
+	
     FUNCTION GET_JEOPARDY_DAYS(
-      p_letter_type in varchar,
-      p_newborn_flag in varchar
+      p_letter_type in varchar2,
+      p_newborn_flag in varchar2
        )
-    RETURN number;
+    RETURN number result_cache parallel_enable;
 
     FUNCTION GET_SLA_TARGET_DAYS(
-      p_letter_type in varchar,
-      p_newborn_flag in varchar
+      p_letter_type in varchar2,
+      p_newborn_flag in varchar2
       )
-    RETURN VARCHAR2;
+    RETURN VARCHAR2 result_cache parallel_enable;
+
+  FUNCTION GET_SLA_DAYS(
+     p_letter_type in varchar2,
+     p_newborn_flag in varchar2
+      )
+    RETURN VARCHAR2 result_cache parallel_enable;
+
+  FUNCTION GET_SLA_DAYS_TYPE(
+      p_letter_type in varchar2,
+      p_newborn_flag in varchar2
+      )
+    RETURN VARCHAR2 result_cache parallel_enable;
+    
+   FUNCTION GET_TIMELINESS_STATUS(
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2,
+      p_create_date   IN DATE,
+      p_complete_date IN DATE )
+    RETURN VARCHAR2 parallel_enable;
+
+  FUNCTION GET_JEOPARDY_STATUS(
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2,
+      p_create_date   IN DATE,
+      p_complete_date IN DATE )
+    RETURN VARCHAR2 parallel_enable;
+
+
+   FUNCTION GET_JEOPARDY_DATE(
+      p_letter_type in varchar2,
+      p_newborn_flag in varchar2,
+      p_create_date    IN DATE
+      )
+    RETURN date parallel_enable;
+
 
   /* 
   Include: 
@@ -87,7 +88,8 @@ package PROCESS_LETTERS as
   */ 
   type T_INS_PL_XML is record 
     (
-          ASED_CREATE_ROUTE_WORK varchar2(19),
+     AIAN_MEMBER_COUNT   number(18,0),     
+	 ASED_CREATE_ROUTE_WORK varchar2(19),
      ASED_PROCESS_LETTER_REQ varchar2(19),
      ASED_RECEIVE_CONFIRMATION varchar2(19),
      ASED_TRANSMIT varchar2(19),
@@ -108,7 +110,8 @@ package PROCESS_LETTERS as
      CREATE_BY varchar2(50),
      CREATE_DT varchar2(19),
      ERROR_REASON varchar2(4000),
-     GWF_OUTCOME varchar2(1),
+     FAMILY_MEMBER_COUNT number(18,0),
+	 GWF_OUTCOME varchar2(1),
      GWF_VALID varchar2(1),
      GWF_WORK_REQUIRED varchar2(1),
      INSTANCE_STATUS varchar2(10),
@@ -118,9 +121,10 @@ package PROCESS_LETTERS as
      LETTER_REQUEST_ID varchar2(100),
      LETTER_RESP_FILE_DT varchar2(19),
      LETTER_RESP_FILE_NAME varchar2(100),
-     LETTER_TYPE varchar2(100),
+     LETTER_TYPE varchar2(4000),
      MAILED_DT varchar2(19),
-     NEWBORN_FLAG varchar2(1),
+     MATERIAL_REQUEST_ID number(18,0),
+	 NEWBORN_FLAG varchar2(1),
      PRINT_DT varchar2(19),
      PROGRAM varchar2(50),
      REJECT_REASON varchar2(100),
@@ -131,13 +135,13 @@ package PROCESS_LETTERS as
      RETURN_DT varchar2(19),
      RETURN_REASON varchar2(100),
      SENT_DT varchar2(19),
-     STATUS varchar2(32),
+     STATUS varchar2(256),
      STATUS_DT varchar2(19),
      STG_LAST_UPDATE_DATE varchar2(19),
      TASK_ID varchar2(100),
      TRANSMIT_FILE_DT varchar2(19),
      TRANSMIT_FILE_NAME varchar2(100),
-     ZIP_CODE varchar2(100)
+     ZIP_CODE varchar2(100)     
     );
       
    /* 
@@ -154,7 +158,8 @@ package PROCESS_LETTERS as
   */
   type T_UPD_PL_XML is record
     (
-          ASED_CREATE_ROUTE_WORK varchar2(19),
+     AIAN_MEMBER_COUNT   number(18,0),
+	 ASED_CREATE_ROUTE_WORK varchar2(19),
      ASED_PROCESS_LETTER_REQ varchar2(19),
      ASED_RECEIVE_CONFIRMATION varchar2(19),
      ASED_TRANSMIT varchar2(19),
@@ -174,7 +179,8 @@ package PROCESS_LETTERS as
      CREATE_BY varchar2(50),
      CREATE_DT varchar2(19),
      ERROR_REASON varchar2(4000),
-     GWF_OUTCOME varchar2(1),
+     FAMILY_MEMBER_COUNT number(18,0),
+	 GWF_OUTCOME varchar2(1),
      GWF_VALID varchar2(1),
      GWF_WORK_REQUIRED varchar2(1),
      INSTANCE_STATUS varchar2(10),
@@ -184,9 +190,10 @@ package PROCESS_LETTERS as
      LETTER_REQUEST_ID varchar2(100),
      LETTER_RESP_FILE_DT varchar2(19),
      LETTER_RESP_FILE_NAME varchar2(100),
-     LETTER_TYPE varchar2(100),
+     LETTER_TYPE varchar2(4000),
      MAILED_DT varchar2(19),
-     NEWBORN_FLAG varchar2(1),
+     MATERIAL_REQUEST_ID number(18,0),
+	 NEWBORN_FLAG varchar2(1),
      PRINT_DT varchar2(19),
      PROGRAM varchar2(50),
      REJECT_REASON varchar2(100),
@@ -197,13 +204,13 @@ package PROCESS_LETTERS as
      RETURN_DT varchar2(19),
      RETURN_REASON varchar2(100),
      SENT_DT varchar2(19),
-     STATUS varchar2(32),
+     STATUS varchar2(256),
      STATUS_DT varchar2(19),
      STG_LAST_UPDATE_DATE varchar2(19),
      TASK_ID varchar2(100),
      TRANSMIT_FILE_DT varchar2(19),
      TRANSMIT_FILE_NAME varchar2(100),
-     ZIP_CODE varchar2(100)
+     ZIP_CODE varchar2(100)     
     );
     
   procedure INSERT_BPM_SEMANTIC
@@ -235,7 +242,7 @@ package body PROCESS_LETTERS as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -245,292 +252,269 @@ package body PROCESS_LETTERS as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
   end;
   
-
-  FUNCTION GET_TIMELINESS_STATUS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE )
-    RETURN VARCHAR2
+function GET_SLA_CATEGORY
+    (p_letter_type in varchar2,
+     p_newborn_flag in varchar2)
+    return varchar2 result_cache parallel_enable
   IS
-  v_sla_category varchar(40):= null;
-  v_sla_days     number:= null;
-  BEGIN
+    v_sla_category varchar(4000) := null;
   
-     if SUBSTR(p_letter_type,1,2) <> 'IA' 
-        then v_sla_category := 'Other';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-        then v_sla_category := 'New Enrollment';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-        then v_sla_category := 'Newly Eligible Newborn';
-     else 
-        v_sla_category := 'Other';
-     end if;
-     
-     SELECT to_number(decode(OUT_VAR,'N/A',0,OUT_VAR))
-       into v_sla_days
-       FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
-        AND NAME = 'ProcLetters_SLA_Days'
-        AND VALUE = v_sla_category;  
-  
-    IF v_sla_category = 'Other' THEN
-      RETURN 'NA';
-    ELSIF v_sla_category =  'New Enrollment' AND BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,NVL(p_complete_date,sysdate)) <= v_sla_days THEN
-      RETURN 'Timely';
-    ELSIF v_sla_category = 'Newly Eligible Newborn' AND BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,NVL(p_complete_date,sysdate)) <= v_sla_days THEN
-      RETURN 'Timely';
-    ELSE
-      RETURN 'Untimely';
-    END IF;
-    
-  END GET_TIMELINESS_STATUS;
-
-   
-   FUNCTION GET_JEOPARDY_STATUS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR,
-      p_create_date   IN DATE,
-      p_complete_date IN DATE)
-    RETURN VARCHAR2
-  IS
-  
-  v_sla_category  varchar2(100):= null;
-  v_jeopardy_days number:= null;
-  BEGIN
-     
-     if SUBSTR(p_letter_type,1,2) <> 'IA' 
-        then v_sla_category := 'Other';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-        then v_sla_category := 'New Enrollment';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-        then v_sla_category := 'Newly Eligible Newborn';
-     else 
-        v_sla_category := 'Other';
-     end if;
-     
-     SELECT to_number(OUT_VAR) as jeopardy_days
-       into v_jeopardy_days
-       FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
-        AND NAME = 'ProcLetters_SLA_Jeopardy_Days'
-        AND VALUE = v_sla_category;  
-          
-    IF p_complete_date is null and BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,sysdate) > v_jeopardy_days  THEN
-       RETURN 'Y';
-    ELSE
-       RETURN 'N';
-    END IF;
-     
-  END GET_JEOPARDY_STATUS;
-
-  
-  function GET_SLA_CATEGORY
-    (p_letter_type in varchar,
-     p_newborn_flag in varchar
-     )
-    return varchar2
-  as
   begin
-  
-    if substr(p_letter_type,1,2) <> 'IA' then
-      return 'Others';
-    elsif  substr(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' then
-      return 'New Enrollment';
-    elsif substr(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' then
-      return 'Newly Eligible Newborn';
-    else
-       return 'Others';
-    end if;
-    
-  end GET_SLA_CATEGORY;
-
  
- FUNCTION GET_SLA_DAYS(
-       p_letter_type   IN VARCHAR,
-       p_newborn_flag  IN VARCHAR
-      )
-    RETURN VARCHAR2
-  IS
-  v_sla_category varchar2(100):= null;
-  v_sla_days     varchar(10):= null;
+  SELECT /*+ RESULT_CACHE +*/ out_var
+  INTO v_sla_category
+  FROM corp_etl_list_lkup
+  WHERE 1=1
+  AND list_type = 'PL_CORP_SEMANTIC_PKG'
+  AND value = p_letter_type
+  AND NAME = coalesce(p_newborn_flag,'N');
   
-  BEGIN
+  RETURN v_sla_category;
   
-  if SUBSTR(p_letter_type,1,2) <> 'IA' 
-        then v_sla_category := 'Other';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-        then v_sla_category := 'New Enrollment';
-     elsif 
-        SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-        then v_sla_category := 'Newly Eligible Newborn';
-     else 
-        v_sla_category := 'Other';
-     end if;
-     
-     SELECT OUT_VAR as sla_days
-       into v_sla_days
-       FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
-        AND NAME = 'ProcLetters_SLA_Days'
-        AND VALUE = v_sla_category;
+  EXCEPTION
+  WHEN no_data_found THEN 
   
-    RETURN v_sla_days;
-
-  END GET_SLA_DAYS;
-
- 
- FUNCTION GET_SLA_DAYS_TYPE(
-       p_letter_type   IN VARCHAR,
-       p_newborn_flag  IN VARCHAR
-      )
-    RETURN VARCHAR2
-  IS
+  SELECT out_var
+  INTO v_sla_category
+  FROM corp_etl_list_lkup
+  WHERE 1=1
+  AND list_type = 'PL_CORP_SEMANTIC_PKG'
+  AND value = 'N'
+  AND name = 'N';
   
-  v_sla_category  varchar2(100):= null;
-  v_sla_days_type varchar(10):= null;
-  BEGIN
-      
-      if SUBSTR(p_letter_type,1,2) <> 'IA' 
-         then v_sla_category := 'Other';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-         then v_sla_category := 'New Enrollment';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-         then v_sla_category := 'Newly Eligible Newborn';
-      else 
-         v_sla_category := 'Other';
-      end if;
-     
-     SELECT OUT_VAR as sla_days_type
-       into v_sla_days_type
-       FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
-        AND NAME = 'ProcLetters_SLA_Days_Type'
-        AND VALUE = v_sla_category;
-    
-      RETURN v_sla_days_type;
-
-  END GET_SLA_DAYS_TYPE;
-
-
- FUNCTION GET_JEOPARDY_DATE(
-       p_letter_type   IN VARCHAR,
-       p_newborn_flag  IN VARCHAR,
-       p_create_date   IN DATE
-      )
-    RETURN date
-  IS
-  v_sla_category  varchar2(100):= null;
-  v_sla_days_type varchar(10):= null;
-  v_jeopardy_days number;
-  BEGIN
+  RETURN v_sla_category;
   
-      if SUBSTR(p_letter_type,1,2) <> 'IA' 
-         then v_sla_category := 'Other';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-         then v_sla_category := 'New Enrollment';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-         then v_sla_category := 'Newly Eligible Newborn';
-      else 
-         v_sla_category := 'Other';
-      end if;
-     
-     SELECT to_number(OUT_VAR) as jeopardy_days
-       into v_jeopardy_days
-       FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
-        AND NAME = 'ProcLetters_SLA_Jeopardy_Days'
-        AND VALUE = v_sla_category;
+  end GET_SLA_CATEGORY;  
   
-    RETURN p_create_date + v_jeopardy_days;
-
-  END GET_JEOPARDY_DATE;
-
- 
  FUNCTION GET_JEOPARDY_DAYS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2
      )
-    RETURN number
+    RETURN number result_cache parallel_enable
   IS
-  
-  v_sla_category  varchar2(100):= null;
+
+  v_sla_category  varchar2(4000):= null;
   v_jeopardy_days number;
   BEGIN
-      
-      if SUBSTR(p_letter_type,1,2) <> 'IA' 
-         then v_sla_category := 'Other';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-         then v_sla_category := 'New Enrollment';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-         then v_sla_category := 'Newly Eligible Newborn';
-      else 
-         v_sla_category := 'Other';
-      end if;
+
+     v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+     BEGIN
      
-     SELECT to_number(OUT_VAR) as jeopardy_days
+       SELECT /*+ RESULT_CACHE +*/ to_number(OUT_VAR) as jeopardy_days
        into v_jeopardy_days
        FROM CORP_ETL_LIST_LKUP
-      WHERE REF_TYPE = 'LETTER_TYPE'
+        WHERE REF_TYPE = 'LETTER_TYPE'
         AND NAME = 'ProcLetters_SLA_Jeopardy_Days'
         AND VALUE = v_sla_category;
-      
-   RETURN v_jeopardy_days;
+        
+     EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          v_jeopardy_days := 1;
+     END;
+     
+     RETURN v_jeopardy_days;
    END GET_JEOPARDY_DAYS;
-
+ 
 
   FUNCTION GET_SLA_TARGET_DAYS(
-      p_letter_type   IN VARCHAR,
-      p_newborn_flag  IN VARCHAR
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2
       )
-    RETURN VARCHAR2
+    RETURN VARCHAR2 result_cache parallel_enable
   IS
-  
-  v_sla_category  varchar2(100):= null;
-  v_sla_target_days varchar(10);
+
+  v_sla_category  varchar2(4000):= null;
+  v_sla_target_days number;
   BEGIN
-      
-      if SUBSTR(p_letter_type,1,2) <> 'IA' 
-         then v_sla_category := 'Other';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'N' 
-         then v_sla_category := 'New Enrollment';
-      elsif 
-         SUBSTR(p_letter_type,1,2) = 'IA' and NVL(p_newborn_flag,'N') = 'Y' 
-         then v_sla_category := 'Newly Eligible Newborn';
-      else 
-         v_sla_category := 'Other';
-      end if;
-     
-     SELECT OUT_VAR as sla_target_days
+
+     v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+    BEGIN   
+    
+     SELECT /*+ RESULT_CACHE +*/ TO_NUMBER(OUT_VAR) as sla_target_days
        into v_sla_target_days
        FROM CORP_ETL_LIST_LKUP
       WHERE REF_TYPE = 'LETTER_TYPE'
         AND NAME = 'ProcLetters_SLA_Target_Days'
         AND VALUE = v_sla_category;
+        
+     EXCEPTION
+       WHEN NO_DATA_FOUND THEN
+          v_sla_target_days := 2;
+     END;
      
-      RETURN v_sla_target_days;
-
+     RETURN v_sla_target_days;
+       
   END;
+
+ FUNCTION GET_SLA_DAYS(
+       p_letter_type   IN VARCHAR2,
+       p_newborn_flag  IN VARCHAR2
+      )
+    RETURN VARCHAR2 result_cache parallel_enable
+  IS
+  v_sla_category varchar2(4000):= null;
+  v_sla_days     number:= null;
+
+  BEGIN
+
+      v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+     BEGIN
+     
+      SELECT /*+ RESULT_CACHE +*/ TO_NUMBER(OUT_VAR) as sla_days
+       into v_sla_days
+       FROM CORP_ETL_LIST_LKUP
+       WHERE REF_TYPE = 'LETTER_TYPE'
+        AND NAME = 'ProcLetters_SLA_Days'
+        AND VALUE = v_sla_category;
+        
+      EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          v_sla_days := 2;
+       END;
+    
+    RETURN v_sla_days;
+
+  END GET_SLA_DAYS;
+
+
+ FUNCTION GET_SLA_DAYS_TYPE(
+       p_letter_type   IN VARCHAR2,
+       p_newborn_flag  IN VARCHAR2
+      )
+    RETURN VARCHAR2 result_cache parallel_enable
+  IS
+
+  v_sla_category  varchar2(4000):= null;
+  v_sla_days_type varchar2(10):= null;
+  BEGIN
+
+      v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+     BEGIN
+     
+       SELECT /*+ RESULT_CACHE +*/ OUT_VAR as sla_days_type
+       into v_sla_days_type
+       FROM CORP_ETL_LIST_LKUP
+       WHERE REF_TYPE = 'LETTER_TYPE'
+       AND NAME = 'ProcLetters_SLA_Days_Type'
+       AND VALUE = v_sla_category;
+       
+     EXCEPTION
+       WHEN NO_DATA_FOUND THEN
+         v_sla_days_type := 'B';
+     END;
+     
+     RETURN v_sla_days_type;
+
+  END GET_SLA_DAYS_TYPE;
+
+   FUNCTION GET_JEOPARDY_STATUS(
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2,
+      p_create_date   IN DATE,
+      p_complete_date IN DATE)
+    RETURN VARCHAR2 parallel_enable
+  IS
+
+  v_sla_category  varchar2(4000):= null;
+  v_jeopardy_days number:= null;
+  v_sla_days_type VARCHAR2(10);
+  BEGIN
+
+     v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+
+     v_jeopardy_days := GET_JEOPARDY_DAYS(p_letter_type,p_newborn_flag);      
+     v_sla_days_type := GET_SLA_DAYS_TYPE(p_letter_type,p_newborn_flag); 
+    
+    IF p_complete_date is null THEN
+     IF v_sla_days_type = 'B' THEN
+       IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,sysdate) > v_jeopardy_days  THEN
+         RETURN 'Y';
+       ELSE
+         RETURN 'N';
+       END IF;
+     ELSE
+       IF TRUNC(sysdate) - p_create_date > v_jeopardy_days THEN
+         RETURN 'Y';
+       ELSE
+         RETURN 'N';
+       END IF;
+     END IF;
+    ELSE
+       RETURN 'N';
+    END IF;
+
+  END GET_JEOPARDY_STATUS;
+
+
+ FUNCTION GET_JEOPARDY_DATE(
+       p_letter_type   IN VARCHAR2,
+       p_newborn_flag  IN VARCHAR2,
+       p_create_date   IN DATE
+      )
+    RETURN date parallel_enable
+  IS
+  v_sla_category  varchar2(4000):= null;
+  v_sla_days_type varchar2(10):= null;
+  v_jeopardy_days number;
+  BEGIN
+
+     v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+     v_jeopardy_days := GET_JEOPARDY_DAYS(p_letter_type,p_newborn_flag);
+     
+     
+     RETURN p_create_date + v_jeopardy_days;
+
+  END GET_JEOPARDY_DATE;
   
-  
+
+FUNCTION GET_TIMELINESS_STATUS(
+      p_letter_type   IN VARCHAR2,
+      p_newborn_flag  IN VARCHAR2,
+      p_create_date   IN DATE,
+      p_complete_date IN DATE )
+    RETURN VARCHAR2 parallel_enable
+  IS
+  v_sla_category varchar2(4000):= null;
+  v_sla_days     number:= null;
+  v_sla_days_type VARCHAR2(10);
+  BEGIN
+     
+     v_sla_category := GET_SLA_CATEGORY(p_letter_type,p_newborn_flag);
+     
+     v_sla_days := GET_SLA_DAYS(p_letter_type,p_newborn_flag);
+     v_sla_days_type := GET_SLA_DAYS_TYPE(p_letter_type,p_newborn_flag);
+
+    IF v_sla_category = 'Other' THEN
+      RETURN 'NA';
+    ELSE
+      IF p_complete_date is null then
+        return 'In Process';    
+      ELSE 
+        IF v_sla_days_type = 'B' THEN
+          IF BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,COALESCE(p_complete_date,sysdate)) <= v_sla_days THEN
+            RETURN 'Timely';
+          ELSE
+            RETURN 'Untimely';
+          END IF;
+        ELSE
+          IF COALESCE(p_complete_date,sysdate) - p_create_date <= v_sla_days THEN
+            RETURN 'Timely';
+          ELSE
+            RETURN 'Untimely';
+          END IF;
+        END IF;      
+      END IF;
+   END IF;
+    
+  END GET_TIMELINESS_STATUS;
+
+
   -- Calculate column values in BPM Semantic table D_PL_CURRENT.
   procedure CALC_DPLCUR
   as
@@ -539,7 +523,7 @@ package body PROCESS_LETTERS as
     v_sql_code         number := null;
     v_num_rows_updated number := null;
   begin
-  
+
     update D_PL_CURRENT
     set
       AGE_IN_BUSINESS_DAYS = GET_AGE_IN_BUSINESS_DAYS(CREATE_DATE,COMPLETE_DATE),
@@ -552,26 +536,25 @@ package body PROCESS_LETTERS as
       SLA_JEOPARDY_DATE = GET_JEOPARDY_DATE(LETTER_TYPE,NEWBORN_FLAG,CREATE_DATE),
       SLA_JEOPARDY_DAYS = GET_JEOPARDY_DAYS(LETTER_TYPE,NEWBORN_FLAG),
       SLA_TARGET_DAYS =GET_SLA_TARGET_DAYS(LETTER_TYPE,NEWBORN_FLAG)
-    where 
-      COMPLETE_DATE is null 
+    where
+      COMPLETE_DATE is null
       and CANCEL_DATE is null;
-    
+
     v_num_rows_updated := sql%rowcount;
-    
+
     commit;
 
     v_log_message := v_num_rows_updated  || ' D_PL_CURRENT rows updated with calculated attributes by CALC_DPLCUR.';
     BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
-    
+
   exception
-  
+
     when others then
       v_sql_code := SQLCODE;
       v_log_message := SQLERRM;
       BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_SEVERE,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,v_sql_code);
 
   end;
-
 
   -- Get dimension ID for BPM Semantic model - Process Letters process - Letter_status.
   procedure GET_DPLLS_ID
@@ -641,6 +624,7 @@ package body PROCESS_LETTERS as
   begin
   
     select
+	  extractvalue(p_data_xml,'/ROWSET/ROW/AIAN_MEMBER_COUNT') "AIAN_MEMBER_COUNT", 
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_CREATE_ROUTE_WORK') "ASED_CREATE_ROUTE_WORK",
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_PROCESS_LETTER_REQ') "ASED_PROCESS_LETTER_REQ",
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_RECEIVE_CONFIRMATION') "ASED_RECEIVE_CONFIRMATION",
@@ -662,6 +646,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_BY') "CREATE_BY",
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_DT') "CREATE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/ERROR_REASON') "ERROR_REASON",
+	  EXTRACTVALUE(P_DATA_XML,'/ROWSET/ROW/FAMILY_MEMBER_COUNT') "FAMILY_MEMBER_COUNT" ,
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_OUTCOME') "GWF_OUTCOME",
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_VALID') "GWF_VALID",
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_WORK_REQUIRED') "GWF_WORK_REQUIRED",
@@ -674,6 +659,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/LETTER_RESP_FILE_NAME') "LETTER_RESP_FILE_NAME",
       extractValue(p_data_xml,'/ROWSET/ROW/LETTER_TYPE') "LETTER_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/MAILED_DT') "MAILED_DT",
+	  extractvalue(p_data_xml,'/ROWSET/ROW/MATERIAL_REQUEST_ID') "MATERIAL_REQUEST_ID" ,
       extractValue(p_data_xml,'/ROWSET/ROW/NEWBORN_FLAG') "NEWBORN_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/PRINT_DT') "PRINT_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/PROGRAM') "PROGRAM",
@@ -690,7 +676,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/TASK_ID') "TASK_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/TRANSMIT_FILE_DT') "TRANSMIT_FILE_DT",
-      extractValue(p_data_xml,'/ROWSET/ROW/TRANSMIT_FILE_NAME') "TRANSMIT_FILE_NAME",
+      EXTRACTVALUE(P_DATA_XML,'/ROWSET/ROW/TRANSMIT_FILE_NAME') "TRANSMIT_FILE_NAME",
       extractValue(p_data_xml,'/ROWSET/ROW/ZIP_CODE') "ZIP_CODE"
     into p_data_record
     from dual;
@@ -717,6 +703,7 @@ package body PROCESS_LETTERS as
   begin 
   
     select
+	  extractvalue(p_data_xml,'/ROWSET/ROW/AIAN_MEMBER_COUNT') "AIAN_MEMBER_COUNT",   
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_CREATE_ROUTE_WORK') "ASED_CREATE_ROUTE_WORK",
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_PROCESS_LETTER_REQ') "ASED_PROCESS_LETTER_REQ",
       extractValue(p_data_xml,'/ROWSET/ROW/ASED_RECEIVE_CONFIRMATION') "ASED_RECEIVE_CONFIRMATION",
@@ -737,6 +724,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_BY') "CREATE_BY",
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_DT') "CREATE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/ERROR_REASON') "ERROR_REASON",
+	  extractvalue(p_data_xml,'/ROWSET/ROW/FAMILY_MEMBER_COUNT') "FAMILY_MEMBER_COUNT" ,
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_OUTCOME') "GWF_OUTCOME",
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_VALID') "GWF_VALID",
       extractValue(p_data_xml,'/ROWSET/ROW/GWF_WORK_REQUIRED') "GWF_WORK_REQUIRED",
@@ -749,6 +737,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/LETTER_RESP_FILE_NAME') "LETTER_RESP_FILE_NAME",
       extractValue(p_data_xml,'/ROWSET/ROW/LETTER_TYPE') "LETTER_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/MAILED_DT') "MAILED_DT",
+	  extractvalue(p_data_xml,'/ROWSET/ROW/MATERIAL_REQUEST_ID') "MATERIAL_REQUEST_ID" ,
       extractValue(p_data_xml,'/ROWSET/ROW/NEWBORN_FLAG') "NEWBORN_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/PRINT_DT') "PRINT_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/PROGRAM') "PROGRAM",
@@ -766,7 +755,7 @@ package body PROCESS_LETTERS as
       extractValue(p_data_xml,'/ROWSET/ROW/TASK_ID') "TASK_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/TRANSMIT_FILE_DT') "TRANSMIT_FILE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/TRANSMIT_FILE_NAME') "TRANSMIT_FILE_NAME",
-      extractValue(p_data_xml,'/ROWSET/ROW/ZIP_CODE') "ZIP_CODE"
+      EXTRACTVALUE(P_DATA_XML,'/ROWSET/ROW/ZIP_CODE') "ZIP_CODE"
     into p_data_record
     from dual;
 
@@ -914,24 +903,16 @@ package body PROCESS_LETTERS as
      p_receive_confirm_end_date	in varchar2,
      p_create_route_work_start_date	in varchar2,
      p_create_route_work_end_date	in varchar2,
-     --p_age_in_business_days	in number,
-     --p_age_in_calendar_days	in number,
-     --p_timeliness_status	in varchar2,
-     --p_jeopardy_status	in varchar2,
-     --p_sla_category	in varchar2,
-     --p_sla_days	in number,
-     --p_sla_days_type	in varchar2,
-     --p_sla_jeopardy_date	in varchar2,
-     --p_sla_jeopardy_days	in number,
-     --p_sla_target_days 	in number,
      p_validation_flag	in varchar2,
      p_outcome_flag	in varchar2,
      p_work_required_flag	in varchar2,
      p_process_letters_flag	in varchar2,
      p_transmit_flag	in varchar2,
-     p_confirmation_flag	in varchar2,
-     p_create_route_work_flag	in varchar2
-
+     P_CONFIRMATION_FLAG	in varchar2,
+     p_create_route_work_flag	in varchar2,
+     p_material_request_id in number ,
+     P_FAMILY_MEMBER_COUNT in number ,
+     p_aian_member_count  in number
     )
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DPLCUR';
@@ -988,7 +969,7 @@ r_dplcur.AGE_IN_BUSINESS_DAYS := GET_AGE_IN_BUSINESS_DAYS(r_dplcur.CREATE_DATE,r
 r_dplcur.AGE_IN_CALENDAR_DAYS := GET_AGE_IN_CALENDAR_DAYS(r_dplcur.CREATE_DATE,r_dplcur.COMPLETE_DATE);
 r_dplcur.TIMELINESS_STATUS := GET_TIMELINESS_STATUS(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG,r_dplcur.CREATE_DATE,r_dplcur.COMPLETE_DATE);
 r_dplcur.JEOPARDY_STATUS := GET_JEOPARDY_STATUS(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG,r_dplcur.CREATE_DATE,r_dplcur.COMPLETE_DATE);
-r_dplcur.SLA_CATEGORY := GET_SLA_CATEGORY(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG);
+r_dplcur.SLA_CATEGORY :=GET_SLA_CATEGORY(r_dplcur.LETTER_TYPE, r_dplcur.NEWBORN_FLAG);
 r_dplcur.SLA_DAYS := GET_SLA_DAYS(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG);
 r_dplcur.SLA_DAYS_TYPE := GET_SLA_DAYS_TYPE(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG);
 r_dplcur.SLA_JEOPARDY_DATE  :=  GET_JEOPARDY_DATE(r_dplcur.LETTER_TYPE,r_dplcur.NEWBORN_FLAG,r_dplcur.CREATE_DATE);
@@ -1001,6 +982,9 @@ r_dplcur.PROCESS_LETTERS_FLAG := p_process_letters_flag;
 r_dplcur.TRANSMIT_FLAG := p_transmit_flag;
 r_dplcur.CONFIRMATION_FLAG := p_confirmation_flag;
 r_dplcur.CREATE_ROUTE_WORK_FLAG := p_create_route_work_flag;
+r_dplcur.MATERIAL_REQUEST_ID := p_material_request_id;
+R_DPLCUR.FAMILY_MEMBER_COUNT := P_FAMILY_MEMBER_COUNT;
+r_dplcur.AIAN_MEMBER_COUNT := p_aian_member_count ;
       
     if p_set_type = 'INSERT' then
       insert into D_PL_CURRENT
@@ -1119,7 +1103,10 @@ r_dplcur.CREATE_ROUTE_WORK_FLAG := p_create_route_work_flag;
          v_new_data.ASF_PROCESS_LETTER_REQ,
          v_new_data.ASF_TRANSMIT,
          v_new_data.ASF_RECEIVE_CONFIRMATION,
-         v_new_data.ASF_CREATE_ROUTE_WORK
+         V_NEW_DATA.ASF_CREATE_ROUTE_WORK,
+         V_NEW_DATA.MATERIAL_REQUEST_ID, 
+         v_new_data.FAMILY_MEMBER_COUNT ,
+         v_new_data.AIAN_MEMBER_COUNT    
          
         ); 
         
@@ -1437,7 +1424,10 @@ r_dplcur.CREATE_ROUTE_WORK_FLAG := p_create_route_work_flag;
          v_new_data.ASF_PROCESS_LETTER_REQ,
          v_new_data.ASF_TRANSMIT,
          v_new_data.ASF_RECEIVE_CONFIRMATION,
-         v_new_data.ASF_CREATE_ROUTE_WORK
+         v_new_data.ASF_CREATE_ROUTE_WORK,
+         V_NEW_DATA.MATERIAL_REQUEST_ID, 
+         V_NEW_DATA.FAMILY_MEMBER_COUNT ,
+         v_new_data.AIAN_MEMBER_COUNT 
         );
         
       UPD_FPLBD

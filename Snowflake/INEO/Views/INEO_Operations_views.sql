@@ -1,0 +1,17 @@
+use schema ineo;
+CREATE OR REPLACE VIEW INEO_D_CALLER_ESCALATIONS_SV
+AS
+SELECT * FROM ineo.ineo_caller_escalations;
+
+CREATE OR REPLACE VIEW INEO_D_CALLER_ESCALATIONS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_caller_escalations_history;
+
+CREATE OR REPLACE VIEW INEO_D_CLIENT_COMPLAINTS_SV
+AS
+SELECT * FROM ineo.ineo_client_complaints;
+
+CREATE OR REPLACE VIEW INEO_D_CLIENT_COMPLAINTS_HISTORY_SV
+AS
+SELECT * FROM ineo.ineo_client_complaints_history;
+

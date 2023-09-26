@@ -402,14 +402,14 @@ FUNCTION GET_REVIEW_TIMELINESS_STATUS(
 IS
 v_threshold_days number;
 begin
-select out_var 
-into 
-v_threshold_days
-from 
-corp_etl_list_lkup B
-where  REF_TYPE = 'COMM_OUTREACH'
-AND NAME = 'CommumityORCH_Threshold'
-and ref_id = 1;
+
+select /*+ RESULT_CACHE +*/ OUT_VAR 
+into v_threshold_days
+from CORP_ETL_LIST_LKUP
+where  
+  REF_TYPE = 'COMM_OUTREACH'
+  and NAME = 'CommumityORCH_Threshold'
+  and REF_ID = 1;
 
 if p_ased_review_event is null then
 return 'Not Complete';
@@ -432,14 +432,14 @@ FUNCTION GET_PUB_TO_CAL_TIMELINESS_STAT(
 IS
 v_threshold_days number;
 begin
-select out_var 
-into 
-v_threshold_days
-from 
-corp_etl_list_lkup B
-where  REF_TYPE = 'COMM_OUTREACH'
-AND NAME = 'CommumityORCH_Threshold'
-and ref_id = 2;
+
+select /*+ RESULT_CACHE +*/ OUT_VAR 
+into v_threshold_days
+from CORP_ETL_LIST_LKUP
+where 
+  REF_TYPE = 'COMM_OUTREACH'
+  and NAME = 'CommumityORCH_Threshold'
+  and REF_ID = 2;
 
 if p_ASeD_WAIT_FOR_EVENT is null then
 return 'Not Complete';
@@ -461,14 +461,14 @@ FUNCTION GET_RECORD_OUTCOME_TIME_STAT(
 IS
 v_threshold_days number;
 begin
-select out_var 
-into 
-v_threshold_days
-from 
-corp_etl_list_lkup B
-where  REF_TYPE = 'COMM_OUTREACH'
-AND NAME = 'CommumityORCH_Threshold'
-and ref_id = 3;
+
+select /*+ RESULT_CACHE +*/ OUT_VAR 
+into v_threshold_days
+from CORP_ETL_LIST_LKUP
+where  
+  REF_TYPE = 'COMM_OUTREACH'
+  and NAME = 'CommumityORCH_Threshold'
+  and REF_ID = 3;
 
 if p_ased_record_outcome is null then
 return 'Not Complete';

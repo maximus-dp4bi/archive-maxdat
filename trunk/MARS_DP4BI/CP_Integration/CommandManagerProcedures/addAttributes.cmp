@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<PROCEDURE_DEFINITION>
+<DESCRIPTION/>
+<CODE>/*&#13;
+ * Procedure to include / update the attributes of the tables&#13;
+ * inputs: projectName&#13;
+*/&#13;
+&#13;
+// Local Variables&#13;
+String command = "";                // command manager command&#13;
+String  tName = "";                   // table name&#13;
+String foName = "";                  // folder name&#13;
+String attName = "";                // attribute name&#13;
+String colName = "";                   // column name&#13;
+String colDatatype = "";             // column datatype&#13;
+String parName = "";                 // candidate parent name&#13;
+String parPath = "";                  // candidate parent path&#13;
+String attPrefix = "";                // attribute prefix &#13;
+String attPrefix2 = "";              // attribute prefix first 2 char (used when the table has only one name&#13;
+String[] fnParts = null;            // folder name parts&#13;
+String[] attParts = null;           // attribute name parts&#13;
+&#13;
+ResultSet folder = null;            // List of folders in \Schema Objects\Attributes&#13;
+ResultSet tables = null;           // List of the project's tables&#13;
+ResultSet table = null;            // List of the table's properties&#13;
+ResultSet tColumns = null;     // List of the table's columns (name, dataype)&#13;
+ResultSet attribute = null;     // List of the attribute's properties&#13;
+ResultSet attParents = null;  // List of the attribute's parents candidates&#13;
+&#13;
+// Retrieve all project tables&#13;
+tables = executeCapture("LIST ALL TABLES FOR PROJECT '" + projectName + "';");&#13;
+&#13;
+// Start the cursor&#13;
+tables.moveFirst();&#13;
+&#13;
+// While there are tables&#13;
+while (!tables.isEof()) {&#13;
+&#13;
+	//Reset foName, attPrefix, attPrefix2&#13;
+	foName = "";&#13;
+	attPrefix = "";&#13;
+	attPrefix2 = "";&#13;
+&#13;
+	// Retrieve the table name&#13;
+//	tName = "MARS_ADDRESS_EVENTS";&#13;
+	tName = tables.getFieldValueString(DisplayPropertyEnum.NAME);&#13;
+	printOut(tName);&#13;
+	&#13;
+	// Creates the folder name&#13;
+	fnParts = tName.split("_");&#13;
+	for(int i = 0; i &lt; fnParts.length; i++) {&#13;
+		if (!fnParts[i].equals("MARS") &amp;&amp; !fnParts[i].equals("EVENTS")) {&#13;
+			foName += fnParts[i].charAt(0) + fnParts[i].substring(1).toLowerCase() + " ";&#13;
+			attPrefix += fnParts[i].charAt(0);&#13;
+			attPrefix2 = fnParts[i].substring(0,2);&#13;
+		}&#13;
+	}&#13;
+&#13;
+	//Remove end spaces&#13;
+	foName = foName.trim();&#13;
+&#13;
+	if(foName.trim().split(" ").length == 1) {&#13;
+		attPrefix = attPrefix2;&#13;
+	}&#13;
+&#13;
+&#13;
+	printOut(foName + ";" + attPrefix);&#13;
+&#13;
+	//Verifies if the folder name is valid &#13;
+	if (foName.length() &gt; 0) {&#13;
+&#13;
+		command = "LIST ALL PROPERTIES FOR FOLDER '" + foName +  "' IN '\\Schema Objects\\Attributes' FOR PROJECT '"  + projectName + "';";&#13;
+		folder = executeCapture(command);&#13;
+		if(folder.getRowCount() ==0) { // Create Folder if necessary&#13;
+			command = "CREATE FOLDER '" + foName +  "' IN '\\Schema Objects\\Attributes' HIDDEN FALSE FOR PROJECT '"  + projectName + "';";&#13;
+			execute(command);&#13;
+&#13;
+		}&#13;
+		&#13;
+&#13;
+		// Retrieve table Columns&#13;
+		command = "LIST ALL PROPERTIES FOR TABLE '" + tName + "' FOR PROJECT '" + projectName + "';";&#13;
+		table = executeCapture(command);&#13;
+&#13;
+		// Start the cursor&#13;
+		table.moveFirst();&#13;
+&#13;
+		// For to retrieve the columns names and indexes&#13;
+		//for (int i = 0; i &lt; table.getColumnCount(); i++) {&#13;
+		//	String tpName = table.getResultCell (i).getName();&#13;
+		//	Object o = table.getFieldValue(i);&#13;
+		//	printOut(i + ":" + tpName);&#13;
+		//}&#13;
+	&#13;
+		// ResultSet Columns (DisplayPropertyEnum is not well documented, so I'm using the index to retrieve the required information&#13;
+		// 0:Name&#13;
+		// 1:ID&#13;
+		// 2:Description&#13;
+		// 3:Long Description&#13;
+		// 4:Creation Time&#13;
+		// 5:Modification Time&#13;
+		// 6:Owner&#13;
+		// 7:Hidden&#13;
+		// 8:Warehouse Table Name&#13;
+		// 9:Table Logical View&#13;
+		// 10:Table Physical View	&#13;
+		tColumns = (ResultSet)table.getResultCell(10).getValue();&#13;
+&#13;
+		// Start the cursor&#13;
+		tColumns.moveFirst();&#13;
+&#13;
+		// While there are columns&#13;
+		while (!tColumns.isEof()) {	&#13;
+&#13;
+			//Reset foName, attPrefix, attPrefix2&#13;
+			attName = "";&#13;
+&#13;
+			// ResultSet Columns (DisplayPropertyEnum is not well documented, so I'm using the index to retrieve the required information&#13;
+			// 0:Column&#13;
+			// 1:Column Data Type&#13;
+			colName = (String)tColumns.getResultCell (0).getValue();&#13;
+			colDatatype = (String)tColumns.getResultCell (1).getValue();&#13;
+&#13;
+			printOut(colName + "        " + colDatatype);&#13;
+&#13;
+			// Creates the attribute name&#13;
+			attParts = colName.split("_");&#13;
+			for(int i = 0; i &lt; attParts.length; i++) {&#13;
+				if (!attParts[i].equals("ID")) {&#13;
+					attName += attParts[i].charAt(0) + attParts[i].substring(1).toLowerCase() + " ";&#13;
+				}&#13;
+				else {&#13;
+					attName += attParts[i] + " ";&#13;
+				}&#13;
+			}	&#13;
+		&#13;
+			// Include prefix and remove end spaces&#13;
+			attName = attPrefix + " - " + attName.trim();&#13;
+	&#13;
+			printOut(attName);&#13;
+&#13;
+			// Verifies if the attribute exists&#13;
+			command = "LIST ALL PROPERTIES FOR ATTRIBUTE '" + attName +  "' IN FOLDER '\\Schema Objects\\Attributes\\" + foName + "' FOR PROJECT '"  + projectName + "';";&#13;
+			attribute = executeCapture(command);&#13;
+			if(attribute.getRowCount() ==0) { // Create attribute&#13;
+				command = "CREATE ATTRIBUTE '" + attName +  "' IN FOLDER '\\Schema Objects\\Attributes\\" + foName + "' ATTRIBUTEFORM \"ID\" FORMCATEGORY \"ID\" EXPRESSION '[" + colName + "]' MAPPINGMODE AUTOMATIC LOOKUPTABLE '" + tName + "' FOR PROJECT '"  + projectName + "';";&#13;
+				execute(command);&#13;
+			}&#13;
+&#13;
+			// Next record&#13;
+			tColumns.moveNext();&#13;
+		&#13;
+		}&#13;
+&#13;
+		// Get parents candidates for the Table ID attribute (assuming the primary key of the table is name without MARS and EVENTS underline ID. Ex.: MARS_ADDRESS_EVENTS -&gt; PK = ADDRESS_ID -&gt; Attribute name = AD - Address ID)&#13;
+		command = "GET PARENT CANDIDATES FOR ATTRIBUTE '" + attPrefix + " - " + foName + " ID" +  "' IN FOLDER '\\Schema Objects\\Attributes\\" + foName + "' FOR PROJECT '"  + projectName + "';";&#13;
+		attParents = executeCapture(command);&#13;
+&#13;
+		if(attParents.getRowCount() &gt;= 0) { // has available parents&#13;
+&#13;
+			// Start the cursor&#13;
+			attParents.moveFirst();&#13;
+&#13;
+			while (!attParents.isEof()) {	&#13;
+&#13;
+				parName = (String)attParents.getResultCell (0).getValue();	&#13;
+				parPath = (String)attParents.getResultCell (1).getValue();	&#13;
+&#13;
+				// Add the parents&#13;
+				command = "ADD ATTRIBUTEPARENT '" + parName + "' IN FOLDER '" + parPath + "' RELATIONSHIPTYPE MANYTOONE TO ATTRIBUTE '" + attPrefix + " - " + foName + " ID" + "' IN FOLDER '\\Schema Objects\\Attributes\\" + foName + "' FOR PROJECT '"  + projectName + "';";&#13;
+				execute	(command);&#13;
+&#13;
+				// Next record&#13;
+				attParents.moveNext();&#13;
+&#13;
+			}&#13;
+&#13;
+		}&#13;
+&#13;
+	}&#13;
+&#13;
+	printOut("    ");&#13;
+	printOut("    ");&#13;
+&#13;
+	// Next record&#13;
+	tables.moveNext();&#13;
+&#13;
+}&#13;
+&#13;
+// Update the schema after all changes&#13;
+execute("UPDATE SCHEMA REFRESHSCHEMA RECALTABLEKEYS RECALTABLELOGICAL FOR PROJECT '" + projectName + "';");&#13;
+</CODE>
+<SAMPLE/>
+<VERSION/>
+<TYPE>CUSTOM</TYPE>
+<INPUT_PARAMS>
+<INPUT INPUT_TYPE="STRING">projectName</INPUT>
+</INPUT_PARAMS>
+<CLASSPATH/>
+<TEST_INPUT>
+<TEST_INPUT_PARAM>Decision Point MARS CRM Product DEV</TEST_INPUT_PARAM>
+</TEST_INPUT>
+<TEST_CONNECTION_INFO>
+<TEST_PSN_NAME>Decision Point Development</TEST_PSN_NAME>
+<TEST_USERNAME/>
+<TEST_PASSWORD>00000000453ec11a5ae5e97cb1fe638b94860d28c911585ab4fc4c77d5b77ded</TEST_PASSWORD>
+</TEST_CONNECTION_INFO>
+</PROCEDURE_DEFINITION>

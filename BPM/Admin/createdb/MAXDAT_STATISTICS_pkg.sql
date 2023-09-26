@@ -1,6 +1,13 @@
 alter session set plsql_code_type = native;
 
 create or replace package MAXDAT_STATISTICS is
+
+  -- Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+  SVN_FILE_URL varchar2(200) := '$URL$'; 
+  SVN_REVISION varchar2(20) := '$Revision$'; 
+  SVN_REVISION_DATE varchar2(60) := '$Date$'; 
+  SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
+  
 /*=================================================================================
 ||Purpose : This package is to insert and update statistics on MAXDAT tables only.  
 ||          There are 3 calls: 1)A call to do all the tables that are flagged in the lookup,

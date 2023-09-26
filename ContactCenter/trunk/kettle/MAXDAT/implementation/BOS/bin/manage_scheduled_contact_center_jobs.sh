@@ -1,6 +1,6 @@
 #!/bin/bash
 . ~/.bash_profile
-source $BOS_SETENV
+source $MD_SETENV
 # Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN
 #    and used later to identify deployed code. 
 # $URL: svn://rcmxapp1d.maximus.com/maxdat/ContactCenter/trunk/kettle/MAXDAT/main/bin/manage_scheduled_contact_center_jobs.sh $

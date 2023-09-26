@@ -87,8 +87,8 @@ SVN_REVISION_AUTHOR = $Author$
 </note>
       <xloc>68</xloc>
       <yloc>521</yloc>
-      <width>651</width>
-      <heigth>25</heigth>
+      <width>849</width>
+      <heigth>30</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>
@@ -703,7 +703,7 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OLTP_SOURCE</connection>
+    <connection>MAXDAT</connection>
     <sql>SELECT	
 		dn.DCN		 						DCN
 	,	dn.DCN								KOFAX_DCN
@@ -723,7 +723,7 @@ var ERROR_DESC_MOD = &quot;DCN = &quot;+DCN+&quot;,ERROR_DESC=&quot;.concat(ERRO
 	,	&apos;0&apos;			 						PAGE_COUNT
 	,	NVL(dn.CREATED_TS,sysdate)			ASSD_DATA_ENTRY
 	
-FROM 		DOCUMENT_NOTIFICATION dn
+FROM 		DOCUMENT_NOTIFICATION_STG dn
 WHERE dn.CREATED_TS &gt; sysdate - ${DOC_LOOK_BACK_DAYS}
 and dn.DCN like &apos;U%&apos;
 

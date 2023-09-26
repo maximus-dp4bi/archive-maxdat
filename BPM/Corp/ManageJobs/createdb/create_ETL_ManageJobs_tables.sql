@@ -53,7 +53,6 @@ alter table CORP_ETL_MANAGE_JOBS_PK add constraint CORP_ETL_MANAGE_JOBS_PK prima
 
 create unique index CORP_ETL_MANAGE_JOBS_UIX1 on CORP_ETL_MANAGE_JOBS(CEMFR_ID,JOB_ID) tablespace MAXDAT_INDX;
 
-create or replace public synonym CORP_ETL_MANAGE_JOBS for CORP_ETL_MANAGE_JOBS;
 grant select on CORP_ETL_MANAGE_JOBS to MAXDAT_READ_ONLY;
 
 
@@ -114,7 +113,6 @@ alter table CORP_ETL_MANAGE_JOBS_OLTP add constraint CORP_ETL_MANAGE_JOBS_OLTP_P
 
 create unique index CORP_ETL_MANAGE_JOBS_OLTP_UIX1 on CORP_ETL_MANAGE_JOBS_OLTP (CEMFR_ID,JOB_ID) tablespace MAXDAT_INDX; 
 
-create or replace public synonym CORP_ETL_MANAGE_JOBS_OLTP for CORP_ETL_MANAGE_JOBS_OLTP;
 grant select on CORP_ETL_MANAGE_JOBS_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -172,8 +170,8 @@ tablespace MAXDAT_DATA;
    
 alter table CORP_ETL_MANAGE_JOBS_WIP add constraint CORP_ETL_MANAGE_JOBS_WIP_PK primary key (CEMFR_ID) using index tablespace MAXDAT_INDX;
    
-create or replace public synonym CORP_ETL_MANAGE_JOBS_WIP_BPM for CORP_ETL_MANAGE_JOBS_WIP_BPM;
 grant select on CORP_ETL_MANAGE_JOBS_WIP_BPM to MAXDAT_READ_ONLY;
+
 
 create table CORP_MJ_ETL_FILE_LKUP
   (FILE_NAME varchar2(50),
@@ -189,8 +187,8 @@ tablespace MAXDAT_DATA;
 
 create unique index CORP_MJ_ETL_FILE_LKUP_UX1 on CORP_MJ_ETL_FILE_LKUP (FILE_NAME) tablespace MAXDAT_DATA;
 
-create or replace public synonym CORP_MJ_ETL_FILE_LKUP for CORP_MJ_ETL_FILE_LKUP;
 grant select on CORP_MJ_ETL_FILE_LKUP to MAXDAT_READ_ONLY;
+
 
 create table CORP_MJ_FILE_CAL_LKUP
   (FILE_NAME varchar2(50),
@@ -205,7 +203,6 @@ tablespace MAXDAT_DATA;
 
 create unique index CORP_MJ_FILE_CAL_LKUP_UX1 on CORP_MJ_FILE_CAL_LKUP (FILE_NAME) tablespace MAXDAT_INDX;
 
-create or replace public synonym CORP_MJ_FILE_CAL_LKUP for CORP_MJ_FILE_CAL_LKUP;
 grant select on CORP_MJ_FILE_CAL_LKUP to MAXDAT_READ_ONLY;
 
 

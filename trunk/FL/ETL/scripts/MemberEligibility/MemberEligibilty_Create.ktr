@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibilty_Create</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -120,7 +133,48 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Insert Member_eligibility</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>error log - join dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility determination</from><to>error log - elig determination</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>error log - Join health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>error log - join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility results</from><to>error  log - elig results</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility determination</from><to>join eligibility results</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>error log - join application</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Eligibility</from><to>Join income</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>Join relationship </to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>Join childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Join childcare expense</from><to>Join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join childcare expense</from><to>error log - childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>error log - relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>error log - income</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Insert Member_eligibility</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>join application</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>join account</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>error log - join account</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>Join Eligibility determination</to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility results</from><to>Sort rows</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Insert Member_eligibility</from><to>Table output OLTP - error</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>error log - join dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility determination</from><to>error log - elig determination</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>error log - Join health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>error log - join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility results</from><to>error  log - elig results</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Eligibility</from><to>Join income</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>Join relationship </to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>Join childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Join childcare expense</from><to>Join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join childcare expense</from><to>error log - childcare expense</to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>error log - relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>error log - income</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>join account</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>error log - join account</to><enabled>Y</enabled> </hop>  <hop> <from>If elig_status is null</from><to>Insert Member_eligibility</to><enabled>Y</enabled> </hop>  <hop> <from>join eligibility results</from><to>Join Eligibility determination</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility determination</from><to>If elig_status is null</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>join eligibility results</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>If elig_status is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>PROGRAM</name>
+        <value>HK</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ELIG_STATUS</name>
+        <value>PENDING</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ELIG_STATUS_DATE</name>
+        <value>2013&#47;10&#47;13</value>
+        <mask>yyyy&#47;MM&#47;dd</mask>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>350</xloc>
+      <yloc>570</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Insert Member_eligibility</name>
     <type>TableOutput</type>
@@ -134,7 +188,7 @@
     <connection>MAXDAT</connection>
     <schema/>
     <table>FLHK_ETL_MEMBER_ELIGIBILITY</table>
-    <commit>100</commit>
+    <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>N</use_batch>
@@ -369,11 +423,15 @@
           <column_name>VOLUNTARY_CANCEL_ANSWER</column_name>
           <stream_name>VOLUNTARY_CANCEL_ANSWER</stream_name>
         </field>
+        <field>
+          <column_name>ELIG_TYPE</column_name>
+          <stream_name>ELIG_TYPE</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>560</yloc>
+      <xloc>200</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -404,8 +462,8 @@ WHERE  AME.ACCOUNT_MEMBERSHIP_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>80</yloc>
+      <xloc>900</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -443,8 +501,8 @@ order by max(er.eligibility_result_id) desc
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>680</xloc>
-      <yloc>560</yloc>
+      <xloc>510</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -477,8 +535,8 @@ WHERE  HPA.ACCOUNT_MEMBERSHIP_ID  = ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1100</xloc>
-      <yloc>170</yloc>
+      <xloc>1010</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -510,8 +568,8 @@ group by  person_number </sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>550</xloc>
-      <yloc>80</yloc>
+      <xloc>490</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -546,8 +604,8 @@ group by i.account_membership_id, verification_status
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>230</xloc>
-      <yloc>80</yloc>
+      <xloc>200</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -579,8 +637,8 @@ where INS.ACCOUNT_MEMBERSHIP_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
-      <yloc>80</yloc>
+      <xloc>650</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -612,7 +670,7 @@ LEFT JOIN PERSON_RELATIONSHIP prChildParent2
   JOIN PERSON pParent2 ON prChildParent2.RELATED_TO_PERSON_ID  = pParent2.PERSON_ID
   JOIN ACCOUNT_MEMBERSHIP amParent2 ON pParent2.PERSON_ID = amParent2.PERSON_ID AND am2.ACCOUNT_ID = amParent2.ACCOUNT_ID AND amParent2.PARENT_TYPE = &apos;PARENT2&apos;
 ON prChildParent1.PERSON_ID = prChildParent2.PERSON_ID
-WHERE amChild.CHILD_FLAG = 1
+WHERE amChild.APPLYING_FOR_BENEFITS_IND = 1
 and amChild.ACCOUNT_MEMBERSHIP_ID = ?
 ORDER BY amChild.ACCOUNT_ID</sql>
     <outer_join>Y</outer_join>
@@ -625,40 +683,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>%%java.io.tmpdir%%</directory>
-      <prefix>out</prefix>
-      <sort_size>10000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>COV_RQST_ID</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>360</xloc>
-      <yloc>560</yloc>
+      <xloc>340</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -684,17 +710,18 @@ ORDER BY amChild.ACCOUNT_ID</sql>
        p.race_1                                                      RACE_1,
        p.race_2                                                      RACE_2,
        p.ethnicity                                                   ETHNICITY,
+       cr.application_id                                             APPLICATION_ID,
        decode(p.limited_in_any_way_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             LIMITED_IN_ANY_WAY,
        decode(p.needs_special_therapy_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)          NEEDS_SPECIAL_THERAPY,
        decode(p.uses_more_med_care_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             USES_MORE_MED_CARE,
-       decode(am.cms_opt_out_flag, &apos;0&apos;,&apos;In&apos;,&apos;1&apos;,&apos;Out&apos;)               CMSN_OPT_ANSWER,
+       decode(am.cms_opt_out_flag, &apos;1&apos;,&apos;In&apos;,&apos;0&apos;,&apos;Out&apos;)               CMSN_OPT_ANSWER,
        decode(p.citizenship_verified_type, 
                  NULL, &apos;N&apos;, 
                 &apos;CITIZEN&apos;,&apos;Y&apos;,
                 &apos;QUALIFIED_NON_CITIZEN&apos;,&apos;Y&apos;,
                 &apos;NOT_QUALIFIED_NON_CITIZEN&apos;,&apos;Y&apos;,
                 &apos;QUALIFIED_NON_CITIZEN_LPR&apos;,&apos;Y&apos;)                     CITIZENSHIP_VERIFIED,
-       nvl(p.citizenship_verified_date,&apos;01-JAN-1900&apos;)                CITIZENSHIP_VERIF_DATE,
+       p.citizenship_verified_date                                   CITIZENSHIP_VERIF_DATE,
        p.citizenship_verified_source                                 CITIZENSHIP_VERIF_SOURCE_DOC,
        p.citiz_verif_insuff_reason                                   CITIZENSHIP_INSUFF_REASON,
        decode(p.identity_verified_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             IDENTITY_VERIFIED,
@@ -703,27 +730,22 @@ ORDER BY amChild.ACCOUNT_ID</sql>
        p.ident_verif_insuff_reason                                   IDENTITY_INSUFF_REASON,
        decode(p.tribal_mbrshp_verif_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)           TRIBAL_MBRSHIP_VERIFIED,
        p.tribal_verif_insuff_reason                                  TRIBAL_MBRSHIP_INSUFF_REASON,
-       nvl(cr.coverage_request_status_date,&apos;03-OCT-2013&apos;)            PRE_ELIG_RUN_DATE,
+       cr.coverage_request_status_date                               PRE_ELIG_RUN_DATE,
        cr.insert_date                                                ASSD_COV_REQ,  --- INS1_20
+       cr.request_type                                               ELIG_TYPE,
        &apos;N&apos;                                                        as AGENCY_MATCH,
-       to_date(&apos;03-OCT-2013&apos;)                                     as AGENCY_MATCH_DATE,
-       to_date(&apos;03-OCT-2013&apos;)                                     as ELIG_STATUS_DATE,
        sysdate                                                    as stg_extract_date,
-	     &apos;ACTIVE&apos;                                                 as INSTANCE_STATUS,
+	   &apos;ACTIVE&apos;                                                   as INSTANCE_STATUS,
        &apos;Member Eligibility&apos;                                       as process_name,
        &apos;Member Eligibility Create&apos;                                as job_name,
         cr.coverage_request_id                                    as driver_key_number, 
         sysdate                                                   as system_date,
        &apos;FLHK_ETL_MEMBER_ELIGIBILITY&apos;                              as driver_table_name,
-       &apos;CRITICAL&apos;                                                 as ERROR_LEVEL,
-       &apos;PENDING&apos;                                                  as ELIG_STATUS,
-       &apos;TBD&apos;                                                      as PROGRAM
+       &apos;CRITICAL&apos;                                                 as ERROR_LEVEL
 from coverage_request cr
 join account_membership am  on cr.account_membership_id = am.account_membership_id
 join person p               on p.person_id = am.person_id
-where cr.coverage_request_id &gt; ${MAX_COV_RQST_ID}
-and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != &apos;CLOSED&apos;) 
- OR (cr.insert_user != &apos;CONVERSION&apos;))
+where  cr.coverage_request_id &gt; ${MAX_COV_RQST_ID}
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -732,8 +754,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>90</xloc>
-      <yloc>80</yloc>
+      <xloc>70</xloc>
+      <yloc>120</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -817,8 +839,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>220</xloc>
-      <yloc>350</yloc>
+      <xloc>200</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -902,8 +924,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>510</xloc>
-      <yloc>400</yloc>
+      <xloc>690</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -987,8 +1009,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>930</xloc>
-      <yloc>240</yloc>
+      <xloc>840</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1072,8 +1094,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>550</xloc>
-      <yloc>220</yloc>
+      <xloc>490</xloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1157,8 +1179,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>680</xloc>
-      <yloc>390</yloc>
+      <xloc>510</xloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1242,8 +1264,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>230</xloc>
-      <yloc>230</yloc>
+      <xloc>200</xloc>
+      <yloc>260</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1327,92 +1349,7 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>940</xloc>
-      <yloc>330</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error log - join application</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>error_description</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>number_of_errors</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>850</xloc>
+      <xloc>840</xloc>
       <yloc>410</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1498,7 +1435,7 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>820</xloc>
-      <yloc>210</yloc>
+      <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1582,8 +1519,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>710</xloc>
-      <yloc>240</yloc>
+      <xloc>650</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1667,8 +1604,8 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>390</xloc>
-      <yloc>240</yloc>
+      <xloc>340</xloc>
+      <yloc>270</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1689,7 +1626,7 @@ and ((cr.insert_user = &apos;CONVERSION&apos; and cr.coverage_request_status != 
        nvl(a.account_number,0)                                       ACCOUNT_NUMBER,
        to_char(a.account_id, &apos;999999999999&apos;)                         DRIVER_KEY,
        nvl(a.pregnancy_due_date, &apos;01-JAN-1900&apos;)                      UNBORN_CHILD_DUE_DATE,
-       nvl(aci.mailing_postal_code,0)               MEMBER_ZIP_CODE,
+       aci.mailing_postal_code               MEMBER_ZIP_CODE,
        aci.mailing_county                    COUNTY,
        aci.mailing_state                     MEMBER_STATE   
 from account a     
@@ -1706,39 +1643,8 @@ where am.account_membership_id = ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1100</xloc>
-      <yloc>450</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join application</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select max(ap.application_id)                                     APPLICATION_ID
-from    application ap         
-where account_id = ?</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>890</xloc>
-      <yloc>560</yloc>
+      <xloc>910</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1763,7 +1669,8 @@ where account_id = ?</sql>
        CASE WHEN SCHIP_STATUS = &apos;PENDING&apos; THEN ESR.STATUS_REASON 
              ELSE NULL
        END                                                           PENDING_REASON,
-       ESR.INSERT_DATE                                               PENDING_REASON_DATE,
+       CASE WHEN SCHIP_STATUS = &apos;PENDING&apos; THEN ESR.INSERT_DATE   
+       END                                                           PENDING_REASON_DATE,
        CASE WHEN SCHIP_STATUS = &apos;NOT_ELIGIBLE&apos; THEN ESR.STATUS_REASON
             ELSE NULL
        END                                                           NOT_ELIG_REASON,
@@ -1785,8 +1692,8 @@ order by er.ELIGIBILITY_RESULT_ID desc</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>510</xloc>
-      <yloc>560</yloc>
+      <xloc>690</xloc>
+      <yloc>570</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1894,18 +1801,6 @@ order by er.ELIGIBILITY_RESULT_ID desc</sql>
         <is_enabled>Y</is_enabled>
         <nr_valuename>number_of_errors</nr_valuename>
         <descriptions_valuename>error_descriptions</descriptions_valuename>
-        <fields_valuename>error_fields</fields_valuename>
-        <codes_valuename>error_codes</codes_valuename>
-        <max_errors>1000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join application</source_step>
-        <target_step>error log - join application</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>number_of_errors</nr_valuename>
-        <descriptions_valuename>error_description</descriptions_valuename>
         <fields_valuename>error_fields</fields_valuename>
         <codes_valuename>error_codes</codes_valuename>
         <max_errors>1000</max_errors>

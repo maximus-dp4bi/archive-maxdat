@@ -47,8 +47,8 @@ SVN_REVISION_AUTHOR = $Author$
     <name>MAXDAT</name>
     <server>${DB_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
     <port>${DB_MAXDAT_PORT}</port>
     <username>${DB_MAXDAT_USER}</username>
     <password>${DB_MAXDAT_PASSWORD}</password>
@@ -67,7 +67,9 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -89,14 +91,16 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
       <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
       <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
       <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${MAXDAT_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
     </attributes>
@@ -215,8 +219,8 @@ SVN_REVISION_AUTHOR = $Author$
     <name>OLTP_SOURCE</name>
     <server>${DB_OLTP_HOSTNAME}</server>
     <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_OLTP_NAME}</database>
+    <access>JNDI</access>
+    <database>${JNDI_OLTP_SOURCE}</database>
     <port>${DB_OLTP_PORT}</port>
     <username>${DB_OLTP_USER}</username>
     <password>${DB_OLTP_PASSWORD}</password>
@@ -225,9 +229,10 @@ SVN_REVISION_AUTHOR = $Author$
     <index_tablespace/>
     <attributes>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>Y</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${OLTP_DB_SCHEMA}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -250,6 +255,29 @@ SVN_REVISION_AUTHOR = $Author$
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
       <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>WFM</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_WFM_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -294,8 +322,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>41</xloc>
-      <yloc>40</yloc>
+      <xloc>37</xloc>
+      <yloc>170</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -304,8 +332,8 @@ SVN_REVISION_AUTHOR = $Author$
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>892</xloc>
-      <yloc>220</yloc>
+      <xloc>740</xloc>
+      <yloc>276</yloc>
       </entry>
     <entry>
       <name>Trans UPD_STAFF_STG</name>
@@ -336,8 +364,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>190</xloc>
-      <yloc>40</yloc>
+      <xloc>144</xloc>
+      <yloc>69</yloc>
       </entry>
     <entry>
       <name>Trans UPD_STEPDEF_STG</name>
@@ -368,8 +396,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>190</xloc>
-      <yloc>128</yloc>
+      <xloc>198</xloc>
+      <yloc>265</yloc>
       </entry>
     <entry>
       <name>Trans UPD_GROUPS_STG</name>
@@ -400,8 +428,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>190</xloc>
-      <yloc>220</yloc>
+      <xloc>341</xloc>
+      <yloc>72</yloc>
       </entry>
     <entry>
       <name>UPD_HOLIDAYS_STG</name>
@@ -432,8 +460,8 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>411</xloc>
-      <yloc>220</yloc>
+      <xloc>447</xloc>
+      <yloc>271</yloc>
       </entry>
     <entry>
       <name>Load ENUM_ENROLLMENT_TRANS_SOURCE</name>
@@ -464,8 +492,40 @@ SVN_REVISION_AUTHOR = $Author$
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>644</xloc>
-      <yloc>221</yloc>
+      <xloc>609</xloc>
+      <yloc>73</yloc>
+      </entry>
+    <entry>
+      <name>DEL_HOLIDAYS_STG</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;DEL_HOLIDAYS_STG.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>536</xloc>
+      <yloc>168</yloc>
       </entry>
   </entries>
   <hops>
@@ -516,6 +576,15 @@ SVN_REVISION_AUTHOR = $Author$
     </hop>
     <hop>
       <from>UPD_HOLIDAYS_STG</from>
+      <to>DEL_HOLIDAYS_STG</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>DEL_HOLIDAYS_STG</from>
       <to>Load ENUM_ENROLLMENT_TRANS_SOURCE</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -526,13 +595,13 @@ SVN_REVISION_AUTHOR = $Author$
   </hops>
   <notepads>
     <notepad>
-      <note>This Job will start all Transforamtions that  load the stage Lookup tables  from OLTP</note>
-      <xloc>331</xloc>
-      <yloc>287</yloc>
-      <width>493</width>
-      <heigth>26</heigth>
-      <fontname/>
-      <fontsize>-1</fontsize>
+      <note>This Job will start all Transformations that load the stage Lookup tables from OLTP.</note>
+      <xloc>101</xloc>
+      <yloc>534</yloc>
+      <width>490</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
       <fontbold>N</fontbold>
       <fontitalic>N</fontitalic>
       <fontcolorred>0</fontcolorred>

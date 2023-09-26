@@ -13,22 +13,22 @@ create or replace package NYEC_PROCESS_APP as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
      
   function GET_APP_CYCLE_BUS_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
   
   function GET_APP_CYCLE_CAL_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number;  
+    return number parallel_enable;  
   
   function GET_JEOPARDY_FLAG
     (p_receipt_date in date,  
@@ -36,18 +36,18 @@ create or replace package NYEC_PROCESS_APP as
      p_sla_days_type in varchar,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2;
+    return varchar2 parallel_enable;
      
   function GET_TIMELINESS_STATUS
     (p_receipt_date in date, 
      p_complete_date in date,
      p_sla_days_type in varchar2,
      p_sla_days in number)
-    return varchar2;
+    return varchar2 parallel_enable;
      
   function GET_DAYS_UNTIL_TIMEOUT
     (p_app_cycle_end_date in date)
-    return number;
+    return number parallel_enable;
 
   /* 
   Include: 
@@ -344,7 +344,7 @@ create or replace package body NYEC_PROCESS_APP as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -354,7 +354,7 @@ create or replace package body NYEC_PROCESS_APP as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -364,7 +364,7 @@ create or replace package body NYEC_PROCESS_APP as
   function GET_APP_CYCLE_BUS_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     if p_receipt_date is not null and p_complete_date is not null then 
@@ -378,7 +378,7 @@ create or replace package body NYEC_PROCESS_APP as
   function GET_APP_CYCLE_CAL_DAYS
     (p_receipt_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     if p_receipt_date is not null then 
@@ -395,7 +395,7 @@ create or replace package body NYEC_PROCESS_APP as
      p_sla_days_type in varchar,
      p_sla_jeopardy_days in number,
      p_jeopardy_flag in varchar2)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if p_sla_jeopardy_days is null then
@@ -419,7 +419,7 @@ create or replace package body NYEC_PROCESS_APP as
      p_complete_date in date,
      p_sla_days_type in varchar2,
      p_sla_days in number)
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
     if p_complete_date is null then
@@ -440,7 +440,7 @@ create or replace package body NYEC_PROCESS_APP as
 
   function GET_DAYS_UNTIL_TIMEOUT
     (p_app_cycle_end_date in date)
-    return number
+    return number parallel_enable
   as
   begin 
     return trunc(p_app_cycle_end_date) - trunc(sysdate);

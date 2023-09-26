@@ -1,0 +1,1312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>DIM_Load_ADDRESS_reload</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+---------------------------------
+SVN_FILE_URL        = $URL: svn:&#47;&#47;rcmxapp1d.maximus.com&#47;maxdat&#47;trunk&#47;corp&#47;scripts&#47;EnrollmentDataEMRS&#47;DIM_Load_ADDRESS.ktr $ 
+SVN_REVISION        = $Revision: 3898 $ 
+SVN_REVISION_DATE   = $Date: 2013-07-18 17:50:31 -0600 (Thu, 18 Jul 2013) $
+SVN_REVISION_AUTHOR = $Author: aa24065 $
+---------------------------------</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;16 17:50:12.968</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;16 17:50:12.968</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>EMRS</name>
+    <server>${DB_EMRS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_EMRS_SID}</database>
+    <port>${DB_EMRS_PORT}</port>
+    <username>${DB_EMRS_USER}</username>
+    <password>${DB_EMRS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>join EMRS_D_CASE_REF</from><to>Filter CASE Found</to><enabled>Y</enabled> </hop>  <hop> <from>Filter CASE Found</from><to>join emrs_d_client_ref</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update</from><to>Text file output - Client Error Handling</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - Home ADDRESS from Vida</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -mailing ADDRESS from Vida</from><to>Merge Rows (diff)</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Rows (diff)</from><to>Join Person</to><enabled>Y</enabled> </hop>  <hop> <from>Join Person</from><to>join EMRS_D_CASE_REF</to><enabled>Y</enabled> </hop>  <hop> <from>join emrs_d_client_ref</from><to>Filter Client found</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Client found</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Filter CASE Found</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CASE_FOUND</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>BigNumber</type><text>1</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Client found</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CLIENT_FOUND</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>BigNumber</type><text>1</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>350</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>8</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <commit>1000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>EMRS_D_ADDRESS</table>
+      <key>
+        <name>SOURCE_RECORD_ID</name>
+        <field>SOURCE_RECORD_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>SOURCE_RECORD_ID</name>
+        <rename>SOURCE_RECORD_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_STREET_1</name>
+        <rename>ADDR_STREET_1</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_STREET_2</name>
+        <rename>ADDR_STREET_2</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_CITY</name>
+        <rename>ADDR_CITY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_STATE_CD</name>
+        <rename>ADDR_STATE_CD</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_ZIP</name>
+        <rename>ADDR_ZIP</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_ZIP_FOUR</name>
+        <rename>ADDR_ZIP_FOUR</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_TYPE_CD</name>
+        <rename>ADDR_TYPE_CD</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_TYPE</name>
+        <rename>ADDR_TYPE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_COUNTRY</name>
+        <rename>ADDR_COUNTRY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CLIENT_NUMBER</name>
+        <rename>CLIENT_NUMBER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_ATTN</name>
+        <rename>ADDR_ATTN</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_HOUSE_CODE</name>
+        <rename>ADDR_HOUSE_CODE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_BAR_CODE</name>
+        <rename>ADDR_BAR_CODE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_ORIGIN_CD</name>
+        <rename>ADDR_ORIGIN_CD</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_STAFF_ID</name>
+        <rename>ADDR_STAFF_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_CTLK_ID</name>
+        <rename>ADDR_CTLK_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_DOLK_ID</name>
+        <rename>ADDR_DOLK_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_PROV_ID</name>
+        <rename>ADDR_PROV_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_PAYC_ID</name>
+        <rename>ADDR_PAYC_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_VERIFIED</name>
+        <rename>ADDR_VERIFIED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_VERIFIED_DATE</name>
+        <rename>ADDR_VERIFIED_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADVY_ID</name>
+        <rename>ADVY_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_BAD_DATE</name>
+        <rename>ADDR_BAD_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ADDR_BAD_DATE_SATISFIED</name>
+        <rename>ADDR_BAD_DATE_SATISFIED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CASE_NUMBER</name>
+        <rename>CASE_NUMBER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>START_NDT</name>
+        <rename>START_NDT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>END_NDT</name>
+        <rename>END_NDT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>COMPARABLE_KEY</name>
+        <rename>COMPARABLE_KEY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RECORD_DATE</name>
+        <rename>RECORD_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RECORD_TIME</name>
+        <rename>RECORD_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RECORD_NAME</name>
+        <rename>RECORD_NAME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MODIFIED_DATE</name>
+        <rename>MODIFIED_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MODIFIED_NAME</name>
+        <rename>MODIFIED_NAME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MODIFIED_TIME</name>
+        <rename>MODIFIED_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SOURCE_ADDR_BEGIN_DATE</name>
+        <rename>SOURCE_ADDR_BEGIN_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SOURCE_ADDR_END_DATE</name>
+        <rename>SOURCE_ADDR_END_DATE</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>470</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Person</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>select p.person_number as client_number
+from person p
+join account_membership am on p.person_id = am.person_id
+where am.account_id = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>SOURCE_RECORD_ID</name>
+        <type>Integer</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>570</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge Rows (diff)</name>
+    <type>MergeRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <keys>
+      <key>SOURCE_RECORD_ID</key>
+    </keys>
+    <values>
+      <value>SOURCE_RECORD_ID</value>
+    </values>
+<flag_field>flagfield</flag_field>
+<reference>Table input - Home ADDRESS from Vida</reference>
+<compare>Table input -mailing ADDRESS from Vida</compare>
+    <compare>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>370</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Home ADDRESS from Vida</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT distinct ac.account_id source_record_id
+       ,home_street addr_street_1
+       ,home_street2 addr_street_2
+       ,home_city addr_city
+       ,home_state addr_state_cd
+       ,county_code addr_ctlk_id
+       ,SUBSTR(home_postal_code,1,5) addr_zip
+       ,LTRIM(SUBSTR(home_postal_code,6,10),&apos;-&apos;) addr_zip_four
+       ,&apos;RS&apos; addr_type_cd
+       ,&apos;Residence Address&apos;  as addr_type
+       ,&apos;US&apos; as addr_country
+       ,null as addr_attn
+       ,null as addr_house_code
+       ,a.account_number addr_case_id
+       ,null as addr_bar_code
+       ,null as addr_origin_cd
+       ,null as addr_staff_id
+       ,null as addr_ctlk_id
+       ,null as addr_dolk_id
+       ,null as addr_prov_id
+       ,null as addr_payc_id
+       ,decode(home_validation_status, &apos;NOT_VALIDATED&apos;, &apos;N&apos;,
+                                       &apos;VALID&apos;, &apos;Y&apos;) addr_verified
+       ,null as addr_verified_date
+       ,null as advy_id
+       ,null as addr_bad_date
+       ,null as addr_bad_date_satisfied
+       ,a.ACCOUNT_NUMBER as case_number          
+       ,null as start_ndt
+       ,null as end_ndt
+       ,null as comparable_key
+       ,ac.insert_date record_date
+       ,ac.insert_user record_name
+       ,TO_CHAR(ac.insert_date,&apos;HH24MI&apos;) record_time
+       ,ac.update_date modified_date
+       ,ac.LAST_UPDATE_USER modified_name
+       ,TO_CHAR(ac.update_date,&apos;HH24MI&apos;) modified_time
+       ,TRUNC(ac.insert_date) source_addr_begin_date
+       ,null as source_addr_end_date
+FROM account_contact_info ac
+join account a on a.account_id = ac.account_id 
+INNER JOIN county_ref cr
+   ON ac.home_county = cr.county_name
+---WHERE a.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+---     OR a.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)   
+order by ac.account_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>120</xloc>
+      <yloc>70</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input -mailing ADDRESS from Vida</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT ac.account_id source_record_id
+       ,mailing_street addr_street_1
+       ,mailing_street2 addr_street_2
+       ,mailing_city addr_city
+       ,mailing_state addr_state_cd
+       ,county_code addr_ctlk_id
+       ,SUBSTR(mailing_postal_code,1,5) addr_zip
+       ,LTRIM(SUBSTR(mailing_postal_code,6,10),&apos;-&apos;) addr_zip_four
+       ,&apos;ML&apos; addr_type_cd
+       ,&apos;Mailing Address&apos; as addr_type
+       ,&apos;US&apos; as addr_country
+       ,null as addr_attn
+       ,null as addr_house_code
+       ,a.account_number addr_case_id
+       ,null as addr_bar_code
+       ,null as addr_origin_cd
+       ,null as addr_staff_id
+       ,null as addr_ctlk_id
+       ,null as addr_dolk_id
+       ,null as addr_prov_id
+       ,null as addr_payc_id
+       ,decode(mailing_validation_status, &apos;NOT_VALIDATED&apos;, &apos;N&apos;,
+                                       &apos;VALID&apos;, &apos;Y&apos;) addr_verified
+       ,null as addr_verified_date
+       ,null as advy_id
+       ,null as addr_bad_date
+       ,null as addr_bad_date_satisfied
+       ,a.ACCOUNT_NUMBER as case_number 
+       ,null as start_ndt
+       ,null as end_ndt
+       ,null as comparable_key
+       ,ac.insert_date record_date
+       ,ac.insert_user record_name
+       ,TO_CHAR(ac.insert_date,&apos;HH24MI&apos;) record_time
+       ,ac.update_date modified_date
+       ,ac.LAST_UPDATE_USER modified_name
+       ,TO_CHAR(ac.update_date,&apos;HH24MI&apos;) modified_time
+       ,TRUNC(ac.insert_date) source_addr_begin_date
+       ,null as source_addr_end_date
+FROM account_contact_info ac
+join account a on a.account_id = ac.account_id 
+INNER JOIN county_ref cr
+   ON ac.home_county = cr.county_name
+---WHERE a.insert_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+---     OR a.update_date &gt;= TO_DATE(&apos;${ETL_RUN_DATE}&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)   
+order by ac.account_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>120</xloc>
+      <yloc>230</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Text file output - Client Error Handling</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <separator>;</separator>
+    <enclosure>&quot;</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>N</create_parent_folder>
+    <file>
+      <name>${EMRS_LOG_DIRECTORY}\address_error</name>
+      <is_command>N</is_command>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>Y</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>SOURCE_RECORD_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_STREET_1</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_STREET_2</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_CITY</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_STATE_CD</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_CTLK_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_ZIP</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_ZIP_FOUR</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_TYPE_CD</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_TYPE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_COUNTRY</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CLIENT_NUMBER</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_ATTN</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_HOUSE_CODE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_CASE_ID</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_BAR_CODE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_ORIGIN_CD</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_STAFF_ID</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_CTLK_ID_1</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_DOLK_ID</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_PROV_ID</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_PAYC_ID</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_VERIFIED</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_VERIFIED_DATE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADVY_ID</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_BAD_DATE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ADDR_BAD_DATE_SATISFIED</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CASE_NUMBER</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>START_NDT</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>END_NDT</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>COMPARABLE_KEY</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>RECORD_DATE</name>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>RECORD_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>RECORD_TIME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>MODIFIED_DATE</name>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>MODIFIED_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>MODIFIED_TIME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>SOURCE_ADDR_BEGIN_DATE</name>
+        <type>Date</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>SOURCE_ADDR_END_DATE</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CASE_FOUND</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>CLIENT_FOUND</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>flagfield</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>number_of_errors</name>
+        <type>Integer</type>
+        <format>0</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_description</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_fields</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>error_codes</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>580</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>join EMRS_D_CASE_REF</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <rowlimit>0</rowlimit>
+    <sql>select 1 as CASE_FOUND from emrs_d_case_ref
+where case_number = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>CASE_NUMBER</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>770</xloc>
+      <yloc>140</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>join emrs_d_client_ref</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <rowlimit>0</rowlimit>
+    <sql>select 1 as CLIENT_FOUND from emrs_d_client_ref
+where client_number = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>CLIENT_NUMBER</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>950</xloc>
+      <yloc>250</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Insert &#47; Update</source_step>
+        <target_step>Text file output - Client Error Handling</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>number_of_errors</nr_valuename>
+        <descriptions_valuename>error_description</descriptions_valuename>
+        <fields_valuename>error_fields</fields_valuename>
+        <codes_valuename>error_codes</codes_valuename>
+        <max_errors>10000</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

@@ -256,10 +256,32 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Temp NYHIX</name>
+    <server>${DB_TEMP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_TEMP_NAME}</database>
+    <port>1557</port>
+    <username>${DB_TEMP_USER}</username>
+    <password>${DB_TEMP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1557</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
-  <hop> <from>Table input</from><to>Set Variables</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>Table input - Get MW Conrols</from><to>Set Variables - Set MW Vars</to><enabled>Y</enabled> </hop>  </order>
   <step>
-    <name>Set Variables</name>
+    <name>Set Variables - Set MW Vars</name>
     <type>SetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -297,14 +319,14 @@
     <use_formatting>Y</use_formatting>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>316</xloc>
+      <xloc>371</xloc>
       <yloc>109</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Table input</name>
+    <name>Table input - Get MW Conrols</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>

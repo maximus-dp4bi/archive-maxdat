@@ -1,0 +1,372 @@
+
+TRUNCATE TABLE ETL_JOB_GLOBAL_CONFIG;
+TRUNCATE TABLE ETL_JOB_CONFIG;
+
+-- INSERT GLOBAL PARAMETERS - SHOULD RETAIN THESE 5 PARAMETERS FOR EACH PROJECT
+-- Change PROJECT_NAME and PARAM_VALUE fied values only 
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CISCO_ENTERPRISE_CC', 'ETL_AUDIT_DATA_RETENTION_DAYS', 365);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CISCO_ENTERPRISE_CC', 'ETL_RUN_DATA_RETENTION_DAYS', 365);
+        
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CISCO_ENTERPRISE_CC', 'ETL_LOG_DATA_RETENTION_DAYS', 365);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CISCO_ENTERPRISE_CC', 'MAX_PARALLEL_JOBS_ALLOWED', 7);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CISCO_ENTERPRISE_CC', 'JOB_TIMEOUT_SEC', 3000);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CAHCO_CC', 'ETL_AUDIT_DATA_RETENTION_DAYS', 365);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CAHCO_CC', 'ETL_RUN_DATA_RETENTION_DAYS', 365);
+        
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CAHCO_CC', 'ETL_LOG_DATA_RETENTION_DAYS', 365);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CAHCO_CC', 'MAX_PARALLEL_JOBS_ALLOWED', 7);
+
+INSERT INTO ETL_JOB_GLOBAL_CONFIG (PROJECT_NAME, PARAM_KEY, PARAM_VALUE)
+VALUES ('CAHCO_CC', 'JOB_TIMEOUT_SEC', 3000);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'SCH_CC_JOB',
+	'STANDALONE',
+	'09,39 * * * *',
+	'N',
+	'scheduled_contact_center_job_executions.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'ADH_CC_JOB',
+	'STANDALONE',
+	'34 * * * *',
+	'Y',
+	'manage_adhoc_contact_center_jobs.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'INIT_JOB',
+	'STANDALONE',
+	'24 * * * *',
+	'Y',
+	'run_initialize_contact_center.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'AGT_FIRSTCALL_JOB',
+	'STANDALONE',
+	'29 04 * * *',
+	'Y',
+	'load_Agent_First_Call_Dt.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'SCH_IVR_MENU_JOB',
+	'STANDALONE',
+	'19 7 * * *',
+	'Y',
+	'manage_scheduled_IVR_Menu_Group.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'ADH_IVR_MENU_JOB',
+	'STANDALONE',
+	'24 * * * *',
+	'Y',
+	'manage_adhoc_IVR_Menu_Group.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'DAILY_IVR_JOB',
+	'STANDALONE',
+	'59 23,0-3,9-22 * * *',
+	'Y',
+	'Run_Daily_IVR_Files.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'DAILY_IVR_JOB',
+	'STANDALONE',
+	'24,54 5-9 * * *',
+	'Y',
+	'Run_Daily_IVR_Files.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'RUN_IVR_JOB',
+	'STANDALONE',
+	'59,29 * * * *',
+	'Y',
+	'run_ivr_jobs.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'RUN_IVR_JOB',
+	'STANDALONE',
+	'09,14,19,24,34,39,44,49,54 7 * * *',
+	'Y',
+	'run_ivr_jobs.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CISCO_ENTERPRISE_CC',
+	'RUN_IVR_JOB',
+	'STANDALONE',
+	'4,14,24,34,44,54 8 * * *',
+	'Y',
+	'run_ivr_jobs.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CAHCO_CC',
+	'',
+	'STANDALONE',
+	'44 * * * *',
+	'Y',
+	'CAHCO_manage_adhoc_extracts.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+	JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CAHCO_CC',
+	'',
+	'STANDALONE',
+	'29 6 * * *',
+	'Y',
+	'CAHCO_manage_scheduled_extracts.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CAHCO_CC',
+	'',
+	'STANDALONE',
+	'59 4 * * *',
+	'Y',
+	'manage_scheduled_Call_Back.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+INSERT INTO ETL_JOB_CONFIG (
+    PROJECT_NAME,
+    JOB_NAME,
+    JOB_TYPE,
+    JOB_SCHEDULE,
+    JOB_ENABLED,
+    JOB_SCRIPT_NAME,
+    JOB_LOG_PATH,
+    LAST_UPD_DT,
+    LAST_UPD_USER)
+VALUES (
+	'CAHCO_CC',
+	'',
+	'STANDALONE',
+	'24 * * * *',
+	'Y',
+	'manage_adhoc_Call_Back.sh',
+	'/u01/maximus/maxdat-dev/CiscoEnterprise8/ETLJobControl/logs',
+	SYSDATE,
+	USER
+);
+
+COMMIT;
+
+--SELECT * FROM ETL_JOB_GLOBAL_CONFIG;
+--SELECT * FROM ETL_JOB_CONFIG;
+

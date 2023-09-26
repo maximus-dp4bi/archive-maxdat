@@ -14,26 +14,26 @@ function GET_AGE_IN_BUSINESS_DAYS
       ( p_create_dt in date,
         p_batch_complete_dt in date
        )
-  return number;
+  return number parallel_enable;
   
 function GET_AGE_IN_CALENDAR_DAYS
     (p_create_dt in date,
      p_batch_complete_dt in date
      )
-    return number;
+    return number parallel_enable;
     
 function GET_TIMELINESS_STATUS
     (p_create_dt in date, 
      p_batch_complete_dt in date,
      p_cancel_dt in date
     )
-return varchar2;
+return varchar2 parallel_enable;
 
 function GET_TIMELINESS_DAYS
-return number;
+return number parallel_enable;
 
 function GET_TIMELINESS_DAYS_TYPE
-return varchar2;
+return varchar2 parallel_enable;
 
 
 function GET_TIMELINESS_DT
@@ -41,30 +41,30 @@ function GET_TIMELINESS_DT
  p_batch_complete_dt in date,
  p_cancel_dt in date
  ) 
- return date;
+ return date parallel_enable;
 
 function GET_JEOPARDY_FLAG
 (p_create_dt in date,
  p_cancel_dt in date,  /**/
  p_batch_complete_dt in date 
 )
-return varchar2;
+return varchar2 parallel_enable;
 
 function GET_JEOPARDY_DAYS
-return number;
+return number parallel_enable;
 
 function GET_JEOPARDY_DAYS_TYPE
-return varchar2;
+return varchar2 parallel_enable;
 
 function GET_JEOPARDY_DT
 (p_create_dt in date, 
  p_cancel_dt in date,
  p_batch_complete_dt in date
 )
-return date;
+return date parallel_enable;
 
 function GET_TARGET_DAYS
-return number;
+return number parallel_enable;
 
 /* 
   Include: 
@@ -105,6 +105,7 @@ type T_INS_MFB_XML is record
      BATCH_CLASS_DES varchar2(80),
      BATCH_COMPLETE_DT varchar2(19),
      BATCH_DELETED varchar2(1),
+     BATCH_DESCRIPTION varchar2(80),
      BATCH_DOC_COUNT varchar2(100),
      BATCH_ENVELOPE_COUNT varchar2(100),
      BATCH_GUID varchar2(38),
@@ -136,6 +137,7 @@ type T_INS_MFB_XML is record
      PAGES_REPLACED_FLAG varchar2(1),
      PAGES_SCANNED_FLAG varchar2(1),
      RECOGNITION_DT varchar2(19),
+     REPROCESSED_FLAG varchar2(1),
      SOURCE_SERVER varchar2(255),
      STG_LAST_UPDATE_DATE varchar2(19),
      VALIDATION_DT varchar2(19)
@@ -179,6 +181,7 @@ type T_UPD_MFB_XML is record
      BATCH_CLASS_DES varchar2(80),
      BATCH_COMPLETE_DT varchar2(19),
      BATCH_DELETED varchar2(1),
+     BATCH_DESCRIPTION varchar2(80),
      BATCH_DOC_COUNT varchar2(100),
      BATCH_ENVELOPE_COUNT varchar2(100),
      BATCH_GUID varchar2(38),
@@ -209,6 +212,7 @@ type T_UPD_MFB_XML is record
      PAGES_REPLACED_FLAG varchar2(1),
      PAGES_SCANNED_FLAG varchar2(1),
      RECOGNITION_DT varchar2(19),
+     REPROCESSED_FLAG varchar2(1),
      SOURCE_SERVER varchar2(255),
      STG_LAST_UPDATE_DATE varchar2(19),
      VALIDATION_DT varchar2(19)
@@ -242,7 +246,7 @@ package body MAIL_FAX_BATCH as
       (p_create_dt in date,
        p_batch_complete_dt in date
        )
-      return number
+      return number parallel_enable
     as
     begin
     return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_dt,nvl(p_batch_complete_dt,sysdate));
@@ -251,14 +255,14 @@ package body MAIL_FAX_BATCH as
  function GET_AGE_IN_CALENDAR_DAYS
     (p_create_dt in date,
      p_batch_complete_dt in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_batch_complete_dt,sysdate)) - trunc(p_create_dt);
   end; 
   
 function GET_TIMELINESS_DAYS
-return number
+return number parallel_enable
 as
 v_timeliness_days varchar2(2):=null;
 begin
@@ -272,7 +276,7 @@ end;
 
 
 function GET_TIMELINESS_DAYS_TYPE
-return varchar2
+return varchar2 parallel_enable
 as
 v_days_type varchar2(2):=null;
 begin
@@ -285,7 +289,7 @@ return v_days_type;
 end;
 
 function GET_JEOPARDY_DAYS
-return number
+return number parallel_enable
 as
 v_jeopardy_days varchar2(2):=null;
 begin
@@ -298,7 +302,7 @@ return to_number(v_jeopardy_days);
 end;
 
 function GET_JEOPARDY_DAYS_TYPE
-return varchar2
+return varchar2 parallel_enable
 as
 v_days_type varchar2(2):=null;
 begin
@@ -311,7 +315,7 @@ return v_days_type;
 end;
 
 function GET_TARGET_DAYS
-return number
+return number parallel_enable
 as
 v_target_days varchar2(2):=null;
 begin
@@ -328,7 +332,7 @@ function GET_TIMELINESS_STATUS
      p_batch_complete_dt in date,
      p_cancel_dt in date
      )
-return varchar2
+return varchar2 parallel_enable
 as
 days_type varchar2(2):=null;
 timeliness_days number:=null;
@@ -347,9 +351,9 @@ cal_days:=trunc(nvl(p_batch_complete_dt,sysdate)) - trunc(p_create_dt);
 
 if (p_batch_complete_dt is not null) then
  if (days_type='B') then
-   if (bus_days<timeliness_days)
+   if (bus_days<=timeliness_days)
    then return 'Timely';
-   elsif (bus_days>=timeliness_days)
+   elsif (bus_days>timeliness_days)
    then return 'Untimely';
    else
    return null;
@@ -377,7 +381,7 @@ end;
   p_batch_complete_dt in date,
   p_cancel_dt in date
  )
- return date
+ return date parallel_enable
  as
  days_type varchar2(2):=null;
  timeliness_days number:=null;
@@ -398,7 +402,7 @@ end;
   p_cancel_dt in date,  /**/ 
   p_batch_complete_dt in date
  )
-return varchar2
+return varchar2 parallel_enable
 as
 days_type varchar2(2):=null;
 jeopardy_days number:=null;
@@ -442,7 +446,7 @@ function GET_JEOPARDY_DT
  p_cancel_dt in date, /**/
  p_batch_complete_dt in date
 )
-return date 
+return date parallel_enable
 as
  days_type varchar2(2):=null;
  jeopardy_days number:=null;
@@ -544,6 +548,7 @@ update D_MFB_CURRENT
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_CLASS_DES') "BATCH_CLASS_DES",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_COMPLETE_DT') "BATCH_COMPLETE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DELETED') "BATCH_DELETED",
+      extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DESCRIPTION') "BATCH_DESCRIPTION",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DOC_COUNT') "BATCH_DOC_COUNT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_ENVELOPE_COUNT') "BATCH_ENVELOPE_COUNT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_GUID') "BATCH_GUID",
@@ -575,6 +580,7 @@ update D_MFB_CURRENT
       extractValue(p_data_xml,'/ROWSET/ROW/PAGES_REPLACED_FLAG') "PAGES_REPLACED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/PAGES_SCANNED_FLAG') "PAGES_SCANNED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/RECOGNITION_DT') "RECOGNITION_DT",
+      extractValue(p_data_xml,'/ROWSET/ROW/REPROCESSED_FLAG') "REPROCESSED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/SOURCE_SERVER') "SOURCE_SERVER",
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/VALIDATION_DT') "VALIDATION_DT"
@@ -633,6 +639,7 @@ update D_MFB_CURRENT
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_CLASS_DES') "BATCH_CLASS_DES",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_COMPLETE_DT') "BATCH_COMPLETE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DELETED') "BATCH_DELETED",
+      extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DESCRIPTION') "BATCH_DESCRIPTION",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_DOC_COUNT') "BATCH_DOC_COUNT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_ENVELOPE_COUNT') "BATCH_ENVELOPE_COUNT",
       extractValue(p_data_xml,'/ROWSET/ROW/BATCH_GUID') "BATCH_GUID",
@@ -663,6 +670,7 @@ update D_MFB_CURRENT
       extractValue(p_data_xml,'/ROWSET/ROW/PAGES_REPLACED_FLAG') "PAGES_REPLACED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/PAGES_SCANNED_FLAG') "PAGES_SCANNED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/RECOGNITION_DT') "RECOGNITION_DT",
+      extractValue(p_data_xml,'/ROWSET/ROW/REPROCESSED_FLAG') "REPROCESSED_FLAG",
       extractValue(p_data_xml,'/ROWSET/ROW/SOURCE_SERVER') "SOURCE_SERVER",
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/VALIDATION_DT') "VALIDATION_DT"
@@ -828,8 +836,10 @@ insert into F_MFB_BY_HOUR
    p_gwf_qc_required                  in           varchar2,
    p_current_step                  in           varchar2,
    p_batch_guid                  in           varchar2,
-   p_source_server                  in           varchar2
-  )
+   p_source_server                  in           varchar2,
+   p_batch_description				in			 varchar2,
+   p_reprocessed_flag				in			varchar2
+   )
  
  as
         v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DMFBCUR';
@@ -904,6 +914,8 @@ r_dmfbcur.GWF_QC_REQUIRED 		  :=	     p_gwf_qc_required ;
 r_dmfbcur.CURRENT_STEP 		  :=	     p_current_step;		
 r_dmfbcur.batch_guid 		  :=	     p_batch_guid;		
 r_dmfbcur.SOURCE_SERVER 		  :=	     p_source_server;		
+r_dmfbcur.BATCH_DESCRIPTION			:=			p_batch_description;
+r_dmfbcur.REPROCESSED_FLAG			:=			p_reprocessed_flag;
 
 r_dmfbcur.AGE_IN_BUSINESS_DAYS 	             :=	  GET_AGE_IN_BUSINESS_DAYS(r_dmfbcur.CREATE_DT,r_dmfbcur.BATCH_COMPLETE_DT);    
 r_dmfbcur.AGE_IN_CALENDAR_DAYS 	             :=	  GET_AGE_IN_CALENDAR_DAYS(r_dmfbcur.CREATE_DT,r_dmfbcur.BATCH_COMPLETE_DT);     
@@ -996,7 +1008,7 @@ if p_set_type = 'INSERT' then
      ,v_new_data.ASSD_POPULATE_REPORTS,v_new_data.ASED_POPULATE_REPORTS,v_new_data.ASF_RELEASE_DMS,v_new_data.ASSD_RELEASE_DMS,v_new_data.ASED_RELEASE_DMS,v_new_data.BATCH_PRIORITY	
      ,v_new_data.BATCH_DELETED,v_new_data.PAGES_SCANNED_FLAG,v_new_data.DOCS_CREATED_FLAG,v_new_data.DOCS_DELETED_FLAG,v_new_data.PAGES_REPLACED_FLAG,v_new_data.PAGES_DELETED_FLAG,
      v_new_data.CANCEL_REASON,v_new_data.CANCEL_METHOD,v_new_data.BATCH_COMPLETE_DT,v_new_data.CURRENT_BATCH_MODULE_ID,v_new_data.GWF_QC_REQUIRED,v_new_data.CURRENT_STEP
-     ,v_new_data.BATCH_GUID,v_new_data.SOURCE_SERVER
+     ,v_new_data.BATCH_GUID,v_new_data.SOURCE_SERVER,v_new_data.BATCH_DESCRIPTION,v_new_data.REPROCESSED_FLAG
    );
    
 INS_FMFBBH
@@ -1262,7 +1274,7 @@ SET_DMFBCUR
      ,v_new_data.ASSD_POPULATE_REPORTS,v_new_data.ASED_POPULATE_REPORTS,v_new_data.ASF_RELEASE_DMS,v_new_data.ASSD_RELEASE_DMS,v_new_data.ASED_RELEASE_DMS,v_new_data.BATCH_PRIORITY	
      ,v_new_data.BATCH_DELETED,v_new_data.PAGES_SCANNED_FLAG,v_new_data.DOCS_CREATED_FLAG,v_new_data.DOCS_DELETED_FLAG,v_new_data.PAGES_REPLACED_FLAG,v_new_data.PAGES_DELETED_FLAG,
      v_new_data.CANCEL_REASON,v_new_data.CANCEL_METHOD,v_new_data.BATCH_COMPLETE_DT,v_new_data.CURRENT_BATCH_MODULE_ID,v_new_data.GWF_QC_REQUIRED,v_new_data.CURRENT_STEP
-     ,v_new_data.BATCH_GUID,v_new_data.SOURCE_SERVER
+     ,v_new_data.BATCH_GUID,v_new_data.SOURCE_SERVER,v_new_data.BATCH_DESCRIPTION,v_new_data.REPROCESSED_FLAG
    );
    
 UPD_FMFBBH

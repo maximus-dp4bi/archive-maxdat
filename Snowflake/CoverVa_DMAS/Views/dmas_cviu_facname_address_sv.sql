@@ -1,0 +1,1 @@
+create or replace view PUBLIC.DMAS_CVIU_FACNAME_ADDRESS_SV as select * from coverva_dmas.DMAS_CVIU_FACNAME_ADDRESS;

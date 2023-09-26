@@ -1,0 +1,57 @@
+Sub CompareSheets(sheetOneName As String, sheetTwoName As String, NumRows As Long, NumCols As Long)
+
+    Dim thisRow As Long
+    Dim thisCol As Long
+    
+    Dim sheetOne As Worksheet
+    Dim sheetTwo As Worksheet
+    
+    Dim DifferencesFound As Boolean
+    
+    DifferencesFound = False
+    
+    Set sheetOne = Sheets(sheetOneName)
+    Set sheetTwo = Sheets(sheetTwoName)
+    
+    For thisRow = 1 To NumRows
+    
+        For thisCol = 1 To NumCols
+        
+            If UCase(Trim(sheetOne.Cells(thisRow, thisCol).Value)) = "NULL" Then
+                sheetOne.Cells(thisRow, thisCol).Value = ""
+            End If
+        
+            If UCase(Trim(sheetTwo.Cells(thisRow, thisCol).Value)) = "NULL" Then
+                sheetTwo.Cells(thisRow, thisCol).Value = ""
+            End If
+                
+            If ((thisRow <> 1 And sheetOne.Cells(thisRow, thisCol).Value <> sheetTwo.Cells(thisRow, thisCol).Value) Or _
+               (thisRow = 1 And UCase(Trim(sheetOne.Cells(thisRow, thisCol).Value)) <> UCase(Trim(sheetTwo.Cells(thisRow, thisCol).Value)))) And _
+               Not ((sheetOne.Cells(thisRow, thisCol).Value = 1 And sheetTwo.Cells(thisRow, thisCol).Value = True) Or _
+                    (sheetOne.Cells(thisRow, thisCol).Value = True And sheetTwo.Cells(thisRow, thisCol).Value = 1) Or _
+                    (sheetOne.Cells(thisRow, thisCol).Value = 0 And sheetTwo.Cells(thisRow, thisCol).Value = False) Or _
+                    (sheetOne.Cells(thisRow, thisCol).Value = False And sheetTwo.Cells(thisRow, thisCol).Value = 0)) Then
+                
+                DifferencesFound = True
+                sheetOne.Range(sheetOne.Cells(thisRow, thisCol), sheetOne.Cells(thisRow, thisCol)).Interior.ColorIndex = 3
+                sheetTwo.Range(sheetTwo.Cells(thisRow, thisCol), sheetTwo.Cells(thisRow, thisCol)).Interior.ColorIndex = 3
+            
+            End If
+                    
+        Next thisCol
+        
+    Next thisRow
+
+    If DifferencesFound Then
+        MsgBox ("Comparison complete.  Differences were found!!!!")
+    Else
+        MsgBox ("Comparison complete.  No differences found.")
+    End If
+
+End Sub
+
+Sub Compare_Sheets()
+
+    Call CompareSheets("TableSourceData", "TableTargetData", 32672, 19)
+
+End Sub

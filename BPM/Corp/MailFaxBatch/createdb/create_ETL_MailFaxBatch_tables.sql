@@ -6,6 +6,7 @@ begin
    end if;
 end;
 /
+
 create table CORP_ETL_MFB_SB_OLTP(
   BATCHGUID VARCHAR2(38) NOT NULL,
   EXTERNALBATCHID NUMBER NOT NULL,
@@ -17,8 +18,9 @@ create table CORP_ETL_MFB_SB_OLTP(
   BATCHCLASSDES VARCHAR2(80) NULL,
   BATCHTYPE VARCHAR2(38) NULL,
   SOURCE_SERVER varchar2(255) null,
-  STG_EXTRACT_DATE DATE DEFAULT SYSDATE NOT NULL)
-tablespace MAXDAT_DATA
+  STG_EXTRACT_DATE DATE DEFAULT SYSDATE NOT NULL,
+  BATCH_DESCRIPTION varchar2(80) null)
+  tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
   maxtrans 255
@@ -40,11 +42,11 @@ comment on column CORP_ETL_MFB_SB_OLTP.BATCHCLASS is 'Name of the batch class.';
 comment on column CORP_ETL_MFB_SB_OLTP.BATCHCLASSDES is 'Description of the batch class on which the batch is based. ';
 comment on column CORP_ETL_MFB_SB_OLTP.BATCHTYPE is 'The type of batch. ';
 comment on column CORP_ETL_MFB_SB_OLTP.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_SB_OLTP.BATCH_DESCRIPTION is 'Batch Description, may contain a batch_name if reprocessed';
 
 
 select * from corp_etl_mfb_sbm_oltp
 
-create or replace public synonym CORP_ETL_MFB_SB_OLTP for MAXDAT.CORP_ETL_MFB_SB_OLTP;
 grant select on CORP_ETL_MFB_SB_OLTP to MAXDAT_READ_ONLY;
 
 declare  c int;
@@ -55,6 +57,8 @@ begin
    end if;
 end;
 /
+
+
 create table CORP_ETL_MFB_SBM_OLTP(
   BATCHMODULEID VARCHAR2(38) NOT NULL,
   BATCHGUID VARCHAR2(38) NOT NULL,
@@ -73,7 +77,8 @@ create table CORP_ETL_MFB_SBM_OLTP(
   DOCUMENTSDELETED NUMBER NULL,
   PAGESREPLACED NUMBER NULL,
   SOURCE_SERVER varchar2(255) null,
-  STG_EXTRACT_DATE DATE DEFAULT SYSDATE NOT NULL)
+  STG_EXTRACT_DATE DATE DEFAULT SYSDATE NOT NULL,
+  ERRORTEXT VARCHAR2(255) NULL)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -102,9 +107,10 @@ comment on column CORP_ETL_MFB_SBM_OLTP.DOCUMENTSCREATED is 'Flag that indicates
 comment on column CORP_ETL_MFB_SBM_OLTP.DOCUMENTSDELETED is 'Flag that indicates pages replaced during the current processing session.';
 comment on column CORP_ETL_MFB_SBM_OLTP.PAGESREPLACED is 'Flag indicating that pages were deleted during at any time during processing. ';
 comment on column CORP_ETL_MFB_SBM_OLTP.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_SBM_OLTP.ERRORTEXT is 'StatsBatchModule Error Information';
 
-create or replace public synonym CORP_ETL_MFB_SBM_OLTP for MAXDAT.CORP_ETL_MFB_SBM_OLTP;
 grant select on CORP_ETL_MFB_SBM_OLTP to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -114,6 +120,7 @@ begin
    end if;
 end;
 /
+
 create table CORP_ETL_MFB_SML_OLTP(
   MODULELAUNCHID VARCHAR2(38) NOT NULL,
   STARTDATETIME DATE NOT NULL,
@@ -145,7 +152,6 @@ comment on column CORP_ETL_MFB_SML_OLTP.ENDDATETIME is 'Date and time when the m
 comment on column CORP_ETL_MFB_SML_OLTP.MODULEUNIQUEID is 'Unique identifier for the KOFAX Capture module next to launch. If that module has the same literal name as another module, this identifier distinguishes one module from the other.';
 comment on column CORP_ETL_MFB_SML_OLTP.MODULENAME is 'Literal name of the KOFAX Capture module that was launched next.';
 
-create or replace public synonym CORP_ETL_MFB_SML_OLTP for MAXDAT.CORP_ETL_MFB_SML_OLTP;
 grant select on CORP_ETL_MFB_SML_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -191,7 +197,6 @@ comment on column CORP_ETL_MFB_BATCH_ARS_OLTP.CLASSIFICATION_DT is 'Date and tim
 comment on column CORP_ETL_MFB_BATCH_ARS_OLTP.RECOGNITION_DT is 'Date and time that indicates when the document completed Recognition. ';
 comment on column CORP_ETL_MFB_BATCH_ARS_OLTP.VALIDATION_DT is 'Date and time that indicates when the document was validated. ';
 
-create or replace public synonym CORP_ETL_MFB_BATCH_ARS_OLTP for MAXDAT.CORP_ETL_MFB_BATCH_ARS_OLTP;
 grant select on CORP_ETL_MFB_BATCH_ARS_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -232,7 +237,6 @@ tablespace MAXDAT_DATA
     maxextents unlimited
   );
 
-
 comment on column CORP_ETL_MFB_BATCH_ARS_STG.CEMFBAB_ID is 'Sequence.';
 comment on column CORP_ETL_MFB_BATCH_ARS_STG.BATCH_GUID is 'Unique identifier for the batch in KOFAX.';
 comment on column CORP_ETL_MFB_BATCH_ARS_STG.BATCH_TYPE is 'The type of batch.';
@@ -250,7 +254,6 @@ comment on column CORP_ETL_MFB_BATCH_ARS_STG.STG_LAST_UPDATE_DATE is 'STG_LAST_U
 
 alter table CORP_ETL_MFB_BATCH_ARS_STG  add primary key (CEMFBAB_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_BATCH_ARS_STG for MAXDAT.CORP_ETL_MFB_BATCH_ARS_STG;
 grant select on CORP_ETL_MFB_BATCH_ARS_STG to MAXDAT_READ_ONLY;
 
 
@@ -327,7 +330,9 @@ create table CORP_ETL_MFB_BATCH_OLTP(
   CURRENT_BATCH_MODULE_ID varchar2(38) null,
   GWF_QC_REQUIRED varchar2(1) null,
   CURRENT_STEP varchar2(100) null,
-  SOURCE_SERVER varchar2(255) null)
+  SOURCE_SERVER varchar2(255) null,
+  BATCH_DESCRIPTION varchar2(80) null,
+  REPROCESSED_FLAG varchar2(1) default 'N' not null)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -340,6 +345,8 @@ tablespace MAXDAT_DATA
     maxextents unlimited
   );
 
+comment on column CORP_ETL_MFB_BATCH_OLTP.BATCH_DESCRIPTION is 'Batch Description, may contain a batch_name if reprocessed';
+comment on column CORP_ETL_MFB_BATCH_OLTP.REPROCESSED_FLAG is 'Reprocessed Flag identifies records that were not previously successfully processed';
 
 comment on column CORP_ETL_MFB_BATCH_OLTP.GWF_QC_REQUIRED is 'QC Required Gateway Flag.';
 comment on column CORP_ETL_MFB_BATCH_OLTP.BATCH_COMPLETE_DT is 'The date/timestamp that KOFAX considers the batch completed successfully (i.e. Released to DMS).';
@@ -409,7 +416,6 @@ comment on column CORP_ETL_MFB_BATCH_OLTP.CURRENT_BATCH_MODULE_ID is 'Identifier
 comment on column CORP_ETL_MFB_BATCH_OLTP.CURRENT_STEP is 'Current Activity Step for this Instance.';
 comment on column CORP_ETL_MFB_BATCH_OLTP.SOURCE_SERVER is 'Database where this row originated.';
 
-create or replace public synonym CORP_ETL_MFB_BATCH_OLTP for MAXDAT.CORP_ETL_MFB_BATCH_OLTP;
 grant select on CORP_ETL_MFB_BATCH_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -492,7 +498,9 @@ create table CORP_ETL_MFB_BATCH_STG(
   CURRENT_BATCH_MODULE_ID varchar2(38) null,
   GWF_QC_REQUIRED varchar2(1) null,
   CURRENT_STEP varchar2(100) null,
-  SOURCE_SERVER varchar2(255) null)
+  SOURCE_SERVER varchar2(255) null,
+  BATCH_DESCRIPTION varchar2(80) null,
+  REPROCESSED_FLAG varchar2(1) default 'N' not null)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -572,6 +580,8 @@ comment on column CORP_ETL_MFB_BATCH_STG.BATCH_COMPLETE_DT is 'The date/timestam
 comment on column CORP_ETL_MFB_BATCH_STG.CURRENT_BATCH_MODULE_ID is 'Identifier for the current record in Master Batch Module Staging.  It is NA if the batch is completed in KOFAX.';
 comment on column CORP_ETL_MFB_BATCH_STG.CURRENT_STEP is 'Current Activity Step for this Instance.';
 comment on column CORP_ETL_MFB_BATCH_STG.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_STG.BATCH_DESCRIPTION is 'Batch Description, may contain a batch_name if reprocessed';
+comment on column CORP_ETL_MFB_BATCH_STG.REPROCESSED_FLAG is 'Reprocessed Flag identifies records that were not previously successfully processed';
 
 alter table CORP_ETL_MFB_BATCH_STG add primary key (CEMFBB_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
@@ -591,8 +601,8 @@ alter table CORP_ETL_MFB_BATCH_STG add constraint CHECK_MFB_BS_ASF_VAL_DATA chec
 alter table CORP_ETL_MFB_BATCH_STG add constraint CHECK_MFB_BS_ASF_CREATE_PDF check (ASF_CREATE_PDF in('Y','N'));
 alter table CORP_ETL_MFB_BATCH_STG add constraint CHECK_MFB_BS_ASF_POP_REPORTS check (ASF_POPULATE_REPORTS in('Y','N'));
 alter table CORP_ETL_MFB_BATCH_STG add constraint CHECK_MFB_BS_ASF_REL_DMS check (ASF_RELEASE_DMS in('Y','N'));
+alter table CORP_ETL_MFB_BATCH_STG add constraint CHECK_MFB_BS_REPROS_FLG check (REPROCESSED_FLAG in('Y','N'));
 
-create or replace public synonym CORP_ETL_MFB_BATCH_STG for MAXDAT.CORP_ETL_MFB_BATCH_STG;
 grant select on CORP_ETL_MFB_BATCH_STG to MAXDAT_READ_ONLY;
 
 declare  c int;
@@ -673,7 +683,9 @@ create table CORP_ETL_MFB_BATCH_WIP(
   CURRENT_BATCH_MODULE_ID varchar2(38) null,
   GWF_QC_REQUIRED varchar2(1) null,
   CURRENT_STEP varchar2(100) null,
-  SOURCE_SERVER varchar2(255) null) 
+  SOURCE_SERVER varchar2(255) null,
+  BATCH_DESCRIPTION varchar2(80) null,
+  REPROCESSED_FLAG varchar2(1) default 'N' not null)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -753,6 +765,8 @@ comment on column CORP_ETL_MFB_BATCH_WIP.BATCH_COMPLETE_DT is 'The date/timestam
 comment on column CORP_ETL_MFB_BATCH_WIP.CURRENT_BATCH_MODULE_ID is 'Identifier for the current record in Master Batch Module Staging.  It is NA if the batch is completed in KOFAX.';
 comment on column CORP_ETL_MFB_BATCH_WIP.CURRENT_STEP is 'Current Activity Step for this Instance.';
 comment on column CORP_ETL_MFB_BATCH_WIP.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_WIP.BATCH_DESCRIPTION is 'Batch Description, may contain a batch_name if reprocessed';
+comment on column CORP_ETL_MFB_BATCH_WIP.REPROCESSED_FLAG is 'Reprocessed Flag identifies records that were not previously successfully processed';
 
 alter table CORP_ETL_MFB_BATCH_WIP  add primary key (CEMFBB_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
@@ -772,8 +786,8 @@ alter table CORP_ETL_MFB_BATCH_WIP add constraint CHECK_MFB_BW_ASF_VAL_DATA chec
 alter table CORP_ETL_MFB_BATCH_WIP add constraint CHECK_MFB_BW_ASF_CREATE_PDF check (ASF_CREATE_PDF in('Y','N'));
 alter table CORP_ETL_MFB_BATCH_WIP add constraint CHECK_MFB_BW_ASF_POP_REPORTS check (ASF_POPULATE_REPORTS in('Y','N'));
 alter table CORP_ETL_MFB_BATCH_WIP add constraint CHECK_MFB_BW_ASF_REL_DMS check (ASF_RELEASE_DMS in('Y','N'));
+alter table CORP_ETL_MFB_BATCH_WIP add constraint CHECK_MFB_BW_REPROS_FLG check (REPROCESSED_FLAG in('Y','N'));
 
-create or replace public synonym CORP_ETL_MFB_BATCH_WIP for MAXDAT.CORP_ETL_MFB_BATCH_WIP;
 grant select on CORP_ETL_MFB_BATCH_WIP to MAXDAT_READ_ONLY;
 
 
@@ -855,7 +869,10 @@ create table CORP_ETL_MFB_BATCH(
   CURRENT_BATCH_MODULE_ID varchar2(38) null,
   GWF_QC_REQUIRED varchar2(1) null,
   CURRENT_STEP varchar2(100) null,
-  SOURCE_SERVER varchar2(255) null) 
+  SOURCE_SERVER varchar2(255) null,
+  BATCH_DESCRIPTION varchar2(80) null,
+  REPROCESSED_FLAG varchar2(1) default 'N' not null,
+  CEJS_JOB_ID number null)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -935,7 +952,9 @@ comment on column CORP_ETL_MFB_BATCH.BATCH_COMPLETE_DT is 'The date/timestamp th
 comment on column CORP_ETL_MFB_BATCH.CURRENT_BATCH_MODULE_ID is 'Identifier for the current record in Master Batch Module Staging.  It is NA if the batch is completed in KOFAX.';
 comment on column CORP_ETL_MFB_BATCH.CURRENT_STEP is 'Current Activity Step for this Instance.';
 comment on column CORP_ETL_MFB_BATCH.SOURCE_SERVER is 'Database where this row originated.';
-
+comment on column CORP_ETL_MFB_BATCH.BATCH_DESCRIPTION is 'Batch Description, may contain a batch_name if reprocessed';
+comment on column CORP_ETL_MFB_BATCH.REPROCESSED_FLAG is 'Reprocessed Flag identifies records that were not previously successfully processed';
+comment on column CORP_ETL_MFB_BATCH.CEJS_JOB_ID is 'Batch Job ID from CORP_ETL_MFB_CONTROL for MicroStrategy Cache Updating';
 
 create unique index CORP_ETL_MFB_BATCH_IX1 on CORP_ETL_MFB_BATCH(CEMFBB_ID) tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage(initial 64K next 1M minextents 1 maxextents unlimited);
 
@@ -957,8 +976,8 @@ alter table CORP_ETL_MFB_BATCH add constraint CHECK_MFB_B_ASF_VAL_DATA check (AS
 alter table CORP_ETL_MFB_BATCH add constraint CHECK_MFB_B_ASF_CREATE_PDF check (ASF_CREATE_PDF in('Y','N'));
 alter table CORP_ETL_MFB_BATCH add constraint CHECK_MFB_B_ASF_POP_REPORTS check (ASF_POPULATE_REPORTS in('Y','N'));
 alter table CORP_ETL_MFB_BATCH add constraint CHECK_MFB_B_ASF_REL_DMS check (ASF_RELEASE_DMS in('Y','N'));
+alter table CORP_ETL_MFB_BATCH add constraint CHECK_MFB_B_REPROS_FLG check (REPROCESSED_FLAG in('Y','N'));
 
-create or replace public synonym CORP_ETL_MFB_BATCH for MAXDAT.CORP_ETL_MFB_BATCH;
 grant select on CORP_ETL_MFB_BATCH to MAXDAT_READ_ONLY;
 
 
@@ -994,7 +1013,8 @@ create table CORP_ETL_MFB_BATCH_EVENTS_OLTP(
   DOCS_DELETED NUMBER NULL,
   PAGES_REPLACED NUMBER NULL,
   STG_EXTRACT_DATE DATE DEFAULT SYSDATE NOT NULL,
-  SOURCE_SERVER varchar2(255) null)
+  SOURCE_SERVER varchar2(255) null,
+  ERROR_TEXT VARCHAR2(255) NULL)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -1029,8 +1049,8 @@ comment on column CORP_ETL_MFB_BATCH_EVENTS_OLTP.DOCS_DELETED is 'Number of docu
 comment on column CORP_ETL_MFB_BATCH_EVENTS_OLTP.PAGES_REPLACED is 'Number of pages replaced during the current processing session.';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_OLTP.STG_EXTRACT_DATE is 'STG_EXTRACT_DATE';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_OLTP.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_EVENTS_OLTP.ERROR_TEXT is 'StatsBatchModule Error Information';
 
-create or replace public synonym CORP_ETL_MFB_BATCH_EVENTS_OLTP for MAXDAT.CORP_ETL_MFB_BATCH_EVENTS_OLTP;
 grant select on CORP_ETL_MFB_BATCH_EVENTS_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -1071,7 +1091,8 @@ create table CORP_ETL_MFB_BATCH_EVENTS_STG(
   STG_PROCESSED_DATE DATE NULL,
   INSERT_UPDATE VARCHAR2(1) NULL,
   STG_INSERT_JOB_ID NUMBER NOT NULL,
-  SOURCE_SERVER varchar2(255) null)
+  SOURCE_SERVER varchar2(255) null,
+  ERROR_TEXT VARCHAR2(255) NULL)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -1109,12 +1130,14 @@ comment on column CORP_ETL_MFB_BATCH_EVENTS_STG.STG_EXTRACT_DATE is 'STG_EXTRACT
 comment on column CORP_ETL_MFB_BATCH_EVENTS_STG.STG_PROCESSED_DATE is 'Date that this row was successfully loaded to ETL.';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_STG.STG_LAST_UPDATE_DATE is 'STG_LAST_UPDATE_DATE';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_STG.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_EVENTS_STG.ERROR_TEXT is 'StatsBatchModule Error Information';
 
+create index CORP_ETL_MFB_BES_IX1 on CORP_ETL_MFB_BATCH_EVENTS_STG(BATCH_MODULE_ID) tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage(initial 64K next 1M minextents 1 maxextents unlimited);
 alter table CORP_ETL_MFB_BATCH_EVENTS_STG  add primary key (CEMFBBE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 alter table CORP_ETL_MFB_BATCH_EVENTS_STG add constraint CHECK_MFB_EVENTS_STG_B_STATUS check (BATCH_STATUS in(0,1,2,4,8,16,32,64,128,256,512));
 
-create or replace public synonym CORP_ETL_MFB_BATCH_EVENTS_STG for MAXDAT.CORP_ETL_MFB_BATCH_EVENTS_STG;
 grant select on CORP_ETL_MFB_BATCH_EVENTS_STG to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -1152,7 +1175,8 @@ create table CORP_ETL_MFB_BATCH_EVENTS_WIP(
   STG_LAST_UPDATE_DATE DATE NOT NULL,
   STG_PROCESSED_DATE DATE NULL,
   UPDATED VARCHAR2(1) NULL,
-  SOURCE_SERVER varchar2(255) null)
+  SOURCE_SERVER varchar2(255) null,
+  ERROR_TEXT varchar2(255) null)
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -1190,11 +1214,11 @@ comment on column CORP_ETL_MFB_BATCH_EVENTS_WIP.STG_EXTRACT_DATE is 'STG_EXTRACT
 comment on column CORP_ETL_MFB_BATCH_EVENTS_WIP.STG_PROCESSED_DATE is 'Date that this row was successfully loaded to ETL.';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_WIP.STG_LAST_UPDATE_DATE is 'STG_LAST_UPDATE_DATE';
 comment on column CORP_ETL_MFB_BATCH_EVENTS_WIP.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_EVENTS_WIP.ERROR_TEXT is 'StatsBatchModule Error Information';
 
-alter table CORP_ETL_MFB_BATCH_EVENTS_WIP  add primary key (CEMFBBE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
+alter table CORP_ETL_MFB_BATCH_EVENTS_WIP add primary key (CEMFBBE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 alter table CORP_ETL_MFB_BATCH_EVENTS_WIP add constraint CHECK_MFB_EVENTS_WIP_B_STATUS check (BATCH_STATUS in(0,1,2,4,8,16,32,64,128,256,512));
 
-create or replace public synonym CORP_ETL_MFB_BATCH_EVENTS_WIP for MAXDAT.CORP_ETL_MFB_BATCH_EVENTS_WIP;
 grant select on CORP_ETL_MFB_BATCH_EVENTS_WIP to MAXDAT_READ_ONLY;
 
 
@@ -1234,7 +1258,8 @@ STG_EXTRACT_DATE DATE NOT NULL,
 STG_LAST_UPDATE_DATE DATE NOT NULL,
 STG_PROCESSED_DATE DATE NULL,
 UPDATED VARCHAR2(1) NULL,
-SOURCE_SERVER varchar2(255) null) 
+SOURCE_SERVER varchar2(255) null,
+ERROR_TEXT VARCHAR2(255) NULL) 
 tablespace MAXDAT_DATA
   pctfree 10
   initrans 1
@@ -1272,6 +1297,7 @@ comment on column CORP_ETL_MFB_BATCH_EVENTS.STG_EXTRACT_DATE is 'STG_EXTRACT_DAT
 comment on column CORP_ETL_MFB_BATCH_EVENTS.STG_PROCESSED_DATE is 'Date that this row was successfully loaded to ETL.';
 comment on column CORP_ETL_MFB_BATCH_EVENTS.STG_LAST_UPDATE_DATE is 'STG_LAST_UPDATE_DATE';
 comment on column CORP_ETL_MFB_BATCH_EVENTS.SOURCE_SERVER is 'Database where this row originated.';
+comment on column CORP_ETL_MFB_BATCH_EVENTS.ERROR_TEXT is 'StatsBatchModule Error Information';
 
 create unique index CORP_ETL_MFB_BATCH_EVENTS_IX1 on CORP_ETL_MFB_BATCH_EVENTS(CEMFBBE_ID) tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage(initial 64K next 1M minextents 1 maxextents unlimited);
 alter table CORP_ETL_MFB_BATCH_EVENTS  add primary key (BATCH_MODULE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
@@ -1280,7 +1306,6 @@ alter table CORP_ETL_MFB_BATCH_EVENTS add constraint CHECK_MFB_EVENTS_B_STATUS c
 
 alter table CORP_ETL_MFB_BATCH_EVENTS add constraint CORP_ETL_MFBB_BATCH_GUID foreign key(BATCH_GUID) references CORP_ETL_MFB_BATCH(BATCH_GUID);
 
-create or replace public synonym CORP_ETL_MFB_BATCH_EVENTS for MAXDAT.CORP_ETL_MFB_BATCH_EVENTS;
 grant select on CORP_ETL_MFB_BATCH_EVENTS to MAXDAT_READ_ONLY;
 
 
@@ -1333,7 +1358,6 @@ comment on column CORP_ETL_MFB_FORM_OLTP.COMPLETED_PAGES is 'For this form type,
 comment on column CORP_ETL_MFB_FORM_OLTP.STG_EXTRACT_DATE is 'STG_EXTRACT_DATE';
 comment on column CORP_ETL_MFB_FORM_OLTP.SOURCE_SERVER is 'Database where this row originated.';
 
-create or replace public synonym CORP_ETL_MFB_FORM_OLTP for MAXDAT.CORP_ETL_MFB_FORM_OLTP;
 grant select on CORP_ETL_MFB_FORM_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -1396,8 +1420,8 @@ comment on column CORP_ETL_MFB_FORM_STG.SOURCE_SERVER is 'Database where this ro
 
 alter table CORP_ETL_MFB_FORM_STG add primary key (CEMFBF_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_FORM_STG for MAXDAT.CORP_ETL_MFB_FORM_STG;
 grant select on CORP_ETL_MFB_FORM_STG to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -1458,8 +1482,8 @@ comment on column CORP_ETL_MFB_FORM_WIP.SOURCE_SERVER is 'Database where this ro
 create unique index CORP_ETL_MFB_FORM_WIP_IX1 on CORP_ETL_MFB_FORM_WIP(CEMFBF_ID) tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage(initial 64K next 1M minextents 1 maxextents unlimited);
 alter table CORP_ETL_MFB_FORM_WIP  add primary key (FORM_TYPE_ENTRY_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_FORM_WIP for MAXDAT.CORP_ETL_MFB_FORM_WIP;
 grant select on CORP_ETL_MFB_FORM_WIP to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -1522,8 +1546,8 @@ alter table CORP_ETL_MFB_FORM  add primary key (FORM_TYPE_ENTRY_ID) using index 
 
 alter table CORP_ETL_MFB_FORM add constraint CORP_ETL_MFBF_BATCH_GUID foreign key(BATCH_GUID) references CORP_ETL_MFB_BATCH(BATCH_GUID);
 
-create or replace public synonym CORP_ETL_MFB_FORM for MAXDAT.CORP_ETL_MFB_FORM;
 grant select on CORP_ETL_MFB_FORM to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -1562,8 +1586,8 @@ comment on column CORP_ETL_MFB_ENVELOPE_OLTP.ENV_DOC_COUNT is 'The total number 
 comment on column CORP_ETL_MFB_ENVELOPE_OLTP.ENV_PAGE_COUNT is 'The total number of pages that are scanned in a single envelope.';
 comment on column CORP_ETL_MFB_ENVELOPE_OLTP.STG_EXTRACT_DATE is 'STG_EXTRACT_DATE';
 
-create or replace public synonym CORP_ETL_MFB_ENVELOPE_OLTP for MAXDAT.CORP_ETL_MFB_ENVELOPE_OLTP;
 grant select on CORP_ETL_MFB_ENVELOPE_OLTP to MAXDAT_READ_ONLY;
+
 
 declare  c int;
 begin
@@ -1612,7 +1636,6 @@ comment on column CORP_ETL_MFB_ENVELOPE_STG.STG_LAST_UPDATE_DATE is 'STG_LAST_UP
 
 alter table CORP_ETL_MFB_ENVELOPE_STG add primary key (CEMFBE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_ENVELOPE_STG for MAXDAT.CORP_ETL_MFB_ENVELOPE_STG;
 grant select on CORP_ETL_MFB_ENVELOPE_STG to MAXDAT_READ_ONLY;
 
 
@@ -1662,7 +1685,6 @@ comment on column CORP_ETL_MFB_ENVELOPE_WIP.STG_LAST_UPDATE_DATE is 'STG_LAST_UP
 
 alter table CORP_ETL_MFB_ENVELOPE_WIP add primary key (CEMFBE_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_ENVELOPE_WIP for MAXDAT.CORP_ETL_MFB_ENVELOPE_WIP;
 grant select on CORP_ETL_MFB_ENVELOPE_WIP to MAXDAT_READ_ONLY;
 
 
@@ -1716,7 +1738,6 @@ create unique index CORP_ETL_MFB_ENVELOPE_IX1 on CORP_ETL_MFB_ENVELOPE(CEMFBE_ID
 
 alter table CORP_ETL_MFB_ENVELOPE add constraint CORP_ETL_MFBEN_BATCH_GUID foreign key(BATCH_GUID) references CORP_ETL_MFB_BATCH(BATCH_GUID);
 
-create or replace public synonym CORP_ETL_MFB_ENVELOPE for MAXDAT.CORP_ETL_MFB_ENVELOPE;
 grant select on CORP_ETL_MFB_ENVELOPE to MAXDAT_READ_ONLY;
 
 
@@ -1773,7 +1794,6 @@ comment on column CORP_ETL_MFB_DOCUMENT_OLTP.CONFIDENCE is 'The confidence score
 comment on column CORP_ETL_MFB_DOCUMENT_OLTP.CONFIDENT is 'The flag that indicates that the system confidently classified the document.';
 comment on column CORP_ETL_MFB_DOCUMENT_OLTP.STG_EXTRACT_DATE is 'STG_EXTRACT_DATE';
 
-create or replace public synonym CORP_ETL_MFB_DOCUMENT_OLTP for MAXDAT.CORP_ETL_MFB_DOCUMENT_OLTP;
 grant select on CORP_ETL_MFB_DOCUMENT_OLTP to MAXDAT_READ_ONLY;
 
 
@@ -1843,7 +1863,6 @@ alter table CORP_ETL_MFB_DOCUMENT_STG  add primary key (CEMFBD_ID) using index t
 --alter table CORP_ETL_MFB_DOCUMENT_STG add constraint CHECK_MFB_DS_DOC_TYPE_NM check (TYPE_NAME in('Financial Assistance Application','Non-Financial Assistance Application','SHOP Employer Application','SHOP Employee Application','Birth Certificate','Driver''s License','Passport','Social Security Card','Income Proof','Correspondence','Proof of Legal Status','Loose','None'));
 --alter table CORP_ETL_MFB_DOCUMENT_STG add constraint CHECK_MFB_DS_DOC_CLASS check (DOC_CLASS in('Application','Verification'));
 
-create or replace public synonym CORP_ETL_MFB_DOCUMENT_STG for MAXDAT.CORP_ETL_MFB_DOCUMENT_STG;
 grant select on CORP_ETL_MFB_DOCUMENT_STG to MAXDAT_READ_ONLY;
 
 
@@ -1909,7 +1928,6 @@ comment on column CORP_ETL_MFB_DOCUMENT_WIP.STG_LAST_UPDATE_DATE is 'STG_LAST_UP
 
 alter table CORP_ETL_MFB_DOCUMENT_WIP  add primary key (CEMFBD_ID) using index tablespace MAXDAT_INDX pctfree 10 initrans 2 maxtrans 255 storage (initial 64K next 1M minextents 1 maxextents unlimited);
 
-create or replace public synonym CORP_ETL_MFB_DOCUMENT_WIP for MAXDAT.CORP_ETL_MFB_DOCUMENT_WIP;
 grant select on CORP_ETL_MFB_DOCUMENT_WIP to MAXDAT_READ_ONLY;
 
 
@@ -1980,7 +1998,6 @@ alter table CORP_ETL_MFB_DOCUMENT add constraint CORP_ETL_MFBD_BATCH_GUID foreig
 --alter table CORP_ETL_MFB_DOCUMENT add constraint CHECK_MFB_D_DOC_TYPE_NM check (TYPE_NAME in('Financial Assistance Application','Non-Financial Assistance Application','SHOP Employer Application','SHOP Employee Application','Birth Certificate','Driver''s License','Passport','Social Security Card','Income Proof','Correspondence','Proof of Legal Status','Loose','None'));
 --alter table CORP_ETL_MFB_DOCUMENT add constraint CHECK_MFB_D_DOC_CLASS check (DOC_CLASS in('Application','Verification'));
 
-create or replace public synonym CORP_ETL_MFB_DOCUMENT for MAXDAT.CORP_ETL_MFB_DOCUMENT;
 grant select on CORP_ETL_MFB_DOCUMENT to MAXDAT_READ_ONLY;
 
 

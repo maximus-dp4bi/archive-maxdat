@@ -4,22 +4,22 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
 
 
 -- Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
-  SVN_FILE_URL varchar2(200) := '$URL: svn://rcmxapp1d.maximus.com/maxdat/BPM/NYHIX/ProcessComplaints/createdb/PROCESS_COMPLAINTS_INCIDENTS_pkg.sql $'; 
-  SVN_REVISION varchar2(20) := '$Revision: 9667 $'; 
-  SVN_REVISION_DATE varchar2(60) := '$Date: 2014-04-22 21:45:15 -0700 (Tue, 22 Apr 2014) $'; 
-  SVN_REVISION_AUTHOR varchar2(20) := '$Author: mc34742 $';
+  SVN_FILE_URL varchar2(200) := '$URL$'; 
+  SVN_REVISION varchar2(20) := '$Revision$'; 
+  SVN_REVISION_DATE varchar2(60) := '$Date$'; 
+  SVN_REVISION_AUTHOR varchar2(20) := '$Author$';
 
   procedure CALC_DCMPLCUR;
 
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number;
+    return number parallel_enable;
 
   function GET_JEOPARDY_STATUS
     (p_create_dt in date,
@@ -27,7 +27,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      p_complete_dt in date,
      p_identifier_type in varchar2
  )
-    return varchar2;
+    return varchar2 parallel_enable;
 
   function GET_TIMELINESS_STATUS
     (p_create_dt in date,
@@ -36,19 +36,19 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      p_forward_dt in date,
      p_identifier_type in varchar2
 )
-    return varchar2;
+    return varchar2 parallel_enable;
     
   function GET_SLA_JEOPARDY_DATE
     (p_create_dt in date,
      p_identifier_type in varchar2
  )
-  return date;
+  return date parallel_enable;
   
   function GET_FWDING_TARGET
       (p_forwarded_to in varchar2,
        p_identifier_type in varchar2
    )
-    return number;
+    return number parallel_enable result_cache;
     
   function GET_FWDING_TIMELINESS_STATUS
         (p_forwarded in varchar2,
@@ -58,7 +58,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
          p_ased_reslv_inci_doh in date,
          p_identifier_type in varchar2
     )
-      return varchar2;
+      return varchar2 parallel_enable;
   /*
     Include: 
     CECI_ID    
@@ -89,6 +89,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      CANCEL_DT varchar2(19),
      CANCEL_METHOD varchar2(40),
      CANCEL_REASON varchar2(40),
+     CASE_CIN varchar2(30),
      CASE_ID varchar2(100),
      CHANNEL varchar2(80),
      CLIENT_ID varchar2(100),
@@ -101,8 +102,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      CREATE_DT varchar2(19),
      CURRENT_TASK_ID varchar2(100),
      CURRENT_STEP varchar2(256),
-     DE_TASK_ID varchar2(100),
-     FOLLOWUP_FLAG  varchar2(1),
+     DE_TASK_ID varchar2(100),     
      FORWARDED varchar2(1),
      FORWARDED_TO varchar2(50),
      FORWARD_DT varchar2(19),
@@ -134,6 +134,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      RESOLUTION_DESCRIPTION varchar2(4000),
      RESOLUTION_TYPE varchar2(64),
      SLA_SATISFIED varchar2(1),
+     SLA_COMPLETE_DT varchar2(19),
      STG_LAST_UPDATE_DATE varchar2(19),
      TRACKING_NUMBER varchar2(32),
      UPDATED_BY varchar2(80)
@@ -168,6 +169,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      CANCEL_DT varchar2(19),
      CANCEL_METHOD varchar2(40),
      CANCEL_REASON varchar2(40),
+     CASE_CIN varchar2(30),
      CASE_ID varchar2(100),
      CHANNEL varchar2(80),
      CLIENT_ID varchar2(100),
@@ -180,8 +182,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      CREATE_DT varchar2(19),
      CURRENT_TASK_ID varchar2(100),
      CURRENT_STEP varchar2(256),
-     DE_TASK_ID varchar2(100),
-     FOLLOWUP_FLAG  varchar2(1),
+     DE_TASK_ID varchar2(100),     
      FORWARDED varchar2(1),
      FORWARDED_TO varchar2(50),
      FORWARD_DT varchar2(19),
@@ -212,6 +213,7 @@ create or replace package PROCESS_COMPLAINTS_INCIDENTS as
      RESOLUTION_DESCRIPTION varchar2(4000),
      RESOLUTION_TYPE varchar2(64),
      SLA_SATISFIED varchar2(1),
+     SLA_COMPLETE_DT varchar2(19),
      STG_LAST_UPDATE_DATE varchar2(19),
      TRACKING_NUMBER varchar2(32),
      UPDATED_BY varchar2(80)
@@ -249,7 +251,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
   function GET_AGE_IN_BUSINESS_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
      return BPM_COMMON.BUS_DAYS_BETWEEN(p_create_date,nvl(p_complete_date,sysdate));
@@ -257,7 +259,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
   function GET_AGE_IN_CALENDAR_DAYS
     (p_create_date in date,
      p_complete_date in date)
-    return number
+    return number parallel_enable
   as
   begin
     return trunc(nvl(p_complete_date,sysdate)) - trunc(p_create_date);
@@ -270,12 +272,12 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      p_complete_dt in date,
      p_identifier_type in varchar2
   )
-    return varchar2
+    return varchar2 parallel_enable
       as
   begin
   if p_identifier_type is not null then
   
-    select  to_number(out_var)
+    select /*+ RESULT_CACHE +*/ to_number(out_var)
     into    v_jeopardy_days
     from    corp_etl_list_lkup
     where   name = 'ProcessComp_jeop_threshold'
@@ -304,14 +306,15 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      p_forward_dt in date,
      p_identifier_type in varchar2
 )
-    return varchar2
+    return varchar2 parallel_enable
   as
   begin
   
   v_timeliness_days := 0;
   
  if p_identifier_type is not null then
-    select  to_number(out_var)
+ 
+    select /*+ RESULT_CACHE +*/ to_number(out_var)
     into    v_timeliness_days
     from    corp_etl_list_lkup
     where   name = 'ProcessComp_timeli_threshold'
@@ -357,12 +360,12 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
         (p_create_dt in date,
          p_identifier_type in varchar2
       )
-        return date
+        return date parallel_enable
           as
       begin
       if p_identifier_type is not null then
       
-        select  to_number(out_var)
+        select /*+ RESULT_CACHE +*/ to_number(out_var)
         into    v_jeopardy_days
         from    corp_etl_list_lkup
         where   name = 'ProcessComp_jeop_threshold'
@@ -379,7 +382,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
         (p_forwarded_to in varchar2,
          p_identifier_type in varchar2
       )
-        return number
+        return number parallel_enable result_cache
           as
       begin
       v_fwding_target := 0;
@@ -406,7 +409,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
        p_ased_reslv_inci_doh in date,
        p_identifier_type in varchar2
   )
-      return varchar2
+      return varchar2 parallel_enable
     as
     begin
     v_complete_dt := nvl(p_complete_dt,SYSDATE);
@@ -443,6 +446,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     v_sql_code number := null;
     v_num_rows_updated number := null;
   begin
+  
     update D_COMPLAINT_CURRENT
     set
       AGE_IN_BUSINESS_DAYS = GET_AGE_IN_BUSINESS_DAYS(CREATE_DATE,COMPLETE_DT),
@@ -459,8 +463,11 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       where
      COMPLETE_DT is null ;
     --  and "Cancel Date" is null;
+    
     v_num_rows_updated := sql%rowcount;
+    
     commit;
+    
     v_log_message := v_num_rows_updated  || ' D_COMPLAINT_CURRENT rows updated with calculated attributes by CALC_DCMPLCUR.';
     BPM_COMMON.LOGGER(BPM_COMMON.LOG_LEVEL_INFO,null,v_procedure_name,v_bsl_id,v_bil_id,null,null,v_log_message,null);
   exception
@@ -854,6 +861,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_DT') "CANCEL_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_METHOD') "CANCEL_METHOD",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_REASON') "CANCEL_REASON",
+      extractValue(p_data_xml,'/ROWSET/ROW/CASE_CIN') "CASE_CIN",
       extractValue(p_data_xml,'/ROWSET/ROW/CASE_ID') "CASE_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/CHANNEL') "CHANNEL",
       extractValue(p_data_xml,'/ROWSET/ROW/CLIENT_ID') "CLIENT_ID",
@@ -866,8 +874,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_DT') "CREATE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CURRENT_TASK_ID') "CURRENT_TASK_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/CURRENT_STEP') "CURRENT_STEP",
-      extractValue(p_data_xml,'/ROWSET/ROW/DE_TASK_ID') "DE_TASK_ID",
-      extractValue(p_data_xml,'/ROWSET/ROW/FOLLOWUP_FLAG') "FOLLOWUP_FLAG",
+      extractValue(p_data_xml,'/ROWSET/ROW/DE_TASK_ID') "DE_TASK_ID",      
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARDED') "FORWARDED",
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARDED_TO') "FORWARDED_TO",
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARD_DT') "FORWARD_DT",
@@ -898,7 +905,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/REPORTER_RELATIONSHIP') "REPORTER_RELATIONSHIP",
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_DESCRIPTION') "RESOLUTION_DESCRIPTION",
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_TYPE') "RESOLUTION_TYPE",
-      extractValue(p_data_xml,'/ROWSET/ROW/SLA_SATISFIED') "SLA_SATISFIED",      
+      extractValue(p_data_xml,'/ROWSET/ROW/SLA_SATISFIED') "SLA_SATISFIED",  
+      extractValue(p_data_xml,'/ROWSET/ROW/SLA_COMPLETE_DT') "SLA_COMPLETE_DT",  
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/TRACKING_NUMBER') "TRACKING_NUMBER",
       extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY"
@@ -947,6 +955,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_DT') "CANCEL_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_METHOD') "CANCEL_METHOD",
       extractValue(p_data_xml,'/ROWSET/ROW/CANCEL_REASON') "CANCEL_REASON",
+      extractValue(p_data_xml,'/ROWSET/ROW/CASE_CIN') "CASE_CIN",
       extractValue(p_data_xml,'/ROWSET/ROW/CASE_ID') "CASE_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/CHANNEL') "CHANNEL",
       extractValue(p_data_xml,'/ROWSET/ROW/CLIENT_ID') "CLIENT_ID",
@@ -959,8 +968,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/CREATE_DT') "CREATE_DT",
       extractValue(p_data_xml,'/ROWSET/ROW/CURRENT_TASK_ID') "CURRENT_TASK_ID",
       extractValue(p_data_xml,'/ROWSET/ROW/CURRENT_STEP') "CURRENT_STEP",
-      extractValue(p_data_xml,'/ROWSET/ROW/DE_TASK_ID') "DE_TASK_ID",
-      extractValue(p_data_xml,'/ROWSET/ROW/FOLLOWUP_FLAG') "FOLLOWUP_FLAG",
+      extractValue(p_data_xml,'/ROWSET/ROW/DE_TASK_ID') "DE_TASK_ID",      
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARDED') "FORWARDED",
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARDED_TO') "FORWARDED_TO",
       extractValue(p_data_xml,'/ROWSET/ROW/FORWARD_DT') "FORWARD_DT",
@@ -991,6 +999,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_DESCRIPTION') "RESOLUTION_DESCRIPTION",
       extractValue(p_data_xml,'/ROWSET/ROW/RESOLUTION_TYPE') "RESOLUTION_TYPE",
       extractValue(p_data_xml,'/ROWSET/ROW/SLA_SATISFIED') "SLA_SATISFIED", 
+      extractValue(p_data_xml,'/ROWSET/ROW/SLA_COMPLETE_DT') "SLA_COMPLETE_DT", 
       extractValue(p_data_xml,'/ROWSET/ROW/STG_LAST_UPDATE_DATE') "STG_LAST_UPDATE_DATE",
       extractValue(p_data_xml,'/ROWSET/ROW/TRACKING_NUMBER') "TRACKING_NUMBER",
       extractValue(p_data_xml,'/ROWSET/ROW/UPDATED_BY') "UPDATED_BY"
@@ -1085,7 +1094,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
           INVENTORY_COUNT ,
           COMPLETION_COUNT ,
           COMPLETE_DT,
-          DCMPLSS_ID
+          DCMPLSS_ID          
           )
       values
         (p_fcmplbd_id,
@@ -1114,7 +1123,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
            else 1
            end     ,
          to_date(  p_complete_dt,BPM_COMMON.DATE_FMT),
-         p_dcmplss_id
+         p_dcmplss_id         
         );
   exception
     when OTHERS then
@@ -1155,8 +1164,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     p_cancel_method                     in  varchar2,
     p_cancel_reason                     in  varchar2,
     p_cur_current_task_id               in  number,
-    p_data_entry_task_id                in  number,
-    p_followup_flag                 in  varchar2,
+    p_data_entry_task_id                in  number,    
     p_cur_incident_about                in  varchar2,
     p_cur_incident_description          in  varchar2,
     p_cur_incident_reason               in  varchar2,
@@ -1175,11 +1183,12 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     p_cur_resolution_description        in  varchar2,
     p_resolution_type                   in  varchar2,
     p_case_id                           in  number,
+    p_case_cin                          in  varchar2,
     p_forwarded_flag                    in  varchar2,
     p_incident_type                     in  varchar2,
     p_forwarded_to                      in  varchar2,
     p_sla_days_type                     in  varchar2,
-    p_sla_jeopardy_date                 in  varchar2,       
+    p_sla_jeopardy_date                 in  date,       
     p_sla_jeopardy_days                 in  number,
     p_sla_target_days                   in  number,
     p_age_in_business_days              in  number,            
@@ -1197,10 +1206,15 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     p_reporter_name                     in varchar2,
     p_reporter_phone                    in varchar2,
     p_sla_satisfied                     in varchar2,
+    p_sla_complete_dt                   in varchar2,
     p_created_by_sup                    in varchar2,
     p_created_by_eid                    in varchar2,
     p_created_by_sup_name               in varchar2,
-    p_gwf_escalate_to_state             in varchar2
+    p_gwf_escalate_to_state             in varchar2,
+    p_gwf_resolved_ees_css              in varchar2,
+    p_gwf_resolved_sup                  in varchar2,
+    p_gwf_followup_req                  in varchar2,
+    p_gwf_return_to_state               in varchar2
      )
   as
     v_procedure_name varchar2(61) := $$PLSQL_UNIT || '.' || 'SET_DPCCUR';
@@ -1238,8 +1252,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
 	r_dpccur.CANCEL_REASON                        	:=   p_cancel_reason                        	;
 	r_dpccur.CUR_CURRENT_TASK_ID                  	:=   p_cur_current_task_id                  	;
   r_dpccur.CURRENT_STEP                         	:=   p_current_step                  	;
-	r_dpccur.DATA_ENTRY_TASK_ID                   	:=   p_data_entry_task_id                   	;
-	r_dpccur.FOLLOWUP_FLAG                        	:=   p_followup_flag                	;
+	r_dpccur.DATA_ENTRY_TASK_ID                   	:=   p_data_entry_task_id                   	;	
 	r_dpccur.CUR_INCIDENT_ABOUT                   	:=   p_cur_incident_about                   	;
 	r_dpccur.CUR_INCIDENT_DESCRIPTION             	:=   p_cur_incident_description            	;
 	r_dpccur.CUR_INCIDENT_REASON                  	:=   p_cur_incident_reason                  	;
@@ -1258,11 +1271,12 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
 	r_dpccur.CUR_RESOLUTION_DESCRIPTION           	:=   p_cur_resolution_description           	;
 	r_dpccur.RESOLUTION_TYPE                      	:=   p_resolution_type                      	;
 	r_dpccur.CASE_ID                              	:=   p_case_id                              	;
+  r_dpccur.CASE_CIN                              	:=   p_case_cin                              	;
 	r_dpccur.FORWARDED_FLAG                       	:=   p_forwarded_flag                       	;
 	r_dpccur.INCIDENT_TYPE                        	:=   p_incident_type                        	;
 	r_dpccur.FORWARDED_To                         	:=   p_forwarded_to                         	;
 	r_dpccur.SLA_DAYS_TYPE                        	:=   p_sla_days_type                        	;
-	r_dpccur.SLA_JEOPARDY_DATE                      :=   to_date(  p_sla_jeopardy_date    ,        BPM_COMMON.DATE_FMT)                    	;
+	r_dpccur.SLA_JEOPARDY_DATE                      :=   p_sla_jeopardy_date 	;
 	r_dpccur.SLA_JEOPARDY_DAYS                    	:=   p_sla_jeopardy_days                    	;
 	r_dpccur.SLA_Target_DAYS                      	:=   p_sla_target_days                      	;
 	r_dpccur.Age_IN_BUSINESS_DAYS                   :=   GET_AGE_IN_BUSINESS_DAYS(to_date(p_create_date, BPM_COMMON.DATE_FMT), to_date( p_complete_dt, BPM_COMMON.DATE_FMT))	;
@@ -1279,10 +1293,15 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
   r_dpccur.REPORTER_NAME                          :=  p_reporter_name;
   r_dpccur.REPORTER_PHONE                         :=  p_reporter_phone;
   r_dpccur.SLA_SATISFIED                          :=  p_sla_satisfied;
+  r_dpccur.SLA_COMPLETE_DATE                      :=  to_date(p_sla_complete_dt,BPM_COMMON.DATE_FMT) ;
   r_dpccur.CREATED_BY_SUP                         :=  p_created_by_sup;         
   r_dpccur.CREATED_BY_EID                         := p_created_by_eid;        
   r_dpccur.CREATED_BY_SUP_NAME                    := p_created_by_sup_name;
   r_dpccur.GWF_ESCALATE_TO_STATE                  := p_gwf_escalate_to_state;
+  r_dpccur.GWF_RESOLVED_EES_CSS                    := p_gwf_resolved_ees_css;
+  r_dpccur.GWF_RESOLVED_SUP                       := p_gwf_resolved_sup;
+  r_dpccur.GWF_FOLLOWUP_REQ                       := p_gwf_followup_req;
+  r_dpccur.GWF_RETURN_TO_STATE                    := p_gwf_return_to_state;
 
     
     if p_set_type = 'INSERT' then
@@ -1353,7 +1372,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     GET_INS_PD_XML(p_new_data_xml,v_new_data);
     v_identifier := v_new_data.incident_id;
     v_start_date := to_date(v_new_data.CREATE_DT,BPM_COMMON.DATE_FMT);
-    v_end_date := to_date(coalesce(v_new_data.INSTANCE_COMPLETE_DT,v_new_data.CANCEL_DT),BPM_COMMON.DATE_FMT);
+    v_end_date := to_date(coalesce(v_new_data.COMPLETE_DT,v_new_data.CANCEL_DT),BPM_COMMON.DATE_FMT);
     BPM_COMMON.WARN_CREATE_COMPLETE_DATE(v_start_date,v_end_date,v_bsl_id,v_bil_id,v_identifier);
     v_bi_id := SEQ_BI_ID.nextval;    
    
@@ -1409,8 +1428,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.cancel_method                        ,
      v_new_data.cancel_reason                        ,
      v_new_data.current_task_id                  ,
-     v_new_data.de_task_id                   ,
-     v_new_data.followup_flag                ,
+     v_new_data.de_task_id                   ,     
      v_new_data.incident_about                   ,
      v_new_data.incident_description             ,
      v_new_data.incident_reason                  ,
@@ -1429,6 +1447,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.resolution_description           ,
      v_new_data.resolution_type                  ,
      v_new_data.case_id                         ,
+     v_new_data.case_cin                         ,
      v_new_data.forwarded                       ,
      v_new_data.incident_type                    ,
      v_new_data.forwarded_to                    ,     
@@ -1451,10 +1470,15 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.reporter_name,
      v_new_data.reporter_phone,
      v_new_data.sla_satisfied,
+     v_new_data.sla_complete_dt,
      v_new_data.created_by_sup,         
      v_new_data.created_by_eid,       
      v_new_data.created_by_sup_name,  
-     v_new_data.gwf_escalate_to_state
+     v_new_data.gwf_escalate_to_state,
+     v_new_data.gwf_resolved_ees_css,
+     v_new_data.gwf_resolved_sup,
+     v_new_data.gwf_followup_req,
+     v_new_data.gwf_return_to_state
         );
       INS_FPDBD
         (v_identifier,v_start_date,v_end_date,v_bi_id,
@@ -1508,6 +1532,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
        p_stg_last_update_date in varchar2,
        p_complete_dt in varchar2,
        p_dcmplss_id in number,
+       p_sla_complete_date in varchar2,       
        p_fcmplbd_id out number 
  )
   as
@@ -1535,6 +1560,9 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     v_last_update_date date:= null;
     r_fnpdbd F_COMPLAINT_BY_DATE%rowtype := null;
     v_complete_dt date := null;
+    
+    -- added for NYHIX-12036 add sla_complete_date attribute to fact table    
+    v_sla_complete_date date := null;
   begin
     v_last_update_date := to_date(p_stg_last_update_date,BPM_COMMON.DATE_FMT);
     v_event_date := v_last_update_date;
@@ -1550,6 +1578,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     v_dcmplrd_id := p_dcmplrd_id;
     v_dcmplss_id := p_dcmplss_id;
     v_complete_dt  := to_date( p_complete_dt,BPM_COMMON.DATE_FMT);
+    v_sla_complete_date := to_date( p_sla_complete_date,BPM_COMMON.DATE_FMT);
+    
     with most_recent_fact_bi_id as
       (select
          max(FCMPLBD_ID) max_fcmplbd_id,
@@ -1560,8 +1590,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
       fnpdbd.FCMPLBD_ID,
       fnpdbd.D_DATE,
       fnpdbd.CREATION_COUNT,
-      fnpdbd.COMPLETION_COUNT,
-      most_recent_fact_bi_id.max_d_date
+      fnpdbd.COMPLETION_COUNT,      
+      most_recent_fact_bi_id.max_d_date      
     into
       v_fcmplbd_id_old,
       v_d_date_old,
@@ -1574,8 +1604,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     where
       fnpdbd.FCMPLBD_ID = max_fcmplbd_id
       and fnpdbd.D_DATE = most_recent_fact_bi_id.max_d_date;
-    -- Do not modify fact table further once an instance has completed ever before.
     
+    -- Do not modify fact table further once an instance has completed ever before.        
     if v_completion_count_old >= 1 then
       return;
     end if;
@@ -1616,7 +1646,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
           fnpdbd.dcmplis_id,
           fnpdbd.dcmplin_id,
           fnpdbd.dcmplrd_id,
-          fnpdbd.dcmplss_id
+          fnpdbd.dcmplss_id,          
+          fnpdbd.sla_complete_date
           into
           v_fcmplbd_id_old,
           v_d_date_old,
@@ -1631,7 +1662,8 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
           v_dcmplis_id,
           v_dcmplin_id,
           v_dcmplrd_id,
-          v_dcmplss_id
+          v_dcmplss_id,          
+          v_sla_complete_date
          from
           F_COMPLAINT_BY_DATE fnpdbd,
           most_recent_fact_bi_id
@@ -1662,7 +1694,9 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     r_fnpdbd.DCMPLSS_ID  := v_dcmplss_id;
     r_fnpdbd.INCIDENT_STATUS_DATE := v_incident_status_date;
     r_fnpdbd.LAST_UPDATE_DATE := v_last_update_date;
-    r_fnpdbd.COMPLETE_DT := v_complete_dt;
+    r_fnpdbd.COMPLETE_DT := v_complete_dt;    
+    r_fnpdbd.sla_complete_date := v_sla_complete_date; --NYHIX-12036
+    
       -- Validate fact date ranges.
     if r_fnpdbd.D_DATE < r_fnpdbd.BUCKET_START_DATE
       or to_date(to_char(r_fnpdbd.D_DATE,v_date_bucket_fmt),v_date_bucket_fmt) > r_fnpdbd.BUCKET_END_DATE
@@ -1683,6 +1717,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
         if v_creation_count_old = 1 then
           r_fnpdbd.CREATION_COUNT := v_creation_count_old;
         end if;
+        
         update F_COMPLAINT_BY_DATE
         set row = r_fnpdbd
         where FCMPLBD_ID = v_fcmplbd_id_old;
@@ -1754,7 +1789,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
     GET_UPD_PD_XML(p_new_data_xml,v_new_data);
     v_identifier := v_new_data.incident_id;
     v_start_date := to_date(v_new_data.CREATE_DT,BPM_COMMON.DATE_FMT);
-    v_end_date := to_date(coalesce(v_new_data.INSTANCE_COMPLETE_DT,v_new_data.CANCEL_DT),BPM_COMMON.DATE_FMT);
+    v_end_date := to_date(coalesce(v_new_data.COMPLETE_DT,v_new_data.CANCEL_DT),BPM_COMMON.DATE_FMT);
     BPM_COMMON.WARN_CREATE_COMPLETE_DATE(v_start_date,v_end_date,v_bsl_id,v_bil_id,v_identifier);
  
     select CMPL_BI_ID 
@@ -1814,8 +1849,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.cancel_method                        ,
      v_new_data.cancel_reason                        ,
      v_new_data.current_task_id                  ,
-     v_new_data.de_task_id                   ,
-     v_new_data.followup_flag                ,
+     v_new_data.de_task_id                   ,     
      v_new_data.incident_about                   ,
      v_new_data.incident_description             ,
      v_new_data.incident_reason                  ,
@@ -1834,6 +1868,7 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.resolution_description           ,
      v_new_data.resolution_type                      ,
      v_new_data.case_id                         ,
+     v_new_data.case_cin                         ,
      v_new_data.forwarded                       ,
      v_new_data.incident_type                  ,
      v_new_data.forwarded_to                   ,      
@@ -1856,10 +1891,15 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
      v_new_data.reporter_name,
      v_new_data.reporter_phone,
      v_new_data.sla_satisfied,
+     v_new_data.sla_complete_dt,
      v_new_data.created_by_sup,         
      v_new_data.created_by_eid,       
      v_new_data.created_by_sup_name,  
-     v_new_data.gwf_escalate_to_state
+     v_new_data.gwf_escalate_to_state,
+     v_new_data.gwf_resolved_ees_css,
+     v_new_data.gwf_resolved_sup,
+     v_new_data.gwf_followup_req,
+     v_new_data.gwf_return_to_state
          );
       UPD_FPDBD
         (v_identifier,v_end_date,v_bi_id, v_new_data.current_task_id ,
@@ -1873,8 +1913,9 @@ create or replace package body PROCESS_COMPLAINTS_INCIDENTS as
           v_dcmplrd_id,
           v_new_data.incident_status_dt ,
           v_new_data.last_update_by_dt ,
-          v_new_data.complete_dt,
+          v_new_data.complete_dt,          
           v_dcmplss_id,
+          v_new_data.sla_complete_dt,          
           v_fcmplbd_id);
       commit;
     exception

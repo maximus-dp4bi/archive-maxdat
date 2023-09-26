@@ -177,14 +177,22 @@ create table D_COR_CURRENT
    PERFORM_OR_STEP6_FLAG varchar2(1) not null,
    HOME_VISIT_FLAG varchar2(1) not null,
    TERMINATION_TIMER_FLAG varchar2(1) not null,
-EE_OTHER_INDICATOR varchar2(4000))
+   EE_OTHER_INDICATOR varchar2(4000),
+   IMAGE_REFERENCE_ID NUMBER)
 tablespace MAXDAT_DATA parallel;
   
 alter table D_COR_CURRENT add constraint DCORCUR_PK primary key (COR_BI_ID) using index tablespace MAXDAT_INDX;
 
 create unique index DCORCUR_UIX1 on D_COR_CURRENT (OUTREACH_REQUEST_ID) online tablespace MAXDAT_INDX parallel compute statistics; 
 
-create or replace public synonym D_COR_CURRENT for D_COR_CURRENT;
+create index DCORCUR_IX2 on D_COR_CURRENT (OUTREACH_REQUEST_STATUS) online tablespace MAXDAT_INDX parallel compute statistics;
+create index DCORCUR_IX3 ON D_COR_CURRENT(CREATE_DATE) TABLESPACE MAXDAT_INDX;
+create index DCORCUR_IX4 ON D_COR_CURRENT(COMPLETE_DATE) TABLESPACE MAXDAT_INDX;
+create index DCORCUR_IX5 ON D_COR_CURRENT(CPW_REFERRAL_SOURCE_TYPE) TABLESPACE MAXDAT_INDX;
+create index DCORCUR_IX6 ON D_COR_CURRENT(CPW_REFERRAL_SOURCE_NAME) TABLESPACE MAXDAT_INDX;
+create index DCORCUR_IX7 ON D_COR_CURRENT(OUTREACH_REQUEST_TYPE) TABLESPACE MAXDAT_INDX;
+create index DCORCUR_IX8 ON D_COR_CURRENT(IMAGE_REFERENCE_ID) TABLESPACE MAXDAT_INDX;
+
 grant select on D_COR_CURRENT to MAXDAT_READ_ONLY;
 
 create or replace view D_COR_CURRENT_SV as
@@ -192,7 +200,6 @@ select *
 from D_COR_CURRENT
 with read only;
 
-create or replace public synonym D_COR_CURRENT_SV for D_COR_CURRENT_SV;
 grant select on D_COR_CURRENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -202,7 +209,6 @@ select *
 from CORP_ETL_CLNT_OUTREACH_EVENTS
 with read only;
 
-create or replace public synonym D_COR_OR_EVENT_SV for D_COR_OR_EVENT_SV;
 grant select on D_COR_OR_EVENT_SV to MAXDAT_READ_ONLY;
 
 
@@ -213,7 +219,6 @@ select OUTREACH_ID,OUTREACH_REQ_DESCRIPTION
 from CORP_ETL_CLNT_OUTREACH
 with read only;
 
-create or replace public synonym D_COR_OR_DESC_SV for D_COR_OR_DESC_SV;
 grant select on D_COR_OR_DESC_SV to MAXDAT_READ_ONLY;
 
 
@@ -223,7 +228,6 @@ select ve.*
 from D_MW_CURRENT_SV ve
 join D_COR_CURRENT cl on cl.current_task_id = "Task ID";
 
-create or replace public synonym D_COR_CURRENT_TASK_SV for D_COR_CURRENT_TASK_SV;
 grant select on D_COR_CURRENT_TASK_SV to MAXDAT_READ_ONLY;
 
 
@@ -245,14 +249,12 @@ alter index DCORCI_PK rebuild tablespace MAXDAT_INDX parallel;
 
 create unique index DCORCI_UIX1 on D_COR_COUNTY (COUNTY) tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_COR_COUNTY for D_COR_COUNTY;
 grant select on D_COR_COUNTY to MAXDAT_READ_ONLY;
 
 create or replace view D_COR_COUNTY_SV as
 select * from D_COR_COUNTY
 with read only;
 
-create or replace public synonym D_COR_COUNTY_SV for D_COR_COUNTY_SV;
 grant select on D_COR_COUNTY_SV to MAXDAT_READ_ONLY;
 
 insert into D_COR_COUNTY (DCORCI_ID ,COUNTY) values (SEQ_DCORCI_ID.nextval,null);
@@ -277,7 +279,6 @@ alter index DCORRS_PK rebuild tablespace MAXDAT_INDX parallel;
 
 create unique index DCORRS_UIX1 on D_COR_REQUEST_STATUS (OUTREACH_REQUEST_STATUS) tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_COR_REQUEST_STATUS for D_COR_REQUEST_STATUS;
 grant select on D_COR_REQUEST_STATUS to MAXDAT_READ_ONLY;
 
 create or replace view D_COR_REQUEST_STATUS_SV as
@@ -285,7 +286,6 @@ select *
 from D_COR_REQUEST_STATUS
 with read only;
 
-create or replace public synonym D_COR_REQUEST_STATUS_SV for D_COR_REQUEST_STATUS_SV;
 grant select on D_COR_REQUEST_STATUS_SV to MAXDAT_READ_ONLY;
 
 insert into D_COR_REQUEST_STATUS (DCORRS_ID ,OUTREACH_REQUEST_STATUS) values (SEQ_DCORRS_ID.nextval,null);
@@ -310,14 +310,12 @@ alter index DCORSI_PK rebuild tablespace MAXDAT_INDX parallel;
 
 create unique index DCORSI_UIX1 on D_COR_SURVEY_ID (SURVEY_ID) tablespace MAXDAT_INDX parallel compute statistics;    
 
-create or replace public synonym D_COR_SURVEY_ID for D_COR_SURVEY_ID;
 grant select on D_COR_SURVEY_ID to MAXDAT_READ_ONLY;
 
 create or replace view D_COR_SURVEY_ID_SV as
 select * from D_COR_SURVEY_ID
 with read only;
 
-create or replace public synonym D_COR_SURVEY_ID_SV for D_COR_SURVEY_ID_SV;
 grant select on D_COR_SURVEY_ID_SV to MAXDAT_READ_ONLY;
 
 insert into D_COR_SURVEY_ID (DCORSI_ID ,SURVEY_ID) values (SEQ_DCORSI_ID.nextval,null);
@@ -367,8 +365,8 @@ create index FCORBD_IXL1 on F_COR_BY_DATE (BUCKET_END_DATE) local online tablesp
 create index FCORBD_IXL2 on F_COR_BY_DATE (COR_BI_ID) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FCORBD_IXL3 on F_COR_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
 create index FCORBD_IXL4 on F_COR_BY_DATE (CREATION_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index FCORBD_IXL5 on F_COR_BY_DATE (INVENTORY_COUNT) local online tablespace MAXDAT_INDX parallel compute statistics;
 
-create or replace public synonym F_COR_BY_DATE for F_COR_BY_DATE;
 grant select on F_COR_BY_DATE to MAXDAT_READ_ONLY;
 
 create or replace view F_COR_BY_DATE_SV as
@@ -451,7 +449,6 @@ where
   and COMPLETION_COUNT = 1
 with read only;
 
-create or replace public synonym F_COR_BY_DATE_SV for F_COR_BY_DATE_SV;
 grant select on F_COR_BY_DATE_SV to MAXDAT_READ_ONLY;
 
 

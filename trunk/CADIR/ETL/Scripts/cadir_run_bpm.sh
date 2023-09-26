@@ -1,5 +1,7 @@
 #!/bin/bash
-. $MD_SETENV
+#set -x
+source $MD_SETENV
+
 #corp_run_bpm.sh
 # ================================================================================
 # Do not edit these four SVN_* variable values.  They are populated when you
@@ -54,6 +56,8 @@ else
 # NOTE: The callable modules are marked with "#->".  Remove the "#->" to call the module. You may chose to delete
 #       the lines you do not want entirely. Do not leave any "->" without a "#" or the script will error.
       $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageWork/ManageWork_RUNALL.kjb  $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/ManageWork_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+#->   $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/Load_ACTS_Cases_Stg.kjb  $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Load_ACTS_Cases_$(date +%Y%m%d_%H%M%S).log &
+
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessMailFaxDoc/Process_mail_fax_doc_runall.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Process_mail_fax_doc_runall_$(date +%Y%m%d_%H%M%S).log &
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessIncidents/Process_Incidents_RUN_ALL.kjb   $KJB_LOG_LEVEL   > $MAXDAT_ETL_LOGS/Process_Incidents_RUN_ALL_$(date +%Y%m%d_%H%M%S).log &
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ManageJobs/ManageJobs_RunAll.kjb   $KJB_LOG_LEVEL    > $MAXDAT_ETL_LOGS/ManageJobs_RunAll_$(date +%Y%m%d_%H%M%S).log &
@@ -65,9 +69,10 @@ else
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/MissingInfo/ProcessMI_RUNALL.kjb   $KJB_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessMI_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProcessApplication/ProcessApp_RUNALL.kjb   $KTR_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessApp_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
 #->      $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/StateReview/ProcessStateReview_RUNALL.kjb   $KJB_LOG_LEVEL  > $MAXDAT_ETL_LOGS/ProcessStateReview_RUNALL_$(date +%Y%m%d_%H%M%S).log & 
-#->        wait  #You only need this wait if you are running Prod Planning
-#->        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProductionPlanning/PP_Actuals_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/PP_Actuals_RUNALL_$(date +%Y%m%d_%H%M%S).log &
-
+        wait  #You only need this wait if you are running Prod Planning
+        $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProductionPlanning/PP_Actuals_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/PP_Actuals_RUNALL_$(date +%Y%m%d_%H%M%S).log &
+        wait  #PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL needs to wait for PP_Actuals_RUNALL to complete
+	    $MAXDAT_ETL_PATH/run_kjb.sh $MAXDAT_ETL_PATH/ProductionPlanning/PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL.kjb $KJB_LOG_LEVEL >> $MAXDAT_ETL_LOGS/PP_Actuals_AHT_Staff_Hour_CADIR_RUNALL_$(date +%Y%m%d_%H%M%S).log &
       wait
       if [[ -e $CHILD_FAIL ]]
          then

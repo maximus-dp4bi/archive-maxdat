@@ -1,0 +1,45 @@
+CREATE TABLE HCO_BUSINESS_HOURS_TYPE_LKUP
+  (
+    BUSINESS_HOUR_TYPE       VARCHAR2 (100) NOT NULL,
+    START_HOUR               NUMBER(19) NOT NULL,
+    END_HOUR                 NUMBER(19) NOT NULL,
+    START_DATE               DATE NOT NULL,
+    END_DATE                 DATE NOT NULL,
+    CREATE_DATE              DATE DEFAULT SYSDATE NOT NULL ,
+    LAST_UPDATE_DATE         DATE DEFAULT SYSDATE NOT NULL ,
+    LAST_UPDATED_BY          VARCHAR2(30)
+  ) ;
+  
+  ALTER TABLE HCO_BUSINESS_HOURS_TYPE_LKUP ADD CONSTRAINT HCO_BUS_HOURS_TYPE_LKUP_PK PRIMARY KEY
+    (
+      BUSINESS_HOUR_TYPE
+      , START_HOUR
+      , END_HOUR
+      , START_DATE
+      , END_DATE
+    )
+    ;
+    
+  CREATE OR REPLACE TRIGGER BIU_HCO_BUS_HOURS_TYPE_LKUP
+      BEFORE INSERT OR UPDATE ON HCO_BUSINESS_HOURS_TYPE_LKUP
+      FOR EACH ROW 
+  BEGIN 
+  IF INSERTING THEN 
+            :NEW.CREATE_DATE := SYSDATE;
+  END IF;
+  :NEW.LAST_UPDATE_DATE := SYSDATE;
+  :NEW.LAST_UPDATED_BY := USER;
+  END; 
+  /     
+
+
+-- insert values
+
+insert into HCO_BUSINESS_HOURS_TYPE_LKUP (BUSINESS_HOUR_TYPE, START_HOUR, END_HOUR, START_DATE, END_DATE ) values ('Business Hours', 11 , 19, to_date('1900/01/01', 'yyyy/mm/dd'),to_date('2999/12/31', 'yyyy/mm/dd'));
+insert into HCO_BUSINESS_HOURS_TYPE_LKUP (BUSINESS_HOUR_TYPE, START_HOUR, END_HOUR, START_DATE, END_DATE ) values ('Business Hours', 19 , 20, to_date('1900/01/01', 'yyyy/mm/dd'),to_date('2999/12/31', 'yyyy/mm/dd'));
+insert into HCO_BUSINESS_HOURS_TYPE_LKUP (BUSINESS_HOUR_TYPE, START_HOUR, END_HOUR, START_DATE, END_DATE ) values ('Non Business Hours', 20 , 24, to_date('1900/01/01', 'yyyy/mm/dd'),to_date('2999/12/31', 'yyyy/mm/dd'));
+insert into HCO_BUSINESS_HOURS_TYPE_LKUP (BUSINESS_HOUR_TYPE, START_HOUR, END_HOUR, START_DATE, END_DATE ) values ('Non Business Hours', 0 , 11, to_date('1900/01/01', 'yyyy/mm/dd'),to_date('2999/12/31', 'yyyy/mm/dd'));
+
+
+
+commit;

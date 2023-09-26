@@ -1,0 +1,12 @@
+--Drop History table
+ DROP TABLE INEO.INEO_FAC_BADGE_ROSTER_HISTORY;
+--Drop Current table
+DROP TABLE INEO.INEO_FAC_BADGE_ROSTER;
+
+---Delete Row from config table
+DELETE FROM file_load_lkup WHERE filename_prefix='FAC_BADGE_ROSTER;
+
+---Drop views
+DROP VIEW INEO.INEO_D_FAC_BADGE_ROSTER_HISTORY_SV;
+
+DROP VIEW INEO.INEO_D_FAC_BADGE_ROSTER_SV

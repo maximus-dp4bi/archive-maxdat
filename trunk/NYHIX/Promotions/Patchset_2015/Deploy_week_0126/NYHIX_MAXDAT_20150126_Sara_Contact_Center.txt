@@ -1,0 +1,41 @@
+***** MODIFICATION HISTORY ****************************************************************************
+Instructions for Community Outreach
+----------------
+Date       Developer           PHONE         Reason/Description
+---------- ------------------- ------------- ------------------------------------------------------
+2015/01/26 Sara              571-294-6487    NYHIX-13148 NYHXMXDP- Run manage_adhoc_PP_AHT_RUNALL job to update handle times
+
+
+***** MODIFICATION HISTORY ****************************************************************************
+
+
+-----------------------
+1.Cron Jobs
+-----------------------
+Run_PP_Actuals_AHT_RUNALL.sh
+
+-----------------------
+2. DB SCRIPTS SECTION
+-----------------------
+
+Tables Effected:
+PP_A_ADHOC_JOB
+
+
+svn://rcmxapp1d.maximus.com/maxdat/BPM/NYHIX/ProductionPlanning/patch/20150126_0956_insert_into_pp_a_adhoc_job.sql
+
+        
+-----------------------
+3. KETTLE FILES SECTION
+-----------------------
+
+
+----------------------------
+4. ADHOC SH SCRIPT SECTION
+----------------------------
+
+Run nohup manage_adhoc_PP_AHT_RUNALL.sh >> /u01/maximus/maxdat-prd/NYHIX/ETL/logs/manage_adhoc_PP_AHT_RUNALL.out &
+
+----------------------------
+5. CONFIG CHANGES
+----------------------------

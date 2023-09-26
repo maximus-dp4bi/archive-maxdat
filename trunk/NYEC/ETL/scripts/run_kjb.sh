@@ -47,7 +47,9 @@ ERRORS_FOUND="/tmp/${STCODE}_child_task_fail.txt"
 #mail related variables
 EMAIL="MAXDatSystem@maximus.com"
 EMAIL_MESSAGE="/tmp/${LOG_NAME}-${STCODE}-ERROR-LOG.txt"
-EMAIL_SUBJECT="${STCODE}-Errors With $LOG_NAME in $ENV_CODE"
+EMAIL_SUBJECT="${ENV_CODE}-${STCODE} Errors With $LOG_NAME"
+
+
 
 
 rm -f $EMAIL_MESSAGE

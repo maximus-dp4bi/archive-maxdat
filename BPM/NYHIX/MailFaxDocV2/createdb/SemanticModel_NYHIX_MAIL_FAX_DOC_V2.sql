@@ -30,7 +30,7 @@ PAGE_COUNT NUMBER(18,0),
 ECN VARCHAR2(256 BYTE),
 CHANNEL VARCHAR2(32 BYTE),
 KOFAX_DCN VARCHAR2(256 BYTE),
-BATCH_ID	NUMBER(38,0),
+BATCH_ID	VARCHAR2(4000),
 BATCH_NAME VARCHAR2(256 BYTE),
 DOC_STATUS_CD VARCHAR2(32 BYTE),
 DOC_STATUS VARCHAR2(32 BYTE),
@@ -88,23 +88,28 @@ DOC_TYPE VARCHAR2(32 BYTE),
 FORM_TYPE VARCHAR2(64 BYTE),
 TARGET_DAYS NUMBER(18,0),
 STG_DONE_DATE DATE,
-LAST_EVENT_DATE DATE)
-tablespace MAXDAT_DATA parallel;
+LAST_EVENT_DATE DATE,
+LINK_ID NUMBER(18,0),
+LINKED_CLIENT NUMBER(18,0),
+LINK_DT DATE,
+AUTO_LINKED_IND VARCHAR2(1),
+TR_DOC_STATUS_CD VARCHAR2(32 BYTE) DEFAULT null)
+tablespace MAXDAT_DATA parallel 4;
 
 --Primary Key
 alter table D_NYHIX_MFD_CURRENT_V2 add constraint DMFD_PK primary key (NYHIX_MFD_BI_ID) using index tablespace MAXDAT_INDX;
 
 --Indexes
-create index DMFDCU_IX1 on D_NYHIX_MFD_CURRENT_V2 (INSTANCE_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DMFDCU_IX2 on D_NYHIX_MFD_CURRENT_V2 (INSTANCE_END_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
-create index DMFDCU_IX3 on D_NYHIX_MFD_CURRENT_V2 (DCN) online tablespace MAXDAT_INDX parallel compute statistics;
+create index DMFDCU_IX1 on D_NYHIX_MFD_CURRENT_V2 (INSTANCE_START_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMFDCU_IX2 on D_NYHIX_MFD_CURRENT_V2 (INSTANCE_END_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMFDCU_IX3 on D_NYHIX_MFD_CURRENT_V2 (DCN) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMFDCU_IX4 on D_NYHIX_MFD_CURRENT_V2 (BATCH_ID) online tablespace MAXDAT_INDX parallel 4 compute statistics;
 
-create or replace public synonym D_NYHIX_MFD_CURRENT_V2 for D_NYHIX_MFD_CURRENT_V2;
 grant select on D_NYHIX_MFD_CURRENT_V2 to MAXDAT_READ_ONLY;
 
-CREATE OR REPLACE VIEW D_NYHIX_MFD_CURRENT_SV_V2
+CREATE OR REPLACE VIEW MAXDAT.D_NYHIX_MFD_CURRENT_SV_V2
 AS
-  SELECT
+SELECT
     NYHIX_MFD_BI_ID,
     EEMFDB_ID,
     INSTANCE_STATUS,
@@ -112,19 +117,14 @@ AS
     INSTANCE_END_DATE,
     COMPLETE_DT,
     CANCEL_DT,
-    CASE
-      WHEN LENGTH(S1.LAST_NAME || ', ' || S1.FIRST_NAME) > 2  THEN S1.LAST_NAME || ', '  || S1.FIRST_NAME
-      WHEN LENGTH(E1.LAST_NAME || ', ' || E1.FIRST_NAME) > 2  THEN E1.LAST_NAME || ', '  || E1.FIRST_NAME
-      ELSE C.CANCEL_BY
-    END AS CANCEL_BY,
     CANCEL_REASON,
     CANCEL_METHOD,
-    DCN,
+    c.DCN,
     CREATE_DT,
     RECEIVED_DT,
     DOC_TYPE_CD,
     PAGE_COUNT,
-    ECN,
+    c.ECN,
     CHANNEL,
     KOFAX_DCN,
     BATCH_ID,
@@ -133,14 +133,9 @@ AS
     DOC_STATUS,
     DOC_STATUS_DT,
     DOC_UPDATE_DT,
-    DOC_UPDATED_BY_STAFF_ID,
-    CASE
-      WHEN LENGTH(S2.LAST_NAME || ', ' || S2.FIRST_NAME) > 2  THEN S2.LAST_NAME || ', '  || S2.FIRST_NAME
-      WHEN LENGTH(E2.LAST_NAME || ', ' || E2.FIRST_NAME) > 2  THEN E2.LAST_NAME || ', '  || E2.FIRST_NAME
-      ELSE C.DOC_UPDATED_BY_STAFF_ID
-    END AS DOC_UPDATED_BY,
-    APP_DOC_DATA_ID,
-    PRIORITY,
+    case when to_char(s2.staff_id) is not null then to_char(s2.staff_id) else DOC_UPDATED_BY_STAFF_ID end as DOC_UPDATED_BY_STAFF_ID,
+    c.APP_DOC_DATA_ID,
+    c.PRIORITY,
     FORM_TYPE_CD,
     FREE_FORM_TXT_IND,
     PREVIOUS_KOFAX_DCN,
@@ -152,8 +147,8 @@ AS
     ENV_STATUS_DT,
     SLA_COMPLETE_DT,
     ENV_UPDATE_DT,
-    ENV_UPDATED_BY_STAFF_ID,
-    TRASHED_BY,
+    case when to_char(s3.staff_id) is not null then to_char(s3.staff_id) else ENV_UPDATED_BY_STAFF_ID end as ENV_UPDATED_BY_STAFF_ID,
+    case when to_char(s1.staff_id) is not null then to_char(s1.staff_id) else TRASHED_BY end as TRASHED_BY,
     SLA_COMPLETE,
     MAXE_ORIGINATION_DT,
     RESCANNED_IND,
@@ -164,11 +159,6 @@ AS
     ASF_PROCESS_DOC,
     ASF_CANCEL_DOC,
     TRASHED_DT,
-    CASE
-      WHEN LENGTH(S3.LAST_NAME || ', ' || S3.FIRST_NAME) > 2  THEN S3.LAST_NAME || ', '  || S3.FIRST_NAME
-      WHEN LENGTH(E3.LAST_NAME || ', ' || E3.FIRST_NAME) > 2  THEN E3.LAST_NAME || ', '  || E3.FIRST_NAME
-      ELSE C.ENV_UPDATED_BY_STAFF_ID
-    END AS ENV_UPDATED_BY,
     TRASHED_IND,
     ORIG_DOC_TYPE_CD,
     ORIG_DOC_FORM_TYPE_CD,
@@ -176,13 +166,13 @@ AS
     EXPEDIATED_IND,
     STG_EXTRACT_DATE,
     STG_LAST_UPDATE_DATE,
-    AGE_IN_BUSINESS_DAYS,
-    AGE_IN_CALENDAR_DAYS,
-    TIMELINESS_STATUS,
+    AGE_IN_BUSINESS_DAYS CURR_AGE_IN_BUSINESS_DAYS,
+    AGE_IN_CALENDAR_DAYS CURR_AGE_IN_CALENDAR_DAYS,
+    TIMELINESS_STATUS CURR_TIMELINESS_STATUS,
     TIMELINESS_DAYS,
     TIMELINESS_DAYS_TYPE,
     TIMELINESS_DATE,
-    JEOPARDY_FLAG,
+    JEOPARDY_FLAG CURR_JEOPARDY_FLAG,
     JEOPARDY_DAYS,
     JEOPARDY_DAYS_TYPE,
     JEOPARDY_DATE,
@@ -191,18 +181,30 @@ AS
     SLA_TIMELINESS_STATUS,
     DOC_TYPE,
     FORM_TYPE,
-    TARGET_DAYS
+    TARGET_DAYS,
+    LINK_ID,
+    LINKED_CLIENT,
+    LINK_DT,
+    AUTO_LINKED_IND,
+    SLA_JEOPARDY_FLAG,
+    TR_DOC_STATUS_CD,
+    DOC_REPROCESSED_FLAG,
+    ENV_REPROCESSED_FLAG,
+    RECVD_TO_SCAN_AGE_IN_BUS_DAYS,
+    RECVD_TO_SCAN_AGE_IN_CAL_DAYS,
+    A.DOCUMENT_ID,
+   c.MINOR_APPLICANT_FLAG,
+    c.APP_DOC_REDACTION_DATA_ID,
+    c.REDACTED_INFO_FLAG
   FROM
     D_NYHIX_MFD_CURRENT_V2 C
-  LEFT JOIN STAFF_STG S1  ON    cast(S1.STAFF_ID as Char(8)) = cast(C.CANCEL_BY as Char(8))
-  LEFT JOIN STAFF_STG S2  ON    cast(S2.STAFF_ID as Char(8)) = cast(C.DOC_UPDATED_BY_STAFF_ID as Char(8))
-  LEFT JOIN STAFF_STG S3  ON    cast(S3.STAFF_ID as Char(8)) = cast(C.ENV_UPDATED_BY_STAFF_ID as Char(8)) 
-  LEFT JOIN STAFF_STG E1  ON    E1.EXT_STAFF_NUMBER = C.CANCEL_BY
-  LEFT JOIN STAFF_STG E2  ON    E2.EXT_STAFF_NUMBER = C.DOC_UPDATED_BY_STAFF_ID
-  LEFT JOIN STAFF_STG E3  ON    E3.EXT_STAFF_NUMBER = C.ENV_UPDATED_BY_STAFF_ID;
+  LEFT JOIN STAFF_KEY_LKUP S1 ON s1.staff_key = C.TRASHED_BY
+  LEFT JOIN STAFF_KEY_LKUP S2 ON s2.staff_key = C.DOC_UPDATED_BY_STAFF_ID
+  LEFT JOIN STAFF_KEY_LKUP S3 ON s3.staff_key = C.ENV_UPDATED_BY_STAFF_ID
+  LEFT JOIN APP_DOC_DATA_STG A ON C.APP_DOC_DATA_ID = A.APP_DOC_DATA_ID;
 
-create or replace public synonym D_NYHIX_MFD_CURRENT_SV_V2 for D_NYHIX_MFD_CURRENT_SV_V2;
-grant select on D_NYHIX_MFD_CURRENT_SV_V2 to MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.D_NYHIX_MFD_CURRENT_SV_V2 TO MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.D_NYHIX_MFD_CURRENT_SV_V2 TO DP_SCORECARD;
 
 -- D_NYHIX_MFD_INS_STATUS  SEQ_DNMFDIS_ID is already present
 /*
@@ -221,14 +223,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_INS_STATUS_V2 add constraint DMFDIS_PK primary key (DNMFDIS_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DMFDIS_UIX1 on D_NYHIX_MFD_INS_STATUS_V2 ("INSTANCE_STATUS") online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DMFDIS_UIX1 on D_NYHIX_MFD_INS_STATUS_V2 ("INSTANCE_STATUS") online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_INS_STATUS_V2 for D_NYHIX_MFD_INS_STATUS_V2;
 grant select on D_NYHIX_MFD_INS_STATUS_V2 to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_INS_STATUS_SV_V2 as
 select * from D_NYHIX_MFD_INS_STATUS_V2
 with read only;
+
 
 -- D_NYHIX_MFD_DOC_TYPE  SEQ_DNMFDDT_ID is already present
 /*
@@ -247,14 +249,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_DOC_TYPE_V2 add constraint DMFDDT_PK primary key (DNMFDDT_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DMFDDT_UIX1 on D_NYHIX_MFD_DOC_TYPE_V2 ("DOC_TYPE") online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DMFDDT_UIX1 on D_NYHIX_MFD_DOC_TYPE_V2 ("DOC_TYPE") online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_DOC_TYPE_V2 for D_NYHIX_MFD_DOC_TYPE_V2;
 grant select on D_NYHIX_MFD_DOC_TYPE_V2 to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_DOC_TYPE_SV_V2 as
 select * from D_NYHIX_MFD_DOC_TYPE_V2
 with read only;
+
 
 -- D_NYHIX_MFD_DOC_STATUS  SEQ_DNMFDDS_ID is already present
 /*
@@ -273,16 +275,14 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_DOC_STATUS_V2 add constraint DMFDDS_PK primary key (DNMFDDS_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DMFDDS_UIX1 on D_NYHIX_MFD_DOC_STATUS_V2 ("DOC_STATUS") online tablespace MAXDAT_INDX parallel compute statistics; 
+create unique index DMFDDS_UIX1 on D_NYHIX_MFD_DOC_STATUS_V2 ("DOC_STATUS") online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_DOC_STATUS_V2 for D_NYHIX_MFD_DOC_STATUS_V2;
 grant select on D_NYHIX_MFD_DOC_STATUS_V2 to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_DOC_STATUS_SV_V2 as
 select * from D_NYHIX_MFD_DOC_STATUS_V2
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_DOC_STATUS_SV_V2 for D_NYHIX_MFD_DOC_STATUS_SV_V2;
 grant select on D_NYHIX_MFD_DOC_STATUS_SV_V2 to MAXDAT_READ_ONLY;
 
 
@@ -303,19 +303,17 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_ENV_STATUS_V2 add constraint DMFDES_PK primary key (DNMFDES_ID) using index tablespace MAXDAT_INDX;
 
-alter index DMFDES_PK rebuild tablespace MAXDAT_INDX parallel;
+alter index DMFDES_PK rebuild tablespace MAXDAT_INDX;
 
 create unique index DMFDES_UIX1 on D_NYHIX_MFD_ENV_STATUS_V2 ("ENV_STATUS") online tablespace 
-MAXDAT_INDX parallel compute statistics; 
+MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_ENV_STATUS_V2 for D_NYHIX_MFD_ENV_STATUS_V2;
 grant select on D_NYHIX_MFD_ENV_STATUS_V2 to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_ENV_STATUS_SV_V2 as
 select * from D_NYHIX_MFD_ENV_STATUS_V2
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_ENV_STATUS_SV_V2 for D_NYHIX_MFD_ENV_STATUS_SV_V2;
 grant select on D_NYHIX_MFD_ENV_STATUS_SV_V2 to MAXDAT_READ_ONLY;
 
 
@@ -336,49 +334,15 @@ tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_FORM_TYPE_V2 add constraint DMFDFT_PK primary key (DNMFDFT_ID) using index tablespace MAXDAT_INDX;
 
-create unique index DMFDFT_UIX1 on D_NYHIX_MFD_FORM_TYPE_V2 ("FORM_TYPE") online tablespace MAXDAT_INDX 
-parallel compute statistics; 
+create unique index DMFDFT_UIX1 on D_NYHIX_MFD_FORM_TYPE_V2 ("FORM_TYPE") online tablespace MAXDAT_INDX compute statistics; 
 
-create or replace public synonym D_NYHIX_MFD_FORM_TYPE_V2 for D_NYHIX_MFD_FORM_TYPE_V2;
 grant select on D_NYHIX_MFD_FORM_TYPE_V2 to MAXDAT_READ_ONLY;
 
 create or replace view D_NYHIX_MFD_FORM_TYPE_SV_V2 as
 select * from D_NYHIX_MFD_FORM_TYPE_V2
 with read only;
 
-create or replace public synonym D_NYHIX_MFD_FORM_TYPE_SV_V2 for D_NYHIX_MFD_FORM_TYPE_SV_V2;
 grant select on D_NYHIX_MFD_FORM_TYPE_SV_V2 to MAXDAT_READ_ONLY;
-
-
--- D_NYHIX_MFD_TIME_STATUS SEQ_DNMFDTS_ID is already present 
-/*
-create sequence SEQ_DNMFDTS_ID
-minvalue 1
-maxvalue 999999999999999999999999999
-start with 265
-increment by 1
-cache 20;
-*/
-
-create table D_NYHIX_MFD_TIME_STATUS_V2 
- (DNMFDTS_ID number not null, 
-  TIMELINESS_STATUS varchar2(256) not null)
-tablespace MAXDAT_DATA;
-
-alter table D_NYHIX_MFD_TIME_STATUS_V2 add constraint DMFDTS_PK primary key (DNMFDTS_ID) using index tablespace MAXDAT_INDX;
-
-create unique index DMFDTS_UIX1 on D_NYHIX_MFD_TIME_STATUS_V2 ("TIMELINESS_STATUS") online 
-tablespace MAXDAT_INDX parallel compute statistics; 
-
-create or replace public synonym D_NYHIX_MFD_TIME_STATUS_V2 for D_NYHIX_MFD_TIME_STATUS_V2;
-grant select on D_NYHIX_MFD_TIME_STATUS_V2 to MAXDAT_READ_ONLY;
-
-create or replace view D_NYHIX_MFD_TIME_STATUS_SV_V2 as
-select * from D_NYHIX_MFD_TIME_STATUS_V2
-with read only;
-
-create or replace public synonym D_NYHIX_MFD_TIME_STATUS_SV_V2 for D_NYHIX_MFD_TIME_STATUS_SV_V2;
-grant select on D_NYHIX_MFD_TIME_STATUS_SV_V2 to MAXDAT_READ_ONLY;
 
 
 -- D_NYHIX_MFD_HISTORY_V2 
@@ -398,55 +362,59 @@ DNMFDDT_ID NUMBER NOT NULL,
 DNMFDDS_ID NUMBER NOT NULL,
 DNMFDES_ID NUMBER NOT NULL,
 DNMFDFT_ID NUMBER(18,0) NOT NULL,
-DNMFDTS_ID NUMBER NOT NULL,
 DNMFDIS_ID NUMBER NOT NULL, 
 DOC_STATUS_DT DATE NOT NULL,
 ENV_STATUS_DT DATE,
-AGE_IN_BUSINESS_DAYS NUMBER(18,0) NOT NULL,
-AGE_IN_CALENDAR_DAYS NUMBER(18,0) NOT NULL,
 LAST_EVENT_DATE DATE NOT NULL)
 partition by range (BUCKET_START_DATE)
 interval (NUMTODSINTERVAL(1,'day'))
 (partition PT_BUCKET_START_DATE_LT_2013 values less than (TO_DATE('20130101','YYYYMMDD')))
-tablespace MAXDAT_DATA parallel;
+tablespace MAXDAT_DATA;
 
 alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_PK primary key (DMFDBD_ID) using index tablespace MAXDAT_INDX;
 alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_DNMFDDT_FK foreign key (DNMFDDT_ID) references D_NYHIX_MFD_DOC_TYPE_V2 (DNMFDDT_ID);
 alter table D_NYHIX_MFD_HISTORY_V2  add constraint DMFDBD_DNMFDDS_FK foreign key (DNMFDDS_ID) references D_NYHIX_MFD_DOC_STATUS_V2 (DNMFDDS_ID);
 alter table D_NYHIX_MFD_HISTORY_V2  add constraint DMFDBD_DNMFDES_FK foreign key (DNMFDES_ID) references D_NYHIX_MFD_ENV_STATUS_V2 (DNMFDES_ID);
 alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_DNMFDFT_FK foreign key (DNMFDFT_ID) references D_NYHIX_MFD_FORM_TYPE_V2 (DNMFDFT_ID);
-alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_DNMFDTS_FK foreign key (DNMFDTS_ID) references D_NYHIX_MFD_TIME_STATUS_V2 (DNMFDTS_ID);
+--alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_DNMFDTS_FK foreign key (DNMFDTS_ID) references D_NYHIX_MFD_TIME_STATUS_V2 (DNMFDTS_ID);
 alter table D_NYHIX_MFD_HISTORY_V2  add constraint DMFDBD_DNMFDIS_FK foreign key (DNMFDIS_ID) references D_NYHIX_MFD_INS_STATUS_V2(DNMFDIS_ID);
 alter table D_NYHIX_MFD_HISTORY_V2 add constraint DMFDBD_NYHIX_MFD_BI_ID_FK foreign key (NYHIX_MFD_BI_ID) references D_NYHIX_MFD_CURRENT_V2(NYHIX_MFD_BI_ID);
 
-create unique index DMFDBD_UIX1 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,LAST_EVENT_DATE) online tablespace MAXDAT_INDX parallel compute statistics; 
-create unique index DMFDBD_UIX2 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel compute statistics;
+create unique index DMFDBD_UIX1 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,LAST_EVENT_DATE) online tablespace MAXDAT_INDX compute statistics; 
+create unique index DMFDBD_UIX2 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE) online tablespace MAXDAT_INDX compute statistics;
 
-create index DMFDBD_IX1 on D_NYHIX_MFD_HISTORY_V2 (DOC_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics; 
-create index DMFDBD_IX2 on D_NYHIX_MFD_HISTORY_V2 (ENV_STATUS_DT) online tablespace MAXDAT_INDX parallel compute statistics; 
+create index DMFDBD_IX1 on D_NYHIX_MFD_HISTORY_V2 (DOC_STATUS_DT) online tablespace MAXDAT_INDX compute statistics; 
+create index DMFDBD_IX2 on D_NYHIX_MFD_HISTORY_V2 (ENV_STATUS_DT) online tablespace MAXDAT_INDX compute statistics; 
 
-create index DMFDBD_IXL2 on D_NYHIX_MFD_HISTORY_V2 (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
-create index DMFDBD_IXL3 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;
+create index DMFDBD_IXL2 on D_NYHIX_MFD_HISTORY_V2 (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX compute statistics;
+create index DMFDBD_IXL3 on D_NYHIX_MFD_HISTORY_V2 (NYHIX_MFD_BI_ID,BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX compute statistics;
 
 create or replace view D_NYHIX_MFD_HISTORY_SV_V2
 as
-SELECT
-  h.DMFDBD_ID,
-  bdd.D_DATE,
-  h.NYHIX_MFD_BI_ID,
-  h.DNMFDDT_ID,
-  h.DNMFDDS_ID,
-  h.DNMFDES_ID,
-  h.DNMFDFT_ID,
-  h.DNMFDTS_ID,
-  h.DNMFDIS_ID,
-  h.DOC_STATUS_DT,
-  h.ENV_STATUS_DT,
-  h.AGE_IN_BUSINESS_DAYS,
-  h.AGE_IN_CALENDAR_DAYS
-FROM D_NYHIX_MFD_HISTORY_V2 h JOIN BPM_D_DATES bdd on (bdd.D_DATE >= h.BUCKET_START_DATE AND bdd.D_DATE <= h.BUCKET_END_DATE);
+select
+  H.DMFDBD_ID,
+  B.D_DATE,
+  H.NYHIX_MFD_BI_ID,
+  H.DNMFDDS_ID,
+  H.DNMFDDT_ID,
+  H.DNMFDES_ID,
+  H.DNMFDFT_ID,
+  H.DNMFDIS_ID,
+  H.DOC_STATUS_DT,
+  H.ENV_STATUS_DT,
+  BPM_COMMON.BUS_DAYS_BETWEEN(D.CREATE_DT, B.D_DATE)  AGE_IN_BUSINESS_DAYS,
+  case when (ROUND(TRUNC(B.D_DATE) - TRUNC(D.CREATE_DT))) > 0 then (ROUND(TRUNC(B.D_DATE) - TRUNC(D.CREATE_DT))) else 0 end as AGE_IN_CALENDAR_DAYS,
+  case when (D.COMPLETE_DT is not null and B.D_DATE = TRUNC(D.COMPLETE_DT)) or (D.CANCEL_DT is not null and B.D_DATE = TRUNC(D.CANCEL_DT)) then 'N/A'
+     when BPM_COMMON.BUS_DAYS_BETWEEN(D.CREATE_DT, B.D_DATE) >= D.JEOPARDY_DAYS then 'Y'
+     else 'N' end as JEOPARDY_FLAG,
+  case when ((D.COMPLETE_DT is not null and BPM_COMMON.BUS_DAYS_BETWEEN(D.CREATE_DT, B.D_DATE) <= D.TIMELINESS_DAYS) and B.D_DATE = TRUNC(D.COMPLETE_DT)) then 'Timely'
+     when ((D.COMPLETE_DT is not null and BPM_COMMON.BUS_DAYS_BETWEEN(D.CREATE_DT, B.D_DATE) > D.TIMELINESS_DAYS) and B.D_DATE = TRUNC(D.COMPLETE_DT)) then 'Untimely'
+     when (D.CANCEL_DT is not null and B.D_DATE = TRUNC(D.CANCEL_DT)) then 'Not Required'
+     else 'Not Complete' end as TIMELINESS_STATUS
+from D_NYHIX_MFD_HISTORY_V2 H
+join D_NYHIX_MFD_CURRENT_V2 D on (H.NYHIX_MFD_BI_ID = D.NYHIX_MFD_BI_ID)
+join BPM_D_DATES B on (B.D_DATE >= H.BUCKET_START_DATE and B.D_DATE <= H.BUCKET_END_DATE);
 
-create or replace public synonym D_NYHIX_MFD_HISTORY_SV_V2 for D_NYHIX_MFD_HISTORY_SV_V2;
 grant select on D_NYHIX_MFD_HISTORY_SV_V2 to MAXDAT_READ_ONLY;
 
 --Replace fact view 
@@ -458,14 +426,91 @@ bdd.D_DATE,
 CASE WHEN bdd.D_DATE = TRUNC(d.CREATE_DT) THEN 1 else 0 END AS CREATION_COUNT,
 CASE WHEN (bdd.D_DATE != TRUNC(d.COMPLETE_DT) OR d.COMPLETE_DT is NULL) THEN 1 ELSE 0 END AS INVENTORY_COUNT,
 CASE WHEN bdd.D_DATE = TRUNC(d.COMPLETE_DT) THEN 1 else 0 END AS COMPLETION_COUNT,
+CASE WHEN bdd.D_DATE = TRUNC(d.CANCEL_DT) THEN 1 else 0 END AS CANCEL_COUNT,
 CASE WHEN bdd.D_DATE = trunc(d.ENV_STATUS_DT)
-            AND d.env_status = 'COMPLETEDRELEASED'
+            AND d.env_status_cd = 'COMPLETEDRELEASED'
             AND d.cancel_dt is null
      THEN 1 
      ELSE 0
 END AS SLA_SATISFIED_COUNT
 FROM BPM_D_DATES bdd JOIN D_NYHIX_MFD_CURRENT_V2 d on (bdd.D_DATE >= TRUNC(D.INSTANCE_START_DATE) and bdd.D_DATE <= nvl(TRUNC(D.INSTANCE_END_DATE),sysdate));
 
-create or replace public synonym F_NYHIX_MFD_BY_DATE_SV_V2 for F_NYHIX_MFD_BY_DATE_SV_V2;
 grant select on F_NYHIX_MFD_BY_DATE_SV_V2 to MAXDAT_READ_ONLY;
+
+CREATE OR REPLACE VIEW MAXDAT.NYHIX_ETL_MFD_APP_V2_SV
+AS
+select "APP_DOC_DATA_ID"
+,"APP_DOC_INDV_ID"
+,"LINK_CREATE_DT"
+,"HXID"
+,"HX_ACCOUNT_ID"
+,"LINK_UPDATE_DT"
+,"FIRST_NAME"
+,"LAST_NAME"
+,"HOH_IND"
+,"PRIMARY_PERSON_IND"
+,"HX_ACCOUNT_ID_LINK"
+,"HX_LINK_ID" 
+from NYHIX_ETL_MAIL_FAX_DOC_APP_V2;
+
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_APP_V2_SV TO MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_APP_V2_SV TO DP_SCORECARD;
+
+CREATE OR REPLACE VIEW MAXDAT.NYHIX_ETL_MFD_CSC_V2_SV
+AS
+select "CSC_DETAIL_ID"
+,"KOFAX_DCN"
+,"CSC_PROC_STATUS_CD"
+,"CSC_PROC_ERROR_CD"
+,"CSC_PROC_DT" 
+from NYHIX_ETL_MAIL_FAX_DOC_CSC_V2;
+
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_CSC_V2_SV TO MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_CSC_V2_SV TO DP_SCORECARD;
+
+CREATE OR REPLACE VIEW MAXDAT.NYHIX_ETL_MFD_FTCH_SV
+AS
+SELECT
+    FORM_TYPE_CHANGE_HISTORY_ID
+    , ECN
+    , DCN
+    , APP_DOC_DATA_ID
+    , OLD_DOCUMENT_TYPE
+    , NEW_DOCUMENT_TYPE
+    , OLD_DOCUMENT_SUB_TYPE
+    , NEW_DOCUMENT_SUB_TYPE
+    , OLD_KOFAX_DCN
+    , NEW_KOFAX_DCN
+    , CREATED_TS
+    , CREATED_BY
+FROM MAXDAT.FORM_TYPE_CHANGE_HISTORY_STG
+WITH read only;
+
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_FTCH_SV TO MAXDAT_READ_ONLY;
+
+CREATE OR REPLACE VIEW MAXDAT.NYHIX_ETL_MFD_RECON_DATA_SV
+AS
+SELECT
+    NYHBE_RECONCILIATION_DATA_ID
+    , PERSON_ID
+    , MEMBER_ID
+    , ACCOUNT_ID
+    , BATCH_RUN_DATE
+    , KOFAX_DCN
+    , DOC_STATUS
+    , ECN
+    , DMS_DCN
+    , ZIP_FILE_NAME
+    , DOCUMENT_TYPE
+    , FORM_TYPE
+    , CREATED_BY
+    , CREATE_TS
+    , UPDATED_BY
+    , UPDATE_TS
+FROM MAXDAT.NYHBE_RECONCILIATION_DATA_STG
+WITH read only;
+
+GRANT SELECT ON MAXDAT.NYHIX_ETL_MFD_RECON_DATA_SV TO MAXDAT_READ_ONLY;
+
+
 

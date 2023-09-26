@@ -3,7 +3,20 @@
   <info>
     <name>MemberEligibility_Capture_OLTP</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -127,38 +140,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table Input - WIP BPM Table</from><to>Join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>error  log - OLTP </to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>error log - insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>error log - dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>error log - health plan</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>error log - application</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>Join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>error log - income</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>Join relationship </to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>error log - relationship</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Set values</from><to>Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Join relationship </from><to>Join Medicare</to><enabled>Y</enabled> </hop>  <hop> <from>Join Medicare</from><to>error log - medicare</to><enabled>Y</enabled> </hop>  <hop> <from>Join Medicare</from><to>Join Eligibility Result</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility Result</from><to>error log - elig result</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>join account</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>join application</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>error log - account</to><enabled>Y</enabled> </hop>  <hop> <from>Join Eligibility Result</from><to>Set values</to><enabled>Y</enabled> </hop>  <hop> <from>join application</from><to>If APPLICATION_ID is null</to><enabled>Y</enabled> </hop>  <hop> <from>If APPLICATION_ID is null</from><to>Join income</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>If APPLICATION_ID is null</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>APPLICATION_ID</name>
-        <value>0</value>
-        <mask/>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
+  <hop> <from>Table Input - WIP BPM Table</from><to>Join OLTP data</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>error  log - OLTP </to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>Join Dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>Join Health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join insurance</from><to>error log - insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join Dental</from><to>error log - dental</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>error log - health plan</to><enabled>Y</enabled> </hop>  <hop> <from>Join OLTP data</from><to>Join insurance</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>error log - income</to><enabled>Y</enabled> </hop>  <hop> <from>Update OLTP_STG</from><to>error log - Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Set values</from><to>Update OLTP_STG</to><enabled>Y</enabled> </hop>  <hop> <from>Join Health plan</from><to>join account</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>error log - account</to><enabled>Y</enabled> </hop>  <hop> <from>join account</from><to>Join income</to><enabled>Y</enabled> </hop>  <hop> <from>Join income</from><to>Set values</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Join Dental</name>
     <type>DBJoin</type>
@@ -185,51 +167,8 @@ WHERE  AME.ACCOUNT_MEMBERSHIP_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>130</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Join Eligibility Result</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select NVL(ED.DETERMINATION_DATE, &apos;03-OCT-2013&apos;)                     ELIG_STATUS_DATE,
-       DECODE(AMI.ACCOUNT_MISSING_INFO, NULL, &apos;Y&apos;, &apos;N&apos;)              GWF_MISSING_INFO,
-	   MAX(ER.ELIGIBILITY_RESULT_ID)                                 ELIG_RESULT_ID
-from ELIGIBILITY_DETERMINATION ED
-join ELIGIBILITY_RESULT er
-  on  ED.ELIGIBILITY_DETERMINATION_ID = ER.ELIGIBILITY_DETERMINATION_ID
-     left outer join ACCOUNT_MISSING_INFO AMI on ED.ELIGIBILITY_DETERMINATION_ID = AMI.ELIGIBILITY_DETERMINATION_ID
-     where ed.account_id = ?
-     and ED.ELIGIBILITY_DETERMINATION_ID  in 
-         (select max(ELIGIBILITY_DETERMINATION_ID) from ELIGIBILITY_DETERMINATION ED where ed.account_id =?)
-group by ED.DETERMINATION_DATE, AMI.ACCOUNT_MISSING_INFO, ER.SCHIP_STATUS</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>560</yloc>
+      <xloc>510</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -265,47 +204,8 @@ where am.ACCOUNT_MEMBERSHIP_ID= ?</sql>
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>130</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Join Medicare</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select 
-max(CASE WHEN INTERFACE_PROCESS_STATUS = &apos;SENT&apos;
-            THEN INTERFACE_PROCESS_STATUS_DATE END) as  MEDICAID_REFERRAL_SENT_DATE,
-max(CASE WHEN INTERFACE_PROCESS_STATUS = &apos;RECEIVED&apos;
-            THEN INTERFACE_PROCESS_STATUS_DATE END) as   MEDICAID_REFERRAL_REC_DATE
-from INTERFACE_PROCESS
-where INTERFACE_PROCESS_NAME in (&apos;MDCD_REFERRAL&apos;, &apos;MK_REFERRAL&apos;, &apos;MDCD_MATCH&apos;, &apos;FFM_REFERRAL&apos;) 
-and account_membership_id = ?
-group by account_membership_id
-order by account_membership_id
-</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>MEMBER_ID</name>
-        <type>BigNumber</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>560</yloc>
+      <xloc>670</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -326,13 +226,13 @@ order by account_membership_id
        cr.coverage_request_status_date, 
        NVL(AM.ACCOUNT_MEMBERSHIP_ID, 0)                              MEMBER_ID, 
        NVL(P.PERSON_NUMBER, 0)                                       PERSON_NUMBER, 
-       DECODE(AM.CMS_OPT_OUT_FLAG, &apos;0&apos;,&apos;IN&apos;,&apos;1&apos;,&apos;OUT&apos;)               CMSN_OPT_ANSWER, 
-       NVL(P.SSN_APPLICATION_DATE, &apos;01-JAN-1900&apos;)                    SSN_APPLY_DATE, 
+       DECODE(AM.CMS_OPT_OUT_FLAG, &apos;1&apos;,&apos;IN&apos;,&apos;0&apos;,&apos;OUT&apos;)               CMSN_OPT_ANSWER, 
+       P.SSN_APPLICATION_DATE                                        SSN_APPLY_DATE, 
        P.RACE_1                                                      RACE_1,
        P.RACE_2                                                      RACE_2,
        P.ETHNICITY                                                   ETHNICITY,
        decode(p.identity_verified_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;, &apos;N&apos;)        IDENTITY_VERIFIED,
-       nvl(p.identity_verified_date, to_date(&apos;01-JAN-1900&apos;))         IDENTITY_VERIF_DATE,
+       p.identity_verified_date                                      IDENTITY_VERIF_DATE,
        p.identity_verification_source                                IDENTITY_VERIF_SOURCE_DOC,
        p.ident_verif_insuff_reason                                   IDENTITY_INSUFF_REASON,
        decode(p.tribal_mbrshp_verif_flag, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;, &apos;N&apos;)      TRIBAL_MBRSHIP_VERIFIED,
@@ -342,10 +242,11 @@ order by account_membership_id
        decode(p.needs_special_therapy_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)          NEEDS_SPECIAL_THERAPY,
        decode(p.uses_more_med_care_ind, &apos;1&apos;,&apos;Y&apos;,&apos;0&apos;,&apos;N&apos;)             USES_MORE_MED_CARE,
        decode(p.citizenship_verified_type, NULL, &apos;N&apos;,&apos;Y&apos;)            CITIZENSHIP_VERIFIED,                                                                     
-       nvl(p.citizenship_verified_date, to_date(&apos;03-OCT-2013&apos;))      CITIZENSHIP_VERIF_DATE,
+       p.citizenship_verified_date                                   CITIZENSHIP_VERIF_DATE,
        p.citizenship_verified_source                                 CITIZENSHIP_VERIF_SOURCE_DOC,
        p.citiz_verif_insuff_reason                                   CITIZENSHIP_INSUFF_REASON,
-       NVL(CR.INSERT_DATE,&apos;01-JAN-1900&apos;)                             ASSD_COV_REQ
+       NVL(CR.INSERT_DATE,&apos;01-JAN-1900&apos;)                             ASSD_COV_REQ,
+       cr.request_type                                               ELIG_TYPE
 FROM COVERAGE_REQUEST CR 
      JOIN ACCOUNT_MEMBERSHIP  AM                      ON CR.ACCOUNT_MEMBERSHIP_ID  = AM.ACCOUNT_MEMBERSHIP_ID
      JOIN PERSON P                                    ON AM.PERSON_ID              = P.PERSON_ID
@@ -361,8 +262,8 @@ WHERE CR.COVERAGE_REQUEST_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>130</yloc>
+      <xloc>210</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -381,12 +282,12 @@ WHERE CR.COVERAGE_REQUEST_ID = ?
     <rowlimit>1</rowlimit>
     <sql>select nvl(sum(verified_monthly_amount),0) as total_member_income_amt, 
 VERIFICATION_STATUS                        as INCOME_VERIF_STATUS, 
-SYSDATE                                    as INCOME_VERIF_STATUS_DATE
+nvl(trunc(update_date),SYSDATE)            as INCOME_VERIF_STATUS_DATE,
+income_id
 from income i 
 where i.account_membership_id = ?
-group by i.account_membership_id, verification_status
-order by i.account_membership_id
-</sql>
+group by income_id, i.account_membership_id, verification_status, trunc(update_date)
+order by income_id desc</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -397,8 +298,8 @@ order by i.account_membership_id
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>560</yloc>
+      <xloc>850</xloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -430,54 +331,8 @@ where INS.ACCOUNT_MEMBERSHIP_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>250</xloc>
-      <yloc>130</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Join relationship </name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>SELECT prChildParent1.RELATIONSHIP_TYPE as RELATIONSHIP_TO_PARENT_1
-     , prChildParent2.RELATIONSHIP_TYPE as RELATIONSHIP_TO_PARENT_2
-FROM PERSON p
-JOIN ACCOUNT_MEMBERSHIP amChild ON p.PERSON_ID = amChild.PERSON_ID AND amChild.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
-JOIN ACCOUNT aChild ON amChild.ACCOUNT_ID = aChild.ACCOUNT_ID
-LEFT JOIN PERSON_RELATIONSHIP prChildParent1
-  JOIN ACCOUNT_MEMBERSHIP am1 ON prChildParent1.PERSON_ID = am1.PERSON_ID AND am1.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
-  JOIN PERSON pParent1 ON prChildParent1.RELATED_TO_PERSON_ID  = pParent1.PERSON_ID
-  JOIN ACCOUNT_MEMBERSHIP amParent1 ON pParent1.PERSON_ID = amParent1.PERSON_ID AND am1.ACCOUNT_ID = amParent1.ACCOUNT_ID AND amParent1.PARENT_TYPE = &apos;PARENT1&apos;
-ON p.PERSON_ID = prChildParent1.PERSON_ID
-LEFT JOIN PERSON_RELATIONSHIP prChildParent2
-  JOIN ACCOUNT_MEMBERSHIP am2 ON prChildParent2.PERSON_ID = am2.PERSON_ID AND am2.ACCOUNT_MEMBERSHIP_STATUS = &apos;IN&apos;
-  JOIN PERSON pParent2 ON prChildParent2.RELATED_TO_PERSON_ID  = pParent2.PERSON_ID
-  JOIN ACCOUNT_MEMBERSHIP amParent2 ON pParent2.PERSON_ID = amParent2.PERSON_ID AND am2.ACCOUNT_ID = amParent2.ACCOUNT_ID AND amParent2.PARENT_TYPE = &apos;PARENT2&apos;
-ON prChildParent1.PERSON_ID = prChildParent2.PERSON_ID
-WHERE amChild.CHILD_FLAG = 1
-and amChild.ACCOUNT_MEMBERSHIP_ID = ?
-ORDER BY amChild.ACCOUNT_ID</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>MEMBER_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>560</yloc>
+      <xloc>360</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -505,10 +360,6 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>AGENCY_MATCH_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>APPLICATION_ID</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -580,27 +431,11 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>ELIG_STATUS_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>ELIG_RESULT_ID</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>ERROR_LEVEL</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>ETHNICITY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>GWF_ELIG_TIMEOUT</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>GWF_MISSING_INFO</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -633,14 +468,6 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>LIMITED_IN_ANY_WAY</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MEDICAID_REFERRAL_REC_DATE</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>MEDICAID_REFERRAL_SENT_DATE</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -680,14 +507,6 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>RELATIONSHIP_TO_PARENT_1</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>RELATIONSHIP_TO_PARENT_2</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>SSN_APPLY_DATE</name>
         <rename/>
         <length>-2</length>
@@ -720,12 +539,28 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>MEMBER_ZIP_CODE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COUNTY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEMBER_STATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ELIG_TYPE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
       <meta>        <name>ACCOUNT_ID</name>
         <rename>ACCOUNT_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -735,9 +570,9 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>ACCOUNT_NUMBER</name>
         <rename>ACCOUNT_NUMBER</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -747,7 +582,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>AGENCY_MATCH</name>
         <rename>AGENCY_MATCH</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -759,20 +594,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>AGENCY_MATCH_DATE</name>
         <rename>AGENCY_MATCH_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>APPLICATION_ID</name>
-        <rename>APPLICATION_ID</rename>
-        <type>Number</type>
-        <length>10</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -783,7 +606,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>ASSD_COV_REQ</name>
         <rename>ASSD_COV_REQ</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -795,7 +618,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CITIZENSHIP_INSUFF_REASON</name>
         <rename>CITIZENSHIP_INSUFF_REASON</rename>
-        <type>String</type>
+        <type>-</type>
         <length>30</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -807,7 +630,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CITIZENSHIP_VERIFIED</name>
         <rename>CITIZENSHIP_VERIFIED</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -819,7 +642,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CITIZENSHIP_VERIF_DATE</name>
         <rename>CITIZENSHIP_VERIF_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -831,7 +654,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CITIZENSHIP_VERIF_SOURCE_DOC</name>
         <rename>CITIZENSHIP_VERIF_SOURCE_DOC</rename>
-        <type>String</type>
+        <type>-</type>
         <length>30</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -843,7 +666,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CMSN_OPT_ANSWER</name>
         <rename>CMSN_OPT_ANSWER</rename>
-        <type>String</type>
+        <type>-</type>
         <length>3</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -855,7 +678,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CON_NO</name>
         <rename>CON_NO</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -867,7 +690,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CON_NULL</name>
         <rename>CON_NULL</rename>
-        <type>String</type>
+        <type>-</type>
         <length>0</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -879,7 +702,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CON_YES</name>
         <rename>CON_YES</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -891,7 +714,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>CON_ZERO</name>
         <rename>CON_ZERO</rename>
-        <type>Integer</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -903,7 +726,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>COVERAGE_REQUEST_STATUS</name>
         <rename>COVERAGE_REQUEST_STATUS</rename>
-        <type>String</type>
+        <type>-</type>
         <length>32</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -915,7 +738,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>COVERAGE_REQUEST_STATUS_DATE</name>
         <rename>COVERAGE_REQUEST_STATUS_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -927,7 +750,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>COV_RQST_ID</name>
         <rename>COV_RQST_ID</rename>
-        <type>Number</type>
+        <type>-</type>
         <length>10</length>
         <precision>0</precision>
         <conversion_mask/>
@@ -939,7 +762,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>DATE_DEFAULT</name>
         <rename>DATE_DEFAULT</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -951,7 +774,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>DENTAL_COVERAGE_FLAG</name>
         <rename>DENTAL_COVERAGE_FLAG</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -963,7 +786,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>DRIVER_KEY_NUMBER</name>
         <rename>DRIVER_KEY_NUMBER</rename>
-        <type>String</type>
+        <type>-</type>
         <length>10</length>
         <precision>0</precision>
         <conversion_mask/>
@@ -975,7 +798,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>DRIVER_TABLE_NAME</name>
         <rename>DRIVER_TABLE_NAME</rename>
-        <type>String</type>
+        <type>-</type>
         <length>16</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -985,21 +808,9 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>ELIG_RESULT_ID</name>
-        <rename>ELIG_RESULT_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
       </meta>      <meta>        <name>ERROR_LEVEL</name>
         <rename>ERROR_LEVEL</rename>
-        <type>String</type>
+        <type>-</type>
         <length>8</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1011,32 +822,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>ETHNICITY</name>
         <rename>ETHNICITY</rename>
-        <type>String</type>
+        <type>-</type>
         <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>GWF_ELIG_TIMEOUT</name>
-        <rename>GWF_ELIG_TIMEOUT</rename>
-        <type>String</type>
-        <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>GWF_MISSING_INFO</name>
-        <rename>GWF_MISSING_INFO</rename>
-        <type>String</type>
-        <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -1047,7 +834,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>IDENTITY_INSUFF_REASON</name>
         <rename>IDENTITY_INSUFF_REASON</rename>
-        <type>String</type>
+        <type>-</type>
         <length>30</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1059,7 +846,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>IDENTITY_VERIFIED</name>
         <rename>IDENTITY_VERIFIED</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1071,7 +858,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>IDENTITY_VERIF_DATE</name>
         <rename>IDENTITY_VERIF_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1083,7 +870,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>IDENTITY_VERIF_SOURCE_DOC</name>
         <rename>IDENTITY_VERIF_SOURCE_DOC</rename>
-        <type>String</type>
+        <type>-</type>
         <length>30</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1095,7 +882,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>INCOME_VERIF_STATUS</name>
         <rename>INCOME_VERIF_STATUS</rename>
-        <type>String</type>
+        <type>-</type>
         <length>32</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1107,7 +894,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>INCOME_VERIF_STATUS_DATE</name>
         <rename>INCOME_VERIF_STATUS_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1119,7 +906,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>JOB_NAME</name>
         <rename>JOB_NAME</rename>
-        <type>String</type>
+        <type>-</type>
         <length>31</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1128,35 +915,11 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <decimal_symbol/>
         <grouping_symbol/>
         <currency_symbol/>
-        <storage_type>normal</storage_type>
+        <storage_type/>
       </meta>      <meta>        <name>LIMITED_IN_ANY_WAY</name>
         <rename>LIMITED_IN_ANY_WAY</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>MEDICAID_REFERRAL_REC_DATE</name>
-        <rename>MEDICAID_REFERRAL_REC_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>MEDICAID_REFERRAL_SENT_DATE</name>
-        <rename>MEDICAID_REFERRAL_SENT_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -1167,9 +930,9 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>MEMBER_ID</name>
         <rename>MEMBER_ID</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -1179,7 +942,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>ME_ID</name>
         <rename>ME_ID</rename>
-        <type>Number</type>
+        <type>-</type>
         <length>10</length>
         <precision>0</precision>
         <conversion_mask/>
@@ -1191,7 +954,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>NEEDS_SPECIAL_THERAPY</name>
         <rename>NEEDS_SPECIAL_THERAPY</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1203,7 +966,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>OTHER_INSURANCE_ANSWER</name>
         <rename>OTHER_INSURANCE_ANSWER</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1215,9 +978,21 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>PERSON_NUMBER</name>
         <rename>PERSON_NUMBER</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>0</precision>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PERSON_NUMBER_1</name>
+        <rename>PERSON_NUMBER_1</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -1227,7 +1002,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>PROCESS_NAME</name>
         <rename>PROCESS_NAME</rename>
-        <type>String</type>
+        <type>-</type>
         <length>18</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1239,7 +1014,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>RACE_1</name>
         <rename>RACE_1</rename>
-        <type>String</type>
+        <type>-</type>
         <length>50</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1251,32 +1026,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>RACE_2</name>
         <rename>RACE_2</rename>
-        <type>String</type>
+        <type>-</type>
         <length>50</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RELATIONSHIP_TO_PARENT_1</name>
-        <rename>RELATIONSHIP_TO_PARENT_1</rename>
-        <type>String</type>
-        <length>20</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>      <meta>        <name>RELATIONSHIP_TO_PARENT_2</name>
-        <rename>RELATIONSHIP_TO_PARENT_2</rename>
-        <type>String</type>
-        <length>20</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -1287,7 +1038,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>SSN_APPLY_DATE</name>
         <rename>SSN_APPLY_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1299,7 +1050,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>SYSTEM_DATE</name>
         <rename>SYSTEM_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1311,9 +1062,9 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>TOTAL_MEMBER_INCOME_AMT</name>
         <rename>TOTAL_MEMBER_INCOME_AMT</rename>
-        <type>Number</type>
-        <length>10</length>
-        <precision>2</precision>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <encoding/>
@@ -1323,7 +1074,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>TRIBAL_MBRSHIP_INSUFF_REASON</name>
         <rename>TRIBAL_MBRSHIP_INSUFF_REASON</rename>
-        <type>String</type>
+        <type>-</type>
         <length>30</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1335,7 +1086,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>TRIBAL_MBRSHIP_VERIFIED</name>
         <rename>TRIBAL_MBRSHIP_VERIFIED</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1347,7 +1098,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>UNBORN_CHILD_DUE_DATE</name>
         <rename>UNBORN_CHILD_DUE_DATE</rename>
-        <type>Date</type>
+        <type>-</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1359,7 +1110,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>USES_MORE_MED_CARE</name>
         <rename>USES_MORE_MED_CARE</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1371,7 +1122,7 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>      <meta>        <name>VOLUNTARY_CANCEL_ANSWER</name>
         <rename>VOLUNTARY_CANCEL_ANSWER</rename>
-        <type>String</type>
+        <type>-</type>
         <length>1</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -1381,10 +1132,46 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <grouping_symbol/>
         <currency_symbol/>
         <storage_type/>
-      </meta>      <meta>        <name>ELIG_STATUS_DATE</name>
-        <rename>ELIG_STATUS_DATE</rename>
-        <type>Date</type>
-        <length>-2</length>
+      </meta>      <meta>        <name>MEMBER_ZIP_CODE</name>
+        <rename>MEMBER_ZIP_CODE</rename>
+        <type>-</type>
+        <length>10</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>COUNTY</name>
+        <rename>COUNTY</rename>
+        <type>-</type>
+        <length>40</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEMBER_STATE</name>
+        <rename>MEMBER_STATE</rename>
+        <type>-</type>
+        <length>40</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>ELIG_TYPE</name>
+        <rename>ELIG_TYPE</rename>
+        <type>-</type>
+        <length>20</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -1395,8 +1182,8 @@ ORDER BY amChild.ACCOUNT_ID</sql>
         <storage_type/>
       </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
-      <yloc>560</yloc>
+      <xloc>690</xloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1436,8 +1223,8 @@ order by COV_RQST_ID, ME_ID
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>20</yloc>
+      <xloc>70</xloc>
+      <yloc>150</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1447,7 +1234,7 @@ order by COV_RQST_ID, ME_ID
     <type>Update</type>
     <description/>
     <distribute>N</distribute>
-    <copies>16</copies>
+    <copies>8</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
@@ -1490,132 +1277,8 @@ order by COV_RQST_ID, ME_ID
         <rename>AGENCY_MATCH_DATE</rename>
         </value>
       <value>
-        <name>APPLICATION_ID</name>
-        <rename>APPLICATION_ID</rename>
-        </value>
-      <value>
         <name>ASSD_COV_REQ</name>
         <rename>ASSD_COV_REQ</rename>
-        </value>
-      <value>
-        <name>CMSN_OPT_ANSWER</name>
-        <rename>CMSN_OPT_ANSWER</rename>
-        </value>
-      <value>
-        <name>COVERAGE_REQUEST_STATUS</name>
-        <rename>COVERAGE_REQUEST_STATUS</rename>
-        </value>
-      <value>
-        <name>COVERAGE_REQUEST_STATUS_DATE</name>
-        <rename>COVERAGE_REQUEST_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>DENTAL_COVERAGE_FLAG</name>
-        <rename>DENTAL_COVERAGE_FLAG</rename>
-        </value>
-      <value>
-        <name>ELIG_STATUS_DATE</name>
-        <rename>ELIG_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>ELIG_RESULT_ID</name>
-        <rename>ELIG_RESULT_ID</rename>
-        </value>
-      <value>
-        <name>ETHNICITY</name>
-        <rename>ETHNICITY</rename>
-        </value>
-      <value>
-        <name>GWF_ELIG_TIMEOUT</name>
-        <rename>GWF_ELIG_TIMEOUT</rename>
-        </value>
-      <value>
-        <name>GWF_MISSING_INFO</name>
-        <rename>GWF_MISSING_INFO</rename>
-        </value>
-      <value>
-        <name>INCOME_VERIF_STATUS</name>
-        <rename>INCOME_VERIF_STATUS</rename>
-        </value>
-      <value>
-        <name>INCOME_VERIF_STATUS_DATE</name>
-        <rename>INCOME_VERIF_STATUS_DATE</rename>
-        </value>
-      <value>
-        <name>MEDICAID_REFERRAL_REC_DATE</name>
-        <rename>MEDICAID_REFERRAL_REC_DATE</rename>
-        </value>
-      <value>
-        <name>MEDICAID_REFERRAL_SENT_DATE</name>
-        <rename>MEDICAID_REFERRAL_SENT_DATE</rename>
-        </value>
-      <value>
-        <name>MEMBER_ID</name>
-        <rename>MEMBER_ID</rename>
-        </value>
-      <value>
-        <name>OTHER_INSURANCE_ANSWER</name>
-        <rename>OTHER_INSURANCE_ANSWER</rename>
-        </value>
-      <value>
-        <name>PERSON_NUMBER</name>
-        <rename>PERSON_NUMBER</rename>
-        </value>
-      <value>
-        <name>RACE_1</name>
-        <rename>RACE_1</rename>
-        </value>
-      <value>
-        <name>RACE_2</name>
-        <rename>RACE_2</rename>
-        </value>
-      <value>
-        <name>RELATIONSHIP_PARENT1</name>
-        <rename>RELATIONSHIP_TO_PARENT_1</rename>
-        </value>
-      <value>
-        <name>RELATIONSHIP_PARENT2</name>
-        <rename>RELATIONSHIP_TO_PARENT_2</rename>
-        </value>
-      <value>
-        <name>SSN_APPLY_DATE</name>
-        <rename>SSN_APPLY_DATE</rename>
-        </value>
-      <value>
-        <name>TOTAL_MEMBER_INCOME_AMT</name>
-        <rename>TOTAL_MEMBER_INCOME_AMT</rename>
-        </value>
-      <value>
-        <name>UNBORN_CHILD_DUE_DATE</name>
-        <rename>UNBORN_CHILD_DUE_DATE</rename>
-        </value>
-      <value>
-        <name>VOLUNTARY_CANCEL_ANSWER</name>
-        <rename>VOLUNTARY_CANCEL_ANSWER</rename>
-        </value>
-      <value>
-        <name>IDENTITY_VERIFIED</name>
-        <rename>IDENTITY_VERIFIED</rename>
-        </value>
-      <value>
-        <name>IDENTITY_VERIF_DATE</name>
-        <rename>IDENTITY_VERIF_DATE</rename>
-        </value>
-      <value>
-        <name>IDENTITY_VERIF_SOURCE_DOC</name>
-        <rename>IDENTITY_VERIF_SOURCE_DOC</rename>
-        </value>
-      <value>
-        <name>IDENTITY_INSUFF_REASON</name>
-        <rename>IDENTITY_INSUFF_REASON</rename>
-        </value>
-      <value>
-        <name>TRIBAL_MBRSHIP_VERIFIED</name>
-        <rename>TRIBAL_MBRSHIP_VERIFIED</rename>
-        </value>
-      <value>
-        <name>TRIBAL_MBRSHIP_INSUFF_REASON</name>
-        <rename>TRIBAL_MBRSHIP_INSUFF_REASON</rename>
         </value>
       <value>
         <name>CITIZENSHIP_INSUFF_REASON</name>
@@ -1634,22 +1297,130 @@ order by COV_RQST_ID, ME_ID
         <rename>CITIZENSHIP_VERIF_SOURCE_DOC</rename>
         </value>
       <value>
+        <name>CMSN_OPT_ANSWER</name>
+        <rename>CMSN_OPT_ANSWER</rename>
+        </value>
+      <value>
+        <name>COUNTY</name>
+        <rename>COUNTY</rename>
+        </value>
+      <value>
+        <name>COVERAGE_REQUEST_STATUS</name>
+        <rename>COVERAGE_REQUEST_STATUS</rename>
+        </value>
+      <value>
+        <name>COVERAGE_REQUEST_STATUS_DATE</name>
+        <rename>COVERAGE_REQUEST_STATUS_DATE</rename>
+        </value>
+      <value>
+        <name>COV_RQST_ID</name>
+        <rename>COV_RQST_ID</rename>
+        </value>
+      <value>
+        <name>DENTAL_COVERAGE_FLAG</name>
+        <rename>DENTAL_COVERAGE_FLAG</rename>
+        </value>
+      <value>
+        <name>ETHNICITY</name>
+        <rename>ETHNICITY</rename>
+        </value>
+      <value>
+        <name>IDENTITY_INSUFF_REASON</name>
+        <rename>IDENTITY_INSUFF_REASON</rename>
+        </value>
+      <value>
+        <name>IDENTITY_VERIFIED</name>
+        <rename>IDENTITY_VERIFIED</rename>
+        </value>
+      <value>
+        <name>IDENTITY_VERIF_DATE</name>
+        <rename>IDENTITY_VERIF_DATE</rename>
+        </value>
+      <value>
+        <name>IDENTITY_VERIF_SOURCE_DOC</name>
+        <rename>IDENTITY_VERIF_SOURCE_DOC</rename>
+        </value>
+      <value>
+        <name>INCOME_VERIF_STATUS</name>
+        <rename>INCOME_VERIF_STATUS</rename>
+        </value>
+      <value>
+        <name>INCOME_VERIF_STATUS_DATE</name>
+        <rename>INCOME_VERIF_STATUS_DATE</rename>
+        </value>
+      <value>
         <name>LIMITED_IN_ANY_WAY</name>
         <rename>LIMITED_IN_ANY_WAY</rename>
+        </value>
+      <value>
+        <name>MEMBER_ID</name>
+        <rename>MEMBER_ID</rename>
+        </value>
+      <value>
+        <name>MEMBER_STATE</name>
+        <rename>MEMBER_STATE</rename>
+        </value>
+      <value>
+        <name>MEMBER_ZIP_CODE</name>
+        <rename>MEMBER_ZIP_CODE</rename>
         </value>
       <value>
         <name>NEEDS_SPECIAL_THERAPY</name>
         <rename>NEEDS_SPECIAL_THERAPY</rename>
         </value>
       <value>
+        <name>OTHER_INSURANCE_ANSWER</name>
+        <rename>OTHER_INSURANCE_ANSWER</rename>
+        </value>
+      <value>
+        <name>PERSON_NUMBER</name>
+        <rename>PERSON_NUMBER</rename>
+        </value>
+      <value>
+        <name>RACE_1</name>
+        <rename>RACE_1</rename>
+        </value>
+      <value>
+        <name>RACE_2</name>
+        <rename>RACE_2</rename>
+        </value>
+      <value>
+        <name>SSN_APPLY_DATE</name>
+        <rename>SSN_APPLY_DATE</rename>
+        </value>
+      <value>
+        <name>TOTAL_MEMBER_INCOME_AMT</name>
+        <rename>TOTAL_MEMBER_INCOME_AMT</rename>
+        </value>
+      <value>
+        <name>TRIBAL_MBRSHIP_INSUFF_REASON</name>
+        <rename>TRIBAL_MBRSHIP_INSUFF_REASON</rename>
+        </value>
+      <value>
+        <name>TRIBAL_MBRSHIP_VERIFIED</name>
+        <rename>TRIBAL_MBRSHIP_VERIFIED</rename>
+        </value>
+      <value>
+        <name>UNBORN_CHILD_DUE_DATE</name>
+        <rename>UNBORN_CHILD_DUE_DATE</rename>
+        </value>
+      <value>
         <name>USES_MORE_MED_CARE</name>
         <rename>USES_MORE_MED_CARE</rename>
+        </value>
+      <value>
+        <name>VOLUNTARY_CANCEL_ANSWER</name>
+        <rename>VOLUNTARY_CANCEL_ANSWER</rename>
+        </value>
+      <value>
+        <name>ELIG_TYPE</name>
+        <rename>ELIG_TYPE</rename>
         </value>
       </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>560</yloc>
+      <xloc>490</xloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1733,8 +1504,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>280</yloc>
+      <xloc>210</xloc>
+      <yloc>300</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1818,8 +1589,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>100</xloc>
-      <yloc>420</yloc>
+      <xloc>260</xloc>
+      <yloc>520</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1903,93 +1674,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>270</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error log - application</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>error_description</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>number_of_errors</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1070</xloc>
-      <yloc>220</yloc>
+      <xloc>1020</xloc>
+      <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2073,93 +1759,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>280</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error log - elig result</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>1</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>nr_err_desc_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>nr_err_codes_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>nr_err_fields_fieldname</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>nr_err_fieldname</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>420</yloc>
+      <xloc>510</xloc>
+      <yloc>300</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2243,8 +1844,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>270</yloc>
+      <xloc>670</xloc>
+      <yloc>290</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2328,8 +1929,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1070</xloc>
-      <yloc>430</yloc>
+      <xloc>1020</xloc>
+      <yloc>420</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2413,178 +2014,8 @@ order by COV_RQST_ID, ME_ID
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>250</xloc>
-      <yloc>280</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error log - medicare</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>number_of_errors</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>error_description</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>580</xloc>
-      <yloc>420</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>error log - relationship</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>MAXDAT</connection>
-    <schema/>
-    <table>CORP_ETL_ERROR_LOG</table>
-    <commit>100</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>PROCESS_NAME</column_name>
-          <stream_name>PROCESS_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>JOB_NAME</column_name>
-          <stream_name>JOB_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_DATE</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>ERR_LEVEL</column_name>
-          <stream_name>ERROR_LEVEL</stream_name>
-        </field>
-        <field>
-          <column_name>UPDATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>CREATE_TS</column_name>
-          <stream_name>SYSTEM_DATE</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_TABLE_NAME</column_name>
-          <stream_name>DRIVER_TABLE_NAME</stream_name>
-        </field>
-        <field>
-          <column_name>DRIVER_KEY_NUMBER</column_name>
-          <stream_name>DRIVER_KEY_NUMBER</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_CODES</column_name>
-          <stream_name>error_codes</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_FIELD</column_name>
-          <stream_name>error_fields</stream_name>
-        </field>
-        <field>
-          <column_name>NR_OF_ERROR</column_name>
-          <stream_name>number_of_errors</stream_name>
-        </field>
-        <field>
-          <column_name>ERROR_DESC</column_name>
-          <stream_name>error_descriptions</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>420</yloc>
+      <xloc>360</xloc>
+      <yloc>300</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2601,13 +2032,16 @@ order by COV_RQST_ID, ME_ID
            </partitioning>
     <connection>OLTP_SOURCE</connection>
     <rowlimit>1</rowlimit>
-    <sql>SELECT NVL(A.ACCOUNT_ID, 0)                                          ACCOUNT_ID, 
+    <sql>select NVL(A.ACCOUNT_ID, 0)                                          ACCOUNT_ID, 
        NVL(A.ACCOUNT_NUMBER, 0)                                      ACCOUNT_NUMBER, 
-       A.PREGNANCY_DUE_DATE                                          UNBORN_CHILD_DUE_DATE
-FROM ACCOUNT A
-     JOIN ACCOUNT_MEMBERSHIP  AM                      ON A.ACCOUNT_ID  = AM.ACCOUNT_ID
-WHERE AM.ACCOUNT_MEMBERSHIP_ID = ?
-</sql>
+       A.PREGNANCY_DUE_DATE                                          UNBORN_CHILD_DUE_DATE,
+       aci.mailing_postal_code                                       MEMBER_ZIP_CODE,
+       aci.mailing_county                                            COUNTY,
+       aci.mailing_state                                             MEMBER_STATE   
+from account a     
+join account_membership am on am.account_id = a.account_id   
+join account_contact_info aci on aci.account_id = a.account_id      
+where am.account_membership_id = ?</sql>
     <outer_join>Y</outer_join>
     <replace_vars>Y</replace_vars>
     <parameter>
@@ -2618,43 +2052,8 @@ WHERE AM.ACCOUNT_MEMBERSHIP_ID = ?
     </parameter>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>750</xloc>
-      <yloc>130</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>join application</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OLTP_SOURCE</connection>
-    <rowlimit>1</rowlimit>
-    <sql>select nvl(max(ap.application_id),0)                              APPLICATION_ID,
-       CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos;
-          ELSE &apos;N&apos; 
-       END                                                        GWF_ELIG_TIMEOUT
-from   application ap
-where account_id = ?         
-group by CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos; ELSE &apos;N&apos; END</sql>
-    <outer_join>Y</outer_join>
-    <replace_vars>Y</replace_vars>
-    <parameter>
-      <field>
-        <name>ACCOUNT_ID</name>
-        <type>Number</type>
-      </field>
-    </parameter>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>910</xloc>
-      <yloc>130</yloc>
+      <xloc>850</xloc>
+      <yloc>250</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -2673,18 +2072,6 @@ group by CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos; ELSE &apos
         <min_pct_rows/>
       </error>
       <error>
-        <source_step>Join Eligibility Result</source_step>
-        <target_step>error log - elig result</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>nr_err_desc_fieldname</nr_valuename>
-        <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
-        <fields_valuename>nr_err_fields_fieldname</fields_valuename>
-        <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
         <source_step>Join Health plan</source_step>
         <target_step>error log - health plan</target_step>
         <is_enabled>Y</is_enabled>
@@ -2692,18 +2079,6 @@ group by CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos; ELSE &apos
         <descriptions_valuename>nr_err_fieldname</descriptions_valuename>
         <fields_valuename>nr_err_fields_fieldname</fields_valuename>
         <codes_valuename>nr_err_codes_fieldname</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>Join Medicare</source_step>
-        <target_step>error log - medicare</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>number_of_errors</nr_valuename>
-        <descriptions_valuename>error_description</descriptions_valuename>
-        <fields_valuename>error_fields</fields_valuename>
-        <codes_valuename>error_codes</codes_valuename>
         <max_errors>10000</max_errors>
         <max_pct_errors/>
         <min_pct_rows/>
@@ -2745,18 +2120,6 @@ group by CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos; ELSE &apos
         <min_pct_rows/>
       </error>
       <error>
-        <source_step>Join relationship </source_step>
-        <target_step>error log - relationship</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>number_of_errors</nr_valuename>
-        <descriptions_valuename>error_descriptions</descriptions_valuename>
-        <fields_valuename>error_fields</fields_valuename>
-        <codes_valuename>error_codes</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
         <source_step>Update OLTP_STG</source_step>
         <target_step>error log - Update OLTP_STG</target_step>
         <is_enabled>Y</is_enabled>
@@ -2774,18 +2137,6 @@ group by CASE WHEN AP.STATUS = &apos;EXPIRED&apos; THEN &apos;Y&apos; ELSE &apos
         <is_enabled>Y</is_enabled>
         <nr_valuename>number_of_errors</nr_valuename>
         <descriptions_valuename>error_descriptions</descriptions_valuename>
-        <fields_valuename>error_fields</fields_valuename>
-        <codes_valuename>error_codes</codes_valuename>
-        <max_errors>10000</max_errors>
-        <max_pct_errors/>
-        <min_pct_rows/>
-      </error>
-      <error>
-        <source_step>join application</source_step>
-        <target_step>error log - application</target_step>
-        <is_enabled>Y</is_enabled>
-        <nr_valuename>number_of_errors</nr_valuename>
-        <descriptions_valuename>error_description</descriptions_valuename>
         <fields_valuename>error_fields</fields_valuename>
         <codes_valuename>error_codes</codes_valuename>
         <max_errors>10000</max_errors>

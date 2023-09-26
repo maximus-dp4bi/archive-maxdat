@@ -1,25 +1,38 @@
-CREATE OR REPLACE VIEW BPM_LAST_ETL_RUN_SV AS 
-Select 
-  be.bem_id,
+create or replace view BPM_LAST_ETL_RUN_SV as 
+select
+  bem.BEM_ID,
   bsl.BSL_ID,
-  bsl.NAME "Process Name", 
-  max(cjs.job_start_date) as "Last Completed ETL Start Time",
-  max(cjs.job_end_date) as "Last Completed ETL End Time",
-  nvl(round(((sysdate - min(EVENT_DATE)) * 24),2),0) "Queue Hours Behind",
-  count(distinct bueq.identifier) "Instances Pending",
-  case when nvl(round(((sysdate - min(EVENT_DATE)) * 24),2),0) = 0 then 'Complete'
-  else 'Pending'
-  end 
-  "Queue Processing"  
+  bsl.NAME as "Process Name",
+  max(cejs.JOB_START_DATE) as "Last Completed ETL Start Time",
+  case 
+    when max(cejs.JOB_END_DATE) > max(cejs.JOB_START_DATE) then max(cejs.JOB_END_DATE) 
+    else null 
+    end as "Last Completed ETL End Time",
+  nvl(round(((sysdate - min(min_event_date)) * 24),2),0) "Queue Hours Behind",
+  max(bueq."Instances Pending") "Instances Pending",
+  case 
+    when nvl(round(((sysdate - min(min_event_date)) * 24),2),0) = 0 then 'Complete'
+    else 'Pending'
+    end "Queue Processing"
 from BPM_SOURCE_LKUP bsl
-left outer join BPM_UPDATE_EVENT_QUEUE bueq on bsl.BSL_ID = bueq.BSL_ID
-inner join BPM_EVENT_MASTER be on be.bem_id = bsl.bsl_id
-inner join BPM_PROCESS_LKUP bpl on bpl.BPROL_ID = be.BPROL_ID
-inner join corp_etl_list_lkup cell on cell.ref_id = be.bprol_id
-inner join corp_etl_job_statistics cjs on cjs.job_name = cell.value
-where cjs.job_status_cd = 'COMPLETED'
-group by bsl.BSL_ID,bsl.NAME,be.bem_id,cell.name;
+left outer join 
+  (select 
+     BSL_ID,
+     min(EVENT_DATE) min_event_date,
+     count(distinct IDENTIFIER) "Instances Pending" 
+   from BPM_UPDATE_EVENT_QUEUE 
+   group by BSL_ID) bueq 
+  on bsl.BSL_ID = bueq.BSL_ID
+inner join BPM_EVENT_MASTER bem on bsl.BSL_ID = bem.BEM_ID 
+inner join BPM_PROCESS_LKUP bpl on bem.BPROL_ID = bpl.BPROL_ID
+inner join CORP_ETL_LIST_LKUP cell on bem.BPROL_ID = cell.REF_ID
+inner join CORP_ETL_JOB_STATISTICS cejs on cell.value = cejs.JOB_NAME
+where cejs.JOB_STATUS_CD = 'COMPLETED'
+group by 
+  bsl.BSL_ID,
+  bsl.NAME,
+  bem.BEM_ID,
+  cell.NAME
+with read only;
 
-
-create or replace public synonym BPM_LAST_ETL_RUN_SV for BPM_LAST_ETL_RUN_SV;
 grant select on BPM_LAST_ETL_RUN_SV to MAXDAT_READ_ONLY;

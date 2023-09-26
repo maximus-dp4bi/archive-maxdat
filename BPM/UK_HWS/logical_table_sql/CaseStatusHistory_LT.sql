@@ -1,0 +1,6 @@
+SELECT [Id]
+      ,[CaseId]
+      ,[CaseStatusId]
+      ,[EffectiveFrom]
+      ,[EffectiveTo]
+  FROM [Case].[CaseStatusHistory]

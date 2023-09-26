@@ -2,7 +2,20 @@
 <job>
   <name>Process_Applications_RUNALL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -458,8 +471,8 @@ COMMIT;</sql>
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>790</xloc>
-      <yloc>190</yloc>
+      <xloc>590</xloc>
+      <yloc>180</yloc>
       </entry>
     <entry>
       <name>Process_Applications_Get_Variables</name>
@@ -506,38 +519,6 @@ COMMIT;</sql>
       <yloc>160</yloc>
       </entry>
     <entry>
-      <name>Process_Applications_Get_End_Variable</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Job.Filename.Directory}&#47;Process_Applications_Get_End_Variable.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>550</xloc>
-      <yloc>180</yloc>
-      </entry>
-    <entry>
       <name>Populate_Application_Temp</name>
       <description/>
       <type>TRANS</type>
@@ -567,7 +548,7 @@ COMMIT;</sql>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>1040</xloc>
-      <yloc>210</yloc>
+      <yloc>230</yloc>
       </entry>
   </entries>
   <hops>
@@ -610,15 +591,6 @@ COMMIT;</sql>
     <hop>
       <from>Process_Applications_CreateRule_2</from>
       <to>SQL- truncate &amp;load WIP &amp; OLTP  tables</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>SQL- truncate &amp;load WIP &amp; OLTP  tables</from>
-      <to>Update_OLTP_Staging</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -689,24 +661,6 @@ COMMIT;</sql>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Process_Applications_Get_Variables</from>
-      <to>Process_Applications_Get_End_Variable</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process_Applications_Get_End_Variable</from>
-      <to>Process_Applications_CreateRule.ktr</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Process_Applications_CreateRule.ktr</from>
       <to>Populate_Application_Temp</to>
       <from_nr>0</from_nr>
@@ -724,12 +678,30 @@ COMMIT;</sql>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>Process_Applications_Get_Variables</from>
+      <to>Process_Applications_CreateRule.ktr</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>SQL- truncate &amp;load WIP &amp; OLTP  tables</from>
+      <to>Update_OLTP_Staging</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
     <notepad>
       <note>This job will start all Process Application Transformations and should start after load lookup stage and load step instance stage</note>
-      <xloc>405</xloc>
-      <yloc>870</yloc>
+      <xloc>330</xloc>
+      <yloc>40</yloc>
       <width>738</width>
       <heigth>25</heigth>
       <fontname>Arial</fontname>

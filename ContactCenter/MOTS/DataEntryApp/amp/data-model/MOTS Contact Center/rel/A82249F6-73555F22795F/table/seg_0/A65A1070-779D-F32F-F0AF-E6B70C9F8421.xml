@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A65A1070-779D-F32F-F0AF-E6B70C9F8421" name="D_PROGRAM">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>7B8C0321-FCE0-0591-DF9D-A23A3EB11D3A</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="D_PROGRAM_ID" id="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key for program records</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F23924EE-4C17-92E7-4432-849E4CAEF954</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROGRAM_NAME" id="54BF94BD-C60D-A4B3-19EC-949CD98EFFB9">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The name of the program</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>A015EC53-A642-9BC5-E8FF-5F180255A9FC</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATE_DATE" id="F7383039-96A7-4827-EA81-CCEEDA9C7F91">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-12-31 15:27:25 UTC</createdTime>
+<comment>The date the record was created in the dimensional table.  This is used for auditing purposes</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_MODIFIED_DATE" id="60C25639-13B9-A591-5922-209E9F7AAFC7">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-12-31 15:27:25 UTC</createdTime>
+<comment>The date the record was last modified.  This is used for auditing purposes</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2D812BF6-25BD-3EF4-2D3C-7CC9F026ECF1" name="D_PROGRAM_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>1DD6A11C-5984-B432-BCD5-9F5BDFCB75A0</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BB72B6BB-C4EB-AD42-438D-44300C99B2E9" name="D_PROGRAM_UNK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>97074464-B7E6-F5A0-3B0A-4A63336A4AC3</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="54BF94BD-C60D-A4B3-19EC-949CD98EFFB9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,8 @@
+#NOTE the DEV and UAT servers are MOUNTAIN time the PROD server is EASTERN time
+#The following are for Mountain time
+#Monday thru Friday Every 15 minutes 4PM till 9PM Eastern (
+10,25,40,55 14-20 * * 1-5 /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/PIPKINS_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#Every DAY at 5:00 AM
+00 05 * * 1-7 /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+#On Saturday Every 15 minutes Noon to 1PM Eastern
+10,25,40,55 10-12 * * 6 /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-uat/NYHIX/ETL/logs/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log

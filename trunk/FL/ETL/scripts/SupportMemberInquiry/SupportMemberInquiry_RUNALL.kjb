@@ -2,7 +2,20 @@
 <job>
   <name>SupportMemberInquiry_RUNALL</name>
     <description/>
-    <extended_description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#47;</directory>
@@ -143,7 +156,7 @@
       <yloc>35</yloc>
       </entry>
     <entry>
-      <name>SupportMemberInquiry_CreateRule.ktr</name>
+      <name>SupportMemberInquiry_Create.ktr</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -171,8 +184,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>559</xloc>
-      <yloc>208</yloc>
+      <xloc>560</xloc>
+      <yloc>167</yloc>
       </entry>
     <entry>
       <name>SupportMemberInquiry_Get_Variables</name>
@@ -299,7 +312,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>766</xloc>
+      <xloc>887</xloc>
       <yloc>365</yloc>
       </entry>
     <entry>
@@ -331,8 +344,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>553</xloc>
-      <yloc>365</yloc>
+      <xloc>640</xloc>
+      <yloc>369</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -353,8 +366,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>202</xloc>
-      <yloc>121</yloc>
+      <xloc>200</xloc>
+      <yloc>120</yloc>
       </entry>
     <entry>
       <name>set look back days</name>
@@ -385,14 +398,78 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>329</xloc>
-      <yloc>365</yloc>
+      <xloc>92</xloc>
+      <yloc>363</yloc>
+      </entry>
+    <entry>
+      <name>ContactReason_Create</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;ContactReason_Create.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>444</xloc>
+      <yloc>319</yloc>
+      </entry>
+    <entry>
+      <name>ContactReason_Delete</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;ContactReason_Delete.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>268</xloc>
+      <yloc>364</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>SupportMemberInquiry_Get_Variables</from>
-      <to>SupportMemberInquiry_CreateRule.ktr</to>
+      <to>SupportMemberInquiry_Create.ktr</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -445,17 +522,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>SupportMemberInquiry_CreateRule.ktr</from>
+      <from>SupportMemberInquiry_Create.ktr</from>
       <to>Insert_Into_OLTP_STG_and_WIP_STG.ktr</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Update_BPM_From_WIP</from>
-      <to>set look back days</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -471,14 +539,41 @@
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>Update_BPM_From_WIP</from>
+      <to>ContactReason_Create</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ContactReason_Create</from>
+      <to>ContactReason_Delete</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ContactReason_Delete</from>
+      <to>set look back days</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
     <notepad>
       <note>This job will start all Support Member Inquery Transformations and should start after load lookup stage and load step instance stage</note>
       <xloc>267</xloc>
       <yloc>454</yloc>
-      <width>768</width>
-      <heigth>25</heigth>
+      <width>1001</width>
+      <heigth>29</heigth>
       <fontname>Arial</fontname>
       <fontsize>10</fontsize>
       <fontbold>N</fontbold>

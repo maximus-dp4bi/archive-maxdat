@@ -1,0 +1,13 @@
+Remove the following
+0 18 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/pp_wfm_task_bo_30_days.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/pp_wfm_task_bo_30_days_`date '+\%Y\%m%d_\%H\%M\%S'`.log
+ADD:
+0 3 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/pp_wfm_task_bo_30_days.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/pp_wfm_task_bo_30_days_`date '+\%Y\%m%d_\%H\%M\%S'`.log
+
+Remove the following:
+00 20 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+ADD:
+00 6 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 9 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 12 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+00 15 * * * /u01/maximus/maxdat-uat/NYHIX/ETL/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat-uat/NYHIX/ETL/logs/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log

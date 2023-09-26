@@ -1,0 +1,245 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2260F2AE-3EA0-7DB6-A4F4-AF8AE2780DE4" name="CC_L_TRANSFORMATION">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<typeID>3</typeID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_BATCH" id="3FDE9931-E6D7-88AF-E369-079119F6EE25">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The batch ID.  It&apos;s a unique number, increased by one for each run of a transformation.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CHANNEL_ID" id="238CB93A-C1FE-15ED-65F1-D103F4E8735C">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The logging channel ID (GUID), can be matched to the logging lineage information</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TRANSNAME" id="29DE3D2D-0E49-2112-931F-F629BDFDF726">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The name of the transformation&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="0ACB978F-0BE3-61B6-EB6F-255DEB90D280">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The status of the transformation:  start, end, stopped&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_READ" id="D5DC24A8-04AD-B7D2-0765-1ADD58B2AC5C">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of lines read by the specified step.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_WRITTEN" id="F013260D-2AD8-2CAC-4FE8-7E5FCD41367B">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of lines written by the specified step.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_UPDATED" id="8122480B-11D4-B865-B321-116B082D4799">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of update statements executed by the specified step.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_INPUT" id="0923B903-D414-21E8-923B-2C3B7E566EC6">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of lines read from disk or the network by the specified step.  This is input from files, databases, etc. &lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_OUTPUT" id="608068E3-65AC-E985-0B74-846E9488CB56">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of lines written to disk or the network by the specified step.  This is input to files, databases, etc.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINES_REJECTED" id="876332FF-7497-056D-D239-9F3790B5E96C">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of lines rejected with error handling by the specified step.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ERRORS" id="FB9183AF-4A93-5A2B-17F3-9783B5CB29FC">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The number of errors that occurred.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STARTDATE" id="B967A6B7-AAE7-405F-7979-38B946D7C430">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The start of the date range for incremental (CDC) data processing.  It&apos;s the &apos;end of date range&apos; of the last time this transformation ran correctly.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ENDDATE" id="197E59EC-C77C-9582-1BFD-3238302008C3">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The end of the date range for incremental (CDC) data processing.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOGDATE" id="AD1144C8-D588-5388-188F-552D645FAF3E">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The update time of this log record.  If the transformation has status &apos;end&apos; it&apos;s the end of the transformation. &lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DEPDATE" id="906525C9-9472-66F7-CEFF-746A8579C3BF">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The dependency date:  the maximum date calculated by the dependency rules in the transformation settings.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPLAYDATE" id="5EBB8197-03C6-0AE5-C27F-AF54E1048ED8">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The replay date is synonym for the start time of the transformation.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOG_FIELD" id="BA6094BC-29E7-297C-1C5F-23D7409E860F">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<comment>The field that will contain the complete text log of the run.  Usually this is a CLOB or (long) TEXT type of field.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="002C816D-A6A6-3CFF-AEF1-2089BA249D77" name="CC_L_TRANSFORMATION_PK">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="3FDE9931-E6D7-88AF-E369-079119F6EE25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0A3D030F-093B-2DE5-E0E8-C833320CA9CD" name="CC_L_TRANSFORMATION_IDX1">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="3FDE9931-E6D7-88AF-E369-079119F6EE25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4034E247-70FF-BC06-A102-CE2D52438DD2" name="CC_L_TRANSFORMATION_IDX2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-10-09 21:00:20 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="FB9183AF-4A93-5A2B-17F3-9783B5CB29FC"/>
+<colUsage columnID="0ACB978F-0BE3-61B6-EB6F-255DEB90D280"/>
+<colUsage columnID="29DE3D2D-0E49-2112-931F-F629BDFDF726"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

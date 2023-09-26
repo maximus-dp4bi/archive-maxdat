@@ -3,8 +3,10 @@ Created on 10-Jun-2014 by Raj A.
 Modified the original file, BPM\ILEB\ProcessLetters\createdb\create_ETL_ProcessLetters_tables.sql, to remove the Letters_STG creation and 
 indexes on the Letters_STG table.
 
-Raj A. 07/24/2014 Moved createdb files to Corp.
-Raj A. 07/24/2014 Added column size changes to reflect patch file (20140721_1738_Alter_Column_Size.sql)
+v1 Raj A. 07/24/2014 Moved createdb files to Corp.
+v2 Raj A. 07/24/2014 Added column size changes to reflect patch file (20140721_1738_Alter_Column_Size.sql)
+v3 Raj A. 11/3/2015 Changed column size for Letter_Type to 4000 to match source system column size, Letter_Definition.Description
+v4 Raj A. 11/5/2015 (1) Modified Letter_Status to 256 Bytes to match the source system field, ENUM_LM_STATUS.description.
 */
 -- CORP_ETL_PROC_LETTERS
 create table CORP_ETL_PROC_LETTERS
@@ -14,7 +16,7 @@ create table CORP_ETL_PROC_LETTERS
   create_dt                 DATE not null,
   create_by                 VARCHAR2(50),
   request_dt                DATE,
-  letter_type               VARCHAR2(100),
+  letter_type               VARCHAR2(4000),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
   county_code               VARCHAR2(64),
@@ -23,7 +25,7 @@ create table CORP_ETL_PROC_LETTERS
   reprint                   VARCHAR2(1),
   request_driver_type       VARCHAR2(10),
   request_driver_table      VARCHAR2(32),
-  status                    VARCHAR2(32) not null,
+  status                    VARCHAR2(256) not null,
   status_dt                 DATE not null,
   sent_dt                   DATE,
   print_dt                  DATE,
@@ -80,13 +82,6 @@ create index CORP_ETL_PROC_LETTERS_STAT on CORP_ETL_PROC_LETTERS (INSTANCE_STATU
 
 create index CORP_ETL_PROC_LET_MAT_REQ_ID on CORP_ETL_PROC_LETTERS (MATERIAL_REQUEST_ID)
   tablespace MAXDAT_INDX;
-
-create index CORP_ETL_PROC_LET_OLTP_MAT_REQ_ID on CORP_ETL_PROC_LETTERS_OLTP (MATERIAL_REQUEST_ID)
-  tablespace MAXDAT_INDX;
-
-create index  CORP_ETL_PROC_LET_WIP_MAT_REQ_ID on CORP_ETL_PROC_LETTERS_WIP_BPM (MATERIAL_REQUEST_ID)
-  tablespace MAXDAT_INDX;
-  
   
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table CORP_ETL_PROC_LETTERS
@@ -129,7 +124,7 @@ create table CORP_ETL_PROC_LETTERS_OLTP
   create_dt                 DATE not null,
   create_by                 VARCHAR2(50),
   request_dt                DATE,
-  letter_type               VARCHAR2(100),
+  letter_type               VARCHAR2(4000),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
   county_code               VARCHAR2(64),
@@ -138,7 +133,7 @@ create table CORP_ETL_PROC_LETTERS_OLTP
   reprint                   VARCHAR2(1),
   request_driver_type       VARCHAR2(10),
   request_driver_table      VARCHAR2(32),
-  status                    VARCHAR2(32) not null,
+  status                    VARCHAR2(256) not null,
   status_dt                 DATE not null,
   sent_dt                   DATE,
   print_dt                  DATE,
@@ -198,6 +193,9 @@ create index CORP_ETL_PROC_LTR_OLTP_CANC_DT on CORP_ETL_PROC_LETTERS_OLTP (CANCE
 create index CORP_ETL_PROC_LTR_OLTP_COMP_DT on CORP_ETL_PROC_LETTERS_OLTP (COMPLETE_DT)
   tablespace MAXDAT_INDX;
 
+create index CORP_LET_OLTP_MAT_REQ_ID on CORP_ETL_PROC_LETTERS_OLTP (MATERIAL_REQUEST_ID)
+  tablespace MAXDAT_INDX;
+
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table CORP_ETL_PROC_LETTERS_OLTP
   add constraint CORP_ETL_PROC_LETTERS_OLT_PK primary key (CEPN_ID)
@@ -221,7 +219,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
   create_dt                 DATE not null,
   create_by                 VARCHAR2(50),
   request_dt                DATE,
-  letter_type               VARCHAR2(100),
+  letter_type               VARCHAR2(4000),
   program                   VARCHAR2(50),
   case_id                   NUMBER,
   county_code               VARCHAR2(64),
@@ -230,7 +228,7 @@ create table CORP_ETL_PROC_LETTERS_WIP_BPM
   reprint                   VARCHAR2(1),
   request_driver_type       VARCHAR2(10),
   request_driver_table      VARCHAR2(32),
-  status                    VARCHAR2(32) not null,
+  status                    VARCHAR2(256) not null,
   status_dt                 DATE not null,
   sent_dt                   DATE,
   print_dt                  DATE,
@@ -285,6 +283,9 @@ create index CORP_ETL_PROC_LTR_BPM_COMP_DT on CORP_ETL_PROC_LETTERS_WIP_BPM (COM
 
 create index CORP_ETL_PROC_LTR_BPM_STAT on CORP_ETL_PROC_LETTERS_WIP_BPM (INSTANCE_STATUS)
   tablespace MAXDAT_INDX;
+
+create index  CORP_LET_WIP_MAT_REQ_ID on CORP_ETL_PROC_LETTERS_WIP_BPM (MATERIAL_REQUEST_ID)
+  tablespace MAXDAT_INDX;  
 
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table CORP_ETL_PROC_LETTERS_WIP_BPM

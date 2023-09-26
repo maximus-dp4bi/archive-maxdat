@@ -1,0 +1,86 @@
+35 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/manage_adhoc_contact_center_jobs.log 2>&1
+
+
+0 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#5 3 * * 1 /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "WEEKLY" > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/cron_run_weekly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#10 3 2 * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "MONTHLY" > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/cron_run_monthly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+45 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_adhoc_extracts.sh
+
+30 6 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_scheduled_extracts.sh
+
+15 0-23 * * * /u01/maximus/maxdat-prd/KSCH_Legacy/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh >> /u01/maximus/maxdat-prd/KSCH_Legacy/logs/manage_adhoc_contact_center_jobs.log &
+
+0 7 16 * * /u01/maximus/maxdat-prd/AO/ETL/main/bin/run_ao_input_jobs.sh > /u01/maximus/maxdat-prd/AO/logs/cron_ao_input_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>/u01/maximus/maxdat-prd/AO/logs/cron_error.log
+
+*/30 * 17,18,19,20,21,22,23,24,25 * * /u01/maximus/maxdat-prd/AO/ETL/main/bin/run_ao_extract_jobs.sh > /u01/maximus/maxdat-prd/AO/logs/cron_ao_input_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>/u01/maximus/maxdat-prd/AO/logs/cron_error.log
+
+15 * * * * /u01/maximus/maxdat-prd/PAIECC8/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh > /u01/maximus/maxdat-prd/PAIECC8/logs/manage_adhoc_contact_center_jobs.log 2>&1
+0 * * * * /u01/maximus/maxdat-prd/PAIECC8/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh > /u01/maximus/maxdat-prd/PAIECC8/logs/scheduled_contact_center_job_executions.log 2>&1
+0 6 * * * /u01/maximus/maxdat-prd/PAIECC8/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh > /u01/maximus/maxdat-prd/PAIECC8/logs/load_New_Queue_Flag_for_Alert.log 2>&1
+
+#5 3 * * 1 /u01/maximus/maxdat-prd/PA/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "WEEKLY" > /u01/maximus/maxdat-prd/PA/logs/ContactCenter/cron_run_weekly_export_amp_metrics.log 2>&1
+
+#10 3 2 * * /u01/maximus/maxdat-prd/PA/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "MONTHLY" > /u01/maximus/maxdat-prd/PA/logs/ContactCenter/cron_run_monthly_export_amp_metrics.log 2>&1
+
+#MAXDAT-1798
+30 * * * * /u01/maximus/maxdat-prd/DMCS/ETL/scripts/ContactCenter/implementation/DMCS/bin/run_load_contact_center.sh > /u01/maximus/maxdat-prd/DMCS/ETL/logs/ContactCenter/run_load_contact_center.log
+#MAXDAT-5058
+30 04 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/load_Agent_First_Call_Dt.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/load_Agent_First_Call_Dt.sh_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#MAXDAT-5885
+#05,35 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_scheduled_Call_Back.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_hco_call_back_scheduled.log 2>&1
+
+#15 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/CAHCO_manage_adhoc_Call_Back.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_hco_call_back_adhoc.log 2>&1
+
+#MAXDAT-5858
+#0 9,19 * * * /u01/maximus/maxdat-prd/CAHCO/ETL/scripts/Get_IVR_Responses.sh >> /u01/maximus/maxdat-prd/CAHCO/ETL/logs/get_ivr_responses.log 2>&1
+
+#MAXDAT-6612
+10,40 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh >> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/scheduled_contact_center_job_executions.log
+
+#MAXDAT-6365
+20 7 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_scheduled_IVR_Menu_Group.sh> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_scheduled_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#MAXDAT-6365
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/IVR_Menu_Group/bin/manage_adhoc_IVR_Menu_Group.sh> /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/ContactCenter/manage_adhoc_IVR_Menu_Group_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+#Ansible: log_purge
+#0 3 * * * /u01/app/appadmin/scripts/log_purge.sh
+
+
+#MAXDAT-6855
+0 12 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/main/bin/purge_cc_logs.sh
+
+#MAXDAT-6857
+0 12 * * * /u01/maximus/maxdat-prd/PA/scripts/ContactCenter/main/bin/purge_cc_logs.sh
+
+#MAXDAT-7090
+#MAXDAT-8000
+#2 3 * * * /u01/maximus/maxdat-prd/PA/scripts/pa_run_bpm.sh > /u01/maximus/maxdat-prd/PA/logs/pa_run_bpm.log 2>&1
+2 * * * * /u01/maximus/maxdat-prd/PAIEB8/scripts/pa_run_bpm8.sh > /u01/maximus/maxdat-prd/PAIEB8/logs/pa_run_bpm8.log 2>&1
+#*/15 * * * * /u01/maximus/maxdat-prd/PA/scripts/pa_run_planning.sh > /u01/maximus/maxdat-prd/PA/logs/pa_run_planning.log 2>&1
+#17 * * * * /u01/maximus/maxdat-prd/PA/scripts/pa_run_instance_load.sh > /u01/maximus/maxdat-prd/PA/logs/pa_run_instance_load.log 2>&1
+#MAXDAT-8670
+*/15 * * * * /u01/maximus/maxdat-prd/PAIEB8/scripts/pa_run_planning8.sh> /u01/maximus/maxdat-prd/PAIEB8/logs/pa_run_planning8.log 2>&1
+17 * * * * /u01/maximus/maxdat-prd/PAIEB8/scripts/pa_run_instance_load8.sh> /u01/maximus/maxdat-prd/PAIEB8/logs/pa_run_instance_load8.log 2>&1
+
+#MAXDAT-7232
+0 5 * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_scheduled_Call_Back.sh
+25 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CAHCO/bin/manage_adhoc_Call_Back.sh
+
+#MAXDAT-7549
+15 * * * * /u01/maximus/maxdat-prd/LAEB/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh
+0 * * * * /u01/maximus/maxdat-prd/LAEB/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh
+0 9 * * * /u01/maximus/maxdat-prd/LAEB/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh
+
+#MAXDAT-8386
+20 * * * * /u01/maximus/maxdat-prd/DCHIX/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh
+30 * * * * /u01/maximus/maxdat-prd/DCHIX/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh
+
+#MAXDAT-8977
+5 * * * * /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/scripts/ContactCenter/implementation/CiscoEnterprise/bin/Run_Daily_Survey_Files.sh > /u01/maximus/maxdat-prd/CiscoEnterprise/ETL/logs/Run_Daily_Survey_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+
+#MAXDAT-9806
+0 10 * * * /u01/maximus/maxdat-prd/PAIEB8/scripts/purge_logs.sh > /u01/maximus/maxdat-prd/PAIEB8/scripts/purge_logs.log 2>&1

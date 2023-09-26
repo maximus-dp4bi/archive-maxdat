@@ -1,6 +1,6 @@
 #!/bin/ksh
 . ~/.bash_profile
-
+. $MAXDAT_ETL_PATH/.setenv_var.sh
 PATH=$KETTLE_NYHIX_HOME/.kettle/kettle.properties:.:/u01/app/appadmin/product/pentaho/data-integration/:$PATH
 export PATH
 export KETTLE_HOME=$KETTLE_NYHIX_HOME
