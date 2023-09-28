@@ -1,2 +1,0 @@
-drop table BPM_UPDATE_EVENT_BACKUP;
-alter table BPM_UPDATE_EVENT rename constraint BPM_UPDATE_EVENT_PK1 to BPM_UPDATE_EVENT_PK;

@@ -1,1 +1,0 @@
-select case_id as CASE_NUMBER from cases

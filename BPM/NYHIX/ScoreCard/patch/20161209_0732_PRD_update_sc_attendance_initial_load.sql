@@ -1,9 +1,0 @@
-
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = -32, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 7188;
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 5, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 3051;
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 1, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 7245;
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 22, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 7613;
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 36, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 9409;
-Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 28, INCENTIVE_POINTS = null ,START_DATE = to_date('09/26/2016', 'mm/dd/yyyy') where staff_id = 9408;
-
-commit;

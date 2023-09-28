@@ -1,8 +1,0 @@
---------------------------------------------------------
---  Constraints for Table EMRS_D_DATE_PERIOD
---------------------------------------------------------
-
-  ALTER TABLE "EMRS_D_DATE_PERIOD" MODIFY ("DATE_PERIOD_ID" NOT NULL ENABLE);
-  ALTER TABLE "EMRS_D_DATE_PERIOD" ADD CONSTRAINT "DATEPERIOD_PK" PRIMARY KEY ("DATE_PERIOD_ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "MAXDAT_INDX"  ENABLE;

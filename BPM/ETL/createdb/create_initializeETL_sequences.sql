@@ -1,1 +1,0 @@
--- No Sequences for these tables, they are copies of EB/ATS Product tables 

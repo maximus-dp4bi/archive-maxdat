@@ -1,7 +1,0 @@
-ALTER TABLE MAXDAT.SURVEY_HEADER_INFO 
-      ADD (
-          CONTACT_LANGUAGE	VARCHAR2(32),
-          DCN VARCHAR2(81),
-          REVIEW_TYPE VARCHAR2(81),
-          ENTRY_DATE DATE        
-      );

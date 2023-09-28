@@ -1,8 +1,0 @@
-update BPM_UPDATE_EVENT_QUEUE 
-set PROCESS_BUEQ_ID = null
-where 
-  BSL_ID = 2 
-  and PROCESS_BUEQ_ID >= 1971207
-  and PROCESS_BUEQ_ID <= 1971580;
-
-commit;

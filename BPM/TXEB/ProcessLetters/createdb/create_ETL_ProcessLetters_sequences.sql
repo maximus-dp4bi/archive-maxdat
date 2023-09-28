@@ -1,5 +1,0 @@
-
-
-CREATE SEQUENCE  SEQ_CEPN_ID ;
-
-

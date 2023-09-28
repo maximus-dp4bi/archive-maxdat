@@ -1,3 +1,0 @@
-truncate table NYHIX_ETL_DOC_NOTIFICATIONS;
-truncate table NYHIX_ETL_DOC_NOTIF_OLTP;
-truncate table NYHIX_ETL_DOC_NOTIF_WIP_BPM;

@@ -1,5 +1,0 @@
-UPDATE corp_etl_control
-SET  value = '2018/06/15 00:00:00'
-WHERE NAME = 'CIR_LAST_UPDATE_DATE';
-
-COMMIT;

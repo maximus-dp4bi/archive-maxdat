@@ -1,2 +1,0 @@
-ALTER TABLE emrs_d_county
-MODIFY CSDAID VARCHAR2(10);

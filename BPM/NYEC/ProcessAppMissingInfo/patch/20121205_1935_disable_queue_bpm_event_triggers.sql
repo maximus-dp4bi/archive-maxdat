@@ -1,2 +1,0 @@
-alter trigger TRG_AI_NYEC_ETL_PA_MI_Q disable;
-alter trigger TRG_AU_NYEC_ETL_PA_MI_Q disable;

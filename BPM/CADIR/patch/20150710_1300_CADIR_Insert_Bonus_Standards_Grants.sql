@@ -1,5 +1,0 @@
-grant execute on MAXDAT_CADR.INSERT_BONUS_STANDARDS to MAXDAT_CADR_MSTR_TRX_RPT;
-
-commit;
-
-/

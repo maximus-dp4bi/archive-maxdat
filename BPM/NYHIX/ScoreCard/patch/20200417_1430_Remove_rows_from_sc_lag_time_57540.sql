@@ -1,6 +1,0 @@
--- NYHIX-57540
-
-
-    DELETE FROM DP_SCORECARD.Sc_Lag_Time WHERE (AGENT_ID IN ('147754') AND TRUNC(LAG_DATE) in ('09-APR-20'));
-
-    commit;

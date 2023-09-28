@@ -1,8 +1,0 @@
--- Order of execution for Back Office implementation
-
-populate_CORP_ETL_JOB_STATISTICS.sql
-populate_CORP_ETL_CONTROL.sql
-insert_to_PP_D_lkup_tables.sql
-alter_PP_D_UOW_SOURCE_REF_table.sql
-create_PP_BO_database.sql
-alter_SEQ_PP_USR_ID.sql

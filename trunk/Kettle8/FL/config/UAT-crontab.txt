@@ -1,4 +1,0 @@
-0,15,30,45 * * * * /u01/maximus/maxdat/FL/scripts/run_bpm_min.sh | sed "s/^/$(date)/ " > /u01/maximus/maxdat/FL/logs/run_bpm_min_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
-00 09,14 * * * /u01/maximus/maxdat/FL/scripts/run_bpm_daily.sh  | sed "s/^/$(date)/ " > /u01/maximus/maxdat/FL/logs/run_bpm_daily_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
-00 02 * * * find /u01/maximus/maxdat/FL/logs -mtime +30 -exec rm {} \; 2>&1 >> /u01/maximus/maxdat/FL/logs/removed_$(date +'%Y%m%d_%H%M%S_%3N').log
-00 03 * * *  /u01/maximus/maxdat/FL/scripts/run_bpm_daily.sh  | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/FL/logs/run_bpm_daily_`date '+\%Y\%m\%d_\%H\%M\%S'`.log

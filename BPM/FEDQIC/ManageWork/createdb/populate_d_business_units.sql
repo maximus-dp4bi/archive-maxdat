@@ -1,1 +1,0 @@
-insert into d_business_units values (0,'Default','Default');

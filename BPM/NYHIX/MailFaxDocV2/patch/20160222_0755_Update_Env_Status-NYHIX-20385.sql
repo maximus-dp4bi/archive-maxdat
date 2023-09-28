@@ -1,8 +1,0 @@
--- Updated ENV_STATUS in NYHIX_ETL_MAIL_FAX_DOC_V2 where ENV_STATUS_CD = 'TRASHED' but ENV_STATUS <> 'Trashed'
-
-Update NYHIX_ETL_MAIL_FAX_DOC_V2
-set ENV_STATUS = 'Trashed'
-WHERE ENV_STATUS_CD = 'TRASHED'
-AND ENV_STATUS <> 'Trashed';
-
-commit;

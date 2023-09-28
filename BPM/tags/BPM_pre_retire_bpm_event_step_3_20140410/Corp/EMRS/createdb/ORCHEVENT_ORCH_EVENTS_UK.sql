@@ -1,7 +1,0 @@
---------------------------------------------------------
---  DDL for Index ORCHEVENT_ORCH_EVENTS_UK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "ORCHEVENT_ORCH_EVENTS_UK" ON "EMRS_F_OUTREACH_EVENT" ("LANGUAGE_CODE_ID", "DATE_PERIOD_ID", "COMMUNICATION_TYPE_ID", "ACTIVITY_ID", "STAFF_ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "MAXDAT_INDX" ;

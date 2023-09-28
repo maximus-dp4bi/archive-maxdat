@@ -1,7 +1,0 @@
---------------------------------------------------------
---  DDL for Index OUTFAC_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "OUTFAC_PK" ON "EMRS_S_OUTREACH_FACTS" ("ACTIVITY_DATE", "ACTIVITY_ID", "ST_CNTY_NUM", "OBSERVATION_ID", "SRC_STAFF_ID", "ACTIVITY_ACTION_TYPE_ID", "COMM_TYPE_ID", "LANG_ID", "REGION_ID", "TIME_PERIOD_ID") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "MAXDAT_INDX" ;

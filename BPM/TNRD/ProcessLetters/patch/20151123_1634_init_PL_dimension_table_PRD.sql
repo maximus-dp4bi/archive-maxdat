@@ -1,3 +1,0 @@
-insert into D_PL_LETTER_STATUS (DPLLS_ID ,LETTER_STATUS) values (SEQ_DPLLS_ID.NEXTVAL,null);
-
-commit;

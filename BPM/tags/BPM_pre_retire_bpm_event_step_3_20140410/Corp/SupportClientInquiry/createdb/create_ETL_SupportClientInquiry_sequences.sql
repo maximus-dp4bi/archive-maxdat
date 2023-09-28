@@ -1,5 +1,0 @@
--- Sequences
-CREATE SEQUENCE seq_ceci_id START WITH 1;
-CREATE SEQUENCE seq_cecid_id START WITH 1;
-CREATE SEQUENCE seq_cecie_id START WITH 1;
-

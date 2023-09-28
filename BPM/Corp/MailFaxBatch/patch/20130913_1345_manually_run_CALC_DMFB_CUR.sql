@@ -1,1 +1,0 @@
-exec mail_fax_batch.CALC_DMFBCUR;

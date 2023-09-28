@@ -1,4 +1,0 @@
-update maxdat.NYHIX_ETL_MAIL_FAX_DOC_V2 set DOC_REPROCESSED_FLAG ='Y'
-where DCN in ('11736800','11736801','11736799');
-
-commit;

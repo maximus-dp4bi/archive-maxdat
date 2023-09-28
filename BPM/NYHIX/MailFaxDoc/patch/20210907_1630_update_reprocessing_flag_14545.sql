@@ -1,4 +1,0 @@
-alter session set current_schema = MAXDAT;
-update CORP_ETL_MFB_BATCH_STG set reprocessed_flag = 'Y' where batch_name IN ('SOH_ML-1603449-307405-8/24/2021-4:23:37 PM','SOH_ML-1603243-307405-8/24/2021-2:25:20 PM','SOH_ML-1603366-307405-8/24/2021-3:34:32 PM','SOH_ML-1603384-307405-8/24/2021-3:46:23 PM');
-update corp_etl_mfb_batch set reprocessed_flag = 'Y' where batch_name IN ('SOH_ML-1603449-307405-8/24/2021-4:23:37 PM','SOH_ML-1603243-307405-8/24/2021-2:25:20 PM','SOH_ML-1603366-307405-8/24/2021-3:34:32 PM','SOH_ML-1603384-307405-8/24/2021-3:46:23 PM');
-commit;

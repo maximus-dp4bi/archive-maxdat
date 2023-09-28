@@ -1,6 +1,0 @@
-execute MAXDAT_ADMIN.SHUTDOWN_JOBS;
-
-delete from  maxdat.BPM_UPDATE_EVENT_QUEUE where BSL_ID=12;
-commit;
-
-execute MAXDAT_ADMIN.STARTUP_JOBS;

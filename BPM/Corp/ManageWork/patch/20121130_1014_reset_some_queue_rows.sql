@@ -1,5 +1,0 @@
-update BPM_UPDATE_EVENT_QUEUE 
-set PROCESS_BUEQ_ID = null
-where PROCESS_BUEQ_ID in (281966,281989);
-
-commit;

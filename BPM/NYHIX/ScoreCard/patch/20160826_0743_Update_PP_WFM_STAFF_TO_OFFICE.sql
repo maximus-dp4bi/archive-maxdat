@@ -1,5 +1,0 @@
-Update DP_SCORECARD.PP_WFM_STAFF_TO_OFFICE
-set END_DATE = SYSDATE
-where DELETE_FLAG = 'Y';
-
-Commit;

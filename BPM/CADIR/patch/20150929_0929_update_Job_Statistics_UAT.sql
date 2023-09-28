@@ -1,7 +1,0 @@
---Update job stats in UAT for testing purposes
-
-UPDATE CORP_ETL_JOB_STATISTICS
-SET JOB_STATUS_CD = 'ERROR'
-WHERE JOB_ID = 8336;
-
-COMMIT;

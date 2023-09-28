@@ -1,5 +1,0 @@
-SELECT [Id]
-      ,[CaseFamilyId]
-      ,[CaseId]
-      ,[CaseNumber]
-  FROM [Case].[CaseFamily]

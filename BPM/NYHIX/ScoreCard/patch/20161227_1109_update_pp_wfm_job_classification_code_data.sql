@@ -1,6 +1,0 @@
-delete from DP_SCORECARD.PP_WFM_JOB_CLASSIFICATION_CODE
-WHERE CODE IN (
-'NAV-QR2'
-);
-
-commit;

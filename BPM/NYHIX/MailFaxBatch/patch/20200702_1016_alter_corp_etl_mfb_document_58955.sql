@@ -1,1 +1,0 @@
-alter table "MAXDAT"."CORP_ETL_MFB_DOCUMENT" drop constraint "SYS_C0084547";

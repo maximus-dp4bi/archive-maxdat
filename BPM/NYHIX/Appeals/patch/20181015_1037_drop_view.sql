@@ -1,2 +1,0 @@
-drop view  "MAXDAT"."TEMP_INCIDENT_STATUS_HISTORY_SV";
-

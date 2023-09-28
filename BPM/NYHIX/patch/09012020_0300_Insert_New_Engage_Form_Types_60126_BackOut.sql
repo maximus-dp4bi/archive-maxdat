@@ -1,3 +1,0 @@
---NYHIX60126
-DELETE from DP_SCORECARD.Engage_Form_Type where FORM_TYPE_ID='825';
-COMMIT;

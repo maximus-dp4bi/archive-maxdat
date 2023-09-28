@@ -1,9 +1,0 @@
-alter table emrs_d_enrollment_notification
-disable constraint NOTIFICATION_FK;
-
-truncate table emrs_d_enrollment_notification;
-
-truncate table emrs_d_notification;
-
-alter table emrs_d_enrollment_notification
-enable constraint NOTIFICATION_FK;

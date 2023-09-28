@@ -1,1 +1,0 @@
-alter  trigger TRG_AU_NYHX_ETL_COMPLAINTS_Q disable;

@@ -1,1 +1,0 @@
-SELECT clnt_client_id AS CLIENT_NUMBER FROM client

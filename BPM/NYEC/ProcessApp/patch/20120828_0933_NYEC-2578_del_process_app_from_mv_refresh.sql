@@ -1,1 +1,0 @@
-delete from CORP_BPM_MV_REFRESH where PROCESS = 'ProcessApp';

@@ -1,1 +1,0 @@
-alter  trigger TRG_AU_CORP_ETL_COMPLAINTS_Q enable;

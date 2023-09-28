@@ -1,8 +1,0 @@
-ALTER TABLE NYHIX_ETL_MAIL_FAX_DOC_APP_V2 ADD (FIRST_NAME VARCHAR2(100), LAST_NAME VARCHAR2(100), HOH_IND NUMBER(1), PRIMARY_PERSON_IND NUMBER(1)) ;
-
-insert into CORP_ETL_CONTROL (NAME, VALUE_TYPE, VALUE, DESCRIPTION, CREATED_TS, UPDATED_TS) values ('MAX_APP_DOC_INDV_ID', 'N', '1633108', 'This is the max app doc indv ID from the ETL staging table',sysdate,sysdate);
-
-commit;
-
-create or replace view NYHIX_ETL_MFD_APP_V2_SV
-as select * from NYHIX_ETL_MAIL_FAX_DOC_APP_V2;

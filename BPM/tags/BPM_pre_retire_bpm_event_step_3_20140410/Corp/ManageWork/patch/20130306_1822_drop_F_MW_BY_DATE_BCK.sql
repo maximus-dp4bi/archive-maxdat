@@ -1,1 +1,0 @@
-drop table F_MW_BY_DATE_BCK;

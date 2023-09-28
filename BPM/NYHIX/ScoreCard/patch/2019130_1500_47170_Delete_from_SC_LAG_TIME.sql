@@ -1,7 +1,0 @@
-delete
-FROM DP_SCORECARD.Sc_Lag_Time
-WHERE (AGENT_ID IN ( '247519') AND TRUNC(LAG_DATE) = '15-JAN-19');
-
-commit;
-
-/

@@ -1,1 +1,0 @@
-alter  trigger trg_au_corp_etl_mailfaxdoc_q disable;

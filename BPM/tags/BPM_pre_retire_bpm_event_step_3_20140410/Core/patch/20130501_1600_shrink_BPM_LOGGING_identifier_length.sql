@@ -1,1 +1,0 @@
-alter table BPM_LOGGING modify (IDENTIFIER varchar2(35));

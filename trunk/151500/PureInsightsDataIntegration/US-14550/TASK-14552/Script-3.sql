@@ -1,9 +1,0 @@
-USE ROLE PI_DATA_INGEST_DEV_ALERT_USER;
-USE DATABASE PUREINSIGHTS_DEV;
-USE SCHEMA RAW;
-
-SHOW PROCEDURES;
-
-SHOW GRANTS ON PROCEDURE PUREINSIGHTS_DEV.RAW.CREATEPROJECTFILESLISTTABLES(BOOLEAN);
-
-select * from public.admin_pi_ingestion_status_by_project_vw where status_date = current_date() order by projectid; 

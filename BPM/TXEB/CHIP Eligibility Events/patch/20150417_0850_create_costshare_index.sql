@@ -1,1 +1,0 @@
-create index cs_details_idx1 on cost_share_details_stg(case_id) TABLESPACE MAXDAT_INDX;

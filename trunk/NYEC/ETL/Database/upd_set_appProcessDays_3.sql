@@ -1,4 +1,0 @@
-UPDATE corp_etl_control
-SET VALUE = '3'
-WHERE NAME = 'AP_PROCESS_DAYS';
-COMMIT;

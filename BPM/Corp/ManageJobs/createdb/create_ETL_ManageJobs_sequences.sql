@@ -1,1 +1,0 @@
-create sequence SEQ_CEMFR_ID;

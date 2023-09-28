@@ -1,5 +1,0 @@
-UPDATE MAXDAT.CORP_BPM_MV_REFRESH
-SET PROCESS = 'ManageWork'
-WHERE PROCESS = 'ManageWork_stop';
-
-commit;

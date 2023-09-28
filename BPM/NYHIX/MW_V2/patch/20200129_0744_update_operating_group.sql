@@ -1,9 +1,0 @@
---- NYHIX-55836 ----
-Update maxdat.D_TASK_TYPES 
-set OPERATIONS_GROUP = 'Research',
-SLA_DAYS=2,
-SLA_DAYS_TYPE='B',
-SLA_TARGET_DAYS=2
- where TASK_TYPE_ID='2019018';
- 
-commit;

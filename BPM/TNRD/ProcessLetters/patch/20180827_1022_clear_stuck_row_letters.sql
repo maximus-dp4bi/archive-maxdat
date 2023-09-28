@@ -1,3 +1,0 @@
-delete from BPM_UPDATE_EVENT_QUEUE where BSL_ID=12
-and IDENTIFIER = 3792468;
-commit;

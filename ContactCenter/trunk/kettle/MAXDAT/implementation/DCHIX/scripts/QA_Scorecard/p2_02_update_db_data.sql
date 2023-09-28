@@ -1,9 +1,0 @@
-update 
-    ts_audit
-set
-    AUDIT_CALL_DATE_WEEK_NUMBER = (to_number(to_char(AUDIT_CALL_DATE, 'W'))),
-    AUDIT_DATE_WEEK_NUMBER = (to_number(to_char(AUDIT_DATE, 'W'))),
-    AUDIT_CALL_DURATION_SS = AUDIT_CALL_DURATION - (trunc((AUDIT_CALL_DURATION - (trunc(AUDIT_CALL_DURATION / (60 * 60)))*60*60)/60)*60), 
-    AUDIT_CALL_DURATION_MM = trunc((AUDIT_CALL_DURATION - (trunc(AUDIT_CALL_DURATION / (60 * 60)))*60*60)/60), 
-    AUDIT_CALL_DURATION_HH = trunc(AUDIT_CALL_DURATION / (60 * 60));
-commit;

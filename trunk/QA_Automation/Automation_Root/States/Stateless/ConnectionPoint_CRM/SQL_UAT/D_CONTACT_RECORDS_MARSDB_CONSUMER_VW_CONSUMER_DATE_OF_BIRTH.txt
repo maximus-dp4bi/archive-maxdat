@@ -1,6 +1,0 @@
-select (case when dateadd(year, datediff(years, CONS.CONSUMER_DATE_OF_BIRTH::TIMESTAMP_NTZ, current_timestamp::TIMESTAMP_NTZ), CONS.CONSUMER_DATE_OF_BIRTH::TIMESTAMP_NTZ) > current_timestamp::TIMESTAMP_NTZ
-                    then datediff(years, CONS.CONSUMER_DATE_OF_BIRTH::TIMESTAMP_NTZ, current_timestamp::TIMESTAMP_NTZ) - 1
-                else datediff(years, CONS.CONSUMER_DATE_OF_BIRTH::TIMESTAMP_NTZ, current_timestamp::TIMESTAMP_NTZ)
-            end)::DECIMAL as CONSUMER_AGE
-            from MARS_DP4BI_UAT.MARSDB.MARSDB_CONSUMER_VW CONS
-            where CONSUMER_ID = 121136;

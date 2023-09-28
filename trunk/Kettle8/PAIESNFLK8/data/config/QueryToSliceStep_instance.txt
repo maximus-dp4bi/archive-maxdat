@@ -1,5 +1,0 @@
-with sc as (select min(step_instance_id) init_st_id, max(step_instance_id) max_stid, round(count(1)/4) st_count from ats.step_instance where step_instance_id >= 19385890)
-, r as (SELECT LEVEL rown FROM dual CONNECT BY LEVEL <= 4) 
-, sp as (select sc.init_st_id + st_count*(r.rown-1) from_stid, init_st_id + (st_count*r.rown)-1 to_stid, (init_st_id + (st_count*r.rown)-1) - (sc.init_st_id + st_count*(r.rown-1)) count_rec , sc.*, r.* from sc, r)
-select rown, case when rown = 1 then init_st_id else from_stid end from_id, case when rown = 4 then max_stid else to_stid end to_id from sp
-;

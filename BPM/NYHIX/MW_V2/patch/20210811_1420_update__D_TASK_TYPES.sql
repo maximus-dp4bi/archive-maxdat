@@ -1,4 +1,0 @@
-alter session set current_schema = MAXDAT;
-UPDATE MAXDAT.D_TASK_TYPES  SET OPERATIONS_GROUP = 'DOH', SLA_DAYS= '5',SLA_DAYS_TYPE='C', SLA_JEOPARDY_DAYS='4' where TASK_TYPE_ID = 2015030
-
-commit;

@@ -1,1 +1,0 @@
-create index FMWBD_IXL3 on F_MW_BY_DATE (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel compute statistics;

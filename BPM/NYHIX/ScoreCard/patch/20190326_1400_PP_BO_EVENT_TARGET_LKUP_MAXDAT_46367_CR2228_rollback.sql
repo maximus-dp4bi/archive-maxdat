@@ -1,7 +1,0 @@
--- NYHIX-46367 CR 2228
-set define off;
-
-DELETE FROM maxdat.pp_bo_event_target_lkup
-WHERE  event_id in (1568,1569,1570,1571,1572,1573,1574,1575,1576,1577,1578,1579,1580,1581,1582,1583,1584);
-
-COMMIT;

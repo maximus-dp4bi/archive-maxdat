@@ -1,1 +1,0 @@
-alter table BPM_INSTANCE_ATTRIBUTE modify (VALUE_CHAR varchar2(4000));

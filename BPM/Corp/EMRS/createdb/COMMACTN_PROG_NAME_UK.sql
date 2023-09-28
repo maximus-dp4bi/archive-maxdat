@@ -1,7 +1,0 @@
---------------------------------------------------------
---  DDL for Index COMMACTN_PROG_NAME_UK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "COMMACTN_PROG_NAME_UK" ON "EMRS_D_COMMUNICATION_ACTION" ("MANAGED_CARE_PROGRAM", "COMMUNICATION_ACTION_NAME") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "MAXDAT_INDX" ;

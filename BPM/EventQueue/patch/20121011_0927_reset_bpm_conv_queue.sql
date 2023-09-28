@@ -1,8 +1,0 @@
-update BPM_UPDATE_EVENT_QUEUE_CONV
-set PROCESS_BUEQ_ID = null
-where PROCESS_BUEQ_ID in (3189,4314);
-
-insert into BPM_UPDATE_EVENT_QUEUE_ARCHIVE
-select * from BPM_UPDATE_EVENT_QUEUE_CONV where OLD_DATA is not null;
-
-delete from BPM_UPDATE_EVENT_QUEUE_CONV where OLD_DATA is not null;

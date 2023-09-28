@@ -1,6 +1,0 @@
----NYHIX-37905 
-
-delete from DP_SCORECARD.Sc_Lag_Time
-WHERE AGENT_ID = 111414
-and TRUNC(LAG_DATE) = '19-JAN-18';
-commit;

@@ -1,3 +1,0 @@
-drop index CC_S_WFM_AGENT_ACTIVITY_IDX2;
-
-alter table CC_S_WFM_AGENT_ACTIVITY drop constraint "CC_S_WFM_AGENT_ACTIVITY__UN";

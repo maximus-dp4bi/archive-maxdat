@@ -1,5 +1,0 @@
-REFRESH MATERIALIZED view maxdat_support.eligibility_assessment_paris_va_sv;
-REFRESH MATERIALIZED view maxdat_support.eligibility_assessment_paris_inter_sv;
-REFRESH MATERIALIZED view maxdat_support.eligibility_assessment_client_sv;
-REFRESH MATERIALIZED view maxdat_support.eligibility_exception_sv;
-REFRESH MATERIALIZED view maxdat_support.exception_totals_sv;
