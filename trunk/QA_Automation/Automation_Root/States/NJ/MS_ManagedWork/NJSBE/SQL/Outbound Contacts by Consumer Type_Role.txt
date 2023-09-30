@@ -1,0 +1,19 @@
+select    a11.CONSUMER_TYPE  CONSUMER_TYPE,
+                a11.CONSUMER_ROLE  CONSUMER_ROLE,
+                CAST(a11.CONTACT_CREATE_DATE_TIME AS DATE)  D_DATE,
+                a12.D_MONTH  D_MONTH,
+                a12.D_YEAR  D_YEAR,
+                a11.CONTACT_RECORD_TYPE  CONTACT_RECORD_TYPE,
+                count(distinct (a11.PROJECT_ID || a11.CONTACT_RECORD_ID))  count_of_records
+from      "PUBLIC"."D_CONTACT_RECORDS_SV"  a11
+                left outer join    "PUBLIC"."D_DATES"     a12
+                  on         (CAST(a11.CONTACT_CREATE_DATE_TIME AS DATE) = a12.D_DATE)
+where   a11.PROJECT_ID in (115)
+--and CONTACT_RECORD_TYPE = 'Inbound'
+and a11.CONTACT_CREATE_DATE_TIME >= '2020-06-01 00:00:00'  --- TESTER MUS ENTER DATE and IGNORE Time 00:00:00
+group by              a11.CONSUMER_TYPE,
+                a11.CONSUMER_ROLE,
+                CAST(a11.CONTACT_CREATE_DATE_TIME AS DATE),
+                a12.D_MONTH,
+                a12.D_YEAR,
+                a11.CONTACT_RECORD_TYPE

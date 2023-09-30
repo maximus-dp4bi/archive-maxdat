@@ -1,0 +1,5 @@
+select queuename, callbackservicelevelduration, callServiceLevelDuration, CALLSERVICELEVELPERCENT, callbackServiceLevelDuration, chatServiceLevelPercent, emailServiceLevelDuration, emailServiceLevelPercent, messageServiceLevelDuration, messageServiceLevelPercent, socialServiceLevelDuration, socialServiceLevelPercent, videoServiceLevelDuration, videoServiceLevelPercent 
+from "PUREINSIGHTS_DEV"."PUBLIC"."F_PI_SESSION_SUMMARY_VW"
+where PROJECTID = 301 and PROJECTNAME = 'VA EB'
+and queuename = 'VAEB_Medallion_Eng01_Voice'
+and sessionid = 'c7cdd513-bd2f-4d26-aa42-09d1483234b6';

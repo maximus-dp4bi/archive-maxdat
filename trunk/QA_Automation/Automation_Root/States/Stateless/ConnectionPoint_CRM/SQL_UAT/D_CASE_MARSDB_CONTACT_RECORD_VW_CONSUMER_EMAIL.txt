@@ -1,0 +1,17 @@
+select  cr.consumer_email 
+ from       MARS_DP4BI_UAT.MARSDB.MARSDB_EXTERNAL_LINKS_VW LCCR 
+       LEFT OUTER JOIN
+        MARS_DP4BI_UAT.MARSDB.MARSDB_CONTACT_RECORD_VW CR ON
+            LCCR.PROJECT_ID = CR.PROJECT_ID AND
+            LCCR.EXTERNAL_REF_ID = CR.CONTACT_RECORD_ID
+ where LCCR.PROJECT_ID  = 44 
+AND
+             LCCR.INTERNAL_ID like '128'
+AND
+             cr.consumer_email = 'email@email.com'
+AND
+            LCCR.INTERNAL_REF_TYPE = 'CASE' AND
+            LCCR.EXTERNAL_REF_TYPE = 'CONTACT_RECORD' AND
+            LCCR.EFFECTIVE_END_DATE IS NULL;
+
+

@@ -1,0 +1,1585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>ClientInquiry_Main_Insert_Rules</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  
+They are populated when you commit code to SVN and used later to identify deployed code.
+---------------------------------
+SVN_FILE_URL        = $URL: svn://rcmxapp1d.maximus.com/maxdat/trunk/TX/ETL/scripts/SupportClientInquiry/ClientInquiry_Main_Insert_Rules.ktr $ 
+SVN_REVISION        = $Revision: 3692 $ 
+SVN_REVISION_DATE   = $Date: 2013-07-09 14:07:08 -0500 (Tue, 09 Jul 2013) $
+SVN_REVISION_AUTHOR = $Author: bt25944 $
+---------------------------------</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;04&#47;11 08:33:34.066</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;04&#47;11 08:33:34.066</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>INS1_10	Insert a new instance. Check when a Contact Record ID has been created in source system that does not yet
+                exist in staging and the Contact Record ID in source system is either not completed or completed in the past
+                30 calendar days.
+
+Refer to workbook for all of the attributes.
+asf_handle_contact:  IF contact_end_dt is not null = &apos;Y&apos;; else, &apos;N&apos;
+
+Caller Type ENUM&apos;s decription not same as those within workbook. Use values from MAXDAT lookup instead from Table
+Input.</note>
+      <xloc>17</xloc>
+      <yloc>13</yloc>
+      <width>712</width>
+      <heigth>145</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>DMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATPRD</name>
+    <server>${DB_MAXDATPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATPRD_NAME}</database>
+    <port>${DB_MAXDATPRD_PORT}</port>
+    <username>${DB_MAXDATPRD_USER}</username>
+    <password>${DB_MAXDATPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATUAT</name>
+    <server>${DB_MAXDATUAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATUAT_NAME}</database>
+    <port>${DB_MAXDATUAT_PORT}</port>
+    <username>${DB_MAXDATUAT_USER}</username>
+    <password>${DB_MAXDATUAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATUAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECSTBY</name>
+    <server>${DB_STBY_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_STBY_NAME}</database>
+    <port>${DB_STBY_PORT}</port>
+    <username>${DB_STBY_USER}</username>
+    <password>${DB_STBY_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_STBY_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>DB Join - MAXDAT Info</from><to>Filter rows- Contact Exists</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - ASF_HANDLE_CONTACT</from><to>Set field value - HANDLE_CONTACT Yes</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows- Contact Exists</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - MAXDAT Staff Update</from><to>Table Output - Insert Contacts</to><enabled>Y</enabled> </hop>  <hop> <from>Table Output - Insert Contacts</from><to>Table Output - CECI Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - MAXDAT Staff Update</from><to>Table Output - Staff Update Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - MAXDAT Staff Create</from><to>Table Output - Staff Create Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - MAXDAT Info</from><to>Table Output - MAXDAT Info Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input - OLTP Calls</from><to>Get Variables</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables</from><to>DB Join - MAXDAT Info</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - HANDLE_CONTACT Yes</from><to>DB Join - MAXDAT Staff Update</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows- Contact Exists</from><to>Filter Rows - Note Exists</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - OLTP Note</from><to>Set Field Value - Note Info</to><enabled>Y</enabled> </hop>  <hop> <from>Set Field Value - Note Info</from><to>DB Join - MAXDAT Staff Create</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - OLTP Note</from><to>Table Output - OLTP Note Error Log</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing) 3</from><to>DB Join - OLTP Note</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - ASF_HANDLE_CONTACT</from><to>Set field value - HANDLE_CONTACT No</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value - HANDLE_CONTACT No</from><to>DB Join - MAXDAT Staff Update</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - Note Exists</from><to>DB Join - MAXDAT Staff Create</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - Note Exists</from><to>Dummy (do nothing) 3</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - MAXDAT Staff Create</from><to>DB Join - Default Role</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - Default Role</from><to>Set Field Value - Default Role</to><enabled>Y</enabled> </hop>  <hop> <from>Set Field Value - Default Role</from><to>Filter Rows - ASF_HANDLE_CONTACT</to><enabled>Y</enabled> </hop>  <hop> <from>DB Join - Default Role</from><to>Table Output - Create Role Error Log</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>DB Join - Default Role</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>3</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT gt.description unit_name, r.role_name
+  FROM sec_user u
+  JOIN sec_role r     ON r.sec_role_id = u.default_role_id
+  JOIN group_role gr ON gr.sec_role_id   = r.sec_role_id
+  JOIN GROUPS g       ON g.group_id    = gr.group_id
+  JOIN enum_group_type gt ON g.type_cd       = gt.value
+ WHERE u.staff_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>SUPP_CREATED_BY</name>
+        <type>String</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>958</xloc>
+      <yloc>449</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DB Join - MAXDAT Info</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>3</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT contact_record_id maxdat_record_id
+     , out_var contact_type
+  FROM corp_etl_list_lkup lkup
+     , corp_etl_client_inquiry inq
+ WHERE name = &apos;CLIENT_INQUIRY_CONTACT_TYPE&apos;
+   AND lkup.value = supp_contact_type_cd(+)
+   AND lkup.value = ?
+   AND contact_record_id(+) = ?
+
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>SUPP_CONTACT_TYPE_CD</name>
+        <type>String</type>
+      </field>
+      <field>
+        <name>CONTACT_RECORD_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>403</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DB Join - MAXDAT Staff Create</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>3</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT COALESCE(first_name ||&apos; &apos; || last_name, ?) maxdat_created_by
+  FROM staff_lkup
+ WHERE staff_id = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>SUPP_CREATED_BY</name>
+        <type>String</type>
+      </field>
+      <field>
+        <name>SUPP_CREATED_BY</name>
+        <type>String</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>958</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DB Join - MAXDAT Staff Update</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>3</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT COALESCE(first_name ||&apos; &apos; || last_name, ?) maxdat_last_update_by
+  FROM staff_lkup
+ WHERE staff_id = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>SUPP_UPDATE_BY</name>
+        <type>String</type>
+      </field>
+      <field>
+        <name>SUPP_UPDATE_BY</name>
+        <type>String</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>393</xloc>
+      <yloc>552</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DB Join - OLTP Note</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>3</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT n.note_type_cd
+     , n.category_cd
+     , n.source
+  FROM note n
+ WHERE ref_type1 = &apos;CALL_RECORD&apos;
+   AND ref_id1   = ?</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>CONTACT_RECORD_ID</name>
+        <type>Integer</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>799</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>615</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing) 3</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>777</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Rows - ASF_HANDLE_CONTACT</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value - HANDLE_CONTACT Yes</send_true_to>
+<send_false_to>Set field value - HANDLE_CONTACT No</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CONTACT_END_DT</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>746</xloc>
+      <yloc>560</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Rows - Note Exists</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy (do nothing) 3</send_true_to>
+<send_false_to>DB Join - MAXDAT Staff Create</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>SUPP_LATEST_NOTE_ID</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>782</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows- Contact Exists</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Dummy (do nothing)</send_true_to>
+<send_false_to>Filter Rows - Note Exists</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>MAXDAT_RECORD_ID</leftvalue>
+ <function>IS NOT NULL</function>
+ <rightvalue/>
+ <value><name>constant</name><type>BigNumber</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask>#.###############################################;-#.###############################################</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>614</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>vJobName</name>
+        <variable> ${Internal.Job.Name}${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vDBJoinMaxdat</name>
+        <variable>DB Join - MAXDAT Info</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vDBJoinStaffCreate</name>
+        <variable>DB Join - MAXDAT Staff Create</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vDBJoinStaffUpdate</name>
+        <variable>DB Join - MAXDAT Staff Update</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vStepDBJoinNote</name>
+        <variable>DB Join - OLTP Note</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vTabOutputInsert</name>
+        <variable>Table Output - Insert Contacts</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>vStepDBJoinRole</name>
+        <variable>DB Join - Default Role</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>243</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Field Value - Default Role</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>CREATED_BY_UNIT</name>
+        <replaceby>UNIT_NAME</replaceby>
+        </field>
+      <field>
+        <name>CREATED_BY_ROLE</name>
+        <replaceby>ROLE_NAME</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>958</xloc>
+      <yloc>560</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Field Value - Note Info</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>NOTE_TYPE</name>
+        <replaceby>NOTE_TYPE_CD</replaceby>
+        </field>
+      <field>
+        <name>NOTE_CATEGORY</name>
+        <replaceby>CATEGORY_CD</replaceby>
+        </field>
+      <field>
+        <name>NOTE_SOURCE</name>
+        <replaceby>SOURCE</replaceby>
+        </field>
+      <field>
+        <name>NOTE_PRESENT</name>
+        <replaceby>YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>958</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value - HANDLE_CONTACT No</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ASF_HANDLE_CONTACT</name>
+        <replaceby>NO</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>568</xloc>
+      <yloc>636</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value - HANDLE_CONTACT Yes</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ASF_HANDLE_CONTACT</name>
+        <replaceby>YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>568</xloc>
+      <yloc>485</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Input - OLTP Calls</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT SYSDATE                           system_date
+     , &apos;CORP_ETL_CLIENT_INQUIRY&apos;         driver_table_ceci
+     , &apos;CORP_ETL_LIST_LKUP&apos;              driver_table_lkup
+     , &apos;STAFF_LKUP&apos;                      driver_table_staff
+     , &apos;SEC_ROLE&apos;                        driver_table_sec_role
+     , &apos;NOTE&apos;                            driver_table_note
+     , &apos;ABORT&apos;                           error_abort_level
+     , &apos;CRITICAL&apos;                        error_critical_level
+     , &apos;LOG&apos;                             error_log_level
+     , call_record_id        contact_record_id
+     , call_type_cd          supp_contact_type_cd
+     , parent_call_record_id parent_record_id
+     , call_tracking_number  tracking_number
+     , r.worker_id           supp_worker_id
+     , r.worker_username     supp_worker_name
+	 , r.created_by          supp_created_by
+     , NULL                  created_by_unit
+     , NULL                  created_by_role
+     , r.create_ts           create_dt
+     , caller_type_cd        supp_contact_group_cd
+     , cr.description        contact_group
+     , call_start_ts         contact_start_dt
+     , call_end_ts           contact_end_dt
+     , call_end_ts           complete_dt
+	 , language_cd           supp_language_cd
+     , l.description         language
+	 --, caller_phone          contact_phone
+	 , ext_telephony_ref     ext_telephony_ref
+	 , call_record_field1    contact_record_field1
+	 , call_record_field2    contact_record_field2
+	 , call_record_field3    contact_record_field3
+	 , call_record_field4    contact_record_field4
+	 , call_record_field5    contact_record_field5
+     , (SELECT MAX(note_id) FROM note n
+         WHERE n.ref_id1  = r.call_record_id
+           AND n.ref_type1 = &apos;CALL_RECORD&apos;) supp_latest_note_id
+     , NULL                  note_type
+     , NULL                  note_category
+     , NULL                  note_source
+     , NULL                  note_present
+     , call_start_ts         assd_handle_contact
+     , call_end_ts           ased_handle_contact
+	 , r.created_by          supp_update_by
+     , r.create_ts           last_update_dt
+     , NULL                  asf_handle_contact
+     , NULL                  aspb_handle_contact
+     , &apos;N&apos;                   no
+     , &apos;Y&apos;                   yes
+  FROM call_record r
+       LEFT OUTER JOIN enum_caller_type cr ON cr.value  = r.caller_type_cd
+       LEFT OUTER JOIN enum_language l     ON l.value   = r.language_cd
+-- WHERE r.worker_id IS NOT NULL  -- Project&apos;s Ben (4&#47;11) does not say to refer to worker ID
+ WHERE call_record_id       &gt;  ${vCI_LAST_CALL_ID}
+   AND TRUNC(call_start_ts) &gt;= TRUNC( SYSDATE - ${vCI_CONTACT_DAYS} )
+--and call_type_cd=&apos;INBOUND&apos; AND ROWNUM = 1
+--and call_record_id = 27999 --26052677</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>94</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - CECI Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vTabOutputInsert</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCode</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_CECI</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>CONTACT_RECORD_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>177</xloc>
+      <yloc>662</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - Create Role Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vStepDBJoinRole</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCodes</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_SEC_ROLE</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>SUPP_CREATED_BY</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1174</xloc>
+      <yloc>449</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - Insert Contacts</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_client_inquiry</table>
+    <commit>10</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>CONTACT_RECORD_ID</column_name>
+          <stream_name>CONTACT_RECORD_ID</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_CONTACT_TYPE_CD</column_name>
+          <stream_name>SUPP_CONTACT_TYPE_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_TYPE</column_name>
+          <stream_name>CONTACT_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>PARENT_RECORD_ID</column_name>
+          <stream_name>PARENT_RECORD_ID</stream_name>
+        </field>
+        <field>
+          <column_name>TRACKING_NUMBER</column_name>
+          <stream_name>TRACKING_NUMBER</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_WORKER_ID</column_name>
+          <stream_name>SUPP_WORKER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_WORKER_NAME</column_name>
+          <stream_name>SUPP_WORKER_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_CREATED_BY</column_name>
+          <stream_name>SUPP_CREATED_BY</stream_name>
+        </field>
+        <field>
+          <column_name>CREATED_BY</column_name>
+          <stream_name>MAXDAT_CREATED_BY</stream_name>
+        </field>
+        <field>
+          <column_name>CREATE_DT</column_name>
+          <stream_name>CREATE_DT</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_CONTACT_GROUP_CD</column_name>
+          <stream_name>SUPP_CONTACT_GROUP_CD</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_GROUP</column_name>
+          <stream_name>CONTACT_GROUP</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_START_DT</column_name>
+          <stream_name>CONTACT_START_DT</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_END_DT</column_name>
+          <stream_name>CONTACT_END_DT</stream_name>
+        </field>
+        <field>
+          <column_name>COMPLETE_DT</column_name>
+          <stream_name>COMPLETE_DT</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_LANGUAGE_CD</column_name>
+          <stream_name>SUPP_LANGUAGE_CD</stream_name>
+        </field>
+        <field>
+          <column_name>LANGUAGE</column_name>
+          <stream_name>LANGUAGE</stream_name>
+        </field>
+        <field>
+          <column_name>EXT_TELEPHONY_REF</column_name>
+          <stream_name>EXT_TELEPHONY_REF</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_RECORD_FIELD1</column_name>
+          <stream_name>CONTACT_RECORD_FIELD1</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_RECORD_FIELD2</column_name>
+          <stream_name>CONTACT_RECORD_FIELD2</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_RECORD_FIELD3</column_name>
+          <stream_name>CONTACT_RECORD_FIELD3</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_RECORD_FIELD4</column_name>
+          <stream_name>CONTACT_RECORD_FIELD4</stream_name>
+        </field>
+        <field>
+          <column_name>CONTACT_RECORD_FIELD5</column_name>
+          <stream_name>CONTACT_RECORD_FIELD5</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_LATEST_NOTE_ID</column_name>
+          <stream_name>SUPP_LATEST_NOTE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>NOTE_TYPE</column_name>
+          <stream_name>NOTE_TYPE</stream_name>
+        </field>
+        <field>
+          <column_name>NOTE_CATEGORY</column_name>
+          <stream_name>NOTE_CATEGORY</stream_name>
+        </field>
+        <field>
+          <column_name>NOTE_SOURCE</column_name>
+          <stream_name>NOTE_SOURCE</stream_name>
+        </field>
+        <field>
+          <column_name>NOTE_PRESENT</column_name>
+          <stream_name>NOTE_PRESENT</stream_name>
+        </field>
+        <field>
+          <column_name>ASSD_HANDLE_CONTACT</column_name>
+          <stream_name>ASSD_HANDLE_CONTACT</stream_name>
+        </field>
+        <field>
+          <column_name>ASED_HANDLE_CONTACT</column_name>
+          <stream_name>ASED_HANDLE_CONTACT</stream_name>
+        </field>
+        <field>
+          <column_name>SUPP_UPDATE_BY</column_name>
+          <stream_name>SUPP_UPDATE_BY</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_UPDATE_BY_NAME</column_name>
+          <stream_name>MAXDAT_LAST_UPDATE_BY</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_UPDATE_DT</column_name>
+          <stream_name>LAST_UPDATE_DT</stream_name>
+        </field>
+        <field>
+          <column_name>ASF_HANDLE_CONTACT</column_name>
+          <stream_name>ASF_HANDLE_CONTACT</stream_name>
+        </field>
+        <field>
+          <column_name>ASPB_HANDLE_CONTACT</column_name>
+          <stream_name>MAXDAT_CREATED_BY</stream_name>
+        </field>
+        <field>
+          <column_name>CREATED_BY_UNIT</column_name>
+          <stream_name>CREATED_BY_UNIT</stream_name>
+        </field>
+        <field>
+          <column_name>CREATED_BY_ROLE</column_name>
+          <stream_name>CREATED_BY_ROLE</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>177</xloc>
+      <yloc>552</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - MAXDAT Info Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vDBJoinMaxdat</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCode</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_CECI</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>CONTACT_RECORD_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>407</xloc>
+      <yloc>232</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - OLTP Note Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vStepDBJoinNote</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCodes</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_NOTE</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>SUPP_LATEST_NOTE_ID</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>885</xloc>
+      <yloc>66</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - Staff Create Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vDBJoinStaffCreate</stream_name>
+        </field>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCode</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_STAFF</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>SUPP_CREATED_BY</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1172</xloc>
+      <yloc>356</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Output - Staff Update Error Log</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>corp_etl_error_log</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>JOB_NAME</column_name>
+          <stream_name>vJobName</stream_name>
+        </field>
+        <field>
+          <column_name>PROCESS_NAME</column_name>
+          <stream_name>vDBJoinStaffUpdate</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_LEVEL</column_name>
+          <stream_name>ERROR_CRITICAL_LEVEL</stream_name>
+        </field>
+        <field>
+          <column_name>ERR_DATE</column_name>
+          <stream_name>SYSTEM_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>NR_OF_ERROR</column_name>
+          <stream_name>vNumErrors</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_DESC</column_name>
+          <stream_name>vErrorDesc</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_FIELD</column_name>
+          <stream_name>vErrorField</stream_name>
+        </field>
+        <field>
+          <column_name>ERROR_CODES</column_name>
+          <stream_name>vErrorCode</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_TABLE_NAME</column_name>
+          <stream_name>DRIVER_TABLE_STAFF</stream_name>
+        </field>
+        <field>
+          <column_name>DRIVER_KEY_NUMBER</column_name>
+          <stream_name>SUPP_UPDATE_BY</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>388</xloc>
+      <yloc>664</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>DB Join - Default Role</source_step>
+        <target_step>Table Output - Create Role Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCodes</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>DB Join - MAXDAT Info</source_step>
+        <target_step>Table Output - MAXDAT Info Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCode</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>DB Join - MAXDAT Staff Create</source_step>
+        <target_step>Table Output - Staff Create Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCode</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>DB Join - MAXDAT Staff Update</source_step>
+        <target_step>Table Output - Staff Update Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCode</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>DB Join - OLTP Note</source_step>
+        <target_step>Table Output - OLTP Note Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCodes</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>Table Output - Insert Contacts</source_step>
+        <target_step>Table Output - CECI Error Log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>vNumErrors</nr_valuename>
+        <descriptions_valuename>vErrorDesc</descriptions_valuename>
+        <fields_valuename>vErrorField</fields_valuename>
+        <codes_valuename>vErrorCode</codes_valuename>
+        <max_errors>999999</max_errors>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>
