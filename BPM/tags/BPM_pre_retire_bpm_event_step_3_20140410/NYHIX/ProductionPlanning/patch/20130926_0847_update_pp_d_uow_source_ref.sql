@@ -1,0 +1,4 @@
+UPDATE PP_D_UOW_SOURCE_REF SET SOURCE_REF_VALUE='HSDE-QC'   WHERE source_ref_detail_identifier='TASK ID' AND SOURCE_REF_VALUE='HSDE-Qc';
+commit;
+
+/

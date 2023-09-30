@@ -1,0 +1,8 @@
+drop INDEX BUEQA_LX1;
+
+alter trigger "MAXDAT"."TRG_AI_CORP_ETL_MFB_BATCH_Q" enable;
+alter trigger "MAXDAT"."TRG_AU_CORP_ETL_MFB_BATCH_Q" enable;
+execute MAXDAT_ADMIN.STARTUP_JOBS;
+
+drop table TMP_MFB_UPD_A_JJH_20140827;
+drop table TMP_MFB_UPD_C_JJH_20140827;

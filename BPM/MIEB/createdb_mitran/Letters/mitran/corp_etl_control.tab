@@ -1,0 +1,29 @@
+create table CORP_ETL_CONTROL
+(
+  name        VARCHAR2(50) not null,
+  value_type  VARCHAR2(1) not null,
+  value       VARCHAR2(100) not null,
+  description VARCHAR2(400),
+  created_ts  DATE not null,
+  updated_ts  DATE not null
+)
+;
+comment on column CORP_ETL_CONTROL.name
+  is 'Named Variable which will have a value stored';
+comment on column CORP_ETL_CONTROL.value_type
+  is 'Type of the named variable';
+comment on column CORP_ETL_CONTROL.value
+  is 'Holds the value for the named variable identifier - secondary lookup value';
+comment on column CORP_ETL_CONTROL.description
+  is 'Description of named variable';
+comment on column CORP_ETL_CONTROL.created_ts
+  is 'Date variable created';
+comment on column CORP_ETL_CONTROL.updated_ts
+  is 'Date Variable updated';
+alter table CORP_ETL_CONTROL
+  add constraint CECTL_PK primary key (NAME);
+grant select, insert, update on CORP_ETL_CONTROL to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on CORP_ETL_CONTROL to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on CORP_ETL_CONTROL to MAXDAT_MITRAN_READ_ONLY;
+grant select, insert, update, delete on CORP_ETL_CONTROL to SR18956;
+

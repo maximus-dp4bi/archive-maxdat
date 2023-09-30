@@ -1,0 +1,17 @@
+create table MAXDAT_ADMIN_AUDIT_LOGGING
+(
+  maal_id         NUMBER not null,
+  user_name       VARCHAR2(30) not null,
+  log_date        DATE not null,
+  run_data_object VARCHAR2(61),
+  bsl_id          NUMBER,
+  message         CLOB
+)
+;
+create index MAXDAT_ADMIN_AUDIT_LOGGING_IX1 on MAXDAT_ADMIN_AUDIT_LOGGING (LOG_DATE);
+alter table MAXDAT_ADMIN_AUDIT_LOGGING
+  add constraint MAXDAT_ADMIN_AUDIT_LOGGING_PK primary key (MAAL_ID);
+grant select, insert, update on MAXDAT_ADMIN_AUDIT_LOGGING to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on MAXDAT_ADMIN_AUDIT_LOGGING to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on MAXDAT_ADMIN_AUDIT_LOGGING to MAXDAT_MITRAN_READ_ONLY;
+

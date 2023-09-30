@@ -1,0 +1,22 @@
+Declare
+v_num_days_add NUMBER;
+  BEGIN
+    SELECT TO_NUMBER(11)
+    INTO v_num_days_add
+    FROM corp_etl_control
+    WHERE name = 'REFRESH_DEMO_DATA_NUMDAYS';
+    
+    UPDATE arena_task_data
+    SET create_date = create_date + v_num_days_add
+     ,complete_date = complete_date + v_num_days_add
+     ,instance_start_date = instance_start_date + v_num_days_add
+     ,status_date = status_date + v_num_days_add
+     ,last_update_date = last_update_date + v_num_days_add
+     ,work_receipt_date = work_receipt_date + v_num_days_add
+     ,claim_date = claim_date + v_num_days_add;
+    
+    COMMIT; 
+    END;
+    
+    
+    select * from v_num_days_add

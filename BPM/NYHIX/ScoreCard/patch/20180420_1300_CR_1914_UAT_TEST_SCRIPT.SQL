@@ -1,0 +1,5 @@
+set timing on
+
+exec dp_scorecard.PP_WFM_BACK_OFFICE_LOAD_PKG.LOAD_SC_PROD_AND_SMRY();
+exec dp_scorecard.PP_WFM_BACK_OFFICE_LOAD_PKG.LOAD_SC_SUMMARY_BO_ROLLUP();
+

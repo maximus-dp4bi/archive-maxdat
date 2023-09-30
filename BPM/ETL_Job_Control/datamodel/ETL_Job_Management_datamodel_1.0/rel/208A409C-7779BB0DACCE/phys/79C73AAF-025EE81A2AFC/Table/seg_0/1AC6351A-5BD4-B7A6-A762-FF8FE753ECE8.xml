@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="ETL_JOB_LOG" directorySegmentName="seg_0" id="1AC6351A-5BD4-B7A6-A762-FF8FE753ECE8">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:02 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<schemaObject>9055985E-E1DB-F0EB-2AE9-112B5C17BA11</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>B7D1524A-4791-E152-3C01-8B1F15A708AE</segment>
+<tableSpace>1A1FE92A-6A6F-0F50-9F6B-3A0E7C986CE1</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="LOG_ID" id="1678BBBB-5B8E-C999-C82C-887720C10A82">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<defaultValue>&quot;MAXDAT&quot;.&quot;SEQ_ETL_LOG_ID&quot;.&quot;NEXTVAL&quot;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="STEP_ID" id="488A2201-92FF-0BEB-2722-6E7E6A09ED83">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RUN_ID" id="5AC51D80-16C1-6539-8B18-679F00FAE4BE">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG_CODE" id="A25EB82F-2DE3-D1B8-2EFB-C52E0BAF44CE">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG_DESC" id="AE476D86-2587-D4BE-DA2A-15324B35F97B">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="STEP_DESC" id="C2BA5939-23C9-9F50-4C9D-DE160FEFA758">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:11 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="JOB_ID" id="D6D09305-7F27-FD94-CB81-DC053F7E2E86">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG_UPD_DT" id="D8DED66E-864D-E573-C34A-78927B3A3387">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOG_SEVERITY_LEVEL" id="F1D22DAA-C012-6AEE-F6B8-C6D5C5D4BAF7">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:10 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="ETL_JOB_LOG_PK" id="2A4C54A2-C975-A9E1-4B14-5E072DA8BE72">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:15 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<schemaObject>9055985E-E1DB-F0EB-2AE9-112B5C17BA11</schemaObject>
+<segment>BE41756A-E5F7-86D2-E788-958AD7976FED</segment>
+<tableSpace>A7AA2098-5962-2D86-5999-3BB1CD96BB0E</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="ETL_JOB_LOG_JOB_ID_FK" id="25C957B3-C53E-C2B8-68E6-87F82DE19B29">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:30 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="ETL_JOB_LOG_RUN_ID_FK" id="45482B92-8326-66E7-D12E-C8408B7FA204">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:30 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="ETL_JOB_LOG_PK" id="18484C7F-FED4-D938-DBA3-8DFCD2C76BA7">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:23 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<segment>BE41756A-E5F7-86D2-E788-958AD7976FED</segment>
+<tableSpace>A7AA2098-5962-2D86-5999-3BB1CD96BB0E</tableSpace>
+<existingIndex>2A4C54A2-C975-A9E1-4B14-5E072DA8BE72</existingIndex>
+<indexSegment>BE41756A-E5F7-86D2-E788-958AD7976FED</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

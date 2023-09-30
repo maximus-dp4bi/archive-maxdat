@@ -1,0 +1,23 @@
+update CORP_ETL_MFB_BATCH 
+set REPROCESSED_FLAG = 'Y'
+,STG_LAST_UPDATE_DATE = current_date
+where BATCH_ID=2615128;
+commit;
+
+update CORP_ETL_MFB_BATCH_STG 
+set REPROCESSED_FLAG = 'Y' 
+,STG_LAST_UPDATE_DATE = current_date
+where BATCH_ID=2615128;
+commit;
+
+update CORP_ETL_MFB_BATCH 
+set REPROCESSED_FLAG = 'Y'
+,STG_LAST_UPDATE_DATE = current_date
+where BATCH_ID=2645738;
+commit;
+
+update CORP_ETL_MFB_BATCH_STG 
+set REPROCESSED_FLAG = 'Y' 
+,STG_LAST_UPDATE_DATE = current_date
+where BATCH_ID=2645738;
+commit;

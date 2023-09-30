@@ -1,0 +1,2 @@
+drop index BPM_INSTANCE_ATTRIBUTE_LX2;
+drop table BIA_BACKUP;

@@ -1,0 +1,9 @@
+delete from BPM_INSTANCE_ATTRIBUTE where BI_ID = 989756;
+delete from BPM_UPDATE_EVENT where BI_ID = 989756;
+delete from BPM_INSTANCE where BI_ID = 989756 and IDENTIFIER = 4304520;
+
+update BPM_UPDATE_EVENT_QUEUE
+set PROCESS_BUEQ_ID = null, WROTE_BPM_EVENT_DATE = null
+where IDENTIFIER = 4304520;
+
+commit;

@@ -1,0 +1,3 @@
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 22 where staff_id = 6281;
+Update SC_ATTENDANCE_INITIAL_SCORE SET ATTENDANCE_POINTS = 40, incentive_points = 6 where staff_id = 6136;
+commit;

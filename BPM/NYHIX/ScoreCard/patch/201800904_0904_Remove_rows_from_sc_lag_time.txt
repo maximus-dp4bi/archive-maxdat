@@ -1,0 +1,13 @@
+--- NYHIX-43448
+delete from DP_SCORECARD.Sc_Lag_Time
+where agent_id = 128374 
+and TRUNC(LAG_DATE) in ('08-AUG-18');
+commit;
+
+
+SELECT *
+FROM DP_SCORECARD.Sc_Lag_Time
+WHERE (AGENT_ID IN ('128374') AND TRUNC(LAG_DATE) in ('08-AUG-18'))
+;
+
+

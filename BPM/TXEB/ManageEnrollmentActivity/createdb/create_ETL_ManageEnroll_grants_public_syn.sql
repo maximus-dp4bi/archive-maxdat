@@ -1,0 +1,13 @@
+
+grant select on CORP_ETL_MANAGE_ENROLL to MAXDAT_READ_ONLY;
+
+grant select on CORP_ETL_MANAGE_ENROLL_OLTP to MAXDAT_READ_ONLY;
+
+grant select on CORP_ETL_MANAGE_ENROLL_WIP to MAXDAT_READ_ONLY;
+
+grant select on D_ME_CURRENT to MAXDAT_READ_ONLY;
+
+grant select on F_ME_BY_DATE to MAXDAT_READ_ONLY;
+
+grant select on D_ME_CURRENT_SV to MAXDAT_READ_ONLY; 
+

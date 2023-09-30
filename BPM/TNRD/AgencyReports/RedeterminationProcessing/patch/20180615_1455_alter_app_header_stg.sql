@@ -1,0 +1,5 @@
+alter table "MAXDAT"."APP_HEADER_STG"
+add  "STG_LAST_UPDATE_DT" DATE;
+
+
+

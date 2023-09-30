@@ -1,0 +1,7 @@
+ALTER TABLE Bpm_Kofax_Release_Events
+MODIFY Work_Required_Flag VARCHAR2(2);
+
+Alter Table Bpm_Kofax_Documents
+Add (Stg_Extract_Date  DATE );
+
+COMMENT ON COLUMN Bpm_Kofax_Documents.Stg_Extract_Date IS 'The date when the data from OLTP was extracted the first time' ;

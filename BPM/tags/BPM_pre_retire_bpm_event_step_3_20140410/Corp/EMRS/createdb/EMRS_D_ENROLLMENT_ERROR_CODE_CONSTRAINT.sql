@@ -1,0 +1,7 @@
+--------------------------------------------------------
+--  Constraints for Table EMRS_D_ENROLLMENT_ERROR_CODE
+--------------------------------------------------------
+
+  ALTER TABLE "EMRS_D_ENROLLMENT_ERROR_CODE" ADD CONSTRAINT "ENRLERRORPK" PRIMARY KEY ("ENROLLMENT_ERROR_CODE_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "MAXDAT_INDX"  ENABLE;

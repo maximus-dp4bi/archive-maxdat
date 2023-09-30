@@ -1,0 +1,4 @@
+--NYHIX60126
+SET DEFINE OFF;
+INSERT INTO DP_SCORECARD.Engage_Form_Type VALUES (825,'Outbound Call_Individual Marketplace_v6.0','QC','CC','script',SYSDATE,TO_DATE('08/01/2020','MM/DD/YY HH:MI:SS AM'),'');
+COMMIT;

@@ -1,0 +1,522 @@
+DROP TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY;
+
+CREATE TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY
+TABLESPACE MAXDAT_DATA
+AS
+SELECT 
+--CREATE NYHIX_MFB_V2 FROM  D_MFB_CURRENT AND CORP_ETL_MFB_BATCH
+D.MFB_BI_ID							AS MFB_V2_BI_ID,
+D.BATCH_GUID						AS BATCH_GUID,
+batch.STG_EXTRACT_DATE				AS MFB_V2_CREATE_DATE,
+batch.STG_LAST_UPDATE_DATE			AS MFB_V2_UPDATE_DATE,
+'N'									AS UPDATED,
+D.REPROCESSED_FLAG					AS REPROCESSED_FLAG,
+D.CREATE_DT							AS CREATE_DT,
+D.BATCH_COMPLETE_DT					AS BATCH_COMPLETE_DT,
+D.INSTANCE_STATUS					AS INSTANCE_STATUS,
+batch.CEJS_JOB_ID					AS MFB_V2_PARENT_JOB_ID,
+D.BATCH_ID							AS EXTERNAL_BATCH_ID,
+D.BATCH_NAME						AS BATCH_NAME,
+D.SOURCE_SERVER						AS SOURCE_SERVER,
+D.BATCH_DESCRIPTION					AS BATCH_DESCRIPTION,
+D.CREATION_STATION_ID				AS CREATION_STATION_ID,
+D.BATCH_CREATED_BY					AS CREATION_USER_NAME,
+D.CREATION_USER_ID					AS CREATION_USER_ID,
+D.BATCH_CLASS						AS BATCH_CLASS,
+D.BATCH_CLASS_DESCRIPTION			AS BATCH_CLASS_DES,
+D.BATCH_TYPE						AS BATCH_TYPE,
+D.COMPLETE_DT						AS COMPLETE_DT,
+D.INSTANCE_STATUS_DT				AS INSTANCE_STATUS_DT,
+D.BATCH_PAGE_COUNT					AS BATCH_PAGE_COUNT,
+D.BATCH_DOC_COUNT					AS BATCH_DOC_COUNT,
+D.BATCH_ENVELOPE_COUNT				AS BATCH_ENVELOPE_COUNT,
+D.CANCEL_DT							AS CANCEL_DT,
+D.CANCEL_BY							AS CANCEL_BY,
+D.CANCEL_REASON						AS CANCEL_REASON,
+D.CANCEL_METHOD						AS CANCEL_METHOD,
+D.SCAN_BATCH_FLAG					AS ASF_SCAN_BATCH,
+D.PERFORM_SCAN_START				AS ASSD_SCAN_BATCH,
+D.PERFORM_SCAN_END					AS ASED_SCAN_BATCH,
+D.PERFORM_SCAN_PERFORMED_BY			AS ASPB_SCAN_BATCH,
+D.PERFORM_QC_FLAG					AS ASF_PERFORM_QC,
+D.PERFORM_QC_START					AS ASSD_PERFORM_QC,
+D.PERFORM_QC_END					AS ASED_PERFORM_QC,
+D.PERFORM_QC_PERFORMED_BY			AS ASPB_PERFORM_QC,
+D.KOFAX_QC_REASON					AS KOFAX_QC_REASON,
+D.CLASSIFICATION_FLAG				AS ASF_CLASSIFICATION,
+D.CLASSIFICATION_START				AS ASSD_CLASSIFICATION,
+D.CLASSIFICATION_END				AS ASED_CLASSIFICATION,
+D.CLASSIFICATION_DT					AS CLASSIFICATION_DT,
+D.RECOGNITION_FLAG					AS ASF_RECOGNITION,
+D.RECOGNITION_START					AS ASSD_RECOGNITION,
+D.RECOGNITION_END					AS ASED_RECOGNITION,
+D.RECOGNITION_DT					AS RECOGNITION_DT,
+D.VALIDATE_DATA_FLAG				AS ASF_VALIDATE_DATA,
+D.VALIDATE_DATA_START				AS ASSD_VALIDATE_DATA,
+D.VALIDATE_DATA_END					AS ASED_VALIDATE_DATA,
+D.VALIDATE_DATA_PERFORMED_BY		AS ASPB_VALIDATE_DATA,
+D.VALIDATION_DT						AS VALIDATION_DT,
+D.CREATE_PDF_FLAG					AS ASF_CREATE_PDF,
+D.CREATE_PDFS_START					AS ASSD_CREATE_PDF,
+D.CREATE_PDFS_END					AS ASED_CREATE_PDF,
+D.POPULATE_REPORTS_DATA_FLAG		AS ASF_POPULATE_REPORTS,
+D.POPULATE_REPORTS_DATA_START		AS ASSD_POPULATE_REPORTS,
+D.POPULATE_REPORTS_DATA_END			AS ASED_POPULATE_REPORTS,
+D.RELEASE_TO_DMS_FLAG				AS ASF_RELEASE_DMS,
+D.RELEASE_TO_DMS_START				AS ASSD_RELEASE_DMS,
+D.RELEASE_TO_DMS_END				AS ASED_RELEASE_DMS,
+D.BATCH_PRIORITY					AS BATCH_PRIORITY,
+D.BATCH_DELETED						AS BATCH_DELETED,
+D.PAGES_SCANNED						AS PAGES_SCANNED_FLAG,
+D.DOCUMENTS_CREATED					AS DOCS_CREATED_FLAG,
+D.DOCUMENTS_DELETED					AS DOCS_DELETED_FLAG,
+D.PAGES_REPLACED_FLAG				AS PAGES_REPLACED_FLAG,
+D.PAGES_DELETED_FLAG				AS PAGES_DELETED_FLAG,
+D.CURRENT_BATCH_MODULE_ID			AS CURRENT_BATCH_MODULE_ID,
+D.GWF_QC_REQUIRED					AS GWF_QC_REQUIRED,
+D.CURRENT_STEP						AS CURRENT_STEP,
+D.VALIDATE_DATA_PERF_BY_USER_ID		AS ASPB_VALIDATE_DATA_USER_ID,
+D.FAX_BATCH_SOURCE					AS FAX_BATCH_SOURCE,
+D.AGE_IN_BUSINESS_DAYS				AS AGE_IN_BUSINESS_DAYS,
+D.AGE_IN_CALENDAR_DAYS				AS AGE_IN_CALENDAR_DAYS,
+D.TIMELINESS_STATUS					AS TIMELINESS_STATUS,
+D.TIMELINESS_DAYS					AS TIMELINESS_DAYS,
+D.TIMELINESS_DAYS_TYPE				AS TIMELINESS_DAYS_TYPE,
+D.TIMELINESS_DT						AS TIMELINESS_DT,
+D.JEOPARDY_FLAG						AS JEOPARDY_FLAG,
+D.JEOPARDY_DAYS						AS JEOPARDY_DAYS,
+D.JEOPARDY_DAYS_TYPE				AS JEOPARDY_DAYS_TYPE,
+D.JEOPARDY_DT						AS JEOPARDY_DT,
+D.TARGET_DAYS						AS TARGET_DAYS
+FROM
+	MAXDAT.D_MFB_CURRENT D
+JOIN	
+	MAXDAT.CORP_ETL_MFB_BATCH batch
+ON D.BATCH_GUID = BATCH.BATCH_GUID;
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY
+ADD (
+  LAST_EVENT_STATUS           VARCHAR2(30 BYTE),
+  LAST_EVENT_MODULE_NAME      VARCHAR2(32 BYTE),
+  REPROCESSED_DATE            DATE,
+  ELAPSED_HOURS               NUMBER
+);
+
+-- ******************************************************
+GRANT SELECT ON MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY TO MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY TO MAXDAT_REPORTS;
+-- ******************************************************
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY add LAST_EVENT_STATUS			VARCHAR2(30 BYTE);
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY add LAST_EVENT_MODULE_NAME	VARCHAR2(32 BYTE);
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY add REPROCESSED_DATE			DATE;
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY add elapsed_hours				NUMBER;
+ 
+ 
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY MFB_V2_UPDATE_DATE 	NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY INSTANCE_STATUS        NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY INSTANCE_STATUS_DT 	NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY CREATION_STATION_ID    NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY CREATION_USER_ID       NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY INSTANCE_STATUS_DT     NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY BATCH_PRIORITY         NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY BATCH_CLASS 			NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY BATCH_ID 				NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY BATCH_NAME 			NULL;
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY MODIFY EXTERNAL_BATCH_ID 		NULL;
+ 
+ 
+ 
+ 
+--------------------------------------------------------
+--  DDL for Index NYHIX_MFB_V2_BATCH_SUMMARY_PK
+--------------------------------------------------------
+
+CREATE UNIQUE INDEX MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY_PK 
+ON MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY (BATCH_GUID) 
+TABLESPACE MAXDAT_INDX ;
+
+CREATE UNIQUE INDEX MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY_UK 
+ON MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY (MFB_V2_BI_ID) 
+TABLESPACE MAXDAT_INDX ;
+
+
+--------------------------------------------------------
+--  DDL for sequence SEQ_NYHIX_MFB_BATCH_SUMMARY_ID
+--  FROM SEQ_BI_ID. 
+--------------------------------------------------------
+
+
+DROP SEQUENCE MAXDAT.SEQ_NYHIX_MFB_BATCH_SUMMARY_ID;
+
+CREATE SEQUENCE  MAXDAT.SEQ_NYHIX_MFB_BATCH_SUMMARY_ID  
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 7257783
+CACHE 100 NOORDER  NOCYCLE  NOKEEP  NOSCALE  
+GLOBAL ;
+
+
+
+GRANT SELECT ON MAXDAT.SEQ_NYHIX_MFB_BATCH_SUMMARY_ID TO MAXDAT_READ_ONLY;
+GRANT SELECT ON MAXDAT.SEQ_NYHIX_MFB_BATCH_SUMMARY_ID TO MAXDAT_REPORTS;
+
+
+--------------------------------------------------------
+--  DDL for Trigger TRG_BIU_NYHIX_MFB_V2_BATCH_SUMMARY
+--------------------------------------------------------
+
+CREATE OR REPLACE EDITIONABLE TRIGGER MAXDAT.TRG_BIU_NYHIX_MFB_V2_BATCH_SUMMARY 
+BEFORE INSERT OR UPDATE ON MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY
+FOR EACH ROW
+BEGIN
+
+IF INSERTING THEN
+	:NEW.MFB_V2_CREATE_DATE := SYSDATE;
+	:NEW.MFB_V2_UPDATE_DATE := NULL;
+	
+	IF :NEW.MFB_V2_BI_ID IS NULL
+		THEN
+		:NEW.MFB_V2_BI_ID := SEQ_NYHIX_MFB_BATCH_SUMMARY_ID.NEXTVAL;
+	END IF;
+	
+END IF;
+
+IF UPDATING THEN
+:NEW.MFB_V2_CREATE_DATE := :OLD.MFB_V2_CREATE_DATE;
+:NEW.MFB_V2_UPDATE_DATE := SYSDATE;
+END IF;
+END;
+/
+
+ALTER TRIGGER MAXDAT.TRG_BIU_NYHIX_MFB_V2_BATCH_SUMMARY ENABLE;
+
+--------------------------------------------------------
+--  Constraints for Table NYHIX_MFB_V2_BATCH_SUMMARY
+--------------------------------------------------------
+
+ALTER TABLE MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY 
+ADD CONSTRAINT NYHIX_MFB_V2_BATCH_SUMMARY_PK PRIMARY KEY (BATCH_GUID)
+USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+TABLESPACE MAXDAT_INDX  ENABLE;
+
+
+-- ******************************************************
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_GUID" IS 'Unique identifier for the batch in KOFAX.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."EXTERNAL_BATCH_ID" IS 'Batch ID in KOFAX.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_NAME" IS 'Name assigned to the batch when it is created.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_DESCRIPTION" IS 'Batch Description, may contain a batch_name if reprocessed';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."REPROCESSED_FLAG" IS 'Reprocessed Flag identifies records that were not previously successfully processed';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CREATION_STATION_ID" IS 'Identifies the KOFAX Capture station where the batch is created. The Station ID is assigned during the installation process.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CREATION_USER_NAME" IS 'This is the Windows login name for the user who creates the batch.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CREATION_USER_ID" IS 'If the User Profiles feature is enabled, the KOFAX Capture login ID for the user who creates the batch.  If User Profiles are not enabled, this is the Windows login name for the user who creates the batch.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_CLASS" IS 'Name of the batch class.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_CLASS_DES" IS 'Description of the batch class on which the batch is based. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_TYPE" IS 'The type of batch. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CREATE_DT" IS 'The date that the batch is initially scanned.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."COMPLETE_DT" IS 'The date the batch was successfully released to DMS, cancelled, or otherwise deleted.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."INSTANCE_STATUS" IS 'Instance Status indicates if the batch is in process or not. When the batch is created the status is set to ''Active'', and it remains open until the batch has been successfully released to DMS,  is cancelled, or otherwise deleted when it is then set to ''Complete''.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."INSTANCE_STATUS_DT" IS 'The date and time the batch was created.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_PAGE_COUNT" IS 'The total number of pages that are scanned in a single batch.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_DOC_COUNT" IS 'Displays the total number of documents scanned in the batch.   The value is set based on the number of document separator sheets read through KOFAX.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_ENVELOPE_COUNT" IS 'The total number of envelopes in the batch.  This number is entered manually at the beginning of the scanning process.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CANCEL_DT" IS 'The date when a worker initiated the cancelling of a batch. The date/time that the batch was deleted from the source system. If the date is unknown, the date this condition was detected.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CANCEL_BY" IS 'The performer who cancelled the batch.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CANCEL_REASON" IS 'The reason the instance was cancelled.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CANCEL_METHOD" IS 'The method by which the instance was cancelled.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_SCAN_BATCH" IS 'ASF_SCAN_BATCH';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_SCAN_BATCH" IS 'The date and time work started on the Scan Batch activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_SCAN_BATCH" IS 'Date and time all work was completed for the Scan Batch activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASPB_SCAN_BATCH" IS 'The name of the staff member who completed the Scan Batch activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_PERFORM_QC" IS 'ASF_PERFORM_QC';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_PERFORM_QC" IS 'The date and time work started on a batch for the Perform QC activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_PERFORM_QC" IS 'Date and time all work was completed for a batch for the Perform QC activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASPB_PERFORM_QC" IS 'The name of the staff member who completed the Perform QC activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."KOFAX_QC_REASON" IS 'The KOFAX QC Reason explains what occurred during the scanning process that requires the batch and its contents to be reviewed by a worker in the Perform QC Activity Step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_CLASSIFICATION" IS 'ASF_CLASSIFICATION';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_CLASSIFICATION" IS 'Date and time work started on a batch for the Recognition activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_CLASSIFICATION" IS 'Date and time work was completed for a batch for the Classification activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CLASSIFICATION_DT" IS 'Date and time that indicates when the document was classified.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_RECOGNITION" IS 'ASF_RECOGNITION';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_RECOGNITION" IS 'Date and time work started on a batch for the Recognition activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_RECOGNITION" IS 'Date and time work was completed for a batch for the Recognition activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."RECOGNITION_DT" IS 'Date and time that indicates when the document completed Recognition. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_VALIDATE_DATA" IS 'ASF_VALIDATE_DATA';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_VALIDATE_DATA" IS 'Date and time work started on a batch for the Verify Results activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_VALIDATE_DATA" IS 'Date and time work was completed for a batch for the Verify Results activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASPB_VALIDATE_DATA" IS 'Name of the staff member who completed the Verify Results activity step.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."VALIDATION_DT" IS 'Date and time that indicates when the document was validated. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_CREATE_PDF" IS 'ASF_CREATE_PDF';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_CREATE_PDF" IS 'Date and time when the PDF Generator module begins.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_CREATE_PDF" IS 'Date and time when the PDF Generator module completed converting each page of a document in a batch to a PDF. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_POPULATE_REPORTS" IS 'ASF_POPULATE_REPORTS';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_POPULATE_REPORTS" IS 'Date and time when the KOFAX Advanced Reports custom workflow agent begins capturing and storing the batch  information required for reporting';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_POPULATE_REPORTS" IS 'Date and time when the KOFAX Advanced Reports custom workflow agent completes capturing and storing the batch  information required for reporting';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASF_RELEASE_DMS" IS 'ASF_RELEASE_DMS';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASSD_RELEASE_DMS" IS 'Date and time when the KOFAX Export Module begins to process the scanned and imported documents through the Export engine designed to create documents with associated metadata and place them into a managed folder (DMS)';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."ASED_RELEASE_DMS" IS 'Date and time when the KOFAX Export Module completed processing the scanned and imported documents through the Export engine designed to create documents with associated metadata and place them into a managed folder (DMS)';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_PRIORITY" IS 'The priority of the batch.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_DELETED" IS 'Flag that indicates that the batch was deleted during the current processing session. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."PAGES_SCANNED_FLAG" IS 'Flag that indicates the number of pages scanned changed during the current processing session.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."DOCS_CREATED_FLAG" IS 'Flag that indicates that documents were created during the current processing session.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."DOCS_DELETED_FLAG" IS 'Flag that indicates that documents were replaced during the current processing session';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."PAGES_REPLACED_FLAG" IS 'Flag that indicates pages replaced during the current processing session.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."PAGES_DELETED_FLAG" IS 'Flag indicating that pages were deleted during at any time during processing. ';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."BATCH_COMPLETE_DT" IS 'The date/timestamp that KOFAX considers the batch completed successfully (i.e. Released to DMS).';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CURRENT_BATCH_MODULE_ID" IS 'Identifier for the current record in Master Batch Module Staging.  It is NA if the batch is completed in KOFAX.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."GWF_QC_REQUIRED" IS 'QC Required Gateway Flag.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CURRENT_STEP" IS 'Current Activity Step for this Instance.';
+COMMENT ON COLUMN "MAXDAT"."NYHIX_MFB_V2_BATCH_SUMMARY"."CEJS_JOB_ID" IS 'Batch Job ID from CORP_ETL_MFB_CONTROL for MicroStrategy Cache Updating';
+
+-- ************************************************************************************************************
+-- ************************************************************************************************************
+-- ************************************************************************************************************
+-- ************************************************************************************************************
+
+
+/* Formatted on 11/15/2021 11:44:07 AM (QP5 v5.374) */
+-- DROP VIEW MAXDAT.D_MFB_V2_CURRENT_SV;
+
+/* Formatted on 12/8/2021 6:41:30 AM (QP5 v5.374) */
+CREATE OR REPLACE FORCE VIEW MAXDAT.D_MFB_V2_CURRENT_SV
+(
+    MFB_BI_ID,
+    BATCH_GUID,
+    BATCH_ID,
+    BATCH_NAME,
+    CREATION_STATION_ID,
+    BATCH_CREATED_BY,
+    CREATION_USER_ID,
+    BATCH_CLASS,
+    BATCH_CLASS_DESCRIPTION,
+    BATCH_TYPE,
+    CREATE_DT,
+    COMPLETE_DT,
+    INSTANCE_STATUS,
+    INSTANCE_STATUS_DT,
+    BATCH_PAGE_COUNT,
+    BATCH_DOC_COUNT,
+    BATCH_ENVELOPE_COUNT,
+    CANCEL_DT,
+    CANCEL_BY,
+    CANCEL_REASON,
+    CANCEL_METHOD,
+    SCAN_BATCH_FLAG,
+    PERFORM_SCAN_START,
+    PERFORM_SCAN_END,
+    PERFORM_SCAN_PERFORMED_BY,
+    PERFORM_QC_FLAG,
+    PERFORM_QC_START,
+    PERFORM_QC_END,
+    PERFORM_QC_PERFORMED_BY,
+    KOFAX_QC_REASON,
+    CLASSIFICATION_FLAG,
+    CLASSIFICATION_START,
+    CLASSIFICATION_END,
+    CLASSIFICATION_DT,
+    RECOGNITION_FLAG,
+    RECOGNITION_START,
+    RECOGNITION_END,
+    RECOGNITION_DT,
+    VALIDATE_DATA_FLAG,
+    VALIDATE_DATA_START,
+    VALIDATE_DATA_END,
+    VALIDATE_DATA_PERFORMED_BY,
+    VALIDATION_DT,
+    CREATE_PDF_FLAG,
+    CREATE_PDFS_START,
+    CREATE_PDFS_END,
+    POPULATE_REPORTS_DATA_FLAG,
+    POPULATE_REPORTS_DATA_START,
+    POPULATE_REPORTS_DATA_END,
+    RELEASE_TO_DMS_FLAG,
+    RELEASE_TO_DMS_START,
+    RELEASE_TO_DMS_END,
+    BATCH_PRIORITY,
+    BATCH_DELETED,
+    PAGES_SCANNED,
+    DOCUMENTS_CREATED,
+    DOCUMENTS_DELETED,
+    PAGES_REPLACED_FLAG,
+    PAGES_DELETED_FLAG,
+    AGE_IN_BUSINESS_DAYS,
+    AGE_IN_CALENDAR_DAYS,
+    TIMELINESS_STATUS,
+    TIMELINESS_DAYS,
+    TIMELINESS_DAYS_TYPE,
+    TIMELINESS_DT,
+    JEOPARDY_FLAG,
+    JEOPARDY_DAYS,
+    JEOPARDY_DAYS_TYPE,
+    JEOPARDY_DT,
+    TARGET_DAYS,
+    BATCH_COMPLETE_DT,
+    CURRENT_BATCH_MODULE_ID,
+    GWF_QC_REQUIRED,
+    CURRENT_STEP,
+    SOURCE_SERVER,
+    BATCH_DESCRIPTION,
+    REPROCESSED_FLAG,
+    VALIDATE_DATA_PERF_BY_USER_ID,
+    FAX_BATCH_SOURCE
+)
+BEQUEATH DEFINER
+AS
+    SELECT MFB_V2_BI_ID                   AS MFB_BI_ID,
+           BATCH_GUID                     AS BATCH_GUID,
+           EXTERNAL_BATCH_ID              AS BATCH_ID,
+           BATCH_NAME                     AS BATCH_NAME,
+           CREATION_STATION_ID            AS CREATION_STATION_ID,
+           CREATION_USER_NAME             AS BATCH_CREATED_BY,
+           CREATION_USER_ID               AS CREATION_USER_ID,
+           BATCH_CLASS                    AS BATCH_CLASS,
+           BATCH_CLASS_DES                AS BATCH_CLASS_DESCRIPTION,
+           BATCH_TYPE                     AS BATCH_TYPE,
+           CREATE_DT                      AS CREATE_DT,
+           COMPLETE_DT                    AS COMPLETE_DT,
+           INSTANCE_STATUS                AS INSTANCE_STATUS,
+           INSTANCE_STATUS_DT             AS INSTANCE_STATUS_DT,
+           BATCH_PAGE_COUNT               AS BATCH_PAGE_COUNT,
+           BATCH_DOC_COUNT                AS BATCH_DOC_COUNT,
+           BATCH_ENVELOPE_COUNT           AS BATCH_ENVELOPE_COUNT,
+           CANCEL_DT                      AS CANCEL_DT,
+           CANCEL_BY                      AS CANCEL_BY,
+           CANCEL_REASON                  AS CANCEL_REASON,
+           CANCEL_METHOD                  AS CANCEL_METHOD,
+           ASF_SCAN_BATCH                 AS SCAN_BATCH_FLAG,
+           ASSD_SCAN_BATCH                AS PERFORM_SCAN_START,
+           ASED_SCAN_BATCH                AS PERFORM_SCAN_END,
+           ASPB_SCAN_BATCH                AS PERFORM_SCAN_PERFORMED_BY,
+           ASF_PERFORM_QC                 AS PERFORM_QC_FLAG,
+           ASSD_PERFORM_QC                AS PERFORM_QC_START,
+           ASED_PERFORM_QC                AS PERFORM_QC_END,
+           ASPB_PERFORM_QC                AS PERFORM_QC_PERFORMED_BY,
+           KOFAX_QC_REASON                AS KOFAX_QC_REASON,
+           ASF_CLASSIFICATION             AS CLASSIFICATION_FLAG,
+           ASSD_CLASSIFICATION            AS CLASSIFICATION_START,
+           ASED_CLASSIFICATION            AS CLASSIFICATION_END,
+           CLASSIFICATION_DT              AS CLASSIFICATION_DT,
+           ASF_RECOGNITION                AS RECOGNITION_FLAG,
+           ASSD_RECOGNITION               AS RECOGNITION_START,
+           ASED_RECOGNITION               AS RECOGNITION_END,
+           RECOGNITION_DT                 AS RECOGNITION_DT,
+           ASF_VALIDATE_DATA              AS VALIDATE_DATA_FLAG,
+           ASSD_VALIDATE_DATA             AS VALIDATE_DATA_START,
+           ASED_VALIDATE_DATA             AS VALIDATE_DATA_END,
+           ASPB_VALIDATE_DATA             AS VALIDATE_DATA_PERFORMED_BY,
+           VALIDATION_DT                  AS VALIDATION_DT,
+           ASF_CREATE_PDF                 AS CREATE_PDF_FLAG,
+           ASSD_CREATE_PDF                AS CREATE_PDFS_START,
+           ASED_CREATE_PDF                AS CREATE_PDFS_END,
+           ASF_POPULATE_REPORTS           AS POPULATE_REPORTS_DATA_FLAG,
+           ASSD_POPULATE_REPORTS          AS POPULATE_REPORTS_DATA_START,
+           ASED_POPULATE_REPORTS          AS POPULATE_REPORTS_DATA_END,
+           ASF_RELEASE_DMS                AS RELEASE_TO_DMS_FLAG,
+           ASSD_RELEASE_DMS               AS RELEASE_TO_DMS_START,
+           ASED_RELEASE_DMS               AS RELEASE_TO_DMS_END,
+           BATCH_PRIORITY                 AS BATCH_PRIORITY,
+           BATCH_DELETED                  AS BATCH_DELETED,
+           PAGES_SCANNED_FLAG             AS PAGES_SCANNED,
+           DOCS_CREATED_FLAG              AS DOCUMENTS_CREATED,
+           DOCS_DELETED_FLAG              AS DOCUMENTS_DELETED,
+           PAGES_REPLACED_FLAG            AS PAGES_REPLACED_FLAG,
+           PAGES_DELETED_FLAG             AS PAGES_DELETED_FLAG,
+           AGE_IN_BUSINESS_DAYS           AS AGE_IN_BUSINESS_DAYS,
+           AGE_IN_CALENDAR_DAYS           AS AGE_IN_CALENDAR_DAYS,
+           TIMELINESS_STATUS              AS TIMELINESS_STATUS,
+           TIMELINESS_DAYS                AS TIMELINESS_DAYS,
+           TIMELINESS_DAYS_TYPE           AS TIMELINESS_DAYS_TYPE,
+           TIMELINESS_DT                  AS TIMELINESS_DT,
+           JEOPARDY_FLAG                  AS JEOPARDY_FLAG,
+           JEOPARDY_DAYS                  AS JEOPARDY_DAYS,
+           JEOPARDY_DAYS_TYPE             AS JEOPARDY_DAYS_TYPE,
+           JEOPARDY_DT                    AS JEOPARDY_DT,
+           TARGET_DAYS                    AS TARGET_DAYS,
+           BATCH_COMPLETE_DT              AS BATCH_COMPLETE_DT,
+           CURRENT_BATCH_MODULE_ID        AS CURRENT_BATCH_MODULE_ID,
+           GWF_QC_REQUIRED                AS GWF_QC_REQUIRED,
+           CURRENT_STEP                   AS CURRENT_STEP,
+           SOURCE_SERVER                  AS SOURCE_SERVER,
+           BATCH_DESCRIPTION              AS BATCH_DESCRIPTION,
+           REPROCESSED_FLAG               AS REPROCESSED_FLAG,
+           ASPB_VALIDATE_DATA_USER_ID     AS VALIDATE_DATA_PERF_BY_USER_ID,
+           FAX_BATCH_SOURCE               AS FAX_BATCH_SOURCE
+      FROM MAXDAT.NYHIX_MFB_V2_BATCH_SUMMARY;
+
+
+GRANT INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_OLTP_SIU;
+
+GRANT DELETE, INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_OLTP_SIUD;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_READ_ONLY;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_REPORTS;
+
+
+GRANT INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_OLTP_SIU;
+
+GRANT DELETE, INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_OLTP_SIUD;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_READ_ONLY;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_SV TO MAXDAT_REPORTS;
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- *******************************************************************************
+
+
+
+-- DROP VIEW MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV;
+
+/* Formatted on 11/15/2021 11:46:26 AM (QP5 v5.374) */
+CREATE OR REPLACE FORCE VIEW MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV
+(
+    NYHIX_MFD_BI_ID,
+    MFB_V2_BI_ID
+)
+BEQUEATH DEFINER
+AS
+    SELECT DD.NYHIX_MFD_BI_ID     AS NYHIX_MFD_BI_ID,
+           B2.MFB_V2_BI_ID        AS MFB_V2_BI_ID
+      FROM NYHIX_MFB_V2_BATCH_SUMMARY  B2
+           JOIN D_NYHIX_MFD_CURRENT_V2 DD ON (B2.BATCH_NAME = DD.BATCH_NAME)
+WITH READ ONLY;
+
+
+GRANT INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV TO MAXDAT_OLTP_SIU;
+
+GRANT DELETE, INSERT, SELECT, UPDATE ON MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV TO MAXDAT_OLTP_SIUD;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV TO MAXDAT_READ_ONLY;
+
+GRANT SELECT ON MAXDAT.D_MFB_V2_CURRENT_MFD_DCN_SV TO MAXDAT_REPORTS;
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- *******************************************************************************
+
+
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- *******************************************************************************
+
+
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- *******************************************************************************
+
+
+
+-- *******************************************************************************
+-- *******************************************************************************
+-- *******************************************************************************
+
+
+

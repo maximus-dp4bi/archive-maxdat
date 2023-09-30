@@ -1,0 +1,18 @@
+-- NYSOH-59472, USER STORY 29904 UNDO
+UPDATE MAXDAT.CORP_ETL_LIST_LKUP
+SET 
+    VALUE = 'Supervisor Complaint Task'
+WHERE VALUE = 'Task Team Complaint Task';   
+UPDATE MAXDAT.CORP_ETL_LIST_LKUP
+SET 
+    VALUE = 'Supervisor Referral Task'
+WHERE VALUE = 'Task Team Referral Task'; 
+UPDATE MAXDAT.INCIDENT_STATUS_LOOKUP
+SET INCIDENT_STATUS = 'Refer to Supervisor'
+   ,STATUS_CD = 'REFERRED_TO_SUPERVISOR'
+WHERE INCIDENT_STATUS = 'Refer to Task Team'; 
+UPDATE MAXDAT.CORP_ETL_LIST_LKUP
+SET 
+    VALUE = 'Refer to Supervisor'
+WHERE Value = 'Refer to Task Team';   
+COMMIT;

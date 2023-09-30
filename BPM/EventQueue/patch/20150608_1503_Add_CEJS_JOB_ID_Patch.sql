@@ -1,0 +1,7 @@
+--add to BPM_UPDATE_EVENT_QUEUE
+alter table BPM_UPDATE_EVENT_QUEUE add CEJS_JOB_ID number null;
+
+--add to BPM_UPDATE_EVENT_QUEUE_ARCHIVE
+alter table BPM_UPDATE_EVENT_QUEUE_ARCHIVE add CEJS_JOB_ID number null;
+
+

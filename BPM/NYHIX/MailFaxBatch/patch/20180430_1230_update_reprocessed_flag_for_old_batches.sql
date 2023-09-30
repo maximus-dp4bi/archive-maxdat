@@ -1,0 +1,100 @@
+alter session set current_schema = MAXDAT;
+----  NYHIX-40202
+select 'Before corp_etl_mfb_batch_stg', reprocessed_flag, batch_id, batch_name
+from corp_etl_mfb_batch_stg
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+
+update corp_etl_mfb_batch_stg
+set reprocessed_flag = 'Y'
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+commit;
+
+select 'After corp_etl_mfb_batch_stg', reprocessed_flag, batch_id, batch_name
+from corp_etl_mfb_batch_stg
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+
+select 'Before corp_etl_mfb_batch', reprocessed_flag, batch_id, batch_name
+from corp_etl_mfb_batch
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+
+update corp_etl_mfb_batch
+set reprocessed_flag = 'Y'
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+commit;
+
+select 'After corp_etl_mfb_batch', reprocessed_flag, batch_id, batch_name
+from corp_etl_mfb_batch
+where batch_name in 
+('NYSOH-FAX-4/25/2018-12:03:19 PM',
+'NYSOH-FAX-NavCAC2018-04-25-16-03-38-917',
+'NYSOH-FAX-NavCAC2018-04-25-15-04-01-465',
+'NYSOH-FAX-NavCAC2018-04-25-12-09-59-838',
+'NYSOH-FAX-4/25/2018-2:55:33 PM',
+'NYSOH-FAX-4/25/2018-11:47:42 AM',
+'NYSOH-FAX-4/25/2018-2:56:19 PM',
+'NYSOH-FAX-4/25/2018-1:06:01 PM',
+'NYSOH-FAX-NavCAC2018-04-25-13-21-03-211',
+'NYSOH-FAX-4/25/2018-2:26:07 PM',
+'NYSOH-FAX-4/25/2018-12:04:31 PM');
+
+
+
+
+
+
+ 

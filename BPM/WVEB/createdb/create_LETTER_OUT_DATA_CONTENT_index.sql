@@ -1,0 +1,1 @@
+create index LETTER_OUT_DATA_IX1 on LETTER_OUT_DATA_CONTENT (LETTER_REQ_ID) online tablespace EB_INDEX;

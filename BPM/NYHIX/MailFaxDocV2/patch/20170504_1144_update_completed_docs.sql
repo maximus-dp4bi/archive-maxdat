@@ -1,0 +1,28 @@
+--  NYHIX-31177
+---  
+alter session set current_schema = MAXDAT;
+alter session set NLS_DATE_FORMAT='dd-MON-yyyy hh24:mi:ss';
+
+update NYHIX_ETL_MAIL_FAX_DOC_V2 
+set INSTANCE_STATUS = 'Complete',
+    ASF_PROCESS_DOC = 'Y',
+    COMPLETE_DT=to_date('02-MAY-2017 08:15:16','dd-MON-yyyy hh24:mi:ss'),
+    INSTANCE_END_DATE=to_date('02-MAY-2017 08:15:16','dd-MON-yyyy hh24:mi:ss'),
+    STG_DONE_DATE=to_date('02-MAY-2017 08:15:16','dd-MON-yyyy hh24:mi:ss')
+where kofax_dcn in 
+('A170951F19001',
+'O171119CF0001',
+'O171025532001',
+'O171025535002',
+'O171098828001',
+'O171109B1A001',
+'O171118003596',
+'O171118005544',
+'O171119C8C001',
+'O171119C98001',
+'O171119CB7001',
+'O171119CC8001',
+'O171119CDC001',
+'O171119CEC001',
+'O1709413F2001');
+commit;

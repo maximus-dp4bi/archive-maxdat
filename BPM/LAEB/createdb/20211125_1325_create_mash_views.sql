@@ -1,0 +1,57 @@
+alter session set current_schema = MAXDAT_LAEB;
+
+create or replace view D_LAEB_BPM_SOURCE_LKUP_SV as
+select * from D_BPM_SOURCE_LKUP_SV
+with read only;
+
+grant select on D_LAEB_BPM_SOURCE_LKUP_SV to MAXDAT_REPORTS;
+
+create or replace view D_LAEB_BPM_DATA_MODEL_SV as
+select * from D_BPM_DATA_MODEL_SV
+with read only;
+
+grant select on D_LAEB_BPM_DATA_MODEL_SV to MAXDAT_REPORTS;
+
+create or replace view D_LAEB_BUEQ_SV as
+select * from D_BPM_UPDATE_EVENT_QUEUE_SV
+with read only;
+
+grant select on D_LAEB_BUEQ_SV to MAXDAT_REPORTS;
+
+create or replace view D_LAEB_PBQJ_SV as
+select * from D_PROCESS_BPM_QUEUE_JOB_SV
+with read only;
+
+grant select on D_LAEB_PBQJ_SV to MAXDAT_REPORTS;
+
+create or replace view D_LAEB_PBQJB_SV as
+select * from D_PROCESS_BPM_QUEUE_JOB_BAT_SV
+with read only;
+
+grant select on D_LAEB_PBQJB_SV to MAXDAT_REPORTS;
+
+CREATE or REPLACE VIEW D_LAEB_ERROR_LOG_SV
+AS select "CEEL_ID","ERR_DATE","ERR_LEVEL","PROCESS_NAME","JOB_NAME","NR_OF_ERROR","ERROR_DESC","ERROR_FIELD","ERROR_CODES","CREATE_TS","UPDATE_TS","DRIVER_TABLE_NAME","DRIVER_KEY_NUMBER" 
+from MAXDAT_LAEB.corp_etl_error_log;
+
+
+
+CREATE or REPLACE MAXDAT_LAEB.D_LAEB_JOB_STATISTICS_SV
+AS select
+ JOB_ID
+,JOB_NAME
+,JOB_STATUS_CD
+,FILE_NAME
+,RECORD_COUNT
+,PROCESSED_COUNT
+,ERROR_COUNT
+,WARNING_COUNT
+,RECORD_INSERTED_COUNT
+,RECORD_UPDATED_COUNT
+,JOB_START_DATE
+,JOB_END_DATE
+ from CORP_ETL_JOB_STATISTICS;
+
+GRANT select on MAXDAT_LAEB.D_LAEB_JOB_STATISTICS_SV to MAXDAT_REPORTS;
+GRANT select on MAXDAT_LAEB.D_LAEB_ERROR_LOG_SV to MAXDAT_REPORTS;
+

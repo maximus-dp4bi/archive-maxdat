@@ -1,0 +1,7 @@
+UPDATE
+  CORP_ETL_CONTROL
+SET
+  value = '2013/10/1 00:00:00'
+WHERE
+  name IN ('MAX_CREATE_DATE_DOCNOTIF');
+Commit;

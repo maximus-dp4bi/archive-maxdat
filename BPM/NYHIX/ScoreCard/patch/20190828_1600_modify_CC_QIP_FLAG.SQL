@@ -1,0 +1,5 @@
+ALTER TABLE DP_SCORECARD.SC_SUMMARY_CC 
+modify
+(
+	CC_QIP_FLAG number(1,0)
+);

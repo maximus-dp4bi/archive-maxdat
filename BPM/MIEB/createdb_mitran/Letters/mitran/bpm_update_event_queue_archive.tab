@@ -1,0 +1,26 @@
+create table BPM_UPDATE_EVENT_QUEUE_ARCHIVE
+(
+  bueq_id                 NUMBER not null,
+  bsl_id                  NUMBER not null,
+  bil_id                  NUMBER not null,
+  identifier              VARCHAR2(100) not null,
+  event_date              DATE not null,
+  queue_date              DATE not null,
+  process_bueq_id         NUMBER,
+  wrote_bpm_semantic_date DATE,
+  data_version            NUMBER not null,
+  old_data                SYS.XMLTYPE,
+  new_data                SYS.XMLTYPE not null,
+  cejs_job_id             NUMBER
+)
+partition by range (BSL_ID) interval (1)
+(
+  partition PT_BUEQ_LT_0 values less than (0)
+    tablespace MAXDAT_MIEB_DATA
+);
+alter table BPM_UPDATE_EVENT_QUEUE_ARCHIVE
+  add constraint BUEQA_PK primary key (BUEQ_ID);
+grant select, insert, update on BPM_UPDATE_EVENT_QUEUE_ARCHIVE to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on BPM_UPDATE_EVENT_QUEUE_ARCHIVE to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on BPM_UPDATE_EVENT_QUEUE_ARCHIVE to MAXDAT_MITRAN_READ_ONLY;
+

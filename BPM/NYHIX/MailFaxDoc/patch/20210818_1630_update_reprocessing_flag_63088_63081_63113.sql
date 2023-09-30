@@ -1,0 +1,6 @@
+alter session set current_schema = MAXDAT;
+---- NYHIX-63088,NYHIX-63081,NYHIX-63113
+update CORP_ETL_MFB_BATCH_STG set reprocessed_flag = 'Y' where batch_name IN where batch_name IN ('NYSOH_FAX-NavCAC2021-08-06-09-37-42-030','NYSOH_FAX-NavCAC2021-08-03-18-19-41-549','NYSOH_FAX-NavCAC2021-08-09-16-48-51-775','NYSOH_FAX-NavCAC2021-08-09-12-14-59-053','NYSOH_FAX-NavCAC2021-08-12-00-14-54-669');
+commit;
+update corp_etl_mfb_batch set reprocessed_flag = 'Y' where batch_name IN ('NYSOH_FAX-NavCAC2021-08-06-09-37-42-030','NYSOH_FAX-NavCAC2021-08-03-18-19-41-549','NYSOH_FAX-NavCAC2021-08-09-16-48-51-775','NYSOH_FAX-NavCAC2021-08-09-12-14-59-053','NYSOH_FAX-NavCAC2021-08-12-00-14-54-669')
+commit;

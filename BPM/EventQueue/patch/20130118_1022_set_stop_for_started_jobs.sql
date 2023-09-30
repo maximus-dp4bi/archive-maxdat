@@ -1,0 +1,11 @@
+update PROCESS_BPM_QUEUE_JOB
+set 
+  STATUS = 'STOPPED',
+  END_DATE = START_DATE,
+  STOP_REASON_ID = 203,
+  ENABLED = 'N',
+  STATUS_DATE = START_DATE
+where
+  STATUS = 'STARTED';
+
+commit;

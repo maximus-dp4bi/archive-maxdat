@@ -1,0 +1,21 @@
+create table CORP_ETL_CLEAN_TABLE
+(
+  cect_id             NUMBER(5) not null,
+  table_name          VARCHAR2(100) not null,
+  column_name         VARCHAR2(100),
+  delete_where_clause VARCHAR2(4000),
+  days_till_delete    NUMBER,
+  start_date          DATE not null,
+  end_date            DATE not null,
+  created_ts          DATE not null,
+  last_update_ts      DATE not null,
+  arc_flag            VARCHAR2(1),
+  arc_table           VARCHAR2(100)
+)
+;
+alter table CORP_ETL_CLEAN_TABLE
+  add constraint CECT_PK primary key (CECT_ID);
+grant select, insert, update on CORP_ETL_CLEAN_TABLE to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on CORP_ETL_CLEAN_TABLE to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on CORP_ETL_CLEAN_TABLE to MAXDAT_MITRAN_READ_ONLY;
+

@@ -1,0 +1,171 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="318798DA-920B-E6F2-3899-A44E547946D5" schemaObject="9055985E-E1DB-F0EB-2AE9-112B5C17BA11" name="ETL_JOB_STATUS">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>MAXDAT</sourceObjSchema>
+<sourceObjName>ETL_JOB_STATUS</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:02 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="JOB_ID" id="054CD4EC-0E14-4955-D6B9-A66EF9EDB5AB">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>JOB_ID</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C6F50F57-4216-48FB-567F-BD6B5508AE0A" referredColumn="D6D9DDF1-D9DA-E309-FD5C-6ED026EB2B05"/>
+</associations>
+</Column>
+<Column name="JOB_STATUS" id="D0B253D6-2B7D-B729-8004-1A8D1302B96A">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>JOB_STATUS</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<constraintName>ETL_JOB_STATUS_JOB_STATUS_CHECK</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>9 BYTE</dataTypeSize>
+<listOfValues>
+<valueDef value="&apos;CANCELLED&apos;" description=""/>
+<valueDef value="&apos;COMPLETED&apos;" description=""/>
+<valueDef value="&apos;FAILED&apos;" description=""/>
+<valueDef value="&apos;NEW&apos;" description=""/>
+<valueDef value="&apos;RESET&apos;" description=""/>
+<valueDef value="&apos;STARTED&apos;" description=""/>
+<valueDef value="&apos;WAITING&apos;" description=""/>
+</listOfValues>
+<ownDataTypeParameters>9 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="JOB_RUNNABLE" id="44B5A9FB-8C8B-22DE-D6FD-13767F0FFA81">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>JOB_RUNNABLE</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<constraintName>ETL_JOB_STATUS_JOB_RUNNABLE_CHECK</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<listOfValues>
+<valueDef value="&apos;N&apos;" description=""/>
+<valueDef value="&apos;Y&apos;" description=""/>
+</listOfValues>
+<ownDataTypeParameters>1 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="JOB_NEXT_EXEC_DT" id="9D294AB7-5F37-32FA-F04F-C018D677850D">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>JOB_NEXT_EXEC_DT</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="JOB_RUN_ID" id="117BE761-B993-D2D9-26A7-8A0EC271EE31">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>JOB_RUN_ID</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPD_DT" id="48FB57AF-AF4B-831A-FFC3-C8A9CA6CA7E1">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>LAST_UPD_DT</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPD_USER" id="AF882B60-68E5-AA6E-FBBB-EE7971C128B5">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>ETL_JOB_STATUS</sourceObjSchema>
+<sourceObjName>LAST_UPD_USER</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:12 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7A77A9CC-D4DC-38B2-7461-873682AB36E7" name="ETL_JOB_STATUS_PK">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>MAXDAT</sourceObjSchema>
+<sourceObjName>ETL_JOB_STATUS_PK</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:25 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="054CD4EC-0E14-4955-D6B9-A66EF9EDB5AB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CB223637-B4C4-963C-C05C-A66677CE7849" schemaObject="9055985E-E1DB-F0EB-2AE9-112B5C17BA11" name="ETL_JOB_STATUS_PK">
+<sourceConnName>ilebmxdd</sourceConnName>
+<sourceObjSchema>MAXDAT</sourceObjSchema>
+<sourceObjName>ETL_JOB_STATUS_PK</sourceObjName>
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:15 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="054CD4EC-0E14-4955-D6B9-A66EF9EDB5AB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D98D5C76-4D01-3E8E-B5CF-A4622457DE4B" name="ETL_JOB_STATUS_JOB_ID_FK">
+<createdBy>153729</createdBy>
+<createdTime>2020-07-06 03:00:30 UTC</createdTime>
+<ownerDesignName>ETL_Job_Management_datamodel_1.0</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="054CD4EC-0E14-4955-D6B9-A66EF9EDB5AB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

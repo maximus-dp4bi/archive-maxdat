@@ -1,0 +1,9 @@
+-- 9/25/13 B.Thai NYEC-5301 Incident Tracking
+
+create or replace view D_MW_REFERENCE_CURRENT_SV as
+select TASK_ID, INCIDENT_HEADER_ID, INCIDENT_TRACKER_NUMBER
+  from NYEC_ETL_MANAGE_WORK_REFERENCE
+with read only;
+
+create or replace public synonym D_MW_REFERENCE_CURRENT_SV for D_MW_REFERENCE_CURRENT_SV;
+grant select on D_MW_REFERENCE_CURRENT_SV to MAXDAT_READ_ONLY;

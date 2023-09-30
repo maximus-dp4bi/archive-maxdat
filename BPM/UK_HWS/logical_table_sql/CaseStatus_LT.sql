@@ -1,0 +1,5 @@
+SELECT [Id]
+      ,[Name]
+      ,[IsInternalState]
+      ,[IsAdminTask]
+  FROM [Case].[CaseStatus]

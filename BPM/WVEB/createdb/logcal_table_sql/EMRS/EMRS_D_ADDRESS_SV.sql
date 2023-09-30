@@ -1,0 +1,44 @@
+SELECT 
+addr_begin_date as SOURCE_ADDR_BEGIN_DATE
+,TO_CHAR(addr.last_update_date,'HH24MI') as MODIFIED_TIME
+,addr.creation_date as DATE_CREATED
+,addr.created_by as CREATED_BY
+,addr_id as ADDRESS_ID
+,addr_id as SOURCE_RECORD_ID
+,addr_street_1 as ADDR_STREET_1
+,addr_street_2 as ADDR_STREET_2
+,addr_city as ADDR_CITY
+,addr_state_cd as ADDR_STATE_CD
+,addr_zip as ADDR_ZIP
+,addr_zip_four as ADDR_ZIP_FOUR
+,addr_type_cd as ADDR_TYPE_CD
+,eat.description as ADDR_TYPE
+,addr_country as ADDR_COUNTRY
+,clnt_client_id as CLIENT_NUMBER
+,addr_attn as ADDR_ATTN
+,addr_house_code as ADDR_HOUSE_CODE
+,addr_bar_code as ADDR_BAR_CODE
+,addr_origin_cd as ADDR_ORIGIN_CD
+,addr_staff_id as ADDR_STAFF_ID
+,addr_ctlk_id as ADDR_CTLK_ID
+,addr_dolk_id as ADDR_DOLK_ID
+,addr_prov_id as ADDR_PROV_ID
+,addr_payc_id as ADDR_PAYC_ID
+,addr_verified as ADDR_VERIFIED
+,addr_verified_date  as ADDR_VERIFIED_DATE
+,advy_id as ADVY_ID
+,addr_bad_date as ADDR_BAD_DATE
+,addr_bad_date_satisfied as ADDR_BAD_DATE_SATISFIED
+,addr_case_id as CASE_NUMBER
+,start_ndt as START_NDT
+,end_ndt as END_NDT
+,comparable_key as COMPARABLE_KEY
+,addr.creation_date as RECORD_DATE
+,TO_CHAR(addr.creation_date,'HH24MI') as RECORD_TIME
+,addr.created_by as RECORD_NAME
+,addr.last_update_date as MODIFIED_DATE
+,addr.last_updated_by as MODIFIED_NAME
+,addr_end_date as SOURCE_ADDR_END_DATE
+FROM address addr
+  INNER JOIN enum_address_type eat
+  ON addr.addr_type_cd = eat.value

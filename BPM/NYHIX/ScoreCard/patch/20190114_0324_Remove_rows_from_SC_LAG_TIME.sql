@@ -1,0 +1,11 @@
+----NYHIX-46770
+
+delete from DP_SCORECARD.Sc_Lag_Time
+where rowid in  (
+SELECT lt.rowid
+FROM DP_SCORECARD.Sc_Lag_Time lt
+JOIN DP_SCORECARD.SCORECARD_HIERARCHY sh on lt.AGENT_ID = sh.STAFF_NATID
+WHERE TRUNC(LAG_DATE) IN ('05-DEC-18','31-DEC-18') AND sh.DEPARTMENT = 'NYSOH Contact Center');
+
+
+commit;

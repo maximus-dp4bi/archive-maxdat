@@ -1,0 +1,1 @@
+alter table PROCESS_BPM_QUEUE_JOB_BATCH add (NUM_SLEEP_SECONDS number default(0) not null);

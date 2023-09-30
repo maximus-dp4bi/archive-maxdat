@@ -1,0 +1,4 @@
+
+TRUNCATE TABLE corp_etl_client_inquiry;
+TRUNCATE TABLE corp_etl_client_inquiry_dtl;
+TRUNCATE TABLE corp_etl_client_inquiry_event;

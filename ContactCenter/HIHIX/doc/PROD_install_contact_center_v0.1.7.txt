@@ -1,0 +1,68 @@
+PROJECT_NAME----->MAXDAT - HIHIX 
+RELEASE_NUMBER--->N/A 
+ENVIRONMENT------> rsmxdb07.maximus.com (HIHXMXDP - Prod) rshxap28.maximus.com - App server
+
+
+DEPLOYMENT START_TIME_DATE -- 12/20/2013
+DEPLOYMENT COMPLETE_BY_TIME -- 5PM PST, 12/20/2013
+
+CONTACT_NAME: Clay Rowland
+CONTACT_NUMBER: (O) 843-408-1358
+
+What this deployment fixes: 
+PROD DB and Kettle deployment for HIHIX Contact Center patch v0.1.7
+------------------------------------------------------------------------------------------------- 
+
+This release consists of the following updates: 
+1.Y - ETL scripts 
+2.Y - SQL scripts 
+3.N - MicroStrategy Object 
+4.N - Configuration 
+5.N - Special Instructions: 
+
+If there are error in any one of the following scripts, please stop and notify. 
+
+These instructions can be found here: 
+
+svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/doc/PROD_install_contact_center_v0.1.7.txt
+
+
+********************************************************************************
+Instructions to install HIHIX v0.1.7 to PROD
+
+********************************************************************************
+
+----------------------------
+1. DEPLOY KETTLE SCRIPTS 
+----------------------------
+	
+	-- All files can be found at:
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/Promotions/0.1.7/AS_PATCH_CONTACT_CENTER_20131218_Clay_v0.1.7.zip
+
+	Upload and unzip application server deployment bundle, AS_PATCH_CONTACT_CENTER_20131218_Clay_v0.1.7.zip
+
+	# Unzip to ContactCenter directory.
+	unzip -o AS_PATCH_CONTACT_CENTER_20131218_Clay_v0.1.7.zip -d $MAXDAT_ETL_PATH/ContactCenter
+	
+	# MAKE SCRIPTS EXECUTABLE
+	chmod 755 $MAXDAT_ETL_PATH/ContactCenter/implementation/HIHIX/bin/*.sh
+	
+	
+-----------------------
+2. DEPLOY DB PATCHES 
+----------------------
+
+	-- All files can be found at:					
+	-- svn://rcmxapp1d.maximus.com/maxdat/Contact Center/HIHIX/Promotions/0.1.7/DB_PATCH_CONTACT_CENTER_20131218_Clay_v0.1.7.zip
+
+	0.1.6/001_ALTER_CC_S_TMP_CISCO_C_T_INTERVAL.sql
+	0.1.6/002_ALTER_CC_S_ACD_INTERVAL.sql
+	0.1.6/003_ALTER_CC_F_ACTUALS_QUEUE_INTERVAL.sql
+	0.1.6/004_UPDATE_CC_A_SCHEDULED_JOB__CC_A_ADHOC_JOB.sql
+	0.1.6/005_CREATE_CC_A_SCHEDULE.sql
+	0.1.7/1_ALTER_ACTIVITY_TYPE_NAME.sql
+	0.1.7/100_UPDATE_WEBCHAT_UNIT_OF_WORK.sql
+	
+	Please attach database output to this ticket.
+
+	

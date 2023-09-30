@@ -1,0 +1,4 @@
+---- NYHIX-33400 
+SET DEFINE OFF;
+Insert into SCORECARD_HIERARCHY_UM (UM_STAFF_ID,UM_NATID,UM_NAME) values (0,'59506','Fernau, Jason');
+commit;

@@ -1,0 +1,4 @@
+insert into CORP_ETL_LIST_LKUP (NAME, LIST_TYPE, VALUE,OUT_VAR,REF_TYPE,START_DATE,END_DATE,COMMENTS) values ('CLIENT_INQUIRY_EVENT_ACTION','LIST','NEWBORN_REGISTRATION_TERMINATED','A new-born child record has been closed out because the associated pregnancy ended for a reason other than live birth.','ENUM_BIZ_EVENT_TYPE',TRUNC(SYSDATE,'MON'),TO_DATE('7-JUL-7777','DD-MON-YYYY'),'Client Inquiry ETL - Event Actions for both systematic and manuals. Action points to EVENT_TYPE_CD');
+insert into CORP_ETL_LIST_LKUP (NAME, LIST_TYPE, VALUE,OUT_VAR,REF_TYPE,START_DATE,END_DATE,COMMENTS) values ('CLIENT_INQUIRY_EVENT_ACTION','LIST','PREBIRTH_REGISTRATION_TERMINATED','A pre-birth child record has been closed out because the associated pregnancy ended for a reason other than live birth.','ENUM_BIZ_EVENT_TYPE',TRUNC(SYSDATE,'MON'),TO_DATE('7-JUL-7777','DD-MON-YYYY'),'Client Inquiry ETL - Event Actions for both systematic and manuals. Action points to EVENT_TYPE_CD');
+
+commit;

@@ -1,0 +1,13 @@
+truncate table flhk_etl_documents_v2;
+truncate table flhk_etl_documents_v2_oltp;
+truncate table flhk_etl_documents_v2_wip;
+delete from D_FLHK_DOCUMENTS_CURRENT_V2;
+commit;
+delete from D_FLHK_DOCUMENTS_HISTORY_V2;
+commit;
+delete from BPM_UPDATE_EVENT_QUEUE where BSL_ID = 35;
+commit;
+delete from bpm_update_event_queue_archive where bsl_id=35;
+commit;
+delete from bpm_logging where bsl_id=35;
+commit;

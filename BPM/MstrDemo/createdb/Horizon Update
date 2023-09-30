@@ -1,0 +1,41 @@
+  Declare
+  v_cfg_nextval NUMBER;
+  v_num_days_add NUMBER;
+  BEGIN
+    
+    
+    
+    SELECT TO_NUMBER(14)
+    INTO v_num_days_add
+    FROM corp_etl_control
+    WHERE name = 'REFRESH_DEMO_DATA_NUMDAYS';
+    
+    FOR x IN (SELECT DISTINCT pph_id FROM pp_f_forecast ORDER BY pph_id DESC) LOOP
+    
+      SELECT SEQ_CFG_HORIZON_ID.NEXTVAL
+      INTO v_cfg_nextval
+      FROM dual;
+      
+      INSERT INTO PP_CFG_HORIZON
+                   (CFG_HORIZON_ID, CFG_PRODUCTION_PLAN_ID, HORIZON_START_DATE, HORIZON_START_HOUR, HORIZON_END_DATE, 
+                    HORIZON_END_HOUR, HORIZON_NAME, HORIZON_DESCRIPTION, CREATE_DATE, LAST_UPDATE_DATE)
+      SELECT v_cfg_nextval
+         ,CFG_PRODUCTION_PLAN_ID
+         ,HORIZON_START_DATE + v_num_days_add
+         ,0
+         ,HORIZON_END_DATE + v_num_days_add
+         ,0
+         ,TO_CHAR(INV.HORIZON_START_DATE + v_num_days_add, 'MM/DD/YYYY') || ' - ' || TO_CHAR(INV.HORIZON_END_DATE + v_num_days_add, 'MM/DD/YYYY') AS HZNAME
+         ,NULL
+         ,SYSDATE
+         ,SYSDATE
+      FROM  PP_CFG_HORIZON inv
+      WHERE cfg_horizon_id = x.pph_id;
+      
+      LOAD_DEMO_DATA_PKG.INS_PPD_PLAN_HORIZON;
+    END LOOP;
+    
+       COMMIT;
+  END;
+  
+   select * from PP_CFG_HORIZON

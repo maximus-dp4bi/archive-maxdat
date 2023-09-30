@@ -1,0 +1,140 @@
+-- Create table
+create table TX_ETL_P3435_DATA
+(
+  etl_e_med_p34_p35_id           NUMBER(18) not null,
+  job_id                         NUMBER(18),
+  health_plan_ref_id             VARCHAR2(32),
+  client_id                      NUMBER(18),
+  case_id                        NUMBER(18),
+  frequency_code                 VARCHAR2(2),
+  event_type_cd                  VARCHAR2(32),
+  member_id_num                  VARCHAR2(30),
+  alias_medicaid_id              VARCHAR2(9),
+  member_lname                   VARCHAR2(35),
+  member_fname                   VARCHAR2(25),
+  member_mi                      VARCHAR2(25),
+  member_ssn                     VARCHAR2(30),
+  member_dob                     DATE,
+  member_gender_cd               VARCHAR2(1),
+  member_race_cd                 VARCHAR2(1),
+  member_dod                     DATE,
+  spec_hc_needs                  VARCHAR2(1),
+  member_language_cd             VARCHAR2(2),
+  med_cert_date                  DATE,
+  med_recert_date                DATE,
+  medicare_code                  VARCHAR2(2),
+  medicare_id                    VARCHAR2(12),
+  medicare_start_date            DATE,
+  medicare_end_date              DATE,
+  maintain_reason_code           VARCHAR2(20),
+  term_reason                    VARCHAR2(20),
+  restorative_ind                VARCHAR2(2),
+  member_official_phone          VARCHAR2(80),
+  member_address_1               VARCHAR2(55),
+  member_address_2               VARCHAR2(55),
+  member_city                    VARCHAR2(30),
+  member_state                   VARCHAR2(2),
+  member_zip                     VARCHAR2(32),
+  member_county                  VARCHAR2(3),
+  member_mail_address_1          VARCHAR2(55),
+  member_mail_address_2          VARCHAR2(55),
+  member_mail_city               VARCHAR2(30),
+  member_mail_state              VARCHAR2(2),
+  member_mail_zip                VARCHAR2(32),
+  edg_num                        VARCHAR2(10),
+  tiers_case_number              NUMBER(10),
+  responsible_party_lname        VARCHAR2(35),
+  responsible_party_fname        VARCHAR2(25),
+  responsible_party_mi           VARCHAR2(25),
+  mothers_medicaid_id            VARCHAR2(10),
+  guardian_name                  VARCHAR2(100),
+  tiers_case_name                VARCHAR2(30),
+  current_enrl_start_date        DATE,
+  current_enrl_end_date          DATE,
+  managed_care_start_date        DATE,
+  managed_care_end_date          DATE,
+  current_plan_code              VARCHAR2(2),
+  current_other_plan             VARCHAR2(2),
+  type_program                   VARCHAR2(2),
+  med_category                   VARCHAR2(2),
+  med_coverage                   VARCHAR2(2),
+  migrant_indicator              VARCHAR2(2),
+  benefit_code                   VARCHAR2(3),
+  primary_taxonomy               VARCHAR2(20),
+  community_service              VARCHAR2(1),
+  applied_income                 VARCHAR2(10),
+  tx_indx_level_effort           VARCHAR2(10),
+  pre_natal_pcp                  VARCHAR2(20),
+  nursing_home                   VARCHAR2(10),
+  comm_based_alt                 VARCHAR2(10),
+  comm_living_assistance         VARCHAR2(10),
+  day_activity_health_srv        VARCHAR2(10),
+  waiver_toa                     VARCHAR2(10),
+  tiers_toa                      VARCHAR2(10),
+  provider_id                    VARCHAR2(80),
+  npi_number                     VARCHAR2(10),
+  provider_type                  VARCHAR2(2),
+  provider_addr_1                VARCHAR2(55),
+  provider_city                  VARCHAR2(30),
+  provider_state                 VARCHAR2(2),
+  provider_zip                   VARCHAR2(32),
+  provider_county                VARCHAR2(3),
+  future_enrl_start_date         DATE,
+  future_managed_care_start_date DATE,
+  future_plan_code               VARCHAR2(2),
+  future_other_plan              VARCHAR2(2),
+  future_type_program            VARCHAR2(2),
+  future_med_category            VARCHAR2(2),
+  future_med_coverage            VARCHAR2(2),
+  future_migrant_indicator       VARCHAR2(2),
+  future_benefit_code            VARCHAR2(3),
+  future_primary_taxonomy        VARCHAR2(20),
+  future_community_service       VARCHAR2(1),
+  future_applied_income          VARCHAR2(10),
+  future_tx_indx_level_effort    VARCHAR2(10),
+  future_pre_natal_pcp           VARCHAR2(20),
+  future_nursing_home            VARCHAR2(10),
+  future_comm_based_alt          VARCHAR2(10),
+  future_comm_living_assistance  VARCHAR2(10),
+  future_day_activity_health_srv VARCHAR2(10),
+  future_waiver_toa              VARCHAR2(10),
+  future_tiers_toa               VARCHAR2(10),
+  future_provider_id             VARCHAR2(80),
+  future_npi_number              VARCHAR2(10),
+  future_provider_type           VARCHAR2(2),
+  future_provider_addr_1         VARCHAR2(55),
+  future_provider_city           VARCHAR2(30),
+  future_provider_state          VARCHAR2(2),
+  future_provider_zip            VARCHAR2(32),
+  future_provider_county         VARCHAR2(3),
+  subprogram_type                VARCHAR2(20),
+  current_plan_service_type_cd   VARCHAR2(20),
+  future_plan_service_type_cd    VARCHAR2(20),
+  processed_ts                   DATE,
+  processed_by                   VARCHAR2(32)
+)
+partition by range (JOB_ID)
+(
+  partition P190000 values less than (190000),
+  partition P192000 values less than (192000),
+  partition P193000 values less than (193000),
+  partition P999999 values less than (MAXVALUE)
+)
+    tablespace MAXDAT_DATA
+    pctfree 10
+    initrans 1
+    maxtrans 255
+    storage
+    (
+      initial 3M
+      next 1M
+      minextents 1
+      maxextents unlimited
+      freelists 3
+    )
+    nologging
+    ;
+
+
+
+grant select on TX_ETL_P3435_DATA to MAXDAT_READ_ONLY;

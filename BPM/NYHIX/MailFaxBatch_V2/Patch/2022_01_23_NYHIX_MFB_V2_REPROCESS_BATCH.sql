@@ -1,0 +1,134 @@
+CREATE OR REPLACE procedure MAXDAT.NYHIX_MFB_V2_REPROCESS_BATCH
+    (
+    P_REPROCESSED_ID    NUMBER, 
+    P_REPROCESSED_FLAG  VARCHAR,
+    P_CREATION_USER_ID  VARCHAR
+    ) 
+AS
+-----------------------------------------------------------
+    LV_BATCH_GUID           VARCHAR2(255)       := NULL;
+    LV_BATCH_NAME           VARCHAR2(255)       := NULL;
+    LV_SOURCE_SERVER        VARCHAR2(255)       := NULL;
+    LV_CREATION_USER_ID     VARCHAR2 (128 Byte) := NULL;
+    LV_REPROCESSED_FLAG     VARCHAR2 (1 Byte)   := NULL;
+    LV_REPROCESSED_DATE     DATE                := SYSDATE;
+    LV_JIRA_NUMBER          VARCHAR2 (128 Byte) := NULL;
+
+    LV_CREATE_DT            date                := null;
+    LV_MFB_V2_BI_ID         NUMBER              := NULL;
+
+    LV_F_BY_DAY_ROW_CNT_BEFORE  NUMBER(12,0)    := 0;
+    LV_F_BY_DAY_ROW_CNT_AFTER   NUMBER(12,0)    := 0;
+    LV_F_BY_HOUR_ROW_CNT_BEFORE NUMBER(12,0)    := 0;
+    LV_F_BY_HOUR_ROW_CNT_AFTER  NUMBER(12,0)    := 0;
+
+-----------------------------------------------------------
+BEGIN
+
+    LV_BATCH_GUID           := NULL;
+    LV_BATCH_NAME           := NULL;
+    LV_SOURCE_SERVER        := NULL;
+    LV_CREATION_USER_ID     := NULL;
+    LV_REPROCESSED_FLAG     := NULL;
+    LV_REPROCESSED_DATE     := SYSDATE;
+    LV_JIRA_NUMBER          := NULL;
+
+    LV_CREATE_DT            := null;
+    LV_MFB_V2_BI_ID         := NULL;
+
+    LV_MFB_V2_BI_ID             := 0;
+    LV_F_BY_DAY_ROW_CNT_BEFORE  := 0;
+    LV_F_BY_DAY_ROW_CNT_AFTER   := NULL;
+    LV_F_BY_HOUR_ROW_CNT_BEFORE := 0;
+    LV_F_BY_HOUR_ROW_CNT_AFTER  := NULL;
+   
+    SELECT 
+        BATCH_NAME,
+        CREATION_USER_ID,   
+        REPROCESSED_FLAG, 
+        nvl(REPROCESSED_DATE,to_date('1900/01/01','yyyy/mm/dd')), 
+        JIRA_NUMBER
+        INTO 
+        LV_BATCH_NAME,
+        LV_CREATION_USER_ID,   
+        LV_REPROCESSED_FLAG, 
+        LV_REPROCESSED_DATE, 
+        LV_JIRA_NUMBER
+    FROM MAXDAT.NYHIX_MFB_V2_REPROCESSED_BATCH
+    WHERE NYHIX_MFB_V2_REPROCESSED_ID = P_REPROCESSED_ID;
+    
+    SELECT CREATE_DT, MFB_V2_BI_ID, BATCH_GUID, SOURCE_SERVER 
+    INTO LV_CREATE_DT, LV_MFB_V2_BI_ID, LV_BATCH_GUID, LV_SOURCE_SERVER 
+    FROM NYHIX_MFB_V2_BATCH_SUMMARY
+    WHERE BATCH_NAME = LV_BATCH_NAME;
+
+    IF NVL(P_REPROCESSED_FLAG,'N') NOT IN ('Y','N')
+    THEN
+        RETURN;
+    END IF;    
+
+    IF NVL(P_REPROCESSED_FLAG,'N') = 'N'
+    THEN 
+        LV_REPROCESSED_DATE := NULL;
+    ELSIF 
+        NVL(P_REPROCESSED_FLAG,'N') = 'Y'
+    THEN 
+        IF LV_REPROCESSED_DATE < LV_CREATE_DT
+        THEN 
+            LV_REPROCESSED_DATE := LV_CREATE_DT + (1/24);
+        END IF;
+    END IF;
+
+    SELECT SUM(1) INTO LV_F_BY_DAY_ROW_CNT_BEFORE 
+    FROM F_MFB_V2_BY_DAY
+    WHERE MFB_V2_BI_ID = LV_MFB_V2_BI_ID;
+
+    SELECT SUM(1) INTO LV_F_BY_HOUR_ROW_CNT_BEFORE 
+    FROM F_MFB_V2_BY_hour
+    WHERE MFB_V2_BI_ID = LV_MFB_V2_BI_ID;
+
+
+
+    UPDATE NYHIX_MFB_V2_STATS_BATCH
+    SET 
+        REPROCESSED_FLAG = P_REPROCESSED_FLAG, 
+        REPROCESSED_DATE = LV_REPROCESSED_DATE
+    WHERE BATCH_NAME = LV_BATCH_NAME;         
+
+    COMMIT;
+
+    --------------------------------------------------------------------
+    -- call the package for the specific batch_name
+    IF NVL(P_REPROCESSED_FLAG,'N') IN ('Y','N')
+    THEN
+        NYHIX_MFB_V2_BATCH_SUMMARY_PKG.Process_One_Batch(LV_SOURCE_SERVER, LV_BATCH_GUID);
+    END IF;    
+    --------------------------------------------------------------------
+
+    SELECT SUM(1) INTO LV_F_BY_DAY_ROW_CNT_AFTER 
+    FROM F_MFB_V2_BY_DAY
+    WHERE MFB_V2_BI_ID = LV_MFB_V2_BI_ID;
+
+    SELECT SUM(1) INTO LV_F_BY_HOUR_ROW_CNT_AFTER 
+    FROM F_MFB_V2_BY_hour
+    WHERE MFB_V2_BI_ID = LV_MFB_V2_BI_ID;
+
+
+    UPDATE MAXDAT.NYHIX_MFB_V2_REPROCESSED_BATCH
+    SET 
+        REPROCESSING_COMPLETED_DATE = SYSDATE,
+        CREATION_USER_ID            = P_CREATION_USER_ID, 
+        F_BY_DAY_ROW_CNT_BEFORE     = LV_F_BY_DAY_ROW_CNT_BEFORE,
+        F_BY_DAY_ROW_CNT_AFTER      = LV_F_BY_DAY_ROW_CNT_AFTER,
+        F_BY_HOUR_ROW_CNT_BEFORE    = LV_F_BY_HOUR_ROW_CNT_BEFORE,
+        F_BY_HOUR_ROW_CNT_AFTER     = LV_F_BY_HOUR_ROW_CNT_AFTER        
+    WHERE  NYHIX_MFB_V2_REPROCESSED_ID = P_REPROCESSED_ID;
+
+COMMIT;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN NULL;
+    WHEN OTHERS THEN RAISE;
+END;
+/
+SHOW ERRORS

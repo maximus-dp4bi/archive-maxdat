@@ -1,0 +1,11 @@
+create table BPM_D_HOURS
+(
+  d_hour NUMBER(2) not null
+)
+;
+alter table BPM_D_HOURS
+  add constraint BPM_D_HOURS_PK primary key (D_HOUR);
+grant select, insert, update on BPM_D_HOURS to MAXDAT_MITRAN_OLTP_SIU;
+grant select, insert, update, delete on BPM_D_HOURS to MAXDAT_MITRAN_OLTP_SIUD;
+grant select on BPM_D_HOURS to MAXDAT_MITRAN_READ_ONLY;
+

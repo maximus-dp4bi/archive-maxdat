@@ -1,0 +1,14 @@
+create or replace view D_STAFF_SV as 
+select STAFF_ID,
+  EXT_STAFF_NUMBER,
+  FIRST_NAME,
+  MIDDLE_NAME,
+  LAST_NAME,
+  START_DATE,
+  END_DATE,
+  CREATE_TS,
+  UPDATE_TS,
+  STAFF_TYPE_CD
+from D_STAFF;
+
+grant select on D_STAFF_SV to MAXDAT_READ_ONLY;

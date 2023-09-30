@@ -1,0 +1,2 @@
+alter table MAXDAT.NYHIX_ETL_MAIL_FAX_DOC_APP_V2 drop constraint SYS_C00426650;
+alter table MAXDAT.NYHIX_ETL_MAIL_FAX_DOC_CSC_V2 drop constraint SYS_C00426649;
