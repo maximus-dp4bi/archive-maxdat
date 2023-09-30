@@ -1,0 +1,13 @@
+0 2-22 * * * /u01/maximus/maxdat-prd/IL/ETL/scripts/il_run_bpm.sh 2>&1 | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-prd/IL/ETL/logs/il_run_bpm.log
+0 2 * * * /u01/maximus/maxdat-prd/IL/ETL/scripts/il_run_emrs.sh -x 2>&1 | sed "s/^/$(date)/ " >> /u01/maximus/maxdat-prd/IL/ETL/logs/il_run_emrs.log
+0 5 * * * /u01/maximus/maxdat-prd/IL/ETL/scripts/IL_purge_logs.sh
+*/15 * * * * /u01/maximus/maxdat-prd/IL/ETL/scripts/ContactCenter/implementation/ILEB/bin/run_get_dates_and_flatten_contact_center.sh
+00 02 10 * * /u01/maximus/maxdat-prd/IL/ETL/scripts/AgencyReports/kettle_5.2/Run_5_2_ILEB_402.sh > /u01/maximus/maxdat-prd/IL/ETL/logs/Run_5_2_ILEB_402.log
+00 02 10 * * /u01/maximus/maxdat-prd/IL/ETL/scripts/AgencyReports/Run_5_2_ILEB_402.sh > /u01/maximus/maxdat-prd/IL/ETL/logs/Run_5_2_ILEB_402.log 2>&1
+00 01 10 * * /u01/maximus/maxdat-prd/IL/ETL/scripts/AgencyReports/kettle_5.2/Run_5_2_ILEB_402M_Build_Output.sh  > /u01/maximus/maxdat-prd/IL/ETL/logs/Run_5_2_ILEB_402M_Build_Output.sh.log 2>&1
+15 * * * * sh /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/manage_all_adhoc_jobs_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+0 * * * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/scheduled_contact_center_job_executions.sh > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/scheduled_contact_center_job_executions_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+5 3 * * 1 /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "WEEKLY" > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/cron_run_weekly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+10 3 2 * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/run_scheduled_export_amp_metrics.sh "MONTHLY" > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/cron_run_monthly_export_amp_metrics_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+0 * * * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/implementation/ILEBCC/bin/Run_Daily_IVR_Files.sh > /u01/maximus/maxdat-prd/ILEBCC/logs/ContactCenter/Run_Daily_IVR_Files_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+0 12 * * * /u01/maximus/maxdat-prd/ILEBCC/scripts/ContactCenter/main/bin/purge_cc_logs.sh > /u01/maximus/maxdat-prd/ILEBCC/logs/purge_cc_logs.log 2>&1

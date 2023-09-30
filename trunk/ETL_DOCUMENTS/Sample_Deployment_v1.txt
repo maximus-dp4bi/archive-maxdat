@@ -1,0 +1,126 @@
+Creating Jira tickets
+Issue type should be task
+Summary line: MAXDAT {PROJECT} {DEV,UAT,PRD} - short description {Deploy ....}
+
+Description
+PROJECT_NAME -> MAXDAT - ILEB
+RELEASE_NUMBER -> N/A
+
+ENVIRONMENT -> ILEBMXDP and rsmxap31 {List them}
+
+DEPLOYMENT START_TIME_DATE -> After ILEB-979 is completed 
+DEPLOYMENT COMPLETE_BY_TIME -> 
+CONTACT_NAME: Mayuresh Bhalekar
+CONTACT_NUMBER: (201.328.5695)
+SVN_URL -> See Below
+
+This release consists of the following updates:
+1.Y - ETL scripts {is there unix scripts}
+2.Y - SQL scripts {is there db scripts}
+3.N - MicroStrategy Object 
+4.Y - Configuration  {does this contain config, kettle, etc}
+5.Y - Special Instructions: Always Yes
+
+SPECIAL INSTRUCTIONS ->
+If there are error in any one of the following scripts in steps 1 and 10
+please stop and notify us otherwise it creates more clean up for all of us.
+
+
+STEP BY STEP INSTRUCTIONS  - >
+1. Configurations: Update Kettle.properties to point to ILEBSTBY
+Change /u01/maximus/maxdat-uat/IL/config/Kettle.properties
+Locate variables like DB_OLTP_???
+
+DB_OLTP_NAME=ILEBPRD
+DB_OLTP_HOSTNAME=resvamaxdb3
+DB_OLTP_PORT=1555
+DB_OLTP_USER=<ISG Adds this>
+DB_OLTP_PASSWORD=<ISG Adds this>
+Double check that there is no extra space at the end of the line
+
+
+2. Turn off il_run_bpm.sh cron job,then do the steps 1- 9 in that order.
+
+3. Create Tables and Data
+Download the following files from svn and run in order listed
+
+svn://rcmxapp1d.maximus.com/maxdat/BPM/ILEB/ManageJobs/createdb/CORP_MJ_FILE_CAL_LKUP.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/ILEB/ManageJobs/createdb/D_ILEB_MJR_CURRENT_Semantic_DB_Script.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/ILEB/ManageJobs/createdb/populate_BPM_EVENT_MASTER.sql
+
+
+4. Create  Directory on App Server
+Create directory for kettle scripts as follows:
+/u01/maximus/maxdat-prd/IL/ETL/scripts/ManageJobs
+
+5. Deploy Kettle files
+Copy all kettle script (*.kjb, *.ktr) from
+svn://rcmxapp1d.maximus.com/maxdat/trunk/IL/ETL/scripts/ManageJobs
+TO: /u01/maximus/maxdat-prd/IL/ETL/scripts/ManageJobs
+*.ktr
+*.kjb
+
+6. Deploy Kettle files and UNIX Scripts
+Copy files tO: /u01/maximus/maxdat-prd/IL/ETL/scripts
+
+svn://rcmxapp1d.maximus.com/maxdat/trunk/IL/ETL/scripts/il_run_bpm.sh
+svn://rcmxapp1d.maximus.com/maxdat/trunk/IL/ETL/scripts/Run_Initialization.kjb
+
+
+7. Convert Unix Script from Dos to Unix
+Run dos2unix -k -o il_run_bpm.sh
+
+8. - Stop jobs on ILEBMXDP:
+execute PROCESS_BPM_QUEUE_JOB_CONTROL.STOP_CONTROL_JOB;
+execute PROCESS_BPM_QUEUE_JOB_CONTROL.STOP_ALL_JOBS;
+
+9. - Deploy Event and Semantic Layer
+Download and run the following SQL scripts in listed order
+(as Oracle user "MAXDAT" on Oracle db ILEBMXDP (PRD))
+
+If any script fails then stop and reassign to Randall Kolb.
+svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageJobs/createdb/populate_lkup_tables.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageJobs/createdb/populate_BPM_ATTRIBUTE.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageJobs/createdb/SemanticModel_ILEB_Manage_Jobs.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/Corp/ManageJobs/createdb/TRG_AU_CORP_ETL_MANAGE_JOBS_Q.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/ILEB/ManageJobs/patch/BPM_EVENT_PROJECT_pkg_body.sql
+svn://rcmxapp1d.maximus.com/maxdat/BPM/ILEB/ManageJobs/patch/BPM_SEMANTIC_PROJECT_pkg_body.sql
+
+10. Start jobs on ILEBMXDP:
+execute MANAGE_JOBS.CREATE_CALC_DMJCUR_JOB;
+execute PROCESS_BPM_QUEUE_JOB_CONTROL.CREATE_CONTROL_JOB;
+
+11.Turn on il_run_bpm.sh cron job
+
+ROLLBACK PLAN:
+1. Applicable: -> No
+2. Trigger time: - N/A
+3. Rollback Trigger Event: N/A
+
+
+-----------------------------------------------
+Linking  tickets
+
+When you create a deployment ticket, there should be a MASTER or originating ticket.
+This might come from the analyst if they gave you a task or if you are create tickets for a new project, we might create them.
+Deployments should link back to the Master or originating ticket the deployment Relates to older ticket
+Uat deploy and prod deployment should also be linked (the Prod Deployment depends on the UAT deployment)
+
+Sample1 – new project:
+Maxdat-123  MAXDAT Master - Setup FEDQIC Project
+Subtassks of Maxdat-123 
+Maxdat -124 MAXDAT –FEDQIC Development Setup
+               Maxdat-201 – Maxdat DEV, create DB  (Relates to Maxdat -124)
+Maxdat -125 MAXDAT –FEDQIC UAT Setup
+              Maxdat-301 – Maxdat UAT, create DB  (Relates to Maxdat -125, Depends on Maxdat-201  )
+               Maxdat-302 – Maxdat UAT, Deploy Manage Work code  (Relates to Maxdat -125)
+Maxdat -126 MAXDAT –FEDQIC PRD Setup
+Maxdat-401 – Maxdat PRD, create DB  (Relates to Maxdat -126, Depends on Maxdat-301  )
+               Maxdat-402 – Maxdat PRD, Deploy Manage Work code  (Relates to Maxdat -126, Depends on Maxdat-302)
+
+Sample1 – New Task:
+Maxdat-901  Add new column to Report ABC (this is your work task received from an analyst)
+               Maxdat-902 – Maxdat UAT, Deploy New column in Report ABC  (Relates to Maxdat -901)
+               Maxdat-903 – Maxdat PRD, Deploy New column in Report ABC  (Relates to Maxdat -901, Depends on Maxdat-902  )
+
+

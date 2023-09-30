@@ -1,0 +1,1 @@
+grant select, insert, update, delete on cc_a_ivr_job_ctrl to tm151500,sr18956;

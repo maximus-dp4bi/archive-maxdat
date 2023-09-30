@@ -1,0 +1,34 @@
+#!/bin/bash
+. /u01/maximus/maxdat-uat/LAEBCC8/scripts/ContactCenter/implementation/LAEB/bin/.set_env
+BASEDIR=$(dirname $0)
+echo $BASEDIR
+
+# run_monitor_contact_center.sh
+# This program will run the Kettle job to monitor the Contact Center data mart and report any data discrepancies in the CC_L_ERROR table
+
+JOBS_DIR=$MAXDAT_ETL_PATH/ContactCenter/main/jobs/monitoring
+JOB=monitor_contact_center
+echo $MAXDAT_ETL_PATH
+echo $JOBS_DIR
+
+# dates in format "yyyy-mm-dd hh:mm:ss"
+STARTDATE=$1
+ENDDATE=$2
+
+BASIC_LOG_LEVEL="Basic"
+DETAIL_LOG_LEVEL="Detailed"
+
+# email-related variables
+LOG_DIR=$MAXDAT_ETL_LOGS/ContactCenter
+LOG_LEVEL="Detailed"
+
+sh $MAXDAT_KETTLE_DIR/kitchen.sh -file="$JOBS_DIR/$JOB.kjb" -level="$LOG_LEVEL" -param:startDateTime=$STARTDATE -param:endDateTime=$ENDDATE >> "$LOG_DIR/$JOB$(date +%Y%m%d_%H%M%S).log"
+
+
+#kitchen status codes
+# 0     The job ran without a problem.
+# 1     Errors occurred during processing
+# 2     An unexpected error occurred during loading or running of the job
+# 7     The job couldn't be loaded from XML or the Repository
+# 8     Error loading steps or plugins (error in loading one of the plugins mostly)
+# 9     Command line usage printing

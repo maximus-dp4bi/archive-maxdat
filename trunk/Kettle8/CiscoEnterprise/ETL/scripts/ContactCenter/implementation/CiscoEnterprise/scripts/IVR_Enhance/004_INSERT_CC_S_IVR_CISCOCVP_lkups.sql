@@ -1,0 +1,20 @@
+--- Removing languages which are not relevant to CALL or MIEB
+
+UPDATE CC_C_IVR_LANGUAGE SET PROJECT_NAME = 'CA Lifeline' , PROGRAM_NAME = 'Customer Service Center' WHERE IVR_LANG_ID in (
+SELECT IVR_LANG_ID FROM CC_F_IVR_PERFORMANCE_INSTANCE WHERE IVR_APPLICATION_NAME = 'CALL_LLIVR_v1'
+);
+
+
+DELETE CC_C_IVR_LANGUAGE WHERE IVR_LANG_ID NOT IN (
+SELECT DISTINCT NVL(IP.IVR_LANG_ID,0) FROM CC_F_IVR_PERFORMANCE_INSTANCE IP
+)
+AND PROJECT_NAME IS NULL;
+
+insert into cc_c_ivr_language (CODE, NAME, REPORT_LABEL, PROJECT_NAME, PROGRAM_NAME) VALUES ('EN', 'ENGLISH', 'English', 'MIEB', 'Multiple – MI Bridges'); 
+insert into cc_c_ivr_language (CODE, NAME, REPORT_LABEL, PROJECT_NAME, PROGRAM_NAME) VALUES ('SP', 'SPANISH', 'Spanish', 'MIEB', 'Multiple – MI Bridges'); 
+insert into cc_c_ivr_language (CODE, NAME, REPORT_LABEL, PROJECT_NAME, PROGRAM_NAME) VALUES ('SA', 'ARABIC', 'Arabic', 'MIEB', 'Multiple – MI Bridges'); 
+
+commit;
+
+
+
