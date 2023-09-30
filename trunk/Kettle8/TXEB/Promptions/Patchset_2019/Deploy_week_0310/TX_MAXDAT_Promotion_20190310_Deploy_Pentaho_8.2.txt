@@ -1,0 +1,93 @@
+Instructions to install TXEB  Promotions week of 03/10/2019
+----------------
+Date       Developer           PHONE         Jira                 Reason/Description
+---------- ------------------- ------------- ---------            ---------------------------------------------
+ 2019/03/10 G. Thibodeau        830.481.8109  TXEB-13427		  MAXDAT - Deploy kettle 8.2 ETL
+***** MODIFICATION HISTORY ****************************************************************************
+
+-----------------------
+0. Turn off Cron
+-----------------------
+
+-----------------------
+1. DB SCRIPTS SECTION
+-----------------------
+
+  -----------------------
+2. KETTLE FILES SECTION
+-----------------------
+  
+-----------------------
+3. UNIX SCRIPT SECTION
+-----------------------
+
+----------------------------
+4. ADHOC SH SCRIPT SECTION
+----------------------------
+
+----------------------------
+5. SPECIAL INSTRUCTIONS 
+----------------------------
+1. Create the following directories
+dtxe4t/ETL_Scripts/scripts8
+dtxe4t/ETL_Logs/logs8
+dtxe4t/ETL_Logs/logs8/AO
+
+2. Set appropriate permissions on all directories;
+
+4. Download kettle.properties file from the JIRA;
+and deploy to;
+/dtxe4t/3rdparty/app/product/kettle/8.2/data-integration/.kettle/kettle.properties
+
+5. Replace clear text passwords with encrypted passwords in kettle.properties
+Using the kettle.properties file from the /dtxe4t/3rdparty/app/product/kettle/4.2/data-integration/.kettle/kettle.properties directory
+execute: /dtxe4t/3rdparty/app/product/kettle/8.2/data-integration/encr.sh -kettle <clear text password> **Note if the password contains a special character &,*,$, etc. Place single quotes around it.**
+
+Take the output and replace this text: 'Replace with encrypted password (encr.sh -kettle <existing plain text password>)' in the /dtxe4t/3rdparty/app/product/kettle/8.2/data-integration/.kettle/kettle.properties
+with the encrypted password produced by the encr.sh script.
+Note: ensure the complete encrypted password is copied. The password starts with the word 'Encrypted '
+
+Execute the encr.sh script for each password in the /dtxe4t/3rdparty/app/product/kettle/4.2/data-integration/.kettle/kettle.properties file 
+ and update the /dtxe4t/3rdparty/app/product/kettle/8.2/data-integration/.kettle/kettle.properties file with them.
+
+6. Download shared.xml file from the JIRA;
+and deploy to;
+/dtxe4t/3rdparty/app/product/kettle/8.2/data-integration/.kettle/shared.xml
+
+7. Download the following zip UAT_scripts.zip from the JIRA
+
+8. Unzip UAT_scripts.zip into the dtxe4t/ETL_Scripts/scripts8 directory
+
+9. Set 755 permissions on ALL shell script files (*.sh) in ALL scripts directories and sub-directories
+
+10. Execute the following script manually
+nohup dtxe4t/ETL_Scripts/scripts8/TN_run_connection_test.sh 
+
+---------------
+
+  Make a backup of the bpm_Init_check.kjb file 
+  
+  Copy the bpm_Init_check_encryption.kjb file to dtxe4t/ETL_Scripts/scripts8
+  
+  Rename bpm_Init_check_encryption.kjb to bpm_Init_check.kjb
+  
+--------------
+
+  Run the following script file
+    
+  nohup dtxe4t/ETL_Scripts/scripts/tx_run_test_conn.sh
+  
+--------------
+
+  Notify developer the script has been run
+  
+-----------
+
+  Replace the bpm_Init_check.kjb file with the backup file
+
+----------------------------
+6. Enable Cron Jobs 
+----------------------------
+
+-----------
+

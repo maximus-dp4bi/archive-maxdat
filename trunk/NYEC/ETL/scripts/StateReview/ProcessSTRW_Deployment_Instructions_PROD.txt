@@ -1,0 +1,75 @@
+ --------------------------------------------------------------------
+PROJECT_NAME--->MAXDAT – NYEC
+RELEASE_NUMBER->N/A
+ENVIRONMENT---->rcmxdb01.maximus.com (NYECMXDP -- PRD)
+	
+DEPLOYMENT START_TIME_DATE-->
+DEPLOYMENT COMPLETE_BY_TIME->	
+	
+CONTACT_NAME:	Raj A.
+CONTACT_NUMBER:	(O)512-533-5143; (M)361-228-5588
+
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/StateReview
+SVN_URL:	svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database
+	
+This release consists of the following updates:
+1.	Application Kettle file: - Y 
+    
+    ISG (OS) -
+    Download the below listed ktr(kettle transformation files) and kjb(Kettle job files) files
+    from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/StateReview and 
+    deploy to /u01/maximus/maxdat-prd/ETL/scripts/StateReview
+
+1.1 StateReview.kjb
+1.2 StateReview_copy_to_tmp.ktr
+1.3 State_Review_init_TaskApp.ktr
+1.4 StateReview_init_OLAP.ktr
+1.5 Set_ProcessSTRW_CDC_Start_Time.ktr
+1.6 StateReview_Age_Calendar_Business_Days.ktr
+1.7 StateReview_init_MAXDAT_Instance.ktr
+1.8 StateReview_init_MAXDAT_Letters.ktr
+1.9 StateReview_init_MAXDAT_Process_DC.ktr
+1.10 StateReview_init_MAXDAT_Research.ktr
+1.11 StateReview_init_MAXDAT_StateReview.ktr
+1.12 StateReview_Updates_from_STG_to_TMP.ktr
+1.13 StateReview_Tmp_to_BMP_Update.ktr
+1.14 StateReview_set_MAX_Step_inst_hist_ID.ktr
+1.15 StateReview_InitLoad_StepInstance_Stg.ktr
+   
+
+2. SQL Updates: - 
+   
+   ISG (DBA) -
+   Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database and 
+   deploy to NYECMXDP (PRD) database in the following order.
+
+   2.1 ProcessSTRW_Control_Var_Load.sql
+
+
+3.	Configuration file updates: - N/A
+
+4.Special Instructions: Y. 
+  Please run the below one-time scripts while deploying code.
+ 
+     1.ISG (OS) -
+       Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/Run_ProcessSTRW.sh
+       to /u01/maximus/maxdat-prd/ETL/Scripts/ 
+       and run it.      
+
+     2.ISG (DBA) -
+       Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/Database/ProcessSTRW_Control_Var_AFTER_ONETIME_Run.sql
+       and run it in NYECMXDP.
+
+     3.ISG (OS) -
+       DO NOT RUN THIS WHILE DEPLOYING.  DOWNLOAD AND COPY TO UNIX BOX ONLY.
+       Download from svn://rcmxapp1d.maximus.com/maxdat/trunk/ETL/scripts/run_bpm.sh
+       to /u01/maximus/maxdat-prd/ETL/Scripts/
+
+
+
+ROLLBACK PLAN:	
+Applicable:	N
+Trigger time:	MM/DD/YYYY HH:MM
+Considerations: 	
+--------------------------------------------------------------------

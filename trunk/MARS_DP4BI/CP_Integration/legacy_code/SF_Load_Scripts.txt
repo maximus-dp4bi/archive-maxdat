@@ -1,0 +1,86 @@
+-- Truncate Tables
+truncate JSON_ADDRESS_DATA;
+truncate JSON_CONSUMER_DATA;
+truncate JSON_CONTACT_RECORD_COMMENT_DATA;
+truncate JSON_CONTACT_RECORD_REASON_DATA;
+truncate JSON_CONTACT_RECORD_DATA;
+truncate JSON_EMAIL_DATA;
+truncate JSON_LINK_DATA;
+truncate JSON_PHONE_DATA;
+truncate JSON_PLAN_DATA;
+truncate JSON_PROJECT_DATA;
+truncate JSON_TASK_DATA;
+
+
+-- Copy data into JSON_ADDRESS_DATA
+copy into JSON_ADDRESS_DATA
+from @aws_snowflake_poc/ADDRESS_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_CONSUMER_DATA
+copy into JSON_CONSUMER_DATA
+from @aws_snowflake_poc/CONSUMER_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_CONTACT_RECORD_COMMENT_DATA
+copy into JSON_CONTACT_RECORD_COMMENT_DATA
+from @aws_snowflake_poc/CONTACT_RECORD_COMMENT_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_CONTACT_RECORD_REASON_DATA
+copy into JSON_CONTACT_RECORD_REASON_DATA
+from @aws_snowflake_poc/CONTACT_RECORD_REASON_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_CONTACT_RECORD_DATA
+copy into JSON_CONTACT_RECORD_DATA
+from @aws_snowflake_poc/CONTACT_RECORD_S
+file_format = (type=JSON);
+
+copy into JSON_CONTACT_RECORD_DATA
+from @aws_snowflake_poc/CONTACT_RECORD_U
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_EMAIL_DATA
+copy into JSON_EMAIL_DATA
+from @aws_snowflake_poc/EMAIL_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_LINK_DATA
+copy into JSON_LINK_DATA
+from @aws_snowflake_poc/LINK_
+file_format = (type=JSON);
+
+copy into JSON_LINK_DATA
+from @aws_snowflake_poc/UNLINK_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_PHONE_DATA
+copy into JSON_PHONE_DATA
+from @aws_snowflake_poc/PHONE_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_PLAN_DATA
+copy into JSON_PLAN_DATA
+from @aws_snowflake_poc/PLAN_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_PROJECT_DATA
+copy into JSON_PROJECT_DATA
+from @aws_snowflake_poc/PROJECT_
+file_format = (type=JSON);
+
+
+-- Copy data into JSON_TASK_DATA
+copy into JSON_TASK_DATA
+from @aws_snowflake_poc/TASK_
+file_format = (type=JSON);

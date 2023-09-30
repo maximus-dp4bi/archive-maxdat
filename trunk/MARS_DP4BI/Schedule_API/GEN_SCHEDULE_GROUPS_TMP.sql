@@ -1,0 +1,21 @@
+create or replace TABLE STAGE.GEN_SCHEDULE_GROUPS_TMP (
+	PROJECTID VARCHAR,
+    PROJECTNAME VARCHAR,
+    GROUP_ID VARCHAR,
+    GROUP_NAME VARCHAR,
+    DIVISION_ID VARCHAR,
+    DIVISION_NAME VARCHAR,
+    GROUP_DESCRIPTION VARCHAR, -- it is not appearing in the payloa when preview it
+    GROUP_VERSION VARCHAR, -- it is not appearing in the payloa when preview it
+    GROUP_DATE_CREATED VARCHAR, -- it is not appearing in the payloa when preview it
+	GROUP_DATE_MODIFIED VARCHAR, -- it is not appearing in the payloa when preview it
+	GROUP_STATE VARCHAR,
+	GROUP_TIMEZONE VARCHAR,
+    OPEN_SCHEDULES VARIANT,
+    CLOSED_SCHEDULES VARIANT,
+    HOLIDAY_SCHEDULES VARIANT,
+    EDGE_UPDATE_SCHEDULES VARIANT,
+	ROW_HASH VARCHAR,
+    SF_DATETIME_INS TIMESTAMP_NTZ,
+    primary key (PROJECTID, GROUP_ID, SF_DATETIME_INS)
+);

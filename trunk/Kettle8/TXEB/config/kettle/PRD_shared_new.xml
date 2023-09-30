@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sharedobjects>
+<!-- Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN
+     and used later to identify deployed code.
+ $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/TX/config/.kettle/PRD_shared.xml $
+ $Revision: 21559 $
+ $Date: 2017-10-23 08:37:16 -0700 (Mon, 23 Oct 2017) $
+ $Author: aa24065 $
+--> 
+<connection>
+    <name>MAXDAT</name>
+    <server>${JNDI_MAXDAT_SOURCE_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${JNDI_MAXDAT_SOURCE_NAME}</database>
+    <port>${JNDI_MAXDAT_SOURCE_PORT}</port>
+    <username/>
+    <password>${JNDI_MAXDAT_SOURCE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${JNDI_MAXDAT_SOURCE_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${JNDI_MAXDAT_SOURCE_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute></attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+
+  <connection>
+    <name>EMRS</name>
+    <server>${JNDI_MAXDAT_SOURCE_HOSTNAME}</server>ver/>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${JNDI_MAXDAT_SOURCE_NAME}</database>
+    <port>${JNDI_MAXDAT_SOURCE_PORT}</port>>
+    <username/>
+    <password>${JNDI_MAXDAT_SOURCE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${JNDI_MAXDAT_SOURCE_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = MAXDAT;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>EBSchema</database>
+    <port>-1</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_OLTP_SCHEMA}</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA = EB;</attribute></attribute>
+    </attributes>
+  </connection>
+
+  <connection>
+    <name>JNDI_ACD_SOURCE</name>
+    <server>${JNDI_ACD_SOURCE_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${JNDI_ACD_SOURCE_DB}</database>
+    <port>${JNDI_ACD_SOURCE_PORT}</port>
+    <username>${JNDI_ACD_SOURCE_USER}</username>
+    <password>${JNDI_ACD_SOURCE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+   <attributes>
+	  <attribute><code>EXTRA_OPTION_MSSQL.ssl</code><attribute>request</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${JNDI_ACD_SOURCE_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${JNDI_ACD_SOURCE_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+
+  <connection>
+    <name>JNDI_WFM_SOURCE</name>
+    <server>${JNDI_WFM_SOURCE_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${JNDI_WFM_SOURCE_DB}</database>
+    <port>${JNDI_WFM_SOURCE_PORT}</port>
+    <username>${JNDI_WFM_SOURCE_USER}</username>
+    <password>${JNDI_WFM_SOURCE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+	  <attribute><code>EXTRA_OPTION_MSSQL.ssl</code><attribute>request</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${JNDI_WFM_SOURCE_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${JNDI_WFM_SOURCE_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+
+  <connection>
+    <name>JNDI_VERINT_SOURCE</name>
+    <server>${JNDI_VERINT_SOURCE_HOSTNAME}</server>
+    <server/>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${JNDI_VERINT_SOURCE_DB}</database>
+    <port>${JNDI_VERINT_SOURCE_PORT}</port>
+    <username>${JNDI_VERINT_SOURCE_USER}</username>
+    <password>${JNDI_VERINT_SOURCE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+ 	  <attribute><code>EXTRA_OPTION_MSSQL.ssl</code><attribute>request</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${JNDI_VERINT_SOURCE_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${JNDI_VERINT_SOURCE_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+
+</sharedobjects>
+

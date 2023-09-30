@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+<Appenders>
+    <File name="errorLog" fileName="C:/Users/202557/Desktop/MARS/MARS/DetailedLogging.log" immediateFlush="false" append="true">
+        <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <File name="hibernateLog" fileName="C:/Users/202557/Desktop/MARS/MARS/HibernateLogging.log" immediateFlush="false" append="true">
+        <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+    </File>
+    <File name="exceptionLog" fileName="C:/Users/202557/Desktop/MARS/MARS/ErrorLogging.log" immediateFlush="false" append="true">
+        <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+    </File>
+</Appenders>
+<Loggers>
+    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <AppenderRef ref="hibernateLog"/>
+    </Logger>
+    <Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+        <AppenderRef ref="hibernateLog"/>
+    </Logger>
+    <Logger name="DetailedLogger" level="info">
+        <AppenderRef ref="errorLog" />
+    </Logger>
+    <Logger name="ExceptionLogger" level="info">
+        <AppenderRef ref="exceptionLog" />
+    </Logger>
+    <Root level="off" additivity="false">
+    </Root>
+</Loggers>
+</Configuration>

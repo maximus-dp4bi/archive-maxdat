@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>Load_CC_S_IVR_SELF_SERVICE_USAGE</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;07&#47;28 12:30:37.381</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;07&#47;28 12:30:37.381</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Using JNDI</note>
+      <xloc>77</xloc>
+      <yloc>58</yloc>
+      <width>76</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>Description:
+This transform loads the ivr step data from the CC_S_TMP_IVR_STEP_SV database view and inserts it into the CC_S_IVR_SELF_SERVICE_USAGE database table
+
+Input:
+ID		STEPTIME	BEGIN_NODE	END_NODE	ENTERED		COMPLETED	TRANSFERRED	INTERVAL_ID
+
+Output:
+INTERVAL_ID	IVR_SELF_SERVICE_PATH_ID	CONTACTS_ENTERING	CONTACTS_TRANSFERRED	CONTACTS_COMPLETED	MINUTES_IN_IVR_TRANSFERRED	
+MINUTES_IN_IVR_COMPLETED		IVR_SELF_SERVICE_PATH_ID	IVR_SELF_SERVICE_USAGE_ID	PROJECT_CONFIG_ID
+	
+Steps:
+1. CC_S_TMP_IVR_STEP_SV input - Retrieves the usage data from the CC_S_TMP_IVR_STEP_SV view
+2. If field value is null - Replace null values with &quot;n&#47;a&quot; or 0
+3. PATH_lookup - Look up the IVR_SELF_SERVICE_PATH_ID based on the BEGIN_NODE and END_NODE
+4. Add constants - Add MINUTES_IN_IVR_TRANSFERRED and MINUTES_IN_IVR_COMPLETED constants to the data
+5. Sort rows - Sorts rows on INTERVAL_ID and IVR_SELF_SERVICE_PATH_ID
+6. Group by - Groups by INTERVAL_ID and IVR_SELF_SERVICE_PATH_ID and sums the rest of the fields
+7. Get Variable - Get the PROJECT_CONFIG_ID from the configuration file
+8. Add usage sequence -  Adds the SEQ_CC_S_IVR_SELF_SERVICE_USAGE sequence
+9. Write to log - Logs the data for debug purposes
+10. Insert &#47; Update - Inserts the usage data into the CC_S_IVR_SELF_SERVICE_USAGE staging table</note>
+      <xloc>31</xloc>
+      <yloc>234</yloc>
+      <width>1086</width>
+      <heigth>324</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>localhost</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${project.database.databasename}</database>
+    <port>-1</port>
+    <username>${project.database.username}</username>
+    <password>${project.database.pass}</password>
+    <servername/>
+    <data_tablespace>${project.database.tablespace.data}</data_tablespace>
+    <index_tablespace>${project.database.tablespace.indices}</index_tablespace>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>If field value is null</from><to>PATH_Lookup</to><enabled>Y</enabled> </hop>  <hop> <from>CC_S_TMP_IVR_STEP_SV Input</from><to>If field value is null</to><enabled>Y</enabled> </hop>  <hop> <from>Write to log</from><to>Insert &#47; Update</to><enabled>Y</enabled> </hop>  <hop> <from>Add constants</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Group by</to><enabled>Y</enabled> </hop>  <hop> <from>PATH_Lookup</from><to>Add constants</to><enabled>Y</enabled> </hop>  <hop> <from>Add Usage sequence</from><to>Write to log</to><enabled>Y</enabled> </hop>  <hop> <from>Group by</from><to>Get Variables</to><enabled>Y</enabled> </hop>  <hop> <from>Get Variables</from><to>Add Usage sequence</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add Usage sequence</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>IVR_SS_USAGE_SEQ</valuename>
+      <use_database>Y</use_database>
+      <connection>MAXDAT</connection>
+      <schema/>
+      <seqname>SEQ_CC_S_IVR_SS_USAGE</seqname>
+      <use_counter>N</use_counter>
+      <counter_name/>
+      <start_at>1</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>889</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>const_usage_id</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>const_MINUTES_IN_IVR_TRANSFERRED</name>
+        <type>Number</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>const_MINUTES_IN_IVR_COMPLETED</name>
+        <type>Number</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>530</xloc>
+      <yloc>135</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>CC_S_TMP_IVR_STEP_SV Input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>select iStep.id
+, iStep.steptime
+,istep.begin_node
+,istep.end_node
+,1 as Entered
+,(case when iStep.id = (SELECT max(id) from cc_s_tmp_ivr_step_sv innerStep where innerStep.connid = iStep.connid) then 1 else 0 end) as Completed
+,(case when iStep.id != (SELECT max(id) from cc_s_tmp_ivr_step_sv innerStep where innerStep.connid = iStep.connid) then 1 else 0 end) as Transferred
+,IVL.interval_id
+from cc_s_tmp_ivr_step_sv iStep
+	INNER JOIN CC_S_INTERVAL IVL on 
+		(iStep.steptime BETWEEN IVL.INTERVAL_START_DATE AND IVL.INTERVAL_END_DATE)
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>95</xloc>
+      <yloc>135</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>project_config_id</name>
+        <variable>${cc.project.config.id}</variable>
+        <type>Number</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>799</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Group by</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <all_rows>N</all_rows>
+      <ignore_aggregate>N</ignore_aggregate>
+      <field_ignore/>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>grp</prefix>
+      <add_linenr>N</add_linenr>
+      <linenr_fieldname/>
+      <give_back_row>N</give_back_row>
+      <group>
+        <field>
+          <name>INTERVAL_ID</name>
+        </field>
+        <field>
+          <name>IVR_SELF_SERVICE_PATH_ID</name>
+        </field>
+      </group>
+      <fields>
+        <field>
+          <aggregate>ENTERED</aggregate>
+          <subject>ENTERED</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+        <field>
+          <aggregate>COMPLETED</aggregate>
+          <subject>COMPLETED</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+        <field>
+          <aggregate>TRANSFERRED</aggregate>
+          <subject>TRANSFERRED</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+        <field>
+          <aggregate>const_MINUTES_IN_IVR_TRANSFERRED</aggregate>
+          <subject>const_MINUTES_IN_IVR_TRANSFERRED</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+        <field>
+          <aggregate>const_MINUTES_IN_IVR_COMPLETED</aggregate>
+          <subject>const_MINUTES_IN_IVR_COMPLETED</subject>
+          <type>SUM</type>
+          <valuefield/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>727</xloc>
+      <yloc>134</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>If field value is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>ID</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>STEPTIME</name>
+        <value/>
+        <mask/>
+        </field>
+      <field>
+        <name>BEGIN_NODE</name>
+        <value>n&#47;a</value>
+        <mask/>
+        </field>
+      <field>
+        <name>END_NODE</name>
+        <value>n&#47;a</value>
+        <mask/>
+        </field>
+      <field>
+        <name>ENTERED</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>COMPLETED</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>TRANSFERRED</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      <field>
+        <name>INTERVAL_ID</name>
+        <value>0</value>
+        <mask/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>291</xloc>
+      <yloc>134</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>CC_S_IVR_SELF_SERVICE_USAGE</table>
+      <key>
+        <name>INTERVAL_ID</name>
+        <field>INTERVAL_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>IVR_SELF_SERVICE_PATH_ID</name>
+        <field>IVR_SELF_SERVICE_PATH_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>CONTACTS_ENTERING</name>
+        <rename>ENTERED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_TRANSFERRED</name>
+        <rename>TRANSFERRED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_COMPLETED</name>
+        <rename>COMPLETED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MINUTES_IN_IVR_TRANSFERRED</name>
+        <rename>const_MINUTES_IN_IVR_TRANSFERRED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MINUTES_IN_IVR_COMPLETED</name>
+        <rename>const_MINUTES_IN_IVR_COMPLETED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>INTERVAL_ID</name>
+        <rename>INTERVAL_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>IVR_SELF_SERVICE_PATH_ID</name>
+        <rename>IVR_SELF_SERVICE_PATH_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>IVR_SELF_SERVICE_USAGE_ID</name>
+        <rename>IVR_SS_USAGE_SEQ</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>PROJECT_CONFIG_ID</name>
+        <rename>project_config_id</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1114</xloc>
+      <yloc>133</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>PATH_Lookup</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>CC_S_IVR_SELF_SERVICE_PATH</table>
+      <connection>MAXDAT</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>BEGIN_NODE</name>
+          <lookup>BEGIN_NODE</lookup>
+        </key>
+        <key>
+          <name>END_NODE</name>
+          <lookup>END_NODE</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>RECORD_EFF_DT</from>
+          <to>RECORD_END_DT</to>
+        </date>
+        <return>
+          <name>IVR_SELF_SERVICE_PATH_ID</name>
+          <rename/>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version/>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>-1</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>424</xloc>
+      <yloc>133</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>%%java.io.tmpdir%%</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>INTERVAL_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+      <field>
+        <name>IVR_SELF_SERVICE_PATH_ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>635</xloc>
+      <yloc>133</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write to log</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <loglevel>log_level_debug</loglevel>
+      <displayHeader>Y</displayHeader>
+      <logmessage>load_ivr_SS_USAGE_rows</logmessage>
+    <fields>
+      <field>
+        <name>INTERVAL_ID</name>
+        </field>
+      <field>
+        <name>IVR_SELF_SERVICE_PATH_ID</name>
+        </field>
+      <field>
+        <name>ENTERED</name>
+        </field>
+      <field>
+        <name>COMPLETED</name>
+        </field>
+      <field>
+        <name>TRANSFERRED</name>
+        </field>
+      <field>
+        <name>const_MINUTES_IN_IVR_TRANSFERRED</name>
+        </field>
+      <field>
+        <name>const_MINUTES_IN_IVR_COMPLETED</name>
+        </field>
+      <field>
+        <name>project_config_id</name>
+        </field>
+      <field>
+        <name>IVR_SS_USAGE_SEQ</name>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1010</xloc>
+      <yloc>133</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

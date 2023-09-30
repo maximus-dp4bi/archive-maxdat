@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>DIM_Load_CLIENTS_HIST</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;05&#47;02 17:59:24.656</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;05&#47;02 17:59:24.656</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>EMRS</name>
+    <server>${DB_EMRS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_EMRS_NAME}</database>
+    <port>${DB_EMRS_PORT}</port>
+    <username>${DB_EMRS_USER}</username>
+    <password>${DB_EMRS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_EMRS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Select values</from><to>Table output - CLIENTS dimension</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -CLIENTS from EB</from><to>Database join - Case client and Address details</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Case client and Address details</from><to>Database join - Segment details</to><enabled>Y</enabled> </hop>  <hop> <from>Table output - CLIENTS dimension</from><to>Text file output -error log</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Segment details</from><to>Select values</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Database join - Case client and Address details</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>10</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT COALESCE(managed_care_program,&apos;0&apos;) managed_care_program
+       ,receiving_ssi_flag
+       ,receiving_tanf_flag
+      ,CASE WHEN cnt_rec = version THEN &apos;Y&apos; ELSE &apos;N&apos; END current_flag      
+      ,version
+      ,cscl_elig_begin_dt date_of_validity_start
+      ,CASE WHEN cnt_rec = version THEN TO_DATE(&apos;12&#47;31&#47;2050&apos;,&apos;MM&#47;DD&#47;YYYY&apos;) ELSE COALESCE(cc.cscl_elig_end_dt,cc.cscl_status_end_date,sysdate) END date_of_validity_end
+FROM (
+    SELECT cl.clnt_client_id cscl_clnt_client_id
+           ,cc.program_cd managed_care_program
+           ,COALESCE(cc.cscl_elig_begin_dt,sysdate) cscl_elig_begin_dt
+           ,cc.cscl_elig_end_dt
+           ,cc.cscl_status_end_date
+           ,cc.cscl_status_cd
+           , CASE WHEN INSTR(ac.description,&apos;SSI&apos;) &gt; 0 THEN &apos;Y&apos; ELSE &apos;N&apos; END receiving_ssi_flag
+           , CASE WHEN INSTR(ac.description,&apos;TANF&apos;) &gt; 0 THEN &apos;Y&apos; ELSE &apos;N&apos; END receiving_tanf_flag
+           ,ROW_NUMBER() OVER (PARTITION BY clnt_client_id ORDER BY COALESCE(cc.cscl_elig_end_dt,cc.cscl_status_end_date,sysdate),cc.cscl_elig_begin_dt,cc.cscl_status_cd) version   
+           ,COUNT(1) over (PARTITION BY clnt_client_id) cnt_rec     
+    FROM client cl
+       LEFT OUTER JOIN case_client cc
+         ON cl.clnt_client_id = cc.cscl_clnt_client_id
+       LEFT OUTER JOIN enum_aid_category ac
+         ON cc.cscl_adlk_id = ac.value) cc   
+WHERE cscl_clnt_client_id = ?
+AND (managed_care_program = ? OR ? IS NULL)</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>CLIENT_NUMBER</name>
+        <type>Number</type>
+      </field>
+      <field>
+        <name>PROGRAM_CD</name>
+        <type>String</type>
+      </field>
+      <field>
+        <name>PROGRAM_CD</name>
+        <type>String</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>165</xloc>
+      <yloc>187</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Segment details</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>10</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>1</rowlimit>
+    <sql>SELECT CASE WHEN segment_type_cd IN( &apos;CHIP&apos;,&apos;CHIP-PER&apos;) THEN DECODE(segment_detail_value_1,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;) 
+                           WHEN segment_type_cd = &apos;CLNT-MED&apos; AND segment_detail_value_7 = &apos;Z&apos; THEN DECODE(segment_detail_value_7,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;)
+                ELSE &apos;N&apos; END migrant_worker_flag
+               ,CASE WHEN segment_type_cd IN( &apos;CHIP&apos;,&apos;CHIP-PER&apos;) THEN DECODE(segment_detail_value_2,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;) ELSE &apos;N&apos; END managed_via_gen_rev_flag
+               ,CASE WHEN segment_type_cd  IN( &apos;CHIP&apos;,&apos;CHIP-PER&apos;) THEN DECODE(segment_detail_value_3,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;) ELSE &apos;N&apos; END managed_via_state_fund_flag
+               ,CASE WHEN segment_type_cd =&apos;CHIP-PER&apos; THEN DECODE(segment_detail_value_4,&apos;Y&apos;,&apos;Y&apos;,&apos;N&apos;) ELSE &apos;N&apos; END pregnant_member
+			   ,CASE WHEN INSTR(segment_type_cd,&apos;CLNT&apos;) &gt; 0 THEN segment_detail_value_1 ELSE NULL END base_plan 
+FROM elig_segment_and_details
+WHERE segment_type_cd IN (&apos;CHIP&apos;,&apos;CHIP-PER&apos;,&apos;CLNT-MED&apos;,&apos;CLNT-DEN&apos;,&apos;CLNT-NS&apos;)
+AND (end_date IS NULL OR end_date &gt;= SYSDATE)
+AND client_id = ?
+</sql>
+    <outer_join>Y</outer_join>
+    <replace_vars>N</replace_vars>
+    <parameter>
+      <field>
+        <name>CLIENT_NUMBER</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>170</xloc>
+      <yloc>280</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>CLIENT_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOURCE_RECORD_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_OF_BIRTH</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FIRST_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIDDLE_INITIAL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FULL_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RACE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SEX</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SOCIAL_SECURITY_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SSN_RAILROAD_CLAIM_NUMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_OF_DEATH</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_OF_DEATH_SOURCE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLIENT_REPORTED_SHCN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PLAN_REPORTED_SHCN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>THIRD_PARTY_RESOURCES_AVAIL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MODIFIED_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MODIFIED_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MODIFIED_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RECORD_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RECORD_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RECORD_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NEWBORN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ADULT_OR_CHILD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ADD1</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ADD2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CITY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COUNTY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ZIP</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ST</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_CLNT_CLIENT_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_ETHNICITY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_TPL_PRESENT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_NATIONAL_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_FROM_PACMIS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_SHARE_PREMIUM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_NOT_BORN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_HIPAA_PRIVACY_IND</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_FINET_VENDOR_NBR</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_ENROLL_STATUS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_ENROLL_STATUS_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SCHED_AUTO_ASSIGN_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_CIN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_COMMENT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_PSEUDO_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SSNVL_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>NOTE_REF_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_MARITAL_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_STATUS_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_EXPECTED_DOB</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_PREG_TERM_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_PREG_TERM_REAS_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLIENT_TYPE_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SUPPLEMENTAL_NBR</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STATE_LANGUAGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DO_NOT_CALL_IND</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>WRITTEN_LANGUAGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SUFFIX</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SALUTATION_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DOMESTIC_VIOLENCE_IND</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ENGLISH_FLUENCY_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ENGLISH_LITERACY_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TRIBE_CD</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD1_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD2_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD3_NUM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD4_NUM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD5_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD6_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD7_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD8_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD9_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_FIELD10_TXT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_REF11_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CLNT_GENERIC_REF12_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DO_NOT_TEXT_IND</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DO_NOT_EMAIL_IND</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_STATE_UPDATE_TS</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LAST_STATE_UPDATED_BY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>COMPARABLE_KEY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_CARE_PROGRAM</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RECEIVING_SSI_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RECEIVING_TANF_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CURRENT_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>VERSION</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_OF_VALIDITY_START</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DATE_OF_VALIDITY_END</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIGRANT_WORKER_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_VIA_GEN_REV_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MANAGED_VIA_STATE_FUND_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PREGNANT_MEMBER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>BASE_PLAN</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>RECORD_DATE</name>
+        <rename>RECORD_DATE</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>MM&#47;dd&#47;yyyy</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MODIFIED_DATE</name>
+        <rename>MODIFIED_DATE</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>MM&#47;dd&#47;yyyy</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>VERSION</name>
+        <rename>VERSION</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>171</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input -CLIENTS from EB</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <sql>SELECT client_number
+       ,source_record_id
+       ,date_of_birth
+       ,first_name
+       ,last_name
+       ,middle_initial
+       ,full_name
+       ,race
+       ,sex
+       ,social_security_number
+       ,ssn_railroad_claim_number
+       ,date_of_death
+       ,date_of_death_source
+       ,client_reported_shcn
+       ,plan_reported_shcn
+       ,third_party_resources_avail
+       ,modified_date
+       ,modified_name
+       ,modified_time                
+       ,record_date
+       ,record_name
+       ,record_time
+       ,CASE WHEN client_age &lt; 1 THEN &apos;Y&apos; ELSE &apos;N&apos; END newborn  
+       ,CASE WHEN client_age &lt; 19 THEN &apos;C&apos; ELSE &apos;A&apos; END adult_or_child
+      ,add1
+       ,add2                
+      , city
+      ,county
+      ,zip
+      ,st 
+	  ,clnt_clnt_client_id
+	  ,clnt_ethnicity
+	  ,clnt_tpl_present
+	  ,clnt_national_id
+	  ,clnt_from_pacmis
+	  ,clnt_share_premium
+	  ,clnt_not_born
+	  ,clnt_hipaa_privacy_ind
+	  ,clnt_finet_vendor_nbr
+	  ,clnt_enroll_status
+	  ,clnt_enroll_status_date
+	  ,sched_auto_assign_date
+	  ,clnt_cin
+	  ,clnt_comment
+	  ,clnt_pseudo_id
+	  ,ssnvl_id
+	  ,note_ref_id
+	  ,clnt_marital_cd
+	  ,clnt_status_cd
+	  ,clnt_expected_dob
+	  ,clnt_preg_term_date
+	  ,clnt_preg_term_reas_cd
+	  ,client_type_cd
+	  ,supplemental_nbr
+	  ,state_language
+	  ,do_not_call_ind
+	  ,written_language
+	  ,suffix
+	  ,salutation_cd
+	  ,domestic_violence_ind
+	  ,english_fluency_cd
+	  ,english_literacy_cd
+	  ,tribe_cd
+	  ,clnt_generic_field1_date
+	  ,clnt_generic_field2_date
+	  ,clnt_generic_field3_num
+	  ,clnt_generic_field4_num
+	  ,clnt_generic_field5_txt
+	  ,clnt_generic_field6_txt
+	  ,clnt_generic_field7_txt
+	  ,clnt_generic_field8_txt
+	  ,clnt_generic_field9_txt
+	  ,clnt_generic_field10_txt
+	  ,clnt_generic_ref11_id
+	  ,clnt_generic_ref12_id
+	  ,do_not_text_ind
+	  ,do_not_email_ind
+	  ,last_state_update_ts
+	  ,last_state_updated_by
+	  ,comparable_key   
+      ,program_cd
+FROM
+(SELECT cl.clnt_client_id client_number  
+      ,cl.clnt_client_id source_record_id
+      ,cl.clnt_dob date_of_birth
+      ,cl.clnt_fname  first_name
+      ,cl.clnt_lname last_name
+      ,SUBSTR(cl.clnt_mi,1,1) middle_initial
+      ,cl.clnt_fname||CASE WHEN SUBSTR(cl.clnt_mi,1,1) IS NULL THEN &apos; &apos; ELSE &apos; &apos;||SUBSTR(cl.clnt_mi,1,1)||&apos; &apos; END ||cl.clnt_lname full_name
+      ,cl.clnt_race race
+      ,cl.clnt_gender_cd sex
+      ,cl.clnt_ssn social_security_number                
+      ,cl.clnt_generic_field6_txt ssn_railroad_claim_number                
+      ,cl.clnt_dod date_of_death
+      ,cl.dod_source_cd date_of_death_source
+      ,CASE WHEN cl.clnt_generic_field3_num = 1 THEN &apos;Y&apos; ELSE &apos;N&apos; END client_reported_shcn
+      ,CASE WHEN cl.clnt_generic_field4_num = 1 THEN &apos;Y&apos; ELSE &apos;N&apos; END plan_reported_shcn                
+      ,CASE WHEN (SELECT COUNT(1) FROM other_health_care ohc WHERE ohc.ohc_client_id = cl.clnt_client_id AND (ohc.ohc_end_date &gt; SYSDATE OR ohc.ohc_end_date IS NULL)) &gt; 0 THEN &apos;Y&apos; ELSE &apos;N&apos; END third_party_resources_avail
+      ,cl.last_update_date modified_date
+      ,cl.last_updated_by modified_name
+      ,TO_CHAR(cl.last_update_date,&apos;HH24MI&apos;) modified_time                
+      ,cl.creation_date record_date
+      ,cl.created_by record_name
+      ,TO_CHAR(cl.creation_date,&apos;HH24MI&apos;) record_time 
+      ,EXTRACT(YEAR FROM(TRUNC(SYSDATE) - clnt_dob) YEAR TO MONTH) client_age
+      ,cs.addr_street_1 add1
+      ,cs.addr_street_2 add2                
+      ,cs.addr_city city
+      ,cs.addr_county county
+      ,cs.addr_zip zip
+      ,cs.addr_state_cd  st 
+	  ,cl.clnt_clnt_client_id
+	  ,cl.clnt_ethnicity
+	  ,cl.clnt_tpl_present
+	  ,cl.clnt_national_id
+	  ,cl.clnt_from_pacmis
+	  ,cl.clnt_share_premium
+	  ,cl.clnt_not_born
+	  ,cl.clnt_hipaa_privacy_ind
+	  ,cl.clnt_finet_vendor_nbr
+	  ,cl.clnt_enroll_status
+	  ,cl.clnt_enroll_status_date
+	  ,cl.sched_auto_assign_date
+	  ,cl.clnt_cin
+	  ,cl.clnt_comment
+	  ,cl.clnt_pseudo_id
+	  ,cl.ssnvl_id
+	  ,cl.note_ref_id
+	  ,cl.clnt_marital_cd
+	  ,cl.clnt_status_cd
+	  ,cl.clnt_expected_dob
+	  ,cl.clnt_preg_term_date
+	  ,cl.clnt_preg_term_reas_cd
+	  ,cl.client_type_cd
+	  ,cl.supplemental_nbr
+	  ,cl.state_language
+	  ,cl.do_not_call_ind
+	  ,cl.written_language
+	  ,cl.suffix
+	  ,cl.salutation_cd
+	  ,cl.domestic_violence_ind
+	  ,cl.english_fluency_cd
+	  ,cl.english_literacy_cd
+	  ,cl.tribe_cd
+	  ,cl.clnt_generic_field1_date
+	  ,cl.clnt_generic_field2_date
+	  ,cl.clnt_generic_field3_num
+	  ,cl.clnt_generic_field4_num
+	  ,cl.clnt_generic_field5_txt
+	  ,cl.clnt_generic_field6_txt
+	  ,cl.clnt_generic_field7_txt
+	  ,cl.clnt_generic_field8_txt
+	  ,cl.clnt_generic_field9_txt
+	  ,cl.clnt_generic_field10_txt
+	  ,cl.clnt_generic_ref11_id
+	  ,cl.clnt_generic_ref12_id
+	  ,cl.do_not_text_ind
+	  ,cl.do_not_email_ind
+	  ,cl.last_state_update_ts
+	  ,cl.last_state_updated_by
+	  ,cl.comparable_key   
+      ,cs.program_cd
+  FROM client cl
+   LEFT OUTER JOIN client_supplementary_info cs
+      ON cl.clnt_client_id = cs.client_id
+  )  
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>159</xloc>
+      <yloc>84</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - CLIENTS dimension</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>10</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>EMRS</connection>
+    <schema/>
+    <table>EMRS_D_CLIENT</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>292</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Text file output -error log</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <separator>;</separator>
+    <enclosure>&quot;</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>N</create_parent_folder>
+    <file>
+      <name>${EMRS_LOG_DIRECTORY}\clients_error</name>
+      <is_command>N</is_command>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>297</xloc>
+      <yloc>482</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Table output - CLIENTS dimension</source_step>
+        <target_step>Text file output -error log</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename>ERROR_DESC</descriptions_valuename>
+        <fields_valuename>ERROR_FIELD</fields_valuename>
+        <codes_valuename>ERROR_CODES</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

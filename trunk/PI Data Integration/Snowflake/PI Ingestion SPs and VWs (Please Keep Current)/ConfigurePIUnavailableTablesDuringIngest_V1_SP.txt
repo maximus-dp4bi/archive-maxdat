@@ -1,0 +1,115 @@
+CREATE or replace PROCEDURE ConfigurePIUnavailableTablesDuringIngest(projectid VARCHAR,stageName VARCHAR,REINGEST_SFX VARCHAR,runFromBashFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS  
+  $$
+
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     if (RUNFROMBASHFLAG) {
+      sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG_"+PROJECTID+"';";
+     }
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+  
+
+
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
+
+     //get date string for today
+     var today_local = new Date();
+     var today = convertTZ(today_local,'America/New_York')
+     var dd = String(today.getDate()).padStart(2, '0');
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+     var hh = String(today.getHours());
+     var todayDateString = yyyy + mm + dd;
+
+//get project fields 
+    var PROJECTNAME = "";
+    var AWSFOLDERNAME = "";
+    var stageName = STAGENAME;
+    var truncateFlag = true;
+    var sqlCommand = "select pr.projectname, pr.awsfoldername from public.d_pi_projects pr where pr.projectid = '"+PROJECTID+"';";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            result1.next();
+            PROJECTNAME = result1.getColumnValue(1);
+            AWSFOLDERNAME = result1.getColumnValue(2);
+         }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to get project info for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to get project info";
+        }    
+    
+    
+    sqlCommand = "list @"+ stageName + " pattern='.*/_SUCCESS';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to list _SUCCESS files for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to list _SUCCESS files";
+        }
+
+    var table_list = "";
+    var sql_inserts = new Array();
+    sqlCommand = "select table_name from public.d_pi_tables ta where ta.active = true and ta.s3_sourced = true and not exists (select \"name\" FROM table(result_scan(last_query_id())) where contains(\"name\",ta.table_name));";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            var tablename = "";
+            while (result1.next()){
+                tablename = result1.getColumnValue(1);
+                table_list += ", "+ tablename;
+                sql_inserts.push("call raw.insertPIUnavailableTablesDuringIngest('" + tablename + "','" + PROJECTID + "','" + PROJECTNAME + "')");
+            }
+            
+         }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to list missing tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to list missing tables";
+        }    
+  
+  //delete existing entries from unavailable tables table
+     sqlCommand = "delete from public.d_pi_project_unavailable_tables where project_id = '" + PROJECTID + "';";
+    try {
+            snowflake.execute (
+                {sqlText: sqlCommand}
+            );
+        }
+    catch (err)  {
+         log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to delete from unavailable tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err); 
+        return "failed to delete existing entries in unavailable tables";
+        }     
+
+  
+  
+  //insert into unavalable tables table
+  
+  for (i = 0; i < sql_inserts.length; i++) {
+        try {
+            snowflake.execute (
+                {sqlText: sql_inserts[i]}
+            );
+        }
+    catch (err)  {
+        log(PROJECTID, "CONFIG"+REINGEST_SFX, "unavailable tables", "FAILED","Failed to insert into unavailable tables for project " + PROJECTID + " for "+todayDateString+ ": "+ err);  
+        return "failed to insert new entries int unavailable tables"; 
+}
+}
+  
+  return "0";
+  
+  $$;

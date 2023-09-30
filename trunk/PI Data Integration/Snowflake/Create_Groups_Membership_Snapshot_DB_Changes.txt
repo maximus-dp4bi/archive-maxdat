@@ -1,0 +1,471 @@
+drop table public.D_PI_GROUPS_MEMBERSHIPS_HISTORY;
+create table stage.D_PI_GROUPS_MEMBERSHIP_HISTORY (
+PROJECTID VARCHAR(255),
+	PROJECTNAME VARCHAR(255),
+	PROGRAMID VARCHAR(255),
+	PROGRAMNAME VARCHAR(255),
+	RAW VARIANT
+	---INGESTIONDATETIME TIMESTAMP_NTZ(9)
+,start_time timestamp_ntz
+,end_time timestamp_ntz
+,current_flag int);
+
+grant all on table stage.d_pi_groups_membership_history to pi_data_ingest_PRD_alert_user;
+alter table raw.groups_membership set change_tracking=true;
+
+drop stream pi_groups_membership_stream;
+create or replace stream stage.pi_groups_membership_stream on table raw.groups_membership;
+
+create or replace view stage.pi_groups_membership_change_data as
+--clean stream select * from stream where not exists insert + delete with same daa
+with clean_stream as
+(select * from stage.pi_groups_membership_stream strm
+ where 
+
+ (strm.METADATA$ACTION = 'INSERT'
+ and METADATA$ISUPDATE = 'FALSE'
+ and not exists (select 1 from stage.pi_groups_membership_stream strm2
+                 where strm2.METADATA$ACTION = 'DELETE'
+                 and strm2.METADATA$ISUPDATE = 'FALSE'
+                 and strm2.projectid = strm.projectid
+                 and strm2.projectname = strm.projectname
+                 and equal_null(strm2.programid, strm.programid)
+                 and equal_null(strm2.programname, strm.programname)
+                 and strm2.raw = strm.raw)
+ ) or
+
+ (strm.METADATA$ACTION = 'DELETE'
+ and METADATA$ISUPDATE = 'FALSE'
+ and not exists (select 1 from stage.pi_groups_membership_stream strm2
+                 where strm2.METADATA$ACTION = 'INSERT'
+                 and strm2.METADATA$ISUPDATE = 'FALSE'
+                 and strm2.projectid = strm.projectid
+                 and strm2.projectname = strm.projectname
+                 and equal_null(strm2.programid, strm.programid)
+                 and equal_null(strm2.programname, strm.programname)
+                 and strm2.raw = strm.raw)
+
+ ) or
+ (strm.METADATA$ISUPDATE = 'TRUE'
+ )
+ 
+)
+
+select projectid, projectname, programid, programname, raw, start_time, end_time, current_flag, 'I' as dml_type
+from (select projectid, projectname, programid, programname, raw, ingestiondatetime as start_time,
+      lag(ingestiondatetime) over (partition by projectid, projectname, programid, programname, raw order by ingestiondatetime desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag
+      from (select projectid, projectname, programid, programname, raw, ingestiondatetime
+            from clean_stream
+            where metadata$action = 'INSERT'
+            and metadata$isupdate = 'FALSE'))
+union
+select projectid, projectname, programid, programname, raw, start_time, end_time, current_flag, dml_type
+from (select projectid, projectname, programid, programname, raw, ingestiondatetime as start_time,
+      lag(ingestiondatetime) over (partition by projectid, projectname, programid, programname, raw order by ingestiondatetime desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag,dml_type
+      from (-- Identify data to insert into nation_history table
+        select projectid, projectname, programid, programname, raw, ingestiondatetime, 'I' as dml_type
+        from clean_stream
+        where metadata$action = 'INSERT'
+        and metadata$isupdate = 'TRUE'
+union
+select projectid, projectname, programid, programname, raw, start_time, 'U' as dml_type
+from stage.d_pi_groups_membership_history
+where projectid || projectname || programid || programname || raw in (select distinct projectid || projectname || programid || programname || raw 
+                             from clean_stream
+                             where metadata$action = 'INSERT'
+                             and metadata$isupdate = 'TRUE')
+        and current_flag = 1))
+union
+
+select str.projectid, str.projectname, str.programid, str.programname, str.raw, hist.start_time, current_timestamp()::timestamp_ntz, null, 'D'
+from stage.d_pi_groups_membership_history hist
+inner join clean_stream str
+on hist.projectid = str.projectid
+and hist.projectname = str.projectname
+and equal_null(hist.programid, str.programid)
+and equal_null(hist.programname,str.programname)
+and hist.raw = str.raw
+where str.metadata$action = 'DELETE'
+and str.metadata$isupdate = 'FALSE'
+and hist.current_flag = 1;
+
+
+drop table public.D_PI_CONFIGURATION_OBJECTS_HISTORY;
+create table stage.D_PI_CONFIGURATION_OBJECTS_HISTORY (
+PROJECTID VARCHAR(255),
+	PROJECTNAME VARCHAR(255),
+	PROGRAMID VARCHAR(255),
+	PROGRAMNAME VARCHAR(255),
+	RAW VARIANT
+	---INGESTIONDATETIME TIMESTAMP_NTZ(9)
+,start_time timestamp_ntz
+,end_time timestamp_ntz
+,current_flag int);
+
+grant all on table stage.d_pi_configuration_objects_history to pi_data_ingest_PRD_alert_user;
+alter table raw.configuration_objects set change_tracking=true;
+
+drop stream pi_configuration_objects_stream;
+create or replace stream stage.pi_configuration_objects_stream on table raw.configuration_objects;
+
+
+create or replace view stage.pi_configuration_objects_change_data as
+--clean stream select * from stream where not exists insert + delete with same daa
+with clean_stream as
+(select * from stage.pi_configuration_objects_stream strm
+ where 
+
+ (strm.METADATA$ACTION = 'INSERT'
+ and METADATA$ISUPDATE = 'FALSE'
+ and not exists (select 1 from stage.pi_configuration_objects_stream strm2
+                 where strm2.METADATA$ACTION = 'DELETE'
+                 and strm2.METADATA$ISUPDATE = 'FALSE'
+                 and strm2.projectid = strm.projectid
+                 and strm2.projectname = strm.projectname
+                 and equal_null(strm2.programid, strm.programid)
+                 and equal_null(strm2.programname, strm.programname)
+                 and strm2.raw = strm.raw)
+ ) or
+
+ (strm.METADATA$ACTION = 'DELETE'
+ and METADATA$ISUPDATE = 'FALSE'
+ and not exists (select 1 from stage.pi_configuration_objects_stream strm2
+                 where strm2.METADATA$ACTION = 'INSERT'
+                 and strm2.METADATA$ISUPDATE = 'FALSE'
+                 and strm2.projectid = strm.projectid
+                 and strm2.projectname = strm.projectname
+                 and equal_null(strm2.programid, strm.programid)
+                 and equal_null(strm2.programname, strm.programname)
+                 and strm2.raw = strm.raw)
+
+ ) or
+ (strm.METADATA$ISUPDATE = 'TRUE'
+ )
+ 
+)
+
+select projectid, projectname, programid, programname, raw, start_time, end_time, current_flag, 'I' as dml_type
+from (select projectid, projectname, programid, programname, raw, ingestiondatetime as start_time,
+      lag(ingestiondatetime) over (partition by projectid, projectname, programid, programname, raw order by ingestiondatetime desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag
+      from (select projectid, projectname, programid, programname, raw, ingestiondatetime
+            from clean_stream
+            where metadata$action = 'INSERT'
+            and metadata$isupdate = 'FALSE'))
+union
+select projectid, projectname, programid, programname, raw, start_time, end_time, current_flag, dml_type
+from (select projectid, projectname, programid, programname, raw, ingestiondatetime as start_time,
+      lag(ingestiondatetime) over (partition by projectid, projectname, programid, programname, raw order by ingestiondatetime desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag,dml_type
+      from (-- Identify data to insert into nation_history table
+        select projectid, projectname, programid, programname, raw, ingestiondatetime, 'I' as dml_type
+        from clean_stream
+        where metadata$action = 'INSERT'
+        and metadata$isupdate = 'TRUE'
+union
+select projectid, projectname, programid, programname, raw, start_time, 'U' as dml_type
+from stage.d_pi_configuration_objects_history
+where projectid || projectname || programid || programname || raw in (select distinct projectid || projectname || programid || programname || raw 
+                             from clean_stream
+                             where metadata$action = 'INSERT'
+                             and metadata$isupdate = 'TRUE')
+        and current_flag = 1))
+union
+
+select str.projectid, str.projectname, str.programid, str.programname, str.raw, hist.start_time, current_timestamp()::timestamp_ntz, null, 'D'
+from stage.d_pi_configuration_objects_history hist
+inner join clean_stream str
+on hist.projectid = str.projectid
+and hist.projectname = str.projectname
+and equal_null(hist.programid, str.programid)
+and equal_null(hist.programname,str.programname)
+and hist.raw = str.raw
+where str.metadata$action = 'DELETE'
+and str.metadata$isupdate = 'FALSE'
+and hist.current_flag = 1;
+
+--create sp and task
+--add to groups membership sp above
+
+
+--GRANT usage ON procedure stage.update_configuration_objects_history() TO ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on STAGE.PI_CONFIGURATION_OBJECTS_CHANGE_DATA to ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on stream stage.PI_CONFIGURATION_OBJECTS_STREAM to ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on table stage.d_pi_configuration_objects_history to ROLE PI_Data_Ingest_PRD_Alert_User;
+
+
+
+
+CREATE or replace PROCEDURE stage.update_groups_membership_daily_snapshot(projectId varchar, reIngestFlag Boolean)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+  
+
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'INGEST_PI_DATA_DET_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+ 
+function log(projectid, object_category, object_name, status_string, msg){
+    snowflake.createStatement( { sqlText: `call do_log_det(:1, :2, :3, :4, :5)`, binds:[projectid, object_category, object_name, status_string, msg] } ).execute();
+} 
+  
+ 
+REINGEST_SFX = "";
+//if (REINGESTFLAG){
+//REINGEST_SFX=" REINGEST";
+//}     
+  
+if (PROJECTID == ""){
+PROJECTID = "ALL";
+}  
+  
+var sqlCommand = `merge into stage.d_pi_groups_membership_history nh
+using stage.pi_groups_membership_change_data m 
+   on  nh.projectid = m.projectid
+   and nh.projectname = m.projectname
+   and equal_null(nh.programid, m.programid)
+   and equal_null(nh.programname,m.programname)
+   and nh.raw = m.raw
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (projectid, projectname, programid, programname, raw, start_time, end_time, current_flag)
+    values (m.projectid, m.projectname, m.programid, m.programname, m.raw, m.start_time, m.end_time, m.current_flag)`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot: "+ err); 
+return 1;
+}
+
+sqlCommand = `update stage.d_pi_groups_membership_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select projectid, projectname, programid, programname, raw, start_time, end_time,
+    lead (start_time) over (partition by projectid, projectname, programid, programname, raw order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from stage.d_pi_groups_membership_history) as temp
+where hist.projectid = temp.projectid
+and hist.projectname = temp.projectname
+and equal_null(hist.programid, temp.programid)
+and equal_null(hist.programname, temp.programname)
+and hist.raw = temp.raw
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(2): "+ err); 
+return 1;
+}
+
+//config objects
+var sqlCommand = `merge into stage.d_pi_configuration_objects_history nh
+using stage.pi_configuration_objects_change_data m 
+   on  nh.projectid = m.projectid
+   and nh.projectname = m.projectname
+   and equal_null(nh.programid, m.programid)
+   and equal_null(nh.programname,m.programname)
+   and nh.raw = m.raw
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (projectid, projectname, programid, programname, raw, start_time, end_time, current_flag)
+    values (m.projectid, m.projectname, m.programid, m.programname, m.raw, m.start_time, m.end_time, m.current_flag)`;
+
+try{
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(3): "+ err); 
+return 1;
+}
+
+
+sqlCommand = `update stage.d_pi_configuration_objects_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select projectid, projectname, programid, programname, raw, start_time, end_time,
+    lead (start_time) over (partition by projectid, projectname, programid, programname, raw order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from stage.d_pi_configuration_objects_history) as temp
+where hist.projectid = temp.projectid
+and hist.projectname = temp.projectname
+and equal_null(hist.programid, temp.programid)
+and equal_null(hist.programname, temp.programname)
+and hist.raw = temp.raw
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+try {
+snowflake.execute ({sqlText: sqlCommand});
+}
+catch (err){
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "FAILED","SP failed to update groups membership snapshot(4): "+ err); 
+return 1;
+}
+
+log(PROJECTID, "SP"+REINGEST_SFX, "UPDATE_GROUPS_MEMBERSHIP_DAILY_SNAPSHOT", "SUCCEEDED","SP succeeded updating groups membership snapshot."); 
+return 0;
+
+$$;
+
+GRANT usage ON procedure stage.update_groups_membership_daily_snapshot(boolean) TO ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on STAGE.PI_GROUPS_MEMBERSHIP_CHANGE_DATA to ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on stream stage.PI_GROUPS_MEMBERSHIP_STREAM to ROLE PI_Data_Ingest_PRD_Alert_User;
+grant all on table stage.d_pi_groups_membership_history to ROLE PI_Data_Ingest_PRD_Alert_User;
+
+CREATE OR REPLACE VIEW PUBLIC.D_PI_GROUPS_MEMBERSHIP_DAILY_VW AS
+with base as (
+               select * from (
+                               select convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts))) as high_base, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED','INGESTION STARTED REINGEST')
+                               --and dd.date >= date('2021-06-01')
+               ) where row_num=1
+),
+u AS (SELECT raw:id AS userid , raw:name AS userName, projectid as projectid, base.status_date_est
+      FROM stage.d_pi_configuration_objects_history
+      join base
+      on date(convert_timezone('America/New_York',start_time)) <= base.status_date_est
+      and date(convert_timezone('America/New_York',end_time)) > base.status_date_est
+      WHERE raw:type = 'user'
+     ),
+g AS (SELECT raw:id AS groupid , raw:name AS groupname, projectid as projectid,base.status_date_est 
+      FROM stage.d_pi_configuration_objects_history
+      join base
+      on date(convert_timezone('America/New_York',start_time)) <= base.status_date_est
+      and date(convert_timezone('America/New_York',end_time)) > base.status_date_est
+      WHERE raw:type = 'group'
+     ),
+     gm as (
+SELECT
+  base.status_date_est as ingestion_date_est,
+  gm.projectId as projectId,
+  gm.projectName as projectName,
+  gm.programId as programId,
+  gm.programName as programName,
+  gm.raw
+FROM stage.d_pi_groups_membership_history gm
+join base
+on date(convert_timezone('America/New_York',gm.start_time)) <= base.status_date_est
+and date(convert_timezone('America/New_York',gm.end_time)) > base.status_date_est
+)
+select gm.ingestion_date_est,gm.projectid,gm.projectname,gm.programid,gm.programname,
+  cast (g.groupid as VARCHAR(255)) as groupId,
+  cast (g.groupname as VARCHAR(255)) as groupName,
+  cast (u.userid as VARCHAR(255)) as userId,
+  cast (u.userName as VARCHAR(255)) as userName
+from gm
+LEFT OUTER JOIN g 
+ON gm.raw:name = g.groupid and gm.projectid = g.projectid and gm.ingestion_date_est = g.status_date_est
+ LEFT OUTER JOIN u 
+ON gm.raw:userId = u.userid and gm.projectid = u.projectid and gm.ingestion_date_est = u.status_date_est
+
+;
+
+create or replace view admin_pi_ingestion_zero_means_done_vw as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+                               and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, dl1.ts, dd.date as status_date, dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+                               where dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+sp_runs as (
+  select count(*) as sp_count from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, dl1.msg,
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time, high_base.status_date,
+                         RANK() OVER (PARTITION BY dl1.object_name,high_base.status_date ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date,max(ts) as ts from base where base.projectid not in ('9999') group by status_date) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date
+                         where object_category = 'SP'
+                         and projectid not in ('9999')
+                         and status_string = 'SUCCEEDED'
+                         and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  ),
+main as (
+select count(*) as zero_means_done from 
+public.d_pi_projects pr
+join public.d_pi_tables ta
+left outer join base on pr.projectid = base.projectid
+left outer join final on pr.projectid = final.projectid
+where pr.active = true
+and ta.active = true
+and ta.s3_sourced = true
+and not exists (
+                 select 1 from public.d_pi_project_unavailable_tables ua
+                 where ua.project_id = pr.projectid
+                 and ua.table_name = ta.table_name
+                 and ((ua.end_unavailable_date is null) or (ua.end_unavailable_date >= date(convert_timezone('America/New_York',current_timestamp()))  ))
+                )
+and (not exists (
+                select 1 from raw.ingest_pi_data_det_log dl
+                where dl.projectid = pr.projectid
+                and dl.object_category in ('TABLE','TABLE REINGEST')
+                and dl.object_name = ta.table_name
+                and dl.status_string = 'SUCCEEDED'
+                and dl.ts >= base.ts 
+                 and date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = 
+                                  date(convert_timezone('America/New_York',current_timestamp())) 
+)
+or not (final.object_category in ('INGESTION COMPLETED','INGESTION COMPLETED REINGEST') and final.status_string != 'SUCCESS')
+)
+)
+  select (main.zero_means_done + (2- ifnull(sp_runs.sp_count,0))) as zero_means_done
+  from main
+  left outer join sp_runs
+  
+  ;
+  

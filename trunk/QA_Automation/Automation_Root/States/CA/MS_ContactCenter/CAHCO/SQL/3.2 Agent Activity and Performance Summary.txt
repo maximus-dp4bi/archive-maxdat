@@ -1,0 +1,2445 @@
+select	coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE, pa119.D_DATE, pa120.D_DATE, pa121.D_DATE, pa122.D_DATE, pa123.D_DATE)  D_DATE,
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR, pa119.D_WEEK_OF_YEAR, pa120.D_WEEK_OF_YEAR, pa121.D_WEEK_OF_YEAR, pa122.D_WEEK_OF_YEAR, pa123.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME, pa120.SITE_NAME, pa121.SITE_NAME, pa122.SITE_NAME, pa123.SITE_NAME)  SITE_NAME,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME, pa120.PROJECT_NAME, pa121.PROJECT_NAME, pa122.PROJECT_NAME, pa123.PROJECT_NAME)  PROJECT_NAME,
+	pa11.WJXBFS1  EXTERNAL_SECONDS,
+	pa11.WJXBFS2  HANDLE_CALLS_COUNT,
+	pa11.WJXBFS3  HOLD_SECONDS,
+	pa11.WJXBFS4  IDLE_SECONDS,
+	pa11.WJXBFS5  INTERNAL_SECONDS,
+	pa11.ABD_Login_Seconds  ABD_Login_Seconds,
+	pa11.WJXBFS6  PREDICTIVE_TALK_SECONDS,
+	pa11.WJXBFS7  RING_SECONDS,
+	pa11.WJXBFS8  TALK_RESERVE_SECONDS,
+	pa11.WJXBFS9  TALK_SECONDS,
+	pa11.WJXBFSa  WRAP_SECONDS,
+	pa12.WJXBFS1  FOLLOW_UP,
+	pa13.WJXBFS1  NOT_READY_SECONDS,
+	pa14.WJXBFS1  WRAP_SECONDS_SUM,
+	pa15.WJXBFS1  TALK_SECONDS_SUM,
+	pa16.WJXBFS1  HOLD_SECONDS_SUM,
+	pa17.WJXBFS1  IDLE_SECONDS_SUM,
+	pa18.WJXBFS1  PERSONAL,
+	pa19.WJXBFS1  SME,
+	pa110.WJXBFS1  SME_SUM,
+	pa111.WJXBFS1  SPECIAL_PROJECTS,
+	pa112.WJXBFS1  SPECIAL_PROJECTS_SUM,
+	(NVL(pa11.ABD_Login_Seconds, 0) - NVL(pa110.WJXBFS2, 0)) VM_MINUTES,
+	pa113.WJXBFS1  WJXBFS17,
+	(((((((NVL(pa11.WJXBFSb, 0) + NVL(pa12.WJXBFS2, 0)) + NVL(pa17.WJXBFS2, 0)) + NVL(pa19.WJXBFS2, 0)) + NVL(pa112.WJXBFS2, 0)) + NVL(pa114.WJXBFS1, 0)) + NVL(pa115.WJXBFS1, 0)) + NVL(pa116.WJXBFS1, 0)) RESOURCE_CENTER,
+	pa117.WJXBFS1  SYSTEM_ISSUES,
+	pa114.WJXBFS2  TRAINING,
+	pa115.WJXBFS2  OUTBOUND,
+	pa118.WJXBFS1  LUNCH,
+	pa119.WJXBFS1  WJXBFS1d,
+	pa116.WJXBFS2  WJXBFS1e,
+	pa11.WJXBFSc  WJXBFS1f,
+	pa120.WJXBFS1  WJXBFS20,
+	pa121.WJXBFS1  WJXBFS21,
+	pa122.WJXBFS1  WJXBFS22,
+	pa123.WJXBFS1  WJXBFS23
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS1,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS2,
+	sum(a11.HOLD_SECONDS)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS5,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFS6,
+	sum(a11.RING_SECONDS)  WJXBFS7,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	(((((sum(a11.EXTERNAL_SECONDS) + sum(a11.HOLD_SECONDS)) + sum(a11.IDLE_SECONDS)) + sum(a11.INTERNAL_SECONDS)) + sum(a11.TALK_SECONDS)) + sum(a11.WRAP_SECONDS))  WJXBFSb,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSc,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSd,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSe,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSf,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a13
+	  on 	(a11.D_GROUP_ID = a13.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a14
+	  on 	(a11.D_PROJECT_TARGETS_ID = a14.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a14.PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a13.GROUP_NAME in ('CSR'))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa11
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS1  WJXBFS1,
+	pa01.WJXBFS2  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	(pa01.GODWFLAG3_1 = 1
+ and pa01.GODWFLAG3_1 = 1) 
+)	pa12
+	  on 	(pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.SITE_NAME = pa12.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS3  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG4_1 = 1 
+)	pa13
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE) = pa13.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR) = pa13.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME) = pa13.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME) = pa13.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS4  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG5_1 = 1 
+)	pa14
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE) = pa14.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR) = pa14.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME) = pa14.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME) = pa14.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS5  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG6_1 = 1 
+)	pa15
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE) = pa15.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR) = pa15.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME) = pa15.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME) = pa15.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS6  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG7_1 = 1 
+)	pa16
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE) = pa16.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR) = pa16.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME) = pa16.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME) = pa16.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS7  WJXBFS1,
+	pa01.WJXBFS8  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG8_1 = 1 
+)	pa17
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE) = pa17.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR) = pa17.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME) = pa17.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME) = pa17.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS9  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG9_1 = 1 
+)	pa18
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE) = pa18.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR) = pa18.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME) = pa18.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME) = pa18.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFSa  WJXBFS1,
+	pa01.WJXBFSb  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGa_1 = 1 
+)	pa19
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE) = pa19.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR) = pa19.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME) = pa19.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME) = pa19.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFSc  WJXBFS1,
+	pa01.WJXBFSd  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGb_1 = 1 
+)	pa110
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE) = pa110.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR) = pa110.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME) = pa110.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME) = pa110.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFSe  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGc_1 = 1 
+)	pa111
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE) = pa111.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR) = pa111.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME) = pa111.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME) = pa111.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFSf  WJXBFS1,
+	pa01.WJXBFS10  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGd_1 = 1 
+)	pa112
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE) = pa112.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR) = pa112.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME) = pa112.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME) = pa112.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS11  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGe_1 = 1 
+)	pa113
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE) = pa113.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR) = pa113.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME) = pa113.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME) = pa113.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS12  WJXBFS1,
+	pa01.WJXBFS13  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAGf_1 = 1 
+)	pa114
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE) = pa114.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR) = pa114.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME) = pa114.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME) = pa114.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS14  WJXBFS1,
+	pa01.WJXBFS15  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG10_1 = 1 
+)	pa115
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE) = pa115.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR) = pa115.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME) = pa115.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME) = pa115.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS16  WJXBFS1,
+	pa01.WJXBFS17  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG11_1 = 1
+)	pa116
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE) = pa116.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR) = pa116.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME) = pa116.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME) = pa116.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS18  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG12_1 = 1 
+)	pa117
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE) = pa117.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR) = pa117.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME) = pa117.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME) = pa117.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS19  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG13_1 = 1
+)	pa118
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE) = pa118.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR) = pa118.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME) = pa118.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME) = pa118.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS1a  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG14_1 = 1 
+)	pa119
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE) = pa119.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR) = pa119.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME) = pa119.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME) = pa119.SITE_NAME)
+	full outer join	
+	(
+	select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a15.SITE_NAME  SITE_NAME,
+	a14.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	count(distinct a11.AGENT_LOGIN_ID)  WJXBFS1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a13
+	  on 	(a11.D_PROJECT_TARGETS_ID = a13.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a14
+	  on 	(a13.PROJECT_ID = a14.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a15
+	  on 	(a11.D_SITE_ID = a15.D_SITE_ID)
+	join	
+	(
+	select	a12.D_DATE  D_DATE,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a16.SITE_NAME  SITE_NAME,
+	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a13
+	  on 	(a11.D_GROUP_ID = a13.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a14
+	  on 	(a11.D_PROJECT_TARGETS_ID = a14.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a14.PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a13.GROUP_NAME in ('CSR')
+ and a12.D_DATE between To_Date('01-09-2020', 'dd-mm-yyyy') and To_Date('30-09-2020', 'dd-mm-yyyy'))
+group by	a12.D_DATE,
+	a15.PROJECT_NAME,
+	a16.SITE_NAME,
+	a12.D_WEEK_OF_YEAR
+having	sum(a11.LOGIN_SECONDS) > 0.0 
+)	pa16
+	  on 	(a12.D_DATE = pa16.D_DATE and 
+	a12.D_WEEK_OF_YEAR = pa16.D_WEEK_OF_YEAR and 
+	a14.PROJECT_NAME = pa16.PROJECT_NAME and 
+	a15.SITE_NAME = pa16.SITE_NAME)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a17
+	  on 	(a11.D_GROUP_ID = a17.D_GROUP_ID)
+where	(a17.GROUP_NAME in ('CSR')
+ and a12.D_DATE between To_Date('01-09-2020', 'dd-mm-yyyy') and To_Date('30-09-2020', 'dd-mm-yyyy'))
+group by	a12.D_WEEK_OF_YEAR,
+	a15.SITE_NAME,
+	a14.PROJECT_NAME,
+	a12.D_DATE 
+)	pa120
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE, pa119.D_DATE) = pa120.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR, pa119.D_WEEK_OF_YEAR) = pa120.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME) = pa120.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME) = pa120.SITE_NAME)
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS1b  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	pa01.GODWFLAG16_1 = 1 
+)	pa121
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE, pa119.D_DATE, pa120.D_DATE) = pa121.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR, pa119.D_WEEK_OF_YEAR, pa120.D_WEEK_OF_YEAR) = pa121.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME, pa120.PROJECT_NAME) = pa121.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME, pa120.SITE_NAME) = pa121.SITE_NAME)
+	full outer join	
+	(
+	select	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME)  SITE_NAME,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	((((NVL((((pa11.WJXBFSd * 24.0) * 60.0) * 60.0), 0) + NVL((((pa11.WJXBFSe * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFSf * 24.0) * 60.0) * 60.0), 0)) + NVL((((pa11.WJXBFS10 * 24.0) * 60.0) * 60.0), 0)) + NVL((pa12.WJXBFS1 * 60.0), 0))  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS1,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS2,
+	sum(a11.HOLD_SECONDS)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS5,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFS6,
+	sum(a11.RING_SECONDS)  WJXBFS7,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	(((((sum(a11.EXTERNAL_SECONDS) + sum(a11.HOLD_SECONDS)) + sum(a11.IDLE_SECONDS)) + sum(a11.INTERNAL_SECONDS)) + sum(a11.TALK_SECONDS)) + sum(a11.WRAP_SECONDS))  WJXBFSb,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSc,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSd,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSe,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSf,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a13
+	  on 	(a11.D_GROUP_ID = a13.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a14
+	  on 	(a11.D_PROJECT_TARGETS_ID = a14.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a14.PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a13.GROUP_NAME in ('CSR'))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa11
+	full outer join	
+	(
+	select	pa01.D_DATE  D_DATE,
+	pa01.PROJECT_NAME  PROJECT_NAME,
+	pa01.SITE_NAME  SITE_NAME,
+	pa01.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa01.WJXBFS1  WJXBFS1,
+	pa01.WJXBFS2  WJXBFS2
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa01
+where	(pa01.GODWFLAG3_1 = 1
+ and pa01.GODWFLAG3_1 = 1) 
+)	pa12
+	  on 	(pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.SITE_NAME = pa12.SITE_NAME)
+where	coalesce(pa11.D_DATE, pa12.D_DATE) between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy') 
+)	pa122
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE, pa119.D_DATE, pa120.D_DATE, pa121.D_DATE) = pa122.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR, pa119.D_WEEK_OF_YEAR, pa120.D_WEEK_OF_YEAR, pa121.D_WEEK_OF_YEAR) = pa122.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME, pa120.PROJECT_NAME, pa121.PROJECT_NAME) = pa122.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME, pa120.SITE_NAME, pa121.SITE_NAME) = pa122.SITE_NAME)
+	full outer join	
+	(
+	select	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR)  D_WEEK_OF_YEAR,
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME)  SITE_NAME,
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME)  PROJECT_NAME,
+	coalesce(pa11.D_DATE, pa12.D_DATE)  D_DATE,
+	(NVL(pa11.ABD_Login_Seconds, 0) - NVL((((pa12.WJXBFS1 * 24.0) * 60.0) * 60.0), 0))  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum(a11.EXTERNAL_SECONDS)  WJXBFS1,
+	sum(a11.HANDLE_CALLS_COUNT)  WJXBFS2,
+	sum(a11.HOLD_SECONDS)  WJXBFS3,
+	sum(a11.IDLE_SECONDS)  WJXBFS4,
+	sum(a11.INTERNAL_SECONDS)  WJXBFS5,
+	sum(a11.LOGIN_SECONDS)  ABD_Login_Seconds,
+	sum(a11.PREDICTIVE_TALK_SECONDS)  WJXBFS6,
+	sum(a11.RING_SECONDS)  WJXBFS7,
+	sum(a11.TALK_RESERVE_SECONDS)  WJXBFS8,
+	sum(a11.TALK_SECONDS)  WJXBFS9,
+	sum(a11.WRAP_SECONDS)  WJXBFSa,
+	(((((sum(a11.EXTERNAL_SECONDS) + sum(a11.HOLD_SECONDS)) + sum(a11.IDLE_SECONDS)) + sum(a11.INTERNAL_SECONDS)) + sum(a11.TALK_SECONDS)) + sum(a11.WRAP_SECONDS))  WJXBFSb,
+	sum(a11.NOT_READY_SECONDS)  WJXBFSc,
+	(sum(a11.WRAP_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSd,
+	(sum(a11.TALK_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSe,
+	(sum(a11.HOLD_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFSf,
+	(sum(a11.IDLE_SECONDS) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END))  WJXBFS10
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a13
+	  on 	(a11.D_GROUP_ID = a13.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT_TARGETS	a14
+	  on 	(a11.D_PROJECT_TARGETS_ID = a14.D_PROJECT_TARGETS_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a14.PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a13.GROUP_NAME in ('CSR'))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa11
+	full outer join	
+	(
+	select	pa11.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	pa11.SITE_NAME  SITE_NAME,
+	pa11.PROJECT_NAME  PROJECT_NAME,
+	pa11.D_DATE  D_DATE,
+	NVL((NVL((pa11.WJXBFS1c * 60.0), 0) / (CASE WHEN ((24.0 * 60.0) * 60.0)=0 THEN NULL ELSE ((24.0 * 60.0) * 60.0) END)), 0)  WJXBFS1
+from	
+(
+select	a12.D_WEEK_OF_YEAR  D_WEEK_OF_YEAR,
+	a16.SITE_NAME  SITE_NAME,
+	a15.PROJECT_NAME  PROJECT_NAME,
+	a12.D_DATE  D_DATE,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS2,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('ACW') then 1 else 0 end))  GODWFLAG3_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS3,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Bathroom') then 1 else 0 end))  GODWFLAG4_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS4,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break') then 1 else 0 end))  GODWFLAG5_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS5,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Break 2') then 1 else 0 end))  GODWFLAG6_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS6,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Coaching') then 1 else 0 end))  GODWFLAG7_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS7,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS8,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back') then 1 else 0 end))  GODWFLAG8_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS9,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Emergency') then 1 else 0 end))  GODWFLAG9_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSa,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSb,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Follow Up') then 1 else 0 end))  GODWFLAGa_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSc,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFSd,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Lunch') then 1 else 0 end))  GODWFLAGb_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSe,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Meeting') then 1 else 0 end))  GODWFLAGc_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFSf,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS10,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Offline Work') then 1 else 0 end))  GODWFLAGd_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS11,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Personal') then 1 else 0 end))  GODWFLAGe_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS12,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS13,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('SME') then 1 else 0 end))  GODWFLAGf_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS14,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS15,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Special Projects') then 1 else 0 end))  GODWFLAG10_1,
+	(sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end)) * 60.0)  WJXBFS16,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS17,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('VM') then 1 else 0 end))  GODWFLAG11_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS18,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Resource Center') then 1 else 0 end))  GODWFLAG12_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS19,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('System Issues') then 1 else 0 end))  GODWFLAG13_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1a,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Training') then 1 else 0 end))  GODWFLAG14_1,
+	sum((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1b,
+	max((Case when a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3') then 1 else 0 end))  GODWFLAG16_1,
+	sum((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then a11.ACTIVITY_MINUTES else NULL end))  WJXBFS1c,
+	max((Case when (a13.ACTIVITY_TYPE_CATEGORY in ('Lunch and Break') and a13.ACTIVITY_TYPE_NAME in ('Lunch') and a13.IS_PAID_FLAG in ('0')) then 1 else 0 end))  GODWFLAG18_1
+from	CISCO_ENTERPRISE_CC.CC_F_AGENT_ACTIVITY_BY_DATE	a11
+	join	CISCO_ENTERPRISE_CC.CC_D_DATES	a12
+	  on 	(a11.D_DATE_ID = a12.D_DATE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_ACTIVITY_TYPE	a13
+	  on 	(a11.D_ACTIVITY_TYPE_ID = a13.D_ACTIVITY_TYPE_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_GROUP	a14
+	  on 	(a11.D_GROUP_ID = a14.D_GROUP_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_PROJECT	a15
+	  on 	(a11.D_PROJECT_ID = a15.PROJECT_ID)
+	left outer join	CISCO_ENTERPRISE_CC.CC_D_SITE	a16
+	  on 	(a11.D_SITE_ID = a16.D_SITE_ID)
+where	(a12.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and a14.GROUP_NAME in ('CSR')
+ and (a13.ACTIVITY_TYPE_NAME in ('ACW')
+ or a13.ACTIVITY_TYPE_NAME in ('Bathroom')
+ or a13.ACTIVITY_TYPE_NAME in ('Break')
+ or a13.ACTIVITY_TYPE_NAME in ('Break 2')
+ or a13.ACTIVITY_TYPE_NAME in ('Coaching')
+ or a13.ACTIVITY_TYPE_NAME in ('Dropped Call-Call Back')
+ or a13.ACTIVITY_TYPE_NAME in ('Emergency')
+ or a13.ACTIVITY_TYPE_NAME in ('Follow Up')
+ or a13.ACTIVITY_TYPE_NAME in ('Lunch')
+ or a13.ACTIVITY_TYPE_NAME in ('Meeting')
+ or a13.ACTIVITY_TYPE_NAME in ('Offline Work')
+ or a13.ACTIVITY_TYPE_NAME in ('Personal')
+ or a13.ACTIVITY_TYPE_NAME in ('SME')
+ or a13.ACTIVITY_TYPE_NAME in ('Special Projects')
+ or a13.ACTIVITY_TYPE_NAME in ('VM')
+ or a13.ACTIVITY_TYPE_NAME in ('Resource Center')
+ or a13.ACTIVITY_TYPE_NAME in ('System Issues')
+ or a13.ACTIVITY_TYPE_NAME in ('Training')
+ or a13.ACTIVITY_TYPE_NAME in ('Outbound', 'Outbound - CCC', 'Outbound - M3')))
+group by	a12.D_WEEK_OF_YEAR,
+	a16.SITE_NAME,
+	a15.PROJECT_NAME,
+	a12.D_DATE 
+)	pa11
+where	(pa11.D_DATE between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy')
+ and pa11.GODWFLAG18_1 = 1) 
+)	pa12
+	  on 	(pa11.D_DATE = pa12.D_DATE and 
+	pa11.D_WEEK_OF_YEAR = pa12.D_WEEK_OF_YEAR and 
+	pa11.PROJECT_NAME = pa12.PROJECT_NAME and 
+	pa11.SITE_NAME = pa12.SITE_NAME)
+where	coalesce(pa11.D_DATE, pa12.D_DATE) between To_Date('07-09-2020', 'dd-mm-yyyy') and To_Date('11-09-2020', 'dd-mm-yyyy') 
+)	pa123
+	  on 	(coalesce(pa11.D_DATE, pa12.D_DATE, pa13.D_DATE, pa14.D_DATE, pa15.D_DATE, pa16.D_DATE, pa17.D_DATE, pa18.D_DATE, pa19.D_DATE, pa110.D_DATE, pa111.D_DATE, pa112.D_DATE, pa113.D_DATE, pa114.D_DATE, pa115.D_DATE, pa116.D_DATE, pa117.D_DATE, pa118.D_DATE, pa119.D_DATE, pa120.D_DATE, pa121.D_DATE, pa122.D_DATE) = pa123.D_DATE and 
+	coalesce(pa11.D_WEEK_OF_YEAR, pa12.D_WEEK_OF_YEAR, pa13.D_WEEK_OF_YEAR, pa14.D_WEEK_OF_YEAR, pa15.D_WEEK_OF_YEAR, pa16.D_WEEK_OF_YEAR, pa17.D_WEEK_OF_YEAR, pa18.D_WEEK_OF_YEAR, pa19.D_WEEK_OF_YEAR, pa110.D_WEEK_OF_YEAR, pa111.D_WEEK_OF_YEAR, pa112.D_WEEK_OF_YEAR, pa113.D_WEEK_OF_YEAR, pa114.D_WEEK_OF_YEAR, pa115.D_WEEK_OF_YEAR, pa116.D_WEEK_OF_YEAR, pa117.D_WEEK_OF_YEAR, pa118.D_WEEK_OF_YEAR, pa119.D_WEEK_OF_YEAR, pa120.D_WEEK_OF_YEAR, pa121.D_WEEK_OF_YEAR, pa122.D_WEEK_OF_YEAR) = pa123.D_WEEK_OF_YEAR and 
+	coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME, pa120.PROJECT_NAME, pa121.PROJECT_NAME, pa122.PROJECT_NAME) = pa123.PROJECT_NAME and 
+	coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME, pa120.SITE_NAME, pa121.SITE_NAME, pa122.SITE_NAME) = pa123.SITE_NAME)
+where coalesce(pa11.SITE_NAME, pa12.SITE_NAME, pa13.SITE_NAME, pa14.SITE_NAME, pa15.SITE_NAME, pa16.SITE_NAME, pa17.SITE_NAME, pa18.SITE_NAME, pa19.SITE_NAME, pa110.SITE_NAME, pa111.SITE_NAME, pa112.SITE_NAME, pa113.SITE_NAME, pa114.SITE_NAME, pa115.SITE_NAME, pa116.SITE_NAME, pa117.SITE_NAME, pa118.SITE_NAME, pa119.SITE_NAME, pa120.SITE_NAME, pa121.SITE_NAME, pa122.SITE_NAME, pa123.SITE_NAME) = 'Rancho Cordova'
+     and coalesce(pa11.PROJECT_NAME, pa12.PROJECT_NAME, pa13.PROJECT_NAME, pa14.PROJECT_NAME, pa15.PROJECT_NAME, pa16.PROJECT_NAME, pa17.PROJECT_NAME, pa18.PROJECT_NAME, pa19.PROJECT_NAME, pa110.PROJECT_NAME, pa111.PROJECT_NAME, pa112.PROJECT_NAME, pa113.PROJECT_NAME, pa114.PROJECT_NAME, pa115.PROJECT_NAME, pa116.PROJECT_NAME, pa117.PROJECT_NAME, pa118.PROJECT_NAME, pa119.PROJECT_NAME, pa120.PROJECT_NAME, pa121.PROJECT_NAME, pa122.PROJECT_NAME, pa123.PROJECT_NAME) = 'CA HCO'

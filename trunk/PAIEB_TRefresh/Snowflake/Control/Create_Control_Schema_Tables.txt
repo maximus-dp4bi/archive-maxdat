@@ -1,0 +1,50 @@
+//use role MAXEB_DP4BI_PAIEB_DEV_ADMIN;
+//use warehouse MAXEB_DP4BI_PAIEB_DEV_LOAD_WH;
+//use database MAXEB_DP4BI_PAIEB_DEV;
+//use schema PAIEB_DEV;
+//drop schema control;
+
+//create schema CONTROL;
+USE SCHEMA CONTROL;
+
+create sequence if not exists "CONTROL"."PAIEB_JOB_SEQ" start 1 increment 1;
+
+create table if not exists "CONTROL"."PAIEB_JOB_CTRL" ("JOBID" number(32) , "JOBNAME" VARCHAR(50), STATUS VARCHAR(10), status_date date, STARTTIME DATE, ENDTIME DATE, COMMENTS VARCHAR(100), CREATE_NTZ TIMESTAMP default to_timestamp_ntz(current_timestamp));
+Create table if not exists "CONTROL"."PAIEB_ERROR_LOG" ("LOG_ID" NUMBER IDENTITY START 1 INCREMENT 1, JOBID NUMBER, JOBNAME VARCHAR(50), ERROR_ROWID NUMBER(32), ERROR_COMMENT VARCHAR(2000), CREATE_NTZ TIMESTAMP default to_timestamp_ntz(current_timestamp));
+Create table if not exists "CONTROL"."PAIEB_COMMENT_LOG" ("LOG_ID" NUMBER IDENTITY START 1 INCREMENT 1, JOBID NUMBER, JOBNAME VARCHAR(50), COMMENT_ROWID NUMBER(32), COMMENTS VARCHAR(2000), CREATE_NTZ TIMESTAMP default to_timestamp_ntz(current_timestamp));
+
+
+create table if not exists control.paieb_awsdms_copy_log (
+file varchar(1000)
+, status varchar(20)
+, rows_parsed number(32)
+, rows_loaded number(32)
+, error_limit number(32)
+ , errors_Seen number(32)
+, first_error varchar2(1000)
+, first_error_line varchar2(1000)
+  , first_error_character varchar2(1000)
+  , first_error_column_name varchar2(1000)
+, create_timestamp timestamp
+);
+
+
+// unprocessed files list from dir
+create or replace table "CONTROL"."PAIEB_S3_FILES_TO_INGEST" ("LISTID" NUMBER IDENTITY START  1 INCREMENT by 1, TABLE_NAME VARCHAR(1000), "FULLPATH" VARCHAR(1000), FILENAME VARCHAR(1000), SIZE NUMBER(32), LAST_MODIFIED VARCHAR(100), LAST_MODIFIED_NTZ TIMESTAMP, CREATE_NTZ TIMESTAMP DEFAULT to_timestamp_ntz(current_timestamp), PROCESSED NUMBER(1), COMMENTS VARCHAR(30), JOBID NUMBER(32));
+// processed files list
+create or replace table "CONTROL"."PAIEB_S3_FILES_HIST" ("LISTID" NUMBER IDENTItY START 1 INCREMENT 1, "FULLPATH" VARCHAR(1000), TABLE_NAME VARCHAR2(1000), FILENAME VARCHAR(1000), SIZE NUMBER(32), LAST_MODIFIED VARCHAR(25), CREATE_NTZ TIMESTAMP DEFAULT to_timestamp_ntz(current_timestamp), PROCESSED NUMBER(1), COMMENTS VARCHAR(30), JOBID NUMBER(32));
+
+alter table control.paieb_job_ctrl add (
+ params variant
+ );
+ 
+
+alter table control.paieb_s3_files_to_ingest modify (comments varchar);
+
+alter table control.paieb_job_ctrl modify (comments varchar);
+
+// unprocessed files list from dir
+create or replace table "CONTROL"."PAIEB_S3_CDC_TO_INGEST" ("LISTID" NUMBER IDENTITY START  1 INCREMENT by 1, TABLE_NAME VARCHAR(1000), "FULLPATH" VARCHAR(1000), FILENAME VARCHAR(1000), SIZE NUMBER(32), LAST_MODIFIED VARCHAR(100), LAST_MODIFIED_NTZ TIMESTAMP, CREATE_NTZ TIMESTAMP DEFAULT to_timestamp_ntz(current_timestamp), PROCESSED NUMBER(1), COMMENTS VARCHAR(30), JOBID NUMBER(32));
+alter table control.paieb_s3_cdc_to_ingest modify (comments varchar);
+
+alter table control.paieb_job_Ctrl add (start_time timestamp_ntz(9), end_time timestamp_ntz(9), status_time timestamp_ntz(9));

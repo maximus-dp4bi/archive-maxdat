@@ -1,0 +1,351 @@
+
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_CASE_LINK' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_CASE_LINK_ID' primary_key , $1:APP_CASE_LINK_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_CASE_LINK/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_DOC_DATA' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_DOC_DATA_ID' primary_key , $1:APP_DOC_DATA_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_DOC_DATA/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_ELIG_OUTCOME' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_ELIG_OUTCOME_ID' primary_key , $1:APP_ELIG_OUTCOME_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_ELIG_OUTCOME/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_HEADER' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APPLICATION_ID' primary_key , $1:APPLICATION_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_HEADER/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_HEADER_EXT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_HEADER_EXT_ID' primary_key , $1:APP_HEADER_EXT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_HEADER_EXT/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_INDIVIDUAL' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_INDIVIDUAL_ID' primary_key , $1:APP_INDIVIDUAL_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_INDIVIDUAL/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_MISSING_INFO' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'MISSING_INFO_ID' primary_key , $1:MISSING_INFO_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_MISSING_INFO/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_STATUS_HISTORY' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_STATUS_HISTORY_ID' primary_key , $1:APP_STATUS_HISTORY_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_STATUS_HISTORY/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'DOC_FLEX_FIELD' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'DOC_FLEX_FIELD_ID' primary_key , $1:DOC_FLEX_FIELD_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/DOC_FLEX_FIELD/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'DOC_LINK' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'DOC_LINK_ID' primary_key , $1:DOC_LINK_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/DOC_LINK/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'DOCUMENT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'DOCUMENT_ID' primary_key , $1:DOCUMENT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/DOCUMENT/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'DOCUMENT_SET' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'DOCUMENT_Set_id' primary_key , $1:DOCUMENT_Set_id::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/DOCUMENT_SET/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'LETTER_REQUEST' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'LMREQ_ID' primary_key , $1:LMREQ_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/LETTER_REQUEST/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'LETTER_REQUEST_LINK' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'LMLINK_ID' primary_key , $1:LMLINK_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/LETTER_REQUEST_LINK/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'NOTIFICATION_REQUEST' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'NOTIFICATION_REQUEST_ID' primary_key , $1:NOTIFICATION_REQUEST_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/NOTIFICATION_REQUEST/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'STEP_INSTANCE' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'STEP_INSTANCE_ID' primary_key , $1:STEP_INSTANCE_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/STEP_INSTANCE/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'ADDRESS' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'ADDR_ID' primary_key , $1:ADDR_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/ADDRESS/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'CLIENT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'CLNT_CLIENT_ID' primary_key , $1:CLNT_CLIENT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/CLIENT/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'PHONE_NUMBER' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'PHON_ID' primary_key , $1:PHON_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/PHONE_NUMBER/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'ASSESSMENT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'ASSESSMENT_ID' primary_key , $1:ASSESSMENT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/ASSESSMENT/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_ADV_PLAN_SELECTION' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_ADV_PLAN_ID' primary_key , $1:APP_ADV_PLAN_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/APP_ADV_PLAN_SELECTION/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'CALENDAR_ITEM' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'CALENDAR_ITEM_ID' primary_key , $1:CALENDAR_ITEM_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/CALENDAR_ITEM/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'SELECTION_TXN' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'SELECTION_TXN_ID' primary_key , $1:SELECTION_TXN_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/SELECTION_TXN/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'SELECTION_SEGMENT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'SELECTION_SEGMENT_ID' primary_key , $1:SELECTION_SEGMENT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/SELECTION_SEGMENT/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'ASSESSMENT_HIST' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'ASSESSMENT_HIST_ID' primary_key , $1:ASSESSMENT_HIST_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from @PAIEB_PRD.MAXEB_DP4BI_PAIEB_PRD_S3/CDC/ATS/ASSESSMENT_HIST/ ) 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;

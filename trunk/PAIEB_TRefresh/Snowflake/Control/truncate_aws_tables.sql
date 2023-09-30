@@ -1,0 +1,26 @@
+truncate table paieb_prd.ADDRESS;
+truncate table paieb_prd.APP_ADV_PLAN_SELECTION;
+truncate table paieb_prd.DOCUMENT_SET;
+truncate table paieb_prd.SELECTION_TXN;
+truncate table paieb_prd.APP_MISSING_INFO;
+truncate table paieb_prd.APP_DOC_DATA;
+truncate table paieb_prd.LETTER_REQUEST_LINK;
+truncate table paieb_prd.APP_HEADER;
+truncate table paieb_prd.LETTER_REQUEST;
+truncate table paieb_prd.APP_STATUS_HISTORY;
+truncate table paieb_prd.APP_INDIVIDUAL;
+truncate table paieb_prd.DOC_LINK;
+truncate table paieb_prd.STEP_INSTANCE;
+truncate table paieb_prd.DOC_FLEX_FIELD;
+truncate table paieb_prd.ASSESSMENT_HIST;
+truncate table paieb_prd.CALENDAR_ITEM;
+truncate table paieb_prd.APP_HEADER_EXT;
+truncate table paieb_prd.PHONE_NUMBER;
+truncate table paieb_prd.NOTIFICATION_REQUEST;
+truncate table paieb_prd.DOCUMENT;
+truncate table paieb_prd.SELECTION_SEGMENT;
+truncate table paieb_prd.CLIENT;
+truncate table paieb_prd.ASSESSMENT;
+truncate table paieb_prd.APP_ELIG_OUTCOME;
+truncate table paieb_prd.APP_CASE_LINK;
+

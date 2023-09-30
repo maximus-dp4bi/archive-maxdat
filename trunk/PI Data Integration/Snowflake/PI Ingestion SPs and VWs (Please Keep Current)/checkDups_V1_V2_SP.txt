@@ -1,0 +1,40 @@
+CREATE or replace PROCEDURE checkDups(tableName VARCHAR)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+
+  //set logging on
+     var sqlCommand = "set do_log = true;";
+     snowflake.execute ({sqlText: sqlCommand});
+     sqlCommand = "set log_table = 'PI_DATA_CHECK_LOG';";
+     snowflake.execute ({sqlText: sqlCommand});
+     
+function log(msg){
+    snowflake.createStatement( { sqlText: `call do_log(:1)`, binds:[msg] } ).execute();
+}     
+    
+    var dupCount = 0;
+    var projectid = "";
+    var sqlCommand = "with dups as (select projectid, programid, raw, count(*) as dup_count from raw."+ TABLENAME + " group by 1,2,3) select projectid, count(*) from dups where dup_count > 1 group by 1;";
+    var stmt = snowflake.createStatement({sqlText: sqlCommand});    
+     try {
+            var result1 = stmt.execute();
+            while (result1.next()){
+               dupCount = result1.getColumnValue(2);
+               projectid = result1.getColumnValue(1) 
+               if (dupCount > 1){
+                  log("WARNING for project "+projectid+": "+ dupCount + " records have duplicates in table "+TABLENAME)
+               }
+            }
+         }
+    catch (err)  {
+        log("WARNING for " + TABLENAME + ": "+ err);
+        return "1"
+        }
+//log("Checked table for dups: "+TABLENAME);
+  return "0";
+  
+  $$;

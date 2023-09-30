@@ -1,0 +1,2147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>load_CC_F_FORECAST_INTERVAL</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+---------------------------------
+
+SVN_FILE_URL        = $URL: svn://rcmxapp1d.maximus.com/maxdat/Contact%20Center/trunk/kettle/MAXDAT/main/transforms/dimensional/load_CC_F_FORECAST_INTERVAL.ktr $ 
+
+SVN_REVISION        = $Revision: 9935 $ 
+
+SVN_REVISION_DATE   = $Date: 2014-05-06 16:54:42 -0400 (Tue, 06 May 2014) $
+
+SVN_REVISION_AUTHOR = $Author: sk51922 $
+
+---------------------------------
+</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+        <parameter>
+            <name>endDateTime</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>startDateTime</name>
+            <default_value/>
+            <description/>
+        </parameter>
+    </parameters>
+    <log>
+<trans-log-table><connection>MAXDAT</connection>
+<schema/>
+<table>CC_L_TRANSFORMATION</table>
+<size_limit_lines/>
+<interval/>
+<timeout_days>30</timeout_days>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;07&#47;03 13:24:49.085</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;07&#47;03 13:24:49.085</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Description:
+This transform handles creating the fact records for CC_F_FORECAST_INTERVAL.
+It will do it for a date range so the dims need to be looked up by the INTERVAL_DATE
+
+Input:
+- interval records by date range
+
+Output:
+- interval facts records in the CC_F_FORECAST_INTERVAL table
+
+Steps:
+1.  Get S_FCST_INTERVAL - pull the data from staging to populate the fact table
+2.  Get S_INTERVAL - pull data to satisfy the foreign key constraint to D_INTERVAL
+3.  Get C_UNIT_OF_WORK - pull data to satisfy the foreign key constraint to D_UNIT_OF_WORK
+4.  Get S_PROD_PLAN_HORIZON - pull data to satisfy the foreign key constraint to D_PRODUCTION_PLAN_HORIZON
+5.  Select values - format fields
+6.  Get D_DATES - retrieve the dimensional table foreign key to D_DATES
+7.  Get D_UNIT_OF_WORK - retrieve the dimensional table foreign key to D_UNIT_OF_WORK
+8.  Get D_INTERVAL - retrieve the dimensional table foreign key to D_INTERVAL
+9.  Get D_PROGRAM - retrieve the dimensional table foreign key to D_PROGRAM
+10.  Get D_PROJECT - retrieve the dimensional table foreign key to D_PROJECT
+11.  Get D_GEOGRAPHY_MASTER - retrieve the dimensional table foreign key to D_GEOGRAPHY_MASTER
+12.  Get D_PRODUCTION_PLAN - retrieve the dimensional table foreign key to D_PRODUCTION_PLAN
+13.  Get D_PRODUCTION_PLAN_HORIZON - retrieve the dimensional table foreign key to D_PRODUCTION_PLAN_HORIZON
+14.  Insert &#47; Update CC_F_FORECAST_INTERVAL - insert or update records in the fact table</note>
+      <xloc>0</xloc>
+      <yloc>0</yloc>
+      <width>758</width>
+      <heigth>384</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>1.  Retrieve staging</note>
+      <xloc>45</xloc>
+      <yloc>510</yloc>
+      <width>122</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>2.  Retrieve dimensional</note>
+      <xloc>43</xloc>
+      <yloc>651</yloc>
+      <width>149</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>3.  Update fact table</note>
+      <xloc>719</xloc>
+      <yloc>879</yloc>
+      <width>126</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>ACD</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_ACD_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>localhost</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>xe</database>
+    <port>1521</port>
+    <username>projectuser</username>
+    <password>Encrypted 2be98afc83b969da1fc12a468e6b882e8</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MOTS</name>
+    <server>${DB_MOTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>10</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>WFM</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_WFM_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Select values</from><to>Get D_DATES</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_DATES</from><to>Get D_UNIT_OF_WORK</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_UNIT_OF_WORK</from><to>GET D_INTERVAL</to><enabled>Y</enabled> </hop>  <hop> <from>GET D_INTERVAL</from><to>Get D_PROGRAM</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_PROGRAM</from><to>Get D_PROJECT</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_PROJECT</from><to>Get D_GEOGRAPHY_MASTER</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_GEOGRAPHY_MASTER</from><to>Get D_PRODUCTION_PLAN</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_PRODUCTION_PLAN</from><to>Get D_PRODUCTION_PLAN_HORIZON</to><enabled>Y</enabled> </hop>  <hop> <from>Get S_FCST_INTERVAL</from><to>Get S_INTERVAL</to><enabled>Y</enabled> </hop>  <hop> <from>Get S_INTERVAL</from><to>Get C_UNIT_OF_WORK</to><enabled>Y</enabled> </hop>  <hop> <from>Get S_PROD_PLAN_HORIZON</from><to>Get CC_S_PRODUCTION_PLAN</to><enabled>Y</enabled> </hop>  <hop> <from>Get CC_S_PRODUCTION_PLAN</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Get C_UNIT_OF_WORK</from><to>Get S_PROD_PLAN_HORIZON</to><enabled>Y</enabled> </hop>  <hop> <from>Get D_PRODUCTION_PLAN_HORIZON</from><to>Insert &#47; Update CC_F_FORECAST_INTERVAL</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>GET D_INTERVAL</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>CC_D_INTERVAL</table>
+      <connection>MAXDAT</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>INTERVAL_START_DATE</name>
+          <lookup>INTERVAL_START_DATE</lookup>
+        </key>
+        <key>
+          <name>INTERVAL_END_DATE</name>
+          <lookup>INTERVAL_END_DATE</lookup>
+        </key>
+        <date>
+          <name>INTERVAL_DATE</name>
+          <from>RECORD_EFF_DT</from>
+          <to>RECORD_END_DT</to>
+        </date>
+        <field>
+          <name>INTERVAL_DIM_ID</name>
+          <lookup>D_INTERVAL_ID</lookup>
+          <update>BigNumber</update>
+        </field>
+        <return>
+          <name>D_INTERVAL_ID</name>
+          <rename>INTERVAL_ID_TECH</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version/>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>10000</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>466</xloc>
+      <yloc>649</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get CC_S_PRODUCTION_PLAN</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_S_PRODUCTION_PLAN</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PRODUCTION_PLAN_ID</name>
+        <field>PRODUCTION_PLAN_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PRODUCTION_PLAN_NAME</name>
+        <rename>PRODUCTION_PLAN_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROGRAM_NAME</name>
+        <rename>PROGRAM_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>PROJECT_NAME</name>
+        <rename>PROJECT_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>GEOGRAPHY_NAME</name>
+        <rename>GEOGRAPHY_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>622</xloc>
+      <yloc>445</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get C_UNIT_OF_WORK</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_C_UNIT_OF_WORK</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>UNIT_OF_WORK_ID</name>
+        <field>UNIT_OF_WORK_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>UNIT_OF_WORK_NAME</name>
+        <rename>UNIT_OF_WORK_NAME</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>422</xloc>
+      <yloc>445</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_DATES</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_DATES</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>INTERVAL_DATE</name>
+        <field>D_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>D_DATE_ID</name>
+        <rename>D_DATE_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>268</xloc>
+      <yloc>649</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_GEOGRAPHY_MASTER</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_GEOGRAPHY_MASTER</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>GEOGRAPHY_NAME</name>
+        <field>GEOGRAPHY_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>GEOGRAPHY_MASTER_ID</name>
+        <rename>GEOGRAPHY_MASTER_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>763</xloc>
+      <yloc>738</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_PRODUCTION_PLAN</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PRODUCTION_PLAN</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PRODUCTION_PLAN_NAME</name>
+        <field>PRODUCTION_PLAN_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>PROJECT_ID</name>
+        <field>PROJECT_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>PROGRAM_ID</name>
+        <field>PROGRAM_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>GEOGRAPHY_MASTER_ID</name>
+        <field>GEOGRAPHY_MASTER_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PRODUCTION_PLAN_ID</name>
+        <rename>D_PRODUCTION_PLAN_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>862</xloc>
+      <yloc>649</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_PRODUCTION_PLAN_HORIZON</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PRODUCTION_PLAN_HORIZON</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>D_PRODUCTION_PLAN_ID</name>
+        <field>PRODUCTION_PLAN_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>HORIZON_START_DATE</name>
+        <field>HORIZON_START_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>HORIZON_START_HOUR</name>
+        <field>HORIZON_START_HOUR</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>HORIZON_END_DATE</name>
+        <field>HORIZON_END_DATE</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>HORIZON_END_HOUR</name>
+        <field>HORIZON_END_HOUR</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PRODUCTION_PLAN_HRZN_ID</name>
+        <rename>D_PRODUCTION_PLAN_HORIZON_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1004</xloc>
+      <yloc>738</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_PROGRAM</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PROGRAM</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROGRAM_NAME</name>
+        <field>PROGRAM_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROGRAM_ID</name>
+        <rename>PROGRAM_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>565</xloc>
+      <yloc>738</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_PROJECT</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_PROJECT</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PROJECT_NAME</name>
+        <field>PROJECT_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PROJECT_ID</name>
+        <rename>PROJECT_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>664</xloc>
+      <yloc>649</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get D_UNIT_OF_WORK</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_D_UNIT_OF_WORK</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>UNIT_OF_WORK_NAME</name>
+        <field>UNIT_OF_WORK_NAME</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>UOW_ID</name>
+        <rename>D_UNIT_OF_WORK_ID</rename>
+        <default/>
+        <type>BigNumber</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>367</xloc>
+      <yloc>738</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get S_FCST_INTERVAL</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT
+  FCST_INTERVAL_ID
+, PRODUCTION_PLAN_HORIZON_ID
+, UNIT_OF_WORK_ID
+, INTERVAL_DATE
+, INTERVAL_ID
+, FORECAST_VERSION
+, CONTACTS_CREATED
+, CONTACTS_OFFERED
+, CONTACTS_HANDLED
+, MIN_SPEED_TO_HANDLE
+, MAX_SPEED_TO_HANDLE
+, MEAN_SPEED_TO_HANDLE
+, MEDIAN_SPEED_TO_HANDLE
+, STDDEV_SPEED_TO_HANDLE
+, MIN_SPEED_OF_ANSWER
+, MAX_SPEED_OF_ANSWER
+, MEAN_SPEED_OF_ANSWER
+, MEDIAN_SPEED_OF_ANSWER
+, STDDEV_SPEED_OF_ANSWER
+, CONTACTS_ABANDONED
+, CONTACT_INVENTORY
+, MIN_CONTACT_INVENTORY_AGE
+, MAX_CONTACT_INVENTORY_AGE
+, MEAN_CONTACT_INVENTORY_AGE
+, MEDIAN_CONTACT_INVENTORY_AGE
+, STDDEV_CONTACT_INVENTORY_AGE
+, MIN_HANDLE_TIME
+, MAX_HANDLE_TIME
+, MEAN_HANDLE_TIME
+, MEDIAN_HANDLE_TIME
+, CONTACT_INVENTORY_JEOPARDY
+, STDDEV_HANDLE_TIME
+, LABOR_MINUTES_TOTAL
+, LABOR_MINUTES_AVAILABLE
+, LABOR_MINUTES_WAITING
+, HEADCOUNT_TOTAL
+, HEADCOUNT_AVAILABLE
+, HEADCOUNT_UNAVAILABLE
+, SRVC_LEVEL_ANSWERED_PERCENT
+, SRVC_LEVEL_ANSWERED_PERCENT_2
+FROM CC_S_FCST_INTERVAL
+WHERE INTERVAL_DATE BETWEEN to_date(&apos;${startDate}&apos;, &apos;yyyy&#47;mm&#47;dd&apos;) AND to_date(&apos;${endDate}&apos;, &apos;yyyy&#47;mm&#47;dd&apos;)
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>222</xloc>
+      <yloc>445</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get S_INTERVAL</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_S_INTERVAL</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>INTERVAL_ID</name>
+        <field>INTERVAL_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>INTERVAL_START_DATE</name>
+        <rename>INTERVAL_START_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+      <value>
+        <name>INTERVAL_END_DATE</name>
+        <rename>INTERVAL_END_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>322</xloc>
+      <yloc>524</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get S_PROD_PLAN_HORIZON</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>CC_S_PRODUCTION_PLAN_HORIZON</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>PRODUCTION_PLAN_HORIZON_ID</name>
+        <field>PRODUCTION_PLAN_HORIZON_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PRODUCTION_PLAN_ID</name>
+        <rename>PRODUCTION_PLAN_ID</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+      <value>
+        <name>HORIZON_START_DATE</name>
+        <rename>HORIZON_START_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+      <value>
+        <name>HORIZON_START_HOUR</name>
+        <rename>HORIZON_START_HOUR</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+      <value>
+        <name>HORIZON_END_DATE</name>
+        <rename>HORIZON_END_DATE</rename>
+        <default/>
+        <type>Date</type>
+      </value>
+      <value>
+        <name>HORIZON_END_HOUR</name>
+        <rename>HORIZON_END_HOUR</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>522</xloc>
+      <yloc>524</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update CC_F_FORECAST_INTERVAL</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>10000</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>CC_F_FORECAST_INTERVAL</table>
+      <key>
+        <name>D_PRODUCTION_PLAN_HORIZON_ID</name>
+        <field>D_PRODUCTION_PLAN_HORIZON_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>D_UNIT_OF_WORK_ID</name>
+        <field>D_UNIT_OF_WORK_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>D_DATE_ID</name>
+        <field>D_DATE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>INTERVAL_ID_TECH</name>
+        <field>D_INTERVAL_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>FORECAST_VERSION</name>
+        <field>FORECAST_VERSION</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>D_PRODUCTION_PLAN_HORIZON_ID</name>
+        <rename>D_PRODUCTION_PLAN_HORIZON_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>D_UNIT_OF_WORK_ID</name>
+        <rename>D_UNIT_OF_WORK_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>D_DATE_ID</name>
+        <rename>D_DATE_ID</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>D_INTERVAL_ID</name>
+        <rename>INTERVAL_ID_TECH</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>FORECAST_VERSION</name>
+        <rename>FORECAST_VERSION</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>CONTACTS_CREATED</name>
+        <rename>CONTACTS_CREATED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_OFFERED</name>
+        <rename>CONTACTS_OFFERED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_HANDLED</name>
+        <rename>CONTACTS_HANDLED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MIN_SPEED_TO_HANDLE</name>
+        <rename>MIN_SPEED_TO_HANDLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MAX_SPEED_TO_HANDLE</name>
+        <rename>MAX_SPEED_TO_HANDLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEAN_SPEED_TO_HANDLE</name>
+        <rename>MEAN_SPEED_TO_HANDLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEDIAN_SPEED_TO_HANDLE</name>
+        <rename>MEDIAN_SPEED_TO_HANDLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>STDDEV_SPEED_TO_HANDLE</name>
+        <rename>STDDEV_SPEED_TO_HANDLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MIN_SPEED_OF_ANSWER</name>
+        <rename>MIN_SPEED_OF_ANSWER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MAX_SPEED_OF_ANSWER</name>
+        <rename>MAX_SPEED_OF_ANSWER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEAN_SPEED_OF_ANSWER</name>
+        <rename>MEAN_SPEED_OF_ANSWER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEDIAN_SPEED_OF_ANSWER</name>
+        <rename>MEDIAN_SPEED_OF_ANSWER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>STDDEV_SPEED_OF_ANSWER</name>
+        <rename>STDDEV_SPEED_OF_ANSWER</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACTS_ABANDONED</name>
+        <rename>CONTACTS_ABANDONED</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACT_INVENTORY</name>
+        <rename>CONTACT_INVENTORY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MIN_CONTACT_INVENTORY_AGE</name>
+        <rename>MIN_CONTACT_INVENTORY_AGE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MAX_CONTACT_INVENTORY_AGE</name>
+        <rename>MAX_CONTACT_INVENTORY_AGE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEAN_CONTACT_INVENTORY_AGE</name>
+        <rename>MEAN_CONTACT_INVENTORY_AGE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEDIAN_CONTACT_INVENTORY_AGE</name>
+        <rename>MEDIAN_CONTACT_INVENTORY_AGE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>STDDEV_CONTACT_INVENTORY_AGE</name>
+        <rename>STDDEV_CONTACT_INVENTORY_AGE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MIN_HANDLE_TIME</name>
+        <rename>MIN_HANDLE_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MAX_HANDLE_TIME</name>
+        <rename>MAX_HANDLE_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEAN_HANDLE_TIME</name>
+        <rename>MEAN_HANDLE_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MEDIAN_HANDLE_TIME</name>
+        <rename>MEDIAN_HANDLE_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CONTACT_INVENTORY_JEOPARDY</name>
+        <rename>CONTACT_INVENTORY_JEOPARDY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>STDDEV_HANDLE_TIME</name>
+        <rename>STDDEV_HANDLE_TIME</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LABOR_MINUTES_TOTAL</name>
+        <rename>LABOR_MINUTES_TOTAL</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LABOR_MINUTES_AVAILABLE</name>
+        <rename>LABOR_MINUTES_AVAILABLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LABOR_MINUTES_WAITING</name>
+        <rename>LABOR_MINUTES_WAITING</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>HEADCOUNT_TOTAL</name>
+        <rename>HEADCOUNT_TOTAL</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>HEADCOUNT_AVAILABLE</name>
+        <rename>HEADCOUNT_AVAILABLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>HEADCOUNT_UNAVAILABLE</name>
+        <rename>HEADCOUNT_UNAVAILABLE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SRVC_LEVEL_ANSWERED_PERCENT</name>
+        <rename>SRVC_LEVEL_ANSWERED_PERCENT</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>SRVC_LEVEL_ANSWERED_PERCENT_2</name>
+        <rename>SRVC_LEVEL_ANSWERED_PERCENT_2</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1004</xloc>
+      <yloc>868</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>FCST_INTERVAL_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PRODUCTION_PLAN_HORIZON_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>UNIT_OF_WORK_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERVAL_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERVAL_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FORECAST_VERSION</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACTS_CREATED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACTS_OFFERED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACTS_HANDLED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIN_SPEED_TO_HANDLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MAX_SPEED_TO_HANDLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEAN_SPEED_TO_HANDLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEDIAN_SPEED_TO_HANDLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STDDEV_SPEED_TO_HANDLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIN_SPEED_OF_ANSWER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MAX_SPEED_OF_ANSWER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEAN_SPEED_OF_ANSWER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEDIAN_SPEED_OF_ANSWER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STDDEV_SPEED_OF_ANSWER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACTS_ABANDONED</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACT_INVENTORY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIN_CONTACT_INVENTORY_AGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MAX_CONTACT_INVENTORY_AGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEAN_CONTACT_INVENTORY_AGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEDIAN_CONTACT_INVENTORY_AGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STDDEV_CONTACT_INVENTORY_AGE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MIN_HANDLE_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MAX_HANDLE_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEAN_HANDLE_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>MEDIAN_HANDLE_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CONTACT_INVENTORY_JEOPARDY</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>STDDEV_HANDLE_TIME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LABOR_MINUTES_TOTAL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LABOR_MINUTES_AVAILABLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LABOR_MINUTES_WAITING</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HEADCOUNT_TOTAL</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HEADCOUNT_AVAILABLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HEADCOUNT_UNAVAILABLE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SRVC_LEVEL_ANSWERED_PERCENT</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>SRVC_LEVEL_ANSWERED_PERCENT_2</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERVAL_START_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>INTERVAL_END_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>UNIT_OF_WORK_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PRODUCTION_PLAN_ID</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HORIZON_START_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HORIZON_START_HOUR</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HORIZON_END_DATE</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>HORIZON_END_HOUR</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PRODUCTION_PLAN_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROGRAM_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>PROJECT_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>GEOGRAPHY_NAME</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>FCST_INTERVAL_ID</name>
+        <rename>FCST_INTERVAL_ID</rename>
+        <type>-</type>
+        <length>19</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PRODUCTION_PLAN_HORIZON_ID</name>
+        <rename>PRODUCTION_PLAN_HORIZON_ID</rename>
+        <type>BigNumber</type>
+        <length>19</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>UNIT_OF_WORK_ID</name>
+        <rename>UNIT_OF_WORK_ID</rename>
+        <type>BigNumber</type>
+        <length>19</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>INTERVAL_DATE</name>
+        <rename>INTERVAL_DATE</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>INTERVAL_ID</name>
+        <rename>INTERVAL_ID</rename>
+        <type>-</type>
+        <length>19</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>FORECAST_VERSION</name>
+        <rename>FORECAST_VERSION</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACTS_CREATED</name>
+        <rename>CONTACTS_CREATED</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACTS_OFFERED</name>
+        <rename>CONTACTS_OFFERED</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACTS_HANDLED</name>
+        <rename>CONTACTS_HANDLED</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MIN_SPEED_TO_HANDLE</name>
+        <rename>MIN_SPEED_TO_HANDLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MAX_SPEED_TO_HANDLE</name>
+        <rename>MAX_SPEED_TO_HANDLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEAN_SPEED_TO_HANDLE</name>
+        <rename>MEAN_SPEED_TO_HANDLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEDIAN_SPEED_TO_HANDLE</name>
+        <rename>MEDIAN_SPEED_TO_HANDLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>STDDEV_SPEED_TO_HANDLE</name>
+        <rename>STDDEV_SPEED_TO_HANDLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MIN_SPEED_OF_ANSWER</name>
+        <rename>MIN_SPEED_OF_ANSWER</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MAX_SPEED_OF_ANSWER</name>
+        <rename>MAX_SPEED_OF_ANSWER</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEAN_SPEED_OF_ANSWER</name>
+        <rename>MEAN_SPEED_OF_ANSWER</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEDIAN_SPEED_OF_ANSWER</name>
+        <rename>MEDIAN_SPEED_OF_ANSWER</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>STDDEV_SPEED_OF_ANSWER</name>
+        <rename>STDDEV_SPEED_OF_ANSWER</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACTS_ABANDONED</name>
+        <rename>CONTACTS_ABANDONED</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACT_INVENTORY</name>
+        <rename>CONTACT_INVENTORY</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MIN_CONTACT_INVENTORY_AGE</name>
+        <rename>MIN_CONTACT_INVENTORY_AGE</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MAX_CONTACT_INVENTORY_AGE</name>
+        <rename>MAX_CONTACT_INVENTORY_AGE</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEAN_CONTACT_INVENTORY_AGE</name>
+        <rename>MEAN_CONTACT_INVENTORY_AGE</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEDIAN_CONTACT_INVENTORY_AGE</name>
+        <rename>MEDIAN_CONTACT_INVENTORY_AGE</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>STDDEV_CONTACT_INVENTORY_AGE</name>
+        <rename>STDDEV_CONTACT_INVENTORY_AGE</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MIN_HANDLE_TIME</name>
+        <rename>MIN_HANDLE_TIME</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MAX_HANDLE_TIME</name>
+        <rename>MAX_HANDLE_TIME</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEAN_HANDLE_TIME</name>
+        <rename>MEAN_HANDLE_TIME</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>MEDIAN_HANDLE_TIME</name>
+        <rename>MEDIAN_HANDLE_TIME</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>CONTACT_INVENTORY_JEOPARDY</name>
+        <rename>CONTACT_INVENTORY_JEOPARDY</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>STDDEV_HANDLE_TIME</name>
+        <rename>STDDEV_HANDLE_TIME</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>LABOR_MINUTES_TOTAL</name>
+        <rename>LABOR_MINUTES_TOTAL</rename>
+        <type>-</type>
+        <length>10</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>LABOR_MINUTES_AVAILABLE</name>
+        <rename>LABOR_MINUTES_AVAILABLE</rename>
+        <type>-</type>
+        <length>9</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>LABOR_MINUTES_WAITING</name>
+        <rename>LABOR_MINUTES_WAITING</rename>
+        <type>-</type>
+        <length>10</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HEADCOUNT_TOTAL</name>
+        <rename>HEADCOUNT_TOTAL</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HEADCOUNT_AVAILABLE</name>
+        <rename>HEADCOUNT_AVAILABLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HEADCOUNT_UNAVAILABLE</name>
+        <rename>HEADCOUNT_UNAVAILABLE</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>SRVC_LEVEL_ANSWERED_PERCENT</name>
+        <rename>SRVC_LEVEL_ANSWERED_PERCENT</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>SRVC_LEVEL_ANSWERED_PERCENT_2</name>
+        <rename>SRVC_LEVEL_ANSWERED_PERCENT_2</rename>
+        <type>-</type>
+        <length>5</length>
+        <precision>2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>INTERVAL_START_DATE</name>
+        <rename>INTERVAL_START_DATE</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>INTERVAL_END_DATE</name>
+        <rename>INTERVAL_END_DATE</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>UNIT_OF_WORK_NAME</name>
+        <rename>UNIT_OF_WORK_NAME</rename>
+        <type>-</type>
+        <length>50</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PRODUCTION_PLAN_ID</name>
+        <rename>PRODUCTION_PLAN_ID</rename>
+        <type>-</type>
+        <length>19</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HORIZON_START_DATE</name>
+        <rename>HORIZON_START_DATE</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HORIZON_START_HOUR</name>
+        <rename>HORIZON_START_HOUR</rename>
+        <type>-</type>
+        <length>2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HORIZON_END_DATE</name>
+        <rename>HORIZON_END_DATE</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>HORIZON_END_HOUR</name>
+        <rename>HORIZON_END_HOUR</rename>
+        <type>-</type>
+        <length>2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PRODUCTION_PLAN_NAME</name>
+        <rename>PRODUCTION_PLAN_NAME</rename>
+        <type>-</type>
+        <length>50</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PROGRAM_NAME</name>
+        <rename>PROGRAM_NAME</rename>
+        <type>-</type>
+        <length>50</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>PROJECT_NAME</name>
+        <rename>PROJECT_NAME</rename>
+        <type>-</type>
+        <length>50</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>GEOGRAPHY_NAME</name>
+        <rename>GEOGRAPHY_NAME</rename>
+        <type>-</type>
+        <length>50</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>722</xloc>
+      <yloc>524</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

@@ -1,0 +1,249 @@
+The folowing is a list of the processes, inputs and outputs for the Mail Fax Batch V2 processs
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Shell Script: nyhix_run_mailfaxbatch_V2.sh
+
+	PROCESS		MailFaxBatch_V2_Setup_Job_Log.ktr
+		PURPOSE: SET THE JOB_ID ( SEQUENCE ) for the entire run 
+		INPUT	MAXDAT.SEQ_JOB_ID
+		OUTPUT	CORP_ETL_JOB_STATISTICS ( JOB_ID )
+
+	PROCESS		MailFaxBatch_V2_Set_Variables.ktr		
+		PURPOSE: Sets up multiple varriables used by the Kettle Processes
+		INPUT	CORP_ETL_CONTROL
+		OUTPUT	Kettl Varriables used in processing
+				Valid in the Java Virtual Machine
+
+	PROCESS		Kettle kjb: MailFaxBatch_V2_RUNALL.kjb
+		PURPOSE:	Kicks off and controls all jobs kettle jobs and transforms
+					for Mail Fax Batch V2
+
+		PROCESS			MailFaxBatch_V2_Check_DB_Connections_Image_Trust.kjb
+			PRUPOSE:	Checks that all necessary connections are acrive
+						(Image_trust & MAXDAT)
+						and  abort processing if thay are not
+					
+		
+		PROCESS			MailFaxBatch_V2_Process_Image_Trust.kjb
+			PURPOSE:	Controls kettle ktr processing for Image Trust
+			
+			PROCESS		MailFaxBatch_V2_Image_Trust_SB_OLTP.ktr
+				PURPOSE:	Extract data from Kofax for Maxdat	
+			
+				INPUT			ITSCH.STATSBATCH SB
+				INPUT			ITSCH.JOBS 
+				INPUT			ITSCH.USER
+				INPUT			ITSCH.BATCHES
+			
+				OUTPUT			Maxdat.NYHIX_MFB_V2_IMAGE_TRUST_STATS_BATCH_OLTP
+		
+		
+			PROCESS			MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL_Package.ktr
+				PURPOSE:	Merge IMAGE_TRUST_STATS_BATCH_OLTP into IMAGE_TRUST_STATS_BATCH
+		
+				INPUT		NYHIX_MFB_V2_IMAGE_TRUST_STATS_BATCH_OLTP
+			
+				OUTPUT		Maxdat.NYHIX_MFB_V2_IMAGE_TRUST_STATS_BATCH
+				OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+				OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+				
+		PROCESS			MailFaxBatch_V2_Check_DB_Connections_Central.kjb
+			PRUPOSE:	Checks that all necessary connections are acrive
+						(Kofax & MAXDAT)
+						and  abort processing if thay are not
+					
+			
+		PROCESS			MailFaxBatch_V2_Process_Central.kjb
+			PURPOSE:	Control all Kettle jobs and transforms for Mail FAx Batch V2
+		
+			PROCESS			MailFaxBatch_V2_Central_SB_OLTP.ktr
+				PURPOSE:	Extract data from Kofax for Maxdat	
+				
+				INPUT		Kofax.StatsBatch
+				INPUT		Kofax.StatsBatchModule
+					
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_OLTP
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_OLTP_ERR
+	
+			
+			PROCESS		MailFaxBatch_V2_Central_SBM_OLTP.ktr
+				PURPOSE:	Extract data from Kofax for Maxdat	
+				
+				INPUT		Kofax.StatsBatchModule
+				INPUT		Kofax.StatsBatch
+				
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_OLTP
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_OLTP_ERR
+
+			PROCESS		MailFaxBatch_V2_Central_SML_OLTP.ktr
+				PURPOSE:	Extract data from Kofax for Maxdat	
+				
+				INPUT		Kofax.StatsModuleLaunch
+				
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_LAUNCH_OLTP
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_LAUNCH_OLTP_ERR
+
+			PROCESS		MailFaxBatch_V2_Central_FORM_OLTP.ktr
+				PURPOSE:	Extract data from Kofax for Maxdat	
+				
+				INPUT		Kofax.StatsBatchModule
+				INPUT		Kofax.StatsFormType
+				INPUT		Kofax.StatsBatch
+		
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_FORM_TYPE_OLTP
+				OUTPUT		Maxdat.NYHIX_MFB_V2_STATS_FORM_TYPE_OLTP_ERR
+
+
+			PROCESS		MailFaxBatch_V2_Run_CENTRAL_OLTP_PLSQL_Packages.ktr
+				PURPOSE:	Run PLSQL processing to merge the OLTP tables with there targets
+		
+				PROCESS			NYHIX_MFB_V2_STATS_BATCH_PKG.Load_STATS_BATCH('${BATCH_JOB_ID}');
+
+					INPUT			Maxdat.NYHIX_MFB_V2_STATS_BATCH_OLTP
+
+					INPUT/OUTPUT	Maxdat.NYHIX_MFB_V2_STATS_BATCH
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+				
+				PROCESS			NYHIX_MFB_V2_STATS_BATCH_MODULE_PKG.Load_STATS_BATCH_MODULE('${BATCH_JOB_ID}');
+					
+					
+					INPUT			Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_OLTP
+			
+					INPUT/OUTPUT	Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+			
+				PROCESS			NYHIX_MFB_V2_STATS_BATCH_MODULE_LAUNCH_PKG.Load_STATS_BATCH_MODULE_LAUNCH('${BATCH_JOB_ID}');
+
+					INPUT			Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_LAUNCH_OLTP
+
+					INPUT/OUTPUT	Maxdat.NYHIX_MFB_V2_STATS_BATCH_MODULE_LAUNCH
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+			
+				PROCESS				NYHIX_MFB_V2_STATS_FORM_TYPE_PKG.Load_Stats_Form_type('${BATCH_JOB_ID}');
+
+					INPUT			Maxdat.NYHIX_MFB_V2_STATS_FORM_TYPE_OLTP
+
+					INPUT/OUTPUT					Maxdat.NYHIX_MFB_V2_STATS_FORM_TYPE
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+			OUTPUT 			MAXDAT.CORP_ETL_CONTROL	
+			
+			
+			PROCESS			MailFaxBatch_V2_Truncate_MaxDatReporting_OLTP.ktr
+				INPUT		NYHIX_MFB_V2_MAXDAT_REPORTING_OLTP	
+				OUTPUT		NYHIX_MFB_V2_MAXDAT_REPORTING_OLTP
+		
+
+			PROCESS				MailFaxBatch_V2_MaxDatReporting.ktr
+		
+				INPUT			Kofax.MaxDatReporting
+				INPUT			Kofax.StatsBatch
+
+				OUTPUT			NYHIX_MFB_V2_MAXDAT_REPORTING_OLTP
+		
+					
+			PROCESS		MailFaxBatch_V2_Central_PLSQL_Processing.ktr
+
+				PROCESS					NYHIX_MFB_V2_MAXDAT_REPORTING_PKG.Load_MAXDAT_REPORTING('${BATCH_JOB_ID}');
+						
+					INPUT		NYHIX_MFB_V2_MAXDAT_REPORTING_OLTP
+						
+					INPUT/OUTOUT		NYHIX_MFB_V2_MAXDAT_REPORTING
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+					
+
+				PROCESS			NYHIX_MFB_V2_BATCH_EVENT_PKG.Load_EVENTS('${BATCH_JOB_ID}');
+					
+				I	NPUT				>>	NYHIX_MFB_V2_EVENTS_OLTP_V VIEW OF NYHIX_MFB_V2_MAXDAT_REPORTING
+					
+					INPUT/OUTPUT				>>	NYHIX_MFB_V2_BATCH_EVENT
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+	
+				PROCESS						NYHIX_MFB_V2_DOCUMENT_PKG.Load_DOCUMENT('${BATCH_JOB_ID}');
+							
+					INPUT		NYHIX_MFB_V2_DOCUMENT_SV_OLTP VIEW OF NYHIX_MFB_V2_MAXDAT_REPORTING
+				
+					INPUT/OUTPUT		NYHIX_MFB_V2_DOCUMENT
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+				PROCESS		NYHIX_MFB_V2_ENVELOPE_PKG.Load_ENVELOPE('${BATCH_JOB_ID}');
+						
+					INPUT 	NYHIX_MFB_V2_ENVELOPE_SV_OLTP VIEW OF NYHIX_MFB_V2_MAXDAT_REPORTING
+	
+					INPUT/OUTPUT	NYHIX_MFB_V2_ENVELOPE
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+
+
+				PROCESS			NYHIX_MFB_V2_BATCH_SUMMARY_PKG.Load_BATCH_SUMMARY('${BATCH_JOB_ID}'); 
+			
+					OUTPUT/INPUT			NYHIX_MFB_V2_GUID_RUN_LIST
+
+					INPUT			NYHIX_MFB_V2_STATS_BATCH
+					INPUT			NYHIX_MFB_V2_DOCUMENT
+					INPUT			NYHIX_MFB_V2_ENVELOPE
+					INPUT			NYHIX_MFB_V2_MAXDAT_REPORTING
+					INPUT			NYHIX_MFB_V2_STATS_BATCH_MODULE
+					INPUT			NYHIX_MFB_V2_STATS_FORM_TYPE
+					INPUT			NYHIX_MFB_V2_BATCH_EVENT
+					INPUT			NYHIX_MFB_V2_DOCUMENT
+					INPUT			NYHIX_MFB_V2_MAXDAT_REPORTING
+					INPUT			NYHIX_MFB_V2_STATS_BATCH
+						
+
+					INPUT/OUTPUT	F_MFB_V2_BY_HOUR
+					INPUT/OUTPUT	F_MFB_V2_BY_DAY
+							
+					INPUT/OUTPUT	NYHIX_MFB_V2_BATCH_SUMMARY
+						OUTPUT			D_MFB_BATCH_CURRENT 	VIEW OF NYHIX_MFB_V2_BATCH_SUMMARY
+						OUTPUT			D_MFB_BATCH_CURRENT_SV 	VIEW OF NYHIX_MFB_V2_BATCH_SUMMARY
+					OUTPUT		Maxdat.CORP_ETL_JOB_STATISTICS
+					OUTPUT		Maxdat.CORP_ETL_ERROR_LOG
+					
+				OUTPUT	CORP_ETL_CONTROL	
+
+	PROCESS		MailFaxBatch_V2_Update_Job_Log.ktr					
+		
+		INPUT   SYSDATE
+		OUTPUT	CORP_ETL_JOB_STATISTICS
+									
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	PROCESS		MFB Reprocess Batch Transaction Svc 
+
+	INOUT		Manual Input
+	
+	
+	PROCESS		NYHIX_MFB_V2_INSERT_REPROCESS_STAGE
+	PROCESS		NYHIX_MFB_V2_REPROCESSED_BATCH
+			PROCEDURE NYHIX_MFB_V2_REPROCESS_BATCH
+				NYHIX_MFB_V2_STATS_BATCH
+				
+	INPUT			NYHIX_MFB_V2_REPROCESSED_BATCH	
+	PROCESS		NYHIX_MFB_V2_BATCH_SUMMARY_PKG.Process_One_Batch
+	OUTPUT				NYHIX_MFB_V2_BATCH_SUMMARY
+	OUTPUT				NYHIX_MFB_V2_STATS_BATCH
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	PROCESS 	TRIGGER						
+	OUTPUT		NYHIX_MFB_V2_STATS_BATCH_DELETED
+
+	PROCESS 	TRIGGER						
+	OUTPUT		NYHIX_MFB_V2_BATCH_SUMMARY_DELETED
+
+
+	PROCESS		NYHIX_MFB_V2_CHECK_FACT_BY_DAY
+	
+	PROCESS		NYHIX_MFB_V2_PROCESS_BY_MONTH
+

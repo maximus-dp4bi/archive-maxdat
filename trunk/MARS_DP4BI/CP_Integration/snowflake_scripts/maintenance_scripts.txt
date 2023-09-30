@@ -1,0 +1,62 @@
+USE ROLE SECURITYADMIN;
+ALTER USER CLAPRANO SET
+   DEFAULT_ROLE=SYSADMIN
+   DEFAULT_NAMESPACE=SNOWFLAKE_AUTO.PUBLIC
+   DEFAULT_WAREHOUSE=LOAD_WH;
+
+// Jobs
+SELECT warehouse_name, COUNT(*) AS number_of_jobs
+FROM query_history
+WHERE start_time >= date_trunc(month, current_date)
+  AND warehouse_name IS NOT NULL 
+GROUP BY 1 ORDER BY 2 DESC;
+
+
+// Credits
+SELECT warehouse_name, 
+       date_trunc(month, start_time) AS usage_month,     
+       SUM(coalesce(credits_used, 0.00)) AS total_credits;
+select * FROM SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY limit 1; 
+WHERE start_time >= date_trunc(month, dateadd(month, -3,current_timestamp)) 
+  AND start_time < date_trunc(month, current_timestamp) 
+GROUP BY 1,2;
+
+// Store usage
+SELECT date_trunc(month, usage_date) AS usage_month,     ROUND(AVG(storage_bytes)/power(1024, 4), 3) 
+  AS billable_database_tb, ROUND(AVG(failsafe_bytes)/power(1024, 4), 3) 
+  AS billable_failsafe_tb, ROUND(AVG(stage_bytes)/power(1024, 4), 3) 
+  AS billable_stage_tb
+FROM SNOWFLAKE.ACCOUNT_USAGE.STORAGE_USAGE 
+WHERE usage_date >= date_trunc(month, dateadd(month, -3, current_timestamp)) 
+AND usage_date < date_trunc(month, current_timestamp) 
+GROUP BY 1;
+
+SELECT * 
+FROM TABLE(information_schema.database_storage_usage_history
+(dateadd('days',-3,current_date()),current_date(),
+'SNOWFLAKE_AUTO'));
+
+SELECT * 
+FROM SNOWFLAKE_AUTO.INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_SCHEMA = 'PUBLIC'
+and table_type = 'BASE TABLE'
+ORDER BY bytes DESC;
+
+select * from "SNOWFLAKE_AUTO"."PUBLIC"."JSON_STREAMSETS_MC_AMQ_DATA";
+
+// Tests
+select * from "SNOWFLAKE_AUTO"."PUBLIC"."JSON_STREAMSETS_AMQ_DATA";
+show parameters;
+ALTER user claprano SET DATE_INPUT_FORMAT = 'YYYY/MM/DD';
+ALTER user claprano SET TIMESTAMP_INPUT_FORMAT = 'YYYY-MM-DD"T"HH24:MI:SS.FFTZH:TZM';
+ALTER user SVC_MSTR_SF_POC SET DATE_INPUT_FORMAT = 'YYYY/MM/DD';
+ALTER user SVC_MSTR_SF_POC SET TIMESTAMP_INPUT_FORMAT = 'YYYY-MM-DD"T"HH24:MI:SS.FFTZH:TZM';
+ALTER SESSION SET USE_CACHED_RESULT = TRUE;
+alter account set USE_CACHED_RESULT = TRUE;
+alter database snowflake_auto set DATA_RETENTION_TIME_IN_DAYS = 0;
+alter table "SNOWFLAKE_AUTO"."PUBLIC"."JSON_EVENTS_FIELDS_INFO" set DATA_RETENTION_TIME_IN_DAYS = 0;
+alter table "SNOWFLAKE_AUTO"."PUBLIC"."JSON_STREAMSETS_AMQ_DATA" set DATA_RETENTION_TIME_IN_DAYS = 0;
+alter table "SNOWFLAKE_AUTO"."PUBLIC"."JSON_STREAMSETS_MC_AMQ_DATA" set DATA_RETENTION_TIME_IN_DAYS = 0;
+ALTER WAREHOUSE LOAD_WH SUSPEND;
+select * from "SNOWFLAKE_AUTO"."PUBLIC"."CRMA_CONTRACT_AID_CATEGORIES_VW";
+

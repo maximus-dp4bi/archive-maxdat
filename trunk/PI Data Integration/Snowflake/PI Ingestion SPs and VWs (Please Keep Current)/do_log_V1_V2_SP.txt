@@ -1,0 +1,26 @@
+
+  create or replace procedure do_log(msg varchar) 
+   RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+ $$
+
+ //see if we should log - checks for do_log = true session variable
+ try{
+    var foo = snowflake.createStatement( { sqlText: `select $do_log` } ).execute();
+ } catch (ERROR){
+    return; //swallow the error, variable not set so don't log
+ }
+ foo.next();
+ if (foo.getColumnValue(1)==true){ //if the value is anything other than true, don't log
+    try{
+        snowflake.createStatement( { sqlText: `create table identifier ($log_table) if not exists (ts number, msg string)`} ).execute();
+        snowflake.createStatement( { sqlText: `insert into identifier ($log_table) values (:1, :2)`, binds:[Date.now(), MSG] } ).execute();
+    } catch (ERROR){
+        throw ERROR;
+    }
+ }
+ 
+ $$;
+

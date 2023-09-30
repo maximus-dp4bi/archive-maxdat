@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>SendInfoToTP_Set_Letters_Manuals</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2013&#47;01&#47;23 06:02:57.925</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2013&#47;01&#47;23 06:02:57.925</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Note:  Only Letters have jeopardy. 
+
+UPD3_10 processed by SendInfoToTP_Set_Every_Instance.KTR
+
+UPD3_30	If INFO_REQ_GROUP = &apos;Letter&apos;, update: 
+  MAN_LETTER_FLAG = calculate using (instance definition of
+  MAN_LETTER_FLAG) and LETTER_TYPE from MAXe
+
+UPD3_80	If Receive Information Request has been completed
+                update: 
+	- ASPB_RECEIVE_INFO_REQUEST = person&#47;system who
+          processed the request
+	- ASF_RECEIVE_INFO_REQUEST = Y
+	- ASED_RECEIVE_INFO_REQUEST = date 
+          ASF_RECEIVE_INFO_REQUEST was set to &apos;Y&apos;
+
+
+</note>
+      <xloc>25</xloc>
+      <yloc>28</yloc>
+      <width>336</width>
+      <heigth>225</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>8</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${DB_MAXDAT_JNDI_NAME}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${DB_OLTP_JNDI_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>Encrypted 6368616e67655f7bd1eddd971ac68197bc16bc749ac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Table Input - Staged OLTP Staged</from><to>Database Join - ATS Letter Requests</to><enabled>Y</enabled> </hop>  <hop> <from>Table Input - Staged OLTP Staged</from><to>Filter Rows - UPD3_80</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - UPD3_80</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - UPD3_80</from><to>Database Join - OLTP Staff Letters</to><enabled>Y</enabled> </hop>  <hop> <from>Database Join - OLTP Staff Letters</from><to>Set Field Value - UPD3_80</to><enabled>Y</enabled> </hop>  <hop> <from>Set Field Value - UPD3_80</from><to>Update - Stage BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Set Field Value - Manual Letter Yes</from><to>Update - Stage BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Database Join - ATS Letter Requests</from><to>Filter Rows - Request Group</to><enabled>Y</enabled> </hop>  <hop> <from>Set Field Value - Manual Letter No</from><to>Update - Stage BPM</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - Request Group</from><to>Filter Rows - UPD3_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - Request Group</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - UPD3_30</from><to>Set Field Value - Manual Letter No</to><enabled>Y</enabled> </hop>  <hop> <from>Filter Rows - UPD3_30</from><to>Set Field Value - Manual Letter Yes</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Database Join - ATS Letter Requests</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OLTP_SOURCE</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT lmreq_id, lr.request_type
+  FROM letter_request lr
+ WHERE lr.lmreq_id = ?</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>INFO_REQ_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>717</xloc>
+      <yloc>41</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database Join - OLTP Staff Letters</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT staff_id
+      ,s.first_name||&apos; &apos;||s.last_name aspb_staff_name
+      ,(SELECT MIN(letter_create_ts)
+         FROM letters_stg ch
+        WHERE ch.letter_parent_lmreq_id = r.letter_id
+          AND ch.letter_create_ts       &gt; r.letter_create_ts) child_req_create_ts
+  FROM letters_stg r
+      ,staff_stg   s
+ WHERE r.letter_created_by = s.staff_id
+   AND r.letter_id = ?</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>INFO_REQ_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>483</xloc>
+      <yloc>261</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>601</xloc>
+      <yloc>106</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Rows - Request Group</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter Rows - UPD3_30</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>INFO_REQ_GROUP</leftvalue>
+   <function>=</function>
+   <rightvalue>REQ_LTR_GROUP</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>716</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Rows - UPD3_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set Field Value - Manual Letter Yes</send_true_to>
+<send_false_to>Set Field Value - Manual Letter No</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>REQUEST_TYPE</leftvalue>
+   <function>=</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>S</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>MAN_LETTER_FLAG</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>871</xloc>
+      <yloc>143</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter Rows - UPD3_80</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Database Join - OLTP Staff Letters</send_true_to>
+<send_false_to>Dummy (do nothing)</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>INFO_REQ_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>STATUS_ERROR</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <leftvalue>INFO_REQ_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>STATUS_MAILED</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>483</xloc>
+      <yloc>156</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Field Value - Manual Letter No</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ITM_INDICATOR</name>
+        <replaceby>YES</replaceby>
+        </field>
+      <field>
+        <name>ITM_UPDATE_TS</name>
+        <replaceby>CURRENT_DATE</replaceby>
+        </field>
+      <field>
+        <name>MAN_LETTER_FLAG</name>
+        <replaceby>NO</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1002</xloc>
+      <yloc>226</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Field Value - Manual Letter Yes</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ITM_INDICATOR</name>
+        <replaceby>YES</replaceby>
+        </field>
+      <field>
+        <name>ITM_UPDATE_TS</name>
+        <replaceby>CURRENT_DATE</replaceby>
+        </field>
+      <field>
+        <name>MAN_LETTER_FLAG</name>
+        <replaceby>YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>716</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Field Value - UPD3_80</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ITM_INDICATOR</name>
+        <replaceby>YES</replaceby>
+        </field>
+      <field>
+        <name>ITM_UPDATE_TS</name>
+        <replaceby>CURRENT_DATE</replaceby>
+        </field>
+      <field>
+        <name>ASF_RECEIVE_INFO_REQ</name>
+        <replaceby>YES</replaceby>
+        </field>
+      <field>
+        <name>ASED_RECEIVE_INFO_REQ</name>
+        <replaceby>CURRENT_DATE</replaceby>
+        </field>
+      <field>
+        <name>ASPB_RECEIVE_INFO_REQUEST</name>
+        <replaceby>ASPB_RECEIVE_INFO_REQUEST</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>602</xloc>
+      <yloc>318</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table Input - Staged OLTP Staged</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT &apos;N&apos; no, &apos;Y&apos; yes,  SYSDATE current_date, inreq_id, info_req_id, info_req_group, info_req_source
+      , info_req_status,itm_indicator, itm_update_ts
+      , man_letter_flag, asf_receive_info_req, ased_receive_info_req, aspb_receive_info_request
+      ,&apos;Letter&apos; req_ltr_group, &apos;Errored&apos; status_error, &apos;Mailed&apos; status_mailed
+  FROM sendinfotradpart_bpm_stg
+ WHERE info_req_group IN  (&apos;Letter&apos;,&apos;Material Request&apos;)
+   AND asf_receive_info_req = &apos;N&apos; -- Table column default is N
+   AND cancel_date IS NULL
+-- Test
+--and rownum &lt; 20
+--and info_req_id IN (9806755,9823659)  -- Sent to mailhouse
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>482</xloc>
+      <yloc>41</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update - Stage BPM</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>Y</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>MAXDAT</schema>
+      <table>sendinfotradpart_bpm_stg</table>
+      <key>
+        <name>INFO_REQ_ID</name>
+        <field>INFO_REQ_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <key>
+        <name>INFO_REQ_SOURCE</name>
+        <field>INFO_REQ_SOURCE</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>ITM_INDICATOR</name>
+        <rename>YES</rename>
+        </value>
+      <value>
+        <name>ITM_UPDATE_TS</name>
+        <rename>ITM_UPDATE_TS</rename>
+        </value>
+      <value>
+        <name>MAN_LETTER_FLAG</name>
+        <rename>MAN_LETTER_FLAG</rename>
+        </value>
+      <value>
+        <name>ASF_RECEIVE_INFO_REQ</name>
+        <rename>ASF_RECEIVE_INFO_REQ</rename>
+        </value>
+      <value>
+        <name>ASED_RECEIVE_INFO_REQ</name>
+        <rename>ASED_RECEIVE_INFO_REQ</rename>
+        </value>
+      <value>
+        <name>ASPB_RECEIVE_INFO_REQUEST</name>
+        <rename>ASPB_RECEIVE_INFO_REQUEST</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>866</xloc>
+      <yloc>318</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

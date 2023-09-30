@@ -1,0 +1,104 @@
+create or replace view maxdat_support.D_MW_V2_CURRENT_SV as
+select
+  SI.STEP_INSTANCE_ID AS MW_BI_ID
+, CASE WHEN COALESCE(DATE(SI.completed_ts),CURRENT_DATE) IS NOT NULL AND DATE(SI.create_ts) IS NOT NULL
+          THEN (SELECT CASE WHEN (COUNT(*) -1) < 0 THEN 0 ELSE COUNT(*)-1 END
+                FROM  MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.D_DATES dd
+                WHERE dd.business_day_flag = 'Y'
+                AND   dd.d_date BETWEEN DATE(SI.create_ts) AND (COALESCE(DATE(SI.completed_ts),CURRENT_DATE)))
+       ELSE 0   END AS AGE_IN_BUSINESS_DAYS
+, COALESCE(DATE(SI.completed_ts),CURRENT_DATE) - DATE(SI.create_ts) AS AGE_IN_CALENDAR_DAYS
+, CASE WHEN SI.STATUS = 'TERMINATED' THEN '0' ELSE '0' END AS CANCELLED_BY_STAFF_ID
+, CASE WHEN SI.STATUS = 'TERMINATED' THEN 'Normal' ELSE NULL END AS CANCEL_METHOD
+, CASE WHEN SI.STATUS = 'TERMINATED' THEN 'Task was Terminated' ELSE NULL END AS CANCEL_REASON
+, CASE WHEN SI.STATUS = 'TERMINATED' THEN SI.completed_ts ELSE NULL END AS CANCEL_WORK_DATE
+, SI.case_id AS case_id
+, COALESCE(si.client_id, 0) AS client_id
+, CASE WHEN SI.STATUS = 'COMPLETED' THEN SI.completed_ts ELSE NULL END AS COMPLETE_DATE
+, SI.CREATE_TS AS CREATE_DATE
+, COALESCE(SI.CREATED_BY, '0') AS CURR_CREATED_BY_STAFF_ID
+, CASE WHEN SI.ESCALATED_IND = 1 THEN 'Y' ELSE 'N' END AS ESCALATED_FLAG
+, COALESCE(SI.ESCALATE_TO, '0') AS CURR_ESCALATED_TO_STAFF_ID
+, COALESCE(SI.FORWARDED_BY, '0') AS CURR_FORWARDED_BY_STAFF_ID
+, CASE WHEN SI.FORWARDED_IND = 1 THEN 'Y' ELSE 'N' END AS FORWARDED_FLAG
+, CASE WHEN SI.STATUS = 'TERMINATED' THEN 'Y' ELSE 'N' END AS CANCEL_FLAG
+, CASE WHEN SI.STATUS = 'COMPLETED' THEN 'Y' ELSE 'N' END AS COMPLETE_FLAG
+, SI.GROUP_ID AS CURR_BUSINESS_UNIT_ID
+, SI.CREATE_TS AS INSTANCE_START_DATE
+, SI.COMPLETED_TS AS INSTANCE_END_DATE
+, CASE WHEN dt.sla_days_type IS NULL THEN 'N'
+       WHEN dt.sla_days_type = 'B' AND (SELECT CASE WHEN (COUNT(*) -1) < 0 THEN 0 ELSE COUNT(*)-1 END
+                                        FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.D_DATES
+                                        WHERE business_day_flag = 'Y'
+                                        AND d_date BETWEEN DATE(SI.create_ts) AND COALESCE(DATE(SI.completed_ts),CURRENT_DATE))
+                                        >= dt.sla_jeopardy_days THEN 'Y'
+       WHEN dt.sla_days_type = 'C'AND COALESCE(DATE(SI.completed_ts),CURRENT_DATE) - DATE(SI.create_ts) >= dt.sla_jeopardy_days THEN 'Y'
+       WHEN dt.sla_days_type = 'H' AND DATEDIFF(hour, SI.create_ts, (COALESCE(SI.completed_ts, CURRENT_TIMESTAMP()))) >= dt.sla_jeopardy_days THEN 'Y'
+       ELSE 'N' END AS JEOPARDY_FLAG
+, COALESCE(sih.owner,'0') AS CURR_LAST_UPD_BY_STAFF_ID
+, COALESCE(DATE(sih.create_ts), to_date('01/01/1985', 'dd/mm/yyyy')) AS CURR_LAST_UPDATE_DATE
+, to_date('01/01/1985', 'dd/mm/yyyy') AS LAST_EVENT_DATE
+, COALESCE(SI.OWNER, '0') AS CURR_OWNER_STAFF_ID
+, NULL as PARENT_TASK_ID
+, SI.REF_ID as REF_ID
+, CASE WHEN upper(SI.REF_TYPE) IN ('APP_HEADER', 'APPLICATION_ID', 'MANUAL_TASK_APP_HEADER') THEN SI.REF_ID ELSE NULL END AS SOURCE_REFERENCE_ID
+, CASE WHEN upper(SI.REF_TYPE) = 'DOCUMENT_SET_ID' THEN SI.REF_ID ELSE NULL END AS DOCUMENT_SET_ID
+, DECODE(upper(SI.REF_TYPE) , 'APP_HEADER' ,'Application ID' , 'APPLICATION_ID' ,'Application ID' , 'DOCUMENT_ID' ,'Document ID' , 'DOCUMENT' ,'Document ID' , 'DOCUMENT_SET_ID' ,'Document Set ID' , 'DOCUMENT_SET' ,'Document Set ID' , 'IMAGING' ,'Image ID' , 'CASES' ,'Case ID' , 'CASE_ID' ,'Case ID' , 'CLIENT' ,'Client ID' , 'CLNT_CLIENT_ID' ,'Client ID' , 'CALL_RECORD' ,'Call ID' , 'CALL_RECORD_ID' ,'Call ID' , 'INCIDENT_HEADER' ,'Incident ID' , 'INCIDENT_HEADER_ID' ,'Incident ID' , 'APP_DOC_TRACKER_ID' ,'App Doc Tracker ID' , SI.REF_TYPE) AS SOURCE_REFERENCE_TYPE
+, CASE WHEN COALESCE(DATE(SI.completed_ts),CURRENT_DATE) IS NOT NULL AND DATE(SI.create_ts) IS NOT NULL
+       THEN (SELECT CASE WHEN (COUNT(*) -1) < 0 THEN 0 ELSE COUNT(*)-1 END
+             FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.D_DATES
+             WHERE business_day_flag = 'Y'
+             AND d_date BETWEEN DATE(SI.create_ts) AND COALESCE(DATE(SI.completed_ts),CURRENT_DATE))
+       ELSE 0 END as STATUS_AGE_IN_BUS_DAYS
+, ROUND(COALESCE(date(SI.completed_ts),CURRENT_DATE) - date(SI.CREATE_TS),0) as STATUS_AGE_IN_CAL_DAYS
+, to_date('01/01/1985', 'dd/mm/yyyy') AS stg_extract_date
+, to_date('01/01/1985', 'dd/mm/yyyy') AS stg_last_update_date
+, to_date('01/01/1985', 'dd/mm/yyyy') AS stg_done_date
+, SI.STEP_INSTANCE_ID AS TASK_ID
+, SI.priority_cd AS TASK_PRIORITY
+, SI.STATUS AS CURR_TASK_STATUS
+, SD.STEP_DEFINITION_ID AS TASK_TYPE_ID
+, dt.TASK_NAME
+, dt.TASK_DESCRIPTION
+, dt.OPERATIONS_GROUP
+, dt.SLA_DAYS
+, dt.SLA_DAYS_TYPE
+, dt.SLA_TARGET_DAYS
+, dt.SLA_JEOPARDY_DAYS
+, SI.TEAM_ID AS CURR_TEAM_ID
+, COALESCE(g.supervisor_staff_id,0) AS TEAM_SUPERVISOR_STAFF_ID
+, CASE WHEN SI.completed_ts IS NULL THEN 'Not Complete'
+       WHEN COALESCE(dt.sla_days_type, TO_CHAR(dt.sla_days)) IS NULL THEN 'Not Required'
+       WHEN dt.sla_days_type = 'B' AND SI.completed_ts IS NOT NULL AND SI.create_ts IS NOT NULL AND (SELECT CASE WHEN (COUNT(*)-1) < 0 THEN 0 ELSE COUNT(*)-1 END
+                                                                                                     FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.D_DATES
+                                                                                                     WHERE business_day_flag = 'Y'
+                                                                                                     AND d_date BETWEEN DATE(si.create_ts) AND DATE(si.completed_Ts)
+                                                                                                    ) > COALESCE(dt.sla_days,0) THEN 'Untimely'
+       WHEN dt.sla_days_type = 'C' AND (DATE(SI.completed_ts) - DATE(SI.create_ts)) > COALESCE(dt.sla_days,0) THEN 'Untimely'
+       WHEN dt.sla_days_type = 'H' AND DATEDIFF(hour, SI.create_ts, (COALESCE(SI.completed_ts, CURRENT_TIMESTAMP()))) > COALESCE(dt.sla_days,0) THEN 'Untimely'
+       ELSE 'Timely' END as TIMELINESS_STATUS
+, dt.unit_of_work AS UNIT_OF_WORK
+, DATE(SI.create_ts) AS CURR_WORK_RECEIPT_DATE
+, SI.PROCESS_ID AS SOURCE_PROCESS_ID
+, SI.PROCESS_INSTANCE_ID AS SOURCE_PROCESS_INSTANCE_ID
+, sihc.create_ts AS TASK_CLAIMED_DATE
+FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.STEP_INSTANCE   SI
+JOIN MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.STEP_DEFINITION sd   ON (si.step_definition_id = sd.step_definition_id AND sd.step_type_cd IN ('VIRTUAL_HUMAN_TASK','HUMAN_TASK'))
+LEFT JOIN MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.D_TASK_TYPES dt ON (dt.task_type_id = si.step_definition_id)
+LEFT JOIN MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.GROUPS g        ON (g.type_cd = 'TEAM' AND SI.TEAM_ID = g.group_id)
+LEFT JOIN (
+           SELECT a.owner, a.step_instance_id, a.status, a.create_ts ,a.rnk
+           FROM
+             (SELECT h.owner, h.step_instance_id, h.status, h.create_ts, RANK() OVER(PARTITION BY step_instance_id ORDER BY step_instance_history_id DESC) AS rnk
+              FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.STEP_INSTANCE_HISTORY h
+             ) a
+          ) sih ON (sih.rnk = 1 AND sih.step_instance_id = SI.STEP_INSTANCE_ID)
+LEFT JOIN (SELECT h.step_instance_id, max(create_ts) create_ts
+           FROM MAXEB_DP4BI_PAIEB_PRD.PAIEB_PRD.STEP_INSTANCE_HISTORY h WHERE h.STATUS = 'CLAIMED' group by h.step_instance_id
+          ) sihc ON (sihc.step_instance_id = SI.STEP_INSTANCE_ID)
+
+WHERE ( (si.status = 'COMPLETED' AND si.completed_ts >= add_months(DATE_TRUNC('MONTH',CURRENT_DATE),-6))
+         OR
+        (si.status IN ('CLAIMED','UNCLAIMED','INPROCESS'))
+      )
+;

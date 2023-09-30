@@ -1,0 +1,52 @@
+org.pentaho.clean.karaf.cache   at java.lang.Thread.run(Thread.java:829) [?:?]
+07:20:09,746 WARN  [KarafBoot] No custom.properties file found in karaf distribution.
+07:20:09,747 INFO  [KarafBoot] Checking to see if org.pentaho.clean.karaf.cache is enabled
+07:20:09,754 ERROR [KarafBoot] Error starting Karaf
+java.lang.IllegalStateException: Port Config file (/tmp/karaf//etc/KarafPorts.yaml) not found
+        at org.pentaho.platform.osgi.KarafInstance.<init>(KarafInstance.java:91) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafInstance.<init>(KarafInstance.java:80) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafBoot.createAndProcessKarafInstance(KarafBoot.java:358) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafBoot.startup(KarafBoot.java:249) [pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.osgi.registryExtension.OSGIPluginRegistryExtension.init(OSGIPluginRegistryExtension.java:107) [pdi-osgi-bridge-core-9.3.0.0-428.jar:
+		
+		
+		
+		 line 30: pentaho.karaf.root.copy.dest.folder=/home/71980/karaf/dir: No such file or directory
+
+
+2022/08/22 12:12:16 - bpm_Init_check9 - Starting entry [Check Db connections]
+13:10:34,126 INFO  [KarafBoot] Checking to see if org.pentaho.clean.karaf.cache is enabled
+12:10:34,181 ERROR [KarafBoot] Error starting Karaf
+java.lang.RuntimeException: Could not parse file /tmp/karaf//etc/KarafPorts.yaml.
+        at org.pentaho.platform.osgi.KarafInstance.processConfigFile(KarafInstance.java:129) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafInstance.<init>(KarafInstance.java:89) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafInstance.<init>(KarafInstance.java:80) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafBoot.createAndProcessKarafInstance(KarafBoot.java:358) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.platform.osgi.KarafBoot.startup(KarafBoot.java:249) [pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.osgi.registryExtension.OSGIPluginRegistryExtension.init(OSGIPluginRegistryExtension.java:107) [pdi-osgi-bridge-core-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.core.plugins.PluginRegistry.init(PluginRegistry.java:565) [kettle-core-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.core.plugins.PluginRegistry.init(PluginRegistry.java:545) [kettle-core-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.core.KettleClientEnvironment.init(KettleClientEnvironment.java:117) [kettle-core-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.core.KettleClientEnvironment.init(KettleClientEnvironment.java:80) [kettle-core-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.kitchen.Kitchen$1.call(Kitchen.java:83) [kettle-engine-9.3.0.0-428.jar:9.3.0.0-428]
+        at org.pentaho.di.kitchen.Kitchen$1.call(Kitchen.java:76) [kettle-engine-9.3.0.0-428.jar:9.3.0.0-428]
+        at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
+        at java.lang.Thread.run(Thread.java:829) [?:?]
+Caused by: java.lang.NullPointerException
+        at org.pentaho.platform.osgi.KarafInstance.processConfigFile(KarafInstance.java:107) ~[pentaho-platform-extensions-9.3.0.0-428.jar:9.3.0.0-428]
+
+
+https://stackoverflow.com/questions/59487451/error-on-opening-any-kettle-transformation-file-in-pentaho-data-integration
+
+karaf -apache 
+
+Karaf is a lightweight, powerful, and enterprise ready modulith runtime. It provides all the ecosystem and bootstrapping options you need for your applications
+
+Do we have to use the karaf extension for ETL work? probably not. 
+Apache product for web enabled apps. 
+
+Remove calls to it if not needed. 
+
+

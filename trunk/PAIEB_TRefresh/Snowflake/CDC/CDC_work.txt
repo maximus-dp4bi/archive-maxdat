@@ -1,0 +1,103 @@
+select source_table_name, count(1)
+from raw.awsdms_cdc_raw
+group by source_table_name;
+
+
+select file_name from control.paieb_current_s3_contents 
+where full_path like '%/CDC/%';
+delete from raw.awsdms_cdc_Raw where source_table_name = 'STEP_INSTANCE';
+
+       copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_HEADER_EXT' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APP_HEADER_EXT_ID' primary_key , $1:APP_HEADER_EXT_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/APP_HEADER_EXT/') 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+
+       copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'LETTER_REQUEST' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'LETTER_REQUEST_ID' primary_key , $1:LETTER_REQUEST_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/LETTER_REQUEST/') 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+
+       copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'STEP_INSTANCE' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'STEP_INSTANCE_ID' primary_key , $1:STEP_INSTANCE_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/STEP_INSTANCE/') 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+
+       copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'SELECTION_TXN' , ' ',METADATA$FILENAME , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'SELECTION_TXN_ID' primary_key , $1:SELECTION_TXN_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/SELECTION_TXN/') 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+
+       copy into RAW.AWSDMS_CDC_RAW (ingestion_ntz, source_table_name, fullpath, filename, cdc_flag, committimestamp, jobid, primary_key, pk_id, operation, commit_num, commit_ntz, rownumber, filenum, raw) from 
+              (
+                select convert_timezone('UTC','America/New_York',sysdate()) 
+          ,'APP_HEADER' , ' ',METADATA$FILENAME filename , 'Y'
+          , $1:COMMITTIMESTAMP::VARCHAR committimestamp
+          , 99 
+          , 'APPLICATION_ID' primary_key , $1:APPLICATION_ID::NUMBER pk_id 
+          , $1:Op::VARCHAR operation 
+          , to_number(to_char(TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS'),'YYYYMMDDHH24MISS')) as commit_num 
+          , TO_timestamp($1:COMMITTIMESTAMP::VARCHAR, 'YYYY-MM-DD HH24:MI:SS.SSSSSS') as commit_ntz 
+          , METADATA$FILE_ROW_NUMBER  rownumber
+          , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+                , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/APP_HEADER/') 
+          FILE_FORMAT = (TYPE= 'PARQUET') FORCE=TRUE;
+
+//truncate table raw.awsdms_Cdc_raw ;
+select * from raw.awsdms_cdc_raw;
+where table_name = 'APP_HEADER';
+
+alter table raw.awsdms_cdc_raw add (rownumber varchar);
+alter table raw.awsdms_cdc_raw add (filenum number);
+
+select count(1) from raw.awsdms_cdc_raw where filenum is null;
+
+select filename,try_to_number(replace(replace(split_part(FILENAME,'/',-1),'-'),'.parquet')) filenum,  sum(case when filenum is  null then 1 else 0 end) filenumnullcnt, count(1)
+from raw.awsdms_Cdc_raw
+group by filename, try_to_number(replace(replace(split_part(FILENAME,'/',-1),'-'),'.parquet')) ;
+
+
+
+select    METADATA$FILE_ROW_NUMBER  rownumber, METADATA$FILENAME
+           , try_to_number(replace(replace(split_part(METADATA$FILENAME,'/',-1),'-'),'.parquet')) filenum
+          , * from '@MAXEB_DP4BI_PAIEB_UAT_S3/CDC/APP_HEADER/'
+          ;

@@ -1,0 +1,38 @@
+{
+	"extractionParameters":
+	{
+		"JOB_ID":"7b7cb0a6-8a80-4a43-a21c-81c86a783e65:maximus.com",
+		"SOURCE_END_POINT": "jdbc:mysql://connectionpoint-ineb.prod.db.pcf-maximus.com:3306",
+		"PRJ_PREFIX": "marsdb-cdc"		,
+		"PRJ_SUFFIX": "etlineb",		
+		"INCLUDE_TABLES": "mars-etl-%.ETL_REPORT%",
+		"IGNORE_TABLES": "mars-consumer-%.%, mars-contact-record-%.%, mars-contacts-%.%, mars-task-%.%, mars-ecms-%.%, mars-enrollment%.%, mars-blats%.%, mars-plan-provider%.%, mars-tenant-manager.%,task-%.%, mars-event%.%, mars-cti-%.%, mars-bpm%.%, mars-rules.%, mars-blats1-camunda%.%, mars-tm-config.%, mars-%.AUDIT_LOG, mars-%.GRID, mars-%.GRID_COLUMNS, mars-%.GRID_COLUMN_PROPERTIES, mars-%.UI_PERMISSIONS, mars-%.PROJECT_CONFIGURATIONS, mars-%.CASELOADER_PAYLOAD, mars-%.PORTFOLIO, mars-%.PRIVACY_NOTICE, mars-%.USER_SECURITY, mars-%.flyway_schema_history, mars-consumer-%.CONSUMER_AUTHENTICATION, mars-%.%BKP% ,mars-%.%_TEMP_%, mars-%.%_TEMP, mars-%.shedlock",
+		"SERVER_ID": "1281389811",
+		"AWS_ACCOUNT": "all",
+		"AWS_USERNAME_CP": "aws",		
+		"AWS_URL_PASSWORD_CP": "prod/MARS-PROD/connectionpoint/mars-ineb-connectionpoint-prod/DPBI&password",
+		"AWS_URL_USERNAME_CP": "prod/MARS-PROD/connectionpoint/mars-ineb-connectionpoint-prod/DPBI&username",
+		"CP_OFFSET": "",
+		"BATCH_SIZE": "1000",
+		"RAW_LOG_TABLE_NAME": "MARSDB_RAW_LOGS_INEB"
+	},
+	"loadParameters":
+	{
+		"JOB_ID":"c30bcb8a-280e-4a47-b990-d66d30ef187f:maximus.com",
+		"AWS_ACCOUNT": "all",
+		"AWS_USERNAME_SF": "aws_de",
+		"AWS_URL_USERNAME_SF": "snowflake.uat.access&user_sf_prd_cp",
+		"AWS_URL_PASSWORD_SF": "snowflake.uat.access&pass_sf_prd_cp",
+		"SF_WH": "MARS_DP4BI_LOAD_PROD_WH",
+		"SF_DB": "MARS_DP4BI_PROD",
+		"SF_SCHEMA": "MARSDB",
+		"SF_STAGE": "DP4BI_PROD_S3_MDB_CDC",		
+		"DIR_PATH": "/home/streamsets/marsdb/tmp/stage/",
+		"FILE_PATTERN": "marsdb-cdc-etlineb*",
+		"STAGE_FILE_PATTERN": "marsdb-etlineb",
+		"DIR_ERROR": "/home/streamsets/marsdb/err",
+		"DIR_ARCHIVE": "/home/streamsets/marsdb/processed/stage",
+		"SF_ACCOUNT": "FU30703",
+		"SF_URL": "fu30703.us-east-1.snowflakecomputing.com"
+	}
+}

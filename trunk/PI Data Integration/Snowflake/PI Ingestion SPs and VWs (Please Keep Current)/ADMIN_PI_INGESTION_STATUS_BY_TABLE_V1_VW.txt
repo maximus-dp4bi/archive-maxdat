@@ -1,0 +1,121 @@
+create or replace view PUBLIC.ADMIN_PI_INGESTION_STATUS_BY_TABLE_VW as
+with base as (
+               select * from (
+                               select dl0.projectid, dl0.ts, dd.date as status_date_est,
+                               RANK() OVER (PARTITION BY dl0.projectid,dd.date ORDER BY dl0.ts asc) as row_num
+                               from raw.ingest_pi_data_det_log dl0
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl0.ts)))) = dd.date
+                               where dl0.object_category in ('INGESTION STARTED')
+                               and dd.date >= date('2021-06-01')
+               ) where row_num=1
+),
+final as (
+select * from (
+                               select dl1.projectid, to_timestamp_ltz(to_varchar(dl1.ts)) as status_time_ltz, dd.date as status_date_est, dl1.object_category, dl1.status_string,
+                               RANK() OVER (PARTITION BY dl1.projectid,dd.date ORDER BY dl1.ts desc) as row_num
+                               from raw.ingest_pi_data_det_log dl1
+                               join public.d_dates dd
+                               on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = dd.date
+                               --and dd.date =  date(convert_timezone('America/New_York',current_timestamp()))
+               ) where row_num=1
+),
+projects_tables_list as (
+                                                   
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,phist.projectname, thist.table_name as active_table_name,uthist.table_name as unavailable_table_name
+from final
+
+left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+
+left outer join public.d_pi_tables_history thist
+on final.status_time_ltz >= thist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= thist.end_time
+and thist.active = true
+and thist.s3_sourced = true
+                                                   
+left outer join public.d_pi_project_unavailable_tables_history uthist
+on final.projectid = uthist.project_id
+and thist.table_name = uthist.table_name
+and final.status_time_ltz >= uthist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= uthist.end_time
+and (uthist.end_unavailable_date is null or uthist.end_unavailable_date >= final.status_date_est)
+),
+sp_list as (
+select final.status_date_est, final.status_time_ltz, phist.projectid as projectid,phist.projectname, sphist.sp_name as sp_name
+from final
+  left outer join public.d_pi_projects_history phist
+on final.projectid = phist.projectid
+and final.status_time_ltz >= phist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= phist.end_time
+and phist.active = true
+  left outer join public.d_pi_ingestion_sps_history sphist
+on final.status_time_ltz >= sphist.start_time
+and timestampadd(minute,1,final.status_time_ltz) <= sphist.end_time
+and sphist.active = true
+
+),
+sp_runs as (
+  select * from (
+                  select dl1.projectid, dl1.object_name, dl1.status_string, dl1.msg,
+                         convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts))) as status_time, high_base.status_date_est,
+                         RANK() OVER (PARTITION BY dl1.object_name,high_base.status_date_est ORDER BY dl1.ts desc) as row_num
+                         from raw.ingest_pi_data_det_log dl1
+                         join (select status_date_est,max(ts) as ts from base group by status_date_est) high_base
+                         on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl1.ts)))) = high_base.status_date_est
+                         where object_category = 'SP'
+                         and projectid in ('ALL')
+                         --and dl1.ts >= high_base.ts
+               ) where row_num=1
+  
+  )
+
+
+select dl.projectid,ptlist.projectname, dl.object_name as table_name, dl.status_string as status, dl.msg as log_msg,
+convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts))) as status_time, ptlist.status_date_est as status_date 
+
+from raw.ingest_pi_data_det_log dl
+left outer join projects_tables_list ptlist
+on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = ptlist.status_date_est
+and dl.projectid = ptlist.projectid
+and dl.object_name = ptlist.active_table_name
+
+join base
+on dl.projectid = base.projectid
+and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est  
+where dl.object_category in ('TABLE','TABLE REINGEST')
+and dl.ts >= base.ts
+and ptlist.projectid is not null
+and ptlist.active_table_name is not null
+and ptlist.unavailable_table_name is null
+--order by  ptlist.status_date_est desc, dl.ts desc
+
+union all
+
+select projectid, 'NA' as projectname,'NA' as table_name, 'SP ' || sp.object_name || ' ' || sp.status_string as status, 
+msg as log_msg,sp.status_time, sp.status_date_est
+from sp_runs sp
+
+union all
+
+
+select dl.projectid,splist.projectname, 'SP: ' || dl.object_name as table_name, dl.status_string as status, dl.msg as log_msg,
+convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts))) as status_time, splist.status_date_est as status_date 
+
+from raw.ingest_pi_data_det_log dl
+left outer join sp_list splist
+on to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = splist.status_date_est
+and dl.projectid = splist.projectid
+and dl.object_name = splist.sp_name
+
+join base
+on dl.projectid = base.projectid
+and to_date(convert_timezone('America/New_York',to_timestamp_ltz(to_varchar(dl.ts)))) = base.status_date_est  
+where dl.object_category in ('SP','SP REINGEST')
+and dl.ts >= base.ts
+and splist.projectid is not null
+and splist.sp_name is not null
+;

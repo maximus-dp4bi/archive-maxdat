@@ -1,0 +1,68 @@
+# Format:
+# minutes_of_hour hours_of_day days_of_month months_of_year days_of_the_week command_to_execute
+
+#NYHIX-15292 files older than 30 days removed
+00 02 * * * find /u01/maximus/maxdat/NYHIX8/logs -mtime +30 -exec rm {} \; > /u01/maximus/maxdat/NYHIX8/logs/removed.log 2>&1
+
+#Ansible: log_purge
+0 3 * * * /u01/app/appadmin/scripts/log_purge.sh
+
+#Make a copy of current Crontab
+00 05 * * * crontab -l > /u01/maximus/maxdat/NYHIX8/scripts/cronfiles/NYHIX_AWS_Current_Cron_`date '+\%Y\%m\%d_\%H\%M\%S'`.txt
+
+# Production Planning
+10,25,40,55 * * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_planning.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/ProductionPlanning/nyhix_run_planning_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+15 0,6-23 * * * /u01/maximus/maxdat/NYHIX8/scripts/Run_PP_BO_RUNALL.sh >> /u01/maximus/maxdat/NYHIX8/logs/ProductionPlanning/Run_PP_BO_RUNALL_`date '+\%Y\%m\%d_\%H\%M\%S'`.log 2>&1
+00 19 * * * /u01/maximus/maxdat/NYHIX8/scripts/Run_PP_Actuals_AHT_RUNALL.sh >> /u01/maximus/maxdat/NYHIX8/logs/ProductionPlanning/Run_PP_Actuals_AHT_Run_All_`date '+\%Y\%m\%d_\%H\%M\%S'`..log 2>&1
+
+# BPM
+0 2-22 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_bpm.sh  | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/Initialization/nyhix_run_bpm_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# MailFaxDoc
+0 22 * * * /u01/maximus/maxdat/NYHIX8/scripts/DLY_NYHIX_Run_Init_MFD.sh >> /u01/maximus/maxdat/NYHIX8/logs/MFD_Run_Init_DAILY/DLY_NYHIX_Run_Init_MFD_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+0 2-22 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mfd.sh  | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/ProcessMailFaxDocV2/nyhix_run_mfd_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#NYHIX-10633 ( shell scrip not used see nyhix_run_mfd.sh )
+#0 2-22 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mfd_v2.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/ProcessMailFaxDocV2/nyhix_run_mfd_v2_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#NYHIX-9556 - Contact Center jobs no longer used by NYHIX
+#15 * * * * /u01/maximus/maxdat/NYHIX8/scripts/ContactCenter/main/bin/manage_scheduled_contact_center_jobs.sh > /u01/maximus/maxdat/NYHIX8/logs/ContactCenter/`uname -n`_contcent.log 2>&1
+#20 * * * * /u01/maximus/maxdat/NYHIX8/scripts/ContactCenter/main/bin/manage_adhoc_contact_center_jobs.sh > /u01/maximus/maxdat/NYHIX8/logs/ContactCenter/`uname -n`_contcent.log 2>&1
+#0 03 * * * /u01/maximus/maxdat/NYHIX8/scripts/ContactCenter/main/bin/run_exec_load_ivr_data.sh > /u01/maximus/maxdat/NYHIX8/logs/ContactCenter/`uname -n`_contcent.log 2>&1
+#00 06 * * *  /u01/maximus/maxdat/NYHIX8/scripts/ContactCenter/main/bin/load_New_Queue_Flag_for_Alert.sh > /u01/maximus/maxdat/NYHIX8/logs/ContactCenter/load_New_Queue_Flag_for_Alert.out 2>&1
+
+
+# Process Control Chart - Weekly JOB
+00 01 * * 1 /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_load_process_metrics.sh >> /u01/maximus/maxdat/NYHIX8/logs/ProcessControlChart/nyhix_run_load_process_metrics.log 2>&1
+
+# MailFaxBatch ( Monday thru Saturday and Sunday )
+0,30 5,7,9,11,13,15,17,19,21 * * 1-6 /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mailfaxbatch.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/MailFaxBatch/nyhix_run_mailfaxbatch_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+0,30 9,11,13,15,17,19,21 * * 0 /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_mailfaxbatch.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/MailFaxBatch/nyhix_run_mailfaxbatch_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# AgentTimeline
+0 23 * * * /u01/maximus/maxdat/NYHIX8/scripts/Run_PP_WFM_RUNALL.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/AgentTimeline/Run_PP_WFM_RUNALL_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# DP_SCORECARD JOBS
+00 * * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_egain_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/Egain/nyhix_run_egain_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log 2>&1
+
+00 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_engage_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/Engage/nyhix_run_engage_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+00 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_sc_pp_wfm_tables_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_sc_pp_wfm_tables_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+
+45 06 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_dp_scorecard_load.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_dp_scorecard_load_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+00 01 * * * /u01/maximus/maxdat/NYHIX8/scripts/pp_wfm_task_bo_30D_SYNC.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/pp_wfm_task_bo_30D_SYNC.sh_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+45 01 * * * /u01/maximus/maxdat/NYHIX8/scripts/nyhix_run_pp_wfm_task_audit.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/nyhix_run_pp_wfm_task_audit_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+# Note the Agent_Clocking_Extract is really AgentTimeline but the kjb(s) and ktr(s) are in the DP_Scorecard directory and the data comes from Pipkins
+#Monday thru Friday Every 15 minutes 4PM till 9PM Eastern ( Note the Agent_Clocking_Extract is really AgentTimeline
+10,25,40,55 16-21 * * 1-5 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/PIPKINS_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#Every DAY at 5:00 AM
+00 05 * * 1-7 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+
+#On Saturday Every 15 minutes Noon to 1PM Eastern
+10,25,40,55 12-13 * * 6 /u01/maximus/maxdat/NYHIX8/scripts/PIPKINS_Agent_Clocking_Extract.sh | sed "s/^/$(date)/ " >> /u01/maximus/maxdat/NYHIX8/logs/DP_Scorecard/Pipkins_Agent_Clocking_Extract_`date '+\%Y\%m\%d_\%H\%M\%S'`.log
+

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+
+# set_env_vars.sh
+# =======================================================================================================================================
+# Do not edit these four SVN_* variable values.  They are populated when
+#    you commit code to SVN and used later to identify deployed code.
+# $URL$
+# $Revision$
+# $Date$
+# $Author$
+# =======================================================================================================================================
+
+
+#Complete the environment - Specific to LAEB only
+#----------------------------------------------------------------------------------------------------------------------------------------
+export HOSTNAME=$(hostname)
+export ENV_CODE="dev"
+#export ENV_CODE="uat"
+#export ENV_CODE="prd"
+export STCODE=PAIECC8
+export PDI_VERSION='8'
+export PENTAHO_JAVA_HOME="/u01/app/appadmin/product/java/jdk1.8.0_192"
+export MAXDAT_KETTLE_DIR="/u01/app/appadmin/product/pentaho_8.3/data-integration"
+export KETTLE_PAIE_HOME="/u01/maximus/maxdat-$ENV_CODE/$STCODE/config"
+export KETTLE_HOME=$KETTLE_PAIE_HOME
+export KTR_LOG_LEVEL='Basic'
+export KJB_LOG_LEVEL='Detailed'
+export CHILD_FAIL="/tmp/${STCODE}_PDI${PDI_VERSION}_child_task_fail.txt"
+PATH="$KETTLE_PAIE_HOME/.kettle/kettle.properties:.:/u01/app/appadmin/product/pentaho_8.3/data-integration:/usr/bin:$PATH"
+export PATH
+export KETTLE_JNDI_ROOT=$KETTLE_PAIE_HOME/simple-jndi
+MAXDAT_ETL_PATH=/u01/maximus/maxdat-$ENV_CODE
+export MAXDAT_ETL_LOGS=$MAXDAT_ETL_PATH/$STCODE/logs
+export MAXDAT_MOTS_FILES=$MAXDAT_ETL_PATH/$STCODE/mots/files
+export MAXDAT_ETL_PATH=/u01/maximus/maxdat-$ENV_CODE/$STCODE/scripts
+
+#
+# ----  MAIL VARIABLES  -----
+#mail related variables
+export EMAIL='MAXDatSystem@maximus.com'
+export EMAIL_MESSAGE="/tmp/${STCODE}_kettle-ERROR-LOG${PDI_VERSION}.txt"
+export EMAIL_SUBJECT="Errors With ${STCODE}_Kettle.sh in $ENV_CODE"
+#
+
+
+#---- OTHER VARIABLES ----
+export LOG_LIFE_DAYS=60 # Number of days to keep log files in the log directory before deleting
+#----------------------------------------------------------------------------------------------------------------------------------------
+#
+# ----  ETL JOB CONTROL PROCESS VARIABLES  ----
+export ETL_JOBCONTROL_SCRIPTS_PATH="/u01/maximus/maxdat-$ENV_CODE/$STCODE/scripts/ContactCenter/main/bin"
+export ETL_JOBCONTROL_LOG_PATH="/u01/maximus/maxdat-$ENV_CODE/$STCODE/ETLJobControl/logs"
+export ETL_JOBCONTROL_DATA_PATH="/u01/maximus/maxdat-$ENV_CODE/$STCODE/ETLJobControl/data"
+export ETL_JOBCONTROL_SQL_PATH="/u01/maximus/maxdat-$ENV_CODE/$STCODE/ETLJobControl/sql"
+export KETTLE_PROPERTIES_PATH="$KETTLE_HOME/.kettle"
+#
+# ----  ETL JOB CONTROL PROCESS VARIABLES : ORACLE RELATED ----
+export ORACLE_HOME=/u01/app/appadmin/product/oracle/instantclient
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/u01/app/appadmin/product/oracle/instantclient
+export DB_MAXDAT_CLIENT=/u01/app/appadmin/product/oracle/instantclient/sqlplus
+#

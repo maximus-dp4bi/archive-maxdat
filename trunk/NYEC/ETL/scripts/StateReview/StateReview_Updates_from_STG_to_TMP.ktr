@@ -1,0 +1,4073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>StateReview_Updates_from_STG_to_TMP</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2012&#47;11&#47;26 11:07:37.777</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2012&#47;11&#47;26 11:07:37.777</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>UPD5 - Updates Data Correction Task attributes.</note>
+      <xloc>1432</xloc>
+      <yloc>95</yloc>
+      <width>292</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD7 - Updates Research Task attributes.</note>
+      <xloc>2573</xloc>
+      <yloc>100</yloc>
+      <width>256</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD1-Updates volatile attributes.</note>
+      <xloc>0</xloc>
+      <yloc>425</yloc>
+      <width>202</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD2-Updates Cancel State Review related attributes.</note>
+      <xloc>242</xloc>
+      <yloc>94</yloc>
+      <width>326</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD3-Updates State Review Task related attributes.</note>
+      <xloc>423</xloc>
+      <yloc>417</yloc>
+      <width>313</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD4-Determine Routing after Completion of State Review Task.
+</note>
+      <xloc>739</xloc>
+      <yloc>96</yloc>
+      <width>393</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD6-Determine Routing after Completion of Data Correction Task.
+</note>
+      <xloc>1907</xloc>
+      <yloc>97</yloc>
+      <width>408</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD8-Updates Routing After Completion of Research Task
+</note>
+      <xloc>3056</xloc>
+      <yloc>97</yloc>
+      <width>359</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>This transformation updates the Instance attributes, ASF and GWF flags in the 
+STAGE_REVIEW_STG_TMP table only if there is change from previous run.</note>
+      <xloc>80</xloc>
+      <yloc>530</yloc>
+      <width>471</width>
+      <heigth>40</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD9-Update Request Missing Info Notice Activity
+</note>
+      <xloc>3546</xloc>
+      <yloc>99</yloc>
+      <width>308</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD10-Determine Routing after Completion of Request Missing Info Notice Activity</note>
+      <xloc>4191</xloc>
+      <yloc>101</yloc>
+      <width>488</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>UPD11-Update Calculated attributes</note>
+      <xloc>4851</xloc>
+      <yloc>103</yloc>
+      <width>220</width>
+      <heigth>25</heigth>
+      <fontname>Arial</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>165</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecdmsp</name>
+    <server>rsmxdb09z1.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECDMSP</database>
+    <port>1544</port>
+    <username>DH240464 </username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecmxdp</name>
+    <server>rsmxdb07.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>nyecmxdp</database>
+    <port>1544</port>
+    <username>dh24064</username>
+    <password>Encrypted 2be98afc86aa7f2a0ae0fb4258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECMXDU</name>
+    <server>rcmxdb01.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECMXDU</database>
+    <port>1544</port>
+    <username>dh24064</username>
+    <password>Encrypted 2be98afc86aa7f2a0ae0fb4258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>nyecprd</name>
+    <server>rsmxdb09z1.maximus.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECPRD</database>
+    <port>1544</port>
+    <username>DH24064</username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>INITIAL_POOL_SIZE</code><attribute>5</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MAXIMUM_POOL_SIZE</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_initialSize</code><attribute>${INIT_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_logAbandoned</code><attribute>false</attribute></attribute>
+      <attribute><code>POOLING_maxActive</code><attribute>${MAX_POOL_SIZE}</attribute></attribute>
+      <attribute><code>POOLING_testOnBorrow</code><attribute>true</attribute></attribute>
+      <attribute><code>POOLING_validationQuery</code><attribute>select 1 from dual</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>standby</name>
+    <server>resvamaxdb3</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>NYECPRD</database>
+    <port>1544</port>
+    <username>DH24064</username>
+    <password>Encrypted 2be98afc82ec2849e9f49b7258acbfd9b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1544</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Set field value-UPD1_10_20</from><to>Filter rows-UPD2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD2</from><to>Filter rows-UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD2_10</from><to>Set field value-UPD2_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD2</from><to>Filter rows-UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD2_10</from><to>Filter rows-UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD2_10</from><to>Filter rows-UPD3</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3</from><to>Filter rows-UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3_10</from><to>Set field value-UPD3_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3_10</from><to>Filter rows-UPD3_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD3_10</from><to>Filter rows-UPD3_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3_20</from><to>Set field value-UPD3_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3</from><to>Filter rows-UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD3_20</from><to>Filter rows-UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD3_20</from><to>Filter rows-UPD4</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4</from><to>Filter rows-UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_10</from><to>Set field value-UPD4_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_20</from><to>Set field value-UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_10</from><to>Filter rows-UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD4_10</from><to>Filter rows-UPD4_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_30</from><to>Set field value-UPD4_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_20</from><to>Filter rows-UPD4_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD4_20</from><to>Filter rows-UPD4_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_40</from><to>Set field value-UPD4_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_30</from><to>Filter rows-UPD4_40</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD4_30</from><to>Filter rows-UPD4_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_20</from><to>Filter rows-UPD5_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_20</from><to>Set field value-UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_30</from><to>Set field value-UPD5_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD5_20</from><to>Filter rows-UPD5_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4</from><to>Filter rows-UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD4_40</from><to>Filter rows-UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD4_40</from><to>Filter rows-UPD5</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5</from><to>Filter rows-UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_10</from><to>Filter rows-UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_10</from><to>Set field value-UPD5_10</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD5_10</from><to>Filter rows-UPD5_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5</from><to>Filter rows-UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6</from><to>Filter rows-UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_10</from><to>Set field value-UPD6_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD5_30</from><to>Filter rows-UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD5_30</from><to>Filter rows-UPD6</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD6_10</from><to>Filter rows-UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_10</from><to>Filter rows-UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_20</from><to>Set field value-UPD6_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_30</from><to>Set field value-UPD6_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_20</from><to>Filter rows-UPD6_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD6_20</from><to>Filter rows-UPD6_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_40</from><to>Set field value-UPD6_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_30</from><to>Filter rows-UPD6_40</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD6_30</from><to>Filter rows-UPD6_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7</from><to>Filter rows-UPD7_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_10</from><to>Filter rows-UPD7_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_10</from><to>Set field value-UPD7_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_20</from><to>Filter rows-UPD7_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_20</from><to>Set field value-UPD7_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_30</from><to>Set field value-UPD7_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD7_10</from><to>Filter rows-UPD7_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD7_20</from><to>Filter rows-UPD7_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6</from><to>Filter rows-UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD6_40</from><to>Filter rows-UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD6_40</from><to>Filter rows-UPD7</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7</from><to>Filter rows-UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD7_30</from><to>Filter rows-UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD7_30</from><to>Filter rows-UPD8</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8</from><to>Filter rows-UPD8_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_10</from><to>Set field value-UPD8_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_20</from><to>Set field value-UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_10</from><to>Filter rows-UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD8_10</from><to>Filter rows-UPD8_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_30</from><to>Set field value-UPD8_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_20</from><to>Filter rows-UPD8_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD8_20</from><to>Filter rows-UPD8_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8</from><to>Filter rows-UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD8_30</from><to>Filter rows-UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD8_30</from><to>Filter rows-UPD9</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_20</from><to>Set field value-UPD9_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD9_10</from><to>Filter rows-UPD9_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_20</from><to>Filter rows-UPD9_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD9_20</from><to>Filter rows-UPD9_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_30</from><to>Set field value-UPD9_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_40</from><to>Set field value-UPD9_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_30</from><to>Filter rows-UPD9_40</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD9_30</from><to>Filter rows-UPD9_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9</from><to>Filter rows-UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9_40</from><to>Filter rows-UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD9_40</from><to>Filter rows-UPD10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10</from><to>Filter rows-UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_10</from><to>Set field value-UPD10_10</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_20</from><to>Set field value-UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_10</from><to>Filter rows-UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD10_10</from><to>Filter rows-UPD10_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_30</from><to>Set field value-UPD10_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_20</from><to>Filter rows-UPD10_30</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD10_20</from><to>Filter rows-UPD10_30</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10_30</from><to>Set field value-UPD10_40</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD10_30</from><to>Set field value-UPD10_40</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD10</from><to>Filter rows-UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD11</from><to>Dummy-2</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD10_40</from><to>Filter rows-UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD11</from><to>Set field value-UPD11</to><enabled>Y</enabled> </hop>  <hop> <from>Set field value-UPD11</from><to>Dummy-2</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy-2</from><to>Filter rows-Update needed?</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Update-TMP table</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-Update needed?</from><to>Dummy - NO Update</to><enabled>Y</enabled> </hop>  <hop> <from>Any change in Volatile attributes?</from><to>Set field value-UPD1_10_20</to><enabled>Y</enabled> </hop>  <hop> <from>Table input -- Get Data from State old and new</from><to>Any change in Volatile attributes?</to><enabled>Y</enabled> </hop>  <hop> <from>Any change in Volatile attributes?</from><to>Filter rows-UPD2</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows-UPD9</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Filter rows-UPD9_20</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Set field value-UPD9_10</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Any change in Volatile attributes?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD1_10_20</send_true_to>
+<send_false_to>Filter rows-UPD2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>IN_ANY_UPD_FOR_UPD_1_10</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>85</xloc>
+      <yloc>147</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy - NO Update</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5141</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy-2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5006</xloc>
+      <yloc>151</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD10_10</send_true_to>
+<send_false_to>Filter rows-UPD11</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_REQUEST_MI_NOTICE</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4191</xloc>
+      <yloc>152</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD10_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD10_10</send_true_to>
+<send_false_to>Filter rows-UPD10_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>LETTER_REQ_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>LETTER_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_SENT_LETTER_STATUS</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD9_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4192</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD10_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD10_20</send_true_to>
+<send_false_to>Filter rows-UPD10_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_LETTER_SENT_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD9_40</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4361</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD10_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD10_30</send_true_to>
+<send_false_to>Set field value-UPD10_40</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_LETTER_SENT_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD9_40</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4531</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD11</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD11</send_true_to>
+<send_false_to>Dummy-2</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>AGE_IN_BUSINESS_DAYS</leftvalue>
+     <function>&lt;&gt;</function>
+     <rightvalue>ORIG_AGE_IN_BUSINESS_DAYS</rightvalue>
+     </condition>
+    <condition>
+     <negated>N</negated>
+     <operator>OR</operator>
+     <leftvalue>AGE_IN_CALENDAR_DAYS</leftvalue>
+     <function>&lt;&gt;</function>
+     <rightvalue>ORIG_AGE_IN_CALENDAR_DAYS</rightvalue>
+     </condition>
+    </conditions>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4852</xloc>
+      <yloc>151</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD2_10</send_true_to>
+<send_false_to>Filter rows-UPD3</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ORIG_CANCEL_DT</leftvalue>
+ <function>IS NULL</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>248</xloc>
+      <yloc>147</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD2_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD2_10</send_true_to>
+<send_false_to>Filter rows-UPD3</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>APP_STATUS_GROUP</leftvalue>
+ <function>IN LIST</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Cancelled</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>249</xloc>
+      <yloc>254</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD3_10</send_true_to>
+<send_false_to>Filter rows-UPD4</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_RECEIVE_STATE_REVIEW</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>146</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD3_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD3_10</send_true_to>
+<send_false_to>Filter rows-UPD3_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>STRW_TASK_CLAIMED_DATE</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD3_10</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>424</xloc>
+      <yloc>247</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD3_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD3_20</send_true_to>
+<send_false_to>Filter rows-UPD4</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ASED_RECEIVE_STATE_REVIEW</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD3_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>584</xloc>
+      <yloc>247</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD4</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD4_10</send_true_to>
+<send_false_to>Filter rows-UPD5</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_RECEIVE_STATE_REVIEW</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>741</xloc>
+      <yloc>146</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD4_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD4_10</send_true_to>
+<send_false_to>Filter rows-UPD4_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>AUTO_CLOSE_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD4_10</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>742</xloc>
+      <yloc>246</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD4_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD4_20</send_true_to>
+<send_false_to>Filter rows-UPD4_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>AUTO_REJECT_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD4_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>910</xloc>
+      <yloc>247</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD4_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD4_30</send_true_to>
+<send_false_to>Filter rows-UPD4_40</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>AUTO_CLOSE_FLAG</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>AUTO_REJECT_FLAG</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>DATA_CORRECTION_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>ACCEPTED</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1074</xloc>
+      <yloc>247</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD4_40</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD4_40</send_true_to>
+<send_false_to>Filter rows-UPD5</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>AUTO_CLOSE_FLAG</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>AUTO_REJECT_FLAG</leftvalue>
+   <function>&lt;&gt;</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>DATA_CORRECTION_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>REJECTED</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1247</xloc>
+      <yloc>247</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD5</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD5_10</send_true_to>
+<send_false_to>Filter rows-UPD6</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_RECEIVE_STATE_REVIEW</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_PROCESS_DC</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1433</xloc>
+      <yloc>147</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD5_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD5_10</send_true_to>
+<send_false_to>Filter rows-UPD5_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_DATA_CORRECTION_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>DATA_CORRECTION_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1430</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD5_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD5_20</send_true_to>
+<send_false_to>Filter rows-UPD5_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ASSD_PROCESS_DC</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD5_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1589</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD5_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD5_30</send_true_to>
+<send_false_to>Filter rows-UPD6</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ASED_PROCESS_DC</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD5_30</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1749</xloc>
+      <yloc>259</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD6</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD6_10</send_true_to>
+<send_false_to>Filter rows-UPD7</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_PROCESS_DC</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1909</xloc>
+      <yloc>147</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD6_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD6_10</send_true_to>
+<send_false_to>Filter rows-UPD6_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_RESEARCH_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1906</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD6_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD6_20</send_true_to>
+<send_false_to>Filter rows-UPD6_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2063</xloc>
+      <yloc>262</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD6_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD6_30</send_true_to>
+<send_false_to>Filter rows-UPD6_40</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_STATE_REVIEW_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD6_30</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2224</xloc>
+      <yloc>261</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD6_40</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD6_40</send_true_to>
+<send_false_to>Filter rows-UPD7</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD6_40</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2392</xloc>
+      <yloc>260</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD7</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD7_10</send_true_to>
+<send_false_to>Filter rows-UPD8</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_PROCESS_DC</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_RESEARCH</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_GWF_RESEARCH</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2574</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD7_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD7_10</send_true_to>
+<send_false_to>Filter rows-UPD7_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_RESEARCH_TASK_ID</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2571</xloc>
+      <yloc>261</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD7_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD7_20</send_true_to>
+<send_false_to>Filter rows-UPD7_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ASSD_RESEARCH</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD7_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2730</xloc>
+      <yloc>261</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD7_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD7_30</send_true_to>
+<send_false_to>Filter rows-UPD8</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ASED_RESEARCH</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD7_30</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2890</xloc>
+      <yloc>261</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD8</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows-UPD8_10</send_true_to>
+<send_false_to>Filter rows-UPD9</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_RESEARCH</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3058</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD8_10</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD8_10</send_true_to>
+<send_false_to>Filter rows-UPD8_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_STATE_REVIEW_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3058</xloc>
+      <yloc>254</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD8_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD8_20</send_true_to>
+<send_false_to>Filter rows-UPD8_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3218</xloc>
+      <yloc>254</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD8_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD8_30</send_true_to>
+<send_false_to>Filter rows-UPD9</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>RESEARCH_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_MI_FLAG</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3379</xloc>
+      <yloc>252</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD9</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Filter rows</send_true_to>
+<send_false_to>Filter rows-UPD10</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ORIG_CANCEL_DT</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_GWF_MI_REQUIRED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_A_GWF_MI_REQUIRED</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_REQUEST_MI_NOTICE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_STAGE_DONE_DATE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <conditions>
+      <condition>
+       <negated>N</negated>
+       <leftvalue>ORIG_ASED_PROCESS_DC</leftvalue>
+       <function>IS NOT NULL</function>
+       <rightvalue/>
+       </condition>
+      <condition>
+       <negated>N</negated>
+       <operator>AND</operator>
+       <leftvalue>ORIG_GWF_RESEARCH</leftvalue>
+       <function>=</function>
+       <rightvalue>IN_NO</rightvalue>
+       </condition>
+      </conditions>
+     </condition>
+    <condition>
+     <negated>N</negated>
+     <operator>OR</operator>
+     <conditions>
+      <condition>
+       <negated>N</negated>
+       <leftvalue>ORIG_ASED_RESEARCH</leftvalue>
+       <function>IS NOT NULL</function>
+       <rightvalue/>
+       </condition>
+      <condition>
+       <negated>N</negated>
+       <operator>AND</operator>
+       <leftvalue>ORIG_GWF_RESEARCH</leftvalue>
+       <function>=</function>
+       <rightvalue>IN_YES</rightvalue>
+       </condition>
+      </conditions>
+     </condition>
+    </conditions>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3546</xloc>
+      <yloc>149</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD9_20</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD9_20</send_true_to>
+<send_false_to>Filter rows-UPD9_30</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>LETTER_REQ_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>LETTER_STATUS</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_SENT_LETTER_STATUS</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD9_20</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3717</xloc>
+      <yloc>253</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD9_30</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD9_30</send_true_to>
+<send_false_to>Filter rows-UPD9_40</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>NEW_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ORIG_ASED_REQUEST_MI_NOTICE</leftvalue>
+   <function>IS NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>NEW_STATE_REVIEW_TASK_ID</leftvalue>
+   <function>IS NOT NULL</function>
+   <rightvalue/>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <conditions>
+    <condition>
+     <negated>N</negated>
+     <leftvalue>CHANGE_UPD6_30</leftvalue>
+     <function>=</function>
+     <rightvalue>IN_YES</rightvalue>
+     </condition>
+    <condition>
+     <negated>N</negated>
+     <operator>OR</operator>
+     <leftvalue>CHANGE_UPD9_40</leftvalue>
+     <function>=</function>
+     <rightvalue>IN_YES</rightvalue>
+     </condition>
+    </conditions>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3870</xloc>
+      <yloc>254</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-UPD9_40</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD9_40</send_true_to>
+<send_false_to>Filter rows-UPD10</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>NEW_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>ALL_MI_SATISFIED</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_NO</rightvalue>
+   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>CHANGE_UPD9_40</leftvalue>
+   <function>=</function>
+   <rightvalue>IN_YES</rightvalue>
+   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4032</xloc>
+      <yloc>255</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows-Update needed?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Update-TMP table</send_true_to>
+<send_false_to>Dummy - NO Update</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>ORIG_ITM_UPDATE</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5142</xloc>
+      <yloc>152</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD10_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_NEW_MI_SATISFIED</name>
+        <replaceby>IN_L_GWF_NEW_MI_SATISFIED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4193</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD10_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_NEW_MI_SATISFIED</name>
+        <replaceby>IN_S_GWF_NEW_MI_SATISFIED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4362</xloc>
+      <yloc>364</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD10_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_NEW_MI_SATISFIED</name>
+        <replaceby>IN_M_GWF_NEW_MI_SATISFIED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4531</xloc>
+      <yloc>361</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD10_40</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ORIG_ASED_REQUEST_MI_NOTICE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4683</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD11</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_AGE_IN_BUSINESS_DAYS</name>
+        <replaceby>AGE_IN_BUSINESS_DAYS</replaceby>
+        </field>
+      <field>
+        <name>ORIG_AGE_IN_CALENDAR_DAYS</name>
+        <replaceby>AGE_IN_CALENDAR_DAYS</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4853</xloc>
+      <yloc>263</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD1_10_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>CURRENT_TASK_TYPE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>CURRENT_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STATE_ACCEPT_IND</name>
+        <replaceby>STATE_ACCEPT_IND</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ALL_MI_SATISFIED</name>
+        <replaceby>ALL_MI_SATISFIED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_MI_FLAG</name>
+        <replaceby>NEW_MI_FLAG</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_MI_CREATION_DATE</name>
+        <replaceby>NEW_MI_CREATION_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_MI_SATISFIED</name>
+        <replaceby>NEW_MI_SATISFIED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_MI_SATISFIED_DATE</name>
+        <replaceby>NEW_MI_SATISFIED_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_RFE_STATUS_FLAG</name>
+        <replaceby>RFE_STATUS_FLAG</replaceby>
+        </field>
+      <field>
+        <name>ORIG_HEART_APP_STATUS</name>
+        <replaceby>HEART_APP_STATUS</replaceby>
+        </field>
+      <field>
+        <name>ORIG_APP_STATUS_GROUP</name>
+        <replaceby>APP_STATUS_GROUP</replaceby>
+        </field>
+      <field>
+        <name>ORIG_APP_STATUS_DATE</name>
+        <replaceby>APP_STATUS_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>85</xloc>
+      <yloc>355</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD2_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_CANCEL_DT</name>
+        <replaceby>CANCEL_DT</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>APP_STATUS_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STATE_REVIEW_OUTCOME</name>
+        <replaceby>STATE_REVIEW_OUTCOME</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>248</xloc>
+      <yloc>355</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD3_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_STRW_TASK_CLAIMED_DATE</name>
+        <replaceby>STRW_TASK_CLAIMED_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASPB_RECEIVE_STATE_REVIEW</name>
+        <replaceby>ASPB_RECEIVE_STATE_REVIEW</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>423</xloc>
+      <yloc>353</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD3_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASPB_RECEIVE_STATE_REVIEW</name>
+        <replaceby>ASPB_RECEIVE_STATE_REVIEW</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASED_RECEIVE_STATE_REVIEW</name>
+        <replaceby>ASED_RECEIVE_STATE_REVIEW</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STATE_REVIEW_OUTCOME</name>
+        <replaceby>STATE_REVIEW_OUTCOME</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_RECEIVE_STATE_REVIEW</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>587</xloc>
+      <yloc>353</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD4_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_AUTO_CLOSE_FLAG</name>
+        <replaceby>AUTO_CLOSE_FLAG</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_RECEIVE_STATE_REVIEW</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_TASK_WORKED_BY</name>
+        <replaceby>IN_C_GWF_TASK_WORKED_BY</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>745</xloc>
+      <yloc>353</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD4_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_TASK_WORKED_BY</name>
+        <replaceby>IN_R_GWF_TASK_WORKED_BY</replaceby>
+        </field>
+      <field>
+        <name>ORIG_AUTO_REJECT_FLAG</name>
+        <replaceby>AUTO_REJECT_FLAG</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>913</xloc>
+      <yloc>354</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD4_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_TASK_WORKED_BY</name>
+        <replaceby>IN_W_GWF_TASK_WORKED_BY</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_STATE_RESULT</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_RECEIVE_STATE_REVIEW</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1077</xloc>
+      <yloc>354</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD4_40</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_TASK_WORKED_BY</name>
+        <replaceby>IN_W_GWF_TASK_WORKED_BY</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_STATE_RESULT</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1245</xloc>
+      <yloc>354</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD5_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_DATA_CORRECTION_TASK_ID</name>
+        <replaceby>DATA_CORRECTION_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1430</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD5_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASPB_PROCESS_DC</name>
+        <replaceby>ASPB_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_PROCESS_DC</name>
+        <replaceby>ASSD_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1589</xloc>
+      <yloc>364</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD5_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASPB_PROCESS_DC</name>
+        <replaceby>ASPB_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASED_PROCESS_DC</name>
+        <replaceby>ASED_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_PROCESS_DC</name>
+        <replaceby>ASSD_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_PROCESS_DC</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1752</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD6_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_RESEARCH</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1906</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD6_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_RESEARCH</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_M_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2064</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD6_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_RESEARCH</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_S_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_STATE_REVIEW_TASK_ID</name>
+        <replaceby>NEW_STATE_REVIEW_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2225</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD6_40</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_RESEARCH</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_A_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_REQUEST_MI_NOTICE</name>
+        <replaceby>ORIG_ASED_PROCESS_DC</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2393</xloc>
+      <yloc>364</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD7_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_RESEARCH_TASK_ID</name>
+        <replaceby>RESEARCH_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2571</xloc>
+      <yloc>370</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD7_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASPB_RESEARCH</name>
+        <replaceby>ASPB_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_RESEARCH</name>
+        <replaceby>ASSD_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2729</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD7_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASPB_RESEARCH</name>
+        <replaceby>ASPB_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASED_RESEARCH</name>
+        <replaceby>ASED_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_RESEARCH</name>
+        <replaceby>ASSD_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_RESEARCH</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>2893</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD8_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_S_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_STATE_REVIEW_TASK_ID</name>
+        <replaceby>NEW_STATE_REVIEW_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3059</xloc>
+      <yloc>366</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD8_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_M_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_ID</name>
+        <replaceby>IN_NULL_NUMBER</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CURRENT_TASK_TYPE</name>
+        <replaceby>IN_NULL_CHAR</replaceby>
+        </field>
+      <field>
+        <name>ORIG_STAGE_DONE_DATE</name>
+        <replaceby>IN_SYSTEM_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_COMPLETE_DATE</name>
+        <replaceby>ASED_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_INSTANCE_STATUS</name>
+        <replaceby>IN_COMPLETE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3219</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD8_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_GWF_MI_REQUIRED</name>
+        <replaceby>IN_A_GWF_MI_REQUIRED</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASSD_REQUEST_MI_NOTICE</name>
+        <replaceby>ORIG_ASED_RESEARCH</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3380</xloc>
+      <yloc>363</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD9_10</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_LETTER_REQ_ID</name>
+        <replaceby>LETTER_REQ_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_STATUS</name>
+        <replaceby>LETTER_STATUS</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_STATUS_DATE</name>
+        <replaceby>LETTER_STATUS_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CALL_CAMPAIGN_ID</name>
+        <replaceby>CALL_CAMPAIGN_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_CALL_CAMPAIGN_FLAG</name>
+        <replaceby>CALL_CAMPAIGN_FLAG</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3551</xloc>
+      <yloc>361</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD9_20</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASED_REQUEST_MI_NOTICE</name>
+        <replaceby>LETTER_STATUS_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_SENT_FLAG</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_REQUEST_MI_NOTICE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_STATUS_DATE</name>
+        <replaceby>LETTER_STATUS_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3716</xloc>
+      <yloc>361</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD9_30</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASED_REQUEST_MI_NOTICE</name>
+        <replaceby>NEW_MI_SATISFIED_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_SENT_FLAG</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_REQUEST_MI_NOTICE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_NEW_STATE_REVIEW_TASK_ID</name>
+        <replaceby>NEW_STATE_REVIEW_TASK_ID</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3870</xloc>
+      <yloc>362</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set field value-UPD9_40</name>
+    <type>SetValueField</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>ORIG_ASED_REQUEST_MI_NOTICE</name>
+        <replaceby>NEW_MI_SATISFIED_DATE</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ASF_REQUEST_MI_NOTICE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      <field>
+        <name>ORIG_LETTER_SENT_FLAG</name>
+        <replaceby>IN_NO</replaceby>
+        </field>
+      <field>
+        <name>ORIG_ITM_UPDATE</name>
+        <replaceby>IN_YES</replaceby>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>4033</xloc>
+      <yloc>365</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input -- Get Data from State old and new</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT  stg.NESR_ID,
+		--&apos;N&apos; as IN_ITM_UPDATE,
+		--&apos;Yes&apos; as &quot;YesField&quot;,
+    case when nvl(orig_current_task_type,&apos;X&apos;) &lt;&gt; nvl(current_task_type,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_current_task_id,9)     &lt;&gt; nvl(current_task_id,9) then &apos;Y&apos;
+         when nvl(orig_state_accept_ind,&apos;X&apos;)  &lt;&gt; nvl(state_accept_ind,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_all_mi_satisfied,&apos;X&apos;)  &lt;&gt; nvl(all_mi_satisfied,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_new_mi_flag,&apos;X&apos;)       &lt;&gt; nvl(new_mi_flag,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_new_mi_creation_date,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(new_mi_creation_date,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+         when nvl(orig_new_mi_satisfied,&apos;X&apos;) &lt;&gt; nvl(new_mi_satisfied,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_rfe_status_flag,&apos;X&apos;) &lt;&gt; nvl(rfe_status_flag,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_heart_app_status,&apos;X&apos;) &lt;&gt; nvl(heart_app_status,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(orig_app_status_group,&apos;X&apos;) &lt;&gt; nvl(app_status_group,&apos;X&apos;) then &apos;Y&apos;
+         else &apos;N&apos;            
+    end as IN_any_upd_for_upd_1_10,
+	case when nvl(ORIG_STRW_TASK_CLAIMED_DATE,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(STRW_TASK_CLAIMED_DATE,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd3_10,
+	case when nvl(ORIG_ASED_RECEIVE_STATE_REVIEW,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(ASED_RECEIVE_STATE_REVIEW,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd3_20,
+	case when nvl(ORIG_AUTO_CLOSE_FLAG,&apos;X&apos;)  &lt;&gt; nvl(AUTO_CLOSE_FLAG,&apos;X&apos;) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd4_10,
+	case when nvl(ORIG_AUTO_REJECT_FLAG,&apos;X&apos;)  &lt;&gt; nvl(AUTO_REJECT_FLAG,&apos;X&apos;) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd4_20,
+	case when nvl(ORIG_ASSD_PROCESS_DC,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(ASSD_PROCESS_DC,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd5_20,
+	case when nvl(ORIG_ASED_PROCESS_DC,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(ASED_PROCESS_DC,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd5_30,
+	case when nvl(ORIG_ALL_MI_SATISFIED,&apos;X&apos;)  &lt;&gt; nvl(ALL_MI_SATISFIED,&apos;X&apos;) or  nvl(ORIG_NEW_STATE_REVIEW_TASK_ID,0) &lt;&gt; nvl(NEW_STATE_REVIEW_TASK_ID,0) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd6_30,
+	case when nvl(ORIG_NEW_MI_FLAG,&apos;X&apos;)  &lt;&gt; nvl(NEW_MI_FLAG,&apos;X&apos;)  then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd6_40,
+	case when nvl(ORIG_ASSD_RESEARCH,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(ASSD_RESEARCH,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd7_20,
+	case when nvl(ORIG_ASED_RESEARCH,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(ASED_RESEARCH,to_date(&apos;1-jan-7777&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd7_30,
+	case when nvl(ORIG_LETTER_STATUS,&apos;X&apos;)  &lt;&gt; nvl(LETTER_STATUS,&apos;X&apos;) then &apos;Y&apos;
+         when nvl(ORIG_LETTER_REQ_ID,0)    &lt;&gt; nvl(LETTER_REQ_ID,0) then &apos;Y&apos;
+         when nvl(ORIG_LETTER_STATUS_DATE,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) &lt;&gt; nvl(LETTER_STATUS_DATE,to_date(&apos;1-jan-2000&apos;,&apos;dd-mon-yyyy&apos;)) then &apos;Y&apos;
+         when nvl(ORIG_CALL_CAMPAIGN_FLAG,&apos;X&apos;) &lt;&gt; nvl(CALL_CAMPAIGN_FLAG,&apos;X&apos;) then &apos;Y&apos;
+		 when nvl(ORIG_CALL_CAMPAIGN_ID,0)    &lt;&gt; nvl(CALL_CAMPAIGN_ID,0) then &apos;Y&apos;
+         else &apos;N&apos;            
+    end as change_upd9_10,
+	case when nvl(ORIG_LETTER_STATUS,&apos;X&apos;)  &lt;&gt; nvl(LETTER_STATUS,&apos;X&apos;) or nvl(ORIG_LETTER_REQ_ID,0) &lt;&gt; nvl(LETTER_REQ_ID,0) then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd9_20,
+	case when nvl(ORIG_ALL_MI_SATISFIED,&apos;X&apos;)  &lt;&gt; nvl(ALL_MI_SATISFIED,&apos;X&apos;) then &apos;Y&apos;
+		 when nvl(ORIG_NEW_MI_SATISFIED,&apos;X&apos;)  &lt;&gt; nvl(NEW_MI_SATISFIED,&apos;X&apos;)  then &apos;Y&apos;
+		 else &apos;N&apos;
+	end as change_upd9_40,
+    --case when nvl(orig_auto_reject_flag,&apos;X&apos;) &lt;&gt; nvl(auto_reject_flag,&apos;X&apos;) then &apos;Y&apos; else &apos;N&apos; end as IN_any_upd_for_upd_4_20_30_40,
+		&apos;Y&apos;     as IN_UPDATE,
+		&apos;N&apos;     as IN_NOFIELD,       
+        SYSDATE as IN_SYSTEM_DATE,
+       &apos;Y&apos;     as IN_YES,
+       &apos;N&apos;     as IN_NO,
+        to_number(null)   as IN_NULL_NUMBER,
+        to_char(null)     as IN_NULL_CHAR,
+        &apos;C&apos;    as IN_C_GWF_TASK_WORKED_BY, 
+        &apos;R&apos;    as IN_R_GWF_TASK_WORKED_BY,
+        &apos;W&apos;    as IN_W_GWF_TASK_WORKED_BY,
+        &apos;M&apos;    as IN_M_GWF_MI_REQUIRED,
+        &apos;S&apos;    as IN_S_GWF_MI_REQUIRED,
+        &apos;A&apos;    as IN_A_GWF_MI_REQUIRED,
+        &apos;SENT&apos; as IN_SENT_LETTER_STATUS,
+	    &apos;L&apos;    as IN_L_GWF_NEW_MI_SATISFIED,
+	    &apos;S&apos;    as IN_S_GWF_NEW_MI_SATISFIED,
+	    &apos;M&apos;    as IN_M_GWF_NEW_MI_SATISFIED,
+        &apos;Complete&apos; as IN_COMPLETE,
+		stg.APP_ID,
+        stg.STATE_REVIEW_TASK_ID,
+		stg.AGE_IN_BUSINESS_DAYS,
+		stg.AGE_IN_CALENDAR_DAYS,
+		stg.ALL_MI_SATISFIED,
+		stg.AUTO_CLOSE_FLAG,
+        stg.AUTO_REJECT_FLAG,
+		stg.CALL_CAMPAIGN_ID,
+		stg.CALL_CAMPAIGN_FLAG,
+		stg.CANCEL_DT,
+		stg.CURRENT_TASK_ID,
+		stg.LETTER_REQ_ID,
+		stg.LETTER_STATUS,
+        stg.LETTER_STATUS_DATE,
+        stg.LETTER_SENT_FLAG,
+        stg.NEW_MI_CREATION_DATE,
+		stg.NEW_MI_FLAG,
+        stg.NEW_MI_SATISFIED,
+        stg.new_mi_satisfied_date,
+		stg.NEW_STATE_REVIEW_TASK_ID,
+		stg.RFE_STATUS_FLAG,
+		stg.STATE_ACCEPT_IND,
+		stg.STATE_REVIEW_OUTCOME,
+        stg.STRW_TASK_CLAIMED_DATE,
+		stg.ASED_RECEIVE_STATE_REVIEW,
+		stg.ASPB_RECEIVE_STATE_REVIEW,
+        stg.DATA_CORRECTION_TASK_ID,
+        stg.ASSD_PROCESS_DC,
+		stg.ASED_PROCESS_DC,
+		stg.ASPB_PROCESS_DC,
+        stg.RESEARCH_TASK_ID,
+        stg.ASSD_RESEARCH,
+		stg.ASED_RESEARCH,
+		stg.ASPB_RESEARCH,
+		stg.ASSD_REQUEST_MI_NOTICE,
+		stg.ASED_REQUEST_MI_NOTICE,
+		stg.CURRENT_TASK_TYPE,
+		--stg.CURRENT_TASK_STATUS,
+        stg.RFE_STATUS,
+        stg.INSTANCE_STATUS,
+		stg.FPBP_FLAG,
+        stg.heart_app_status,
+        stg.app_status_group,
+        stg.app_status_date, 	    
+		--stg.CURRENT_TASK_CLAIM_DATE,
+        stg.asf_receive_state_review, 
+---------
+    tmp.orig_nesr_id,
+    tmp.orig_itm_update,
+    tmp.orig_app_id,
+    tmp.orig_state_review_task_id,
+    tmp.orig_age_in_business_days,
+    tmp.orig_age_in_calendar_days,
+    tmp.orig_all_mi_satisfied,
+    tmp.orig_auto_close_flag,
+    TMP.orig_auto_reject_flag,
+    tmp.orig_call_campaign_id,
+    tmp.orig_call_campaign_flag,
+    tmp.orig_cancel_dt,
+    tmp.orig_current_task_id,
+    tmp.orig_letter_req_id,
+    tmp.orig_letter_status,
+    tmp.orig_letter_sent_flag,
+    tmp.orig_letter_status_date,
+    tmp.orig_new_mi_creation_date,
+    tmp.orig_new_mi_flag,
+    tmp.orig_new_mi_satisfied,
+    tmp.orig_new_mi_satisfied_date,
+    tmp.orig_gwf_new_mi_satisfied,
+    tmp.orig_new_state_review_task_id,
+    tmp.orig_rfe_status_flag,
+    tmp.orig_state_accept_ind,
+    tmp.orig_state_review_outcome,
+    tmp.orig_strw_task_claimed_date,
+    tmp.orig_ased_receive_state_review,
+    tmp.orig_aspb_receive_state_review,
+    tmp.orig_data_correction_task_id,
+    tmp.orig_assd_process_dc,
+    tmp.orig_ased_process_dc,
+    tmp.orig_aspb_process_dc,
+    tmp.orig_research_task_id,
+    tmp.orig_assd_research,
+    tmp.orig_ased_research,
+    tmp.orig_aspb_research,    
+	tmp.orig_current_task_type,
+	 -- tmp.orig_current_task_status,
+    tmp.orig_assd_request_mi_notice,
+    tmp.orig_ased_request_mi_notice,
+    tmp.orig_rfe_status,
+    tmp.orig_instance_status,
+    tmp.orig_instance_complete_date,
+    tmp.orig_fpbp_flag,
+    tmp.orig_heart_app_status,
+    tmp.orig_app_status_group,
+    tmp.orig_app_status_date,
+    tmp.orig_stage_done_date,
+    tmp.orig_asf_receive_state_review,
+    tmp.ORIG_ASF_PROCESS_DC,
+    tmp.ORIG_ASF_RESEARCH,
+    tmp.ORIG_ASF_REQUEST_MI_NOTICE,
+    tmp.ORIG_GWF_TASK_WORKED_BY,
+    tmp.ORIG_GWF_STATE_RESULT,
+    tmp.ORIG_GWF_RESEARCH,
+    tmp.ORIG_GWF_MI_REQUIRED
+
+FROM STATE_REVIEW_STG stg
+left outer join (
+SELECT  NESR_ID                   as &quot;ORIG_NESR_ID&quot;,
+		ITM_UPDATE                as &quot;ORIG_ITM_UPDATE&quot;,
+		APP_ID                    as &quot;ORIG_APP_ID&quot;,
+        STATE_REVIEW_TASK_ID      as &quot;ORIG_STATE_REVIEW_TASK_ID&quot;,
+		AGE_IN_BUSINESS_DAYS      as &quot;ORIG_AGE_IN_BUSINESS_DAYS&quot;,
+		AGE_IN_CALENDAR_DAYS      as &quot;ORIG_AGE_IN_CALENDAR_DAYS&quot;,
+		ALL_MI_SATISFIED          as &quot;ORIG_ALL_MI_SATISFIED&quot;,
+		AUTO_CLOSE_FLAG           as &quot;ORIG_AUTO_CLOSE_FLAG&quot;,
+        AUTO_REJECT_FLAG          as &quot;ORIG_AUTO_REJECT_FLAG&quot;,
+		CALL_CAMPAIGN_ID          as &quot;ORIG_CALL_CAMPAIGN_ID&quot;,
+		CALL_CAMPAIGN_FLAG        as &quot;ORIG_CALL_CAMPAIGN_FLAG&quot;,	
+		CANCEL_DT                 as &quot;ORIG_CANCEL_DT&quot;,
+		CURRENT_TASK_ID           as &quot;ORIG_CURRENT_TASK_ID&quot;,
+		LETTER_REQ_ID             as &quot;ORIG_LETTER_REQ_ID&quot;,
+		LETTER_STATUS             as &quot;ORIG_LETTER_STATUS&quot;,
+        LETTER_SENT_FLAG          as &quot;ORIG_LETTER_SENT_FLAG&quot;,
+        LETTER_STATUS_DATE 		  as &quot;ORIG_LETTER_STATUS_DATE&quot;,
+        NEW_MI_CREATION_DATE      as &quot;ORIG_NEW_MI_CREATION_DATE&quot;,
+		NEW_MI_FLAG               as &quot;ORIG_NEW_MI_FLAG&quot;,
+        NEW_MI_SATISFIED          as &quot;ORIG_NEW_MI_SATISFIED&quot;,
+        NEW_MI_SATISFIED_DATE     as &quot;ORIG_NEW_MI_SATISFIED_DATE&quot;, 
+        GWF_NEW_MI_Satisfied      as &quot;ORIG_GWF_NEW_MI_SATISFIED&quot;,
+		NEW_STATE_REVIEW_TASK_ID  as &quot;ORIG_NEW_STATE_REVIEW_TASK_ID&quot;,
+		RFE_STATUS_FLAG           as &quot;ORIG_RFE_STATUS_FLAG&quot;,
+		STATE_ACCEPT_IND          as &quot;ORIG_STATE_ACCEPT_IND&quot;,
+		STATE_REVIEW_OUTCOME      as &quot;ORIG_STATE_REVIEW_OUTCOME&quot;,
+        STRW_TASK_CLAIMED_DATE    as &quot;ORIG_STRW_TASK_CLAIMED_DATE&quot;,
+		ASED_RECEIVE_STATE_REVIEW as &quot;ORIG_ASED_RECEIVE_STATE_REVIEW&quot;,
+		ASPB_RECEIVE_STATE_REVIEW as &quot;ORIG_ASPB_RECEIVE_STATE_REVIEW&quot;,
+        DATA_CORRECTION_TASK_ID   as &quot;ORIG_DATA_CORRECTION_TASK_ID&quot;,
+        ASSD_PROCESS_DC           as &quot;ORIG_ASSD_PROCESS_DC&quot;,
+		ASED_PROCESS_DC           as &quot;ORIG_ASED_PROCESS_DC&quot;,
+		ASPB_PROCESS_DC           as &quot;ORIG_ASPB_PROCESS_DC&quot;,
+        RESEARCH_TASK_ID          as &quot;ORIG_RESEARCH_TASK_ID&quot;,
+        ASSD_RESEARCH             as &quot;ORIG_ASSD_RESEARCH&quot;,
+		ASED_RESEARCH             as &quot;ORIG_ASED_RESEARCH&quot;,
+		ASPB_RESEARCH             as &quot;ORIG_ASPB_RESEARCH&quot;,
+		ASSD_REQUEST_MI_NOTICE    as &quot;ORIG_ASSD_REQUEST_MI_NOTICE&quot;,
+		ASED_REQUEST_MI_NOTICE    as &quot;ORIG_ASED_REQUEST_MI_NOTICE&quot;,
+        CURRENT_TASK_TYPE         as &quot;ORIG_CURRENT_TASK_TYPE&quot;,
+	    --	CURRENT_TASK_STATUS       as &quot;ORIG_CURRENT_TASK_STATUS&quot;,
+        RFE_STATUS                as &quot;ORIG_RFE_STATUS&quot;,
+        INSTANCE_STATUS           as &quot;ORIG_INSTANCE_STATUS&quot;,
+        INSTANCE_complete_dT      as &quot;ORIG_INSTANCE_COMPLETE_DATE&quot;,
+        Stage_done_date           AS &quot;ORIG_STAGE_DONE_DATE&quot;,
+		FPBP_FLAG                 as &quot;ORIG_FPBP_FLAG&quot;,
+        HEART_APP_STATUS          as &quot;ORIG_HEART_APP_STATUS&quot;,
+        APP_STATUS_GROUP          as &quot;ORIG_APP_STATUS_GROUP&quot;,
+        app_status_date           as &quot;ORIG_APP_STATUS_DATE&quot;,
+        asf_receive_state_review  as &quot;ORIG_ASF_RECEIVE_STATE_REVIEW&quot;,
+        asf_process_dc            as &quot;ORIG_ASF_PROCESS_DC&quot;,
+        asf_research              as &quot;ORIG_ASF_RESEARCH&quot;,
+        asf_request_mi_notice     as &quot;ORIG_ASF_REQUEST_MI_NOTICE&quot;,
+        GWF_TASK_WORKED_BY        as &quot;ORIG_GWF_TASK_WORKED_BY&quot;,
+        GWF_STATE_RESULT          as &quot;ORIG_GWF_STATE_RESULT&quot;,
+        GWF_RESEARCH              AS &quot;ORIG_GWF_RESEARCH&quot;,
+        GWF_MI_REQUIRED           AS &quot;ORIG_GWF_MI_REQUIRED&quot;           
+
+FROM STATE_REVIEW_STG_TMP
+) tmp 
+on tmp.orig_app_id = stg.APP_ID 
+and tmp.orig_state_review_task_id = stg.STATE_REVIEW_TASK_ID
+--left outer join NYEC_ETL_PROCESS_APP epa on epa.APP_ID = stg.APP_ID
+--where 1=1
+--where orig_app_id = 178251
+order by tmp.orig_nesr_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>84</xloc>
+      <yloc>34</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Update-TMP table</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>MAXDAT</schema>
+      <table>state_review_stg_tmp</table>
+      <key>
+        <name>ORIG_NESR_ID</name>
+        <field>NESR_ID</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>ITM_UPDATE</name>
+        <rename>ORIG_ITM_UPDATE</rename>
+        </value>
+      <value>
+        <name>CURRENT_TASK_ID</name>
+        <rename>ORIG_CURRENT_TASK_ID</rename>
+        </value>
+      <value>
+        <name>CURRENT_TASK_TYPE</name>
+        <rename>ORIG_CURRENT_TASK_TYPE</rename>
+        </value>
+      <value>
+        <name>STATE_ACCEPT_IND</name>
+        <rename>ORIG_STATE_ACCEPT_IND</rename>
+        </value>
+      <value>
+        <name>ALL_MI_SATISFIED</name>
+        <rename>ORIG_ALL_MI_SATISFIED</rename>
+        </value>
+      <value>
+        <name>NEW_MI_FLAG</name>
+        <rename>ORIG_NEW_MI_FLAG</rename>
+        </value>
+      <value>
+        <name>NEW_MI_CREATION_DATE</name>
+        <rename>ORIG_NEW_MI_CREATION_DATE</rename>
+        </value>
+      <value>
+        <name>NEW_MI_SATISFIED</name>
+        <rename>ORIG_NEW_MI_SATISFIED</rename>
+        </value>
+      <value>
+        <name>NEW_MI_SATISFIED_DATE</name>
+        <rename>ORIG_NEW_MI_SATISFIED_DATE</rename>
+        </value>
+      <value>
+        <name>RFE_STATUS_FLAG</name>
+        <rename>ORIG_RFE_STATUS_FLAG</rename>
+        </value>
+      <value>
+        <name>RFE_STATUS</name>
+        <rename>ORIG_RFE_STATUS</rename>
+        </value>
+      <value>
+        <name>HEART_APP_STATUS</name>
+        <rename>ORIG_HEART_APP_STATUS</rename>
+        </value>
+      <value>
+        <name>APP_STATUS_GROUP</name>
+        <rename>ORIG_APP_STATUS_GROUP</rename>
+        </value>
+      <value>
+        <name>APP_STATUS_DATE</name>
+        <rename>ORIG_APP_STATUS_DATE</rename>
+        </value>
+      <value>
+        <name>CALL_CAMPAIGN_ID</name>
+        <rename>ORIG_CALL_CAMPAIGN_ID</rename>
+        </value>
+      <value>
+        <name>CALL_CAMPAIGN_FLAG</name>
+        <rename>ORIG_CALL_CAMPAIGN_FLAG</rename>
+        </value>
+      <value>
+        <name>STATE_REVIEW_OUTCOME</name>
+        <rename>ORIG_STATE_REVIEW_OUTCOME</rename>
+        </value>
+      <value>
+        <name>FPBP_FLAG</name>
+        <rename>ORIG_FPBP_FLAG</rename>
+        </value>
+      <value>
+        <name>CANCEL_DT</name>
+        <rename>ORIG_CANCEL_DT</rename>
+        </value>
+      <value>
+        <name>STAGE_DONE_DATE</name>
+        <rename>ORIG_STAGE_DONE_DATE</rename>
+        </value>
+      <value>
+        <name>INSTANCE_STATUS</name>
+        <rename>ORIG_INSTANCE_STATUS</rename>
+        </value>
+      <value>
+        <name>INSTANCE_COMPLETE_DT</name>
+        <rename>ORIG_INSTANCE_COMPLETE_DATE</rename>
+        </value>
+      <value>
+        <name>ASED_RECEIVE_STATE_REVIEW</name>
+        <rename>ORIG_ASED_RECEIVE_STATE_REVIEW</rename>
+        </value>
+      <value>
+        <name>ASPB_RECEIVE_STATE_REVIEW</name>
+        <rename>ORIG_ASPB_RECEIVE_STATE_REVIEW</rename>
+        </value>
+      <value>
+        <name>STRW_TASK_CLAIMED_DATE</name>
+        <rename>ORIG_STRW_TASK_CLAIMED_DATE</rename>
+        </value>
+      <value>
+        <name>AUTO_CLOSE_FLAG</name>
+        <rename>ORIG_AUTO_CLOSE_FLAG</rename>
+        </value>
+      <value>
+        <name>AUTO_REJECT_FLAG</name>
+        <rename>ORIG_AUTO_REJECT_FLAG</rename>
+        </value>
+      <value>
+        <name>ASF_RECEIVE_STATE_REVIEW</name>
+        <rename>ORIG_ASF_RECEIVE_STATE_REVIEW</rename>
+        </value>
+      <value>
+        <name>ASF_PROCESS_DC</name>
+        <rename>ORIG_ASF_PROCESS_DC</rename>
+        </value>
+      <value>
+        <name>ASF_REQUEST_MI_NOTICE</name>
+        <rename>ORIG_ASF_REQUEST_MI_NOTICE</rename>
+        </value>
+      <value>
+        <name>ASF_RESEARCH</name>
+        <rename>ORIG_ASF_RESEARCH</rename>
+        </value>
+      <value>
+        <name>GWF_TASK_WORKED_BY</name>
+        <rename>ORIG_GWF_TASK_WORKED_BY</rename>
+        </value>
+      <value>
+        <name>GWF_STATE_RESULT</name>
+        <rename>ORIG_GWF_STATE_RESULT</rename>
+        </value>
+      <value>
+        <name>GWF_RESEARCH</name>
+        <rename>ORIG_GWF_RESEARCH</rename>
+        </value>
+      <value>
+        <name>GWF_MI_REQUIRED</name>
+        <rename>ORIG_GWF_MI_REQUIRED</rename>
+        </value>
+      <value>
+        <name>GWF_NEW_MI_SATISFIED</name>
+        <rename>ORIG_GWF_NEW_MI_SATISFIED</rename>
+        </value>
+      <value>
+        <name>DATA_CORRECTION_TASK_ID</name>
+        <rename>ORIG_DATA_CORRECTION_TASK_ID</rename>
+        </value>
+      <value>
+        <name>ASSD_PROCESS_DC</name>
+        <rename>ORIG_ASSD_PROCESS_DC</rename>
+        </value>
+      <value>
+        <name>ASED_PROCESS_DC</name>
+        <rename>ORIG_ASED_PROCESS_DC</rename>
+        </value>
+      <value>
+        <name>ASPB_PROCESS_DC</name>
+        <rename>ORIG_ASPB_PROCESS_DC</rename>
+        </value>
+      <value>
+        <name>RESEARCH_TASK_ID</name>
+        <rename>ORIG_RESEARCH_TASK_ID</rename>
+        </value>
+      <value>
+        <name>ASSD_RESEARCH</name>
+        <rename>ORIG_ASSD_RESEARCH</rename>
+        </value>
+      <value>
+        <name>ASED_RESEARCH</name>
+        <rename>ORIG_ASED_RESEARCH</rename>
+        </value>
+      <value>
+        <name>ASPB_RESEARCH</name>
+        <rename>ORIG_ASPB_RESEARCH</rename>
+        </value>
+      <value>
+        <name>NEW_STATE_REVIEW_TASK_ID</name>
+        <rename>ORIG_NEW_STATE_REVIEW_TASK_ID</rename>
+        </value>
+      <value>
+        <name>LETTER_REQ_ID</name>
+        <rename>ORIG_LETTER_REQ_ID</rename>
+        </value>
+      <value>
+        <name>LETTER_STATUS</name>
+        <rename>ORIG_LETTER_STATUS</rename>
+        </value>
+      <value>
+        <name>LETTER_SENT_FLAG</name>
+        <rename>ORIG_LETTER_SENT_FLAG</rename>
+        </value>
+      <value>
+        <name>LETTER_STATUS_DATE</name>
+        <rename>ORIG_LETTER_STATUS_DATE</rename>
+        </value>
+      <value>
+        <name>ASSD_REQUEST_MI_NOTICE</name>
+        <rename>ORIG_ASSD_REQUEST_MI_NOTICE</rename>
+        </value>
+      <value>
+        <name>ASED_REQUEST_MI_NOTICE</name>
+        <rename>ORIG_ASED_REQUEST_MI_NOTICE</rename>
+        </value>
+      <value>
+        <name>AGE_IN_BUSINESS_DAYS</name>
+        <rename>ORIG_AGE_IN_BUSINESS_DAYS</rename>
+        </value>
+      <value>
+        <name>AGE_IN_CALENDAR_DAYS</name>
+        <rename>ORIG_AGE_IN_CALENDAR_DAYS</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>5141</xloc>
+      <yloc>271</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Set field value-UPD9_10</send_true_to>
+<send_false_to>Filter rows-UPD9_20</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>CHANGE_UPD9_10</leftvalue>
+ <function>=</function>
+ <rightvalue>IN_YES</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>3548</xloc>
+      <yloc>250</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>
