@@ -1,0 +1,1 @@
+drop table CADIR_PERSON_STG;

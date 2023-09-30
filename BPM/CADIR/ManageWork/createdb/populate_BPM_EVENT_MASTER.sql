@@ -1,0 +1,4 @@
+insert into BPM_EVENT_MASTER (BEM_ID,BRL_ID,BPRJ_ID,BPRG_ID,BPROL_ID,NAME,DESCRIPTION,EFFECTIVE_DATE,END_DATE) 
+values (25,3,11,1,1,'CA DIR Workers Comp','CA DIR Workers Compensation',sysdate,BPM_COMMON.GET_MAX_DATE);
+
+commit;
