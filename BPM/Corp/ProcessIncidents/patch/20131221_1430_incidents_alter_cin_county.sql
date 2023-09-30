@@ -1,0 +1,45 @@
+
+
+alter table D_PI_CURRENT add( "ENROLLEE_RIN"   Varchar2(30),
+            "REPORTER_NAME"  Varchar2(160),
+            "COUNTY_CODE"    Varchar2(32),
+            "COUNTY_NAME"    Varchar2(64),
+            ACTION_COMMENTS  Varchar2(4000),
+            INCIDENT_DESCRIPTION Varchar2(4000),
+            RESOLUTION_DESCRIPTION Varchar2(4000));
+
+alter table CORP_ETL_PROCESS_INCIDENTS add (  "ENROLLEE_RIN"   Varchar2(30),
+            "REPORTER_NAME"  Varchar2(160),
+            "COUNTY_CODE"    Varchar2(32),
+            "COUNTY_NAME"    Varchar2(64));
+            
+alter table PROCESS_INCIDENTS_OLTP add ( "ENROLLEE_RIN"   Varchar2(30),
+            "REPORTER_NAME"  Varchar2(160),
+            "COUNTY_CODE"    Varchar2(32),
+            "COUNTY_NAME"    Varchar2(64));
+            
+alter table PROCESS_INCIDENTS_WIP_BPM add ( "ENROLLEE_RIN"   Varchar2(30),
+            "REPORTER_NAME"  Varchar2(160),
+            "COUNTY_CODE"    Varchar2(32),
+            "COUNTY_NAME"    Varchar2(64));
+
+
+CREATE OR REPLACE VIEW D_PI_CURRENT_SV AS
+SELECT * FROM D_PI_CURRENT
+WITH READ ONLY;
+
+Insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (2592,505,10,'BOTH',to_date('2013-12-21 08:52:50','YYYY-MM-DD HH24:MI:SS'),to_date('2077-07-07 00:00:00','YYYY-MM-DD HH24:MI:SS'),'N');
+
+Insert into BPM_ATTRIBUTE_STAGING_TABLE (BAST_ID,BA_ID,BSL_ID,STAGING_TABLE_COLUMN) values (SEQ_BAST_ID.NEXTVAL,2592,10,'REPORTER_NAME');
+
+update BPM_ATTRIBUTE_LKUP set purpose = 'The county code for an address'
+where bal_id = 557;
+Insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (2594,557,10,'BOTH',to_date('2013-12-21 08:52:50','YYYY-MM-DD HH24:MI:SS'),to_date('2077-07-07 00:00:00','YYYY-MM-DD HH24:MI:SS'),'N');
+Insert into BPM_ATTRIBUTE_STAGING_TABLE (BAST_ID,BA_ID,BSL_ID,STAGING_TABLE_COLUMN) values (SEQ_BAST_ID.NEXTVAL,2594,10,'COUNTY_CODE');
+
+
+insert into BPM_ATTRIBUTE_LKUP (BAL_ID,BDL_ID,NAME,PURPOSE) values (1604,2,'County Name','The name of the associated county');
+Insert into BPM_ATTRIBUTE (BA_ID,BAL_ID,BEM_ID,WHEN_POPULATED,EFFECTIVE_DATE,END_DATE,RETAIN_HISTORY_FLAG) values (2595,1604,10,'BOTH',to_date('2013-12-21 08:52:50','YYYY-MM-DD HH24:MI:SS'),to_date('2077-07-07 00:00:00','YYYY-MM-DD HH24:MI:SS'),'N');
+Insert into BPM_ATTRIBUTE_STAGING_TABLE (BAST_ID,BA_ID,BSL_ID,STAGING_TABLE_COLUMN) values (SEQ_BAST_ID.NEXTVAL,2595,10,'COUNTY_NAME');
+
+commit;

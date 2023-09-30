@@ -1,0 +1,323 @@
+/*
+Created on 12-Oct-2017 by Guy T.
+Description: Create Semantic Data Model for Manage Work Rel 6 process.
+*/
+
+drop table D_MW_TASK_INSTANCE;
+
+create table D_MW_TASK_INSTANCE
+ (MW_BI_ID                       NUMBER NOT NULL,
+  AGE_IN_BUSINESS_DAYS           NUMBER DEFAULT 0 NOT NULL,
+  AGE_IN_CALENDAR_DAYS           NUMBER DEFAULT 0 NOT NULL,
+  CANCELLED_BY_STAFF_ID          NUMBER,
+  CANCEL_METHOD                  VARCHAR2(50),
+  CANCEL_REASON                  VARCHAR2(256),
+  CANCEL_WORK_DATE               DATE,
+  CASE_ID                        NUMBER(18),
+  CLIENT_ID                      NUMBER(18), 
+  COMPLETE_DATE                  DATE,
+  CREATE_DATE                    DATE not null,
+  CURR_CREATED_BY_STAFF_ID	     NUMBER,
+  ESCALATED_FLAG                 VARCHAR2(1) default 'N' not null,
+  CURR_ESCALATED_TO_STAFF_ID	 NUMBER,
+  CURR_FORWARDED_BY_STAFF_ID	 NUMBER,
+  FORWARDED_FLAG                 VARCHAR2(1) default 'N' not null,
+  CURR_BUSINESS_UNIT_ID          NUMBER,
+  INSTANCE_START_DATE            DATE,    -- set by trigger
+  INSTANCE_END_DATE              DATE,    -- set by trigger
+  JEOPARDY_FLAG                  VARCHAR2(1) default 'N' not null,
+  CURR_LAST_UPD_BY_STAFF_ID	     NUMBER,
+  CURR_LAST_UPDATE_DATE          DATE not null,
+  LAST_EVENT_DATE                DATE,
+  CURR_OWNER_STAFF_ID	         NUMBER,
+  PARENT_TASK_ID                 NUMBER,  
+  SOURCE_REFERENCE_ID            INTEGER,
+  SOURCE_REFERENCE_TYPE          VARCHAR2(30),
+  CURR_STATUS_DATE               DATE not null,
+  STATUS_AGE_IN_BUS_DAYS         NUMBER DEFAULT 0 NOT NULL,
+  STATUS_AGE_IN_CAL_DAYS         NUMBER DEFAULT 0 NOT NULL,
+  STG_EXTRACT_DATE               DATE default SYSDATE not null,  -- set via trigger
+  STG_LAST_UPDATE_DATE           DATE default SYSDATE not null,  -- set via trigger
+  STAGE_DONE_DATE                DATE,
+  TASK_ID                        NUMBER not null,
+  TASK_PRIORITY                  VARCHAR2(50),
+  CURR_TASK_STATUS               VARCHAR2(50) not null,  ----- Is it CURRENT_TASK_STATUS ? hISTORY NOT NEEDED THOUGH.
+  TASK_TYPE_ID                   NUMBER not null,
+  CURR_TEAM_ID                   NUMBER,
+  TIMELINESS_STATUS              VARCHAR2(20) default 'Not Complete' not null,
+  UNIT_OF_WORK                   VARCHAR2(30),
+  CURR_WORK_RECEIPT_DATE         DATE,
+  SOURCE_PROCESS_ID              NUMBER(18), 
+  SOURCE_PROCESS_INSTANCE_ID     NUMBER(18),
+  curr_claim_date                DATE  
+  )
+tablespace MAXDAT_DATA;
+
+alter table D_MW_TASK_INSTANCE add constraint DMWCUR_PK primary key (MW_BI_ID) using index tablespace MAXDAT_INDX;
+
+create unique index DMWCUR_UNIQ_TASK_ID on D_MW_TASK_INSTANCE (TASK_ID) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_CANCELLED_STF_ID on D_MW_TASK_INSTANCE (CANCELLED_BY_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_CREATED_STF_ID on D_MW_TASK_INSTANCE (CURR_CREATED_BY_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_ESCALATED_STF_ID on D_MW_TASK_INSTANCE (CURR_ESCALATED_TO_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_FORWARDED_STF_ID on D_MW_TASK_INSTANCE (CURR_FORWARDED_BY_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_LAST_UPD_BY_STF_ID on D_MW_TASK_INSTANCE (CURR_LAST_UPD_BY_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_OWNER_STF_ID on D_MW_TASK_INSTANCE (CURR_OWNER_STAFF_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_CURR_TASK_TYPE_ID on D_MW_TASK_INSTANCE (TASK_TYPE_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_CURR_BUSUNIT_ID on D_MW_TASK_INSTANCE (CURR_BUSINESS_UNIT_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+create index DMWCUR_CURR_TEAM_ID on D_MW_TASK_INSTANCE (CURR_TEAM_ID) TABLESPACE  MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_SOURCE_REFERENCE_ID ON D_MW_TASK_INSTANCE (SOURCE_REFERENCE_ID) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_CREATE_DATE ON D_MW_TASK_INSTANCE (CREATE_DATE) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_COMPLETE_DATE ON D_MW_TASK_INSTANCE (COMPLETE_DATE) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_SPII ON D_MW_TASK_INSTANCE (SOURCE_PROCESS_INSTANCE_ID) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_SPII_CREATE_DATE ON D_MW_TASK_INSTANCE (SOURCE_PROCESS_INSTANCE_ID, CREATE_DATE) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+CREATE INDEX DMWCUR_SPII_COMPLETE_DATE ON D_MW_TASK_INSTANCE (SOURCE_PROCESS_INSTANCE_ID, COMPLETE_DATE) TABLESPACE MAXDAT_INDX parallel 4 compute statistics;
+
+grant select on D_MW_TASK_INSTANCE to MAXDAT_READ_ONLY;
+
+  create or replace view D_MW_TASK_INSTANCE_SV as
+  select
+  MW_BI_ID,                       
+  AGE_IN_BUSINESS_DAYS,           
+  AGE_IN_CALENDAR_DAYS,           
+  CANCELLED_BY_STAFF_ID,          
+  CANCEL_METHOD,                  
+  CANCEL_REASON,                  
+  CANCEL_WORK_DATE,               
+  CASE_ID,                        
+  CLIENT_ID,                      
+  COMPLETE_DATE,                  
+  CREATE_DATE,                    
+  CURR_CREATED_BY_STAFF_ID,	 
+  ESCALATED_FLAG,            
+  CURR_ESCALATED_TO_STAFF_ID,	 
+  CURR_FORWARDED_BY_STAFF_ID,	 
+  FORWARDED_FLAG,            
+  CURR_BUSINESS_UNIT_ID,
+  INSTANCE_START_DATE,            
+  INSTANCE_END_DATE,              
+  JEOPARDY_FLAG,                  
+  CURR_LAST_UPD_BY_STAFF_ID,	 
+  CURR_LAST_UPDATE_DATE,
+  CURR_OWNER_STAFF_ID,	         
+  PARENT_TASK_ID,                 
+  SOURCE_REFERENCE_ID,            
+  SOURCE_REFERENCE_TYPE,          
+  CURR_STATUS_DATE,               
+  STATUS_AGE_IN_BUS_DAYS,         
+  STATUS_AGE_IN_CAL_DAYS,         
+  STG_EXTRACT_DATE,               
+  STG_LAST_UPDATE_DATE,           
+  STAGE_DONE_DATE,                
+  TASK_ID,                        
+  TASK_PRIORITY,                  
+  CURR_TASK_STATUS,               
+  TASK_TYPE_ID,              
+  CURR_TEAM_ID,
+  TIMELINESS_STATUS,              
+  UNIT_OF_WORK,                   
+  CURR_WORK_RECEIPT_DATE,
+  SOURCE_PROCESS_ID, 
+  SOURCE_PROCESS_INSTANCE_ID,
+  curr_claim_date  
+ from D_MW_TASK_INSTANCE
+with read only;  
+
+grant select on D_MW_TASK_INSTANCE_SV to MAXDAT_READ_ONLY;
+
+/*
+create sequence SEQ_DMWTT_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 265
+increment by 1
+cache 20;
+*/
+
+create table D_TASK_TYPES
+  (TASK_TYPE_ID      NUMBER NOT NULL,
+   TASK_NAME         VARCHAR2(100),
+   TASK_DESCRIPTION  VARCHAR2(4000),
+   OPERATIONS_GROUP  VARCHAR2(50),
+   SLA_DAYS          NUMBER,
+   SLA_DAYS_TYPE     VARCHAR2(1),
+   SLA_TARGET_DAYS   NUMBER,
+   SLA_JEOPARDY_DAYS NUMBER,
+   UNIT_OF_WORK      VARCHAR2(30) 
+   )
+tablespace MAXDAT_DATA;
+
+alter table D_TASK_TYPES add constraint PK_TASK_TYPE_ID primary key (TASK_TYPE_ID) using index tablespace MAXDAT_INDX;
+
+grant select on D_TASK_TYPES to MAXDAT_READ_ONLY;
+
+CREATE OR REPLACE VIEW D_TASK_TYPES_SV AS
+SELECT
+    TASK_TYPE_ID
+    , TASK_NAME
+    , TASK_DESCRIPTION
+    , OPERATIONS_GROUP
+    , SLA_DAYS
+    , SLA_DAYS_TYPE
+    , SLA_TARGET_DAYS
+    , SLA_JEOPARDY_DAYS
+    , UNIT_OF_WORK
+FROM D_TASK_TYPES
+with read only;
+
+grant select on D_TASK_TYPES_SV to MAXDAT_READ_ONLY;
+
+CREATE TABLE D_TEAMS
+    (
+      TEAM_ID                  NUMBER NOT NULL
+    , TEAM_NAME                VARCHAR2 (80)
+    , TEAM_DESCRIPTION         VARCHAR2 (1000)
+    , TEAM_SUPERVISOR_STAFF_ID NUMBER,
+    CONSTRAINT PK_TEAM_ID PRIMARY KEY (TEAM_ID)
+    )
+    TABLESPACE MAXDAT_DATA
+    STORAGE (BUFFER_POOL DEFAULT);
+
+GRANT SELECT ON D_TEAMS TO MAXDAT_READ_ONLY;
+
+CREATE TABLE GROUPS_STG
+(	
+    GROUP_ID                        NUMBER(18,0) NOT NULL ENABLE, 
+	GROUP_NAME                      VARCHAR2(80), 
+	DESCRIPTION                     VARCHAR2(1000), 
+	PARENT_GROUP_ID                 NUMBER(18,0), 
+	DEPLOYMENT_NAME                 VARCHAR2(32), 
+	START_DATE                      DATE, 
+	END_DATE                        DATE, 
+	TYPE_CD                         VARCHAR2(20), 
+	SUPERVISOR_STAFF_ID             NUMBER(18,0), 
+	CREATED_BY                      VARCHAR2(80), 
+	CREATE_TS                       DATE, 
+	UPDATED_BY                      VARCHAR2(80), 
+	UPDATE_TS                       DATE, 
+    CONSTRAINT GROUP_PK PRIMARY KEY (GROUP_ID) ENABLE
+   ) 
+  TABLESPACE MAXDAT_DATA;
+
+GRANT SELECT ON GROUPS_STG TO MAXDAT_READ_ONLY;
+
+CREATE OR REPLACE VIEW D_TEAMS_SV
+AS select T.TEAM_ID
+,T.TEAM_NAME
+,T.TEAM_DESCRIPTION
+,T.TEAM_SUPERVISOR_STAFF_ID
+,G.BUSINESS_UNIT_ID
+,G.BUSINESS_UNIT
+from D_TEAMS T
+left join (SELECT G.GROUP_ID TEAM_ID, G1.GROUP_ID BUSINESS_UNIT_ID, G1.GROUP_NAME BUSINESS_UNIT
+FROM GROUPS_STG G
+LEFT JOIN GROUPS_STG G1
+ON G.PARENT_GROUP_ID = G1.GROUP_ID
+WHERE G.PARENT_GROUP_ID IS NOT NULL) G
+on T.TEAM_ID = G.TEAM_ID 
+WITH READ ONLY;
+
+grant select on D_TEAMS_SV to MAXDAT_READ_ONLY;
+
+create table D_BUSINESS_UNITS
+  (BUSINESS_UNIT_ID          NUMBER NOT NULL,
+   BUSINESS_UNIT_NAME        VARCHAR2(80),
+   BUSINESS_UNIT_DESCRIPTION VARCHAR2(1000)
+   )
+tablespace MAXDAT_DATA;
+
+alter table D_BUSINESS_UNITS add constraint PK_BUS_UNIT_ID primary key (BUSINESS_UNIT_ID) using index tablespace MAXDAT_INDX;
+
+grant select on D_BUSINESS_UNITS to MAXDAT_READ_ONLY;
+
+create or replace view D_BUSINESS_UNITS_SV as
+select * from D_BUSINESS_UNITS
+with read only;
+
+grant select on D_BUSINESS_UNITS_SV to MAXDAT_READ_ONLY;
+
+create sequence SEQ_DMWBD_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 265
+increment by 1
+cache 20;
+
+create table D_MW_TASK_HISTORY
+(DMWBD_ID            NUMBER NOT NULL,
+BUCKET_START_DATE    DATE NOT NULL,
+BUCKET_END_DATE      DATE NOT NULL,
+MW_BI_ID             NUMBER NOT NULL,
+TASK_STATUS          VARCHAR2(32) NOT NULL, 
+BUSINESS_UNIT_ID     NUMBER NOT NULL, 
+TEAM_ID              NUMBER NOT NULL, 
+LAST_UPDATE_DATE     DATE NOT NULL,
+STATUS_DATE          DATE NOT NULL,
+WORK_RECEIPT_DATE    DATE NOT NULL,
+LAST_EVENT_DATE      DATE NOT NULL,
+claim_date           DATE NOT NULL
+)
+partition by range (BUCKET_START_DATE)
+interval (NUMTODSINTERVAL(1,'day'))
+(partition PT_BUCKET_START_DATE_LT_2013 values less than (TO_DATE('20130101','YYYYMMDD')))
+tablespace MAXDAT_DATA parallel 4;
+
+alter table D_MW_TASK_HISTORY add constraint DMWBD_ID_PK primary key (DMWBD_ID) using index tablespace MAXDAT_INDX;
+
+alter table D_MW_TASK_HISTORY add constraint DMWBD_DMW_BUS_UNIT_ID_FK foreign key (BUSINESS_UNIT_ID) references D_BUSINESS_UNITS(BUSINESS_UNIT_ID);
+alter table D_MW_TASK_HISTORY add constraint DMWBD_DMW_TEAM_ID_FK foreign key (TEAM_ID) references D_TEAMS(TEAM_ID);
+alter table D_MW_TASK_HISTORY add constraint DMWBD_MW_BI_ID_FK foreign key (MW_BI_ID) references D_MW_TASK_INSTANCE(MW_BI_ID);
+
+create unique index DMWBD_UIX2 on D_MW_TASK_HISTORY (MW_BI_ID, BUCKET_START_DATE) online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMWBD_IXL2 on D_MW_TASK_HISTORY (BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+create index DMWBD_IXL3 on D_MW_TASK_HISTORY (MW_BI_ID,BUCKET_START_DATE,BUCKET_END_DATE) local online tablespace MAXDAT_INDX parallel 4 compute statistics;
+
+grant select on D_MW_TASK_HISTORY to MAXDAT_READ_ONLY;
+
+create or replace view D_MW_TASK_HISTORY_SV
+as
+SELECT
+  h.DMWBD_ID,
+  bdd.D_DATE,
+  h.MW_BI_ID,
+  h.TASK_STATUS,
+  h.BUSINESS_UNIT_ID,
+  h.TEAM_ID,
+  h.LAST_UPDATE_DATE,
+  h.STATUS_DATE,
+  h.WORK_RECEIPT_DATE
+FROM D_MW_TASK_HISTORY h JOIN BPM_D_DATES bdd on (bdd.D_DATE >= h.BUCKET_START_DATE AND bdd.D_DATE <= h.BUCKET_END_DATE);
+
+grant select on D_MW_TASK_HISTORY_SV to MAXDAT_READ_ONLY;
+
+CREATE TABLE F_STAFF_BY_DATE
+    (
+      STAFF_ID              NUMBER (18) NOT NULL
+    , HOURS_DATE            DATE NOT NULL
+    , TOTAL_HOURS           NUMBER (18,2)
+    , COMPLETED_TASKS_COUNT NUMBER (18)
+    , PRODUCTIVE_HOURS      NUMBER (18,2)
+    , CREATE_DATE           DATE
+    , UPDATE_DATE           DATE,
+    CONSTRAINT PK_F_STAFF_BY_DATE PRIMARY KEY (STAFF_ID, HOURS_DATE)
+    )
+    TABLESPACE MAXDAT_DATA
+    STORAGE (BUFFER_POOL DEFAULT);
+
+GRANT SELECT ON F_STAFF_BY_DATE TO MAXDAT_READ_ONLY;
+
+CREATE OR REPLACE VIEW F_STAFF_BY_DATE_SV
+AS
+SELECT
+    STAFF_ID
+    , HOURS_DATE
+    , TOTAL_HOURS
+    , COMPLETED_TASKS_COUNT
+    , PRODUCTIVE_HOURS
+    , CREATE_DATE
+    , UPDATE_DATE
+FROM F_STAFF_BY_DATE
+WITH READ ONLY;
+/
+
+GRANT SELECT ON F_STAFF_BY_DATE_SV TO MAXDAT_READ_ONLY;
+
