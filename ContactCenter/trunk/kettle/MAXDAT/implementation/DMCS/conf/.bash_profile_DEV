@@ -1,0 +1,43 @@
+# .bash_profile
+
+export PENTAHO_JAVA_HOME="/u01/app/appadmin/product/java/jdk1.6.0_37"
+PATH="$PATH:/usr/bin"
+export PATH
+
+###############################################################################
+# USER SPECIFIC CUSTOMIZATIONS (Try to incorporate into Standard Files)
+###############################################################################
+#ulimit -n 326994
+export ENV_CODE="dev"
+#export ENV_CODE="uat"
+#export ENV_CODE="prd"
+export MAXDAT_KETTLE_DIR="/u01/app/appadmin/product/pentaho/data-integration"
+
+
+#NYEC-2478
+export MAXDAT_ETL_DIR="/u01/maximus/maxbi-$ENV_CODE"
+export KETTLE_NY_HOME="/home/etladmin"
+
+#MAXDAT-400
+export MAXDAT_ETL_PATH="/u01/maximus/maxdat-$ENV_CODE"
+export MAXDAT_IL_LOGS="/u01/maximus/maxdat-$ENV_CODE/IL/ETL/logs"
+export KETTLE_IL_HOME="/u01/maximus/maxdat-$ENV_CODE/IL/config"
+export KETTLE_BOS_HOME="/u01/maximus/maxdat-$ENV_CODE/BOS/config"
+export KETTLE_VT_HOME="/u01/maximus/maxdat-$ENV_CODE/VT/config"
+export KETTLE_CO_HOME="/u01/maximus/maxdat-$ENV_CODE/CO/config"
+export KETTLE_DMCS_HOME="/u01/maximus/maxdat-$ENV_CODE/DMCS/config"
+
+#MOTS
+export MOTS_ROOT="/u01/maximus/maxdat-$ENV_CODE/mots"
+export MOTS_ETL_PATH="/u01/maximus/maxdat-$ENV_CODE/mots/ETL/scripts"
+export MOTS_ETL_LOGS="/u01/maximus/maxdat-$ENV_CODE/mots/ETL/logs"
+
+# Standard Bash Prompt
+PS1='\[\e[1;34m\]PH: $(basename $PRODUCT_HOME 2> /dev/null)    \[\e[1;30m\]DB: $(/home/maxutil/scripts/db_instance_status 2> /dev/null)\n\[\e[1;34m\]$PWD\n\[\e[0;31m\]\u@\h>\[\e[0m\]'; export PS1 
+
+#export NY_SETENV=/u01/maximus/maxdat-dev/NY/ETL/scripts/.set_env
+export MD_SETENV=/u01/maximus/maxdat-dev/UK/scripts/.set_env
+export BOS_SETENV=/u01/maximus/maxdat-dev/BOS/scripts/.set_env
+export VT_SETENV=/u01/maximus/maxdat-dev/VT/scripts/.set_env
+export CO_SETENV=/u01/maximus/maxdat-dev/CO/ETL/scripts/.set_env
+export DMCS_SETENV=/u01/maximus/maxdat-dev/DMCS/ETL/scripts/.set_env

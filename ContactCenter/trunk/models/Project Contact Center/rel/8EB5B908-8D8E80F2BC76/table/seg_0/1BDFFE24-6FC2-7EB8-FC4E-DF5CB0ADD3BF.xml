@@ -1,0 +1,184 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1BDFFE24-6FC2-7EB8-FC4E-DF5CB0ADD3BF" name="CC_C_ACTIVITY_TYPE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>CC_C_ACTIVITY_TYPE contains the project configuration information for agent activity types that are relevant to the Agent Performance module.  The table will contain the list of activities for which agent activity should be captured.  The expectation is that if an activity type exists in this table, the ETL process should load data from the contact center specifying when and for how long agents engaged in these actvities.&lt;br/&gt;&lt;br/&gt;This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;This table will be initialized as a part of the project deployment and the data will be managed by a Production Planning administrator outside of the normal ETL process.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>54F7BF1B-2270-EE8D-B8B7-0889B334323A</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ACTIVITY_TYPE_ID" id="68D545EB-6813-7A7E-B230-4746EF06DF0E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>BB68989B-929F-8FC5-DBD1-783F1AFBF93B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_NAME" id="8C167553-77F3-B2EC-591B-D6E32248FA1E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>The human readable unique identifier for an activity type.  This value describes how the agent spent their time.  Examples are Ready, Not Ready, Talking, After Call Work, Break, Lunch, Training, Meeting, etc.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>7F96B68F-1250-8155-147D-B028A13E17DD</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_DESCRIPTION" id="5A20E213-EB7C-6909-765F-433A25044501">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-21 10:13:41 UTC</createdTime>
+<comment>This field contains an explanation of the activity type and its relevance to the contact center.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACTIVITY_TYPE_CATEGORY" id="45E21CC2-D118-AE9D-D6E0-D3F8366A7663">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-14 18:46:55 UTC</createdTime>
+<comment>This field is used to categorize activity types.  &lt;br/&gt;&lt;br/&gt;**  NEED INPUT ON BUSINESS REQUIREMENTS TO DEFINE VALID VALUES.  CANDIDATES FROM BLUE PUMPKIN INCLUDE:  Assigned Work Activities, Shift Events, Planned Events, Absence Activities, Learning Activities</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_PAID_FLAG" id="666E2B2D-BC58-CA98-6CF6-11CA25A41926">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-08-14 18:09:22 UTC</createdTime>
+<comment>This field indicates whether or not time that an agent spends in this activity type is paid time.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_AVAILABLE_FLAG" id="E8EAFAE6-2A5D-53AE-3B08-B8CF71AFAB20">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-08-14 18:10:06 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_READY_FLAG" id="100B9ECB-B726-8B61-E1B0-742BC89AFAA3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-21 10:14:22 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_ABSENCE_FLAG" id="3C271FBA-8425-C4F3-1E11-602CF2D1B213">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-21 10:15:10 UTC</createdTime>
+<comment>This field indicates whether or not this activity type represents time that the agent is not at work.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EXTRACT_DT" id="94D23D47-CE8D-0692-3F8D-54B82937B661">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>6EFAFD7D-BDF6-15DF-E093-353B0AED614D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPDATE_DT" id="0CD56744-752B-9F61-5B6F-92A482E7DC8E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date this record was last updated.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F2DDDE73-AEDA-CF8A-B6E1-EBE48D9A4F7F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPDATE_BY" id="F76D0F05-CB3B-627F-C278-6523DE2C8FE6">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Which user last updated this record.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FCFD7A34-B88B-4790-76C4-F596BE659213</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_EFF_DT" id="21769334-8DAF-A5DA-9A43-6C74F72357A2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date the record is active, for changes to agent names, rates, titles, etc</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>DD91E570-641D-6671-4C75-E6E7092BEC1C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_END_DT" id="F6FC0C6C-6ACE-E43C-5371-55DCB9B98BA7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date the record is closed, for changes to agent names, rates, titles, etc  For agents who have changes, the end date is the start date of their new record</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>74BA4DCF-0D29-28B7-9B8C-6024CA4B6951</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D6EBDEB2-2AA5-81D8-296D-8E322724B7E8" name="CC_C_ACTIVITY_TYPE_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>16284D7E-F614-D9EA-EDF6-C2B64AEBE214</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="68D545EB-6813-7A7E-B230-4746EF06DF0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2EA58038-1DEE-67BA-327C-D99C3F9E5711" name="CC_C_ACTIVITY_TYPE__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F6CB1F4D-0067-0A50-8C88-51716A2E95C1</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="8C167553-77F3-B2EC-591B-D6E32248FA1E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

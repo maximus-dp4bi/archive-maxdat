@@ -1,0 +1,678 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="E3E736F1-B292-585A-3E0F-DC4DC9D1E5D3" directorySegmentName="seg_0" name="CC_F_FORECAST_INTERVAL">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>PP_F_FORECAST_INTERVAL is the fact table for the contact center forecast interval metrics.  The forecast metrics are used for planning purposes to appropriately staff and manage the contact center.  This table allows for variable intervals depending on the configuration of the project call center ACD (e.g. 15, 30, or 60 minute intervals).&lt;br/&gt;&lt;br/&gt;The data source for this table is the CC_S_FCST_INTERVAL staging table.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>CC_S_CALL_TYPE_HALF_HOUR_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_FORECAST_INTERVAL_ID" id="4112DE64-858E-5DD6-AD22-6F4DC705DAC2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Surrogate key for interval records</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>5DEA525E-813E-66AB-FDA8-9A060B9A5F03</domain>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PRODUCTION_PLAN_HORIZON_ID" id="0A6CDFC2-3DF8-0DC7-B6C6-89F9A1043466">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>FK to CC_C_PRODUCTION_PLAN.  This field indicates which production plan the forecast is associated with.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<delegate>03367741-F1C8-C901-7FE4-E828DF5FE460</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9BC8E0BA-2FE0-C8FC-0F88-B1464A8C8D48" referredColumn="03367741-F1C8-C901-7FE4-E828DF5FE460"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_UNIT_OF_WORK_ID" id="570B7D4A-C383-40ED-FD7B-31F2725DBDD2">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>FK to PP_D_UNIT_OF_WORK table. This column identifies which unit of work the forecasts are related to.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>652ACB13-C13C-7C42-4385-A1860148560B</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2472072C-4B98-815B-B17A-F38800588EB8" referredColumn="652ACB13-C13C-7C42-4385-A1860148560B"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE" id="E5F09CC2-27D8-FC89-3158-5585DF6E03AE">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>This column identifies which date the interval data is associated with and is the natural key for the date dimension when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<delegate>81B33B47-D10A-A057-9730-2147E96C7DBC</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A7050DD8-A74D-58F8-D33B-B1FE40559A0E" referredColumn="81B33B47-D10A-A057-9730-2147E96C7DBC"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_INTERVAL_ID" id="F8B29D75-97CD-5B5E-5808-8A8AF5FF26C1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>FK to PP_D_INTERVAL.  This column identifies which time span the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>C040EFFE-8F60-E7D8-AAF5-2B2E017C27BB</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="54B26D3C-19D1-EFB8-7FAD-AA4BBCC4C009" referredColumn="C040EFFE-8F60-E7D8-AAF5-2B2E017C27BB"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FORECAST_VERSION" id="B65873BF-636B-EE22-72D5-9C150AFA84E6">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>This field indicates the number of revisions for this particular forecast.  If the version = 1, then this is the first revision.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_CREATED" id="B5BA79D2-50A1-2F2A-D104-F15EBECBF189">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total number of contacts coming into the contact center.  Contacts created = contacts offered + contacts contained. &lt;br/&gt;&lt;br/&gt;If an external IVR is in use at the call center, then the IVR will be the source of truth for contacts created otherwise it will be the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_OFFERED" id="20936415-EF50-4573-A240-C47574D69798">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>The total number of contacts transferred to this queue during the interval.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_HANDLED" id="0040D87F-75B3-19D5-00AC-B202B99845A3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total number of contacts that were responded by an agent.  Contacts Handled + Contacts Abandoned = Contacts Offered.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_SPEED_TO_HANDLE" id="115B7787-42B7-69C0-65AA-816705FBF1C7">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Shortest length of time a contact stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_SPEED_TO_HANDLE" id="7579052A-38A1-8348-F30D-03D917821F16">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Longest length of time a contact stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_SPEED_TO_HANDLE" id="FD7E46F9-CDB2-6038-3230-0301B4682C97">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Average length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_SPEED_TO_HANDLE" id="CA0F4A0F-F61E-0EE6-C3B1-5E940734B5B3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Middle length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_SPEED_TO_HANDLE" id="4CAB6836-A6D9-B32D-B099-661B91C8B19D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Variation from the average length of time the contacts stayed in the contact center system. (Speed to Handle = Time in the IVR + Wait Time + Talk Time + Hold Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_SPEED_OF_ANSWER" id="559CA583-DA53-99FA-230C-03768C051DCA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Shortest length of time a contact spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_SPEED_OF_ANSWER" id="DC5B599B-9BB9-64F0-9D8B-2756A613526E">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Longest length of time a contact spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_SPEED_OF_ANSWER" id="0B48CAD5-F37C-D96B-EFC6-827A1D06870A">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Average length of time the contacts spent in the queue before talking to an agent.  Typically high abandonment rate is associated with long wait time (Speed of Answer).   </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_SPEED_OF_ANSWER" id="4CE9CF86-A9F7-1D92-43E7-D737594193ED">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Middle length of time the contacts spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).   </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_SPEED_OF_ANSWER" id="0108279F-FBEE-4B4A-D4F7-B9159E0D7EA3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Variation from the average length of time the contacts spent in the queue before talking to an agent. Typically high abandonment rate is associated with long wait time (Speed of Answer).</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACTS_ABANDONED" id="319A1C01-932D-60E6-CD34-FA5FDD5A5C51">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total number of contacts answered by the ACD system then disconnected by the caller or incorrectly dropped by the system.  Abandonment Rate = Contacts Abandoned / Contacts Offered.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACT_INVENTORY" id="432780B0-49D6-DB8D-68E1-3BAF2D718ACD">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Items received/tasks created but is either work in progress or has not been started. &lt;br/&gt;&lt;br/&gt;This column is applicable only if items/tasks are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_CONTACT_INVENTORY_AGE" id="A6BFB006-F457-C0B4-5619-BBFD7CFD5702">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Lowest number of days an item (task) has been received (created) but has not been completed or cancelled&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_CONTACT_INVENTORY_AGE" id="2DD1118C-2F6D-15C5-0DDD-868B9A7E421B">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Highest number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_CONTACT_INVENTORY_AGE" id="D726EBEA-8A19-23EC-7744-B1B5585BFF32">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Average number of days an item (task) has been received (created) but has not been completed or cancelled. &lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_CONTACT_INVENTORY_AGE" id="08F5C3B7-F759-0C69-2392-C8B83C9DE81A">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Middle number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_CONTACT_INVENTORY_AGE" id="B41A6C2A-F2D6-273C-0B4A-6D5545F955DE">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Variation from the average number of days an item (task) has been received (created) but has not been completed or cancelled.&lt;br/&gt;&lt;br/&gt;This column is applicable only if items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIN_HANDLE_TIME" id="018E0729-A7DF-D56B-F8E5-B73CD6028949">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Shortest length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MAX_HANDLE_TIME" id="00DB88EB-8501-C46E-0899-1625C2C72899">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Longest length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEAN_HANDLE_TIME" id="A2BDEE2D-619E-FF83-EF4C-9139C493C5FC">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Average length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MEDIAN_HANDLE_TIME" id="B85D2644-8D63-703D-8151-C3E591E2455F">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Middle length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CONTACT_INVENTORY_JEOPARDY" id="3E392BB3-6694-5F62-B14C-AC301E207C2D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total number of work items that are at risk of missing service target. &lt;br/&gt;&lt;br/&gt;This column is applicable only if work items are managed as a queue within the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STDDEV_HANDLE_TIME" id="A52F0A1E-7FBA-4059-C10E-A7E57C94F6B3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Variation from the average length of time an agent spent processing a contact (Handle Time = Agent’s Talk Time + Hold Time + Wrap Time)</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_TOTAL" id="3C6C82E3-E6A6-8255-60D6-A7419410F46A">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total staff minutes at work, including all staff on the payroll.  At any time instance, Labor Minutes Total = Labor Minutes Available + Labor Minutes Unavailable. &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_AVAILABLE" id="9BDB5173-8067-9379-F852-C8F71B8AB965">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total staff logged on time (minutes), or time spent in available state waiting for a customer contact.  Also called ready time. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>9</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LABOR_MINUTES_WAITING" id="FDFEE62F-50FE-B831-4C62-CDDFAFB566C8">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Total minutes that staff logged on but not handling contacts.  The percent of labor wait time (among total paid time) may indicate how effective the staff are scheduled at each time interval (daily, hourly, or 15 minutes interval).  However, the service target will set a limit on the total minimum wait time, i.e., a very good service level requires “more wait time” to be built into the schedule in order for that service level to be achievable.  &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_TOTAL" id="4C0632E6-CC9F-4749-0854-600680CCDBCA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Number of staff on payroll, regardless of status.  At any time instance, Total Headcount = Headcount Available + Headcount Unavailable.  However, the above equation may not hold for a time interval.  </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_AVAILABLE" id="F667B683-F854-5DBE-0FC9-BE0F5F23D244">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Number of staff who logged on.  Headcount Available / Total Headcount indicates how well staff is utilized. &lt;br/&gt;&lt;br/&gt;The default data source for this should be the WFM, but may come from the ACD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HEADCOUNT_UNAVAILABLE" id="7E166A74-4639-2048-04EE-9FEDA208C445">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Number of staff who logged out for any reason, e.g., headcount in vacation, FMLA, trainings and meetings. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_LEVEL_ANSWERED_PERCENT" id="64993F9A-E6B7-BA0B-40C2-666B47F3FF2C">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<comment>Percent of calls answered within answer time threshold.  Examples include the wait times for an inbound call to get answered, a web chat to be responded to, or a service dispatch to be initiated.  It indicates what percent of the transactions begin processing on or before a defined wait time (usually expressed in seconds). E.g., for service level 75/120, the first number is the target for the percent of transactions handled and the second number is the cycle time target, typically expressed in seconds.  So 75/120 means the target is 75% of the transactions are processed on or before 120 seconds.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="561A736F-41EC-4568-8DE1-DF36BEBD4C87">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-10 17:58:49 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="BE59EE42-AEF3-F45F-4BC9-D0B7B60D5D47">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-10 17:58:49 UTC</createdTime>
+<comment>Date this record was last updated.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3D78C30E-80F5-38E3-735D-E1650CE2F478" name="CC_F_FORECAST_INTERVAL_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="4112DE64-858E-5DD6-AD22-6F4DC705DAC2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9C80A779-4F9E-CD5C-73B6-64E31163C854" name="CC_F_FCST_INTERVAL__UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0A6CDFC2-3DF8-0DC7-B6C6-89F9A1043466"/>
+<colUsage columnID="E5F09CC2-27D8-FC89-3158-5585DF6E03AE"/>
+<colUsage columnID="570B7D4A-C383-40ED-FD7B-31F2725DBDD2"/>
+<colUsage columnID="F8B29D75-97CD-5B5E-5808-8A8AF5FF26C1"/>
+<colUsage columnID="B65873BF-636B-EE22-72D5-9C150AFA84E6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="CBA987BD-1DDA-446F-715C-BBA83CE907E9" name="CC_F_FORECAST_INTERVAL__IDXv2">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="570B7D4A-C383-40ED-FD7B-31F2725DBDD2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EA9C6E06-F1E2-315F-0785-0DFC89A96865" name="CC_F_FORECAST_INTERVAL__IDXv3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-20 15:31:09 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="F8B29D75-97CD-5B5E-5808-8A8AF5FF26C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B75EC9CC-7514-9EAE-D15A-9057014C8B9D" name="CC_F_FORECAST_INTERVAL__IDXv4">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:22:01 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="E5F09CC2-27D8-FC89-3158-5585DF6E03AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="19B945D6-182D-7B30-6F37-4B383EC0E9FD" name="CC_F_FORECAST_INTERVAL__IDXv5">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:22:01 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="0A6CDFC2-3DF8-0DC7-B6C6-89F9A1043466"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F545C5E5-7FCE-8197-08FD-7014ED5D5DFD" name="F_FORECAST_INT_D_INT_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:17:00 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="F8B29D75-97CD-5B5E-5808-8A8AF5FF26C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="CE361444-2242-41D4-917F-615FE05D3D3B" name="F_FORECAST_INT_D_DATES_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:17:00 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="E5F09CC2-27D8-FC89-3158-5585DF6E03AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="8D77F24E-835A-4566-E9CD-772768A79EAD" name="F_FORECAST_INT_D_UOW_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:17:00 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="570B7D4A-C383-40ED-FD7B-31F2725DBDD2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="535782BA-0787-024C-C3FB-38038430D290" name="F_FORECAST_INT_D_PPH_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-21 13:04:44 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="0A6CDFC2-3DF8-0DC7-B6C6-89F9A1043466"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>st_agent_absences</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2011&#47;12&#47;06 10:53:12.759</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>BP New</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>ODBC</access>
+    <database>BP</database>
+    <port>1521</port>
+    <username>reports1</username>
+    <password>Encrypted 2be98afc86aa7f2e4bb39bd63c9c2bdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo</name>
+    <server>&#47;&#47;165.184.34.72</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;maxeierd_discoverer</database>
+    <port>1531</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1531</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo2</name>
+    <server>&#47;&#47;10.235.130.18</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;mxrepo1_discoverer</database>
+    <port>1521</port>
+    <username>esrepo</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Table input</from><to>Select values</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>Table output</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>ABSENCEDATE</name>
+        <rename>Absence_Date</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ORGNAME</name>
+        <rename>Org_Name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>FIRSTNAME</name>
+        <rename>First_Name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>LASTNAME</name>
+        <rename>Last_Name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>StartTime</name>
+        <rename>Start_Time</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>EndTime</name>
+        <rename>End_Time</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ABSENCETYPE</name>
+        <rename>Absence_Type</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ABSENCEPOINTS</name>
+        <rename>Absence_Points</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>ABSENCEHOURS</name>
+        <rename>Absence_Hours</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AGENT_ID</name>
+        <rename>Agent_ID</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Shift_Duration</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>272</xloc>
+      <yloc>204</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>BP New</connection>
+    <sql>SELECT DISTINCT(EMPD.EXTERNALEMPIDENT) as AGENT_ID, CONVERT(VARCHAR(11), TOH.STARTTIME, 106) ABSENCEDATE, 
+ORG.NAME AS ORGNAME, PER.FIRSTNAME, PER.LASTNAME, 
+dateadd(minute, TZA.BIAS, TOH.STARTTIME) as StartTime,
+dateadd(minute, TZB.BIAS, TOH.ENDTIME)  AS EndTime,
+--DATEADD(HOUR,-6,TOH.STARTTIME) as StartTime, 
+--DATEADD(HOUR,-6,TOH.ENDTIME)  as EndTime, 
+ACT.NAME ABSENCETYPE,
+CASE
+WHEN ACT.NAME = &apos;Tardy&apos;
+THEN &apos;1&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;1.01&apos; AND &apos;2.0&apos;)
+THEN &apos;2&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;2.01&apos; AND &apos;3.0&apos;)
+THEN &apos;3&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;3.01&apos; AND &apos;4.0&apos;)
+THEN &apos;4&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;4.01&apos; AND &apos;5.0&apos;)
+THEN &apos;5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;5.01&apos; AND &apos;6.0&apos;)
+THEN &apos;6&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;6.01&apos; AND &apos;7.0&apos;)
+THEN &apos;7&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;7.01&apos; AND &apos;8.0&apos;)
+THEN &apos;8&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;8.01&apos; AND &apos;9.0&apos;)
+THEN &apos;9&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;9.01&apos; AND &apos;10.0&apos;)
+THEN &apos;10&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;10.01&apos; AND &apos;11.0&apos;)
+THEN &apos;11&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;11.01&apos; AND &apos;11.5&apos;)
+THEN &apos;11.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;1.01&apos; AND &apos;2.0&apos;)
+THEN &apos;3&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;2.01&apos; AND &apos;3.0&apos;)
+THEN &apos;4.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;3.01&apos; AND &apos;4.0&apos;)
+THEN &apos;6&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;4.01&apos; AND &apos;5.0&apos;)
+THEN &apos;7.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;5.01&apos; AND &apos;6.0&apos;)
+THEN &apos;9&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;6.01&apos; AND &apos;7.0&apos;)
+THEN &apos;10.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;7.01&apos; AND &apos;8.0&apos;)
+THEN &apos;12&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;8.01&apos; AND &apos;9.0&apos;)
+THEN &apos;13.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;9.01&apos; AND &apos;10.0&apos;)
+THEN &apos;15&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;10.01&apos; AND &apos;11.0&apos;)
+THEN &apos;16.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;11.01&apos; AND &apos;11.5&apos;)
+THEN &apos;18&apos;
+END AS ABSENCEPOINTS,
+round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) AS ABSENCEHOURS, SHT.DURATION as Shift_Duration 
+FROM TIMEOFFHOURSPERDAY TOH, ACTIVITY ACT, EMPLOYEEAM EMP, WORKRESOURCEORGANIZATION WORK, 
+EMPLOYEEFILTERWORKRESOURCE EMPS, PERSON PER, EMPLOYEEDATASOURCE EMPD, ORGANIZATION ORG, 
+SHIFTASSIGNMENT SHT,TIMEZONEAM TZA, TIMEZONEAM TZB
+--EMPLOYEEDATASOURCE EDS
+WHERE --TOH.STARTTIME between &apos;01-oct-2011&apos; and &apos;23-jan-2012&apos;
+--CONVERT(VARCHAR(11), TOH.STARTTIME, 106) = CONVERT(VARCHAR(11), getdate()-75, 106) 
+convert(varchar(10), TOH.STARTTIME ,112) = convert(varchar(10),getdate()-1,112)
+--convert(varchar(10), TOH.STARTTIME ,112) &gt;= convert(varchar(10),getdate()-422,112)
+--and convert(varchar(10), TOH.STARTTIME ,112) &lt;= convert(varchar(10),getdate()-57,112)
+AND TOH.ACTIVITYID = ACT.ID
+AND TOH.EMPLOYEEID = EMP.ID
+AND EMP.ID = EMPD.EMPLOYEEID
+AND EMP.PERSONID = PER.ID 
+AND EMP.ID = WORK.WORKRESOURCEID
+AND WORK.WORKRESOURCEID = EMPS.WORKRESOURCEID
+AND WORK.ORGANIZATIONID = ORG.ID
+AND WORK.WORKRESOURCEID = SHT.WORKRESOURCEID
+AND (TZA.STARTTIME &lt;= TOH.STARTTIME or TZA.STARTTIME is null)
+and (TOH.STARTTIME &lt; TZA.ENDTIME or TZA.ENDTIME is null)
+and ORG.TIMEZONE = TZA.TIMEZONE
+and (TZB.STARTTIME &lt;= TOH.ENDTIME or TZB.STARTTIME is null)
+and (TOH.ENDTIME &lt; TZB.ENDTIME or TZB.ENDTIME is null)
+and ORG.TIMEZONE = TZB.TIMEZONE
+AND CONVERT(VARCHAR(11), TOH.STARTTIME, 106) = CONVERT(VARCHAR(11), SHT.STARTTIME, 106)
+--AND AUD.ACTIONDATE &gt; &apos;31-DEC-2011&apos;
+--AND EMPS.EMPLOYEEFILTERID IN (&apos;20711&apos;,&apos;20712&apos;,&apos;20713&apos;)
+AND ORG.NAME in (&apos;CHIP Austin EEU&apos;,&apos;CHIP QC&apos;,&apos;CHIP SEU English&apos;,&apos;CHIP SEU Spanish&apos;,
+&apos;CHIP.ATHENS ENG&apos;,&apos;CHIP.ATHENS SPN&apos;,&apos;CHIP.Austin ENG&apos;,&apos;CHIP.Austin SPN&apos;,&apos;EB ENG Austin&apos;,
+&apos;EB SPN Austin&apos;,&apos;EB VM&apos;,&apos;ES English Athens&apos;,&apos;ES English Edinburg&apos;,&apos;ES English Midland&apos;,
+&apos;ES QC Athens&apos;,&apos;ES QC Edinburg&apos;,&apos;ES QC Midland&apos;,&apos;ES SEU English Athens&apos;,&apos;ES SEU English Edinburg&apos;,
+&apos;ES SEU English Midland&apos;,&apos;ES SEU Spanish Athens&apos;,&apos;ES SEU Spanish Edinburg&apos;,&apos;ES SEU Spanish Midland&apos;,
+&apos;ES Spanish Athens&apos;,&apos;ES Spanish Edinburg&apos;,&apos;ES Spanish Midland&apos;,&apos;THS ENG Austin&apos;,&apos;THS SPN Austin&apos;,
+&apos;THS VM&apos;)
+AND LEN(EMPD.EXTERNALEMPIDENT) = &apos;5&apos;
+AND ACT.NAME IN (&apos;Tardy&apos;,&apos;Unscheduled CRITICAL Absence&apos;,&apos;Unscheduled HALF Absence&apos;,&apos;NCNS&apos;,&apos;Bereavement&apos;,
+&apos;FMLA&apos;,&apos;Jury Duty&apos;,&apos;LOA&apos;,&apos;Unscheduled Absence&apos;,&apos;Military Leave&apos;,&apos;Voluntary Time Off&apos;)
+GROUP BY CONVERT(VARCHAR(11), TOH.STARTTIME, 106), EMPD.EXTERNALEMPIDENT, --EDS.EXTERNALEMPIDENT, 
+ORG.NAME, PER.FIRSTNAME, PER.LASTNAME, dateadd(minute, TZA.BIAS, TOH.STARTTIME),
+dateadd(minute, TZB.BIAS, TOH.ENDTIME), ACT.NAME, 
+CASE
+WHEN ACT.NAME = &apos;Tardy&apos;
+THEN &apos;1&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;1.01&apos; AND &apos;2.0&apos;)
+THEN &apos;2&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;2.01&apos; AND &apos;3.0&apos;)
+THEN &apos;3&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;3.01&apos; AND &apos;4.0&apos;)
+THEN &apos;4&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;4.01&apos; AND &apos;5.0&apos;)
+THEN &apos;5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;5.01&apos; AND &apos;6.0&apos;)
+THEN &apos;6&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;6.01&apos; AND &apos;7.0&apos;)
+THEN &apos;7&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;7.01&apos; AND &apos;8.0&apos;)
+THEN &apos;8&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;8.01&apos; AND &apos;9.0&apos;)
+THEN &apos;9&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;9.01&apos; AND &apos;10.0&apos;)
+THEN &apos;10&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;10.01&apos; AND &apos;11.0&apos;)
+THEN &apos;11&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled HALF Absence&apos;,&apos;Unscheduled Absence&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;11.01&apos; AND &apos;11.5&apos;)
+THEN &apos;11.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;1.01&apos; AND &apos;2.0&apos;)
+THEN &apos;3&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;2.01&apos; AND &apos;3.0&apos;)
+THEN &apos;4.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;3.01&apos; AND &apos;4.0&apos;)
+THEN &apos;6&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;4.01&apos; AND &apos;5.0&apos;)
+THEN &apos;7.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;5.01&apos; AND &apos;6.0&apos;)
+THEN &apos;9&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;6.01&apos; AND &apos;7.0&apos;)
+THEN &apos;10.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;7.01&apos; AND &apos;8.0&apos;)
+THEN &apos;12&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;8.01&apos; AND &apos;9.0&apos;)
+THEN &apos;13.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;9.01&apos; AND &apos;10.0&apos;)
+THEN &apos;15&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;10.01&apos; AND &apos;11.0&apos;)
+THEN &apos;16.5&apos;
+WHEN (ACT.NAME in (&apos;Unscheduled CRITICAL Absence&apos;,&apos;NCNS&apos;) and round((TOH.TOTALMINUTES*.1&#47;60)*10,2,0) BETWEEN &apos;11.01&apos; AND &apos;11.5&apos;)
+THEN &apos;18&apos;
+END, TOH.TOTALMINUTES, SHT.DURATION
+
+
+
+
+
+
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>129</xloc>
+      <yloc>201</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>esrepo2</connection>
+    <schema/>
+    <table>st_agent_absences</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>474</xloc>
+      <yloc>203</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

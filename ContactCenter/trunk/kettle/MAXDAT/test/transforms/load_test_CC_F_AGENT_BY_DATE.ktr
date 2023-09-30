@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>load_test_CC_F_AGENT_BY_DATE</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2014&#47;08&#47;06 14:48:16.052</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2014&#47;08&#47;06 14:48:16.052</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>ACD</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_ACD_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>AVAYA_CCMS_STAT</name>
+    <server>${DB_AVAYA_HOSTNAME}</server>
+    <type>CACHE</type>
+    <access>Native</access>
+    <database>${DB_AVAYA_NAME}</database>
+    <port>${DB_AVAYA_PORT}</port>
+    <username>${DB_AVAYA_USER}</username>
+    <password>${DB_AVAYA_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_AVAYA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>LOCAL_AVAYA_CCMS_STAT</name>
+    <server>${DB_LOCAL_AVAYA_HOSTNAME}</server>
+    <type>CACHE</type>
+    <access>Native</access>
+    <database>${DB_LOCAL_AVAYA_NAME}</database>
+    <port>${DB_LOCAL_AVAYA_PORT}</port>
+    <username>${DB_LOCAL_AVAYA_USER}</username>
+    <password>${DB_LOCAL_AVAYA_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_LOCAL_AVAYA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>local_bpmaindb</name>
+    <server>localhost</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>BPMAINDB</database>
+    <port>1433</port>
+    <username>sa</username>
+    <password>Encrypted 2be98afc86aa7f2e49b39ea34c9c2bdde</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>SQLEXPRESS</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>localhost_testprojectuser</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>testprojectuser</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb0dab63cac3fd89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server/>
+    <type>ORACLE</type>
+    <access>JNDI</access>
+    <database>${JNDI_MAXDAT_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT JDBC</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MOTS</name>
+    <server>${DB_MOTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MOTS_DATABASENAME}</database>
+    <port>${DB_MOTS_PORT}</port>
+    <username>${DB_MOTS_USER}</username>
+    <password>${DB_MOTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MOTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TXMAXDATPROD</name>
+    <server>ldohstxeb001.oracleoutsourcing.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>PTXE4T</database>
+    <port>14010</port>
+    <username>maxdatread</username>
+    <password>Encrypted 2bef5ceb00ec68696ae18aa4fce80a0de</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>14010</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>TXMAXDATUAT</name>
+    <server>rmohstxeb01.oracleoutsourcing.com</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>DTXE4T</database>
+    <port>14710</port>
+    <username>maxdatread</username>
+    <password>Encrypted 2be98afa50bdf9685bf0bab71da87aece</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>14710</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>WFM</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>JNDI</access>
+    <database>${JNDI_WFM_SOURCE}</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Table input - cc_f_agent_by_date</from><to>Table output - CC_F_AGENT_BY_DATE</to><enabled>N</enabled> </hop>  <hop> <from>Table input - cc_f_agent_activity_by_date</from><to>Table output - CC_F_AGENT_ACTIVITY_BY_DATE</to><enabled>Y</enabled> </hop>  <hop> <from>Table input - CC_D_DATES</from><to>Table output - CC_D_DATES</to><enabled>N</enabled> </hop>  </order>
+  <step>
+    <name>Table input - CC_D_DATES</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>TXMAXDATPROD</connection>
+    <sql>SELECT * 
+FROM CC_D_DATES</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>221</xloc>
+      <yloc>26</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - cc_f_agent_activity_by_date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>TXMAXDATPROD</connection>
+    <sql>SELECT f.* 
+FROM cc_f_agent_activity_by_date f
+--inner join cc_d_dates dd on f.d_date_id = dd.d_date_id
+--where d_date between to_date(&apos;10&#47;01&#47;2013&apos;, &apos;MM&#47;DD&#47;YYYY&apos;) and to_date(&apos;11&#47;30&#47;2013&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+--inner join cc_d_agent da on f.d_agent_id = da.d_agent_id
+--where login_id in (&apos;11161&apos;, &apos;11232&apos;, &apos;71101&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>225</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - cc_f_agent_by_date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>TXMAXDATPROD</connection>
+    <sql>SELECT f.* 
+FROM cc_f_agent_by_date f
+--inner join cc_d_dates dd on f.d_date_id = dd.d_date_id
+--where d_date between to_date(&apos;10&#47;01&#47;2013&apos;, &apos;MM&#47;DD&#47;YYYY&apos;) and to_date(&apos;11&#47;30&#47;2013&apos;, &apos;MM&#47;DD&#47;YYYY&apos;)
+--inner join cc_d_agent da on f.d_agent_id = da.d_agent_id
+--where login_id in (&apos;11161&apos;, &apos;11232&apos;, &apos;71101&apos;)</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>225</xloc>
+      <yloc>127</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - CC_D_DATES</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>localhost_testprojectuser</connection>
+    <schema/>
+    <table>CC_D_DATES</table>
+    <commit>10000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>D_DATE_ID</column_name>
+          <stream_name>D_DATE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_DATE</column_name>
+          <stream_name>D_DATE</stream_name>
+        </field>
+        <field>
+          <column_name>D_MONTH</column_name>
+          <stream_name>D_MONTH</stream_name>
+        </field>
+        <field>
+          <column_name>D_MONTH_NAME</column_name>
+          <stream_name>D_MONTH_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>D_DAY</column_name>
+          <stream_name>D_DAY</stream_name>
+        </field>
+        <field>
+          <column_name>D_DAY_NAME</column_name>
+          <stream_name>D_DAY_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>D_DAY_OF_WEEK</column_name>
+          <stream_name>D_DAY_OF_WEEK</stream_name>
+        </field>
+        <field>
+          <column_name>D_DAY_OF_MONTH</column_name>
+          <stream_name>D_DAY_OF_MONTH</stream_name>
+        </field>
+        <field>
+          <column_name>D_DAY_OF_YEAR</column_name>
+          <stream_name>D_DAY_OF_YEAR</stream_name>
+        </field>
+        <field>
+          <column_name>D_YEAR</column_name>
+          <stream_name>D_YEAR</stream_name>
+        </field>
+        <field>
+          <column_name>D_MONTH_NUM</column_name>
+          <stream_name>D_MONTH_NUM</stream_name>
+        </field>
+        <field>
+          <column_name>D_WEEK_OF_YEAR</column_name>
+          <stream_name>D_WEEK_OF_YEAR</stream_name>
+        </field>
+        <field>
+          <column_name>D_WEEK_OF_MONTH</column_name>
+          <stream_name>D_WEEK_OF_MONTH</stream_name>
+        </field>
+        <field>
+          <column_name>WEEKEND_FLAG</column_name>
+          <stream_name>WEEKEND_FLAG</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>776</xloc>
+      <yloc>26</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - CC_F_AGENT_ACTIVITY_BY_DATE</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>localhost_testprojectuser</connection>
+    <schema/>
+    <table>CC_F_AGENT_ACTIVITY_BY_DATE</table>
+    <commit>10000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>F_AGENT_ACTIVITY_BY_DATE_ID</column_name>
+          <stream_name>F_AGENT_ACTIVITY_BY_DATE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_DATE_ID</column_name>
+          <stream_name>D_DATE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_AGENT_ID</column_name>
+          <stream_name>D_AGENT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_ACTIVITY_TYPE_ID</column_name>
+          <stream_name>D_ACTIVITY_TYPE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_PROGRAM_ID</column_name>
+          <stream_name>D_PROGRAM_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_GEOGRAPHY_MASTER_ID</column_name>
+          <stream_name>D_GEOGRAPHY_MASTER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_GROUP_ID</column_name>
+          <stream_name>D_GROUP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_PROJECT_ID</column_name>
+          <stream_name>D_PROJECT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_SITE_ID</column_name>
+          <stream_name>D_SITE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>ACTIVITY_MINUTES</column_name>
+          <stream_name>ACTIVITY_MINUTES</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>780</xloc>
+      <yloc>225</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table output - CC_F_AGENT_BY_DATE</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>localhost_testprojectuser</connection>
+    <schema/>
+    <table>CC_F_AGENT_BY_DATE</table>
+    <commit>10000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>F_AGENT_BY_DATE_ID</column_name>
+          <stream_name>F_AGENT_BY_DATE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_DATE_ID</column_name>
+          <stream_name>D_DATE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_AGENT_ID</column_name>
+          <stream_name>D_AGENT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>SUPERVISOR_D_AGENT_ID</column_name>
+          <stream_name>SUPERVISOR_D_AGENT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>MANAGER_D_AGENT_ID</column_name>
+          <stream_name>MANAGER_D_AGENT_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_PROJECT_TARGETS_ID</column_name>
+          <stream_name>D_PROJECT_TARGETS_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_PROGRAM_ID</column_name>
+          <stream_name>D_PROGRAM_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_GEOGRAPHY_MASTER_ID</column_name>
+          <stream_name>D_GEOGRAPHY_MASTER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_GROUP_ID</column_name>
+          <stream_name>D_GROUP_ID</stream_name>
+        </field>
+        <field>
+          <column_name>D_SITE_ID</column_name>
+          <stream_name>D_SITE_ID</stream_name>
+        </field>
+        <field>
+          <column_name>HANDLE_CALLS_COUNT</column_name>
+          <stream_name>HANDLE_CALLS_COUNT</stream_name>
+        </field>
+        <field>
+          <column_name>HANDLE_TIME_SECONDS</column_name>
+          <stream_name>HANDLE_TIME_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>INTERNAL_CALLS_COUNT</column_name>
+          <stream_name>INTERNAL_CALLS_COUNT</stream_name>
+        </field>
+        <field>
+          <column_name>INTERNAL_SECONDS</column_name>
+          <stream_name>INTERNAL_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>EXTERNAL_CALLS_COUNT</column_name>
+          <stream_name>EXTERNAL_CALLS_COUNT</stream_name>
+        </field>
+        <field>
+          <column_name>EXTERNAL_SECONDS</column_name>
+          <stream_name>EXTERNAL_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>HOLD_SECONDS</column_name>
+          <stream_name>HOLD_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>RING_SECONDS</column_name>
+          <stream_name>RING_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>TALK_SECONDS</column_name>
+          <stream_name>TALK_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>WRAP_SECONDS</column_name>
+          <stream_name>WRAP_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>FIRST_LOGIN</column_name>
+          <stream_name>FIRST_LOGIN</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_LOGOUT</column_name>
+          <stream_name>LAST_LOGOUT</stream_name>
+        </field>
+        <field>
+          <column_name>LOGIN_SECONDS</column_name>
+          <stream_name>LOGIN_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>SCHEDULED_SHIFT_MINUTES</column_name>
+          <stream_name>SCHEDULED_SHIFT_MINUTES</stream_name>
+        </field>
+        <field>
+          <column_name>ACTUAL_SHIFT_MINUTES</column_name>
+          <stream_name>ACTUAL_SHIFT_MINUTES</stream_name>
+        </field>
+        <field>
+          <column_name>ACTUAL_OVERTIME_MINUTES</column_name>
+          <stream_name>ACTUAL_OVERTIME_MINUTES</stream_name>
+        </field>
+        <field>
+          <column_name>IDLE_SECONDS</column_name>
+          <stream_name>IDLE_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>NOT_READY_SECONDS</column_name>
+          <stream_name>NOT_READY_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>TALK_RESERVE_SECONDS</column_name>
+          <stream_name>TALK_RESERVE_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>PREDICTIVE_TALK_SECONDS</column_name>
+          <stream_name>PREDICTIVE_TALK_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>PREVIEW_TALK_SECONDS</column_name>
+          <stream_name>PREVIEW_TALK_SECONDS</stream_name>
+        </field>
+        <field>
+          <column_name>PREDICTIVE_CALLS_COUNT</column_name>
+          <stream_name>PREDICTIVE_CALLS_COUNT</stream_name>
+        </field>
+        <field>
+          <column_name>PREVIEW_CALLS_COUNT</column_name>
+          <stream_name>PREVIEW_CALLS_COUNT</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>780</xloc>
+      <yloc>127</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

@@ -1,0 +1,239 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="448D9446-EEE0-462E-BB43-C91C468A9463" directorySegmentName="seg_0" name="F_AGENT_AVAILABILITY_BY_DATE">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<pkName>F_AGENT_AVAILABILITY_BY_DATE_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_AGENT_AVAIL_BY_DATE_ID" id="5AE914CF-C70F-C32A-DECE-DA71DEBF071C">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE_ID" id="AE723BAB-636B-E9C6-0E8A-D9FCD3847748">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_date</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3B3E5AC9-670B-D985-F1CB-602B6FF238EF</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FFE7DA41-F1BD-4286-F159-066C2E9B9458" referredColumn="3B3E5AC9-670B-D985-F1CB-602B6FF238EF"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_AGENT_ID" id="0623DB59-D643-F161-2AE9-C48598952C48">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_agent</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>24217821-C544-A5FB-7B55-FC12A5E80E8C</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="24EE1E46-E4D2-074F-AE4E-7AAB006C7DD3" referredColumn="24217821-C544-A5FB-7B55-FC12A5E80E8C"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROJECT_ID" id="C97CE326-A947-D7FA-8A4E-DEE5E4387302">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_project</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D805966A-1881-A91F-24FC-967ADAD0A5CD</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="55EE8D1D-A22A-41B6-42D7-2073A2AE0664" referredColumn="D805966A-1881-A91F-24FC-967ADAD0A5CD"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GROUP_ID" id="540ED756-9E40-160E-FA38-AAC78B3CF713">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_group</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>1E76ECFA-2A17-9E66-16D1-0D5649EA07AB</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0F7531E7-808F-5A74-943D-E01C2787C6FA" referredColumn="1E76ECFA-2A17-9E66-16D1-0D5649EA07AB"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_SITE_ID" id="86774B76-4586-7D74-3C72-604439640E45">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_site</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>58676038-BF2A-03BB-8A7B-349ED2ABB78B</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="710E296F-B951-A742-3775-FA09F74BF91E" referredColumn="58676038-BF2A-03BB-8A7B-349ED2ABB78B"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_AVAILABILITY_TYPE_ID" id="8153AF3C-8913-19ED-7829-4B8B78924C75">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>fk to d_availability_type</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>6A8B674B-6836-FD2D-8DB1-9D6A27BF1B41</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FE185AC9-E776-151E-7335-02018B7A18DF" referredColumn="6A8B674B-6836-FD2D-8DB1-9D6A27BF1B41"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AVAILABILITY_MINUTES" id="0D86834D-7DAC-A57F-7AFA-1B7D10937AAF">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<comment>Time available in minutes</comment>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="8A608122-6C00-26CD-EE11-A466660F943A" name="F_AGENT_AVAIL_BY_DATE_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="5AE914CF-C70F-C32A-DECE-DA71DEBF071C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="D26729FB-43D1-B098-3F3B-53D6B0F32F59" name="F_AGENT_AVAIL_BY_DATE__IDX">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AGENT_AVAIL_BY_DATE_ID).</notes>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="5AE914CF-C70F-C32A-DECE-DA71DEBF071C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0814E823-F3DE-EF3C-3705-2C9AD9578FEC" name="F_AGENT_AVAIL_BY_DT_D_AGT_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="0623DB59-D643-F161-2AE9-C48598952C48"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="46AD942D-2C25-E720-204C-9706458FD181" name="F_AGT_AVAIL_BY_DT_D_PROJECT_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="C97CE326-A947-D7FA-8A4E-DEE5E4387302"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="444131AA-D122-36C1-E4A2-ED3EE8037B25" name="F_AGT_AVAIL_BY_DT_D_GROUP_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="540ED756-9E40-160E-FA38-AAC78B3CF713"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="20F6ADBA-7D1D-95C5-3644-6C1B30736081" name="F_AGT_AVAIL_BY_DT_AV_TYPE_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="8153AF3C-8913-19ED-7829-4B8B78924C75"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B761555D-7113-6CC9-EE4E-7BA1E0270010" name="F_AGT_AVAIL_BY_DT_D_DATE_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="AE723BAB-636B-E9C6-0E8A-D9FCD3847748"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="67C01904-6405-2890-73BC-611B7D920C12" name="F_AGT_AVAIL_BY_DT_D_SITE_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-09 19:45:30 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="86774B76-4586-7D74-3C72-604439640E45"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

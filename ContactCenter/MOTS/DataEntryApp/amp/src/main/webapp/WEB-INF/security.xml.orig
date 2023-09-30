@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/styles/**" security="none"/>
+    <http pattern="/scripts/**" security="none"/>
+    <http pattern="/assets/**" security="none"/>
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/app/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <!-- 
+        <intercept-url pattern="/app/passwordHint*" access="hasRole(ROLE_ADMIN)"/>
+        <intercept-url pattern="/app/requestRecoveryToken*" access="hasRole(ROLE_ADMIN)" />
+        <intercept-url pattern="/app/updatePassword*" access="hasRole(ROLE_ADMIN)" />
+        <intercept-url pattern="/app/signup*" access="hasRole(ROLE_ADMIN)"/>
+        -->
+        <intercept-url pattern="/app/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+        <form-login login-page="/login" authentication-failure-url="/login?error=true" login-processing-url="/j_security_check"/>
+        <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
+        
+       	<headers>
+	        <cache-control />
+	        <content-type-options />
+	        <hsts />
+	        <frame-options />
+	        <xss-protection />
+	    </headers>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDao">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>  
+        
+        <authentication-provider ref="ldapAuthProvider"/>
+    </authentication-manager>
+
+<!--     <ldap-server id="ldapServer" url="${ldap.server.url}" manager-dn="${ldap.manager.dn}" manager-password="${ldap.manager.password}" /> -->
+
+    <beans:bean id="ldapContextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+	    <beans:property name="url" value="${ldap.server.url}" />
+	    <beans:property name="base" value="${ldap.base.dn}" />     
+	    <beans:property name="userDn" value="${ldap.manager.dn}" />     
+	    <beans:property name="password" value="${ldap.manager.password}" />
+	
+	    <beans:property name="baseEnvironmentProperties">
+		    <beans:map>
+		        <beans:entry key="com.sun.jndi.ldap.connect.timeout" value="5000" />   
+		    </beans:map>
+	    </beans:property>
+
+	</beans:bean>
+ 
+    
+	<beans:bean id="webExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+	    <beans:property name="permissionEvaluator" ref="ampPermissionEvaluator"/>
+	</beans:bean>
+   
+    <!-- Override the default password-encoder (BCrypt) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+
+	
+</beans:beans>

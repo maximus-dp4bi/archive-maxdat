@@ -1,0 +1,192 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="55F1C044-301E-0F3F-C29B-1ECDD29E68AB" directorySegmentName="seg_0" name="CC_C_PROJECT_CONFIG">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:18:37 UTC</createdTime>
+<comment>CC_C_PROJECT_CONFIG contains the project configuration information for a given Contact Center Production Planning implementation.  The table will contain the possible combinations of Project, Program and Site that are being handled by the deployment.    This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;This table will be initialized as a part of the project deployment and the data will be managed by a Production Planning administrator outside of the normal ETL process.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>CC_C_PROJECT_CONFIG_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_CONFIG_ID" id="641C1C76-9CB6-CBC8-66C3-D385CD09968D">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-12 17:25:39 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_NAME" id="E82A8D9B-1919-5765-3585-C64C9FEA92AF">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS project.  This is the natural key for the project dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROGRAM_NAME" id="17012A99-F3E6-8F25-6761-067F8775D599">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS program.  Examples of a program are EB, ES &amp; CHIP.  This is the natural key for the program dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SITE_NAME" id="25E9B1F6-7B8D-F998-48C3-7A4D15A7D085">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS contact center site serving the project.  This is the natural key for the site dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="REGION_NAME" id="DC3FDDAE-AAE2-7B0A-926B-1AA160996196">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS region in which the project is located.  This is the natural key for the region dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STATE_NAME" id="DA2A6D88-A170-715E-87AA-9781D76318D6">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the state in which the project is located.  This is the natural key for the state dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROVINCE_NAME" id="6E93D011-E198-0F9D-0E83-0579E769829A">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the province in which the project is located.  This is the natural key for the province dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DISTRICT_NAME" id="B72A53A8-3588-68EE-8BE5-45243A84135B">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the district in which the project is located.  This is the natural key for the district dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="COUNTRY_NAME" id="948E4104-89F8-D868-E359-7143C32DB469">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 23:21:52 UTC</createdTime>
+<comment>The human readable unique identifier for the country in which the project is located.  This is the natural key for the country dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="AA4A5F91-D16E-6348-D4FE-146687E3B4B1">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 23:41:44 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;1900/01/01&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="C44F019B-5681-9307-F89B-B982AD582312">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 23:41:44 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have a end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;2999/12/31&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3C77B4F7-489A-1280-7222-8D77DD74CC91" name="CC_C_PROJECT_CONFIG_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-12 17:25:51 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="641C1C76-9CB6-CBC8-66C3-D385CD09968D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="EEC64DF2-37DC-8E0D-9426-87B8C1F8DB81" name="CC_S_PROJECT_SITE_CONFIG__UN">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-11 12:14:34 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="E82A8D9B-1919-5765-3585-C64C9FEA92AF"/>
+<colUsage columnID="17012A99-F3E6-8F25-6761-067F8775D599"/>
+<colUsage columnID="25E9B1F6-7B8D-F998-48C3-7A4D15A7D085"/>
+<colUsage columnID="AA4A5F91-D16E-6348-D4FE-146687E3B4B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

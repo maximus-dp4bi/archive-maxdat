@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_F_PROJECT_BY_DATE" id="D9830565-EB8C-9E7B-633C-CAB4005856AF" directorySegmentName="seg_0">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-05-10 18:52:35 UTC</createdTime>
+<ownerDesignName>corporate_agentperf</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.F_PROJECT_BY_DATE_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_F_PROJECT_BY_DATE.NEXTVAL INTO :NEW.F_PROJECT_BY_DATE_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<owner>21623978-2B18-1F05-4433-A429F4AAF5B8</owner>
+<state>ENABLE</state>
+<table>CE035C01-EC77-A8A6-CF49-61019B56FE05</table>
+</TriggerOraclev10g>

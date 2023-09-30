@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_A_SCHEDULED_JOB" directorySegmentName="seg_0" id="9648EE98-772F-F095-9A23-38C6949D0FB4">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-10-08 17:46:13 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN &lt;br/&gt;IF INSERTING AND :NEW.SCHEDULED_JOB_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_A_SCHEDULED_JOB.NEXTVAL INTO :NEW.SCHEDULED_JOB_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;IF INSERTING THEN&lt;br/&gt;  	:NEW.JOB_START_DATE := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;END; &lt;br/&gt;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>11759C3E-0618-24DD-4789-E077348C1BE2</table>
+</TriggerOraclev10g>

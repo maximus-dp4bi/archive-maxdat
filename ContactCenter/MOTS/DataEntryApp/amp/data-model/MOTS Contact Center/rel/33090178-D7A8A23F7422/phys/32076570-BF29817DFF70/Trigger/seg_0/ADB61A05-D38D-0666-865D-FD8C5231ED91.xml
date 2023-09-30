@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_S_METRIC_TEMPLATE" directorySegmentName="seg_0" id="ADB61A05-D38D-0666-865D-FD8C5231ED91">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-12-19 15:34:19 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.S_METRIC_TEMPLATE_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_S_METRIC_TEMPLATE.NEXTVAL INTO :NEW.S_METRIC_TEMPLATE_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END;</body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>7C1C2FA0-219A-D083-28C1-44C7E7F0E62C</table>
+</TriggerOraclev10g>

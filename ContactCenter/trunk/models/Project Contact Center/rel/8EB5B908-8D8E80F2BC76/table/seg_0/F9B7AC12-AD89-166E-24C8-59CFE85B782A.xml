@@ -1,0 +1,156 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="F9B7AC12-AD89-166E-24C8-59CFE85B782A" directorySegmentName="seg_0" name="CC_S_TMP_INTERVAL">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>CC_S_INTERVAL contains the records that specify the accepted interval increments.  The possible interval lengths are 15, 30 and 60 minutes.  Accordingly, CC_S_INTERVAL contains records for each of the possible 15, 30 and 60 minute intervals in a day.  This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The data source for this table is the Production Planning module.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<pkName>CC_S_INTERVAL_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_ID" id="84B48B7B-304D-481E-5F75-CE6C48BE6E5A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_START_DATE" id="27E239A6-FC7A-2AC0-DA07-6074DD212748">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>The date and time of the start of the interval in the format.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_END_DATE" id="7876B627-A967-29DF-E08B-F362FACE7267">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>The date and time of the end of the interval.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_SECONDS" id="576C0236-0B6B-745D-F2AB-933CA7A9B1D0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>The length of the interval in seconds.  Acceptable values are 900, 1800 and 3600.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<constraintName>CK_CC_S_TMP_INTERVAL_SECONDS</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>1800</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<listOfValues>
+<valueDef value="1800" description="30 Mins"/>
+<valueDef value="3600" description="60 Mins"/>
+<valueDef value="900" description="15 Mins"/>
+</listOfValues>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="2CBB44A2-99B2-2DFF-9DE6-6B95326C1B6C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;1900/01/01&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="B605A965-25E4-B0B1-D184-48F6E8966925">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;2999/12/31&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B3B1BF50-2E4E-2A20-A55E-3D9B2FFD86D1" name="CC_S_TMP_INTERVAL_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="84B48B7B-304D-481E-5F75-CE6C48BE6E5A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="879B5EBE-5C19-BB36-C901-56943321A93E" name="CC_S_TMP_INTERVAL_UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="27E239A6-FC7A-2AC0-DA07-6074DD212748"/>
+<colUsage columnID="7876B627-A967-29DF-E08B-F362FACE7267"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="CE4106F6-9419-9E8C-B681-241DF6F89F97" name="CC_S_TMP_INTERVAL__IDX1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="27E239A6-FC7A-2AC0-DA07-6074DD212748"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="332F627D-5D7C-13E9-1920-92B3446CE4CE" name="CC_S_TMP_INTERVAL__IDX2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-22 13:29:05 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="7876B627-A967-29DF-E08B-F362FACE7267"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

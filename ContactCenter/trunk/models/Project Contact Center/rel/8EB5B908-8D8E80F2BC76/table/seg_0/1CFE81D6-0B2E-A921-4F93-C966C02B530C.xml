@@ -1,0 +1,244 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="1CFE81D6-0B2E-A921-4F93-C966C02B530C" directorySegmentName="seg_0" name="CC_S_WFM_AGENT_ACTIVITY">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>CC_S_AGENT_ACTIVITY contains records detailing how an agent spent their time during a workday.  This includes but is not lmiited to time spent Talking, Ready, Not Ready, After Call Work Time, Break, Lunch, Training, Meeting, etc.  Any given activity record should not overlap with another for an agent and period of time.&lt;br/&gt;&lt;br/&gt;In the case that no records exist in CC_S_AGENT_ACTIVITY for an agent and day, then the expectation is that there will be a record indicating an absence in the CC_S_AGENT_ABSENCE table for an active agent that spans the entire day.&lt;br/&gt;&lt;br/&gt;The source for this data will be the Workforce Management system.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>81CF80C3-481F-FD62-35F7-A41BA8C93565</importedID>
+<pkName>ST_AGENT_ACTIVITY_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="WFM_AGENT_ACTIVITY_ID" id="1202C675-FF1D-58FC-96F7-FC076A8D01E7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0D119073-42D0-8CD7-2C59-793927CB4C3D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ID" id="33DC06DE-4537-81FB-DF17-E92FE56450BC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>The AGENT_ID of the agent from CC_S_AGENT</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A2069D10-916F-3DCC-DD77-F0BEDBAF2C56</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>938E3998-5C60-B9D2-2281-88BE3440B4A7</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1A9BF4A1-A4CE-8C16-4E54-F305F87AEBE8" referredColumn="938E3998-5C60-B9D2-2281-88BE3440B4A7"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_TYPE_ID" id="5189ADE6-5738-43C8-D487-D46ED5102245">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>FK to CC_C_ACTIVITY_TYPE.  This field identifies which activity the agent was engaged for the time captured by this record.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>F0E50955-0D8E-142F-0E32-EEA50CEC5CAA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>68D545EB-6813-7A7E-B230-4746EF06DF0E</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8EB31ED5-34C2-AB77-86B4-434564BBE7FE" referredColumn="68D545EB-6813-7A7E-B230-4746EF06DF0E"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_START_TIME" id="BE222955-A3BA-A54E-0B6A-29C603746C8A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date Time the agent began the activity</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>D0A7E255-6C41-AF11-C63F-21C3EB350ECF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_END_TIME" id="8C9296BD-1AFB-700E-ED47-CB5251401697">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date Time the agent ended the activity</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>418F8A1F-56E2-D3DF-5E7D-FD4DC5AB80FF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_DURATION_SECONDS" id="911C1985-1F46-31B0-9DD6-051A9C7389B6">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Total time for the activity</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>497286A9-7E94-4A07-C5EB-55234AE06872</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_DT" id="1FF873BB-1AFC-1894-BC07-56572E74939B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date the activity took place.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A881F2A7-6604-C660-8015-5A6190974946</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="5E6DB827-E005-2B86-8626-131259F2D2E1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>740EB301-64E7-51DB-30E9-54E70C6787CB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DT" id="F0A7413C-2812-57B1-6F57-B82090D397B0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Date this record was last updated.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>2082CE53-D961-335C-18CA-3B6A9D178817</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_BY" id="1CE1D0B8-C836-1406-2508-0B05A4EA0BDA">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<comment>Which user last updated this record.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>57807B78-8F33-A9C9-2FA4-34D6C179C55C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="204B1D62-2771-A26D-399F-933E8DB8465A" name="CC_S_WFM_AGENT_ACTIVITY_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>BB971E93-53B6-77FC-74AA-8151BD3F4D96</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="1202C675-FF1D-58FC-96F7-FC076A8D01E7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="A4DA2821-182B-4412-AF58-E7256466F929" name="CC_S_WFM_AGENT_ACTIVITY_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<notes>B-tree index on the primary key constraint (SAA_ID).</notes>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>E0644C5F-7BFC-0296-3D18-D05879400DE0</importedID>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="1202C675-FF1D-58FC-96F7-FC076A8D01E7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0C629025-ADA7-6781-D38D-07EE79B70BEA" name="CC_S_WFM_AGENT_ACTIVITY_IDX2">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-09-03 13:40:18 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="33DC06DE-4537-81FB-DF17-E92FE56450BC"/>
+<colUsage columnID="5189ADE6-5738-43C8-D487-D46ED5102245"/>
+<colUsage columnID="BE222955-A3BA-A54E-0B6A-29C603746C8A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="219BA526-3210-40F5-D8F3-888CFC5A5CA8" name="CC_S_WFM_AGENT_ACTIVITY_IDX3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>18070E08-810B-0A91-FB5B-187466709455</importedID>
+<indexColumnUsage>
+<colUsage columnID="5189ADE6-5738-43C8-D487-D46ED5102245"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="478B3FB9-CF30-2820-2EC5-D8001417AAC4" name="CC_S_AGT_ACT_CC_S_AGT_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="33DC06DE-4537-81FB-DF17-E92FE56450BC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="65919BE0-9204-D7BA-CE54-8D8B7F2D0B15" name="CC_S_AGT_ACT_CC_C_ACT_TYPE_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="5189ADE6-5738-43C8-D487-D46ED5102245"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_S_AGENT_ACTIVITY_CK" id="1241E6D3-6172-2553-E890-AEE9D0C946F3" directorySegmentName="seg_1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:50:12 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>73FD301B-892A-754F-5C04-61AF875C1E0D</importedID>
+<rule>ACTIVITY_START_TIME &lt;= ACTIVITY_END_TIME</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

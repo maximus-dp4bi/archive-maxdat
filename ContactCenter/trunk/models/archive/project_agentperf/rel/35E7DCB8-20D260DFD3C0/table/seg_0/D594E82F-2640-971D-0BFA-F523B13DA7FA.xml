@@ -1,0 +1,152 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="D594E82F-2640-971D-0BFA-F523B13DA7FA" directorySegmentName="seg_0" name="CC_D_GROUP">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 16:26:02 UTC</createdTime>
+<comment>CC_D_GROUP contains the records for the grouping of agents.  This grouping can be defined per implementation based on the relevant business rules applicable to the implementation and is used for reporting purposes.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<pkName>D_GROUP_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_GROUP_ID" id="73522A1B-BA5C-01D6-5DC3-4077D47838D4">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 16:27:04 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="GROUP_NAME" id="D470B2A4-784C-4DF9-6671-38CF33FCD61B">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 16:27:04 UTC</createdTime>
+<comment>The human readable unique identifier for a group.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="GROUP_DESCRIPTION" id="7BA6A2E5-88CB-458B-BEBB-E8D2332E71DB">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 16:27:04 UTC</createdTime>
+<comment>An explanation of the group and its relevance to the contact center.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERSION" id="37CF6CBB-3252-B62F-A33B-F14297ECFDC9">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 22:08:11 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="509288AA-6558-6427-3C16-3A8EBA2BD781">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 22:08:11 UTC</createdTime>
+<comment>Effective date for type-2 slow changing dimension. </comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="9DD7874A-63E9-2AE0-F14A-198688431865">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-27 22:08:11 UTC</createdTime>
+<comment>End date for type-2 slow changing dimension. </comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="51AE3075-C885-BB11-DE6B-B1842F9F429C" name="CC_D_GROUP_PK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-08 16:27:04 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="73522A1B-BA5C-01D6-5DC3-4077D47838D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="4D78564D-8697-6AF5-492A-2D8E3D8C0ED2" name="CC_D_GROUP__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-03 14:12:13 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="D470B2A4-784C-4DF9-6671-38CF33FCD61B"/>
+<colUsage columnID="9DD7874A-63E9-2AE0-F14A-198688431865"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1C0E82E8-43E7-A11B-0475-5FD548BF0E02" name="CC_D_GROUP__IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 17:17:27 UTC</createdTime>
+<notes>B-tree index on the primary key constraint (GROUP_ID).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="73522A1B-BA5C-01D6-5DC3-4077D47838D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_D_GROUP_REC_DATE_CK" id="0B211E65-F9C4-3679-DBC8-BCBCA493B7C7" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 19:28:42 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<rule>RECORD_EFF_DT &lt;= RECORD_END_DT</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

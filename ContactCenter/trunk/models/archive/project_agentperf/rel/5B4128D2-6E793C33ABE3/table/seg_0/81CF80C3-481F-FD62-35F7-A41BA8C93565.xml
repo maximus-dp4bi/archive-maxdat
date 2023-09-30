@@ -1,0 +1,249 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="81CF80C3-481F-FD62-35F7-A41BA8C93565" directorySegmentName="seg_0" name="CC_S_AGENT_ACTIVITY">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>CC_S_AGENT_ACTIVITY contains records detailing how an agent spent their time during a workday.  This includes but is not lmiited to time spent Talking, Ready, Not Ready, After Call Work Time, Break, Lunch, Training, Meeting, etc.  Any given activity record should not overlap with another for an agent and period of time.&lt;br/&gt;&lt;br/&gt;In the case that no records exist in CC_S_AGENT_ACTIVITY for an agent and day, then the expectation is that there will be a record indicating an absence in the CC_S_AGENT_ABSENCE table for an active agent that spans the entire day.&lt;br/&gt;&lt;br/&gt;The source for this data will be the Workforce Management system.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>8B925569-F623-D491-3AF9-E3E13D313419</importedID>
+<pkName>ST_AGENT_ACTIVITY_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ACTIVITY_ID" id="0D119073-42D0-8CD7-2C59-793927CB4C3D">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-28 15:49:00 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ID" id="A2069D10-916F-3DCC-DD77-F0BEDBAF2C56">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>The AGENT_ID of the agent from CC_S_AGENT</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>07048686-DEB4-FB65-C424-E429E16ECC51</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>C100BA38-5C23-40FE-588B-9CA1DFF13CFC</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="30702311-9492-226E-1CB0-A0C5318CFF35" referredColumn="C100BA38-5C23-40FE-588B-9CA1DFF13CFC"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_TYPE_ID" id="F0E50955-0D8E-142F-0E32-EEA50CEC5CAA">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>FK to CC_C_ACTIVITY_TYPE.  This field identifies which activity the agent was engaged for the time captured by this record.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>D8596D8F-8D26-C01F-9147-0CFDE92181B6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>BB68989B-929F-8FC5-DBD1-783F1AFBF93B</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CB1DDBCC-4C1E-D180-50E9-7BB78C831226" referredColumn="BB68989B-929F-8FC5-DBD1-783F1AFBF93B"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_START_TIME" id="D0A7E255-6C41-AF11-C63F-21C3EB350ECF">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date Time the agent began the activity</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>4E041BFB-B9A8-7680-AE11-4DFFC2073221</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_END_TIME" id="418F8A1F-56E2-D3DF-5E7D-FD4DC5AB80FF">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date Time the agent ended the activity</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>77215F90-E10F-0CC8-F9D9-8D85E68D7794</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_DURATION_SECONDS" id="497286A9-7E94-4A07-C5EB-55234AE06872">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Total time for the activity</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>B425C0F3-4EE1-C3F2-C5C8-B83C010A2AC1</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ACTIVITY_DT" id="A881F2A7-6604-C660-8015-5A6190974946">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date the activity took place.  </comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>1F44E99C-1CEA-F783-6D81-CFF215EDCE01</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="740EB301-64E7-51DB-30E9-54E70C6787CB">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>38A6D7A0-3234-3179-E4FD-45F282032D10</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DT" id="2082CE53-D961-335C-18CA-3B6A9D178817">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-28 15:46:15 UTC</createdTime>
+<comment>Date this record was last updated.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_BY" id="57807B78-8F33-A9C9-2FA4-34D6C179C55C">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-28 15:46:15 UTC</createdTime>
+<comment>Which user last updated this record.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="BB971E93-53B6-77FC-74AA-8151BD3F4D96" name="ST_AGENT_ACTIVITY_PK">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-28 15:49:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0D119073-42D0-8CD7-2C59-793927CB4C3D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3EEAE8D3-9AB5-3BA4-95E2-12DBF732B0BD" name="CC_S_AGENT_ACTIVITY__UN">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-11 16:16:35 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="A2069D10-916F-3DCC-DD77-F0BEDBAF2C56"/>
+<colUsage columnID="418F8A1F-56E2-D3DF-5E7D-FD4DC5AB80FF"/>
+<colUsage columnID="F0E50955-0D8E-142F-0E32-EEA50CEC5CAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E0644C5F-7BFC-0296-3D18-D05879400DE0" name="CC_S_AGENT_ACTIVITY__IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:04:33 UTC</createdTime>
+<notes>B-tree index on the primary key constraint (SAA_ID).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="0D119073-42D0-8CD7-2C59-793927CB4C3D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="4AD9C2E3-09FD-7E8B-3D19-9D88B483916C" name="CC_S_AGENT_ACTIVITY__IDX2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:04:33 UTC</createdTime>
+<notes>B-tree index on the composite constraint (AGENT_ID, ACTIVITY_START_TIME).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="A2069D10-916F-3DCC-DD77-F0BEDBAF2C56"/>
+<colUsage columnID="D0A7E255-6C41-AF11-C63F-21C3EB350ECF" sortOrder="DESC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="18070E08-810B-0A91-FB5B-187466709455" name="CC_S_AGENT_ACTIVITY__IDXv4">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-28 16:09:15 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="F0E50955-0D8E-142F-0E32-EEA50CEC5CAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9B9E63E5-EE14-05D8-E119-B487FCE77570" name="CC_S_AGT_ACT_CC_S_AGT_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 13:53:12 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="A2069D10-916F-3DCC-DD77-F0BEDBAF2C56"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="93CF4687-95DF-42EB-6F23-0B127F283E45" name="CC_S_AGT_ACT_CC_C_ACT_TYPE_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-27 23:19:55 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="F0E50955-0D8E-142F-0E32-EEA50CEC5CAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_S_AGENT_ACTIVITY_CK" id="73FD301B-892A-754F-5C04-61AF875C1E0D" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 19:22:06 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<rule>ACTIVITY_START_TIME &lt;= ACTIVITY_END_TIME</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

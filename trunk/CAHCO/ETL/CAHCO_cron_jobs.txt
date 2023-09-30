@@ -1,0 +1,12 @@
+# Crons for CAHCO
+# ================================================================================
+# Do not edit these four SVN_* variable values.  They are populated when you
+#     commit code to SVN and used later to identify deployed code.
+# $URL$
+# $Revision$
+# $Date$
+# $Author$
+# ================================================================================
+
+00 03 * * * /u01/maximus/maxdat/CAHCO/scripts/CAHCO_run_emrs_all.sh > /u01/maximus/maxdat/CAHCO/logs/EMRS/CAHCO_run_emrs_all_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1
+00 06-18 * * * /u01/maximus/maxdat/CAHCO/scripts/CAHCO_run_calls.sh > /u01/maximus/maxdat/CAHCO/logs/EMRS/CAHCO_run_calls_$(date +\%Y-\%m-\%d_\%H-\%M-\%S).log 2>&1

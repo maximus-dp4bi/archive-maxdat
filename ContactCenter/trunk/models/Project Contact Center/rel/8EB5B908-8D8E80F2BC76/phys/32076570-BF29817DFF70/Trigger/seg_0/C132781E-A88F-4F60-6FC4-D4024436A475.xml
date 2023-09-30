@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_S_INTERVAL" id="C132781E-A88F-4F60-6FC4-D4024436A475" directorySegmentName="seg_0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN &lt;br/&gt;IF INSERTING AND :NEW.INTERVAL_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_S_INTERVAL.NEXTVAL INTO :NEW.INTERVAL_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>D4E52B8C-B627-E129-F40E-288682EAEB89</table>
+</TriggerOraclev10g>

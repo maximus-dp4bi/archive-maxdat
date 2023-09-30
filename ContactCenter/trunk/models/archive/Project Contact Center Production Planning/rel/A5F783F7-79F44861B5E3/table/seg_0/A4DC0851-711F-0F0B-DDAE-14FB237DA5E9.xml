@@ -1,0 +1,218 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="A4DC0851-711F-0F0B-DDAE-14FB237DA5E9" directorySegmentName="seg_0" name="CC_D_AGENT">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>CC_D_AGENT contains records for any agents known to the contact center.  &lt;br/&gt;&lt;br/&gt;This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The source for this data will be the CC_S_AGENT staging table.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pkName>D_AGENT_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_AGENT_ID" id="9B419AE7-B4FE-7CC5-01BB-532D74F216FB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LOGIN_ID" id="947BE674-98EE-8088-8F00-1BC75AA66171">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>This field contains the ID that the agent uses to access the phone system.  This is the natural key of an agent and shall never be updated.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="FIRST_NAME" id="C809A92C-2490-6873-62FC-EEA81C730E0B">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>An agent&apos;s given name used to identify an agent.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="MIDDLE_INITIAL" id="C4FA13AE-1463-C89E-D8C9-5A3857400439">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>The first character of the agent&apos;s middle name used to identify an agent.  This field is used to differentiate between like names.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_NAME" id="3630C0D0-6B57-22F0-B517-D5968034404D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>An agent&apos;s surname used to identify an agent.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="JOB_TITLE" id="9B1CA6E7-D38A-F814-4390-4FFB7132FB46">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>The agents job title or role, e.g. CSR, SEU CSR, Supervisor, QC.  This field can be used to identify managers and supervisors for reporting purposes.&lt;br/&gt;</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LANGUAGE" id="3D2430D5-0D80-FB1C-B386-F893CF7F1A65">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>Language the agent is skilled for, e.g. English, Spanish, Bilingual</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="HOURLY_RATE" id="0D00C1EE-873F-EC87-674B-B1B27B9D72E8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>Agent&apos;s hourly pay rate.  This column should be used in conjunction with the RATE_CURRENCY column.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RATE_CURRENCY" id="FDDE8361-05D3-FA82-34A2-EFD4BA0CF5EA">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>The currency in which the agent is paid as identified by the country&apos;s ISO 4217 code.  E.g. the Euro = EUR, the U.S. Dollar = USD.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERSION" id="24F90751-1FAC-D47D-2CB4-9393B53211B5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="A117F216-D4ED-8043-6005-1B2D877D2285">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>Effective date for type-2 slow changing dimension. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="E089FCC1-0AD2-E99C-05C5-AB4C4D3F3E61">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<comment>End date for type-2 slow changing dimension. </comment>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F1327D11-2C22-D533-DB7A-4802F1454F6D" name="D_AGENT_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="9B419AE7-B4FE-7CC5-01BB-532D74F216FB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="051C8BD6-FABB-8370-58A1-F8D4FA3CE8C6" name="CC_D_AGENT__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-18 13:16:03 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="947BE674-98EE-8088-8F00-1BC75AA66171"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E85BDAF9-6DC8-4479-BB88-59A49806276C" name="D_AGENT__IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<notes>B-tree index on primary key constraint (AGENT_ID).</notes>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="9B419AE7-B4FE-7CC5-01BB-532D74F216FB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="D_AGENT_REC_DATE_CK" id="0FB9A280-B159-1C6D-45DE-74DD77179A9F" directorySegmentName="seg_1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-05 17:33:38 UTC</createdTime>
+<ownerDesignName>Project Contact Center Production Planning</ownerDesignName>
+<rule>RECORD_EFF_DT &lt;= RECORD_END_DT</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

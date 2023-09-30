@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5FDFB275-2C7C-2446-96F6-54A236F4EC89" name="CC_C_FILTER">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-13 20:28:56 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FILTER_ID" id="7236BD68-0C0A-5D79-666B-3838E85FDF34">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-13 21:15:02 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FILTER_TYPE" id="4966A040-F354-BC2B-4EB9-BBC3CEDF2A44">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-13 21:15:02 UTC</createdTime>
+<comment>e.g. &lt;br/&gt;ACD Interval Call Type filter - ACD_CALL_TYPE_INC&lt;br/&gt;WFM Agent Organization - WFM_AGENT_ORG_INC&lt;br/&gt;End with INC or EXC</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VALUE" id="A1DBE023-D69F-C0F2-B435-CFFA23C78B5F">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-13 21:15:02 UTC</createdTime>
+<comment>String representation of the filter we are storing.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="15380B87-EBB6-63EA-1C7D-3987C63DDDDA" name="CC_C_FILTER_PK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-13 21:15:02 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="7236BD68-0C0A-5D79-666B-3838E85FDF34"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="163490E1-F2D3-5E79-0EE5-D661247DCFEE" name="CC_C_FILTER__UN">
+<createdBy>CB58433</createdBy>
+<createdTime>2014-07-23 19:44:29 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4966A040-F354-BC2B-4EB9-BBC3CEDF2A44"/>
+<colUsage columnID="A1DBE023-D69F-C0F2-B435-CFFA23C78B5F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CF2840AC-1E71-5AFA-A8AF-41C27DEC3A80" name="CC_C_FILTER__IDXv1">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-08-14 15:00:27 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="4966A040-F354-BC2B-4EB9-BBC3CEDF2A44"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

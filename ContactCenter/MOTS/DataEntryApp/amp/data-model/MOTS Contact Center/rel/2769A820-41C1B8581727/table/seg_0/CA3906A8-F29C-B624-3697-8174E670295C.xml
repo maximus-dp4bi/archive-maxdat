@@ -1,0 +1,193 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CA3906A8-F29C-B624-3697-8174E670295C" name="F_SERVICE_LEVEL_AGREEMENT">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:49:50 UTC</createdTime>
+<comment>F_SERVICE_LEVEL_AGREEMENT contains the Service Level Agreement (SLA) compliance results for projects.&lt;br/&gt;&lt;br/&gt;The data source for this fact is the AMP data collection template.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="F_SLA_ID" id="AA0AF939-2A6D-558E-E27C-BB1554151341">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_SLA_PROJECT_ID" id="CDCA28FC-8F7E-6FCE-1972-DF87BB6360A8">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>FK to D_SLA_PROJECT.  This column indicates which SLA definition, project, program and geography the SLA compliance values are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>09A133B4-FCD8-057A-2991-1446C37191D5</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D9E9EBD4-D0CA-91FB-7D80-D20ACF773386" referredColumn="09A133B4-FCD8-057A-2991-1446C37191D5"/>
+</associations>
+</Column>
+<Column name="D_REPORTING_PERIOD_ID" id="7E8E3182-C53E-1687-049D-1D03B9A26C37">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>FK to D_REPORTING_PERIOD.  This column indicates which period of time the SLA compliance values are associated with.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0FF7A2EB-078E-923F-505C-F0FA3081F55A</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="835C4D01-CA9C-8C8C-4A69-1F1F58C0460E" referredColumn="0FF7A2EB-078E-923F-505C-F0FA3081F55A"/>
+</associations>
+</Column>
+<Column name="COMPLIANCE_RESULT" id="7EAC72AF-C67F-48B5-EC61-E4E3FB468CB8">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>This field indicates whether or not the project met the terms of the SLA for the given reporting period.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REFERENCE_VALUE" id="5BA84946-2C01-8C97-EE50-C5144699BA3C">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>This field is the measured value that verifies the reported compliance result.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMPLIANCE_COMMENTS" id="CBC79DC6-8A83-4D4C-0672-12F377FBEAB2">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<comment>This field contains the comments associated with the complince result of the metric.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>240</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATE_DATE" id="295C77DB-6A54-7974-88CE-0ACC12B53262">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:54:08 UTC</createdTime>
+<comment>The date the record was created.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_BY" id="788B5D67-D465-D827-848F-830D229980AC">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:54:08 UTC</createdTime>
+<comment>This field identifies which user last created this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_MODIFIED_DATE" id="3D9EB501-8EDA-1971-DA4D-7957BD868AED">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:54:08 UTC</createdTime>
+<comment>The date the record was last modified.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_BY" id="62560404-0395-7243-8318-51BA6F38B32B">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:54:08 UTC</createdTime>
+<comment>This field identifies which user last updated this record.  This is used for audit purposes.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="55CA062E-70E6-A43F-9EAE-F181FF6A3421" name="F_SERVICE_LEVEL_AGREEMENT_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:53:44 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="AA0AF939-2A6D-558E-E27C-BB1554151341"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A3FD0A70-2E4A-B166-FB66-10867BE4233E" name="F_SERVICE_LEVEL_AGREEMENT__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 22:42:58 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="CDCA28FC-8F7E-6FCE-1972-DF87BB6360A8"/>
+<colUsage columnID="7E8E3182-C53E-1687-049D-1D03B9A26C37"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3938D787-6356-238D-8A21-415D1431BD16" name="F_SERVICE_LEVEL_AGREEMENT_IDX">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-28 20:27:40 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="CDCA28FC-8F7E-6FCE-1972-DF87BB6360A8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0A4E4F6C-D615-E3E1-101B-4234A4DDFE99" name="F_SERVICE_LEVEL_AGREEMENT_IX">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-28 20:28:20 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="7E8E3182-C53E-1687-049D-1D03B9A26C37"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3A33F5B6-6C08-3EDD-6E5B-82921234622C" name="F_SLA_D_REPORTING_PERIOD_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 18:54:41 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="7E8E3182-C53E-1687-049D-1D03B9A26C37"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="74BBD4E8-1676-1BB1-E868-CCB9701EBA2F" name="F_SLA_D_SLA_PROJECT_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 20:02:00 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="CDCA28FC-8F7E-6FCE-1972-DF87BB6360A8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

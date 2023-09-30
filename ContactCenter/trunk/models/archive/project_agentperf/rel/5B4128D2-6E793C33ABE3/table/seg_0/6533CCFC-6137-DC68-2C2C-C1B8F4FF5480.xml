@@ -1,0 +1,240 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="6533CCFC-6137-DC68-2C2C-C1B8F4FF5480" directorySegmentName="seg_0" name="CC_S_AGENT_ABSENCE">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>CC_S_AGENT_ABSENCE contains records for planned and unplanned absences for an agent.  This includes any planned absences such as Vacation/PTO or any unplanned absences such as tardiness, FMLA, Jury Duty, unscheduled absences, etc.  Absences do not include breaks or lunch time.&lt;br/&gt;&lt;br/&gt;In the case that no records exist in CC_S_AGENT_ABSENCE for an agent and day, then the expectation is that there will be a record in the CC_S_AGENT_ACTIVITY table for an active agent.&lt;br/&gt;&lt;br/&gt;The source for this data will be the Workforce Management system.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>6C3B680F-2699-E1BD-991E-ABDD08D3C97B</importedID>
+<pkName>ST_AGENT_ABSENCES_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ABSENCE_ID" id="4B1B77D2-689F-9926-366B-B02730F9FCE0">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>7368BEE5-78C5-66D9-F5E2-BA176B730023</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABSENCE_DATE" id="C8E3C3BD-8911-FE00-42D8-245027E5A3EF">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date the absence took place</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>3C1F1902-255F-1C56-382B-D3750DBFD9E8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AGENT_ID" id="7A251FA7-0D20-78EE-B99C-864894564398">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>The AGENT_ID of the agent from CC_S_AGENT</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>12833D42-9F92-CAE9-6F5F-C0151DAD59D4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>C100BA38-5C23-40FE-588B-9CA1DFF13CFC</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="76E258E3-9175-44AA-F44A-033277212EC2" referredColumn="C100BA38-5C23-40FE-588B-9CA1DFF13CFC"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABSENCE_TYPE" id="D76E7044-B3BD-9CBE-FE3F-87983AB7ABD3">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Type of absence occurrence, e.g., PTO, FMLA, tardy, unplanned full day, etc</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>12F67A34-3F6B-89E2-A5B9-A6BCB61370F7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABSENCE_MINUTES" id="9DC696EC-40CE-D108-F0E7-E531B0121D7F">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>The total time in minutes of the agent&apos;s absence.  This will equal the ABSENCE_END_TIME - ABSENCE_START_TIME.&lt;br/&gt;</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>65FE2172-A36B-813E-0353-200948A6CD70</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABSENCE_START_TIME" id="FB89E5DB-783C-82F8-0D74-5029EA28CE12">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date and Time of the beginning of the agent&apos;s absence.  If any agent is absent for a full day, then this would be the start of the agent&apos;s scheduled shift time.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>B8BA831B-2EBE-E4A3-56EC-E5EB69D5C7F9</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABSENCE_END_TIME" id="811D20C2-8DE6-10B0-2A52-FAA4754B440D">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date and Time of the end of the agent&apos;s absence.  If any agent is absent for a full day, then this would be the end of the agent&apos;s scheduled shift time.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>43B84C7C-DFAB-42F7-F65E-1E7F18DA4836</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="IS_PLANNED_FLAG" id="3D16EDE9-CC1D-FA3C-497B-B1392A7CF05C">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-24 19:05:14 UTC</createdTime>
+<comment>This field indicates whether or not the absence was expected ahead of time.  A planned absence is an absence for which the agent has submitted and had approved a time off request.  An unplanned absence would be tardiness or a no-show at work.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT034</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="FDFFC83C-52AC-9F32-9E38-FBFEFF120AD8">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-28 15:27:24 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DT" id="EA9C92CE-F633-69E2-4705-06D84F375DE5">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Date this record was last updated.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>4EEEF688-A460-FE84-F0A6-1DE64FD298FD</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_BY" id="74E21181-5F43-3DFE-DD46-D5EDBFBB26BB">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<comment>Which user last updated this record.  Set via an insert/update trigger.</comment>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>5DCABD57-2BE7-0528-8DBB-463279B72197</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9A280814-A110-9B94-1B11-63788F759AF6" name="ST_AGENT_ABSENCES_PK">
+<createdBy>Stephen.P.Duffy</createdBy>
+<createdTime>2013-02-27 20:03:34 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<importedID>1D5D6173-FFCC-EF84-AF26-AF9CD4319539</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="4B1B77D2-689F-9926-366B-B02730F9FCE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="FA30567C-71D0-EBE1-2D96-B256CEB3D993" name="CC_S_AGENT_ABSENCES__UN">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-11 16:15:44 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="7A251FA7-0D20-78EE-B99C-864894564398"/>
+<colUsage columnID="811D20C2-8DE6-10B0-2A52-FAA4754B440D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="2F7EBB07-957C-034C-A016-B18CEA2EC2B0" name="CC_S_AGENT_ABSENCE__IDX">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:00:48 UTC</createdTime>
+<notes>B-tree index on the primary key constraint (SAAB_ID).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="4B1B77D2-689F-9926-366B-B02730F9FCE0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C4320DA3-F711-CB97-1566-243479817F96" name="CC_S_AGENT_ABSENCE__IDX2">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 13:00:48 UTC</createdTime>
+<notes>B-tree index on the composite constraint (AGENT_ID, ABSENCE_START_TIME).</notes>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="7A251FA7-0D20-78EE-B99C-864894564398"/>
+<colUsage columnID="FB89E5DB-783C-82F8-0D74-5029EA28CE12" sortOrder="DESC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="68BC9BB4-BAE3-41A9-D168-8E1B7B460512" name="CC_S_AGENT_ABS_CC_S_AGENT_FK">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-13 13:53:39 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="7A251FA7-0D20-78EE-B99C-864894564398"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+<tableCheckConstraints>
+<tableCheckConstraint class="oracle.dbtools.crest.model.design.constraint.TableLevelConstraint" name="CC_S_AGENT_ABSENCE_CK" id="0F3F1EA5-9651-5AFD-3FA8-0B770B7C804A" directorySegmentName="seg_0">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-04-23 19:21:00 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<rule>ABSENCE_START_TIME &lt; ABSENCE_END_TIME</rule>
+</tableCheckConstraint>
+</tableCheckConstraints>
+</Table>

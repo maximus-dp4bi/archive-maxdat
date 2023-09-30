@@ -1,0 +1,87 @@
+use role PI_DATA_INGEST_UAT_ALERT_USER;
+use warehouse PUREINSIGHTS_UAT_LOAD_DAILY_WH;
+use database PUREINSIGHTS_UAT;
+use schema RAW;
+
+create or replace view PI_PROJECTS_CHANGE_DATA COPY GRANTS as
+select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, start_time, end_time, current_flag, 'I' as dml_type
+from (select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by projectid order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag
+      from (select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, update_timestamp
+            from pi_projects_stream
+            where metadata$action = 'INSERT'
+            and metadata$isupdate = 'FALSE'))
+union
+select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, start_time, end_time, current_flag, dml_type
+from (select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by projectid order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag,dml_type
+      from (
+        select projectid, projectname, awsfoldername, projecttimezone, active, ingest_wh, projectchargecode, projectchargecodename, update_timestamp, 'I' as dml_type
+        from pi_projects_stream
+        where metadata$action = 'INSERT'
+        and metadata$isupdate = 'TRUE'
+union
+select projectid, null, null, null,null,null,null, null, start_time, 'U' as dml_type
+from public.d_pi_projects_history
+where projectid in (select distinct projectid 
+                             from pi_projects_stream
+                             where metadata$action = 'INSERT'
+                             and metadata$isupdate = 'TRUE')
+        and current_flag = 1))
+union
+select str.projectid, null, null, null,null,null, null, null, hist.start_time, current_timestamp()::timestamp_ntz, null, 'D'
+from public.d_pi_projects_history hist
+inner join pi_projects_stream str
+on hist.projectid = str.projectid
+where str.metadata$action = 'DELETE'
+and str.metadata$isupdate = 'FALSE'
+and hist.current_flag = 1;
+
+CREATE or replace PROCEDURE update_projects_history ()
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+    
+var sqlCommand = `merge into public.d_pi_projects_history nh 
+using pi_projects_change_data m 
+   on  nh.projectid = m.projectid
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (projectid, projectname, awsfoldername, projecttimezone, active,ingest_wh, projectchargecode, projectchargecodename, start_time, end_time, current_flag)
+    values (m.projectid, m.projectname, m.awsfoldername, m.projecttimezone, m.active, m.ingest_wh, m.projectchargecode, m.projectchargecodename, m.start_time, m.end_time, m.current_flag);`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+sqlCommand = `update public.d_pi_projects_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select projectid, start_time, end_time ,
+    lead (start_time) over (partition by projectid order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from public.d_pi_projects_history) as temp
+where hist.projectid = temp.projectid
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+return 0;
+
+
+$$;

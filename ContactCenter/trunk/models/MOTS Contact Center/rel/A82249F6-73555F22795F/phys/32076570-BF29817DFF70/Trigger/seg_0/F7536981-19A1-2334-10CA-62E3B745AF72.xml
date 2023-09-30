@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_CC_F_ACTUALS_Q_INTERVAL" id="F7536981-19A1-2334-10CA-62E3B745AF72" directorySegmentName="seg_0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:51 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.F_CALL_CENTER_ACTLS_INTRVL_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_F_ACTUALS_Q_INTERVAL.NEXTVAL INTO :NEW.F_CALL_CENTER_ACTLS_INTRVL_ID FROM DUAL;      &lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>CAD53E28-999E-0011-6A88-C49D15B32B93</table>
+</TriggerOraclev10g>

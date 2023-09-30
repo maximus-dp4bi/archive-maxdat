@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="1D1C6E04-B4EF-ACDD-2DF4-B530FC30ED56" directorySegmentName="seg_0" name="F_ERROR_EVENT">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:40:26 UTC</createdTime>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<pkName>F_ERROR_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="F_ERROR_ID" id="69BC766D-42A8-DF14-49F0-482E666DEEF3">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:42:50 UTC</createdTime>
+<comment>Primary key</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DATE_ID" id="14491CCB-0D6F-0BD4-AF25-2E96ECCA308A">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:42:50 UTC</createdTime>
+<comment>FK to BPM_D_DATES</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3AF101B5-4A88-E6E1-64EC-6743C6B7D555</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E6D8A987-0F88-9528-7D82-BAE48BCF84F2" referredColumn="3AF101B5-4A88-E6E1-64EC-6743C6B7D555"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_BATCH_ID" id="4A291F25-E670-0A0F-2A9F-F70203D23596">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:56:50 UTC</createdTime>
+<comment>FK to D_BATCH</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3D46C554-77EF-2921-DCE0-3A0E3D306CA8</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B15DE952-CB94-2314-CB9C-9E9559288C68" referredColumn="3D46C554-77EF-2921-DCE0-3A0E3D306CA8"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_SCREEN_ID" id="B109994A-1834-F73E-0AF0-DE37B16C9CA6">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:56:50 UTC</createdTime>
+<comment>FK to D_SCREEN</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>E8BE8FDA-621B-6685-7F1C-2E777463765D</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B1BC4454-7866-6B74-C22D-9E24EB310B6E" referredColumn="E8BE8FDA-621B-6685-7F1C-2E777463765D"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TIMESTAMP" id="B800A5AC-53E5-D496-7854-5A23E265E324">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:56:50 UTC</createdTime>
+<comment>The timestamp indicating the time of day when the error was logged.</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ERROR_DETAIL_FILE_PATH" id="886F50F3-8C03-E63B-2C0E-583EB3A7A5EA">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:56:50 UTC</createdTime>
+<comment>Specifies the location of the related error file, if created, that contains the data that did not pass the screen.</comment>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="356AF62E-A668-FCF6-B2CE-AE8EFA811988" name="F_ERROR_PK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 14:42:50 UTC</createdTime>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="69BC766D-42A8-DF14-49F0-482E666DEEF3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1E2CFAB1-3B12-FC04-113B-8AD9F0D268A7" name="F_ERROR_EVENT_BPM_D_DATES_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 17:47:50 UTC</createdTime>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="14491CCB-0D6F-0BD4-AF25-2E96ECCA308A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0D5D89ED-8F6C-9AE0-C351-BD9058C20DE7" name="F_ERROR_EVENT_D_BATCH_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 17:47:59 UTC</createdTime>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="4A291F25-E670-0A0F-2A9F-F70203D23596"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="89BBE63F-E1FD-A692-BD58-A5DBA91BDA8D" name="F_ERROR_EVENT_D_SCREEN_FK">
+<createdBy>clay.rowland</createdBy>
+<createdTime>2013-06-10 17:48:05 UTC</createdTime>
+<ownerDesignName>Error and Audit Handling</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B109994A-1834-F73E-0AF0-DE37B16C9CA6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

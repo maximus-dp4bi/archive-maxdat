@@ -1,0 +1,142 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="1102BE31-5A94-1EDD-B7A9-E001CDA6CE5F" directorySegmentName="seg_0" name="D_DIVISION">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:22:40 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pkName>D_DIVISION_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_DIVISION_ID" id="B3563606-05F4-8A08-794D-437911E9CB67">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DIVISION_NAME" id="94955FF2-B5D7-B887-9D5E-9BBEB77CF75E">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<comment>This field is the textual identifier and natural key for a Division.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_SEGMENT_ID" id="F2519D3C-4585-9E54-F509-6BA5545CC158">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<comment>FK to D_SEGMENT.  This column indicates the Segment to which this Division belongs.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>0</dataTypePrecision>
+<dataTypeScale>19</dataTypeScale>
+<delegate>6B9B7627-A109-CB00-A3B9-B78A3B0DE447</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="43C47194-D420-D80D-8559-95B94DBA647A" referredColumn="6B9B7627-A109-CB00-A3B9-B78A3B0DE447"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CREATE_DATE" id="C802982E-72F7-14DE-3938-FA70D5C409D5">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<comment>The date the record was created.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_MODIFIED_DATE" id="39AA0904-37DB-5B49-ABF4-159B9C8BF69D">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<comment>The date the record was last modified.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="271DA878-FAF7-43A4-DB18-D6F2E824626E" name="D_DIVISION_PK">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="B3563606-05F4-8A08-794D-437911E9CB67"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="810AD1E4-D9EA-5CDA-FC9B-09FB8B71EFE7" name="D_DIVISION__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2014-03-27 22:45:07 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="94955FF2-B5D7-B887-9D5E-9BBEB77CF75E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="12E33923-7B00-8AB2-B50E-D9A37D668426" name="D_DIVISION__IDXv2">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-05-28 20:29:14 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexColumnUsage>
+<colUsage columnID="F2519D3C-4585-9E54-F509-6BA5545CC158"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="9D273269-8C65-D17E-7C6A-5CDE8F4FE852" name="D_DIVISION_SEGMENT_FK">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:24:58 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="F2519D3C-4585-9E54-F509-6BA5545CC158"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,32 @@
+GRANT select on ts_question_type_lkup_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_call_type_lkup_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_score_type_lkup_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_quest_det_type_lkup_sv to MAXDAT_READ_ONLY;															  
+GRANT select on ts_qa_agent_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_qa_analyst_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_qa_question_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_question_detail_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_question_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_question_answer_sv to MAXDAT_READ_ONLY;
+GRANT select on cc_d_agent_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_date_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_date_month_sv to MAXDAT_READ_ONLY;
+GRANT select on ts_audit_date_year_sv to MAXDAT_READ_ONLY;
+
+GRANT execute ON TS_AUDIT_INSERT TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_AUDIT_UPDATE TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_AUDIT_QUEST_ANSWER_UPDATE TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_QUESTION_DETAIL_INSERT TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_QA_QUESTION_INSERT_UPDATE TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_QA_AGENT_INSERT_UPDATE TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_QA_ANALYST_INSERT_UPDATE TO MAXDAT_MSTR_TRX_RPT;  
+GRANT execute ON TS_AUDIT_UPDATE_STATUS TO MAXDAT_MSTR_TRX_RPT;  
+
+GRANT insert, update ON TS_QA_ANALYST TO MAXDAT_MSTR_TRX_RPT;
+GRANT insert, update ON TS_QA_AGENT TO MAXDAT_MSTR_TRX_RPT;
+GRANT insert, update ON TS_QA_QUESTION TO MAXDAT_MSTR_TRX_RPT;
+GRANT insert, update ON TS_QUESTION_DETAIL TO MAXDAT_MSTR_TRX_RPT;  
+GRANT insert, update ON TS_AUDIT_QUESTION_ANSWER TO MAXDAT_MSTR_TRX_RPT;
+GRANT insert, update ON TS_AUDIT TO MAXDAT_MSTR_TRX_RPT;
+GRANT insert, update ON TS_AUDIT_QUESTION TO MAXDAT_MSTR_TRX_RPT;

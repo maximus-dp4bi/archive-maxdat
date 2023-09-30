@@ -1,0 +1,32 @@
+###############################################################################
+# Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+# $URL$ 
+# $Revision$ 
+# $Date$
+# $Author$
+#
+# .bash_profile
+#
+# Located in user's $HOME directory
+#
+###############################################################################
+# DO NOT EDIT THIS SECTION!
+# 
+# # User specific customizations are highly discouraged, but can be made in the 
+# customizations section below
+###############################################################################
+
+# If /home/maxutil/env/shared_bash_profile exists, source it
+if [ -f /home/maxutil/env/shared_bash_profile ]
+then
+. /home/maxutil/env/shared_bash_profile
+fi
+
+###############################################################################
+# USER SPECIFIC CUSTOMIZATIONS (Try to incorporate into Standard Files)
+###############################################################################
+export MAXDAT_ETL_PATH=/u01/maximus/maxdat-uat 
+export KETTLE_CADIR_HOME=/u01/maximus/maxdat-uat/CADIR/config
+export MD_SETENV=/u01/maximus/maxdat-uat/CADIR/scripts/.set_env
+
+. $MD_SETENV

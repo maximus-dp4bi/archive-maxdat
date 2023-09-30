@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>st_call_transfers</name>
+    <description/>
+    <extended_description>Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
+    ---------------------------------
+
+    SVN_FILE_URL        = $URL$
+
+    SVN_REVISION        = $Revision$
+
+    SVN_REVISION_DATE   = $Date$
+
+    SVN_REVISION_AUTHOR = $Author$
+
+    ---------------------------------
+    </extended_description>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2011&#47;08&#47;22 12:06:07.552</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>dev</name>
+    <server>&#47;&#47;10.235.13.21</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;perdevr</database>
+    <port>1521</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2beddfc9a2ff7bdbb9b3c9c54fba49d8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esprod</name>
+    <server>&#47;&#47;10.235.130.18</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;mxrepo1_discoverer</database>
+    <port>1521</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo2</name>
+    <server>&#47;&#47;165.184.34.72</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;maxeierd_discoverer</database>
+    <port>1531</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1531</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo3</name>
+    <server>&#47;&#47;10.235.130.18</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;mxrepo1_discoverer</database>
+    <port>1521</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>esrepo4</name>
+    <server>&#47;&#47;10.235.130.18</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#47;mxrepo1_discoverer</database>
+    <port>1521</port>
+    <username>ESREPO</username>
+    <password>Encrypted 2be98afc86aa7f2e49b2bff43ecc39f89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>HDS</name>
+    <server/>
+    <type>MSSQL</type>
+    <access>ODBC</access>
+    <database>awdb</database>
+    <port>1521</port>
+    <username>WFM</username>
+    <password>Encrypted 2be98afc86aa7f2b3ae1bb879db85ff8b</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>reports</name>
+    <server>iepsdu104.txaccess.net</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>maxeierd</database>
+    <port>1531</port>
+    <username>reports</username>
+    <password>Encrypted 2be98afc86acc8b85bb0eaa74d78bae89</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1531</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>HDS</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>DM_DATE_DIMENSION</from><to>Merge Join</to><enabled>Y</enabled> </hop>  <hop> <from>Select values</from><to>destination</to><enabled>Y</enabled> </hop>  <hop> <from>Merge Join</from><to>Add sequence</to><enabled>Y</enabled> </hop>  <hop> <from>Add sequence</from><to>Select values</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Add sequence</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>st_trnsfr_id</valuename>
+      <use_database>Y</use_database>
+      <connection>esrepo3</connection>
+      <schema>esrepo</schema>
+      <seqname>seq_st_trnsfr</seqname>
+      <use_counter>N</use_counter>
+      <counter_name/>
+      <start_at>1</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>517</xloc>
+      <yloc>203</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DM_DATE_DIMENSION</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>esprod</connection>
+    <sql>SELECT DIM_DATE_ID, DIM_DATE FROM DM_DATE_DIMENSION
+order by DIM_DATE</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>226</xloc>
+      <yloc>274</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>HDS</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>HDS</connection>
+    <sql>select a.RecoveryKey, DATEADD(dd, 0, DATEDIFF(dd, 0, b.DateTime))  as Call_Date, 
+getdate() as Load_Date, b.DateTime, a.Variable5,
+b.RouterCallKey, a.CallTypeID, a.AgentPeripheralNumber,b.DigitsDialed as DialedNumberString,
+b.RouterCallKeySequenceNumber,  
+CASE 
+         WHEN b.DigitsDialed = &apos;19070&apos; THEN &apos;Y&apos;
+ END AS TRANSFERRED_FLAG,
+case 
+   when a.CallDisposition = 6 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 13 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 28 then &apos;Cold Transfer&apos;
+   when a.CallDisposition = 29 then &apos;Warm Transfer&apos;
+   when a.CallDisposition = 30 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 34 then &apos;Cold Transfer&apos;
+ END
+as TYPE_OF_TRANSFER,
+
+CASE 
+
+         WHEN b.DigitsDialed = &apos;19070&apos; THEN &apos;xfer_to_ES_Supervisor_Midland&apos;
+
+ END AS Transferred_To_Queue, b.Variable3
+from
+(select Variable5, CallDisposition, PeripheralCallType,
+AgentPeripheralNumber, CallTypeID, InstrumentPortNumber, Variable3, RecoveryKey
+from Termination_Call_Detail
+where AgentPeripheralNumber is not null
+--and LEN(AgentPeripheralNumber) = &apos;5&apos;
+and PeripheralCallType = 2
+and CallTypeID in (&apos;5638&apos;,&apos;5639&apos;,&apos;5087&apos;,&apos;5090&apos;,&apos;5088&apos;,&apos;5091&apos;,&apos;5500&apos;,&apos;5501&apos;,&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;)
+--and DateTime between &apos;30-jul-2012&apos; and &apos;4-aug-2012&apos;
+and CONVERT(varchar(10),DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+) a,
+(select Variable5, ANI as InstrumentPortNumber, DigitsDialed, Variable3, DateTime,RouterCallKey,
+RouterCallKeySequenceNumber
+from Termination_Call_Detail
+where CallTypeID in (&apos;5527&apos;,&apos;5528&apos;)
+and AgentPeripheralNumber is not null
+and LEN(ANI) = &apos;5&apos;
+--and DateTime between &apos;30-jul-2012&apos; and &apos;4-aug-2012&apos;
+and CONVERT(varchar(10),DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+) b 
+where a.Variable5 = b.Variable5
+and a.InstrumentPortNumber = b.InstrumentPortNumber
+union
+select a.RecoveryKey, DATEADD(dd, 0, DATEDIFF(dd, 0, b.DateTime))  as Call_Date, 
+getdate() as Load_Date, b.DateTime, a.Variable5,
+b.RouterCallKey, a.CallTypeID, a.AgentPeripheralNumber,b.DigitsDialed as DialedNumberString,
+b.RouterCallKeySequenceNumber,  
+CASE 
+         WHEN (b.DigitsDialed = &apos;19080&apos; or b.DigitsDialed = &apos;19081&apos;) THEN &apos;Y&apos;
+ END AS TRANSFERRED_FLAG,
+case 
+   when a.CallDisposition = 6 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 13 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 28 then &apos;Cold Transfer&apos;
+   when a.CallDisposition = 29 then &apos;Warm Transfer&apos;
+   when a.CallDisposition = 30 then &apos;Announced Transfer&apos;
+   when a.CallDisposition = 34 then &apos;Cold Transfer&apos;
+ END
+as TYPE_OF_TRANSFER,
+
+CASE 
+
+         WHEN b.DigitsDialed = &apos;19080&apos; THEN &apos;xfer_to_ES_EN_QC&apos;
+		 WHEN b.DigitsDialed = &apos;19081&apos; THEN &apos;xfer_to_ES_SP_QC&apos;	
+
+ END AS Transferred_To_Queue, b.Variable3
+from
+(select Variable5, CallDisposition, PeripheralCallType,
+AgentPeripheralNumber, CallTypeID, InstrumentPortNumber, Variable3, RecoveryKey
+from Termination_Call_Detail
+where AgentPeripheralNumber is not null
+--and LEN(AgentPeripheralNumber) = &apos;5&apos;
+and PeripheralCallType = 2
+and CallTypeID in (&apos;5638&apos;,&apos;5639&apos;,&apos;5087&apos;,&apos;5090&apos;,&apos;5088&apos;,&apos;5091&apos;,&apos;5500&apos;,&apos;5501&apos;,&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;)
+--and DateTime between &apos;30-jul-2012&apos; and &apos;4-aug-2012&apos;
+and CONVERT(varchar(10),DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+) a,
+(select Variable5, ANI as InstrumentPortNumber, DigitsDialed, Variable3, DateTime,RouterCallKey,
+RouterCallKeySequenceNumber
+from Termination_Call_Detail
+where CallTypeID in (&apos;6573&apos;,&apos;6574&apos;)
+and AgentPeripheralNumber is not null
+and LEN(ANI) = &apos;5&apos;
+--and DateTime between &apos;30-jul-2012&apos; and &apos;4-aug-2012&apos;
+and CONVERT(varchar(10),DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+) b 
+where a.Variable5 = b.Variable5
+and a.InstrumentPortNumber = b.InstrumentPortNumber
+union
+select tcd.RecoveryKey, DATEADD(dd, 0, DATEDIFF(dd, 0, tcd.DateTime))  as Call_Date, 
+getdate() as Load_Date, tcd.DateTime, tcd.Variable5, 
+tcd.RouterCallKey, tcd.CallTypeID, tcd.AgentPeripheralNumber,rcd.DialedNumberString,
+tcd.RouterCallKeySequenceNumber,
+case 
+   when rcd.RequestType = 2 then &apos;Y&apos;
+ END
+as TRANSFERRED_FLAG,
+ case 
+   when tcd.CallDisposition = 30 then &apos;Announced Transfer&apos;
+ END
+as TYPE_OF_TRANSFER,
+      CASE 
+         WHEN rcd.DialedNumberString = &apos;19000&apos; THEN &apos;Transfer_to_CHIP_Supervisor-Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19001&apos; THEN &apos;CHIP_Outbound_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19002&apos; THEN &apos;CHIP_Prog_Tech_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19003&apos; THEN &apos;Translates_to_19000&apos;
+         WHEN rcd.DialedNumberString = &apos;19016&apos; THEN &apos;xfer_to_CHIP_EN_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19017&apos; THEN &apos;xfer_to_CHIP_SP_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19018&apos; THEN &apos;xfer_to_CHIP_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19019&apos; THEN &apos;xfer_to_CHIP_EN_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19020&apos; THEN &apos;xfer_to_CHIP_SP_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19021&apos; THEN &apos;xfer_to_CHIP_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19022&apos; THEN &apos;xfer_to_CHIP_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19023&apos; THEN &apos;xfer_to_CHIP_EN_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19024&apos; THEN &apos;xfer_to_CHIP_SP_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19031&apos; THEN &apos;xfer_to_THS_EN_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19032&apos; THEN &apos;xfer_to_THS_SP_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19033&apos; THEN &apos;xfer_to_THS_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19034&apos; THEN &apos;xfer_to_THS_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19046&apos; THEN &apos;xfer_to_EB_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19047&apos; THEN &apos;xfer_to_EB_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19048&apos; THEN &apos;xfer_to_EB_OUTREACH&apos;
+         WHEN rcd.DialedNumberString = &apos;19049&apos; THEN &apos;xfer_to_EB_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19050&apos; THEN &apos;xfer_to_EB_EN_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19051&apos; THEN &apos;xfer_to_EB_SP_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19052&apos; THEN &apos;xfer_to_ES_EN_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19053&apos; THEN &apos;xfer_to_ES_SP_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19060&apos; THEN &apos;xfer_to_Mitigation_Queue&apos; 
+         WHEN rcd.DialedNumberString = &apos;19061&apos; THEN &apos;xfer_to_State_TX_Works&apos; 
+         WHEN rcd.DialedNumberString = &apos;19062&apos; THEN &apos;xfer_to_State_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19063&apos; THEN &apos;xfer_to_State_Refugee&apos;
+         WHEN rcd.DialedNumberString = &apos;19064&apos; THEN &apos;xfer_to_State_ART&apos;
+         WHEN rcd.DialedNumberString = &apos;19065&apos; THEN &apos;xfer_to_State_Womens_Health&apos;
+         WHEN rcd.DialedNumberString = &apos;19066&apos; THEN &apos;xfer_to_State_ART_SSS_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19067&apos; THEN &apos;xfer_to_State_ART_SSS_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19070&apos; THEN &apos;xfer_to_ES_Supervisor_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19071&apos; THEN &apos;xfer_to_ES_Supervisor_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19072&apos; THEN &apos;xfer_to_EB_Supervisor&apos;
+         WHEN rcd.DialedNumberString = &apos;19076&apos; THEN &apos;xfer_to_ES_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19077&apos; THEN &apos;xfer_to_ES_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19078&apos; THEN &apos;xfer_to_ES_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19079&apos; THEN &apos;xfer_to_ES_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19080&apos; THEN &apos;xfer_to_ES_EN_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19081&apos; THEN &apos;xfer_to_ES_SP_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19083&apos; THEN &apos;ES_transfer_to_OIG_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19091&apos; THEN &apos;ES_xfer_to_211_English&apos;
+         WHEN rcd.DialedNumberString = &apos;19092&apos; THEN &apos;ES_xfer_to_211_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19093&apos; THEN &apos;ES_transfer_to_OIG_English&apos;
+		 WHEN rcd.DialedNumberString = &apos;19094&apos; THEN &apos;ES_transfer_to_ ES_EN_Main_Menu&apos;
+         WHEN rcd.DialedNumberString = &apos;19095&apos; THEN &apos;ES_transfer_to_ES_SP_Main_Menu&apos;
+ END AS Transferred_To_Queue,
+tcd.Variable3  
+from Termination_Call_Detail tcd, Route_Call_Detail rcd 
+where tcd.PeripheralCallType = &apos;2&apos;
+and rcd.RequestType = &apos;2&apos;
+and tcd.RouterCallKeyDay = rcd.RouterCallKeyDay
+and tcd.Variable5 = rcd.Variable5
+and rcd.DialedNumberString like &apos;19%&apos;
+and tcd.CallDisposition in (&apos;30&apos;)
+and rcd.RouterErrorCode &lt;&gt; &apos;448&apos;
+and rcd.Label is not null
+and tcd.CallTypeID &lt;&gt; &apos;-1&apos;
+--and tcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+--and rcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+and CONVERT(varchar(10),tcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+and CONVERT(varchar(10),rcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+--and tcd.Variable5 =&apos;DB8FFDC8B31311E197A7001A6C41CC2C&apos;
+and tcd.CallTypeID in (&apos;5088&apos;,&apos;5091&apos;,&apos;5500&apos;,&apos;5501&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;)--&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;,&apos;5087&apos;,&apos;5090&apos;)
+and rcd.CallTypeID not in (&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;)
+group by tcd.DateTime, tcd.RouterCallKey, tcd.CallTypeID, rcd.DialedNumberString, 
+tcd.CallDisposition, tcd.AgentPeripheralNumber, rcd.DialedNumberString,tcd.Variable3,rcd.RequestType,
+tcd.Variable5,tcd.RouterCallKeySequenceNumber,tcd.RecoveryKey
+union
+select tcd.RecoveryKey, DATEADD(dd, 0, DATEDIFF(dd, 0, tcd.DateTime))  as Call_Date, 
+getdate() as Load_Date, tcd.DateTime, tcd.Variable5, 
+tcd.RouterCallKey, tcd.CallTypeID, tcd.AgentPeripheralNumber,rcd.DialedNumberString,
+tcd.RouterCallKeySequenceNumber,
+case 
+   when rcd.RequestType = 2 then &apos;Y&apos;
+ END
+as TRANSFERRED_FLAG,
+ case 
+   when tcd.CallDisposition = 29 then &apos;Warm Transfer&apos;
+ END
+as TYPE_OF_TRANSFER,
+      CASE 
+         WHEN rcd.DialedNumberString = &apos;19000&apos; THEN &apos;Transfer_to_CHIP_Supervisor-Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19001&apos; THEN &apos;CHIP_Outbound_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19002&apos; THEN &apos;CHIP_Prog_Tech_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19003&apos; THEN &apos;Translates_to_19000&apos;
+         WHEN rcd.DialedNumberString = &apos;19016&apos; THEN &apos;xfer_to_CHIP_EN_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19017&apos; THEN &apos;xfer_to_CHIP_SP_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19018&apos; THEN &apos;xfer_to_CHIP_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19019&apos; THEN &apos;xfer_to_CHIP_EN_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19020&apos; THEN &apos;xfer_to_CHIP_SP_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19021&apos; THEN &apos;xfer_to_CHIP_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19022&apos; THEN &apos;xfer_to_CHIP_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19023&apos; THEN &apos;xfer_to_CHIP_EN_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19024&apos; THEN &apos;xfer_to_CHIP_SP_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19031&apos; THEN &apos;xfer_to_THS_EN_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19032&apos; THEN &apos;xfer_to_THS_SP_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19033&apos; THEN &apos;xfer_to_THS_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19034&apos; THEN &apos;xfer_to_THS_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19046&apos; THEN &apos;xfer_to_EB_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19047&apos; THEN &apos;xfer_to_EB_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19048&apos; THEN &apos;xfer_to_EB_OUTREACH&apos;
+         WHEN rcd.DialedNumberString = &apos;19049&apos; THEN &apos;xfer_to_EB_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19050&apos; THEN &apos;xfer_to_EB_EN_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19051&apos; THEN &apos;xfer_to_EB_SP_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19052&apos; THEN &apos;xfer_to_ES_EN_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19053&apos; THEN &apos;xfer_to_ES_SP_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19060&apos; THEN &apos;xfer_to_Mitigation_Queue&apos; 
+         WHEN rcd.DialedNumberString = &apos;19061&apos; THEN &apos;xfer_to_State_TX_Works&apos; 
+         WHEN rcd.DialedNumberString = &apos;19062&apos; THEN &apos;xfer_to_State_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19063&apos; THEN &apos;xfer_to_State_Refugee&apos;
+         WHEN rcd.DialedNumberString = &apos;19064&apos; THEN &apos;xfer_to_State_ART&apos;
+         WHEN rcd.DialedNumberString = &apos;19065&apos; THEN &apos;xfer_to_State_Womens_Health&apos;
+         WHEN rcd.DialedNumberString = &apos;19066&apos; THEN &apos;xfer_to_State_ART_SSS_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19067&apos; THEN &apos;xfer_to_State_ART_SSS_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19070&apos; THEN &apos;xfer_to_ES_Supervisor_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19071&apos; THEN &apos;xfer_to_ES_Supervisor_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19072&apos; THEN &apos;xfer_to_EB_Supervisor&apos;
+         WHEN rcd.DialedNumberString = &apos;19076&apos; THEN &apos;xfer_to_ES_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19077&apos; THEN &apos;xfer_to_ES_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19078&apos; THEN &apos;xfer_to_ES_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19079&apos; THEN &apos;xfer_to_ES_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19080&apos; THEN &apos;xfer_to_ES_EN_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19081&apos; THEN &apos;xfer_to_ES_SP_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19083&apos; THEN &apos;ES_transfer_to_OIG_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19091&apos; THEN &apos;ES_xfer_to_211_English&apos;
+         WHEN rcd.DialedNumberString = &apos;19092&apos; THEN &apos;ES_xfer_to_211_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19093&apos; THEN &apos;ES_transfer_to_OIG_English&apos;
+		 WHEN rcd.DialedNumberString = &apos;19094&apos; THEN &apos;ES_transfer_to_ ES_EN_Main_Menu&apos;
+         WHEN rcd.DialedNumberString = &apos;19095&apos; THEN &apos;ES_transfer_to_ES_SP_Main_Menu&apos;
+ END AS Transferred_To_Queue,
+tcd.Variable3  
+from Termination_Call_Detail tcd, Route_Call_Detail rcd 
+where tcd.PeripheralCallType = &apos;2&apos;
+and rcd.RequestType = &apos;2&apos;
+and tcd.RouterCallKeyDay = rcd.RouterCallKeyDay
+and tcd.Variable5 = rcd.Variable5
+and tcd.RouterCallKeySequenceNumber &lt; rcd.RouterCallKeySequenceNumber
+and rcd.DialedNumberString like &apos;19%&apos;
+and tcd.CallDisposition in (&apos;29&apos;)
+and rcd.RouterErrorCode &lt;&gt; &apos;448&apos;
+and rcd.Label is not null
+and tcd.CallTypeID &lt;&gt; &apos;-1&apos;
+and rcd.Variable6 not like &apos;xfer from xfer to CHIP%&apos;
+--and tcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+--and rcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+and CONVERT(varchar(10),tcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+and CONVERT(varchar(10),rcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+--and tcd.Variable5 =&apos;DB8FFDC8B31311E197A7001A6C41CC2C&apos;
+and tcd.CallTypeID in (&apos;5088&apos;,&apos;5091&apos;,&apos;5500&apos;,&apos;5501&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;)--&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;,&apos;5087&apos;,&apos;5090&apos;)
+and rcd.CallTypeID not in (&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;)
+group by tcd.DateTime, tcd.RouterCallKey, tcd.CallTypeID,rcd.DialedNumberString, 
+tcd.CallDisposition, tcd.AgentPeripheralNumber, rcd.DialedNumberString,tcd.Variable3,rcd.RequestType,
+tcd.Variable5,tcd.RouterCallKeySequenceNumber,tcd.RecoveryKey
+union
+select tcd.RecoveryKey, DATEADD(dd, 0, DATEDIFF(dd, 0, tcd.DateTime))  as Call_Date, 
+getdate() as Load_Date, tcd.DateTime, tcd.Variable5, 
+tcd.RouterCallKey, tcd.CallTypeID, tcd.AgentPeripheralNumber,rcd.DialedNumberString,
+tcd.RouterCallKeySequenceNumber,
+case 
+   when rcd.RequestType = 2 then &apos;Y&apos;
+ END
+as TRANSFERRED_FLAG,
+ case 
+   when tcd.CallDisposition = 28 then &apos;Cold Transfer&apos;
+ END
+as TYPE_OF_TRANSFER,
+      CASE 
+         WHEN rcd.DialedNumberString = &apos;19000&apos; THEN &apos;Transfer_to_CHIP_Supervisor-Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19001&apos; THEN &apos;CHIP_Outbound_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19002&apos; THEN &apos;CHIP_Prog_Tech_xfer_to_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19003&apos; THEN &apos;Translates_to_19000&apos;
+         WHEN rcd.DialedNumberString = &apos;19016&apos; THEN &apos;xfer_to_CHIP_EN_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19017&apos; THEN &apos;xfer_to_CHIP_SP_ENROLLMENT&apos;
+         WHEN rcd.DialedNumberString = &apos;19018&apos; THEN &apos;xfer_to_CHIP_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19019&apos; THEN &apos;xfer_to_CHIP_EN_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19020&apos; THEN &apos;xfer_to_CHIP_SP_OPS-EEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19021&apos; THEN &apos;xfer_to_CHIP_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19022&apos; THEN &apos;xfer_to_CHIP_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19023&apos; THEN &apos;xfer_to_CHIP_EN_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19024&apos; THEN &apos;xfer_to_CHIP_SP_SEU CALL-IN&apos;
+         WHEN rcd.DialedNumberString = &apos;19031&apos; THEN &apos;xfer_to_THS_EN_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19032&apos; THEN &apos;xfer_to_THS_SP_CMI SRU&apos;
+         WHEN rcd.DialedNumberString = &apos;19033&apos; THEN &apos;xfer_to_THS_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19034&apos; THEN &apos;xfer_to_THS_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19046&apos; THEN &apos;xfer_to_EB_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19047&apos; THEN &apos;xfer_to_EB_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19048&apos; THEN &apos;xfer_to_EB_OUTREACH&apos;
+         WHEN rcd.DialedNumberString = &apos;19049&apos; THEN &apos;xfer_to_EB_PROVIDER&apos;
+         WHEN rcd.DialedNumberString = &apos;19050&apos; THEN &apos;xfer_to_EB_EN_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19051&apos; THEN &apos;xfer_to_EB_SP_Newborn_Plan_Change&apos;
+         WHEN rcd.DialedNumberString = &apos;19052&apos; THEN &apos;xfer_to_ES_EN_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19053&apos; THEN &apos;xfer_to_ES_SP_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19060&apos; THEN &apos;xfer_to_Mitigation_Queue&apos; 
+         WHEN rcd.DialedNumberString = &apos;19061&apos; THEN &apos;xfer_to_State_TX_Works&apos; 
+         WHEN rcd.DialedNumberString = &apos;19062&apos; THEN &apos;xfer_to_State_MEPD&apos;
+         WHEN rcd.DialedNumberString = &apos;19063&apos; THEN &apos;xfer_to_State_Refugee&apos;
+         WHEN rcd.DialedNumberString = &apos;19064&apos; THEN &apos;xfer_to_State_ART&apos;
+         WHEN rcd.DialedNumberString = &apos;19065&apos; THEN &apos;xfer_to_State_Womens_Health&apos;
+         WHEN rcd.DialedNumberString = &apos;19066&apos; THEN &apos;xfer_to_State_ART_SSS_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19067&apos; THEN &apos;xfer_to_State_ART_SSS_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19070&apos; THEN &apos;xfer_to_ES_Supervisor_Midland&apos;
+         WHEN rcd.DialedNumberString = &apos;19071&apos; THEN &apos;xfer_to_ES_Supervisor_Athens&apos;
+         WHEN rcd.DialedNumberString = &apos;19072&apos; THEN &apos;xfer_to_EB_Supervisor&apos;
+         WHEN rcd.DialedNumberString = &apos;19076&apos; THEN &apos;xfer_to_ES_EN&apos;
+         WHEN rcd.DialedNumberString = &apos;19077&apos; THEN &apos;xfer_to_ES_SP&apos;
+         WHEN rcd.DialedNumberString = &apos;19078&apos; THEN &apos;xfer_to_ES_EN_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19079&apos; THEN &apos;xfer_to_ES_SP_SEU&apos;
+         WHEN rcd.DialedNumberString = &apos;19080&apos; THEN &apos;xfer_to_ES_EN_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19081&apos; THEN &apos;xfer_to_ES_SP_QC&apos;
+         WHEN rcd.DialedNumberString = &apos;19083&apos; THEN &apos;ES_transfer_to_OIG_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19091&apos; THEN &apos;ES_xfer_to_211_English&apos;
+         WHEN rcd.DialedNumberString = &apos;19092&apos; THEN &apos;ES_xfer_to_211_Spanish&apos;
+         WHEN rcd.DialedNumberString = &apos;19093&apos; THEN &apos;ES_transfer_to_OIG_English&apos;
+		 WHEN rcd.DialedNumberString = &apos;19094&apos; THEN &apos;ES_transfer_to_ ES_EN_Main_Menu&apos;
+         WHEN rcd.DialedNumberString = &apos;19095&apos; THEN &apos;ES_transfer_to_ES_SP_Main_Menu&apos;
+ END AS Transferred_To_Queue,
+tcd.Variable3  
+from Termination_Call_Detail tcd, Route_Call_Detail rcd 
+where tcd.PeripheralCallType = &apos;2&apos;
+and rcd.RequestType = &apos;2&apos;
+and tcd.RouterCallKeyDay = rcd.RouterCallKeyDay
+and tcd.RouterCallKey = rcd.RouterCallKey
+and (tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-1
+or tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-2
+or tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-3
+or tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-4
+or tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-5)
+--and tcd.RouterCallKeySequenceNumber = rcd.RouterCallKeySequenceNumber-1
+--and tcd.RouterCallKeySequenceNumber &lt; rcd.RouterCallKeySequenceNumber removed this part just for the 4th union as per chris A
+AND DATEPART(hh, tcd.DateTime)=DATEPART(hh, rcd.BeganCallTypeDateTime)
+AND DATEPART(mi, tcd.DateTime)=DATEPART(mi, rcd.BeganCallTypeDateTime)
+and rcd.DialedNumberString like &apos;19%&apos;
+and tcd.CallDisposition in (&apos;28&apos;)
+and rcd.RouterErrorCode &lt;&gt; &apos;448&apos;
+and rcd.Label is not null
+and tcd.CallTypeID &lt;&gt; &apos;-1&apos;
+and rcd.Variable6 not like &apos;xfer from xfer to CHIP%&apos;
+--and tcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+--and rcd.DateTime between &apos;08-jun-2012&apos; and &apos;09-jun-2012&apos;
+and CONVERT(varchar(10),tcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+and CONVERT(varchar(10),rcd.DateTime,112)= CONVERT(varchar(10),getdate()-1,112)
+--and tcd.Variable5 =&apos;DB8FFDC8B31311E197A7001A6C41CC2C&apos;
+and tcd.CallTypeID in (&apos;5088&apos;,&apos;5091&apos;,&apos;5500&apos;,&apos;5501&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;)--&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;,&apos;5638&apos;,&apos;5639&apos;,&apos;5527&apos;,&apos;5528&apos;,&apos;5087&apos;,&apos;5090&apos;)
+and rcd.CallTypeID not in (&apos;6707&apos;,&apos;6710&apos;,&apos;6713&apos;,&apos;6716&apos;)
+group by tcd.DateTime, tcd.RouterCallKey, tcd.CallTypeID,rcd.DialedNumberString, 
+tcd.CallDisposition, tcd.AgentPeripheralNumber, rcd.DialedNumberString,tcd.Variable3,rcd.RequestType,
+tcd.Variable5,tcd.RouterCallKeySequenceNumber,tcd.RecoveryKey</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>212</xloc>
+      <yloc>141</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge Join</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>INNER</join_type>
+<step1>HDS</step1>
+<step2>DM_DATE_DIMENSION</step2>
+    <keys_1>
+      <key>Call_Date</key>
+    </keys_1>
+    <keys_2>
+      <key>DIM_DATE</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>417</xloc>
+      <yloc>194</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>RecoveryKey</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Load_Date</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DateTime</name>
+        <rename>Call_Date_Time</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Variable5</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RouterCallKey</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>CallTypeID</name>
+        <rename>Call_Type_ID</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>AgentPeripheralNumber</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TRANSFERRED_FLAG</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>TYPE_OF_TRANSFER</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Transferred_To_Queue</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>Variable3</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DIM_DATE_ID</name>
+        <rename>Call_Date_ID</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>DialedNumberString</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>RouterCallKeySequenceNumber</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>st_trnsfr_id</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>630</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>destination</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>esrepo4</connection>
+    <schema/>
+    <table>st_call_transfers</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>734</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

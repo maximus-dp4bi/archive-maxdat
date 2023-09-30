@@ -1,0 +1,192 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="17EAF88B-16A4-3AD2-EAD8-78FCEC405491" directorySegmentName="seg_0" name="CC_S_PRODUCTION_PLAN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>CC_C_PRODUCTION_PLAN is the staging table for production plans.  Plans will be created via a read/write report and subsequently loaded into the PP_D_PRODUCTION_PLAN table.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>09419FE5-70F1-C8DF-F391-A859F12516AC</importedID>
+<pkName>CC_C_PRODUCTION_PLAN_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_ID" id="22E1B2C4-9BF6-939B-99C5-7E25751FA237">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>37F34E4A-F1AB-A226-257E-271336A3C003</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_NAME" id="7CE990C8-EF9D-C51C-4591-C9D57370DC9A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The unique identifier for the production plan.  This field will be used as the basis for the production plan dimension lookup when the forecast is transformed to the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AA0FAB31-8016-1779-B277-2108664A82B7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PRODUCTION_PLAN_DESCRIPTION" id="69873B1B-3730-CE4F-9290-AB0DA692D5CF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>This field contains an explanation of the reason for the production plan.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>01C07E2C-227F-FEE6-7ECB-927B3A8322E0</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROGRAM_NAME" id="4032CDC9-A856-E34F-640E-1024B314B9D8">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-09-05 16:57:27 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_NAME" id="7EDF1288-F5AB-FCE7-0F76-7B55384F745D">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-09-05 16:57:27 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="GEOGRAPHY_NAME" id="EB87BC41-82CD-46E9-2941-75D65AE7AC16">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-09-05 16:57:27 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EFFECTIVE_DATE" id="CAFB227E-4BC1-1DE9-9C3B-C51D2E065CC6">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>This field indicates the date and time on which the planning horizon was created.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>7FB5552A-7BF0-2C98-9BA2-867B7A1B55C2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="LAST_UPDATE_DATE" id="6905FE79-6A40-DD78-4DC1-25CC3CE4B077">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>This field indicates the date and time on which the planning horizon was udpated.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>1B19EAA0-CB99-8DAC-450B-A4D0EE9763E4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="EXTRACT_DT" id="606A9ADE-24BA-09E7-703E-12B2A48D4975">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-06 13:05:45 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  Set via an insert/update trigger.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="62791CBE-EA93-DE54-07CE-995210EE89B7">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-09-05 18:20:12 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="6F4399DF-2629-DE7C-DF90-F3370FCFA790">
+<createdBy>Austin.Baker</createdBy>
+<createdTime>2013-09-05 18:20:12 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="F3996546-2CC6-3394-C5A1-6880656FD627" name="CC_C_PRODUCTION_PLAN_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>68A496A8-A328-E4F3-4EF8-65E607FE3BE0</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="22E1B2C4-9BF6-939B-99C5-7E25751FA237"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="2E9CA1BE-6F05-5575-1686-8BED7A062D91" name="CC_S_PRODUCTION_PLAN__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C3D75B12-9E40-95D3-2C39-FF49D9755DD5</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="7CE990C8-EF9D-C51C-4591-C9D57370DC9A"/>
+<colUsage columnID="62791CBE-EA93-DE54-07CE-995210EE89B7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

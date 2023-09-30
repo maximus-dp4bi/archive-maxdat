@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1B877B83-5E8C-C647-BFB8-75309913162B" name="CC_D_IVR_SELF_SERVICE_PATH">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>PP_D_IVR_SELF_SERVICE_PATH captures the configuration for the self service paths within the IVR to include the beginning node, ending node and a description of the path.  This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The source for this table is the CC_S_IVR_SELF_SERVICE_PATH staging table.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>3481E845-AAC3-FA83-6796-7620F2BABB49</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="D_IVR_SELF_SERVICE_PATH_ID" id="6C4A1CE8-51F7-D1CD-4407-824E9449B647">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>490FDC8D-A2D9-164F-730C-E21EF880E93C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_PROJECT_ID" id="4AEAEE00-EB05-BE43-B505-879BDD8CA2DB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-06 02:06:45 UTC</createdTime>
+<comment>FK to the D_PROJECT table.  This indicates to which project the service path is associated</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CODE" id="1E59AD11-8805-12DA-77C9-8D60AEB117C2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The natural key for the node of the IVR Tree.  This value shall not be updated.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>AE4A7E2F-1A60-60CA-7166-9353CD7C1BDC</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRIPTION" id="A778BAB8-5B51-7DEB-E734-ED26F9D15B87">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The human readable explanation of the path of the IVR tree.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>846B2124-A796-C6B4-9743-AE5D852B9707</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BEGIN_NODE" id="E47E29F7-56A2-2363-819F-B93B58D4B8B5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The starting point of this path in the IVR tree.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>919B30C6-D2AA-2D7F-CE0C-900E7B820C46</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="END_NODE" id="49197237-6441-DBB4-7D2D-6C0C132C4A2F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The termination point of this path in the IVR tree.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>977B7764-CD02-F103-6B96-FE64512CB60B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VERSION" id="AAFA86F7-5937-A889-B39E-E6FC9E2FD2B0">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-11 19:46:11 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_EFF_DT" id="DEA89F40-AB0F-38EC-49CC-4522503101FF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>90DD849D-7B43-7925-943F-6333B6AB5986</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RECORD_END_DT" id="DFBB19F1-58C6-59C1-B2C4-15F7384FD6BC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>EB0DD37D-8013-D533-10F8-C57C9BA4C501</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C305D89E-322C-15BC-DFC6-CFBAD57B6548" name="CC_D_SELF_SERVICE_PATH_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C6A116AF-6BC2-4730-B424-BBFFE752D651</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="6C4A1CE8-51F7-D1CD-4407-824E9449B647"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EE47A981-D525-D274-AAA5-890FD19736FD" name="CC_D_SELF_SERVICE_PATH__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F6592F7F-BC22-2F60-CBED-CB0A483D2995</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="E47E29F7-56A2-2363-819F-B93B58D4B8B5"/>
+<colUsage columnID="49197237-6441-DBB4-7D2D-6C0C132C4A2F"/>
+<colUsage columnID="DEA89F40-AB0F-38EC-49CC-4522503101FF"/>
+<colUsage columnID="4AEAEE00-EB05-BE43-B505-879BDD8CA2DB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

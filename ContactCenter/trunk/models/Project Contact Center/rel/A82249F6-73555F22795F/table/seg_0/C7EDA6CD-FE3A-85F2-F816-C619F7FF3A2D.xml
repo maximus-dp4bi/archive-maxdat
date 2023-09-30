@@ -1,0 +1,402 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C7EDA6CD-FE3A-85F2-F816-C619F7FF3A2D" name="CC_F_ACTUALS_IVR_INTERVAL">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>PP_F_ACTUALS_IVR_INTERVAL is the fact table for interval metrics actuals associated with the IVR.  This table allows for variable intervals depending on the configuration of the ACD (e.g. 15, 30, or 60 minute intervals).  The intervals extracted from the IVR must match the intervals of the ACD.   &lt;br/&gt;&lt;br/&gt;The data source for this table is the CC_S_IVR_INTERVAL staging table.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FDC1AB56-5E75-B585-FC85-D1545688E479</importedID>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="F_ACTUALS_IVR_INTERVAL_ID" id="6AB06026-43F4-7451-FE7C-05A4747BE057">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key for interval records</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>BD0FF8A2-60B7-9CE1-EDAD-BE080F9ADB43</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="D_PROJECT_ID" id="B429570F-5FC4-FD98-2DA0-2AF43344E3DE">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_PROJECT.  This column indicates which project and segment the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>998AAD1C-850E-A074-AE66-562E180AC44A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>7DC7CEC0-F100-930C-C43E-D91569B88469</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B7621F43-B39A-EDC1-7602-A810B63B7789" referredColumn="7DC7CEC0-F100-930C-C43E-D91569B88469"/>
+</associations>
+</Column>
+<Column name="D_PROGRAM_ID" id="3F52F46E-FFB9-4CE9-5CE9-FEDD37F7EEA8">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_PROGRAM.  This column indicates which program the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5EDF6041-7139-D1AE-2B8A-7FBF11EBEC2E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A18825BE-C828-F463-780D-E342D5E03B8B" referredColumn="D36B3D13-2EAA-0A95-9D64-8C7F07CAE35E"/>
+</associations>
+</Column>
+<Column name="D_GEOGRAPHY_MASTER_ID" id="E14C31F3-3DB1-821A-8461-F0DC7B281ECD">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_GEOGRAPHY_MASTER.  This column indicates the site and  geographical location of the interval data.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>EF9FAE80-197C-8338-3959-58271164DED6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>3454E2DE-E6FD-89CC-3E04-34F2B1633774</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1211402D-320B-AAD1-BD0D-AB8EF3D4BF5E" referredColumn="3454E2DE-E6FD-89CC-3E04-34F2B1633774"/>
+</associations>
+</Column>
+<Column name="D_UNIT_OF_WORK_ID" id="2D8447F2-2DF5-7C19-B116-BE26C536E4B1">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_UNIT_OF_WORK table. This column identifies which unit of work the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>350F0B2B-E099-1DFD-783D-DE2049183DC5</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>355CA8C1-E749-0418-63FA-EE67B0EF89B4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DDA6F5F9-39FC-1C4C-EC72-91F632063AEB" referredColumn="355CA8C1-E749-0418-63FA-EE67B0EF89B4"/>
+</associations>
+</Column>
+<Column name="D_INTERVAL_ID" id="5F4C7884-56C8-A703-3A45-897ED3621430">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_INTERVAL.  This column identifies which time span the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>4E05F502-90AE-6D02-C67D-FD0E4305E32E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>A0CCBF53-A3F9-EAA1-1CF4-923FE885793B</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FEF0C435-CEB2-1EF9-5686-99E8AF9CAB3F" referredColumn="A0CCBF53-A3F9-EAA1-1CF4-923FE885793B"/>
+</associations>
+</Column>
+<Column name="D_DATE_ID" id="108EC11A-D980-D9B1-CC5A-3E81FCCDE2A9">
+<sourceDDLFile>pp_ddl.sql</sourceDDLFile>
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>FK to PP_D_DATES.  This column identifies which date the interval data is associated with.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>1FB30284-32EC-E08D-49B9-CF052532B119</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>0F22F570-5924-7BD3-29C5-828D5CBC2F9A</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8ED67D58-DFE1-145F-F01E-1F337AAF12D8" referredColumn="0F22F570-5924-7BD3-29C5-828D5CBC2F9A"/>
+</associations>
+</Column>
+<Column name="CONTACTS_CREATED" id="5B595556-068A-5497-C68A-2FC0D5065F0E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Total number of contacts coming into the contact center.  Contacts created = contacts offered + contacts contained. &lt;br/&gt;&lt;br/&gt;If an external IVR is in use at the call center, then the IVR will be the source of truth for contacts created otherwise it will be the ACD.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>51F4ABF6-87C2-463C-DC3E-61FF29AFC115</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTACTS_OFFERED_TO_ACD" id="4A2C6A7B-6966-3071-24BF-DD405390CDBC">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of calls routed to agents queue.  This should match the sum of CONTACTS_RECEIVED_FROM_IVR from CC_S_ACD_INTERVAL aggregated for the same interval.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>C8569FA2-6E60-AE9D-8630-462DAE9E362E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTACTS_CONTAINED_IN_IVR" id="C10E43DD-F18A-B818-F920-7D8870CD5CF5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number of contacts that do not end up with a live operator.  It does not differentiate between satisfied and unsatisfied callers.   Used to calculate IVR containment rate = Contacts Contained / Contacts Created.  </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AA96DFC4-4B0C-1085-4746-D7E2D97F286D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MIN_TIME_IN_THE_IVR" id="50242788-2A78-5988-D0C1-1014D5A27DA5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Smallest amount of time a call spent in the IVR before joining agent queue or abandoned</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A5C0C576-B213-7ABC-AB03-9592A5E7263E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MAX_TIME_IN_THE_IVR" id="D8393B5E-1DC6-B7D4-9CC5-A8B31D923EF1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Largest amount of  time a call spent in the IVR before joining agent queue or abandoned</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FDB07963-EC91-23AF-C07C-8C6EE1B728AA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MEAN_TIME_IN_THE_IVR" id="A69981A9-E7DD-83AE-1629-D6B4E85D84EA">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Average time a call spent in the IVR before joining agent queue or abandoned</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>5C962D5C-5144-9646-7A6C-6D357FBFF780</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MEDIAN_TIME_IN_THE_IVR" id="11866424-70F2-8753-0566-F4F185F31ABE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Middle time a call spent in the IVR before joining agent queue or abandoned</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>867BD68D-0DF7-EF11-9A68-5A052539B458</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STDDEV_TIME_IN_THE_IVR" id="076C6D1F-1FFC-132B-EB76-A421EC0BBAF6">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Variation from the average length of time a call spent in the IVR before joining agent queue or abandoned</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>2D90EE1F-D324-489B-5EF5-B2DD163CFC29</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATE_DATE" id="3D9E892D-A14E-3439-1C08-536D837C6E88">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Date this record was inserted into the staging table.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>055D6FE5-996A-A8FA-3E54-5E82799F238B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_UPDATE_DATE" id="99D25FB1-427F-69B6-CEDD-8F5E42C748FB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Date this record was last updated.  This is used for audit purposes.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>E202AD9C-FE1E-3775-5593-CBA424464CE6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>SYSDATE</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C325A1BE-C5D9-5ACC-CE5F-699C59B5BDAF" name="CC_F_ACTUALS_IVR_INTERVAL_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>63F73561-C7A9-DA6B-9846-DD61AC1B8E3C</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="6AB06026-43F4-7451-FE7C-05A4747BE057"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3742EF8B-317B-E529-1C89-A354B67E7C82" name="CC_F_ACTUALS_IVR_INTERVAL__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>28C08481-511A-6F5A-A1EF-3ACB6988A335</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="108EC11A-D980-D9B1-CC5A-3E81FCCDE2A9"/>
+<colUsage columnID="B429570F-5FC4-FD98-2DA0-2AF43344E3DE"/>
+<colUsage columnID="3F52F46E-FFB9-4CE9-5CE9-FEDD37F7EEA8"/>
+<colUsage columnID="E14C31F3-3DB1-821A-8461-F0DC7B281ECD"/>
+<colUsage columnID="2D8447F2-2DF5-7C19-B116-BE26C536E4B1"/>
+<colUsage columnID="5F4C7884-56C8-A703-3A45-897ED3621430"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="743F1B0D-5C0A-B890-5CCB-5E5CD3FC3E58" name="F_ACTLS_IVR_INT_D_PRJ_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>BE827637-3C3C-49B8-F3C4-B80DA4C5E721</importedID>
+<indexColumnUsage>
+<colUsage columnID="B429570F-5FC4-FD98-2DA0-2AF43344E3DE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AE718C76-B307-8E59-1318-D478C324B717" name="F_ACTLS_IVR_INT_D_PRG_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>FC9863E1-CB23-4B7B-7B08-885C492ED3F1</importedID>
+<indexColumnUsage>
+<colUsage columnID="3F52F46E-FFB9-4CE9-5CE9-FEDD37F7EEA8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EED282C4-3FE4-947D-B4B7-1F2F3A857D24" name="F_ACTLS_IVR_INT_D_GEO_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>216325BB-AC90-DF8B-6FD7-D52E1246B147</importedID>
+<indexColumnUsage>
+<colUsage columnID="E14C31F3-3DB1-821A-8461-F0DC7B281ECD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EE57B152-039F-2CB9-9D33-C91EA2BA839D" name="F_ACTLS_IVR_INT_D_UOW_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>0342AAE6-B5D5-3142-1C75-B44CE9458561</importedID>
+<indexColumnUsage>
+<colUsage columnID="2D8447F2-2DF5-7C19-B116-BE26C536E4B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5153BAAE-DB4E-EEB3-8DB3-486B6DF62DD2" name="F_ACTLS_IVR_INT_D_INT_ID_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>129ACFAD-5CCC-E22D-CB67-479BE7419CB7</importedID>
+<indexColumnUsage>
+<colUsage columnID="5F4C7884-56C8-A703-3A45-897ED3621430"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AE09F138-140E-4E7A-7F13-1545A6604581" name="F_ACTLS_IVR_INT_D_DATE_IDX">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>70520FAE-E2CE-60E9-B504-77790390CE4F</importedID>
+<indexColumnUsage>
+<colUsage columnID="108EC11A-D980-D9B1-CC5A-3E81FCCDE2A9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="131790AC-AB2F-656A-E267-1F6AB86D1441" name="F_ACTLS_IVR_INTRVL_D_DATES_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="108EC11A-D980-D9B1-CC5A-3E81FCCDE2A9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F3B14707-ADE1-8017-06EA-5286DE3A7EE0" name="F_ACTLS_IVR_INTRVL_D_PRG_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="3F52F46E-FFB9-4CE9-5CE9-FEDD37F7EEA8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AA5F5BF3-EA80-FCCD-6ABD-704BC21DF736" name="F_ACTLS_IVR_INTRVL_D_INTRVL_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="5F4C7884-56C8-A703-3A45-897ED3621430"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CD3CCC6D-BF55-ADAE-DBE1-2D43DD8E81A2" name="F_ACTLS_IVR_INTRVL_D_PRJ_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="B429570F-5FC4-FD98-2DA0-2AF43344E3DE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="54E4671C-6EDE-4EBE-795C-86DD90FD9950" name="F_ACTLS_IVR_INTRVL_D_UOW_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="2D8447F2-2DF5-7C19-B116-BE26C536E4B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7C9FCA1F-7FD9-7EEA-F0C0-AC337F40CE2E" name="F_ACTLS_IVR_INTRVL_D_GEO_FK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="E14C31F3-3DB1-821A-8461-F0DC7B281ECD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

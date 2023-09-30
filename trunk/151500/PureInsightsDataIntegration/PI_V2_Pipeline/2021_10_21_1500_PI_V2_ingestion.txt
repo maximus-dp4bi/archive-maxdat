@@ -1,0 +1,260 @@
+use role SYSADMIN;
+use warehouse PUREINSIGHTS_UAT_LOAD_DAILY_WH;
+use database PUREINSIGHTS_UAT;
+use schema PUBLIC;
+
+alter table d_pi_tables add column ingest_type varchar(255);
+alter table d_pi_tables add column key_string varchar(255); 
+
+alter table d_pi_tables_history add column ingest_type varchar(255);
+alter table d_pi_tables_history add column key_string varchar(255);    
+
+CREATE OR REPLACE VIEW D_PI_INGESTION_PROJECTS_VW COPY GRANTS
+AS
+SELECT * FROM PUBLIC.D_PI_PROJECTS WHERE active = true;
+
+GRANT SELECT ON D_PI_INGESTION_PROJECTS_VW TO PI_DATA_INGEST_DEV_ALERT_USER;
+
+  
+use role PI_DATA_INGEST_UAT_ALERT_USER;
+use schema RAW;
+  
+create or replace view PI_TABLES_CHANGE_DATA COPY GRANTS as
+select table_name, s3_sourced, active, ingest_type, key_string, start_time, end_time, current_flag, 'I' as dml_type
+from (select table_name, s3_sourced, active, ingest_type, key_string, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by table_name order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag
+      from (select table_name, s3_sourced, active,ingest_type, key_string, update_timestamp
+            from pi_tables_stream
+            where metadata$action = 'INSERT'
+            and metadata$isupdate = 'FALSE'))
+union
+select table_name, s3_sourced, active,  ingest_type, key_string, start_time, end_time, current_flag, dml_type
+from (select table_name, s3_sourced, active,  ingest_type, key_string, update_timestamp as start_time,
+      lag(update_timestamp) over (partition by table_name order by update_timestamp desc) as end_time_raw,
+      case when end_time_raw is null then 
+'9999-12-31'::timestamp_ntz else end_time_raw end as end_time,
+      case when end_time_raw is null then 1 else 0 end as current_flag,dml_type
+      from (-- Identify data to insert into nation_history table
+        select table_name, s3_sourced, active,  ingest_type, key_string, update_timestamp, 'I' as dml_type
+        from pi_tables_stream
+        where metadata$action = 'INSERT'
+        and metadata$isupdate = 'TRUE'
+union
+select table_name, null, null, null,null,start_time, 'U' as dml_type
+from public.d_pi_tables_history
+where table_name in (select distinct table_name 
+                             from pi_tables_stream
+                             where metadata$action = 'INSERT'
+                             and metadata$isupdate = 'TRUE')
+        and current_flag = 1))
+union
+select str.table_name, null, null, null,null,hist.start_time, current_timestamp()::timestamp_ntz, null, 'D'
+from public.d_pi_tables_history hist
+inner join pi_tables_stream str
+on hist.table_name = str.table_name
+where str.metadata$action = 'DELETE'
+and str.metadata$isupdate = 'FALSE'
+and hist.current_flag = 1;
+  
+  
+CREATE or replace PROCEDURE update_tables_history ()
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  
+  $$
+  
+var sqlCommand = `merge into public.d_pi_tables_history nh
+using pi_tables_change_data m 
+   on  nh.table_name = m.table_name 
+   and nh.start_time = m.start_time
+when matched and m.dml_type = 'U' then update
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when matched and m.dml_type = 'D' then update 
+    set nh.end_time = m.end_time,
+        nh.current_flag = 0
+when not matched and m.dml_type = 'I' then insert
+           (table_name, s3_sourced, active,  ingest_type, key_string, start_time, end_time, current_flag)
+    values (m.table_name, m.s3_sourced, m.active,  m.ingest_type, m.key_string, m.start_time, m.end_time, m.current_flag);`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+sqlCommand = `update public.d_pi_tables_history hist
+set hist.end_time = temp.real_end_time
+from 
+(select table_name, start_time, end_time ,
+    lead (start_time) over (partition by table_name order by start_time asc) as proposed_end_time,
+    case when proposed_end_time is not null and timestampdiff(seconds,end_time, proposed_end_time) <=60 then proposed_end_time else end_time end as real_end_time
+from public.d_pi_tables_history) as temp
+where hist.table_name = temp.table_name
+and hist.start_time = temp.start_time
+and hist.end_time != temp.real_end_time;
+--and some time within 1 minute of now`;
+
+snowflake.execute ({sqlText: sqlCommand});
+
+return 0;
+
+$$;
+
+
+
+
+CREATE or replace PROCEDURE createPIStageV2(AWSFolderName VARCHAR, stageName VARCHAR)
+  RETURNS VARCHAR
+  LANGUAGE javascript
+  EXECUTE AS CALLER
+  AS
+  $$
+     
+     //default stageName
+     var stageName = STAGENAME;
+     if (! stageName){
+        stageName = 'PUREINSIGHTS_S3_2';
+     }     
+     
+    //create stage for today's data
+    var sqlCommand = "CREATE STAGE RAW." + stageName + " URL = 's3://soapax-pureinsights-v2/"+ AWSFOLDERNAME +"/' CREDENTIALS=(aws_key_id='AKIAT6QV4CSZF5RW77X4' aws_secret_key='secret key goes here');";
+    snowflake.execute ({sqlText: sqlCommand});
+
+  return "0";
+  $$;  
+  
+  
+  update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId', update_timestamp = current_timestamp()
+  where table_name in ('conversations', 'audio_quality'); 
+  
+ update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_topic_phrases', 'transcription_topic_configuration','transcription_program_topic_configuration',
+                       'transcription_program_configuration','transcription_program_queue_mapping','transcription_program_topic_mapping');  
+
+  
+  -----------
+  --group one (conversation based)
+    update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId;edgeId;codec;', update_timestamp = current_timestamp()
+  where table_name in ('audio_quality');--note: raw table has no sessionId and edgeId is capt as so
+  
+    update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId;segmentIndex', update_timestamp = current_timestamp()
+  where table_name in ('conversations_detail'); -- no segmentIndex in parquet
+  
+    update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId', update_timestamp = current_timestamp()
+  where table_name in ('conversations');
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;attemptTime', update_timestamp = current_timestamp()
+  where table_name in ('dialer_detail');
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId;attemptStartTime;attemptEndTime', update_timestamp = current_timestamp()
+  where table_name in ('dialer_preview_detail');
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;divisionId', update_timestamp = current_timestamp()
+  where table_name in ('divisions');
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId;outcomeId', update_timestamp = current_timestamp()
+  where table_name in ('flow_outcomes'); 
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'participantid', update_timestamp = current_timestamp()
+  where table_name in ('participants');--dd has only participantId as primary key --> really? parquet has participantid
+  
+  --scored_agents (in Kevin spreadhsheet but not in dd)???
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId;segmentIndex', update_timestamp = current_timestamp()
+  where table_name in ('segments');
+  
+      update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationid;sessionId;requestedRoutingSkillId', update_timestamp = current_timestamp()
+  where table_name in ('session_requested_routing_skills');--check capitalization of conversationid
+  
+       update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId', update_timestamp = current_timestamp()
+  where table_name in ('session_summary');
+  
+        update public.d_pi_tables 
+  set ingest_type = 'merge_no_deletes', key_string = 'conversationId;sessionId', update_timestamp = current_timestamp()
+  where table_name in ('sessions');
+  
+  --group two (config like files)
+        update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('contact_center_settings');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('configuration_objects');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('groups_membership');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('locations');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('user_details');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('user_locations');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('external_contacts');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('user_skills');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('user_locations');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('user_roles');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('queues_membership');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('wrapup_mapping');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('queue_configuration');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_program_configuration');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_program_flow_mapping');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_program_queue_mapping');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_program_topic_mapping');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_topic_configuration');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('transcription_topic_phrases');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('wfm_activity_codes');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('wfm_management_unit_configuration');
+          update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('survey_forms');
+            update public.d_pi_tables 
+  set ingest_type = 'truncate_insert', key_string = 'NA', update_timestamp = current_timestamp()
+  where table_name in ('evaluation_forms');

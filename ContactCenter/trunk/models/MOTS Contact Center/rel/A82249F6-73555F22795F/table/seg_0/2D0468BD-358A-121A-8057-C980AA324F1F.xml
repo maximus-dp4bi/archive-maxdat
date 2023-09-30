@@ -1,0 +1,577 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="2D0468BD-358A-121A-8057-C980AA324F1F" directorySegmentName="seg_0" name="CC_D_CONTACT_QUEUE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>PP_D_CONTACT_QUEUE defines the contact queues that are applicable for a project.  This table will contain all of the queues related to inbound calls, outbound calls, chats and emails that are configured in the project&apos;s ACD.  &lt;br/&gt;&lt;br/&gt;This table holds a history of records&apos; attributes as they change over time and is managed via updates to the RECORD_EFF_DT and RECORD_END_DT where the current record will have a RECORD_END_DT = 31-DEC-2199 23:59:00.  If a change to a record&apos;s attribution is identified, a new record is created with a RECORD_EFF_DT of the current date and a RECORD_END_DT of 31-DEC-2199 23:59:00.  The RECORD_END_DT of the previous record must be set to the current date.&lt;br/&gt;&lt;br/&gt;The data source for this table is the CC_S_CONTACT_QUEUE staging table.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E902F6B5-9F7F-4FF6-EAA5-8BD8A9EE72DB</importedID>
+<pkName>CC_D_CONTACT_QUEUE_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_CONTACT_QUEUE_ID" id="94E928F8-B257-7698-FB54-14C3D5835C5C">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E8BB9A16-3C2E-28CA-BFA7-29E51FB23103</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="D_PROJECT_ID" id="0298FA09-D605-A8FE-5DD7-B8E444138B85">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-11-06 02:00:50 UTC</createdTime>
+<comment>FK to the D_PROJECT table.  This indicates to which project the contact queue is associated.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_NUMBER" id="8E9CAED5-53D6-0D57-3C03-3BB8DC66C061">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Number assigned to VDN/DNIS/App/Queue or split. This is the natural key for the queue and is never updated.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>91FDE93F-07B7-E0A8-EDA6-2ACA14839C19</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_NAME" id="2D67FFC7-715B-8140-9353-073650CB1647">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Human readable descriptor given to the queue.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>557D01DC-1F5D-832E-1512-2D6827F9F913</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SOURCE_QUEUE" id="C19CB13A-398E-1632-3420-437001330888">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>Queue number of the split, skill, Skill target or DNIS source number from sending or source system.  This field may not be unique across multiple switches and should be used in concert with the unique queue number.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>18786511-38DB-1961-CB27-501A82DFD527</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_TYPE" id="0048675D-BA6F-7767-2D1A-958A4918AE76">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This field indicates whether the queue handles chats, emails, inbound voice calls, or outbound voice calls. &lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>96E029C9-A9FA-CCD3-9726-0DFB9BBA05DB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_PERCENT" id="F3DFAA2F-5E36-218F-8B89-DE87337602F8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This field defines the target percent of contacts that need to be answered in X seconds to be in service level where X is defined by SERVICE_SECONDS.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>B7F12D70-DCA7-D59C-D7A2-43726E8562A1</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_SECONDS" id="CFB1A11B-AB46-5D30-6E0C-BF9C4A9D4C4F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This field defines the number of seconds contacts must be answered in to be in service level.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>56638B1C-51BA-9443-71F5-8B934B153134</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_GROUP" id="6069AFA8-1B82-0674-D4CE-ED9C9CCFF97E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This field contains the group association of the queue.  This is used for reporting purposes.&lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>6B07B9DD-01DC-DA5C-F187-A9D8524C3475</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_MINUTES" id="4C2A0D54-8251-EA64-B4BE-79ED7CDBAFBE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The interval period for which data is aggregated can differ by queue.  This field defines the interval length of this queue.  &lt;br/&gt;</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>5DC062FB-A9CC-914D-C1AF-67363ADFC92F</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_1_BOUND" id="FC8058A6-D39D-B5BE-44BF-3E7EB8F8ABF5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_1 column 1 in the ACD interval tables.  The lower bound for period 1 will always be 0.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>DCE5E287-237F-268E-F94D-2A3312D026DF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_1_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_2_BOUND" id="C42A71DA-3792-8F6E-B038-61186DBE576E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_2 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 2 will always be the upper bound of period 1.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>9163ED54-320F-7022-69C5-1D567D29DCAA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_2_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_3_BOUND" id="3666CE0E-5893-7211-49C7-45C072CFD1CB">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_3 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 3 will always be the upper bound of period 2.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F7A84FA3-6D55-9505-8CD1-110BBDF1B192</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_3_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_4_BOUND" id="0ED48A9B-2861-FC91-D2EE-3F920BFFEEBD">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_4 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 4 will always be the upper bound of period 3.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>9A090F68-3DC1-00F9-247E-5EB37440C005</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_4_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_5_BOUND" id="BF814BEC-636D-ABCB-7FC3-EE12F4B90435">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_5 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 5 will always be the upper bound of period 4.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E5E0DE02-BCA2-0A5F-E095-3F6FF7B3C8F2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_5_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_6_BOUND" id="AB39D887-DD9C-C580-3DF0-B1DC59FAAB01">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_6 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 5 will always be the upper bound of period 5.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>30C50FDB-286D-8274-E7F8-E7BA38C55EF0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_6_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_7_BOUND" id="D12189F1-EBF9-7465-6D18-7F580FBA471F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_7 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 7 will always be the upper bound of period 6.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C10FFC66-8B10-8D41-E1A4-545662E3623E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_7_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_8_BOUND" id="BADF8FAB-B44F-D9F3-9854-EB3190B75280">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_8 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 8 will always be the upper bound of period 7.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>8926DA52-4812-E6B2-6E29-830584B3C727</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_8_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_9_BOUND" id="1FE628A6-2D4E-35DF-D424-5D54C6561842">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_9 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 9 will always be the upper bound of period 8.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>E10CDC37-E31E-2560-DE69-C7A97B860758</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_9_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SPEED_ANSWER_PERIOD_10_BOUND" id="611A39C9-B8A7-8946-72E6-507223444FF9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the SPEED_OF_ANSWER_PERIOD_10 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 10 will always be the upper bound of period 9.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>B72BC3DA-026C-9514-689B-54A3D65EC07D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="SPEED_ANSWER_PERIOD_10_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_1_BOUND" id="5467D2D6-DCEE-489F-94DA-5CFF96BF62CF">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_1 column 1 in the ACD interval tables.  The lower bound for period 1 will always be 0.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>5F5A0027-895F-5504-CC86-A72005E1FD42</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_1_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_2_BOUND" id="518A0137-F805-8B10-7331-F83DC0CCA3C8">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_2 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 2 will always be the upper bound of period 1.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>675C8650-49CF-DF8E-79A0-E1345EC71D32</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_2_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_3_BOUND" id="A7EE42E3-5806-A53C-4609-FFF4287CB6C2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_3 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 3 will always be the upper bound of period 2.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>0DDBC00E-1770-7F41-922F-768FB6479BF7</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_3_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_4_BOUND" id="C7D980A6-6317-678B-31FF-3B3949C2D7E6">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_4 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 4 will always be the upper bound of period 3.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>F5FFFF39-7AA6-3289-5CE3-C2C5D3AD5741</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_4_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_5_BOUND" id="FA1F6377-9CBA-E2FB-C348-BADF7DBEAA20">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_5 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 5 will always be the upper bound of period 4.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C07BCFE7-9682-7FAD-1AA9-132AA609D233</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_5_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_6_BOUND" id="E1B85E18-3DF6-F8B8-FB66-567E738509D2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_6 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 5 will always be the upper bound of period 5.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>D62F60AA-8835-92F1-757A-B5AA83BB4B1D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_6_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_7_BOUND" id="687B9451-7F2A-7820-ED0D-3644BB7748FE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_7 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 7 will always be the upper bound of period 6.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>99D41189-1A3F-77D4-43E8-A6F8A61ECFA3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_7_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_8_BOUND" id="D0932123-9F3D-3DEF-B64A-D2D4657117FA">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_8 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 8 will always be the upper bound of period 7.  </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>D069E61E-2F30-DB61-F02D-1C40AC7F48F8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_8_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_9_BOUND" id="CC377AAA-30A4-DA49-2716-1559AE1F61E7">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_9 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 9 will always be the upper bound of period 8.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>B5159F2D-4C01-3CCE-7A78-F6E8254F3961</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_9_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CALLS_ABNDONED_PERIOD_10_BOUND" id="954A70C3-AC57-23D7-09B1-57E9C736331E">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>The upper bound of the amount of time in seconds configured for the CALLS_ABANDONED_PERIOD_10 column in PP_F_ACTUALS_QUEUE_INTERVAL.  The lower bound for period 10 will always be the upper bound of period 9.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>984FBC36-5114-13C0-7FB8-CE9B39DA21F6</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>0</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Oracle Database 11g" definition="CALLS_ABNDONED_PERIOD_10_BOUND &gt;= 0"/>
+</checkConstraint>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERSION" id="676276BE-83B4-203B-15CD-449EBE7B5BCE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-06 13:31:12 UTC</createdTime>
+<comment>Version number of type-2 slow changing dimension.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="B05A5A7C-9213-5890-91F5-8EE46AC27DD9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C248292A-2032-7C2C-9DE4-3B0C02C1B0D0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;1900/01/01&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="AF22B884-FB03-72F3-D7D1-9FF0D2C707A9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>C94EBD73-CC5B-F94E-1F19-626A2B91985D</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;2999/12/31&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E68A3364-BBA9-D6D5-9BC3-6118DC21F41C" name="CC_D_CONTACT_QUEUE_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>528B727B-2F51-38EE-FEE1-095F8E9C3ADC</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="94E928F8-B257-7698-FB54-14C3D5835C5C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="DDFD923D-4E24-8315-D15F-53CD0B572A6A" name="CC_D_CONTACT_QUEUE__UN">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:50 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<importedID>84BAFE45-1AC5-B1A3-F3FD-D12451B9E686</importedID>
+<indexState>Unique Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="8E9CAED5-53D6-0D57-3C03-3BB8DC66C061"/>
+<colUsage columnID="B05A5A7C-9213-5890-91F5-8EE46AC27DD9"/>
+<colUsage columnID="0298FA09-D605-A8FE-5DD7-B8E444138B85"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

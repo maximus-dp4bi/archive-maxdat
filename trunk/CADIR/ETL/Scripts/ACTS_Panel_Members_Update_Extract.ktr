@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>ACTS Panel Members Extract</name>
+    <description/>
+    <extended_description>----------------------------------------------------------------
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+----------------------------------------------------------------
+
+---------------------------------
+SVN_FILE_URL        = $URL$ 
+SVN_REVISION        = $Revision$ 
+SVN_REVISION_DATE   = $Date$
+SVN_REVISION_AUTHOR = $Author$
+---------------------------------</extended_description>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2015&#47;07&#47;09 14:02:23.295</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2015&#47;07&#47;09 14:02:23.295</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>ACTS</name>
+    <server>${DB_ACTS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_ACTS_NAME}</database>
+    <port>${DB_ACTS_PORT}</port>
+    <username>${DB_ACTS_USER}</username>
+    <password>${DB_ACTS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>maxcorp</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_ACTS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_ARS</name>
+    <server>${DB_KOFAX_ARS_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_ARS_DB}</database>
+    <port>${DB_KOFAX_ARS_PORT}</port>
+    <username>${DB_KOFAX_ARS_USER}</username>
+    <password>${DB_KOFAX_ARS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_ARS_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_ARS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_CENTRAL</name>
+    <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_CENTRAL_DB}</database>
+    <port>${DB_KOFAX_CENTRAL_PORT}</port>
+    <username>${DB_KOFAX_CENTRAL_USER}</username>
+    <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_CENTRAL_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_CENTRAL_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>KOFAX_REMOTE</name>
+    <server>${DB_KOFAX_REMOTE_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_KOFAX_REMOTE_DB}</database>
+    <port>${DB_KOFAX_REMOTE_PORT}</port>
+    <username>${DB_KOFAX_REMOTE_USER}</username>
+    <password>${DB_KOFAX_REMOTE_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>${DB_KOFAX_REMOTE_INSTANCE}</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_KOFAX_REMOTE_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDAT</name>
+    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDAT_NAME}</database>
+    <port>${DB_MAXDAT_PORT}</port>
+    <username>${DB_MAXDAT_USER}</username>
+    <password>${DB_MAXDAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDAT_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>${DB_MAXDAT_SCHEMA}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =maxdat;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATCADIRPRD</name>
+    <server>${DB_MAXDATCADIRPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATCADIRPRD_NAME}</database>
+    <port>${DB_MAXDATCADIRPRD_PORT}</port>
+    <username>${DB_MAXDATCADIRPRD_USER}</username>
+    <password>${DB_MAXDATCADIRPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATCADIRPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATCOPRD</name>
+    <server>${DB_MAXDATCOPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATCOPRD_NAME}</database>
+    <port>${DB_MAXDATCOPRD_PORT}</port>
+    <username>${DB_MAXDATCOPRD_USER}</username>
+    <password>${DB_MAXDATCOPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATCOPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATHIUAT</name>
+    <server>${DB_MAXDATHIUAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATHIUAT_NAME}</database>
+    <port>${DB_MAXDATHIUAT_PORT}</port>
+    <username>${DB_MAXDATHIUAT_USER}</username>
+    <password>${DB_MAXDATHIUAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATHIUAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATPRD</name>
+    <server>${DB_MAXDATPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATPRD_NAME}</database>
+    <port>${DB_MAXDATPRD_PORT}</port>
+    <username>${DB_MAXDATPRD_USER}</username>
+    <password>${DB_MAXDATPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>MAXDATUAT</name>
+    <server>${DB_MAXDATUAT_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_MAXDATUAT_NAME}</database>
+    <port>${DB_MAXDATUAT_PORT}</port>
+    <username>${DB_MAXDATUAT_USER}</username>
+    <password>${DB_MAXDATUAT_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_MAXDATUAT_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECDMS</name>
+    <server>${DB_DMS_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_DMS_NAME}</database>
+    <port>${DB_DMS_PORT}</port>
+    <username>${DB_DMS_USER}</username>
+    <password>${DB_DMS_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_DMS_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECPRD</name>
+    <server>${DB_OLTPPRD_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTPPRD_NAME}</database>
+    <port>${DB_OLTPPRD_PORT}</port>
+    <username>${DB_OLTPPRD_USER}</username>
+    <password>${DB_OLTPPRD_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTPPRD_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>NYECSTBY</name>
+    <server>${DB_STBY_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_STBY_NAME}</database>
+    <port>${DB_STBY_PORT}</port>
+    <username>${DB_STBY_USER}</username>
+    <password>${DB_STBY_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_STBY_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>OLTP_SOURCE</name>
+    <server>${DB_OLTP_HOSTNAME}</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>${DB_OLTP_NAME}</database>
+    <port>${DB_OLTP_PORT}</port>
+    <username>${DB_OLTP_USER}</username>
+    <password>${DB_OLTP_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_OLTP_PORT}</attribute></attribute>
+      <attribute><code>PREFERRED_SCHEMA_NAME</code><attribute>$DB_OLTP_SCHEMA</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SQL_CONNECT</code><attribute>ALTER SESSION SET CURRENT_SCHEMA =etk_maximus_wc_prod2;</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>QA</name>
+    <server>${DB_QA_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_QA_NAME}</database>
+    <port>${DB_QA_PORT}</port>
+    <username>${DB_QA_USER}</username>
+    <password>${DB_QA_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MSSQL.DOMAIN</code><attribute>maxcorp</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_QA_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>SQID</name>
+    <server>${DB_SQID_HOSTNAME}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${DB_SQID_NAME}</database>
+    <port>${DB_SQID_PORT}</port>
+    <username>${DB_SQID_USER}</username>
+    <password>${DB_SQID_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${DB_SQID_PORT}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Table input - Get Consulant Ref</from><to>Database join - Get PM Response Info</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get PM Response Info</from><to>Insert &#47; Update - PM Response</to><enabled>Y</enabled> </hop>  <hop> <from>Insert &#47; Update - PM Response</from><to>Database join - Get PM Response Details Info</to><enabled>Y</enabled> </hop>  <hop> <from>Database join - Get PM Response Details Info</from><to>Insert &#47; Update - PM Response Details</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Database join - Get PM Response Details Info</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>8</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>ACTS</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT
+   id                              AS RESPONSE_DETAIL_ID            ,
+   rtcitationdetails_id            AS RT_CITATION_DETAILS_ID        ,
+   panelmemberresponse_panel_memb  AS DTL_PANEL_MEMBER_RESPONSE_ID     ,
+   rt_etk_id                       AS ETK_ID                        ,
+   order_by                        AS ORDER_BY                      ,
+   mtus_guidelines_ind             AS MTUS_GUIDLINES_FLAG           ,
+   acoem                           AS ACOEM_FLAG                    ,
+   acoem_chapter1                  AS ACOEM_CAPTER1_FLAG            ,
+   acoem_chapter2                  AS ACOEM_CAPTER2_FLAG            ,
+   acoem_chapter3                  AS ACOEM_CAPTER3_FLAG            ,
+   acoem_chapter5                  AS ACOEM_CAPTER5_FLAG            ,
+   acoem_chapter8                  AS ACOEM_CAPTER8_FLAG            ,
+   acoem_chapter9                  AS ACOEM_CAPTER9_FLAG            ,
+   acoem_chapter10                 AS ACOEM_CAPTER10_FLAG           ,
+   acoem_chapter11                 AS ACOEM_CAPTER11_FLAG           ,
+   acoem_chapter12                 AS ACOEM_CAPTER12_FLAG           ,
+   acoem_chapter13                 AS ACOEM_CAPTER13_FLAG           ,
+   acoem_chapter14                 AS ACOEM_CAPTER14_FLAG           ,
+   acoem_chapter15                 AS ACOEM_CAPTER15_FLAG           ,
+   acoem_chapter16                 AS ACOEM_CAPTER16_FLAG           ,
+   cpmtg                           AS CPMTG_FLAG                    ,
+   amtg                            AS AMTG_FLAG                     ,
+   pstg                            AS PSTG_FLAG                     ,
+   odg                             AS ODG_FLAG                      ,
+   omtg                            AS OMTG_FLAG                     ,
+   other_guidelines_ind            AS OTHER_GUIDELINES_FLAG         ,
+   reviewdecision_review_decision  AS DTL_REVIEW_DECISION_ID            ,
+   recomendedrevdesc_review_decis  AS RECOMMENDED_REVIEW_DECISION_ID,
+   creat_ts                        AS DTL_CREATED_DATE              ,
+   creat_user                      AS DTL_CREATED_BY                ,
+   update_ts                       AS DTL_UPDATED_DATE              ,
+   updated_user                    AS DTL_UPDATED_BY                    
+
+  FROM PM_RESPONSE_RTCITATIONDETAILS 
+ WHERE PANELMEMBERRESPONSE_PANEL_MEMB = ?</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>PANEL_MEMBER_RESPONSE_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>395</xloc>
+      <yloc>214</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Database join - Get PM Response Info</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>12</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>ACTS</connection>
+    <rowlimit>0</rowlimit>
+    <sql>SELECT
+
+   PANEL_MEMBER_RESPONSE_ID       AS PANEL_MEMBER_RESPONSE_ID ,
+   CASE_CONSULTANT_REF_ID         AS CASE_CONSULTANT_REF_ID   ,
+   MD_ID                          AS MD_ID                    ,
+   REVIEWDECISION_REVIEW_DECISION AS REVIEW_DECISION_ID       ,
+   CREATED_BY                     AS CREATED_BY               ,
+   CREATE_TS                      AS CREATED_DATE             ,
+   UPDATED_BY                     AS UPDATED_BY               ,
+   UPDATE_TS                      AS UPDATED_DATE             
+
+ FROM PANEL_MEMBER_RESPONSE
+WHERE CASE_CONSULTANT_REF_ID = ?</sql>
+    <outer_join>N</outer_join>
+    <replace_vars>Y</replace_vars>
+    <parameter>
+      <field>
+        <name>V_CASECONSULTANT_REF_ID</name>
+        <type>Number</type>
+      </field>
+    </parameter>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>395</xloc>
+      <yloc>62</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update - PM Response</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <table>ACTS_PM_RESPONSE</table>
+      <key>
+        <name>PANEL_MEMBER_RESPONSE_ID</name>
+        <field>PANEL_MEMBER_RESPONSE_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>PANEL_MEMBER_RESPONSE_ID</name>
+        <rename>PANEL_MEMBER_RESPONSE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CASE_CONSULTANT_REF_ID</name>
+        <rename>CASE_CONSULTANT_REF_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MD_ID</name>
+        <rename>MD_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REVIEW_DECISION_ID</name>
+        <rename>REVIEW_DECISION_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CREATED_BY</name>
+        <rename>CREATED_BY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CREATED_DATE</name>
+        <rename>CREATED_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>UPDATED_BY</name>
+        <rename>UPDATED_BY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>UPDATED_DATE</name>
+        <rename>UPDATED_DATE</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>655</xloc>
+      <yloc>62</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#47; Update - PM Response Details</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>${DB_MAXDAT_SCHEMA}</schema>
+      <table>ACTS_PM_RESPONSE_DETAILS</table>
+      <key>
+        <name>RESPONSE_DETAIL_ID</name>
+        <field>RESPONSE_DETAIL_ID</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>RESPONSE_DETAIL_ID</name>
+        <rename>RESPONSE_DETAIL_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RT_CITATION_DETAILS_ID</name>
+        <rename>RT_CITATION_DETAILS_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PANEL_MEMBER_RESPONSE_ID</name>
+        <rename>DTL_PANEL_MEMBER_RESPONSE_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ETK_ID</name>
+        <rename>ETK_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ORDER_BY</name>
+        <rename>ORDER_BY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>MTUS_GUIDLINES_FLAG</name>
+        <rename>MTUS_GUIDLINES_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_FLAG</name>
+        <rename>ACOEM_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER1_FLAG</name>
+        <rename>ACOEM_CAPTER1_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER2_FLAG</name>
+        <rename>ACOEM_CAPTER2_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER3_FLAG</name>
+        <rename>ACOEM_CAPTER3_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER5_FLAG</name>
+        <rename>ACOEM_CAPTER5_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER8_FLAG</name>
+        <rename>ACOEM_CAPTER8_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER9_FLAG</name>
+        <rename>ACOEM_CAPTER9_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER10_FLAG</name>
+        <rename>ACOEM_CAPTER10_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER11_FLAG</name>
+        <rename>ACOEM_CAPTER11_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER12_FLAG</name>
+        <rename>ACOEM_CAPTER12_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER13_FLAG</name>
+        <rename>ACOEM_CAPTER13_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER14_FLAG</name>
+        <rename>ACOEM_CAPTER14_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER15_FLAG</name>
+        <rename>ACOEM_CAPTER15_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ACOEM_CAPTER16_FLAG</name>
+        <rename>ACOEM_CAPTER16_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CPMTG_FLAG</name>
+        <rename>CPMTG_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>AMTG_FLAG</name>
+        <rename>AMTG_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PSTG_FLAG</name>
+        <rename>PSTG_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ODG_FLAG</name>
+        <rename>ODG_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>OMTG_FLAG</name>
+        <rename>OMTG_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>OTHER_GUIDELINES_FLAG</name>
+        <rename>OTHER_GUIDELINES_FLAG</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>REVIEW_DECISION_ID</name>
+        <rename>DTL_REVIEW_DECISION_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RECOMMENDED_REVIEW_DECISION_ID</name>
+        <rename>RECOMMENDED_REVIEW_DECISION_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CREATED_DATE</name>
+        <rename>DTL_CREATED_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>CREATED_BY</name>
+        <rename>DTL_CREATED_BY</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>UPDATED_DATE</name>
+        <rename>DTL_UPDATED_DATE</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>UPDATED_BY</name>
+        <rename>DTL_UPDATED_BY</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>655</xloc>
+      <yloc>214</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table input - Get Consulant Ref</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>MAXDAT</connection>
+    <sql>SELECT CASE_CONSULTANT_REF_ID v_CaseConsultant_Ref_ID
+  FROM ACTS_CONSULTANT_REF C
+      ,ACTS_APPEAL_CASE A
+ WHERE C.APPEAL_CASE_ID = A.APPEAL_CASE_ID
+   AND A.COMPLETED = &apos;N&apos;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>112</xloc>
+      <yloc>62</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

@@ -1,0 +1,51 @@
+create_database_bpmaindb.sql
+load_blue_pumpkin.kjb
+
+---------STAGING--------------------------------------------------------------------------------------------------------
+
+----INITIALIZATION-(ONE-TIME-ONLY)--------------------
+drop cc staging tables, sequences, indexes
+create cc tables, sequences, indexes
+insert_cc_s_interval.sql
+initialize_staging_configuration.sql
+load_cc_c_project_config.ktr		[Depends on: No MAXDAT dependencies]
+load_cc_c_unit_of_work.ktr			[Depends on: No MAXDAT dependencies]
+load_cc_c_contact_queue.ktr			[Depends on: No MAXDAT dependencies]
+load_cc_c_activity_type.ktr			[Depends on: No MAXDAT dependencies]
+***CHECK/LOAD TIMEZONE_AM 
+
+----BLUE-PUMPKIN--------------------------------------
+load_cc_s_agent.ktr					[Depends on: CC_S_TIMEZONEAM, CC_C_PROJECT_CONFIG]
+load_cc_s_agent_absence.ktr			[Depends on: CC_S_TIMEZONEAM, CC_C_PROJECT_CONFIG, CC_S_AGENT]
+load_cc_s_agent_activity.ktr		[Depends on: CC_S_TIMEZONEAM, CC_C_PROJECT_CONFIG, CC_C_ACTIVITY_TYPE, CC_S_AGENT]
+load_cc_s_agent_supervisor.ktr		[Depends on: CC_S_TIMEZONEAM, CC_C_PROJECT_CONFIG, CC_S_AGENT]
+load_cc_s_agent_work_day.ktr		[Depends on: CC_S_TIMEZONEAM, CC_C_PROJECT_CONFIG, CC_S_AGENT]
+load_cc_s_wfm_interval.kjb			[Depends on: CC_S_TIMEZONEAM, CC_S_AGENT_ABSENCE]
+
+----CISCO---------------------------------------------
+load_cc_s_contact_queue.ktr			[Depends on: CC_C_PROJECT_CONFIG, CC_C_UNIT_OF_WORK, CC_S_ACD_INTERVAL_PERIOD]
+load_cc_s_tmp_cisco_all.ktr			[Depends on: No MAXDAT dependencies]
+load_cc_s_acd_interval_period.ktr   [Depends on: No MAXDAT dependencies]
+load_cc_s_acd_interval.ktr			[Depends on: CC_S_INTERVAL, CC_S_AGENT, CC_S_CONTACT_QUEUE]
+load_cc_s_external_internal.ktr		[Depends on: CC_S_AGENT]
+load_cc_s_call_detail.ktr			[Depends on: CC_S_AGENT, ?????? ]
+
+---------DIMENSIONAL----------------------------------------------------------------------------------------------------
+
+----INITIALIZATION-(ONE-TIME-ONLY)--------------------
+drop dim tables, sequences, indexes
+create dim tables, sequences, indexes
+insert_cc_d_dates.sql
+insert_cc_d_interval.sql
+initialize_configuration_data.sql
+
+----DIMENSIONAL---------------------------------------
+manage_cc_d_contact_queue.kjb
+
+create_project_daily_call_facts.kjb
+create_project_daily_availability.kjb
+
+create_fact_pp_f_actuals_queue_interval.ktr
+
+
+

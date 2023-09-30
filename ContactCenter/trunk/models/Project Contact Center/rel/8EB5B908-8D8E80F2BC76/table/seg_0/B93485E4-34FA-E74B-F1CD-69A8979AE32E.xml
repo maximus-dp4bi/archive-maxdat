@@ -1,0 +1,270 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="B93485E4-34FA-E74B-F1CD-69A8979AE32E" directorySegmentName="seg_0" name="CC_C_CONTACT_QUEUE">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>CC_C_CONTACT_QUEUE is a project configuration table that contains the assignments of queues to units of work, project, program and geographical attributes. &lt;br/&gt;&lt;br/&gt;This table will be initialized as a part of the project deployment process and the data will be managed by a Production Planning administrator outside of the normal ETL process.  The addition of queues to the ACD must be coordinated with the Production Planning administrator.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>8CB7144B-9DEB-7E2B-FDC0-E39300EBB791</importedID>
+<pkName>CC_C_CONTACT_QUEUEv1_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="C_CONTACT_QUEUE_ID" id="4F99D61C-4E8F-82B6-605F-B6CB7D7FD1A3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>Surrogate key</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>B275AF95-9E87-6307-BD5C-70958C51CCF4</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_NUMBER" id="C7B00E85-27B3-326A-6A17-53B4DF41E5B3">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>FK to CC_C_CONTACT_QUEUE.  This column is the driver for the assigment of a contact queue to a unit of work.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>735A554B-98DE-F2CF-2AED-2665A9A3D0E8</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>19</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_NAME" id="AB8613AB-9454-CC85-EDA2-7D242C4E4274">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-09-04 18:11:11 UTC</createdTime>
+<comment>This field is to be used as the natural key for the queue in the case tha a numberic key is not available.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="QUEUE_TYPE" id="0BC23480-9B78-C769-A77B-E1B21D02261F">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-09-05 20:21:11 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_PERCENT" id="7B2C7412-3770-45F7-08CF-15DEE24B4DB4">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-09-05 20:21:11 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="SERVICE_SECONDS" id="AB1843E3-0B00-85B6-4A1A-949C509CBB55">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-09-05 20:21:11 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="INTERVAL_MINUTES" id="CF15DFF2-6763-49EC-38F2-C68269E11600">
+<createdBy>MAXUser</createdBy>
+<createdTime>2014-03-20 18:49:31 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="UNIT_OF_WORK_NAME" id="51D0D53B-C888-89E6-7EDC-8B243591E27F">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>The natural key of the unit of work.  This value is used when loading the staging data into the dimensional model to lookup the correct unit of work dimension.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A22E7DB0-B9C3-99EF-1FAF-1073868E0ED2</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROJECT_NAME" id="248F53FB-3CA0-D05F-AE19-A1B70E356C7D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS project.  This is the natural key for the project dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROGRAM_NAME" id="3EFFB6A5-8B9F-E313-9903-ED3F562E64E5">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS program.  Examples of a program are EB, ES &amp; CHIP.  This is the natural key for the program dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="REGION_NAME" id="1731AC22-F9D3-E47F-EBF9-963B039779E9">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the MAXIMUS region in which the project is located.  This is the natural key for the region dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="STATE_NAME" id="AE2E449B-6F49-6140-B586-6138E603990A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the state in which the project is located.  This is the natural key for the state dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="PROVINCE_NAME" id="3B54A750-1B96-E143-2BDF-D78B22506832">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the province in which the project is located.  This is the natural key for the province dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DISTRICT_NAME" id="682FFB92-88B0-D6EC-00EF-5993F688FC5D">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the district in which the project is located.  This is the natural key for the district dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="COUNTRY_NAME" id="061562EE-AE61-E7E1-F13A-582388E4541A">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-08-05 13:40:54 UTC</createdTime>
+<comment>The human readable unique identifier for the country in which the project is located.  This is the natural key for the country dimension used when the data is loaded into the dimensional model.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_EFF_DT" id="70DA69E5-9902-CA2C-F4BC-1779A711EF81">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the start date for which this record is effective.  The first instance of a record will have a start date of 1900/01/01.  If a change to a record&apos;s attribution is identified, a new record is created with a start date of the current date. </comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>A3FDBBA0-28DE-1C48-7D93-7373C29692DE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;1900/01/01&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="RECORD_END_DT" id="44F85F41-231E-7BFE-96DC-A10AEA03FAE2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<comment>This column allows for the capture of history and defines the end date for which this record is effective.  The first instance of a record will have an end date of 2999/12/31.  If a change to a record&apos;s attribution is identified, a new record is created with an end date of 2999/12/31 and the previously active record has its end date set to the current date.</comment>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>741A0610-12C9-5C68-9B86-FFB49B11CBDF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<defaultValue>to_date(&apos;2999/12/31&apos;, &apos;yyyy/mm/dd&apos;)</defaultValue>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C1F7EE28-BB7D-21E8-EA88-E797866209B8" name="CC_C_CONTACT_QUEUEv1_PK">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>AC9A3B6C-D243-68EB-CB50-F7DFF5ADC088</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="4F99D61C-4E8F-82B6-605F-B6CB7D7FD1A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="E268D5C0-88D4-530E-9AF7-ED698F0DF08C" name="CC_C_CONTACT_QUEUE__IDXv1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>6DD72F78-1942-0A2D-93BD-16F46649EFDE</importedID>
+<indexColumnUsage>
+<colUsage columnID="C7B00E85-27B3-326A-6A17-53B4DF41E5B3"/>
+<colUsage columnID="70DA69E5-9902-CA2C-F4BC-1779A711EF81" sortOrder="DESC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="DDC04DF7-AB41-411F-3652-03EEFCD4466D" name="CC_C_CONTACT_QUEUE__IDXv2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<importedID>17400656-C22C-6583-8B87-909F6CFB6BB5</importedID>
+<indexColumnUsage>
+<colUsage columnID="C7B00E85-27B3-326A-6A17-53B4DF41E5B3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

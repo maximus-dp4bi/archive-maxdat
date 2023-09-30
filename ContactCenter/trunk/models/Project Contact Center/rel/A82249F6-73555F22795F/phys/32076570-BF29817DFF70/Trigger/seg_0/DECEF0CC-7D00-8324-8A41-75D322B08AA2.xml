@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_D_PRODUCTION_PLAN_HRZN" directorySegmentName="seg_0" id="DECEF0CC-7D00-8324-8A41-75D322B08AA2">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:56:51 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.PRODUCTION_PLAN_HRZN_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_D_PROD_PLAN_HORIZON.NEXTVAL INTO :NEW.PRODUCTION_PLAN_HRZN_ID FROM DUAL;      &lt;br/&gt;END IF;&lt;br/&gt;IF INSERTING THEN&lt;br/&gt;  :NEW.CREATE_DATE := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_UPDATE_DATE := SYSDATE;&lt;br/&gt;END;  </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>F81A8D6B-481D-C092-6BA8-FEBAAD4D0128</table>
+</TriggerOraclev10g>

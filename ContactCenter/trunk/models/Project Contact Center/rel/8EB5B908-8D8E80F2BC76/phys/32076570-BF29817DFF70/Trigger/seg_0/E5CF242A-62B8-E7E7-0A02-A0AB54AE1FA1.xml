@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_CC_S_WFM_INTERVAL" directorySegmentName="seg_0" id="E5CF242A-62B8-E7E7-0A02-A0AB54AE1FA1">
+<createdBy>cr56205</createdBy>
+<createdTime>2013-07-29 19:51:36 UTC</createdTime>
+<ownerDesignName>Project Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN &lt;br/&gt;IF INSERTING AND :NEW.WFM_INTERVAL_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_S_WFM_INTERVAL.NEXTVAL INTO :NEW.WFM_INTERVAL_ID FROM DUAL;&lt;br/&gt;END IF;&lt;br/&gt;IF INSERTING THEN &lt;br/&gt;          :NEW.EXTRACT_DT := SYSDATE;&lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_UPDATE_DT := SYSDATE;&lt;br/&gt;:NEW.LAST_UPDATE_BY := USER;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>3E5D4C29-D669-C2A0-1A5D-B3E3CF6091EC</table>
+</TriggerOraclev10g>

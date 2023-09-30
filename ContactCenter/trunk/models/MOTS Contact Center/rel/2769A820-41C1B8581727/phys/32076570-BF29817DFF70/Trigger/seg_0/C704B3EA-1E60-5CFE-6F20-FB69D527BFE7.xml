@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BIU_D_DIVISION" id="C704B3EA-1E60-5CFE-6F20-FB69D527BFE7" directorySegmentName="seg_0">
+<createdBy>CB58433</createdBy>
+<createdTime>2013-12-19 15:49:53 UTC</createdTime>
+<ownerDesignName>MOTS Contact Center</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_DIVISION_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_D_DIVISION.NEXTVAL INTO :NEW.D_DIVISION_ID FROM DUAL;&lt;br/&gt;	:NEW.CREATE_DATE := SYSDATE;  &lt;br/&gt;END IF;&lt;br/&gt;:NEW.LAST_MODIFIED_DATE := SYSDATE;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>1102BE31-5A94-1EDD-B7A9-E001CDA6CE5F</table>
+</TriggerOraclev10g>

@@ -1,0 +1,5 @@
+truncate table CC_S_ACD_AGENT_ACTIVITY_DETAIL;
+COMMIT;
+
+truncate table CC_F_ACD_AGENT_ACTIVITY_DETAIL;
+COMMIT;

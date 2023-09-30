@@ -1,0 +1,3 @@
+ALTER TABLE TS_AUDIT_QUESTION_ANSWER RENAME COLUMN audit_question_answer_max_score to audit_quest_answer_max_score;
+
+ALTER TABLE AIU_TS_AUDIT_QUESTION_ANSWER RENAME COLUMN audit_question_answer_max_score to audit_quest_answer_max_score;

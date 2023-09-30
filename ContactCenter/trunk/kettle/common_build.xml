@@ -1,0 +1,332 @@
+<project name="TestKitchen Common Build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+ 
+  <!-- directory of this common_build file -->
+  <dirname property="common_build.basedir" file="${ant.file.common_build}"/>
+  
+  <!-- Build Cache properties -->
+  <property name="build.cache.dir"
+            value="${common_build.basedir}/.build_cache"
+            description="Base dir for runtime jars that are required exclusively by the build process" />
+  <property name="tmp.build.cache.dir"
+            value="${build.cache.dir}/tmp"
+            description="Temporary directory where files are prepared for build cache" />
+  <property name="ivy.build.cache.dir"
+            value="${build.cache.dir}/ivy"
+            description="Directory where the IVY jar is placed after it is auto downloaded by the build" />
+  <property name="cobertura.build.cache.dir"
+            value="${build.cache.dir}/cobertura"
+            description="Directory where the Cobertura jar (and dependencies) is placed after it is auto-downloaded by the build" />
+  <property name="antcontrib.build.cache.dir"
+            value="${build.cache.dir}/ant-contrib"
+            description="Directory where the Ant-Contrib jar (and dependencies) is placed after it is auto-downloaded by the build" />
+  <property name="pentaho.build.cache.dir"
+            value="${build.cache.dir}/pentaho"
+            description="Directory where the Pentaho ant tasks jar (and dependencies) is placed after it is auto-downloaded by the build" />
+  <property name="svnant.build.cache.dir"
+            value="${build.cache.dir}/svnant"
+            description="Directory where the SVN ANT install is placed after it is auto downloaded by the build" />
+
+  <!-- Ivy properties -->
+  <property name="ivy.install.version" value="2.1.0" description="Specifies the version of IVY to fetch" />
+  <property name="ivy.jar.file"
+            value="${ivy.build.cache.dir}/ivybeta1.jar"
+            description="The full path to the IVY jar file to use during the build.  If the file is not present, the build will attempt to fetch IVY and save the jar as specified by this property" />
+  <property name="ivy.settingsurl"
+            value="file:${common_build.basedir}/ivysettings.xml"
+            description="URL to the (common) ivysettings.xml.  This file is required by the build to configure IVY.  Note you must escape the ':' if this property exists in a .properties file" />
+  <property name="ivy.artifact.group"
+            value="maximus"
+            description="IVY metadata describing the originating company or organization" />
+  <property name="ivy.artifact.pomfile"
+            value="${dist.dir}/pom.xml"
+            description="The path to the Maven pom file to deploy with the artifact" />
+  <property name="ivy.artifact.ivyfilename"
+            value="ivy.xml"
+            description="The name of the IVY xml file to deploy with the artifact" />
+  <property name="ivy.artifact.ivypathname"
+            value="${dist.dir}/ivy.xml"
+            description="The full path to the IVY xml file to deploy with the artifact" />
+
+
+  <!-- SVN Ant Properties -->
+  <property name="svnant.url"
+            value="http://subclipse.tigris.org/files/documents/906/43359/svnant-1.2.0-RC1.zip"
+            description="The URL to the current release of SVN Ant" />
+  <property name="svnant.use-javahl"
+            value="false"
+            description="Prefer JNI JavaHL binding over the command line client for native svn support" />
+  <property name="svnant.use-svnkit"
+            value="true"
+            description="Prefer SVNKit binding over the command line client for native svn support (defaults to true)" />
+  
+  <!-- Environment Properties -->
+  <property environment="env"/>
+			
+	<!-- define database connection properties for build file -->
+	<macrodef name="propcop">
+		<attribute name="name"/>
+		<attribute name="from"/>
+			<sequential>
+				<property name="@{name}" value="${@{from}}"/>
+			</sequential>
+	</macrodef>
+	
+	<!-- create the command line syntax and run a file using Kitchen -->
+	<macrodef name="exec-kitchen">
+		<attribute name="filedir"/>
+		<attribute name="filename"/>
+		<attribute name="level"/>
+		
+		<element name="propredirector" optional="true"/>
+		
+		<sequential>
+			<var name="result" unset="true"/>
+
+			<exec executable="cmd" os="Windows XP, Windows Vista, Windows 7" resultproperty="result" output="@{level}/build/logs/tests/@{filename}.log">
+				<arg value="/c"/>
+				<arg value="Kitchen.bat"/>
+				<arg value="/file:@{filedir}"/>
+				<arg value="/norep:Y"/>
+			</exec>	
+
+			<exec executable="sh" os="Linux" resultproperty="result" output="@{level}/build/logs/tests/@{filename}.log">
+				<arg value="kitchen.sh"/>
+				<arg value="-file=@{filedir}"/>
+				<arg value="-norep=Y"/>
+			</exec>
+		</sequential>
+	</macrodef>
+
+<!--Trims a property string -->
+<macrodef name="trim">
+   <attribute name="input" />
+   <attribute name="property" />
+   <sequential>
+     <tempfile property="temp.file" />
+     <echo file="${temp.file}" message="@{input}" />
+     <move file="${temp.file}" tofile="${temp.file}.2">
+       <filterchain>
+	    <trim/>
+       </filterchain>
+     </move>
+     <loadfile property="@{property}" srcFile="${temp.file}.2" />
+     <delete file="${temp.file}.2" failonerror="false" />
+   </sequential>
+ </macrodef>
+	
+<!--	
+	<target name="clean">
+        <delete dir="${projectdir}/build"/>
+    </target>
+-->	
+	<target name="init">
+		
+		<ivy:cachepath pathid="classpath.db" conf="db"/>
+		
+		<property environment="env"/>
+		<condition property="kitchen-command-present">
+			<or>
+				<available file="kitchen" filepath="${env.PATH}"/>
+				<!-- special case for Windows, may be PATH or Path -->
+				<available file="Kitchen.bat" filepath="${env.Path}"/>
+				<available file="Kitchen.bat" filepath="${env.PATH}"/>
+			</or>
+		</condition>
+		
+		<echo message="env = ${env}"/>
+		
+		<fail message="FATAL: Kitchen.bat is not available on the PATH" unless="kitchen-command-present"/>
+		<fail message="FATAL: the env argument has not been set" unless="env"/>
+		
+		<property name="initialized" value="true"/>
+	</target>
+
+	
+	<target name="test" depends="init, create-build" unless="${skipTests}"> 
+		<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+		<echo message="${projectdir}"/>
+		<echo message="Creating test database objects for ${project}"/>
+		<!-- run the test files -->
+		<for param="file">
+            <path>
+                <fileset dir="${projectdir}/test/jobs" casesensitive="no">
+					<include name="**/*test*"/>
+					<exclude name="**/*setup*"/>
+				</fileset>
+            </path>
+
+			<sequential>
+				<local name="filename"/>
+				<local name="dirname"/>
+				<local name="jobdir"/>
+				<local name="testresult"/>
+				<local name="testPath"/>
+                <basename property="filename" file="@{file}"/>
+				<dirname property="dirname" file="@{file}"/>
+				<basename property="jobdir" file="${dirname}"/>
+
+				<if>
+				 <equals arg1="${jobdir}" arg2="jobs" />
+				 <then>
+				   <property name="testPath" value="${testdir}/${jobdir}/${filename}"/>
+				 </then>
+				 <else>
+				   <property name="testPath" value="${testdir}/jobs/${jobdir}/${filename}"/>
+				 </else>
+				</if>
+				
+				<!-- display progress to console -->
+                <echo message="Currently testing:  ${testPath}/${filename}"/>
+
+				<!-- have Kitchen run the test file -->
+				<exec-kitchen filedir="${testPath}" filename="${filename}" level="${projectdir}">
+				<!--<propredirector>
+						<redirector outputproperty="testresult"/>
+					</propredirector> -->
+				</exec-kitchen>
+				
+				<condition property="testfailed" value="true">
+					<not>
+						<equals arg1="${result}" arg2="0"/>
+					</not>
+				</condition>
+			</sequential>	
+        </for>
+		
+		<echo message="testfailed=${testfailed}"/>
+		
+		<fail message="ERROR: A test failed">
+			<condition>
+				<equals arg1="${testfailed}" arg2="true"/>
+			</condition>
+		</fail>
+	</target>
+	
+
+
+
+	  <!--=======================================================================
+		    install-ivy
+		    
+		    (Fetches and) installs the IVY jar for use by this ant script
+		    ====================================================================-->
+	  <target name="install-ivy"
+	          depends="install-antcontrib,ivy.download-check">
+	    <if>
+	      <istrue value="${ivy.isinstalled}" />
+	      <then>
+	        <echo message="Skipping IVY install.  IVY has already been configured by the build" />
+	      </then>
+	      <else>
+	        <echo message="Installing IVY..." />
+	        <path id="ivy.lib.path">
+	          <fileset dir="${ivy.build.cache.dir}" includes="*.jar" />
+	        </path>
+	        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+	        <ivy:settings url="${ivy.settingsurl}" />
+	        <property name="ivy.isinstalled" value="true" />
+	      </else>
+	    </if>
+	  </target>
+
+	  <!--=======================================================================
+		    ivy.download-check
+		    
+		    Fetch IVY jar from sourceforge if it is not already present
+		    ====================================================================-->
+	  <target name="ivy.download-check">
+	    <condition property="ivy.available">
+	      <and>
+	        <available file="${ivy.build.cache.dir}" />
+	        <available classname="org.apache.ivy.ant.IvyTask">
+	          <classpath>
+	            <fileset dir="${ivy.build.cache.dir}">
+	              <include name="*.jar" />
+	            </fileset>
+	          </classpath>
+	        </available>
+	      </and>
+	    </condition>
+	    <antcall target="ivy.download" />
+	  </target>
+	  <!--=======================================================================
+		    install-antcontrib
+		    
+		    (Fetches and) installs ant-contrib tasks.
+		    ====================================================================-->
+	  <target name="install-antcontrib"
+	          depends="antcontrib.download-check">
+	    <taskdef resource="net/sf/antcontrib/antlib.xml">
+	      <classpath>
+	        <fileset dir="${antcontrib.build.cache.dir}">
+	          <include name="*.jar" />
+	        </fileset>
+	      </classpath>
+	    </taskdef>
+	  </target>
+
+
+	  <!--=======================================================================
+		    antcontrib.download-check
+		    
+		    Fetches ant-contrib from sourceforge if it is not already present
+		    ====================================================================-->
+	  <target name="antcontrib.download-check">
+	    <condition property="antcontrib.available">
+	      <and>
+	        <available file="${antcontrib.build.cache.dir}" />
+	        <available classname="net.sf.antcontrib.logic.IfTask">
+	          <classpath>
+	            <fileset dir="${antcontrib.build.cache.dir}">
+	              <include name="*.jar" />
+	            </fileset>
+	          </classpath>
+	        </available>
+	      </and>
+	    </condition>
+	    <antcall target="antcontrib.download" />
+	  </target>
+
+
+	  <!--=======================================================================
+		    antcontrib.download
+		    
+		    Fetches ant-contrib from sourceforge
+		    ====================================================================-->
+	  <target name="antcontrib.download" unless="antcontrib.available">
+	    <mkdir dir="${tmp.build.cache.dir}" />
+	    <get src="http://downloads.sourceforge.net/ant-contrib/ant-contrib-1.0b3-bin.zip"
+	         dest="${tmp.build.cache.dir}/antcontrib.zip"
+	         usetimestamp="true" />
+	    <unzip src="${tmp.build.cache.dir}/antcontrib.zip" dest="${tmp.build.cache.dir}">
+	      <patternset>
+	        <include name="**/*.jar" />
+	      </patternset>
+	    </unzip>
+	    <copy todir="${antcontrib.build.cache.dir}">
+	      <fileset dir="${tmp.build.cache.dir}/ant-contrib">
+	        <include name="**/*.jar" />
+	      </fileset>
+	    </copy>
+	  </target>
+
+
+	  <!--=======================================================================
+		    ivy.download
+		    
+		    Downloads the IVY jar file for use by ant.
+		    ====================================================================-->
+	  <target name="ivy.download" unless="ivy.available">
+	    <mkdir dir="${ivy.build.cache.dir}" />
+	    <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+	         dest="${ivy.jar.file}"
+	         usetimestamp="true" />
+	  </target>
+
+	
+	<!-- resolve dependent libraries -->  
+	<target name="ivy.resolve" depends="install-ivy">  
+		<ivy:resolve file="ivy.xml"/>
+	</target>		
+
+</project>

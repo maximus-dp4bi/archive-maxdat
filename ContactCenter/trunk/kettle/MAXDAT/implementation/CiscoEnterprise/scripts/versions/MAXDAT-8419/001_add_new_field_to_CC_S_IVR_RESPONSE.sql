@@ -1,0 +1,1 @@
+alter table cc_s_ivr_response add (Med_Expansion_Indicator number(20));

@@ -1,0 +1,18 @@
+alter session set current_schema = cisco_enterprise_cc;
+
+insert into cc_c_unit_of_work (unit_of_work_name, unit_of_work_category, record_eff_dt, record_end_dt, acd, ivr)
+values ('CALLBACK','INBOUND_CALL',TO_DATE('01/01/1900','MM/DD/YYYY'), TO_DATE('12/31/2199','MM/DD/YYYY'), 1,0);
+
+INSERT INTO CC_D_UNIT_OF_WORK(UNIT_OF_WORK_NAME, UNIT_OF_WORK_CATEGORY, PRODUCTION_PLAN_ID, HOURLY_FLAG, HANDLE_TIME_UNIT, ACD, IVR)
+VALUES ('CALLBACK', 'INBOUND_CALL',  11, 'N', 'Seconds', 1,0);
+
+UPDATE CC_C_CONTACT_QUEUE
+SET QUEUE_TYPE = 'Call Back', Unit_of_work_name = 'CALLBACK'
+WHERE QUEUE_NUMBER = 6346;
+
+update cc_f_acd_agent_interval
+set d_unit_of_work_id = (select uow_id from cc_d_unit_of_work where unit_of_work_name = 'CALLBACK')
+where d_unit_of_work_id = (select uow_id from cc_d_unit_of_work where unit_of_work_name = 'DENTAL')
+and d_contact_queue_id = (select d_contact_queue_id from cc_d_contact_queue where queue_number = 6346);
+
+COMMIT;

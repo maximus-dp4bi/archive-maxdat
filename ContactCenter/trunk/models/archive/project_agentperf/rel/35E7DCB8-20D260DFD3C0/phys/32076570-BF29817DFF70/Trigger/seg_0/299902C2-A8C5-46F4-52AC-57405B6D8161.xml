@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="BI_CC_D_AGENT" id="299902C2-A8C5-46F4-52AC-57405B6D8161" directorySegmentName="seg_0">
+<createdBy>DD56149</createdBy>
+<createdTime>2013-03-15 14:22:36 UTC</createdTime>
+<ownerDesignName>project_agentperf</ownerDesignName>
+<actions>INSERT</actions>
+<body>BEGIN&lt;br/&gt;IF INSERTING AND :NEW.D_AGENT_ID IS NULL THEN &lt;br/&gt;          SELECT SEQ_CC_D_AGENT.NEXTVAL INTO :NEW.D_AGENT_ID FROM DUAL;      &lt;br/&gt;END IF;&lt;br/&gt;END; </body>
+<triggerTime>BEFORE</triggerTime>
+<state>ENABLE</state>
+<table>FA5B13DA-7A3B-6298-7E2A-EF9A3A08A785</table>
+</TriggerOraclev10g>
