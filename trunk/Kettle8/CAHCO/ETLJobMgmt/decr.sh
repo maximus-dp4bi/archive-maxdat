@@ -2,10 +2,10 @@
 # ================================================================================
 # Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
 #
-#   SVN_FILE_URL = $URL$
-#   SVN_REVISION = $Revision$
-#   SVN_REVISION_DATE = $Date$
-#   SVN_REVISION_AUTHOR = $Author$
+#   SVN_FILE_URL = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/CAHCO/ETLJobMgmt/decr.sh $
+#   SVN_REVISION = $Revision: 34217 $
+#   SVN_REVISION_DATE = $Date: 2023-09-18 16:34:36 -0700 (Mon, 18 Sep 2023) $
+#   SVN_REVISION_AUTHOR = $Author: fm18957 $
 # ================================================================================
 #Name: decr.sh
 #Version: 2.0

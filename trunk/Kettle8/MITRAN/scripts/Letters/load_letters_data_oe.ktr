@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load_letters_data</name>
+    <name>load_letters_data_OE</name>
     <description/>
     <extended_description>Do not edit these four SVN_* variable values.  
 They are populated when you commit code to SVN and used later to identify deployed code.
@@ -525,17 +525,17 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Table output ETL_L_LETTERS_EDI</from>
+      <from>Table output ETL_L_LETTERS_EDI OE</from>
       <to>Get System Info</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Select values</from>
-      <to>Table output ETL_L_LETTERS_EDI</to>
+      <to>Table output ETL_L_LETTERS_EDI OE</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Get data from XML</from>
+      <from>OE Get data from XML</from>
       <to>Get variables 2</to>
       <enabled>Y</enabled>
     </hop>
@@ -796,7 +796,7 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
     </GUI>
   </step>
   <step>
-    <name>Get data from XML</name>
+    <name>OE Get data from XML</name>
     <type>getXMLData</type>
     <description/>
     <distribute>Y</distribute>
@@ -821,63 +821,18 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
     <encoding>UTF-8</encoding>
     <file>
       <name>${ETL_DATA_DIRECTORY}\Processing\FromMAXE</name>
-      <filemask>^((?!OE).)*$</filemask>
+      <filemask>.*[OE].*</filemask>
       <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
     <fields>
       <field>
-        <name>xml_mediaCd</name>
-        <xpath>*[name()='letterOutMember']/*[name()='letterOutMemberDetail']/*[name()='mediaCd']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>xml_materialCd</name>
-        <xpath>*[name()='letterOutMember']/*[name()='letterOutMemberDetail']/*[name()='materialCd']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
         <name>xml_letterType</name>
         <xpath>*[name()='letterOutHeader']/*[name()='letterType']</xpath>
         <element_type>node</element_type>
         <result_type>valueof</result_type>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>xml_letterReqId</name>
-        <xpath>*[name()='letterOutHeader']/*[name()='letterReqId']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>Integer</type>
         <format/>
         <currency/>
         <decimal/>
@@ -917,58 +872,13 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
         <trim_type>none</trim_type>
         <repeat>N</repeat>
       </field>
-      <field>
-        <name>numOfCopies</name>
-        <xpath>*[name()='letterOutMember']/*[name()='letterOutMemberDetail']/*[name()='numOfCopies']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>extMaterialRefId</name>
-        <xpath>*[name()='letterOutMember']/*[name()='letterOutMemberDetail']/*[name()='extMaterialRefId']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>Integer</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>detailOccurrences</name>
-        <xpath>*[name()='letterOutMember']/*[name()='detailOccurrences']</xpath>
-        <element_type>node</element_type>
-        <result_type>valueof</result_type>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
     </fields>
     <limit>0</limit>
     <loopxpath>/letters/*[name()='letterOut']</loopxpath>
     <IsInFields>N</IsInFields>
     <IsAFile>N</IsAFile>
     <XmlField/>
-    <prunePath/>
+    <prunePath>/letters/letterOut</prunePath>
     <shortFileFieldName>xml_filename</shortFileFieldName>
     <pathFieldName/>
     <hiddenFieldName/>
@@ -1043,31 +953,13 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
     </partitioning>
     <fields>
       <field>
-        <name>xml_mediaCd</name>
-      </field>
-      <field>
-        <name>xml_materialCd</name>
-      </field>
-      <field>
         <name>xml_letterType</name>
-      </field>
-      <field>
-        <name>xml_letterReqId</name>
       </field>
       <field>
         <name>xml_dateOfLetter</name>
       </field>
       <field>
         <name>xml_caseId</name>
-      </field>
-      <field>
-        <name>numOfCopies</name>
-      </field>
-      <field>
-        <name>extMaterialRefId</name>
-      </field>
-      <field>
-        <name>detailOccurrences</name>
       </field>
       <field>
         <name>xml_fullpath</name>
@@ -1101,7 +993,7 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
     </GUI>
   </step>
   <step>
-    <name>Table output ETL_L_LETTERS_EDI</name>
+    <name>Table output ETL_L_LETTERS_EDI OE</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1130,20 +1022,8 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
     <return_field/>
     <fields>
       <field>
-        <column_name>xml_mediaCd</column_name>
-        <stream_name>xml_mediaCd</stream_name>
-      </field>
-      <field>
-        <column_name>xml_materialCd</column_name>
-        <stream_name>xml_materialCd</stream_name>
-      </field>
-      <field>
         <column_name>xml_letterType</column_name>
         <stream_name>xml_letterType</stream_name>
-      </field>
-      <field>
-        <column_name>xml_letterReqId</column_name>
-        <stream_name>xml_letterReqId</stream_name>
       </field>
       <field>
         <column_name>xml_dateOfLetter</column_name>
@@ -1152,18 +1032,6 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
       <field>
         <column_name>xml_caseId</column_name>
         <stream_name>xml_caseId</stream_name>
-      </field>
-      <field>
-        <column_name>numOfCopies</column_name>
-        <stream_name>numOfCopies</stream_name>
-      </field>
-      <field>
-        <column_name>extMaterialRefId</column_name>
-        <stream_name>extMaterialRefId</stream_name>
-      </field>
-      <field>
-        <column_name>detailOccurrences</column_name>
-        <stream_name>detailOccurrences</stream_name>
       </field>
       <field>
         <column_name>xml_fullpath</column_name>
@@ -1202,7 +1070,7 @@ SVN_REVISION_AUTHOR = $Author: sm152167 $
   </step>
   <step_error_handling>
     <error>
-      <source_step>Table output ETL_L_LETTERS_EDI</source_step>
+      <source_step>Table output ETL_L_LETTERS_EDI OE</source_step>
       <target_step>Get System Info</target_step>
       <is_enabled>Y</is_enabled>
       <nr_valuename>ERR_NR</nr_valuename>

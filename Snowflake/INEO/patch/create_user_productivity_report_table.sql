@@ -1,0 +1,80 @@
+CREATE OR REPLACE SEQUENCE seq_user_productivity_report_id;
+
+CREATE OR REPLACE TABLE INEO_CC_USER_PRODUCTIVITY_REPORT_HISTORY(
+user_productivity_report_id NUMBER NOT NULL DEFAULT seq_user_productivity_report_id.nextval,
+report_date DATE,
+department VARCHAR,
+last_name VARCHAR,
+name VARCHAR,
+i3_username VARCHAR,
+offered FLOAT,
+answered FLOAT,
+abandoned FLOAT,
+transferred FLOAT,
+filename VARCHAR,
+percent_answered FLOAT,
+percent_abandoned FLOAT,
+flow_outs FLOAT,
+percent_flow_outs FLOAT,
+percent_transferred FLOAT,
+summary_talk_time FLOAT,
+talk_time_duration_hrs_1 FLOAT,
+talk_time_duration_hrs_2 FLOAT,
+talk_time_duration_hrs_3 FLOAT,
+talk_time_1 FLOAT,
+talk_time_2 FLOAT,
+talk_time_3 FLOAT,
+talk_time_4 FLOAT,
+hold_time_1 FLOAT,
+hold_time_2 FLOAT,
+hold_time_3 FLOAT,
+hold_time_4 FLOAT,
+hold_time_avg_1 FLOAT,
+hold_time_avg_2 FLOAT,
+hold_time_avg_3 FLOAT,
+hold_time_avg_4 FLOAT,
+acw_time_1 FLOAT,
+acw_time_2 FLOAT,
+acw_time_3 FLOAT,
+acw_time_4 FLOAT,
+acw_avg_1 FLOAT,
+acw_avg_2 FLOAT,
+acw_avg_3 FLOAT,
+acw_avg_4 FLOAT,
+talkholdacw_duration_time_1 FLOAT,
+talkholdacw_duration_time_2 FLOAT,
+talkholdacw_duration_time_3 FLOAT,
+talkholdacw_duration_time_4 FLOAT,
+talkholdacw_avg_1 FLOAT,
+talkholdacw_avg_2 FLOAT,
+talkholdacw_avg_3 FLOAT,
+talkholdacw_avg_4 FLOAT,
+sf_create_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp(),
+sf_update_ts TIMESTAMP_NTZ(9) DEFAULT current_timestamp());
+
+ 
+ALTER TABLE INEO_CC_USER_PRODUCTIVITY_REPORT_HISTORY ADD PRIMARY KEY(user_productivity_report_id);
+
+DELETE FROM file_load_lkup
+WHERE filename_prefix = 'USER_PRODUCTIVITY_REPORT_';
+
+INSERT INTO file_load_lkup(filename_prefix,full_load_table_name,full_load_table_schema,insert_fields,select_fields,where_clause,load_file,derive_timestamp_stmt,file_day_received,current_table_name,current_table_primary_key,full_load_table_primary_key) 
+ VALUES('USER_PRODUCTIVITY_REPORT_','INEO_CC_USER_PRODUCTIVITY_REPORT_HISTORY','INEO',
+'report_date,department,last_name,name,i3_username,offered,answered,abandoned,transferred,filename,percent_answered,percent_abandoned,flow_outs,percent_flow_outs,percent_transferred,summary_talk_time,
+talk_time_duration_hrs_1,talk_time_duration_hrs_2,talk_time_duration_hrs_3,talk_time_1,talk_time_2,talk_time_3,talk_time_4,hold_time_1,hold_time_2,hold_time_3,hold_time_4,hold_time_avg_1,hold_time_avg_2,
+hold_time_avg_3,hold_time_avg_4,acw_time_1,acw_time_2,acw_time_3,acw_time_4,acw_avg_1,acw_avg_2,acw_avg_3,acw_avg_4,talkholdacw_duration_time_1,talkholdacw_duration_time_2,talkholdacw_duration_time_3,
+talkholdacw_duration_time_4,talkholdacw_avg_1,talkholdacw_avg_2,talkholdacw_avg_3,talkholdacw_avg_4',
+'TRY_CAST(date AS DATE),department,last_name,name,i3_username,offered,answered,abandoned,transferred,filename,TRY_CAST(_answered AS FLOAT),TRY_CAST(_abandoned AS FLOAT),TRY_CAST(flow_outs AS FLOAT),TRY_CAST(_flow_outs AS FLOAT),
+TRY_CAST(_transferred AS FLOAT),TRY_CAST(summary_talk_time AS FLOAT),TRY_CAST(talk_time_duration_hrs_1 AS FLOAT),TRY_CAST(talk_time_duration_hrs_2 AS FLOAT),TRY_CAST(talk_time_duration_hrs_3 AS FLOAT),
+TRY_CAST(talk_time_1 AS FLOAT),TRY_CAST(talk_time_2 AS FLOAT),TRY_CAST(talk_time_3 AS FLOAT),TRY_CAST(talk_time_4 AS FLOAT),TRY_CAST(hold_time_1 AS FLOAT),TRY_CAST(hold_time_2 AS FLOAT),
+TRY_CAST(hold_time_3 AS FLOAT),TRY_CAST(hold_time_4 AS FLOAT),TRY_CAST(hold_time_avg_1 AS FLOAT),TRY_CAST(hold_time_avg_2 AS FLOAT),TRY_CAST(hold_time_avg_3 AS FLOAT),TRY_CAST(hold_time_avg_4 AS FLOAT),
+TRY_CAST(acw_time_1 AS FLOAT),TRY_CAST(acw_time_2 AS FLOAT),TRY_CAST(acw_time_3 AS FLOAT),TRY_CAST(acw_time_4 AS FLOAT),TRY_CAST(acw_avg_1 AS FLOAT),TRY_CAST(acw_avg_2 AS FLOAT),TRY_CAST(acw_avg_3 AS FLOAT),
+TRY_CAST(acw_avg_4 AS FLOAT),TRY_CAST(talkholdacw_duration_time_1 AS FLOAT),TRY_CAST(talkholdacw_duration_time_2 AS FLOAT),TRY_CAST(talkholdacw_duration_time_3 AS FLOAT),
+TRY_CAST(talkholdacw_duration_time_4 AS FLOAT),TRY_CAST(talkholdacw_avg_1 AS FLOAT),TRY_CAST(talkholdacw_avg_2 AS FLOAT),TRY_CAST(talkholdacw_avg_3 AS FLOAT),TRY_CAST(talkholdacw_avg_4 AS FLOAT)',
+'WHERE 1=1',
+'Y',
+'SELECT TO_CHAR(TO_TIMESTAMP(TRIM(SUBSTR(<filename>,LENGTH(<filename>)-7)),''mmddyyyy''),''mm/dd/yyyy'') file_date,''N'' with_timestamp FROM dual',
+'PREVIOUS_BUSINESS_DAY',
+null,null,'USER_PRODUCTIVITY_REPORT_ID');
+ 
+ 
