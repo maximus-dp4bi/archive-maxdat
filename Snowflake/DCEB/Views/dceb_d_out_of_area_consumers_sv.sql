@@ -28,7 +28,8 @@ SELECT b.*,co.external_ref_type,co.external_ref_id,
     ELSE NULL END out_of_area_reason
 FROM marsdb.marsdb_address_vw b                      
   JOIN marsdb.marsdb_project_vw p ON p.project_id = b.project_id
-  JOIN marsdb.marsdb_contacts_owner_vw co ON b.address_id = co.contact_owner_id AND co.project_id = b.project_id   
+  JOIN marsdb.marsdb_contacts_vw ct ON b.contact_type_id = ct.contact_type_id AND b.project_id = ct.project_id
+  JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id   
   LEFT JOIN marsdb.marsdb_zipcode_vw zvw ON b.address_zip = zvw.zipcode AND b.project_id = zvw.project_id  
 WHERE p.project_name = 'DC-EB'
 AND b.address_type = 'Physical'
@@ -80,23 +81,25 @@ SELECT
     ELSE 'New' END enrollment_status,
   enrl.plan_name,
   enrl.plan_code,  
-  claddr.address_street_1,
-  claddr.address_street_2,
-  claddr.address_city,
-  claddr.address_state,
-  claddr.address_zip,
-  claddr.address_zip_four,
-  claddr.address_county, 
-  claddr.out_of_area_reason
+  COALESCE(csaddr.address_street_1,claddr.address_street_1) address_street_1,
+  COALESCE(csaddr.address_street_2,claddr.address_street_2) address_street_2,
+  COALESCE(csaddr.address_city,claddr.address_city) address_city,
+  COALESCE(csaddr.address_state,claddr.address_state) address_state,
+  COALESCE(csaddr.address_zip,claddr.address_zip) address_zip,
+  COALESCE(csaddr.address_zip_four,claddr.address_zip_four) address_zip_four,
+  COALESCE(csaddr.address_county,claddr.address_county) address_county, 
+  COALESCE(csaddr.out_of_area_reason,claddr.out_of_area_reason) out_of_area_reason
 FROM cldtl 
 JOIN ce ON cldtl.consumer_id = ce.consumer_id AND cldtl.project_id = ce.project_id  
+LEFT JOIN cldtl hoh ON cldtl.case_id = hoh.case_id AND cldtl.project_id = hoh.project_id AND hoh.consumer_role = 'Primary Individual'
 LEFT JOIN claddr ON cldtl.consumer_id = claddr.external_ref_id AND cldtl.project_id = claddr.project_id
+LEFT JOIN claddr csaddr ON hoh.consumer_id = csaddr.external_ref_id AND hoh.project_id = csaddr.project_id
 LEFT JOIN (SELECT enrl.project_id,enrl.enrollment_id,enrl.consumer_id,enrl.start_date,enrl.end_date,enrl.txn_status_date,
                enrl.plan_code,pnvw.report_label plan_name,created_on_date,enrl.status enroll_status   
              FROM enrl 
                LEFT JOIN marsdb.marsdb_enum_plan_name_vw pnvw ON enrl.plan_code = pnvw.value AND enrl.project_id = pnvw.project_id               
              QUALIFY ROW_NUMBER() OVER (PARTITION BY consumer_id ORDER BY enrollment_id DESC) = 1) enrl 
   ON cldtl.consumer_id = enrl.consumer_id AND cldtl.project_id = enrl.project_id
-WHERE out_of_area_reason IS NOT NULL
+WHERE COALESCE(csaddr.out_of_area_reason,claddr.out_of_area_reason) IS NOT NULL
 AND (enrl.enroll_status IS NULL OR enrl.enroll_status != 'DISENROLLED')
 ;

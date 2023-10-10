@@ -19,11 +19,12 @@ AND UPPER(reference_type) = 'CONSUMER'),
 svyflt AS(
 SELECT svy.project_id, svy.survey_id, survey_template_id,consumer_id,survey_create_date,survey_date,survey_status,survey_template_label,survey_template_code,
 f.key,f.value,
-REPLACE(REPLACE(f.value:answerText,'["'),'"]') answer_text,
+REGEXP_REPLACE(d.value,'[^A-Za-z0-9 -:/*,'']','') answer_text,
 f.value:parentSurveyDetailId parent_survey_detail_id,
 REPLACE(f.value:questionNumber,'"') question_number,
 f.value:surveyDetailsId survey_detail_id
-FROM svy, lateral flatten(input=>payload,recursive=>false) f),
+FROM svy, lateral flatten(input=>payload,recursive=>false) f, 
+lateral flatten(input=>f.value:answerText,recursive=>false) d) ,
 fnl AS(
 SELECT svyflt.project_id,
  svyflt.survey_id,
@@ -41,10 +42,10 @@ SELECT svyflt.project_id,
  sdvw.survey_details_id,
  sdvw.parent_survey_detail_id,
  svyflt.survey_detail_id,
- CASE WHEN UPPER(svyflt.answer_text) = 'NO' THEN 1 ELSE 0 END answer_no,
- CASE WHEN UPPER(svyflt.answer_text) = 'YES' THEN 1 ELSE 0 END answer_yes,
- CASE WHEN (svyflt.answer_text IS NULL OR TRIM(svyflt.answer_text) = '' OR svyflt.answer_text LIKE 'DO%N%KNOW' 
-  OR UPPER(svyflt.answer_text) NOT IN('NO','YES')) THEN 1 ELSE 0 END answer_unknown
+ CASE WHEN QUESTION_TYPE = 'RADIOGROUP' AND UPPER(svyflt.answer_text) LIKE 'NO%' THEN 1 ELSE 0 END answer_no,
+ CASE WHEN QUESTION_TYPE = 'RADIOGROUP' AND UPPER(svyflt.answer_text) LIKE 'YES%' THEN 1 ELSE 0 END answer_yes,
+--CASE WHEN QUESTION_TYPE = 'RADIOGROUP' AND (svyflt.answer_text IS NULL OR TRIM(svyflt.answer_text) = ''  OR UPPER(REGEXP_REPLACE(svyflt.answer_text,'[^A-Za-z]','')) LIKE '%DO%N%KNOW' ) THEN 1 ELSE 0 END answer_unknown
+ CASE WHEN QUESTION_TYPE = 'RADIOGROUP' AND UPPER(REGEXP_REPLACE(svyflt.answer_text,'[^A-Za-z]','')) LIKE '%DO%N%KNOW' THEN 1 ELSE 0 END answer_unknown
 FROM svyflt
  JOIN (SELECT * FROM marsdb.marsdb_survey_details_vw ) sdvw 
    ON svyflt.survey_detail_id = sdvw.survey_details_id AND svyflt.survey_template_id = sdvw.survey_template_id
@@ -139,19 +140,22 @@ claddr AS(
 SELECT b.*,co.external_ref_type,co.external_ref_id  
 FROM marsdb.marsdb_address_vw b                      
   JOIN marsdb.marsdb_project_vw p ON p.project_id = b.project_id
-  JOIN marsdb.marsdb_contacts_owner_vw co ON b.address_id = co.contact_owner_id AND co.project_id = b.project_id   
+  JOIN marsdb.marsdb_contacts_vw ct ON b.contact_type_id = ct.contact_type_id AND b.project_id = ct.project_id
+  JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
 WHERE p.project_name = 'DC-EB'
 --AND b.address_type = 'Physical'
 AND UPPER(co.external_ref_type) = 'CONSUMER'                          
 QUALIFY ROW_NUMBER() OVER(PARTITION BY co.external_ref_id,b.address_type ORDER BY b.effective_end_date DESC NULLS FIRST,address_id DESC ) =1),
-clphn AS(SELECT p.*,co.external_ref_type,co.external_ref_id                   
-                 FROM marsdb.marsdb_phone_vw p  
-                   JOIN marsdb.marsdb_contacts_owner_vw co ON p.phone_id = co.contact_owner_id AND co.project_id = p.project_id 
-                   JOIN marsdb.marsdb_project_vw pr ON pr.project_id = p.project_id
-                 WHERE pr.project_name = 'DC-EB'
-                 AND UPPER(co.external_ref_type) = 'CONSUMER'
-                 AND p.phone_type = 'Home'
-                 QUALIFY ROW_NUMBER() OVER(PARTITION BY co.external_ref_id ORDER BY p.effective_end_date DESC NULLS FIRST,phone_id DESC ) =1),
+clphn AS(
+SELECT p.*,co.external_ref_type,co.external_ref_id                   
+FROM marsdb.marsdb_phone_vw p  
+  JOIN marsdb.marsdb_project_vw pr ON p.project_id = pr.project_id
+  JOIN marsdb.marsdb_contacts_vw ct ON p.contact_type_id = ct.contact_type_id AND p.project_id = ct.project_id
+  JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
+WHERE pr.project_name = 'DC-EB'
+AND UPPER(co.external_ref_type) = 'CONSUMER'
+AND p.phone_type = 'Home'
+QUALIFY ROW_NUMBER() OVER(PARTITION BY co.external_ref_id ORDER BY p.effective_end_date DESC NULLS FIRST,phone_id DESC ) =1),
 enrl AS(
 SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, enrl.end_date,enrl.status, CAST(enrl.txn_status_date AS DATE) txn_status_date
    ,enrl.plan_code,enrl.enrollment_type,enrl.sub_program_type_cd,enrl.channel,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
@@ -200,32 +204,35 @@ SELECT fnlsvy.*,
   cldtl.consumer_date_of_birth,
   hoh.consumer_first_name hoh_first_name,
   hoh.consumer_last_name hoh_last_name,
-  res.address_street_1 res_address_street_1,
-  res.address_street_2 res_address_street_2,
-  res.address_city res_address_city,
-  res.address_state res_address_state,
-  res.address_zip res_address_zip,
-  res.address_zip_four res_address_zip_four,
-  res.address_county res_address_county, 
-  mail.address_street_1 mail_address_street_1,
-  mail.address_street_2 mail_address_street_2,
-  mail.address_city mail_address_city,
-  mail.address_state mail_address_state,
-  mail.address_zip mail_address_zip,
-  mail.address_zip_four mail_address_zip_four,
-  mail.address_county mail_address_county,
+  COALESCE(csres.address_street_1, res.address_street_1) res_address_street_1,
+  COALESCE(csres.address_street_2,res.address_street_2) res_address_street_2,
+  COALESCE(csres.address_city,res.address_city) res_address_city,
+  COALESCE(csres.address_state,res.address_state) res_address_state,
+  COALESCE(csres.address_zip,res.address_zip) res_address_zip,
+  CASE WHEN COALESCE(csres.address_zip_four,res.address_zip_four) = '0000' THEN NULL ELSE COALESCE(csres.address_zip_four,res.address_zip_four) END res_address_zip_four,
+  COALESCE(csres.address_county,res.address_county) res_address_county, 
+  COALESCE(csmail.address_street_1,mail.address_street_1) mail_address_street_1,
+  COALESCE(csmail.address_street_2,mail.address_street_2) mail_address_street_2,
+  COALESCE(csmail.address_city,mail.address_city) mail_address_city,
+  COALESCE(csmail.address_state,mail.address_state) mail_address_state,
+  COALESCE(csmail.address_zip,mail.address_zip) mail_address_zip,
+  CASE WHEN COALESCE(csmail.address_zip_four,mail.address_zip_four) = '0000' THEN NULL ELSE COALESCE(csmail.address_zip_four,mail.address_zip_four) END mail_address_zip_four,
+  COALESCE(csmail.address_county,mail.address_county) mail_address_county,
   clphn.phone_number,
   enrl.plan_name,
-  ce.eligibility_start_date
+  ce.eligibility_start_date,
+  enrl.service_region_code
 FROM fnlsvy
-  JOIN (SELECT enrl.project_id,consumer_id,enrollment_id,plan_code,pvw.report_label plan_name,enrl.created_on_date
+  JOIN (SELECT enrl.project_id,consumer_id,enrollment_id,plan_code,pvw.report_label plan_name,enrl.created_on_date,enrl.service_region_code
         FROM enrl
           JOIN marsdb.marsdb_enum_plan_name_vw pvw ON enrl.plan_code = pvw.value AND enrl.project_id = pvw.project_id 
         QUALIFY ROW_NUMBER() OVER(PARTITION BY consumer_id ORDER BY enrollment_id DESC) = 1) enrl 
-    ON fnlsvy.consumer_id = enrl.consumer_id AND fnlsvy.project_id = enrl.project_id AND CAST(fnlsvy.survey_date AS DATE) >= enrl.created_on_date
+    ON fnlsvy.consumer_id = enrl.consumer_id AND fnlsvy.project_id = enrl.project_id AND CAST(fnlsvy.survey_create_date AS DATE) >= enrl.created_on_date
   LEFT JOIN ce ON fnlsvy.consumer_id = ce.consumer_id AND fnlsvy.project_id = ce.project_id
   LEFT JOIN cldtl ON fnlsvy.consumer_id = cldtl.consumer_id AND fnlsvy.project_id = cldtl.project_id
-  LEFT JOIN cldtl hoh ON fnlsvy.consumer_id = hoh.consumer_id AND fnlsvy.project_id = hoh.project_id AND hoh.consumer_role = 'Primary Individual'
+  LEFT JOIN cldtl hoh ON cldtl.case_id = hoh.case_id AND cldtl.project_id = hoh.project_id AND hoh.consumer_role = 'Primary Individual'
   LEFT JOIN claddr res ON cldtl.consumer_id = res.external_ref_id AND cldtl.project_id = res.project_id AND res.address_type = 'Physical'
+  LEFT JOIN claddr csres ON hoh.consumer_id = csres.external_ref_id AND hoh.project_id = csres.project_id AND csres.address_type = 'Physical'
   LEFT JOIN claddr mail ON cldtl.consumer_id = mail.external_ref_id AND cldtl.project_id = mail.project_id AND mail.address_type = 'Mailing'
+  LEFT JOIN claddr csmail ON hoh.consumer_id = csmail.external_ref_id AND hoh.project_id = csmail.project_id AND csmail.address_type = 'Mailing'
   LEFT JOIN clphn ON cldtl.consumer_id = clphn.external_ref_id AND cldtl.project_id = clphn.project_id   ;

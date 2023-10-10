@@ -32,10 +32,12 @@ SELECT ce.project_id,ce.core_eligibility_segments_id,ce.consumer_id,ce.coverage_
   ELSE FLOOR((CAST(ce.start_date AS DATE) - CAST(cldtl.consumer_date_of_birth AS DATE))/365) END consumer_age,
  cldtl.medical_assistance_id,
  cldtl.case_number,
- cldtl.consumer_language_preference
+ cldtl.consumer_language_preference,
+ csdtl.consumer_id case_hoh_consumer_id
 FROM marsdb.marsdb_core_eligibility_vw ce
   JOIN marsdb.marsdb_project_vw p ON p.project_id = ce.project_id
   LEFT JOIN cldtl ON ce.consumer_id = cldtl.consumer_id  AND ce.project_id = cldtl.project_id
+  LEFT JOIN cldtl csdtl ON cldtl.case_id = csdtl.case_id AND cldtl.project_id = csdtl.project_id AND csdtl.consumer_role = 'Primary Individual'
   LEFT JOIN marsdb.marsdb_enum_coverage_code_vw cc ON ce.coverage_code = cc.value AND ce.project_id = cc.project_id
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) sp ON ce.sub_program_type_cd = sp.value AND ce.project_id = sp.project_id 
   LEFT JOIN marsdb.marsdb_enum_enrollment_update_reasons_vw ervw ON ce.eligibility_end_reason = ervw.value AND ce.project_id = ervw.project_id
@@ -44,7 +46,7 @@ AND ce.start_date != ce.end_date),
 ce_future_elig AS(
 SELECT ce.core_eligibility_segments_id,ce.project_id,ce.consumer_id,ce.coverage_code
 FROM ce
-WHERE LAST_DAY(LAST_DAY(current_date())+1) +1 BETWEEN eligibility_start_date AND eligibility_end_date
+WHERE LAST_DAY(LAST_DAY(current_date())+1) +1 BETWEEN CAST(eligibility_start_date AS DATE) AND CAST(eligibility_end_date AS DATE)
 QUALIFY ROW_NUMBER() OVER (PARTITION BY project_id,consumer_id ORDER BY ce.core_eligibility_segments_id DESC) = 1 ),
 ce_dr AS(
 SELECT project_id,consumer_id,eligibility_end_reason,eligibility_end_reason_label,MIN(eligibility_created_on) disenrl_dr_min_created_on
@@ -60,15 +62,17 @@ claddr AS(
 SELECT b.*,co.external_ref_type,co.external_ref_id  
 FROM marsdb.marsdb_address_vw b                      
   JOIN marsdb.marsdb_project_vw p ON p.project_id = b.project_id
-  JOIN marsdb.marsdb_contacts_owner_vw co ON b.address_id = co.contact_owner_id AND co.project_id = b.project_id   
+  JOIN marsdb.marsdb_contacts_vw ct ON b.contact_type_id = ct.contact_type_id AND b.project_id = ct.project_id
+  JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
 WHERE p.project_name = 'DC-EB'
 AND b.address_type = 'Physical'
 AND UPPER(co.external_ref_type) = 'CONSUMER'                          
 QUALIFY ROW_NUMBER() OVER(PARTITION BY co.external_ref_id ORDER BY b.effective_end_date DESC NULLS FIRST,address_id DESC ) =1),
 clphn AS(SELECT p.*,co.external_ref_type,co.external_ref_id                   
-                 FROM marsdb.marsdb_phone_vw p  
-                   JOIN marsdb.marsdb_contacts_owner_vw co ON p.phone_id = co.contact_owner_id AND co.project_id = p.project_id 
-                   JOIN marsdb.marsdb_project_vw pr ON pr.project_id = p.project_id
+                 FROM marsdb.marsdb_phone_vw p                     
+                   JOIN marsdb.marsdb_project_vw pr ON p.project_id = pr.project_id
+                   JOIN marsdb.marsdb_contacts_vw ct ON p.contact_type_id = ct.contact_type_id AND p.project_id = ct.project_id
+                   JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
                  WHERE pr.project_name = 'DC-EB'
                  AND UPPER(co.external_ref_type) = 'CONSUMER'
                  AND p.phone_type = 'Home'
@@ -106,8 +110,8 @@ SELECT ce.project_id,
  ce.coverage_code_label,
  ce.eligibility_end_reason,
  ce.eligibility_status_code,
- ce.eligibility_start_date,
- ce.eligibility_end_date,
+ CAST(ce.eligibility_start_date AS DATE) eligibility_start_date,
+ CAST(ce.eligibility_end_date AS DATE) eligibility_end_date,
  ce.sub_program_type_cd,
  ce.sub_program_type,
  ce.eligibility_created_on,
@@ -118,13 +122,13 @@ SELECT ce.project_id,
  ce.consumer_age,
  ce.medical_assistance_id,
  ce.case_number,
- claddr.address_street_1,
- claddr.address_street_2,
- claddr.address_city,
- claddr.address_state,
- claddr.address_zip,
- claddr.address_zip_four,
- claddr.address_county,  
+ COALESCE(csaddr.address_street_1,claddr.address_street_1) address_street_1,
+ COALESCE(csaddr.address_street_2,claddr.address_street_2) address_street_2,
+ COALESCE(csaddr.address_city,claddr.address_city) address_city,
+ COALESCE(csaddr.address_state,claddr.address_state) address_state,
+ COALESCE(csaddr.address_zip,claddr.address_zip) address_zip,
+ COALESCE(csaddr.address_zip_four,claddr.address_zip_four) address_zip_four,
+ COALESCE(csaddr.address_county,claddr.address_county) address_county,  
  clphn.phone_number,
  CASE WHEN enrl.enrollment_id IS NOT NULL THEN 'Enrolled' ELSE 'Not Enrolled' END enrolled_indicator,  
  ce.consumer_language_preference,
@@ -145,9 +149,10 @@ SELECT ce.project_id,
       WHEN ce.coverage_code IN ('470') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age < 21 THEN 'Underage for Alliance (<21)'
       WHEN ce.coverage_code IN ('774D','271','774') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age >= 65 THEN 'Overage for Adult Medicaid (>=65), program codes 271, 774, 774D'
       WHEN ce.coverage_code IN ('221','720','921','120') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age >= 21 THEN 'Overage for Child Medicaid (>=21)'
-      WHEN ce.eligibility_start_date >= ADD_MONTHS(LAST_DAY(current_date()),3) +1 AND ce_future_elig.core_eligibility_segments_id IS NULL THEN 'Future eligibility w/o current'
+      WHEN CAST(ce.eligibility_start_date AS DATE) >= ADD_MONTHS(LAST_DAY(current_date()),3) +1 AND ce_future_elig.core_eligibility_segments_id IS NULL THEN 'Future eligibility w/o current'
    ELSE NULL END esa_reason   
 FROM ce 
+  LEFT JOIN claddr csaddr ON ce.case_hoh_consumer_id = csaddr.external_ref_id AND ce.project_id = csaddr.project_id  
   LEFT JOIN claddr ON ce.consumer_id = claddr.external_ref_id AND ce.project_id = claddr.project_id
   LEFT JOIN clphn ON ce.consumer_id = clphn.external_ref_id AND ce.project_id = clphn.project_id
  -- LEFT JOIN (SELECT * FROM enrl WHERE enroll_status = 'ACCEPTED') enrl ON ce.consumer_id = enrl.consumer_id AND ce.project_id = enrl.project_id AND enrl.start_date BETWEEN ce.eligibility_start_date AND ce.eligibility_end_date

@@ -8,10 +8,10 @@ Do not edit these four SVN_* variable values.  They are populated when you commi
 ----------------------------------------------------------------
 
 ---------------------------------
-SVN_FILE_URL        = $URL$ 
-SVN_REVISION        = $Revision$ 
-SVN_REVISION_DATE   = $Date$
-SVN_REVISION_AUTHOR = $Author$
+SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/CADIR/Scripts/IMR/manage_Expert_Cert_Specialty.ktr $ 
+SVN_REVISION        = $Revision: 34246 $ 
+SVN_REVISION_DATE   = $Date: 2023-10-09 14:48:33 -0700 (Mon, 09 Oct 2023) $
+SVN_REVISION_AUTHOR = $Author: fm18957 $
 ---------------------------------
 </extended_description>
     <trans_version/>
@@ -506,10 +506,6 @@ SVN_REVISION_AUTHOR = $Author$
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MSSQL.DOMAIN</code>
-        <attribute>maxcorp</attribute>
-      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -1624,12 +1620,40 @@ SVN_REVISION_AUTHOR = $Author$
     <connection>MAXDAT</connection>
     <sql>Select Expert_Review_ID V_EXPERT_REVIEW_ID
   From S_CRS_IMR_EXPERT_REVIEW
- Where last_update_dt > trunc(sysdate) - ( select value from corp_etl_control where name = 'IMR_EXPERT_REVIEW_LOOKBACK' )</sql>
+ Where imr_id in ( select imr_id from s_crs_imr_decisions 
+		            where last_update_dt >= trunc(sysdate) - ( select value from corp_etl_control where name = 'IMR_EXPERT_REVIEW_DECISION_LOOKBACK'))
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>V_EXPERT_REVIEW_ID</name>
+        <length>19</length>
+        <precision>0</precision>
+        <origin>Get Expert Review IDs</origin>
+        <comments>V_EXPERT_REVIEW_ID</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Los_Angeles</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
