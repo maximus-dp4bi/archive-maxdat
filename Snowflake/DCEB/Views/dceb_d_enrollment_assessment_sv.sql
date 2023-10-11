@@ -76,7 +76,7 @@ evw.status enrollment_status,
 COUNT(*) rec_count
 FROM enrl evw  
   JOIN marsdb.marsdb_project_vw p ON p.project_id = evw.project_id
-  LEFT JOIN svy svw ON evw.consumer_id = svw.consumer_id AND svw.survey_date >= CAST(evw.created_on_date AS DATE)
+  LEFT JOIN svy svw ON evw.consumer_id = svw.consumer_id AND svw.survey_create_date >= CAST(evw.created_on_date AS DATE)
   LEFT JOIN marsdb.marsdb_survey_template_vw tvw ON svw.survey_template_id = tvw.survey_template_id AND svw.project_id = tvw.project_id
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) stvw ON evw.sub_program_type_cd = stvw.value AND evw.project_id = stvw.project_id
   LEFT JOIN marsdb.marsdb_enum_enrollment_update_reasons_vw uvw ON evw.plan_end_date_reason = uvw.value AND evw.project_id = uvw.project_id
