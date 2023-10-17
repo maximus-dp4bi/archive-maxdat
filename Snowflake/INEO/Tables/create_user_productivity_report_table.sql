@@ -68,7 +68,7 @@ talkholdacw_duration_time_4,talkholdacw_avg_1,talkholdacw_avg_2,talkholdacw_avg_
 TRY_CAST(_transferred AS FLOAT),TRY_CAST(summary_talk_time AS FLOAT),TRY_CAST(talk_time_duration_hrs_1 AS FLOAT),TRY_CAST(talk_time_duration_hrs_2 AS FLOAT),TRY_CAST(talk_time_duration_hrs_3 AS FLOAT),
 TRY_CAST(talk_time_1 AS FLOAT),TRY_CAST(talk_time_2 AS FLOAT),TRY_CAST(talk_time_3 AS FLOAT),TRY_CAST(talk_time_4 AS FLOAT),TRY_CAST(hold_time_1 AS FLOAT),TRY_CAST(hold_time_2 AS FLOAT),
 TRY_CAST(hold_time_3 AS FLOAT),TRY_CAST(hold_time_4 AS FLOAT),TRY_CAST(hold_time_avg_1 AS FLOAT),TRY_CAST(hold_time_avg_2 AS FLOAT),TRY_CAST(hold_time_avg_3 AS FLOAT),TRY_CAST(hold_time_avg_4 AS FLOAT),
-TRY_CAST(acw_time_1 AS FLOAT),TRY_CAST(acw_time_2 AS FLOAT),TRY_CAST(acw_time_3 AS FLOAT),TRY_CAST(acw_time_4 AS FLOAT),TRY_CAST(acw_avg_1 AS FLOAT),TRY_CAST(acw_avg_2 AS FLOAT),TRY_CAST(acw_avg_3 AS FLOAT),
+TRY_CAST(acw_time_1_ AS FLOAT),TRY_CAST(acw_time_2 AS FLOAT),TRY_CAST(acw_time_3 AS FLOAT),TRY_CAST(acw_time_4 AS FLOAT),TRY_CAST(acw_avg_1 AS FLOAT),TRY_CAST(acw_avg_2 AS FLOAT),TRY_CAST(acw_avg_3 AS FLOAT),
 TRY_CAST(acw_avg_4 AS FLOAT),TRY_CAST(talkholdacw_duration_time_1 AS FLOAT),TRY_CAST(talkholdacw_duration_time_2 AS FLOAT),TRY_CAST(talkholdacw_duration_time_3 AS FLOAT),
 TRY_CAST(talkholdacw_duration_time_4 AS FLOAT),TRY_CAST(talkholdacw_avg_1 AS FLOAT),TRY_CAST(talkholdacw_avg_2 AS FLOAT),TRY_CAST(talkholdacw_avg_3 AS FLOAT),TRY_CAST(talkholdacw_avg_4 AS FLOAT)',
 'WHERE 1=1',

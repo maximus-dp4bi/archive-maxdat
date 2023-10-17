@@ -2,55 +2,7 @@ DROP VIEW MAXDAT_SUPPORT.D_PI_CURRENT_SV;
 
 CREATE OR REPLACE FORCE EDITIONABLE VIEW "MAXDAT_SUPPORT"."D_PI_CURRENT_SV" ("PI_BI_ID", "INCIDENT_TRACKING_NUMBER", "RECEIPT_DATE", "CREATE_DATE", "CREATED_BY_GROUP", "ORIGIN_ID", "CHANNEL", "AGE_IN_BUSINESS_DAYS", "AGE_IN_CALENDAR_DAYS", "PROCESS_CLIENT_NOTIFICATION_ID", "CUR_INSTANCE_STATUS", "CANCEL_DATE", "INCIDENT_TYPE", "DPIIA_ID", "CUR_INCIDENT_ABOUT", "DPIIR_ID", "CUR_INCIDENT_REASON", "ABOUT_PROVIDER_ID", "ABOUT_PLAN_CODE", "CUR_INCIDENT_STATUS", "CUR_INCIDENT_STATUS_DATE", "STATUS_AGE_IN_BUSINESS_DAYS", "STATUS_AGE_IN_CALENDAR_DAYS", "CUR_JEOPARDY_STATUS", "JEOPARDY_STATUS_DATE", "COMPLETE_DATE", "REPORTED_BY", "REPORTER_RELATIONSHIP", "CASE_ID", "REPORTER_FIRST_NAME", "REPORTER_LAST_NAME", "REPORTER_FULL_NAME", "REPORTER_PHONE", "CUR_ENROLLMENT_STATUS", "PRIORITY", "PROGRAM", "SUB_PROGRAM", "CUR_LAST_UPDATE_DATE", "CUR_LAST_UPDATE_BY_NAME", "PLAN_ID", "PROVIDER_ID", "ACTION_TYPE", "RESOLUTION_TYPE", "NOTIFY_CLIENT_FLAG", "PROCESS_CLNT_NOTIFY_START_DT", "PROCESS_CLNT_NOTIFY_END_DT", "PROCESS_CLNT_NOTIFY_FLAG", "ESCALATE_INCIDENT_FLAG", "ESCALATE_TO_STATE_DT", "CUR_TASK_ID", "STATE_RECEIVED_APPEAL_DATE", "HEARING_DATE", "SELECTION_ID", "TIMELINESS_STATUS", "EB_FOLLOWUP_NEEDED_FLAG", "OTHER_PARTY_NAME", "RESEARCH_INCIDENT_ST_DT", "RESEARCH_INCIDENT_END_DT", "PROCESS_INCIDENT_ST_DT", "PROCESS_INCIDENT_END_DT", "PROCESS_INCIDENT_FLAG", "RETURN_INCIDENT_FLAG", "COMPLETE_INCIDENT_ST_DT", "COMPLETE_INCIDENT_END_DT", "COMPLETE_INCIDENT_FLAG", "RETURN_TO_MMS_DT", "CREATED_BY_NAME", "GENERIC_FIELD_1", "GENERIC_FIELD_2", "GENERIC_FIELD_3", "GENERIC_FIELD_4", "GENERIC_FIELD_5", "ENROLLEE_RIN", "RESEARCH_INCIDENT_FLAG", "CANCEL_BY", "CANCEL_REASON", "CANCEL_METHOD", "COUNTY_CODE", "COUNTY_NAME", "ACTION_COMMENTS", "INCIDENT_DESCRIPTION", "RESOLUTION_DESCRIPTION", "CLIENT_ID", "CREATED_BY_ID", "CREATED_BY_EMPID", "RECIPIENT_NAME", "RECIPIENT_ADDRESS", "RECIPIENT_PHONE",
 "PROVIDER_NPI","PROVIDER_NAME","PROVIDER_ADDRESS_1","PROVIDER_ADDRESS_2","PROVIDER_ADDRESS_CITY","PROVIDER_ADDRESS_STATE","PROVIDER_ADDRESS_ZIP","PROVIDER_ADDRESS_COUNTY","PROVIDER_PHONE") AS 
-WITH dpi AS(
-  SELECT *
-  FROM incident_header i
-  WHERE 1=1
-  AND (i.received_ts >= ADD_MONTHS(TRUNC(SYSDATE), -13) 
-     OR i.status_cd not IN('CLOSED','STATE_COMPLETED' ))
- ),
-addr AS(
-  SELECT *
-  FROM address a
-  WHERE a.addr_type_cd = 'RS' 
-  AND a.addr_end_date IS NULL 
-  AND a.clnt_client_id IS NULL),
-phn AS(
-  SELECT *
-  FROM phone_number p
-  WHERE p.phon_type_cd = 'HM' 
-  AND p.phon_end_date IS NULL 
-  AND p.clnt_client_id IS NULL),
-tsk AS(
-SELECT si.ref_id, MAX(step_instance_id) step_instance_id 
-FROM eb.step_instance si
-    JOIN eb.step_definition sd ON (si.step_definition_id = sd.step_definition_id )
-    WHERE sd.step_type_cd IN ('VIRTUAL_HUMAN_TASK','HUMAN_TASK')
-    AND si.ref_type IN('incident_header','INCIDENT_HEADER')
-    AND si.completed_ts IS NULL    
-    GROUP BY si.ref_id
-    ),
-stf AS(
-SELECT staff_id,ext_staff_number,
-  last_name||','||first_name||' '||middle_name staff_name
-FROM staff),
-slct AS
-(SELECT *
- FROM (SELECT slct.selection_segment_id, slct.plan_id, pl.plan_name, slct.client_id,slct.provider_id_ext,cc.cscl_case_id case_id
-               ,ROW_NUMBER() OVER(PARTITION BY cc.cscl_case_id ORDER BY selection_segment_id) rn
-       FROM eb.selection_segment slct                      
-         JOIN eb.case_client cc ON slct.client_id = cc.cscl_clnt_client_id   
-         LEFT JOIN eb.plans pl ON pl.plan_id = slct.plan_id
-         LEFT JOIN eb.contract con ON con.PLAN_ID = slct.plan_id              
-       WHERE 1=1
-       AND cc.cscl_status_End_date IS NULL 
-       AND con.end_date IS NULL
-       AND slct.start_nd < slct.end_nd
-       AND slct.program_type_cd = 'MEDICAID'
-       AND slct.plan_type_cd = 'MEDICAL'
-       AND slct.status_cd = 'OPEN')
- WHERE rn = 1)
-SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
+SELECT i.incident_header_id PI_BI_ID ,
     i.tracking_number INCIDENT_TRACKING_NUMBER ,
     i.received_ts RECEIPT_DATE ,
     i.create_ts CREATE_DATE ,
@@ -112,13 +64,13 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
     CASE WHEN LENGTH(reporter_last_name) > 1  THEN i.reporter_first_name||' '||i.reporter_last_name  ELSE NULL END AS reporter_full_name,
     CASE WHEN i.reporter_phone IS NOT NULL THEN '('||SUBSTR( i.reporter_phone,1,3)||')'||SUBSTR( i.reporter_phone,4,3)||'-'|| SUBSTR( i.reporter_phone,7) END reporter_phone,
     NULL CUR_ENROLLMENT_STATUS ,
-    ept.report_label PRIORITY ,
+    p.report_label PRIORITY ,
     'MEDICAID' PROGRAM ,
     COALESCE(i.GENERIC_FIELD1, '0') AS SUB_PROGRAM ,
     i.update_ts CUR_LAST_UPDATE_DATE ,
-    COALESCE(us.staff_name, i.updated_by) CUR_LAST_UPDATE_BY_NAME,
+    COALESCE(us.last_name||','||us.first_name||' '||us.middle_name, i.updated_by) CUR_LAST_UPDATE_BY_NAME,
     slct.plan_id PLAN_ID ,
-    slct.provider_id_ext PROVIDER_ID , 
+    slct.provider_id_ext PROVIDER_ID ,
     rl.report_label ACTION_TYPE ,
     rt.report_label RESOLUTION_TYPE ,
     'N' NOTIFY_CLIENT_FLAG ,
@@ -130,7 +82,7 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
     si.step_instance_id CUR_TASK_ID ,
     NULL STATE_RECEIVED_APPEAL_DATE ,
     NULL HEARING_DATE ,
-    slct.selection_segment_id SELECTION_ID ,   
+    slct.selection_segment_id SELECTION_ID ,
     CASE
       WHEN i.status_cd IN('STATE_COMPLETED')
       THEN
@@ -166,9 +118,9 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
     (
     CASE
       WHEN i.responsible_staff_id IS NOT NULL
-      THEN COALESCE( rs.staff_name, TO_CHAR(i.responsible_staff_id))
+      THEN COALESCE( rs.last_name||','||rs.first_name||' '||rs.middle_name, TO_CHAR(i.responsible_staff_id))
       WHEN i.responsible_staff_id IS NULL
-      THEN COALESCE(csf.staff_name, i.created_by) ELSE NULL END) CREATED_BY_NAME ,
+      THEN COALESCE(cs.last_name||','||cs.first_name||' '||cs.middle_name, i.created_by) ELSE NULL END) CREATED_BY_NAME ,
     i.generic_field1 GENERIC_FIELD_1 ,
     i.generic_field2 GENERIC_FIELD_2 ,
     i.generic_field3 GENERIC_FIELD_3 ,
@@ -186,7 +138,7 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
     CASE WHEN i.status_cd IN( 'CLOSED','STATE_COMPLETED') THEN substrb(dbms_lob.substr(i.resolution,2000, 1 ),1,2000)|| substrb(dbms_lob.substr(i.resolution,2000, 2001),1,2000) ELSE NULL END RESOLUTION_DESCRIPTION ,
     i.client_id CLIENT_ID,
     COALESCE(TO_CHAR(i.responsible_staff_id),i.created_by) created_by_id,
-    COALESCE(TO_CHAR(rs.ext_staff_number),csf.ext_staff_number) created_by_empid,
+    COALESCE(TO_CHAR(rs.ext_staff_number),cs.ext_staff_number) created_by_empid,
     CASE WHEN i.client_id IS NULL THEN ccs.clnt_fname||CASE WHEN ccs.clnt_mi IS NULL THEN ' ' ELSE ' '||ccs.clnt_mi||' ' END||ccs.clnt_lname
       ELSE c.clnt_fname||CASE WHEN c.clnt_mi IS NULL THEN ' ' ELSE ' '||c.clnt_mi||' ' END||c.clnt_lname END recipient_name,
     a.addr_street_1||' '||a.addr_street_2||' '||a.addr_city||' '||a.addr_state_cd||' '||a.addr_zip recipient_address,
@@ -200,9 +152,9 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
     n.office_zip provider_address_zip,
     n.office_county provider_address_county,
     n.office_phone provider_phone
-  FROM dpi i
-  LEFT JOIN addr a ON (a.addr_case_id = i.case_id)
-  LEFT JOIN phn p ON (p.phon_case_id = i.case_id)
+  FROM eb.incident_header i
+  LEFT JOIN eb.address a                       ON (a.addr_case_id = i.case_id AND UPPER(a.addr_type_cd) = 'RS' AND a.addr_end_date IS NULL AND a.clnt_client_id IS NULL)
+  LEFT JOIN eb.phone_number p                  ON (p.phon_case_id = i.case_id AND UPPER(p.phon_type_cd) = 'HM' AND p.phon_end_date IS NULL AND p.clnt_client_id IS NULL)
   LEFT JOIN eb.ENUM_COUNTY b                   ON (a.addr_ctlk_id = b.VALUE)
   LEFT JOIN eb.client c                        ON (c.clnt_client_id = i.client_id)
   LEFT JOIN eb.cases cs                        ON (i.case_id = cs.case_id)
@@ -212,11 +164,11 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
   JOIN (SELECT * FROM eb.enum_affected_party_subtype
         WHERE effective_end_date IS NULL) aps ON (aps.value=i.affected_party_subtype_cd AND aps.scope = t.scope)
   JOIN (SELECT * FROM eb.enum_affected_party_type
-        WHERE effective_end_date IS NULL) apt  ON (apt.value=i.affected_party_type_cd AND apt.scope = t.scope)
+        WHERE effective_end_date IS NULL) apt    ON (apt.value=i.affected_party_type_cd AND apt.scope = t.scope)
   LEFT JOIN eb.enum_incident_header_status s   ON (s.value=i.status_cd)  
   LEFT JOIN eb.enum_incident_origin o          ON (o.value=i.origin_cd)
   LEFT JOIN eb.enum_other_party_type opt       ON (opt.value=i.other_party_type_cd)
-  LEFT JOIN eb.enum_priority ept                 ON (ept.value=i.priority_cd)
+  LEFT JOIN eb.enum_priority p                 ON (p.value=i.priority_cd)
   LEFT JOIN eb.enum_relationship rr            ON (rr.value=i.reporter_relationship)
   LEFT JOIN eb.enum_reporter_type r            ON (r.value=i.reporter_type_cd)
   LEFT JOIN eb.enum_resolution_type rt         ON (rt.value=i.resolution_type_cd)
@@ -224,12 +176,36 @@ SELECT /*+Parallel(5)*/ i.incident_header_id PI_BI_ID ,
   LEFT JOIN eb.network n                       ON (n.network_id_ext=i.network_id_ext)
   LEFT JOIN eb.provider npr                    ON (n.provider_id = npr.provider_id)
   LEFT JOIN eb.plans pl                        ON (pl.plan_id_ext = i.plan_id_ext AND rownum=1)
-  LEFT JOIN stf rs                             ON (rs.staff_id = i.responsible_staff_id)
-  LEFT JOIN stf csf                            ON (TO_CHAR(csf.staff_id) = (i.created_by))
-  LEFT JOIN stf us                             ON (TO_CHAR(us.staff_id) = (i.updated_by))
-  LEFT JOIN tsk si                             ON (si.ref_id=i.incident_header_id) 
-  LEFT JOIN slct                               ON (slct.case_id = cs.case_id)  
-UNION ALL
+  LEFT JOIN eb.staff rs                        ON (rs.staff_id = i.responsible_staff_id)
+  LEFT JOIN eb.staff cs                        ON (TO_CHAR(cs.staff_id) = (i.created_by))
+  LEFT JOIN eb.staff us                        ON (TO_CHAR(us.staff_id) = (i.updated_by))
+  LEFT JOIN
+    (SELECT si.ref_id, MAX(step_instance_id) step_instance_id FROM eb.step_instance si
+    JOIN eb.step_definition sd ON (si.step_definition_id = sd.step_definition_id AND sd.step_type_cd IN ('VIRTUAL_HUMAN_TASK','HUMAN_TASK'))
+    WHERE si.ref_type='incident_header'
+    AND si.completed_ts IS NULL
+    GROUP BY si.ref_id
+    ) si ON (si.ref_id=i.incident_header_id) 
+   LEFT JOIN (SELECT *
+              FROM (SELECT slct.selection_segment_id, slct.plan_id, pl.plan_name, slct.client_id,slct.provider_id_ext,cc.cscl_case_id case_id
+                           ,ROW_NUMBER() OVER(PARTITION BY cc.cscl_case_id ORDER BY selection_segment_id) rn
+                    FROM eb.selection_segment slct                      
+                      JOIN eb.case_client cc ON slct.client_id = cc.cscl_clnt_client_id   
+                      LEFT JOIN eb.plans pl ON pl.plan_id = slct.plan_id
+                      LEFT JOIN eb.contract con ON con.PLAN_ID = slct.plan_id              
+                    WHERE 1=1
+                    AND cc.cscl_status_End_date IS NULL 
+                    AND con.end_date IS NULL
+                    AND slct.start_nd < slct.end_nd
+                    AND slct.program_type_cd = 'MEDICAID'
+                    AND slct.plan_type_cd = 'MEDICAL'
+                    AND slct.status_cd = 'OPEN')
+                WHERE rn = 1) slct ON slct.case_id = cs.case_id               
+  WHERE 1=1
+  --AND i.incident_header_type_cd = 'COMPLAINT'
+    AND (i.received_ts >= ADD_MONTHS(TRUNC(SYSDATE), -13)) 
+       OR i.status_cd not IN('CLOSED','STATE_COMPLETED' )
+ UNION ALL
 SELECT NULL	PI_BI_ID	,
 NULL	INCIDENT_TRACKING_NUMBER	,
 NULL	RECEIPT_DATE	,
