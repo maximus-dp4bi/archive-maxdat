@@ -60,7 +60,8 @@ SELECT cldtl.consumer_id,
   --FLOOR((CAST(enrl.created_on_date AS DATE) - CAST(cldtl.consumer_date_of_birth AS DATE))/365) consumer_age,
   FLOOR(MONTHS_BETWEEN(CAST(enrl.created_on_date AS DATE), CAST(cldtl.consumer_date_of_birth AS DATE))) consumer_age_in_months,
   CASE WHEN selection_reason = 'NEWBORN_DEFAULT' THEN 'E' ELSE NULL END transaction_type,
-  enrl.created_on_date enrollment_accepted_date,  
+  --enrl.created_on_date enrollment_accepted_date,  
+  enrl.txn_status_date enrollment_accepted_date, 
   CASE WHEN enrl.selection_reason = 'NEWBORN_DEFAULT' AND FLOOR(MONTHS_BETWEEN(CAST(enrl.created_on_date AS DATE), CAST(cldtl.consumer_date_of_birth AS DATE))) < 12 THEN
      CASE WHEN UPPER(ce.program_population) = 'ALLIANCE-CHILD' THEN 'Alliance Mom' 
           WHEN UPPER(ce.program_population) = 'DCHF-CHILD' THEN 'Medicaid Mom' 
@@ -77,7 +78,8 @@ SELECT cldtl.consumer_id,
     ELSE NULL END assignment_type
 FROM cldtl 
   JOIN marsdb.marsdb_project_vw p ON cldtl.project_id = p.project_id
-  JOIN (SELECT enrl.project_id,consumer_id,enrollment_id,plan_code,pvw.report_label plan_name,enrl.created_on_date, enrl.sub_program_type_cd,enrl.selection_reason
+  JOIN (SELECT enrl.project_id,consumer_id,enrollment_id,plan_code,pvw.report_label plan_name,enrl.created_on_date, enrl.sub_program_type_cd,enrl.selection_reason,
+               enrl.txn_status_date
         FROM enrl
           JOIN marsdb.marsdb_enum_plan_name_vw pvw ON enrl.plan_code = pvw.value AND enrl.project_id = pvw.project_id ) enrl ON cldtl.consumer_id = enrl.consumer_id AND cldtl.project_id = enrl.project_id
   JOIN ce ON cldtl.consumer_id = ce.consumer_id AND cldtl.project_id = ce.project_id
