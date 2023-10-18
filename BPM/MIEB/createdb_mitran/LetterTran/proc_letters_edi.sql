@@ -50,12 +50,14 @@ for filerec in (select distinct xml_filename from etl_l_letters_edi where job_ct
 
     begin
     vtrandate := to_date(substr(filerec.xml_filename, instr(filerec.xml_filename, vyear), 8),'yyyymmdd');
+    vtrandate := etl_common.GET_BUS_DATE(vtrandate,0);
     exception when others then
     null;
     end;
     if vtrandate is null then
     begin
     vtrandate := to_date(substr(filerec.xml_filename, instr(filerec.xml_filename, vpyear), 8),'yyyymmdd');
+    vtrandate := etl_common.GET_BUS_DATE(vtrandate,0);
     exception when others then
     null;
     end;
@@ -194,7 +196,7 @@ loop
               , in_driver_key_number => jobrec.job_ctrl_id
               );
           end;
-                          
+
           when others then
             v_code := SQLCODE;
             v_desc := SQLERRM;

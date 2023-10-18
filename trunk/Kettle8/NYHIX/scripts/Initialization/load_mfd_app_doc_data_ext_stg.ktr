@@ -8,10 +8,10 @@ Do not edit these four SVN_* variable values.  They are populated when you commi
 ----------------------------------------------------------------
 
 ---------------------------------
-SVN_FILE_URL        = $URL$ 
-SVN_REVISION        = $Revision$ 
-SVN_REVISION_DATE   = $Date$
-SVN_REVISION_AUTHOR = $Author$
+SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/Initialization/load_mfd_app_doc_data_ext_stg.ktr $ 
+SVN_REVISION        = $Revision: 34263 $ 
+SVN_REVISION_DATE   = $Date: 2023-10-18 09:43:25 -0700 (Wed, 18 Oct 2023) $
+SVN_REVISION_AUTHOR = $Author: gt83345 $
 ---------------------------------</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
@@ -468,112 +468,14 @@ SVN_REVISION_AUTHOR = $Author$
     </notepad>
   </notepads>
   <connection>
-    <name>DP_SCORECARD</name>
-    <server>${DB_SCORECARD_HOSTNAME}</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>${DB_SCORECARD_NAME}</database>
-    <port>${DB_SCORECARD_PORT}</port>
-    <username>${DB_SCORECARD_USER}</username>
-    <password>${DB_SCORECARD_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>${DB_SCORECARD_PORT}</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SQL_CONNECT</code>
-        <attribute>ALTER SESSION SET CURRENT_SCHEMA = DP_SCORECARD;</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>KOFAX_CENTRAL</name>
-    <server>${DB_KOFAX_CENTRAL_HOSTNAME}</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>${DB_KOFAX_CENTRAL_DB}</database>
-    <port>${DB_KOFAX_CENTRAL_PORT}</port>
-    <username>${DB_KOFAX_CENTRAL_USER}</username>
-    <password>${DB_KOFAX_CENTRAL_PASSWORD}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MSSQL.instance</code>
-        <attribute>${DB_KOFAX_CENTRAL_INSTANCE}</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>${DB_KOFAX_CENTRAL_PORT}</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>MAXDAT</name>
-    <server>${DB_MAXDAT_HOSTNAME}</server>
+    <server>${DB_NYHIX_DEV_MAXDAT_HOSTNAME}</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>${DB_MAXDAT_NAME}</database>
-    <port>${DB_MAXDAT_PORT}</port>
-    <username>${DB_MAXDAT_USER}</username>
-    <password>${DB_MAXDAT_PASSWORD}</password>
+    <database>${DB_NYHIX_DEV_MAXDAT_NAME}</database>
+    <port>${DB_NYHIX_DEV_MAXDAT_PORT}</port>
+    <username>${DB_NYHIX_DEV_MAXDAT_USER}</username>
+    <password>${DB_NYHIX_DEV_MAXDAT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -592,11 +494,7 @@ SVN_REVISION_AUTHOR = $Author$
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${DB_MAXDAT_PORT}</attribute>
-      </attribute>
-      <attribute>
-        <code>PREFERRED_SCHEMA_NAME</code>
-        <attribute>${DB_MAXDAT_SCHEMA}</attribute>
+        <attribute>${DB_NYHIX_DEV_MAXDAT_PORT}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -944,6 +842,11 @@ SVN_REVISION_AUTHOR = $Author$
         <rename>APP_DOC_REDACTION_DATA_ID</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>MEDIA_SUB_CD</name>
+        <rename>MEDIA_SUB_CD</rename>
+        <update>N</update>
+      </value>
     </lookup>
     <attributes/>
     <cluster_schema/>
@@ -981,7 +884,8 @@ SVN_REVISION_AUTHOR = $Author$
  CREATED_TS,
  UPDATED_BY,
  UPDATED_TS,
- APP_DOC_REDACTION_DATA_ID
+ APP_DOC_REDACTION_DATA_ID,
+ MEDIA_SUB_CD
 FROM APP_DOC_DATA_EXT
 WHERE  (created_ts >= TO_DATE('${MAX_UPDATE_TS_APP_DOC_EXT}','YYYY/MM/DD HH24:MI:SS') - 15/24/60)
 OR (updated_ts >= TO_DATE('${MAX_UPDATE_TS_APP_DOC_EXT}','YYYY/MM/DD HH24:MI:SS') - 15/24/60)</sql>
@@ -990,6 +894,8 @@ OR (updated_ts >= TO_DATE('${MAX_UPDATE_TS_APP_DOC_EXT}','YYYY/MM/DD HH24:MI:SS'
     <execute_each_row>N</execute_each_row>
     <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta/>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
