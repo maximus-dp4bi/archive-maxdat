@@ -23,8 +23,9 @@ WHERE p.project_name = 'DC-EB'
 QUALIFY ROW_NUMBER() OVER (PARTITION BY cnvw.consumer_id ORDER BY ccvw.effective_end_date DESC NULLS FIRST) = 1),
 clphn AS(SELECT p.*,co.external_ref_type,co.external_ref_id                   
                  FROM marsdb.marsdb_phone_vw p  
-                   JOIN marsdb.marsdb_contacts_owner_vw co ON p.phone_id = co.contact_owner_id AND co.project_id = p.project_id 
-                   JOIN marsdb.marsdb_project_vw pr ON pr.project_id = p.project_id
+                   JOIN marsdb.marsdb_project_vw pr ON p.project_id = pr.project_id
+                   JOIN marsdb.marsdb_contacts_vw ct ON p.contact_type_id = ct.contact_type_id AND p.project_id = ct.project_id
+                   JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
                  WHERE pr.project_name = 'DC-EB'
                  AND UPPER(co.external_ref_type) = 'CONSUMER'
                  AND p.phone_type = 'Home'
@@ -58,7 +59,7 @@ SELECT cldtl.consumer_id,
  cldtl.consumer_first_name,
  cldtl.consumer_last_name,
  cldtl.consumer_date_of_birth,
- clphn.phone_number,
+ COALESCE(csphn.phone_number,clphn.phone_number) phone_number,
  'Fee for Service' current_status,
  ce.opt_out_code,
  ce.opt_out_description,
@@ -68,6 +69,8 @@ SELECT cldtl.consumer_id,
 FROM ce
   JOIN marsdb.marsdb_project_vw p ON ce.project_id = p.project_id
   JOIN cldtl ON ce.consumer_id = cldtl.consumer_id AND ce.project_id = cldtl.project_id
+  LEFT JOIN cldtl hoh ON cldtl.case_id = hoh.case_id AND cldtl.project_id = hoh.project_id AND hoh.consumer_role = 'Primary Individual'
   LEFT JOIN clphn ON cldtl.consumer_id = clphn.external_ref_id AND cldtl.project_id = clphn.project_id
+  LEFT JOIN clphn csphn ON hoh.consumer_id = csphn.external_ref_id AND hoh.project_id = csphn.project_id
  WHERE p.project_name = 'DC-EB'
  AND ce.elig_month BETWEEN ce.eligibility_start_date AND ce.eligibility_end_date;

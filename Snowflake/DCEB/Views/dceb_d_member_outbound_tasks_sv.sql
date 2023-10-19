@@ -72,8 +72,9 @@ WHERE p.project_name = 'DC-EB'
 QUALIFY ROW_NUMBER() OVER (PARTITION BY cnvw.consumer_id ORDER BY ccvw.effective_end_date DESC NULLS FIRST) = 1),
 clphn AS(SELECT p.*,co.external_ref_type,co.external_ref_id                   
                  FROM marsdb.marsdb_phone_vw p  
-                   JOIN marsdb.marsdb_contacts_owner_vw co ON p.phone_id = co.contact_owner_id AND co.project_id = p.project_id 
-                   JOIN marsdb.marsdb_project_vw pr ON pr.project_id = p.project_id
+                   JOIN marsdb.marsdb_project_vw pr ON p.project_id = pr.project_id
+                   JOIN marsdb.marsdb_contacts_vw ct ON p.contact_type_id = ct.contact_type_id AND p.project_id = ct.project_id
+                   JOIN marsdb.marsdb_contacts_owner_vw co ON ct.owner_id = co.contact_owner_id AND ct.project_id = co.project_id 
                  WHERE pr.project_name = 'DC-EB'
                  AND UPPER(co.external_ref_type) = 'CONSUMER'
                  AND p.phone_type = 'Home'
@@ -88,7 +89,7 @@ AND evw.primary_indicator = 1
 AND covw.external_ref_type = 'CONSUMER'
 QUALIFY ROW_NUMBER() OVER(PARTITION BY covw.external_ref_id ORDER BY evw.effective_end_date DESC NULLS FIRST,evw.email_id DESC) = 1)                 
 SELECT tskinfo.*,  
-  COALESCE(tskdtl.preferred_phone,clphn.phone_number) phone_number,
+  COALESCE(tskdtl.preferred_phone,csphn.phone_number,clphn.phone_number) phone_number,
   tskdtl.preferred_callback_date,
   tskdtl.preferred_callback_time,
   CONCAT(TO_CHAR(tskdtl.preferred_callback_date),' ',tskdtl.preferred_callback_time) preferred_callback_datetime,
@@ -104,6 +105,8 @@ FROM tskinfo
   LEFT JOIN tskdtl ON tskinfo.task_id = tskdtl.task_id AND tskinfo.project_id = tskdtl.project_id
   LEFT JOIN marsdb.marsdb_enum_action_taken_vw atvw ON tskdtl.action_taken = atvw.value AND tskdtl.project_id = atvw.project_id
   LEFT JOIN cldtl ON tskinfo.consumer_id = cldtl.consumer_id AND tskinfo.project_id = cldtl.project_id
+  LEFT JOIN cldtl hoh ON cldtl.case_id = hoh.case_id AND cldtl.project_id = hoh.project_id AND hoh.consumer_role = 'Primary Individual'
   LEFT JOIN clphn ON cldtl.consumer_id = clphn.external_ref_id AND cldtl.project_id = clphn.project_id
+  LEFT JOIN clphn csphn ON hoh.consumer_id = csphn.external_ref_id AND hoh.project_id = csphn.project_id  
   LEFT JOIN clemail ON cldtl.consumer_id = clemail.external_ref_id AND cldtl.project_id = clemail.project_id
 WHERE p.project_name = 'DC-EB';

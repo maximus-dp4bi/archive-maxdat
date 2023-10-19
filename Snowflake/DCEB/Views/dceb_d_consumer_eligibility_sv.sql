@@ -129,7 +129,7 @@ SELECT ce.project_id,
  COALESCE(csaddr.address_zip,claddr.address_zip) address_zip,
  COALESCE(csaddr.address_zip_four,claddr.address_zip_four) address_zip_four,
  COALESCE(csaddr.address_county,claddr.address_county) address_county,  
- clphn.phone_number,
+ COALESCE(csphn.phone_number,clphn.phone_number) phone_number,
  CASE WHEN enrl.enrollment_id IS NOT NULL THEN 'Enrolled' ELSE 'Not Enrolled' END enrolled_indicator,  
  ce.consumer_language_preference,
  enrl.start_date enrollment_start_date,
@@ -155,6 +155,7 @@ FROM ce
   LEFT JOIN claddr csaddr ON ce.case_hoh_consumer_id = csaddr.external_ref_id AND ce.project_id = csaddr.project_id  
   LEFT JOIN claddr ON ce.consumer_id = claddr.external_ref_id AND ce.project_id = claddr.project_id
   LEFT JOIN clphn ON ce.consumer_id = clphn.external_ref_id AND ce.project_id = clphn.project_id
+  LEFT JOIN clphn csphn ON ce.case_hoh_consumer_id = csphn.external_ref_id AND ce.project_id = csphn.project_id
  -- LEFT JOIN (SELECT * FROM enrl WHERE enroll_status = 'ACCEPTED') enrl ON ce.consumer_id = enrl.consumer_id AND ce.project_id = enrl.project_id AND enrl.start_date BETWEEN ce.eligibility_start_date AND ce.eligibility_end_date
  LEFT JOIN (SELECT enrl.project_id,enrl.enrollment_id,enrl.consumer_id,enrl.start_date,enrl.end_date,enrl.txn_status_date,
                enrl.plan_code,pnvw.report_label plan_name,created_on_date,enrl.enroll_status ,plan_end_date_reason,disenroll_created_on_date

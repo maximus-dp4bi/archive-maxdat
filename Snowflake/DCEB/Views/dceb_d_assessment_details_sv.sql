@@ -218,7 +218,7 @@ SELECT fnlsvy.*,
   COALESCE(csmail.address_zip,mail.address_zip) mail_address_zip,
   CASE WHEN COALESCE(csmail.address_zip_four,mail.address_zip_four) = '0000' THEN NULL ELSE COALESCE(csmail.address_zip_four,mail.address_zip_four) END mail_address_zip_four,
   COALESCE(csmail.address_county,mail.address_county) mail_address_county,
-  clphn.phone_number,
+  COALESCE(csphn.phone_number,clphn.phone_number) phone_number,
   enrl.plan_name,
   ce.eligibility_start_date,
   enrl.service_region_code
@@ -235,4 +235,6 @@ FROM fnlsvy
   LEFT JOIN claddr csres ON hoh.consumer_id = csres.external_ref_id AND hoh.project_id = csres.project_id AND csres.address_type = 'Physical'
   LEFT JOIN claddr mail ON cldtl.consumer_id = mail.external_ref_id AND cldtl.project_id = mail.project_id AND mail.address_type = 'Mailing'
   LEFT JOIN claddr csmail ON hoh.consumer_id = csmail.external_ref_id AND hoh.project_id = csmail.project_id AND csmail.address_type = 'Mailing'
-  LEFT JOIN clphn ON cldtl.consumer_id = clphn.external_ref_id AND cldtl.project_id = clphn.project_id   ;
+  LEFT JOIN clphn ON cldtl.consumer_id = clphn.external_ref_id AND cldtl.project_id = clphn.project_id   
+  LEFT JOIN clphn csphn ON hoh.consumer_id = csphn.external_ref_id AND hoh.project_id = csphn.project_id   
+  ;
