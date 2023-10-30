@@ -1,6 +1,12 @@
 CREATE OR REPLACE VIEW dceb.dceb_d_enrollment_assessment_sv 
 AS
-WITH enrl AS(
+WITH stf AS(
+SELECT p.project_id,u.user_id, CONCAT(first_name, ' ',COALESCE(s.last_name,'')) as staff_name
+FROM marsdb.marsdb_user_vw u
+ JOIN marsdb.marsdb_project_vw p ON p.project_id = u.project_id
+ JOIN marsdb.marsdb_staff_vw s ON s.staff_id = u.staff_id
+WHERE p.project_name = 'DC-EB'),
+enrl AS(
 SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, enrl.end_date,enrl.status, CAST(enrl.txn_status_date AS DATE) txn_status_date
    ,enrl.plan_code,enrl.enrollment_type,enrl.sub_program_type_cd,enrl.channel,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
    ,enrl.service_region_code
@@ -9,10 +15,17 @@ SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, en
          WHEN disenrl.enrollment_id IS NULL AND enrl.status IN('SELECTION_MADE','SUBMITTED_TO_STATE') THEN 'Pending_Enrollment'
      ELSE 'New Enrolled' END transaction_type
    ,CAST(enrl.created_on AS DATE) created_on_date
-   ,disenrl.plan_code transfer_from_plan_code   
+   ,disenrl.plan_code transfer_from_plan_code  
+   ,stf.staff_name
 FROM marsdb.marsdb_enrollments_vw enrl
   LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
-  JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id
+  LEFT JOIN (SELECT hist.project_id,hist.enrollment_id,hist.created_by
+             FROM marsdb.marsdb_enrollments_history_vw hist
+               JOIN marsdb.marsdb_project_vw p ON p.project_id = hist.project_id 
+             WHERE p.project_name = 'DC-EB'
+             QUALIFY ROW_NUMBER() OVER(PARTITION BY hist.enrollment_id ORDER BY hist.enrollment_history_id) = 1) hist ON enrl.enrollment_id = hist.enrollment_id AND enrl.project_id = hist.project_id
+  LEFT JOIN stf ON hist.created_by = TO_CHAR(stf.user_id) AND enrl.project_id = stf.project_id  
+  JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id 
 WHERE p.project_name = 'DC-EB'
 AND enrl.status IN('ACCEPTED','SELECTION_MADE','SUBMITTED_TO_STATE')
 QUALIFY ROW_NUMBER() OVER(PARTITION BY enrl.project_id, enrl.enrollment_id,enrl.start_date,enrl.end_date ORDER BY enrl.enrollment_id,disenrl.enrollment_id) = 1
@@ -22,7 +35,14 @@ SELECT disenrl.project_id,disenrl.enrollment_id, disenrl.consumer_id, disenrl.st
    ,disenrl.service_region_code,'Disenrolled' transaction_type
    ,CAST(disenrl.created_on AS DATE) created_on_date
    ,disenrl.plan_code transfer_from_plan_code
+   ,stf.staff_name
 FROM marsdb.marsdb_enrollments_vw disenrl
+  LEFT JOIN (SELECT hist.project_id,hist.enrollment_id,hist.created_by
+             FROM marsdb.marsdb_enrollments_history_vw hist
+               JOIN marsdb.marsdb_project_vw p ON p.project_id = hist.project_id 
+             WHERE p.project_name = 'DC-EB'
+             QUALIFY ROW_NUMBER() OVER(PARTITION BY hist.enrollment_id ORDER BY hist.enrollment_history_id) = 1) hist ON disenrl.enrollment_id = hist.enrollment_id AND disenrl.project_id = hist.project_id
+  LEFT JOIN stf ON hist.created_by = TO_CHAR(stf.user_id) AND disenrl.project_id = stf.project_id
   JOIN marsdb.marsdb_project_vw p ON p.project_id = disenrl.project_id
 WHERE p.project_name = 'DC-EB'
 AND disenrl.status = 'DISENROLLED'
@@ -73,6 +93,7 @@ CASE WHEN COALESCE(tvw.description,'N/A') = 'HRA' THEN 'Health Risk Assessment' 
 svw.survey_date,
 svw.survey_create_date,
 evw.status enrollment_status,
+evw.staff_name,
 COUNT(*) rec_count
 FROM enrl evw  
   JOIN marsdb.marsdb_project_vw p ON p.project_id = evw.project_id
@@ -125,7 +146,8 @@ cnvw.consumer_last_name,
 COALESCE(tvw.description,'N/A'),
 svw.survey_date,
 svw.survey_create_date,
-evw.status
+evw.status,
+evw.staff_name
 )
 SELECT project_id,
 enrollment_id,
@@ -155,6 +177,9 @@ transfer_from_plan_name,
 child_indicator,
 survey_date,
 survey_create_date,
-enrollment_status
+enrollment_status,
+staff_name,
+CASE WHEN channel_label = 'Phone' AND transaction_type IN('Transfer','Pending_Transfer') THEN consumer_id ELSE NULL END csr_transfer_consumer_id,
+CASE WHEN channel_label = 'Phone' AND transaction_type IN('New Enrolled','Pending_Enrollment') THEN consumer_id ELSE NULL END csr_newenroll_consumer_id
 FROM enrldetail
 ;

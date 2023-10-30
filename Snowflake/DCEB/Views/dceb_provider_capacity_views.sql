@@ -10,6 +10,7 @@ WITH etl AS
    ,'2000' AS capacity
    ,x.npi_number
    ,x.scope
+   ,x.plan_provider_number
 FROM (SELECT p.provider_name
          ,p.npi_number, mco.report_label
          ,COALESCE(p.pcp_flag,'N') AS pcp_flag
@@ -18,7 +19,8 @@ FROM (SELECT p.provider_name
          ,etvw.report_label AS provider_type
          ,p.provider_type AS provider_type_cd
          ,mco.scope
-         ,ROW_NUMBER() OVER (PARTITION BY p.provider_name,mco.report_label ORDER BY p.job_id desc, p.file_seq desc,p.row_num desc) AS rn
+         ,p.plan_provider_number
+         ,ROW_NUMBER() OVER (PARTITION BY p.provider_name,p.plan_provider_number,mco.report_label ORDER BY p.job_id desc, p.file_seq desc,p.row_num desc) AS rn
       FROM (SELECT CASE WHEN p.provider_first_name IS NULL AND p.provider_last_name IS NOT NULL THEN UPPER(p.provider_last_name)
                     ELSE UPPER(p.provider_first_name)||' '||UPPER(p.provider_last_name) END AS provider_name,p.*      
             FROM marsdb.marsdb_etl_prov_stg_dceb p) p
@@ -41,6 +43,7 @@ SELECT DISTINCT pn.provider_name
       ,pn.npi
       ,mco.scope
       ,sp.report_label sub_program_type
+      ,pn.state_provider_id
 FROM (SELECT CASE WHEN pn.first_name IS NULL AND pn.last_name IS NOT NULL THEN UPPER(pn.last_name)
           ELSE  UPPER(COALESCE(pn.first_name||' '||pn.last_name,'')) END AS provider_name, pn.*
       FROM marsdb.marsdb_provider_network_vw pn) pn
@@ -50,7 +53,7 @@ FROM (SELECT CASE WHEN pn.first_name IS NULL AND pn.last_name IS NOT NULL THEN U
   LEFT JOIN marsdb.marsdb_enum_provider_type_vw etvw ON (ptvw.provider_type_cd = etvw.value and etvw.project_id = p.project_id)
   LEFT JOIN marsdb.marsdb_enum_plan_name_vw mco ON (mco.value = pn.plan_code and mco.project_id = p.project_id)
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) sp ON mco.scope = sp.value AND pn.project_id = sp.project_id 
-  LEFT JOIN etl ON (UPPER(etl.provider_name)= pn.provider_name AND etl.plan_name = mco.report_label)
+  LEFT JOIN etl ON (UPPER(etl.provider_name)= pn.provider_name AND etl.plan_name = mco.report_label AND etl.plan_provider_number = pn.state_provider_id)
 WHERE p.project_name = 'DC-EB'
 --UNION ALL
 --SELECT *
