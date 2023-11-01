@@ -18,7 +18,8 @@ SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, en
    ,disenrl.plan_code transfer_from_plan_code  
    ,stf.staff_name
 FROM marsdb.marsdb_enrollments_vw enrl
-  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
+  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+    AND disenrl.status LIKE 'DISENR%' --AND disenrl.plan_end_date_reason IS NOT NULL
   LEFT JOIN (SELECT hist.project_id,hist.enrollment_id,hist.created_by
              FROM marsdb.marsdb_enrollments_history_vw hist
                JOIN marsdb.marsdb_project_vw p ON p.project_id = hist.project_id 

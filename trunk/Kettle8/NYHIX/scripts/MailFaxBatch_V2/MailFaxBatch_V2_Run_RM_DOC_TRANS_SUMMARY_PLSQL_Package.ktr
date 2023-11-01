@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>MailFaxBatch_V2_Set_Variables</name>
+    <name>MailFaxBatch_V2_Run_RM_DOC_TRANS_SUMMARY_PLSQL_Package</name>
     <description/>
-    <extended_description>---------------------------------
-SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Set_Variables.ktr $ 
-SVN_REVISION        = $Revision: 28280 $ 
-SVN_REVISION_DATE   = $Date: 2019-11-01 18:43:23 -0400 (Fri, 01 Nov 2019) $
-SVN_REVISION_AUTHOR = $Author: aa24065 $
----------------------------------</extended_description>
+    <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -433,9 +428,9 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2013/04/08 09:31:22.150</created_date>
+    <created_date>2021/06/10 15:09:27.502</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2013/04/08 09:31:22.150</modified_date>
+    <modified_date>2021/06/10 15:09:27.502</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -497,15 +492,10 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </attributes>
   </connection>
   <order>
-    <hop>
-      <from>CORP_ETL_MFB_V2_CONTROLS</from>
-      <to>Set MFB V2 Controls</to>
-      <enabled>Y</enabled>
-    </hop>
   </order>
   <step>
-    <name>CORP_ETL_MFB_V2_CONTROLS</name>
-    <type>TableInput</type>
+    <name>Execute SQL script</name>
+    <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -515,70 +505,32 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <schema_name/>
     </partitioning>
     <connection>MAXDAT</connection>
-    <sql>SELECT 
- to_date(RSDV2.VALUE)-RSLV2.VALUE 					MFB_V2_REMOTE_START_DATE,
- to_date(CSDV2.VALUE)-CSLV2.VALUE 					MFB_V2_CENTRAL_START_DATE,
- SCANMV2.VALUE 										MFB_V2_SCAN_MODULE_NAME,
- QCMV2.VALUE 										MFB_V2_QC_MODULE_NAME,
- CLASSMV2.VALUE 									MFB_V2_CLASSIFICATION_MODULE_NAME,
- RECMV2.VALUE 										MFB_V2_RECOGNITION_MODULE_NAME,
- VALMV2.VALUE 										MFB_V2_VALIDATION_MODULE_NAME,
- PDFMV2.VALUE 										MFB_V2_PDF_MODULE_NAME,
- REPMV2.VALUE 										MFB_V2_REPORT_MODULE_NAME,
- EXPMV2.VALUE 										MFB_V2_EXPORT_MODULE_NAME,
- CFV2.VALUE 										MFB_V2_CENTRAL_FLAG,
- RFV2.VALUE 										MFB_V2_REMOTE_FLAG,
- MDRV2_FLAG.VALUE 									MFB_V2_MAXDATREPORTING_FLAG,
- MDRV2_LASTDBRECNUM.VALUE-MDRV2_LKBK.VALUE 			MFB_V2_MAXDATREPORTING_START_NUM,
- to_date(RMITS.VALUE,'mm/dd/yyyy hh24:mi:ss')       MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE,
- RMFLG.VALUE										MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG
-FROM 
- CORP_ETL_CONTROL 		RSDV2,
- CORP_ETL_CONTROL 		CSDV2,
- CORP_ETL_CONTROL 		RSLV2,
- CORP_ETL_CONTROL 		CSLV2,
- CORP_ETL_CONTROL 		SCANMV2,
- CORP_ETL_CONTROL 		QCMV2,
- CORP_ETL_CONTROL 		CLASSMV2,
- CORP_ETL_CONTROL 		RECMV2,
- CORP_ETL_CONTROL 		VALMV2,
- CORP_ETL_CONTROL 		PDFMV2,
- CORP_ETL_CONTROL 		REPMV2,
- CORP_ETL_CONTROL 		EXPMV2,
- CORP_ETL_CONTROL 		CFV2,
- CORP_ETL_CONTROL 		RFV2,
- CORP_ETL_CONTROL 		MDRV2_FLAG,
- CORP_ETL_CONTROL 		MDRV2_LKBK,
- CORP_ETL_CONTROL 		MDRV2_LASTDBRECNUM,
- CORP_ETL_CONTROL		RMITS,
- CORP_ETL_CONTROL		RMFLG
-WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
- AND CSDV2.NAME='MFB_V2_CENTRAL_LAST_UPDATE_DATE'
- AND RSLV2.NAME='MFB_V2_REMOTE_LOOKBACK_DAYS'
- AND CSLV2.NAME='MFB_V2_CENTRAL_LOOKBACK_DAYS'
- AND SCANMV2.NAME='MFB_V2_SCAN_MODULE_NAME'
- AND QCMV2.NAME='MFB_V2_QC_MODULE_NAME'
- AND CLASSMV2.NAME='MFB_V2_CLASSIFICATION_MODULE_NAME'
- AND RECMV2.NAME='MFB_V2_RECOGNITION_MODULE_NAME'
- AND VALMV2.NAME='MFB_V2_VALIDATION_MODULE_NAME'
- AND PDFMV2.NAME='MFB_V2_PDF_MODULE_NAME'
- AND REPMV2.NAME='MFB_V2_REPORT_MODULE_NAME'
- AND EXPMV2.NAME='MFB_V2_EXPORT_MODULE_NAME'
- AND CFV2.NAME='MFB_V2_CENTRAL_FLAG'
- AND RFV2.NAME='MFB_V2_REMOTE_FLAG'
- AND MDRV2_FLAG.NAME='MFB_V2_MAXDATREPORTING_FLAG'
- AND MDRV2_LKBK.NAME='MFB_V2_MAXDATREPORTING_LOOKBACK_DB_REC_NUM'
- AND MDRV2_LASTDBRECNUM.NAME='MFB_V2_MAXDATREPORTING_LAST_DB_REC_NUM'
- and RMITS.NAME='MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE'
- AND RMFLG.NAME='MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG'
-</sql>
-    <limit>0</limit>
-    <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta/>
+    <single_statement>Y</single_statement>
+    <replace_variables>Y</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>BEGIN
+
+ NYHIX_MFB_V2_RM_DOC_TRANS_SUMM_PKG.Load_Load_RM_DOC_TRANS_SUMM();
+-- NYHIX_MFB_V2_IMAGE_TRUST_STATS_BATCH_PKG.Load_Load_IMAGE_TRUST_STATS_BATCH(0);
+
+
+update corp_etl_control
+set value = (select  TO_CHAR(NVL(max(request_receiveddate),to_date('2023/01/01 01:01:01','yyyy/mm/dd hh24:mi:ss')))
+from RM_DOCUMENT_TRANSACTION_SUMMARY)
+where name = 'MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE';
+
+Commit;
+
+
+END;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -588,132 +540,8 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       </output>
     </remotesteps>
     <GUI>
-      <xloc>157</xloc>
-      <yloc>93</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Set MFB V2 Controls</name>
-    <type>SetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <field_name>MFB_V2_REMOTE_START_DATE</field_name>
-        <variable_name>MFB_V2_REMOTE_START_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_CENTRAL_START_DATE</field_name>
-        <variable_name>MFB_V2_CENTRAL_START_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_MAXDATREPORTING_START_NUM</field_name>
-        <variable_name>MFB_V2_MAXDATREPORTING_START_NUM</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_SCAN_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_SCAN_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_QC_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_QC_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_CLASSIFICATION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_CLASSIFICATION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_RECOGNITION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_RECOGNITION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_VALIDATION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_VALIDATION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_PDF_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_PDF_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_REPORT_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_REPORT_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_EXPORT_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_EXPORT_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_MAXDATREPORTING_FLAG</field_name>
-        <variable_name>MFB_V2_MAXDATREPORTING_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_CENTRAL_FLAG</field_name>
-        <variable_name>MFB_V2_CENTRAL_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_REMOTE_FLAG</field_name>
-        <variable_name>MFB_V2_REMOTE_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</field_name>
-        <variable_name>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</field_name>
-        <variable_name>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-    </fields>
-    <use_formatting>Y</use_formatting>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
-      <yloc>96</yloc>
+      <xloc>128</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

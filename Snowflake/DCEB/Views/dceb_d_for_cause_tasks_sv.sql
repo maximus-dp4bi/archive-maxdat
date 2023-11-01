@@ -21,7 +21,8 @@ tskinfo AS(SELECT tvw.task_id sr_id,
  stf.staff_name staff_created_by_name,
  tvw.task_info,
  tvw.task_notes,
- xvw.external_ref_id case_id
+ xvw.external_ref_id case_id,
+ tvw.status_date task_status_date
 FROM marsdb.marsdb_tasks_vw tvw 
   JOIN marsdb.marsdb_project_vw p ON p.project_id = tvw.project_id
   JOIN marsdb.cfg_task_type tt ON tvw.task_type_id = tt.task_type_id AND tvw.project_id = tt.project_id  
@@ -78,7 +79,8 @@ SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, en
    ,disenrl.plan_code transfer_from_plan_code   
 FROM marsdb.marsdb_enrollments_vw enrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id
-  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
+  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+    AND disenrl.status = 'DISENROLLED' --AND disenrl.plan_end_date_reason IS NOT NULL
 WHERE p.project_name = 'DC-EB'
 AND enrl.status IN('ACCEPTED')
 QUALIFY ROW_NUMBER() OVER(PARTITION BY enrl.project_id, enrl.enrollment_id,enrl.start_date,enrl.end_date ORDER BY enrl.enrollment_id,disenrl.enrollment_id) = 1
@@ -94,26 +96,43 @@ WHERE p.project_name = 'DC-EB'
 AND disenrl.status = 'DISENROLLED'
 AND NOT EXISTS(SELECT 1 FROM marsdb.marsdb_enrollments_vw enrl WHERE disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND enrl.status IN('ACCEPTED','SELECTION_MADE','SUBMITTED_TO_STATE'))
 )             
-SELECT tskinfo.*,  
-  tskdtl.disposition,
-  dvw.report_label disposition_label,
-  tskdtl.caller_name,
-  tskdtl.date_state_notified,
-  tskdtl.for_cause_reason,
-  tskdtl.member_name,
-  tskdtl.for_cause_notes,
-  tskdtl.requested_plan,
-  tskdtl.requested_effective_date,
-  tskdtl.district_disposition,
-  distvw.report_label district_disposition_label,
-  tskdtl.medicaid_id,
-  rvw.report_label for_cause_reason_label,
-  cldtl.consumer_date_of_birth,
-  cldtl.case_number,
-  cldtl.consumer_role,
-  enrl.plan_name,
-  enrl.enroll_status,
-  enrl.txn_status_date  
+SELECT  tskinfo.sr_id,
+ tskinfo.project_id,
+ tskinfo.task_type_id,
+ tskinfo.task_name,
+ tskinfo.task_status, 
+ tskinfo.created_on,
+ tskinfo.updated_on,
+ tskinfo.default_due_date,
+ tskinfo.hold_reason,
+ tskinfo.hold_reason_label,
+ tskinfo.staff_assigned_to,
+ tskinfo.created_by,
+ tskinfo.staff_created_by_name,
+ tskinfo.task_info,
+ tskinfo.task_notes,
+ tskinfo.case_id,
+ tskdtl.disposition,
+ dvw.report_label disposition_label,
+ tskdtl.caller_name,
+ tskdtl.date_state_notified,
+ tskdtl.for_cause_reason,
+ tskdtl.member_name,
+ tskdtl.for_cause_notes,
+ tskdtl.requested_plan,
+ tskdtl.requested_effective_date,
+ tskdtl.district_disposition,
+ distvw.report_label district_disposition_label,
+ tskdtl.medicaid_id,
+ rvw.report_label for_cause_reason_label,
+ cldtl.consumer_date_of_birth,
+ cldtl.case_number,
+ cldtl.consumer_role,
+ enrl.plan_name,
+ enrl.enroll_status,
+ enrl.txn_status_date,
+ tskinfo.task_status_date task_status_datetime,
+ CAST(tskinfo.task_status_date AS DATE) task_status_date
 FROM tskinfo  
   LEFT JOIN marsdb.marsdb_enum_hold_reasons_vw hrvw ON tskinfo.hold_reason = hrvw.value AND tskinfo.project_id = hrvw.project_id
   LEFT JOIN tskdtl ON tskinfo.sr_id = tskdtl.task_id AND tskinfo.project_id = tskdtl.project_id  

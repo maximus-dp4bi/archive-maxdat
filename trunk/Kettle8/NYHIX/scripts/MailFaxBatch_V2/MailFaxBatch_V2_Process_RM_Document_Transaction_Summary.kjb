@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>MailFaxBatch_V2_Process_Image_Trust</name>
+  <name>MailFaxBatch_V2_Process_RM_Document_Transaction_Summary</name>
   <description/>
   <extended_description>---------------------------------
 SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Stg_Remote_OLTP.kjb $ 
@@ -328,13 +328,13 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Run Image Trust?</name>
+      <name>Run RM Document Transaction Summary?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
       <valuetype>variable</valuetype>
       <fieldname/>
-      <variablename>MFB_V2_IMAGE_TRUST_RUN_FLAG</variablename>
+      <variablename>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</variablename>
       <fieldtype>string</fieldtype>
       <mask/>
       <comparevalue>Y</comparevalue>
@@ -352,13 +352,13 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Truncate Image Trust OLTP</name>
+      <name>Truncate RM Document Transaction Summary OLTP</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Truncate_Image_Trust_OLTP.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Truncate_RM_Document_Transaction_Summary_OLTP.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -391,13 +391,13 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</name>
+      <name>MailFaxBatch_V2_Run_RM_DOC_TRANS_SUMMARY_PLSQL</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL_Package.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Run_RM_DOC_TRANS_SUMMARY_PLSQL_Package.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -425,18 +425,18 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>752</xloc>
+      <xloc>736</xloc>
       <yloc>352</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>MailFaxBatch_V2_Image_Trust_SB_OLTP</name>
+      <name>MailFaxBatch_V2_RM_Document_Transaction_Summary_OLTP</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Image_Trust_SB_OLTP.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_RM_Document_Transaction_Summary_OLTP.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -471,7 +471,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
   </entries>
   <hops>
     <hop>
-      <from>Run Image Trust?</from>
+      <from>Run RM Document Transaction Summary?</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -481,7 +481,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     </hop>
     <hop>
       <from>START</from>
-      <to>Run Image Trust?</to>
+      <to>Run RM Document Transaction Summary?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -489,8 +489,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Run Image Trust?</from>
-      <to>Truncate Image Trust OLTP</to>
+      <from>Run RM Document Transaction Summary?</from>
+      <to>Truncate RM Document Transaction Summary OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -498,8 +498,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Truncate Image Trust OLTP</from>
-      <to>MailFaxBatch_V2_Image_Trust_SB_OLTP</to>
+      <from>Truncate RM Document Transaction Summary OLTP</from>
+      <to>MailFaxBatch_V2_RM_Document_Transaction_Summary_OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -507,8 +507,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MailFaxBatch_V2_Image_Trust_SB_OLTP</from>
-      <to>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</to>
+      <from>MailFaxBatch_V2_RM_Document_Transaction_Summary_OLTP</from>
+      <to>MailFaxBatch_V2_Run_RM_DOC_TRANS_SUMMARY_PLSQL</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -516,7 +516,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</from>
+      <from>MailFaxBatch_V2_Run_RM_DOC_TRANS_SUMMARY_PLSQL</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>

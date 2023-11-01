@@ -31,7 +31,8 @@ SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, en
       ELSE enrl.selection_reason END assignment_type,
       enrl.selection_reason    
 FROM marsdb.marsdb_enrollments_vw enrl
-  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
+  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+    AND disenrl.status = 'DISENROLLED' --AND disenrl.plan_end_date_reason IS NOT NULL
   LEFT JOIN ce ON enrl.consumer_id = ce.consumer_id AND enrl.project_id = ce.project_id 
   LEFT JOIN marsdb.marsdb_consumer_vw cnvw ON enrl.consumer_id = cnvw.consumer_id AND enrl.project_id = cnvw.project_id
   JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id  

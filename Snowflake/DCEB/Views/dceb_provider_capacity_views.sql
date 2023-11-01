@@ -30,6 +30,17 @@ FROM (SELECT p.provider_name
       --AND state_code = 'DC'
      ) x 
 WHERE x.rn = 1),
+enrlpr AS(
+   SELECT project_id,provider_type,provider_npi,plan_code,COUNT(DISTINCT consumer_id) enrolled_count
+   FROM(SELECT pr.project_id, provider_type,pr.provider_npi,en.plan_code,en.consumer_id,en.status,en.start_date,en.end_date
+        FROM marsdb.marsdb_enrollments_vw en
+          JOIN marsdb.marsdb_enrollment_provider_vw pr ON en.enrollment_id = pr.enrollment_id AND en.project_id = pr.project_id
+          JOIN marsdb.marsdb_project_vw p ON pr.project_id = p.project_id
+        WHERE p.project_name = 'DC-EB'
+        AND en.status = 'ACCEPTED'
+        AND current_date() BETWEEN CAST(en.start_date AS DATE) AND CAST(en.end_date AS DATE)
+        QUALIFY ROW_NUMBER() OVER(PARTITION BY pr.enrollment_id,pr.provider_type ORDER BY pr.enrollment_provider_id DESC) = 1)
+   GROUP BY project_id,provider_type,provider_npi,plan_code),
 prov AS(
 SELECT DISTINCT provider_name, plan_name, provider_type_cd, provider_type, pcp_flag, cumulative_enrolled, capacity
 FROM(
@@ -38,7 +49,7 @@ SELECT DISTINCT pn.provider_name
       ,ptvw.provider_type_cd
       ,etvw.report_label AS provider_type
       ,pn.pcp_flag
-      ,COALESCE(etl.cumulative_enrolled,0) AS cumulative_enrolled
+      ,COALESCE(etl.cumulative_enrolled,0) + COALESCE(enrlpr.enrolled_count,0) AS cumulative_enrolled
       ,'2000' AS capacity
       ,pn.npi
       ,mco.scope
@@ -54,6 +65,7 @@ FROM (SELECT CASE WHEN pn.first_name IS NULL AND pn.last_name IS NOT NULL THEN U
   LEFT JOIN marsdb.marsdb_enum_plan_name_vw mco ON (mco.value = pn.plan_code and mco.project_id = p.project_id)
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) sp ON mco.scope = sp.value AND pn.project_id = sp.project_id 
   LEFT JOIN etl ON (UPPER(etl.provider_name)= pn.provider_name AND etl.plan_name = mco.report_label AND etl.plan_provider_number = pn.state_provider_id)
+  LEFT JOIN enrlpr ON enrlpr.provider_npi = pn.npi AND enrlpr.plan_code = mco.value AND enrlpr.project_id = pn.project_id AND enrlpr.provider_type = ptvw.provider_type_cd
 WHERE p.project_name = 'DC-EB'
 --UNION ALL
 --SELECT *

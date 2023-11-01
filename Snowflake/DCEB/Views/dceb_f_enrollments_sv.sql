@@ -1,20 +1,23 @@
 CREATE OR REPLACE VIEW dceb.dceb_f_enrollments_sv AS
 WITH enrl AS(
 SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, enrl.end_date,enrl.status, CAST(enrl.txn_status_date AS DATE) txn_status_date
-   ,enrl.plan_code,enrl.enrollment_type,enrl.sub_program_type_cd,enrl.channel,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
+   ,enrl.plan_code,enrl.enrollment_type,enrl.sub_program_type_cd,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
    ,enrl.service_region_code,CASE WHEN disenrl.enrollment_id IS NOT NULL THEN 'T' ELSE 'N' END transfer_or_new_enroll
-   ,CAST(enrl.created_on AS DATE) created_on_date
+   ,CAST(enrl.created_on AS DATE) created_on_date   
+   ,CASE WHEN enrl.channel = 'SYSTEM_INTEGRATION' AND disenrl.channel = 'SYSTEM_INTEGRATION' THEN 'MMIS_TRANSFER'  ELSE enrl.channel END channel   
 FROM marsdb.marsdb_enrollments_vw enrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id
-  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
+  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+    AND disenrl.status = 'DISENROLLED' --AND (disenrl.plan_end_date_reason IS NOT NULL OR (enrl.channel = 'SYSTEM_INTEGRATION' AND disenrl.channel = 'SYSTEM_INTEGRATION' ) )
 WHERE p.project_name = 'DC-EB'
 AND enrl.status IN('ACCEPTED')
 QUALIFY ROW_NUMBER() OVER(PARTITION BY enrl.project_id, enrl.enrollment_id,enrl.start_date,enrl.end_date ORDER BY enrl.enrollment_id,disenrl.enrollment_id) = 1
 UNION ALL
 SELECT disenrl.project_id,disenrl.enrollment_id, disenrl.consumer_id, disenrl.start_date, disenrl.end_date,disenrl.status, CAST(disenrl.txn_status_date AS DATE) txn_status_date
-   ,disenrl.plan_code,disenrl.enrollment_type,disenrl.sub_program_type_cd,disenrl.channel,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
+   ,disenrl.plan_code,disenrl.enrollment_type,disenrl.sub_program_type_cd,disenrl.enrollment_id disenrl_enrollment_id,disenrl.plan_end_date_reason
    ,disenrl.service_region_code,'D' transfer_or_new_enroll
    ,CAST(disenrl.created_on AS DATE) created_on_date
+   ,channel 
 FROM marsdb.marsdb_enrollments_vw disenrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = disenrl.project_id
 WHERE p.project_name = 'DC-EB'
@@ -34,9 +37,9 @@ COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' THEN evw.consumer_id 
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' THEN evw.consumer_id ELSE NULL END) transfer_count,
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION') THEN evw.consumer_id ELSE NULL END) transfer_auto_assign_count,
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION') THEN evw.consumer_id ELSE NULL END) new_enroll_auto_assign_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') THEN evw.consumer_id ELSE NULL END) transfer_voluntary_choice_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') THEN evw.consumer_id ELSE NULL END) new_enroll_voluntary_choice_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel IN('STATE_ELIGIBILITY_SYSTEM') THEN evw.consumer_id ELSE NULL END) transfer_mmis_count,
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') THEN evw.consumer_id ELSE NULL END) transfer_voluntary_choice_count,
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION') THEN evw.consumer_id ELSE NULL END) new_enroll_voluntary_choice_count,
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel IN('MMIS_TRANSFER') THEN evw.consumer_id ELSE NULL END) transfer_mmis_count,
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND baddr.address_id IS NOT NULL THEN evw.consumer_id ELSE NULL END ) transfer_bad_address_exclusion,
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND baddr.address_id IS NOT NULL THEN evw.consumer_id ELSE NULL END ) new_enroll_bad_address_exclusion,
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND bp.phone_id IS NOT NULL THEN evw.consumer_id ELSE NULL END ) transfer_bad_phone_exclusion,
@@ -51,27 +54,27 @@ COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel = 'SE
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel = 'SELECTION_FROM_IN_MAIL' THEN evw.consumer_id ELSE NULL END) new_enroll_mail_enrollment_count,  
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel = 'OUTREACH' THEN evw.consumer_id ELSE NULL END) transfer_outreach_enrollment_count,    
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel = 'OUTREACH' THEN evw.consumer_id ELSE NULL END) new_enroll_outreach_enrollment_count,   
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('PHONE','WEB','SELECTION_FROM_IN_MAIL','OUTREACH','AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('PHONE','WEB','SELECTION_FROM_IN_MAIL','OUTREACH','AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   THEN evw.consumer_id ELSE NULL END) transfer_other_enrollment_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('PHONE','WEB','SELECTION_FROM_IN_MAIL','OUTREACH','AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('PHONE','WEB','SELECTION_FROM_IN_MAIL','OUTREACH','AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   THEN evw.consumer_id ELSE NULL END) new_enroll_other_enrollment_count,          
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'NORTHWEST' THEN evw.consumer_id ELSE NULL END) qnorthwest_voluntary_transfer_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'NORTHEAST' THEN evw.consumer_id ELSE NULL END) qnortheast_voluntary_transfer_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'SOUTHWEST' THEN evw.consumer_id ELSE NULL END) qsouthwest_voluntary_transfer_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'T' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'SOUTHEAST' THEN  evw.consumer_id ELSE NULL END)  qsoutheast_voluntary_transfer_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM')
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER')
   AND UPPER(service_region_code) = 'NORTHWEST' THEN evw.consumer_id ELSE NULL END) qnorthwest_voluntary_newenroll_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'NORTHEAST' THEN evw.consumer_id ELSE NULL END) qnortheast_voluntary_newenroll_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM')
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER')
   AND UPPER(service_region_code) = 'SOUTHWEST' THEN evw.consumer_id ELSE NULL END) qsouthwest_voluntary_newenroll_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','STATE_ELIGIBILITY_SYSTEM') 
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'N' AND evw.channel NOT IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION','MMIS_TRANSFER') 
   AND UPPER(service_region_code) = 'SOUTHEAST' THEN evw.consumer_id ELSE NULL END)  qsoutheast_voluntary_newenroll_count,
-COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'D' AND evw.channel IN('STATE_ELIGIBILITY_SYSTEM') THEN evw.consumer_id ELSE NULL END) disenrollment_mmis_count,  
+COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'D' AND evw.channel IN('SYSTEM_INTEGRATION') THEN evw.consumer_id ELSE NULL END) disenrollment_mmis_count,  
 COUNT (DISTINCT CASE WHEN evw.transfer_or_new_enroll = 'D' THEN evw.consumer_id ELSE NULL END) disenrollment_count,
 created_on_date
 FROM enrl evw     
@@ -187,7 +190,7 @@ pnvw.report_label plan_name,
 d_date created_on_date
 FROM public.d_dates d
    JOIN marsdb.marsdb_project_vw p ON p.project_id = d.project_id
-   JOIN marsdb.marsdb_enum_sub_program_type_vw stvw ON d.project_id = stvw.project_id
+   JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) stvw ON d.project_id = stvw.project_id
    JOIN marsdb.marsdb_enum_plan_name_vw pnvw ON d.project_id = pnvw.project_id AND stvw.value = pnvw.scope
    --JOIN marsdb.marsdb_enum_enrollment_type_vw etvw ON d.project_id = etvw.project_id 
 WHERE p.project_name = 'DC-EB'

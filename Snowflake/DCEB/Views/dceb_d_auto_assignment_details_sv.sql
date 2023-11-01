@@ -29,7 +29,8 @@ SELECT enrl.project_id,enrl.enrollment_id, enrl.consumer_id, enrl.start_date, en
    ,enrl.selection_reason
 FROM marsdb.marsdb_enrollments_vw enrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = enrl.project_id
-  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND disenrl.status LIKE 'DISENR%' AND disenrl.plan_end_date_reason IS NOT NULL
+  LEFT JOIN marsdb.marsdb_enrollments_vw disenrl ON disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+    AND disenrl.status = 'DISENROLLED' --AND disenrl.plan_end_date_reason IS NOT NULL
 WHERE p.project_name = 'DC-EB'
 AND enrl.status = 'ACCEPTED'
 AND enrl.channel IN('AUTO_ASSIGNMENT','SYSTEM_INTEGRATION')

@@ -1,23 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>MailFaxBatch_V2_Process_Image_Trust</name>
+  <name>MailFaxBatch_V2_Check_DB_Connections_RM_Document_Transaction_Summary</name>
   <description/>
-  <extended_description>---------------------------------
-SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Stg_Remote_OLTP.kjb $ 
-SVN_REVISION        = $Revision: 28280 $ 
-SVN_REVISION_DATE   = $Date: 2019-11-01 18:43:23 -0400 (Fri, 01 Nov 2019) $
-SVN_REVISION_AUTHOR = $Author: aa24065 $
+  <extended_description>
+
+Do not edit these four SVN_* variable values.  They are populated when you commit code to SVN and used later to identify deployed code.
+
 ---------------------------------
+
+SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Check_DB_Connections_Central.kjb $ 
+
+SVN_REVISION        = $Revision: 28280 $ 
+
+SVN_REVISION_DATE   = $Date: 2019-11-01 15:43:23 -0700 (Fri, 01 Nov 2019) $
+
+SVN_REVISION_AUTHOR = $Author: aa24065 $
+
+---------------------------------
+
 </extended_description>
   <job_version/>
   <job_status>0</job_status>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2013/07/18 14:52:44.613</created_date>
+  <created_date>2012/07/21 07:56:02.702</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2013/07/18 14:52:44.613</modified_date>
+  <modified_date>2012/07/21 07:56:02.702</modified_date>
   <parameters>
     </parameters>
+  <connection>
+    <name>RM_DOC_TRANS_SUMM</name>
+    <server>UVAADMMSQL02HIX.maxcorp.maximus</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>KofaxCentralDEV</database>
+    <port>1433</port>
+    <username>Kofax11_MAXDAT_ETL</username>
+    <password>Encrypted 2be98f1800ff782c1ed5ff9288fd6ebe4</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1433</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <slaveservers>
     </slaveservers>
   <job-log-table>
@@ -311,8 +376,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>32</xloc>
-      <yloc>48</yloc>
+      <xloc>48</xloc>
+      <yloc>96</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -323,18 +388,99 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>352</yloc>
+      <xloc>544</xloc>
+      <yloc>179</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Run Image Trust?</name>
+      <name>Mail - db connection failure abort</name>
+      <description/>
+      <type>MAIL</type>
+      <attributes/>
+      <server>${EMAIL_SMTP}</server>
+      <port>${EMAIL_PORT}</port>
+      <destination>${EMAIL_DESTINATION}</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>${EMAIL_SENDER}</replyto>
+      <replytoname/>
+      <subject>${EMAIL_SUBJECT_DB}</subject>
+      <include_date>Y</include_date>
+      <contact_person/>
+      <contact_phone/>
+      <comment>A DB Connection failed, Aborting bpm run</comment>
+      <include_files>Y</include_files>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>N</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user/>
+      <auth_password>Encrypted </auth_password>
+      <only_comment>N</only_comment>
+      <use_HTML>N</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <filetypes>
+        <filetype>GENERAL</filetype>
+        <filetype>LOG</filetype>
+        <filetype>ERRORLINE</filetype>
+        <filetype>ERROR</filetype>
+        <filetype>WARNING</filetype>
+      </filetypes>
+      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>186</xloc>
+      <yloc>262</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Abort job</name>
+      <description/>
+      <type>ABORT</type>
+      <attributes/>
+      <message/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>176</xloc>
+      <yloc>432</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Check Db connections</name>
+      <description/>
+      <type>CHECK_DB_CONNECTIONS</type>
+      <attributes/>
+      <connections>
+        <connection>
+          <name>RM_DOC_TRANS_SUMM</name>
+          <waitfor>0</waitfor>
+          <waittime>millisecond</waittime>
+        </connection>
+      </connections>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>189</xloc>
+      <yloc>175</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Run RM Document Transaction Summary?</name>
       <description/>
       <type>SIMPLE_EVAL</type>
       <attributes/>
       <valuetype>variable</valuetype>
       <fieldname/>
-      <variablename>MFB_V2_IMAGE_TRUST_RUN_FLAG</variablename>
+      <variablename>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</variablename>
       <fieldtype>string</fieldtype>
       <mask/>
       <comparevalue>Y</comparevalue>
@@ -347,132 +493,15 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>48</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Truncate Image Trust OLTP</name>
-      <description/>
-      <type>TRANS</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Truncate_Image_Trust_OLTP.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>736</xloc>
-      <yloc>48</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</name>
-      <description/>
-      <type>TRANS</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL_Package.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>752</xloc>
-      <yloc>352</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>MailFaxBatch_V2_Image_Trust_SB_OLTP</name>
-      <description/>
-      <type>TRANS</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Image_Trust_SB_OLTP.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <suppress_result_data>N</suppress_result_data>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>736</xloc>
-      <yloc>208</yloc>
+      <xloc>189</xloc>
+      <yloc>90</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
   <hops>
     <hop>
-      <from>Run Image Trust?</from>
-      <to>Success</to>
+      <from>Check Db connections</from>
+      <to>Mail - db connection failure abort</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -480,17 +509,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>START</from>
-      <to>Run Image Trust?</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Run Image Trust?</from>
-      <to>Truncate Image Trust OLTP</to>
+      <from>Mail - db connection failure abort</from>
+      <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -498,25 +518,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Truncate Image Trust OLTP</from>
-      <to>MailFaxBatch_V2_Image_Trust_SB_OLTP</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>MailFaxBatch_V2_Image_Trust_SB_OLTP</from>
-      <to>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>MailFaxBatch_V2_Run_IMAGE_TRUST_PLSQL</from>
+      <from>Check Db connections</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -524,19 +526,35 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
+    <hop>
+      <from>START</from>
+      <to>Run RM Document Transaction Summary?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Run RM Document Transaction Summary?</from>
+      <to>Check Db connections</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Run RM Document Transaction Summary?</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
   </hops>
   <notepads>
   </notepads>
-  <attributes>
-    <group>
-      <name>METASTORE.pentaho</name>
-      <attribute>
-        <key>Default Run Configuration</key>
-        <value>{"namespace":"pentaho","id":"Default Run Configuration","name":"Default Run Configuration","description":"Defines a default run configuration","metaStoreName":null}</value>
-      </attribute>
-    </group>
-    <group>
-      <name>{"_":"Embedded MetaStore Elements","namespace":"pentaho","type":"Default Run Configuration"}</name>
-    </group>
-  </attributes>
+  <attributes/>
 </job>
