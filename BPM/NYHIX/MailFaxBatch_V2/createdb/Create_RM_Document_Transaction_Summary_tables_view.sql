@@ -69,8 +69,8 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW MAXDAT.RM_Doc_Transaction_Summary_SV (f
   select 
     function_name,
 	mailroom_received_dt,
-	to_date(insertts, 'mm/dd/yyyy hh24:mi:ss') insertts,
-	to_date(request_receiveddate, 'mm/dd/yyyy hh24:mi:ss') request_receiveddate,
+	to_date(insertts, 'yyyy-mm-dd hh24:mi:ss') insertts,
+	to_date(request_receiveddate, 'yyyy-mm-dd hh24:mi:ss') request_receiveddate,
 	ecn,
 	response_code,
 	step_name,
