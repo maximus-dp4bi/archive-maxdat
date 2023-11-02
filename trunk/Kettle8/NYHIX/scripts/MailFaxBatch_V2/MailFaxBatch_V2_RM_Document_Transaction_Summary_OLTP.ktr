@@ -735,9 +735,9 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
 	batch_name,
 	uuid,
 	pdf_name
- from dbo.RM_Document_Transaction_Summary rm
-WHERE rm."insertts">= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
-or rm."request_receiveddate">= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
+ from dbo.RM_Document_Transaction_Summary 
+WHERE convert(date,insertts) >= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
+or convert(date,request_receiveddate) >= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
 </sql>
     <limit>0</limit>
     <lookup/>
