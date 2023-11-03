@@ -447,7 +447,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     <server>${DB_RM_DOC_TRANS_SUMM_HOSTNAME}</server>
     <type>MSSQL</type>
     <access>Native</access>
-    <database>${DB_RM_DOC_TRANS_SUMM_INSTANCE}</database>
+    <database>${DB_RM_DOC_TRANS_SUMM_DB}</database>
     <port>${DB_RM_DOC_TRANS_SUMM_PORT}</port>
     <username>${DB_RM_DOC_TRANS_SUMM_USER}</username>
     <password>${DB_RM_DOC_TRANS_SUMM_PASSWORD}</password>
@@ -724,7 +724,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <schema_name/>
     </partitioning>
     <connection>DB_RM_DOC_TRANS_SUMM</connection>
-    <sql>SELECT
+    <sql>
+SELECT
     function_name,
 	mailroom_received_date,
 	insertts,
@@ -737,7 +738,7 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
 	pdf_name
  from dbo.RM_Document_Transaction_Summary 
 WHERE convert(date,insertts) >= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
-or convert(date,request_receiveddate) >= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}')
+or convert(date,request_receiveddate) >= convert(date,'${MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE}');
 </sql>
     <limit>0</limit>
     <lookup/>

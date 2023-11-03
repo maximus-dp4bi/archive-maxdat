@@ -26,7 +26,7 @@ FROM (SELECT p.provider_name
             FROM marsdb.marsdb_etl_prov_stg_dceb p) p
       LEFT JOIN marsdb.marsdb_enum_plan_name_vw mco ON (mco.project_id = 120 and p.provider_number = LPAD(TO_CHAR(mco.value),10,'0'))
       LEFT JOIN marsdb.marsdb_enum_provider_type_vw etvw ON (p.provider_type = etvw.value and etvw.project_id = 120)
-      WHERE error_text IS NULL
+      --WHERE error_text IS NULL
       --AND state_code = 'DC'
      ) x 
 WHERE x.rn = 1),
@@ -64,7 +64,7 @@ FROM (SELECT CASE WHEN pn.first_name IS NULL AND pn.last_name IS NOT NULL THEN U
   LEFT JOIN marsdb.marsdb_enum_provider_type_vw etvw ON (ptvw.provider_type_cd = etvw.value and etvw.project_id = p.project_id)
   LEFT JOIN marsdb.marsdb_enum_plan_name_vw mco ON (mco.value = pn.plan_code and mco.project_id = p.project_id)
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) sp ON mco.scope = sp.value AND pn.project_id = sp.project_id 
-  LEFT JOIN etl ON (UPPER(etl.provider_name)= pn.provider_name AND etl.plan_name = mco.report_label AND etl.plan_provider_number = pn.state_provider_id)
+  LEFT JOIN etl ON (UPPER(etl.provider_name)= pn.provider_name AND etl.plan_name = mco.report_label ) --AND etl.plan_provider_number = pn.state_provider_id)
   LEFT JOIN enrlpr ON enrlpr.provider_npi = pn.npi AND enrlpr.plan_code = mco.value AND enrlpr.project_id = pn.project_id AND enrlpr.provider_type = ptvw.provider_type_cd
 WHERE p.project_name = 'DC-EB'
 --UNION ALL
@@ -82,8 +82,9 @@ WHERE  p.project_name = 'DC-EB'
 AND enrl.status = 'ACCEPTED'
 AND current_date() BETWEEN CAST(enrl.start_date AS DATE) AND CAST(enrl.end_date AS DATE)
 GROUP BY enrl.sub_program_type_cd, sp.report_label, enrl.start_date, enrl.end_date, enrl.plan_code, pn.report_label)
-SELECT provider_name,plan_name,provider_type_cd,provider_type,pcp_flag,cumulative_enrolled,capacity
+SELECT provider_name,plan_name,provider_type_cd,provider_type,pcp_flag,SUM(cumulative_enrolled) cumulative_enrolled,capacity
 FROM prov
+GROUP BY provider_name,plan_name,provider_type_cd,provider_type,pcp_flag,capacity
 UNION ALL
 SELECT 'No Dentist Assigned' provider_name,penrl.plan_name,'D','Dental','N',SUM(plan_enrolled_count) - COALESCE(prov_enrolled,0) cumulative_enrolled,'2000' capacity
 FROM penrl

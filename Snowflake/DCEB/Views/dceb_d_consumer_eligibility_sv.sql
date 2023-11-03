@@ -102,7 +102,8 @@ FROM marsdb.marsdb_enrollments_vw disenrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = disenrl.project_id
 WHERE p.project_name = 'DC-EB'
 AND disenrl.status = 'DISENROLLED'
-AND NOT EXISTS(SELECT 1 FROM marsdb.marsdb_enrollments_vw enrl WHERE disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND enrl.status IN('ACCEPTED','SELECTION_MADE','SUBMITTED_TO_STATE'))
+AND NOT EXISTS(SELECT 1 FROM marsdb.marsdb_enrollments_vw enrl WHERE disenrl.project_id = enrl.project_id 
+  AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND enrl.status IN('ACCEPTED'))
 )
 SELECT ce.project_id,
  ce.core_eligibility_segments_id,
@@ -151,7 +152,17 @@ SELECT ce.project_id,
       WHEN ce.coverage_code IN ('774D','271','774') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age >= 65 THEN 'Overage for Adult Medicaid (>=65), program codes 271, 774, 774D'
       WHEN ce.coverage_code IN ('221','720','921','120') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age >= 21 THEN 'Overage for Child Medicaid (>=21)'
       WHEN CAST(ce.eligibility_start_date AS DATE) >= ADD_MONTHS(LAST_DAY(current_date()),3) +1 AND ce_future_elig.core_eligibility_segments_id IS NULL THEN 'Future eligibility w/o current'
-   ELSE NULL END esa_reason   
+   ELSE NULL END esa_reason,
+ CASE WHEN coverage_code_label = 'Deemed Newborn' THEN 
+   CASE WHEN sub_program_type_cd LIKE '%ALL%' THEN 'Alliance' ELSE 'Medicaid' END 
+  ELSE NULL END newborn_elig_type, 
+ CASE WHEN coverage_code_label = 'Deemed Newborn' THEN 
+   CASE WHEN sub_program_type_cd LIKE '%ALL%' THEN
+     CASE WHEN DATE_PART(day,ce.consumer_date_of_birth) > 15 
+        THEN ADD_MONTHS(LAST_DAY(ce.consumer_date_of_birth),1) +1
+     ELSE LAST_DAY(ce.consumer_date_of_birth) + 1  END                            
+   ELSE ce.consumer_date_of_birth END 
+ ELSE NULL END newborn_calculated_enroll_start_date
 FROM ce 
   LEFT JOIN claddr csaddr ON ce.case_hoh_consumer_id = csaddr.external_ref_id AND ce.project_id = csaddr.project_id  
   LEFT JOIN claddr ON ce.consumer_id = claddr.external_ref_id AND ce.project_id = claddr.project_id

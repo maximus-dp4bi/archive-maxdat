@@ -87,7 +87,8 @@ FROM marsdb.marsdb_enrollments_vw disenrl
   JOIN marsdb.marsdb_project_vw p ON p.project_id = disenrl.project_id
 WHERE p.project_name = 'DC-EB'
 AND disenrl.status = 'DISENROLLED'
-AND NOT EXISTS(SELECT 1 FROM marsdb.marsdb_enrollments_vw enrl WHERE disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date AND enrl.status IN('ACCEPTED','SELECTION_MADE','SUBMITTED_TO_STATE'))
+AND NOT EXISTS(SELECT 1 FROM marsdb.marsdb_enrollments_vw enrl WHERE disenrl.project_id = enrl.project_id AND disenrl.consumer_id = enrl.consumer_id AND disenrl.end_date + 1 = enrl.start_date 
+  AND enrl.status IN('ACCEPTED'))
 )
 SELECT t.task_id
       ,t.task_status

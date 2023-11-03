@@ -65,10 +65,10 @@ CREATE INDEX MAXDAT.IDX7_RM_Doc_Trans_summ_OLTP_uid ON MAXDAT.RM_Document_Transa
   
 -------------------------------------------------------------------
 --Create db view RM_Doc_Transaction_Summary_SV
-CREATE OR REPLACE FORCE EDITIONABLE VIEW MAXDAT.RM_Doc_Transaction_Summary_SV (function_name,mailroom_received_dt,insertts,request_receiveddate,ecn,response_code,step_name,batch_name,uuid,pdf_name) AS 
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "MAXDAT"."RM_DOC_TRANSACTION_SUMMARY_SV" ("FUNCTION_NAME", "MAILROOM_RECEIVED_DT", "INSERTTS", "REQUEST_RECEIVEDDATE", "ECN", "RESPONSE_CODE", "STEP_NAME", "BATCH_NAME", "UUID", "PDF_NAME") AS 
   select 
     function_name,
-	mailroom_received_dt,
+	to_date(substr(mailroom_received_dt,1,10),'yyyy-mm-dd') mailroom_received_dt,
 	to_date(insertts, 'yyyy-mm-dd hh24:mi:ss') insertts,
 	to_date(request_receiveddate, 'yyyy-mm-dd hh24:mi:ss') request_receiveddate,
 	ecn,
@@ -80,6 +80,6 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW MAXDAT.RM_Doc_Transaction_Summary_SV (f
  from MAXDAT.RM_Document_Transaction_Summary;
 
 
-  GRANT SELECT ON MAXDAT.RM_Doc_Transaction_Summary_SV TO MAXDAT_READ_ONLY;
-  GRANT SELECT ON MAXDAT.RM_Doc_Transaction_Summary_SV TO MAXDAT_OLTP_SIUD;
-  GRANT SELECT ON MAXDAT.RM_Doc_Transaction_Summary_SV TO MAXDAT_OLTP_SIU;  
+  GRANT SELECT ON "MAXDAT"."RM_DOC_TRANSACTION_SUMMARY_SV" TO "MAXDAT_READ_ONLY";
+  GRANT SELECT ON "MAXDAT"."RM_DOC_TRANSACTION_SUMMARY_SV" TO "MAXDAT_OLTP_SIUD";
+  GRANT SELECT ON "MAXDAT"."RM_DOC_TRANSACTION_SUMMARY_SV" TO "MAXDAT_OLTP_SIU";
