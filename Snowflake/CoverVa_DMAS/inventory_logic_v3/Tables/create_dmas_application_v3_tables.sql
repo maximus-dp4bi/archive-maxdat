@@ -59,7 +59,8 @@ nma_state_first_date TIMESTAMP_NTZ(9),
 complete_state_first_date TIMESTAMP_NTZ(9),
 previous_processing_end_date DATE,
 previous_initial_review_date DATE,
-previous_current_state VARCHAR
+previous_current_state VARCHAR,
+remove_from_inventory VARCHAR
 );
 
 alter table COVERVA_DMAS.DMAS_Application_V3_Inventory add primary key (DMAS_Application_ID);
@@ -126,7 +127,8 @@ approved_state_first_date TIMESTAMP_NTZ(9),
 denied_state_first_date TIMESTAMP_NTZ(9),
 ttldss_state_first_date TIMESTAMP_NTZ(9),
 nma_state_first_date TIMESTAMP_NTZ(9),
-complete_state_first_date TIMESTAMP_NTZ(9));
+complete_state_first_date TIMESTAMP_NTZ(9),
+remove_from_inventory VARCHAR);
 
 alter table COVERVA_DMAS.DMAS_Application_V3_Current add primary key (DMAS_Application_Current_ID);
 

@@ -12,8 +12,8 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_LIST(INV_FILE_DATE VARCHA
           /* STEP 1: Get list of application IDs */
          
        /* App List from AppMetrics */     
-       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,case_number,applicant_name,file_id,fp_create_dt,file_inventory_date,case_incarcerated_indicator,application_incarcerated_indicator) 
-                 SELECT tracking_number,case_number,applicant_name,file_id,current_timestamp(),file_date,case_incarcerated_indicator,application_incarcerated_indicator 
+       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,case_number,applicant_name,file_id,fp_create_dt,file_inventory_date,case_incarcerated_indicator,application_incarcerated_indicator,remove_from_inventory) 
+                 SELECT tracking_number,case_number,applicant_name,file_id,current_timestamp(),file_date,case_incarcerated_indicator,application_incarcerated_indicator,'N' remove_from_inventory 
                    FROM (SELECT DISTINCT tracking_number,case_number,application_source 
                            ,CASE WHEN (application_type = 'Renewal' AND app_received_date < CAST('04/01/2023' AS DATE))
                               OR (application_type != 'Renewal' AND app_received_date < CAST('03/16/2021' AS DATE)) 
@@ -53,8 +53,8 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_LIST(INV_FILE_DATE VARCHA
        ret_value = strSQLStmt.execute();
        
        /* App List from CM43 */
-       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,applicant_name,file_id,fp_create_dt,file_inventory_date) 
-                SELECT tracking_number, applicant_name,file_id, current_timestamp(),file_date 
+       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,applicant_name,file_id,fp_create_dt,file_inventory_date,remove_from_inventory) 
+                SELECT tracking_number, applicant_name,file_id, current_timestamp(),file_date,'N' remove_from_inventory 
                 FROM (SELECT DISTINCT tracking_number,
                              CASE WHEN (application_type = 'Renewal' AND date_received < CAST('04/01/2023' AS DATE))
                                 OR (application_type != 'Renewal' AND date_received < CAST('03/16/2021' AS DATE)) 
@@ -90,8 +90,8 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_LIST(INV_FILE_DATE VARCHA
        ret_value = strSQLStmt.execute();        
        
        /* App List from RP190 */
-       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,applicant_name,file_id,fp_create_dt,file_inventory_date) 
-                SELECT tracking_number, applicant_name,file_id, current_timestamp(),file_date 
+       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,applicant_name,file_id,fp_create_dt,file_inventory_date,remove_from_inventory) 
+                SELECT tracking_number, applicant_name,file_id, current_timestamp(),file_date,'N' remove_from_inventory 
                 FROM (SELECT DISTINCT tracking_number,CASE WHEN date_received < CAST('03/16/2021' AS DATE) THEN 'Y' ELSE 'N' END ignore_application_indicator  
                              ,name applicant_name,lf.file_id,CAST(lf.file_date AS DATE) file_date 
                        FROM coverva_dmas.rp190_data_full_load rp 
@@ -119,8 +119,8 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_LIST(INV_FILE_DATE VARCHA
        ret_value = strSQLStmt.execute();    
        
        /* App List from CVIU Liaison Smartsheet */
-       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,case_number,file_id,fp_create_dt,file_inventory_date) 
-                SELECT tracking_number,case_number,file_id, current_timestamp(),file_date 
+       strSQLText = `INSERT INTO COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY (tracking_number,case_number,file_id,fp_create_dt,file_inventory_date,remove_from_inventory) 
+                SELECT tracking_number,case_number,file_id, current_timestamp(),file_date,'N' remove_from_inventory 
                 FROM (SELECT DISTINCT tracking_number,case_number,lf.file_id, CAST(lf.file_date AS DATE) file_date                             
                           ,ROW_NUMBER() OVER (PARTITION BY tracking_number ORDER BY lf.file_date DESC,cviu_liaison_id DESC) rnk 
                        FROM coverva_dmas.cviu_liaison_data_full_load cvl JOIN coverva_dmas.dmas_file_log lf ON UPPER(cvl.filename) = lf.filename 
@@ -137,16 +137,25 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_LIST(INV_FILE_DATE VARCHA
        strSQLStmt = snowflake.createStatement({sqlText: strSQLText,binds: [INV_FILE_DATE]});
        ret_value = strSQLStmt.execute();
        
-       /* Remove applications found in Removal List */
-       strSQLText = `DELETE FROM COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY inv
-                     WHERE EXISTS(SELECT 1 FROM application_removal_list_full_load rm WHERE rm.tracking_number = inv.tracking_number );`;
+       /* Remove applications found in Removal List */      
+       
+        strSQLText = `UPDATE COVERVA_DMAS.DMAS_APPLICATION_V3_INVENTORY inv
+                      SET inv.remove_from_inventory = da.remove_from_inventory
+                      FROM(SELECT tracking_number,remove_from_inventory
+                           FROM application_removal_list_full_load
+                           QUALIFY ROW_NUMBER() OVER(PARTITION BY tracking_number ORDER BY date_added DESC) = 1) da
+                      WHERE inv.tracking_number = da.tracking_number;`;
        strSQLStmt = snowflake.createStatement({sqlText: strSQLText});
-       ret_value = strSQLStmt.execute();   
-    
-       strSQLText = `DELETE FROM COVERVA_DMAS.DMAS_APPLICATION_V3_CURRENT inv
-                     WHERE EXISTS(SELECT 1 FROM application_removal_list_full_load rm WHERE rm.tracking_number = inv.tracking_number );`;              
+       ret_value = strSQLStmt.execute(); 
+       
+       strSQLText = `UPDATE COVERVA_DMAS.DMAS_APPLICATION_V3_CURRENT inv
+                      SET inv.remove_from_inventory = da.remove_from_inventory
+                      FROM(SELECT tracking_number,remove_from_inventory
+                           FROM application_removal_list_full_load
+                           QUALIFY ROW_NUMBER() OVER(PARTITION BY tracking_number ORDER BY date_added DESC) = 1) da
+                      WHERE inv.tracking_number = da.tracking_number;`;
        strSQLStmt = snowflake.createStatement({sqlText: strSQLText});
-       ret_value = strSQLStmt.execute();                 
+       ret_value = strSQLStmt.execute();
        
       } 
   catch (err)  {     

@@ -119,7 +119,8 @@ FROM coverva_dmas.dmas_application_v3_inventory da
  LEFT JOIN (SELECT case_number,MAX(fl.file_date) max_auto_closure_date
             FROM coverva_dmas.auto_closure_cases_full_load ccf
                JOIN coverva_dmas.dmas_file_log fl ON UPPER(ccf.filename) = UPPER(fl.filename)
-            GROUP BY case_number) clcf ON clcf.case_number = da.case_number            )
+            GROUP BY case_number) clcf ON clcf.case_number = da.case_number            
+WHERE da.remove_from_inventory = 'N' )
 SELECT inv.t_number,
  inv.maximus_source,
  inv.maximus_source_date,

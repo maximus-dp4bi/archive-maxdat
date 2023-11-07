@@ -6,7 +6,8 @@ CREATE TABLE COVERVA_DMAS.APPLICATION_REMOVAL_LIST_FULL_LOAD(
       Date_Added DATE,
       Removal_Reason VARCHAR,
       Filename VARCHAR,
-      Filename_Prefix VARCHAR);
+      Filename_Prefix VARCHAR,
+      remove_from_inventory VARCHAR);
       
 ALTER TABLE COVERVA_DMAS.APPLICATION_REMOVAL_LIST_FULL_LOAD ADD PRIMARY KEY (app_rm_id);  
 

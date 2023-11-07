@@ -16,13 +16,13 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_CURRENT()
                             Migrated_App_Indicator,Initial_Review_DT_Null_Reason,Last_Employee_Null_Reason,End_Date_Null_Reason,VCL_Due_Date,Intake_Date,Complete_Date,File_Inventory_Date, 
                             maximus_source_date,state_app_received_date,cp_application_type,cm044_verified,non_maximus_initial_date,non_maximus_returned_date,vcl_sent_date,case_type,sd_stage,
                             renewal_closure_date,auto_closure_date,noa_generation_date,application_incarcerated_indicator,case_incarcerated_indicator,status_date,intake_state_first_date,wir_state_first_date,
-                            wfvd_state_first_date,irc_state_first_date,approved_state_first_date,denied_state_first_date,ttldss_state_first_date,nma_state_first_date,complete_state_first_date,actual_app_end_date,denial_reason) 
+                            wfvd_state_first_date,irc_state_first_date,approved_state_first_date,denied_state_first_date,ttldss_state_first_date,nma_state_first_date,complete_state_first_date,actual_app_end_date,denial_reason,remove_from_inventory) 
                 SELECT Tracking_Number,Source,App_Received_Date,Processing_Unit,Application_Type,Current_State,Initial_Review_Complete_Date,  
                    Application_Processing_End_Date,Last_Employee,Applicant_Name,Case_Number,current_timestamp() FP_Create_Dt,current_timestamp() FP_Update_Dt,File_ID,In_CP_Indicator, 
                    Migrated_App_Indicator,Initial_Review_DT_Null_Reason,Last_Employee_Null_Reason,End_Date_Null_Reason,VCL_Due_Date,Intake_Date,Complete_Date,File_Inventory_Date, 
                    maximus_source_date,state_app_received_date,cp_application_type,cm044_verified,non_maximus_initial_date,non_maximus_returned_date,vcl_sent_date,case_type,sd_stage,
                    renewal_closure_date,auto_closure_date,noa_generation_date,application_incarcerated_indicator,case_incarcerated_indicator,status_date,intake_state_first_date,wir_state_first_date,
-                   wfvd_state_first_date,irc_state_first_date,approved_state_first_date,denied_state_first_date,ttldss_state_first_date,nma_state_first_date,complete_state_first_date,actual_app_end_date,denial_reason
+                   wfvd_state_first_date,irc_state_first_date,approved_state_first_date,denied_state_first_date,ttldss_state_first_date,nma_state_first_date,complete_state_first_date,actual_app_end_date,denial_reason,remove_from_inventory
                FROM (SELECT da.*, RANK() OVER (PARTITION BY tracking_number ORDER BY file_inventory_date DESC,dmas_application_id DESC) rnk 
                      FROM coverva_dmas.dmas_application_v3_inventory da) da 
                WHERE rnk = 1 
@@ -78,6 +78,7 @@ create or replace procedure SP_POPULATE_APPLICATION_V3_CURRENT()
                  ,dac.nma_state_first_date = CASE WHEN dac.nma_state_first_date IS NULL THEN da.nma_state_first_date ELSE dac.nma_state_first_date END
                  ,dac.actual_app_end_date = da.actual_app_end_date
                  ,dac.denial_reason = da.denial_reason
+                 ,dac.remove_from_inventory = da.remove_from_inventory
              FROM (SELECT da.*, RANK() OVER (PARTITION BY tracking_number ORDER BY file_inventory_date DESC,dmas_application_id DESC) rnk 
                      FROM coverva_dmas.dmas_application_v3_inventory da 
                        JOIN coverva_dmas.dmas_file_log df ON da.file_id = df.file_id ) da 

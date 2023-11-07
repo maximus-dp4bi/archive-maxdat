@@ -15,8 +15,12 @@ create or replace procedure SP_UPDATE_APPLICATION_V3_SOURCE(INV_FILE_DATE VARCHA
              SET dmas.source = da.application_source,fp_update_dt = current_timestamp() 
              FROM (SELECT da.tracking_number,da.dmas_application_id
                       ,CASE WHEN cvl.cvl_source IS NOT NULL THEN cvl.cvl_source
-                            WHEN o.override_source IS NOT NULL AND LENGTH(regexp_replace(o.override_source,'[^A-Za-z0-9 -:/*]','')) > 1 THEN o.override_source
-                            WHEN da.previous_source IS NOT NULL AND LENGTH(regexp_replace(da.previous_source,'[^A-Za-z0-9 -:/*]','')) > 1 THEN da.previous_source
+                            WHEN o.override_source IS NOT NULL AND LENGTH(REGEXP_REPLACE(o.override_source,'[^A-Za-z0-9 ]',' ')) > 1 THEN
+                              CASE WHEN UPPER(REGEXP_REPLACE(o.override_source,'[^A-Za-z0-9 ]',' ')) LIKE 'PAPER%' THEN 'Paper Application'
+                                ELSE UPPER(REGEXP_REPLACE(o.override_source,'[^A-Za-z0-9 ]',' ')) END
+                            WHEN da.previous_source IS NOT NULL AND LENGTH(REGEXP_REPLACE(da.previous_source,'[^A-Za-z0-9 ]',' ')) > 1 THEN 
+                              CASE WHEN UPPER(REGEXP_REPLACE(da.previous_source,'[^A-Za-z0-9 ]',' ')) LIKE 'PAPER%' THEN 'Paper Application'
+                                ELSE UPPER(REGEXP_REPLACE(da.previous_source,'[^A-Za-z0-9 ]',' ')) END
                          ELSE CASE WHEN UPPER(COALESCE(am.am_source,cmd.cm043_source,rp.rp190_source,cp.channel)) LIKE 'FFM_%' 
                                        THEN UPPER(REPLACE(COALESCE(am.am_source,cmd.cm043_source,rp.rp190_source,cp.channel),'_',' ')) 
                                     WHEN UPPER(COALESCE(am.am_source,cmd.cm043_source,rp.rp190_source,cp.channel)) LIKE 'COMMON%' THEN 'CommonHelp' 

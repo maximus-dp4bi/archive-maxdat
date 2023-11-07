@@ -161,7 +161,7 @@ FROM coverva_dmas.dmas_application_v3_current da
             GROUP BY case_number) clcf ON clcf.case_number = da.case_number            
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edt4 ON CAST(da.state_app_received_date AS DATE) = edt4.ini_date AND edt4.count_bd = 5 AND edt4.project_id = 117
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edt7 ON CAST(da.state_app_received_date AS DATE)= edt7.ini_date AND edt7.count_bd = 8 AND edt7.project_id = 117     
-           )
+WHERE da.remove_from_inventory = 'N' )
 SELECT  inv.t_number,
  inv.maximus_source,
  inv.maximus_source_date,
