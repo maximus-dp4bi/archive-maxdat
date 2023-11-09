@@ -39,7 +39,7 @@ WHERE filename_prefix = 'USER_PRODUCTIVITY_REPORT_';
 INSERT INTO file_load_lkup(filename_prefix,full_load_table_name,full_load_table_schema,insert_fields,select_fields,where_clause,load_file,derive_timestamp_stmt,file_day_received,current_table_name,current_table_primary_key,full_load_table_primary_key) 
  VALUES('USER_PRODUCTIVITY_REPORT_','INEO_CC_USER_PRODUCTIVITY_REPORT_HISTORY','INEO',
 'as_of_date,department,name,last_name,i3_username,offered,answered,abandoned,transferred,time_talk_acd,filename,percent_answered,percent_abandoned,flow_outs,percent_flow_outs,percent_transferred,talk_time_hold_time,talk_time_avg,hold_time,hold_time_avg,acw_time,acw_avg,talkholdacw_duration_time,talkholdacw_avg',
-'TO_DATE(as_of_dt,''yyyymmdd''),department,name,last_name,i3_username,TRY_CAST(offered AS FLOAT),TRY_CAST(answered AS FLOAT),TRY_CAST(abandoned AS FLOAT),TRY_CAST(transferred AS FLOAT),
+'TO_DATE(as_of_dt,''mm/dd/yyyy''),department,name,last_name,i3_username,TRY_CAST(offered AS FLOAT),TRY_CAST(answered AS FLOAT),TRY_CAST(abandoned AS FLOAT),TRY_CAST(transferred AS FLOAT),
 TRY_CAST(time_talk_acd AS FLOAT),filename,TRY_CAST(_answered AS FLOAT),TRY_CAST(_abandoned AS FLOAT),TRY_CAST(flow_outs AS FLOAT),TRY_CAST(_flow_outs AS FLOAT),TRY_CAST(_transferred AS FLOAT),
 TRY_CAST(talk_time_hold_time AS FLOAT),TRY_CAST(talk_time_avg AS FLOAT),TRY_CAST(hold_time AS FLOAT),TRY_CAST(hold_time_avg AS FLOAT),TRY_CAST(acw_time AS FLOAT),
 TRY_CAST(acw_avg AS FLOAT),TRY_CAST(talkholdacw_duration_time AS FLOAT),TRY_CAST(talkholdacw_avg AS FLOAT)',

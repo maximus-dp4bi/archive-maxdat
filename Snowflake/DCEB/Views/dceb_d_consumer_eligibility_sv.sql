@@ -42,7 +42,7 @@ FROM marsdb.marsdb_core_eligibility_vw ce
   LEFT JOIN (SELECT DISTINCT value,report_label,project_id FROM marsdb.marsdb_enum_sub_program_type_vw) sp ON ce.sub_program_type_cd = sp.value AND ce.project_id = sp.project_id 
   LEFT JOIN marsdb.marsdb_enum_enrollment_update_reasons_vw ervw ON ce.eligibility_end_reason = ervw.value AND ce.project_id = ervw.project_id
 WHERE p.project_name = 'DC-EB'
-AND ce.start_date != ce.end_date),
+AND CAST(ce.start_date AS DATE) != CAST(ce.end_date AS DATE)),
 ce_future_elig AS(
 SELECT ce.core_eligibility_segments_id,ce.project_id,ce.consumer_id,ce.coverage_code
 FROM ce
@@ -58,6 +58,11 @@ SELECT project_id,consumer_id,eligibility_end_reason,eligibility_end_reason_labe
 FROM ce
 WHERE eligibility_end_reason = '8X'
 GROUP BY project_id,consumer_id,eligibility_end_reason,eligibility_end_reason_label),
+ce_current_elig AS(
+SELECT ce.core_eligibility_segments_id,ce.project_id,ce.consumer_id,ce.coverage_code
+FROM ce
+WHERE current_date() BETWEEN CAST(eligibility_start_date AS DATE) AND CAST(eligibility_end_date AS DATE)
+QUALIFY ROW_NUMBER() OVER (PARTITION BY project_id,consumer_id ORDER BY ce.core_eligibility_segments_id DESC) = 1 ),
 claddr AS(
 SELECT b.*,co.external_ref_type,co.external_ref_id  
 FROM marsdb.marsdb_address_vw b                      
@@ -162,7 +167,8 @@ SELECT ce.project_id,
         THEN ADD_MONTHS(LAST_DAY(ce.consumer_date_of_birth),1) +1
      ELSE LAST_DAY(ce.consumer_date_of_birth) + 1  END                            
    ELSE ce.consumer_date_of_birth END 
- ELSE NULL END newborn_calculated_enroll_start_date
+ ELSE NULL END newborn_calculated_enroll_start_date,
+ CASE WHEN ce_current_elig.core_eligibility_segments_id IS NULL THEN 'N' ELSE 'Y' END current_elig_ind
 FROM ce 
   LEFT JOIN claddr csaddr ON ce.case_hoh_consumer_id = csaddr.external_ref_id AND ce.project_id = csaddr.project_id  
   LEFT JOIN claddr ON ce.consumer_id = claddr.external_ref_id AND ce.project_id = claddr.project_id
@@ -177,5 +183,6 @@ FROM ce
  LEFT JOIN ce_dr ON ce.consumer_id = ce_dr.consumer_id AND ce.project_id = ce_dr.project_id 
  LEFT JOIN ce_8x ON ce.consumer_id = ce_8x.consumer_id AND ce.project_id = ce_8x.project_id 
  LEFT JOIN ce_future_elig ON ce.consumer_id = ce_future_elig.consumer_id AND ce.project_id = ce_future_elig.project_id
+ LEFT JOIN ce_current_elig ON ce.consumer_id = ce_current_elig.consumer_id AND ce.project_id = ce_current_elig.project_id
 QUALIFY ROW_NUMBER() OVER (PARTITION BY ce.consumer_id,ce.core_eligibility_segments_id ORDER BY ce.core_eligibility_segments_id, enrl.start_date DESC,enrl.enrollment_id DESC) = 1
 ;
