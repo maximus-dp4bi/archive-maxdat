@@ -7,6 +7,8 @@ config.pipeline.debug.global     = false
 
 config.services.notification.methods.email.enabled = true
 config.services.notification.methods.email.to = 'narendrakola@maximus.com'
+//===========CONTAINER DEFINITIONS========================
+config.services.kubernetes.containers.csagent = [:]
 config.services.kubernetes.containers.csagent.resourceLimitEphemeralStorage = '10Gi'
 config.services.kubernetes.containers.csagent.resourceRequestEphemeralStorage = "4Gi"
 //config.pipeline.stages.approvePublish.autoPublish = true
