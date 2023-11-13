@@ -32,8 +32,10 @@ SELECT ce.project_id,ce.core_eligibility_segments_id,ce.consumer_id,ce.coverage_
   ELSE FLOOR((CAST(ce.start_date AS DATE) - CAST(cldtl.consumer_date_of_birth AS DATE))/365) END consumer_age,
  cldtl.medical_assistance_id,
  cldtl.case_number,
- cldtl.consumer_language_preference,
- csdtl.consumer_id case_hoh_consumer_id
+ COALESCE(csdtl.consumer_language_preference,cldtl.consumer_language_preference) consumer_language_preference,
+ csdtl.consumer_id case_hoh_consumer_id,
+ CASE WHEN ce.created_on < cldtl.consumer_date_of_birth THEN 0 
+  ELSE FLOOR((CAST(ce.created_on AS DATE) - CAST(cldtl.consumer_date_of_birth AS DATE))/365) END consumer_age_asof_eligcreation
 FROM marsdb.marsdb_core_eligibility_vw ce
   JOIN marsdb.marsdb_project_vw p ON p.project_id = ce.project_id
   LEFT JOIN cldtl ON ce.consumer_id = cldtl.consumer_id  AND ce.project_id = cldtl.project_id
@@ -158,10 +160,10 @@ SELECT ce.project_id,
       WHEN ce.coverage_code IN ('221','720','921','120') AND ce_future_elig.core_eligibility_segments_id IS NOT NULL AND consumer_age >= 21 THEN 'Overage for Child Medicaid (>=21)'
       WHEN CAST(ce.eligibility_start_date AS DATE) >= ADD_MONTHS(LAST_DAY(current_date()),3) +1 AND ce_future_elig.core_eligibility_segments_id IS NULL THEN 'Future eligibility w/o current'
    ELSE NULL END esa_reason,
- CASE WHEN coverage_code_label = 'Deemed Newborn' THEN 
+ CASE WHEN consumer_age_asof_eligcreation <= 1 THEN 
    CASE WHEN sub_program_type_cd LIKE '%ALL%' THEN 'Alliance' ELSE 'Medicaid' END 
   ELSE NULL END newborn_elig_type, 
- CASE WHEN coverage_code_label = 'Deemed Newborn' THEN 
+ CASE WHEN consumer_age_asof_eligcreation <= 1 THEN 
    CASE WHEN sub_program_type_cd LIKE '%ALL%' THEN
      CASE WHEN DATE_PART(day,ce.consumer_date_of_birth) > 15 
         THEN ADD_MONTHS(LAST_DAY(ce.consumer_date_of_birth),1) +1

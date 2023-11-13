@@ -29,7 +29,7 @@ ltr AS(SELECT DISTINCT novw.id notification_order_id, novw.project_id,covw.case_
               JOIN marsdb.marsdb_correspondence_definition_vw cdvw ON cdvw.mms_id = covw.definition_name AND cdvw.project_id = covw.project_id
               JOIN marsdb.marsdb_status_vw svw ON novw.status_id = svw.id AND novw.project_id = svw.project_id
               WHERE p.project_name = 'DC-EB'
-              AND cdvw.correspondence_name = 'DCHF Continuity of Service Notice'
+              AND cdvw.correspondence_name LIKE '%Continuity of Service Notice%'
               AND svw.code != 'Canceled'),
 cldtl AS(
 SELECT cnvw.project_id,cnvw.consumer_id,
