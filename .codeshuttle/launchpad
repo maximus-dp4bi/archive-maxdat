@@ -1,0 +1,23 @@
+Map config = generateConfig()
+
+//===========PROJECT/PIPELINE OVERRIDES==============
+//You can comment this later and control thru Pipeline.
+config.pipeline.debug.global     = false
+//===========TOOL DEFINITIONS========================
+
+config.services.notification.methods.email.enabled = true
+config.services.notification.methods.email.to = 'narendrakola@maximus.com'
+//===========CONTAINER DEFINITIONS========================
+config.services.kubernetes.containers.csagent = [:]
+config.services.kubernetes.containers.csagent.resourceLimitEphemeralStorage = '10Gi'
+config.services.kubernetes.containers.csagent.resourceRequestEphemeralStorage = "4Gi"
+//config.pipeline.stages.approvePublish.autoPublish = true
+//===========STAGE DEFINITION========================
+config.pipeline.stages.build.enabled       = false
+config.pipeline.stages.unitTest.enabled    = false
+config.pipeline.stages.quality.enabled     = false
+config.pipeline.stages.retrieve.enabled    = false
+//config.pipeline.stages.publish.autoPublish = true
+config.pipeline.stages.sastCheck.enabled   = false
+config.tools.terraform.version = "1.1"
+ciPipeline(config)
