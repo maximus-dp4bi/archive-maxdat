@@ -25,6 +25,9 @@ create or replace package LAEB_CRM_ETL_PKG as
   
   PROCEDURE EVENT_INS;
   PROCEDURE EVENT_UPD;
+  
+  PROCEDURE DIGITAL_EVENT_INS;
+  PROCEDURE DIGITAL_EVENT_UPD;
     
 end;
 /
@@ -1185,6 +1188,273 @@ EXCEPTION
 
       COMMIT;
 END EVENT_UPD;
+
+PROCEDURE DIGITAL_EVENT_INS
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_ins_cnt number;
+    v_err_cnt number;
+
+BEGIN
+
+    DELETE FROM Errlog_Digital_Event WHERE ora_err_tag$ = 'DIGITAL_EVENT_INS';
+
+    INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+    VALUES (SEQ_JOB_ID.Nextval, 'DIGITAL_EVENT_INS','STARTED',SYSDATE)
+    RETURNING JOB_ID INTO v_job_id;
+
+    INSERT /*+ Enable_Parallel_Dml Parallel */
+      INTO D_DIGITAL_EVENT
+          (event_id,
+            event_type_cd,
+            context,
+            comments,
+            create_ts,
+            created_by,
+            update_ts,
+            updated_by,
+            ref_type,
+            ref_id,
+            event_level,
+            image_repo_ref_id,
+            effective_date,
+            case_id,
+            client_id,
+            call_record_id,
+            task_instance_id,
+            cscl_id,
+            disabled_ind,
+            generic_field1_date,
+            generic_field2_date,
+            generic_field3_num,
+            generic_field4_num,
+            generic_field5_txt,
+            generic_field6_txt,
+            generic_field7_txt,
+            generic_field8_txt,
+            generic_field9_txt,
+            generic_field10_txt)
+    SELECT
+           event_id,
+            event_type_cd,
+            context,
+            comments,
+            create_ts,
+            created_by,
+            update_ts,
+            updated_by,
+            ref_type,
+            ref_id,
+            event_level,
+            image_repo_ref_id,
+            effective_date,
+            case_id,
+            client_id,
+            call_record_id,
+            task_instance_id,
+            cscl_id,
+            disabled_ind,
+            generic_field1_date,
+            generic_field2_date,
+            generic_field3_num,
+            generic_field4_num,
+            generic_field5_txt,
+            generic_field6_txt,
+            generic_field7_txt,
+            generic_field8_txt,
+            generic_field9_txt,
+            generic_field10_txt        
+    FROM s_digital_event_stg e     
+    WHERE NOT EXISTS(SELECT 1 FROM d_digital_event ce WHERE e.event_id = ce.event_id)
+     LOG Errors INTO Errlog_Digital_Event ('DIGITAL_EVENT_INS') Reject Limit Unlimited;
+
+    v_ins_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET Job_end_date = SYSDATE
+         , RECORD_COUNT = v_ins_cnt
+         , PROCESSED_COUNT = v_ins_cnt
+         , RECORD_INSERTED_COUNT = v_ins_cnt
+         , JOB_STATUS_CD = 'COMPLETED'
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+    INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+    SELECT c_critical, con_pkg, 'LAEB_CRM_ETL_PKG.DIGITAL_EVENT_INS', 1, Ora_Err_Mesg$, ora_err_number$, 'D_DIGITAL_EVENT', EVENT_ID
+      FROM Errlog_Digital_Event
+     WHERE Ora_Err_Tag$ = 'EVENT_INS';
+
+    v_err_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET ERROR_COUNT = v_err_cnt
+         , RECORD_COUNT = v_ins_cnt + v_err_cnt
+         , PROCESSED_COUNT = v_ins_cnt + v_err_cnt
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, 'LAEB_CRM_ETL_PKG.DIGITAL_EVENT_INS', 1, v_desc, v_code, 'D_DIGITAL_EVENT');
+
+      COMMIT;
+END DIGITAL_EVENT_INS;
+
+PROCEDURE DIGITAL_EVENT_UPD
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_upd_cnt number;
+    v_err_cnt number;
+BEGIN
+
+    DELETE FROM Errlog_Digital_Event WHERE ora_err_tag$ = 'DIGITAL_EVENT_UPD';
+
+    INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+    VALUES (SEQ_JOB_ID.Nextval, 'DIGITAL_EVENT_UPD','STARTED',SYSDATE)
+    RETURNING JOB_ID INTO v_job_id;
+
+   MERGE /*+ Enable_Parallel_Dml Parallel */
+    INTO  D_DIGITAL_EVENT e
+   USING (SELECT tmp.*
+          FROM (SELECT event_id,
+                  event_type_cd,
+                  context,
+                  comments,
+                  create_ts,
+                  created_by,
+                  update_ts,
+                  updated_by,
+                  ref_type,
+                  ref_id,
+                  event_level,
+                  image_repo_ref_id,
+                  effective_date,
+                  case_id,
+                  client_id,
+                  call_record_id,
+                  task_instance_id,
+                  cscl_id,
+                  disabled_ind,
+                  generic_field1_date,
+                  generic_field2_date,
+                  generic_field3_num,
+                  generic_field4_num,
+                  generic_field5_txt,
+                  generic_field6_txt,
+                  generic_field7_txt,
+                  generic_field8_txt,
+                  generic_field9_txt,
+                  generic_field10_txt  
+                FROM s_digital_event_stg e                
+              ) tmp
+          JOIN d_digital_event t ON tmp.event_id = t.event_id
+          WHERE COALESCE(t.event_type_cd,'*') != COALESCE(tmp.event_type_cd,'*')          
+            OR COALESCE(t.context,'*') != COALESCE(tmp.context,'*')                 
+            OR COALESCE(t.comments,'*') != COALESCE(tmp.comments,'*')     
+            OR COALESCE(t.create_ts, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.create_ts, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.created_by,'*') != COALESCE(tmp.created_by,'*')
+            OR COALESCE(t.update_ts, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.update_ts, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.updated_by,'*') != COALESCE(tmp.updated_by,'*')
+            OR COALESCE(t.ref_type,'*') != COALESCE(tmp.ref_type,'*')
+            OR COALESCE(t.ref_id,0) != COALESCE(tmp.ref_id,0) 
+            OR COALESCE(t.event_level,0) != COALESCE(tmp.event_level,0)
+            OR COALESCE(t.image_repo_ref_id,0) != COALESCE(tmp.image_repo_ref_id,0)
+            OR COALESCE(t.effective_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.effective_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.case_id,0) != COALESCE(tmp.case_id,0) 
+            OR COALESCE(t.client_id,0) != COALESCE(tmp.client_id,0) 
+            OR COALESCE(t.call_record_id,0) != COALESCE(tmp.call_record_id,0) 
+            OR COALESCE(t.task_instance_id,0) != COALESCE(tmp.task_instance_id,0) 
+            OR COALESCE(t.cscl_id,0) != COALESCE(tmp.cscl_id,0) 
+            OR COALESCE(t.disabled_ind,0) != COALESCE(tmp.disabled_ind,0) 
+            OR COALESCE(t.generic_field1_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.generic_field1_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.generic_field2_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.generic_field2_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.generic_field3_num,0) != COALESCE(tmp.generic_field3_num,0) 
+            OR COALESCE(t.generic_field4_num,0) != COALESCE(tmp.generic_field4_num,0)             
+            OR COALESCE(t.generic_field5_txt,'*') != COALESCE(tmp.generic_field5_txt,'*')          
+            OR COALESCE(t.generic_field6_txt,'*') != COALESCE(tmp.generic_field6_txt,'*')          
+            OR COALESCE(t.generic_field7_txt,'*') != COALESCE(tmp.generic_field7_txt,'*')          
+            OR COALESCE(t.generic_field8_txt,'*') != COALESCE(tmp.generic_field8_txt,'*')          
+            OR COALESCE(t.generic_field9_txt,'*') != COALESCE(tmp.generic_field9_txt,'*')          
+            OR COALESCE(t.generic_field10_txt,'*') != COALESCE(tmp.generic_field10_txt,'*')          
+          ) ce ON (e.event_id = ce.event_id)
+    WHEN MATCHED THEN UPDATE
+     SET e.event_type_cd = ce.event_type_cd
+        ,e.context = ce.context
+        ,e.comments = ce.comments
+        ,e.create_ts = ce.create_ts
+        ,e.created_by = ce.created_by
+        ,e.update_ts = ce.update_ts
+        ,e.updated_by = ce.updated_by
+        ,e.ref_type = ce.ref_type
+        ,e.ref_id = ce.ref_id
+        ,e.event_level = ce.event_level
+        ,e.image_repo_ref_id = ce.image_repo_ref_id
+        ,e.effective_date = ce.effective_date        
+        ,e.case_id = ce.case_id
+        ,e.client_id = ce.client_id        
+        ,e.call_record_id = ce.call_record_id             
+        ,e.task_instance_id = ce.task_instance_id
+        ,e.cscl_id = ce.cscl_id
+        ,e.disabled_ind = ce.disabled_ind
+        ,e.generic_field1_date = ce.generic_field1_date
+        ,e.generic_field2_date = ce.generic_field2_date        
+        ,e.generic_field3_num = ce.generic_field3_num
+        ,e.generic_field4_num = ce.generic_field4_num        
+        ,e.generic_field5_txt = ce.generic_field5_txt
+        ,e.generic_field6_txt = ce.generic_field6_txt
+        ,e.generic_field7_txt = ce.generic_field7_txt
+        ,e.generic_field8_txt = ce.generic_field8_txt
+        ,e.generic_field9_txt = ce.generic_field9_txt
+        ,e.generic_field10_txt = ce.generic_field10_txt
+     Log Errors INTO Errlog_Digital_Event ('DIGITAL_EVENT_UPD') Reject Limit Unlimited;
+
+    v_upd_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET Job_end_date = SYSDATE
+         , RECORD_COUNT = v_upd_cnt
+         , PROCESSED_COUNT = v_upd_cnt
+         , RECORD_UPDATED_COUNT = v_upd_cnt
+         , JOB_STATUS_CD = 'COMPLETED'
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+   
+    INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+    SELECT c_critical, con_pkg, 'LAEB_CRM_ETL_PKG.DIGITAL_EVENT_UPD', 1, Ora_Err_Mesg$, ora_err_number$, 'D_DIGITAL_EVENT', EVENT_ID
+      FROM Errlog_Digital_Event
+     WHERE Ora_Err_Tag$ = 'DIGITAL_EVENT_UPD';
+
+    v_err_cnt := SQL%RowCount;
+
+   UPDATE CORP_ETL_JOB_STATISTICS
+       SET ERROR_COUNT = v_err_cnt
+         , RECORD_COUNT = v_upd_cnt + v_err_cnt
+         , PROCESSED_COUNT = v_upd_cnt + v_err_cnt
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, 'LAEB_CRM_ETL_PKG.DIGITAL_EVENT_UPD', 1, v_desc, v_code, 'D_DIGITAL_EVENT');
+
+      COMMIT;
+END DIGITAL_EVENT_UPD;
+
+
 END;
 /
 

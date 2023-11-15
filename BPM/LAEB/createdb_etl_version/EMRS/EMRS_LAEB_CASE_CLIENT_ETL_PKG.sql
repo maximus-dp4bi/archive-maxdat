@@ -36,6 +36,9 @@ create or replace package EMRS_LAEB_CASE_CLIENT_ETL_PKG as
   
   PROCEDURE CLIENT_SUPPLEMENTARY_INFO_INS;
   PROCEDURE CLIENT_SUPPLEMENTARY_INFO_UPD;  
+  
+  PROCEDURE EMAIL_ADDRESS_INS;
+  PROCEDURE EMAIL_ADDRESS_UPD;
 
 END;
 /
@@ -4324,7 +4327,6 @@ BEGIN
 
     Maxdat_Statistics.TABLE_STATS('EMRS_D_CLIENT_SUPPLEMENTARY_INFO');
 
-
 EXCEPTION
    WHEN OTHERS THEN
       ROLLBACK;
@@ -4336,6 +4338,443 @@ EXCEPTION
 
       COMMIT;
 END CLIENT_SUPPLEMENTARY_INFO_UPD;
+    
+PROCEDURE EMAIL_ADDRESS_INS
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_ins_cnt number;
+    v_err_cnt number;
+    to_process number := 0;
+    Run_Multiple varchar2(1) := 'N';
+BEGIN
+
+    DELETE FROM Errlog_Email_Address WHERE ora_err_tag$ = 'EMAIL_ADDRESS_INS';
+
+    Maxdat_Statistics.TABLE_STATS('EMRS_S_EMAIL_ADDRESS_STG');
+
+    SELECT COUNT(1) INTO to_process FROM EMRS_S_EMAIL_ADDRESS_STG;
+
+    SELECT CASE WHEN to_process > NVL(Value,1000000)
+                THEN 'Y' ELSE 'N' END INTO Run_Multiple
+      FROM CORP_ETL_CONTROL WHERE NAME = 'EMRS_REC_THRESHOLD';
+
+    IF Run_Multiple = 'N' THEN
+
+        INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+        VALUES (SEQ_JOB_ID.Nextval, 'EMAIL_ADDRESS_INS','STARTED',SYSDATE)
+        RETURNING JOB_ID INTO v_job_id;
+
+        COMMIT;
+
+        INSERT /*+ Enable_Parallel_Dml Parallel */
+          INTO Emrs_D_Email_Address   
+                          ( email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            record_name,
+                            record_date,
+                            record_time,
+                            modified_name,
+                            modified_date,
+                            modified_time)
+        SELECT                                              
+                            email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            created_by,
+                            creation_date,
+                            TO_CHAR(creation_date, c_time_format),
+                            last_updated_by,
+                            last_update_date,
+                            TO_CHAR(last_update_date, c_time_format)                                                            
+          FROM emrs_s_email_address_stg s
+         WHERE NOT EXISTS (SELECT 1 FROM emrs_d_email_address C WHERE C.email_id = S.email_id)
+           Log Errors INTO Errlog_Email_Address ('EMAIL_ADDRESS_INS') Reject Limit Unlimited;
+
+        v_ins_cnt := SQL%RowCount;
+
+        UPDATE CORP_ETL_JOB_STATISTICS
+           SET Job_end_date = SYSDATE
+             , RECORD_COUNT = v_ins_cnt
+             , PROCESSED_COUNT = v_ins_cnt
+             , RECORD_INSERTED_COUNT = v_ins_cnt
+             , JOB_STATUS_CD = 'COMPLETED'
+         WHERE JOB_ID =  v_job_id;
+
+        COMMIT;
+
+        INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+        SELECT c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_INS', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_EMAIL_ADDRESS', EMAIL_ID
+          FROM Errlog_Email_Address
+         WHERE Ora_Err_Tag$ = 'EMAIL_ADDRESS_INS';
+
+        v_err_cnt := SQL%RowCount;
+
+        UPDATE CORP_ETL_JOB_STATISTICS
+           SET ERROR_COUNT = v_err_cnt
+             , RECORD_COUNT = v_ins_cnt + v_err_cnt
+             , PROCESSED_COUNT = v_ins_cnt + v_err_cnt
+         WHERE JOB_ID =  v_job_id;
+
+        COMMIT;
+
+    ELSE
+
+       FOR IDX In 0..9
+       LOOP
+
+            Maxdat_Statistics.TABLE_STATS('EMRS_D_EMAIL_ADDRESS');
+
+            INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+            VALUES (SEQ_JOB_ID.Nextval, 'EMAIL_ADDRESS_INS THREAD'||IDX,'STARTED',SYSDATE)
+            RETURNING JOB_ID INTO v_job_id;
+
+            COMMIT;
+
+            INSERT /*+ Enable_Parallel_Dml Parallel */
+            INTO Emrs_D_Email_Address   
+                          ( email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            record_name,
+                            record_date,
+                            record_time,
+                            modified_name,
+                            modified_date,
+                            modified_time)
+          SELECT                                              
+                            email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            created_by,
+                            creation_date,
+                            TO_CHAR(creation_date, c_time_format),
+                            last_updated_by,
+                            last_update_date,
+                            TO_CHAR(last_update_date, c_time_format)                                                            
+          FROM emrs_s_email_address_stg s
+          WHERE NOT EXISTS (SELECT 1 FROM emrs_d_email_address C WHERE C.email_id = S.email_id)
+          Log Errors INTO Errlog_Email_Address ('EMAIL_ADDRESS_INS') Reject Limit Unlimited;
+
+            v_ins_cnt := SQL%RowCount;
+
+            UPDATE CORP_ETL_JOB_STATISTICS
+               SET Job_end_date = SYSDATE
+                 , RECORD_COUNT = v_ins_cnt
+                 , PROCESSED_COUNT = v_ins_cnt
+                 , RECORD_INSERTED_COUNT = v_ins_cnt
+                 , JOB_STATUS_CD = 'COMPLETED'
+             WHERE JOB_ID =  v_job_id;
+
+            COMMIT;
+
+            INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+            SELECT c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_INS', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_EMAIL_ADDRESS', EMAIL_ID
+              FROM Errlog_Email_Address
+             WHERE Ora_Err_Tag$ = 'EMAIL_ADDRESS_INS';
+
+            v_err_cnt := SQL%RowCount;
+
+            UPDATE CORP_ETL_JOB_STATISTICS
+               SET ERROR_COUNT = v_err_cnt
+                 , RECORD_COUNT = v_ins_cnt + v_err_cnt
+                 , PROCESSED_COUNT = v_ins_cnt + v_err_cnt
+             WHERE JOB_ID =  v_job_id;
+
+            DELETE FROM Errlog_Email_Address WHERE ora_err_tag$ = 'EMAIL_ADDRESS_INS';
+
+            COMMIT;
+
+       END LOOP;
+
+    END IF;
+
+    Maxdat_Statistics.TABLE_STATS('EMRS_D_EMAIL_ADDRESS');
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_INS', 1, v_desc, v_code, 'EMRS_D_EMAIL_ADDRESS');
+
+      COMMIT;
+
+END EMAIL_ADDRESS_INS;
+
+PROCEDURE EMAIL_ADDRESS_UPD
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_upd_cnt number;
+    v_err_cnt number;
+    to_process number := 0;
+    Run_Multiple varchar2(1) := 'N';
+BEGIN
+
+    DELETE FROM Errlog_Email_Address WHERE ora_err_tag$ = 'EMAIL_ADDRESS_UPD';
+
+    Maxdat_Statistics.TABLE_STATS('EMRS_S_EMAIL_ADDRESS_STG');
+
+    SELECT COUNT(1) INTO to_process FROM EMRS_S_EMAIL_ADDRESS_STG;
+
+    SELECT CASE WHEN to_process > NVL(Value,1000000)
+                THEN 'Y' ELSE 'N' END INTO Run_Multiple
+      FROM CORP_ETL_CONTROL WHERE NAME = 'EMRS_REC_THRESHOLD';
+
+    IF Run_Multiple = 'N' THEN
+
+       INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+       VALUES (SEQ_JOB_ID.Nextval, 'EMAIL_ADDRESS_UPD','STARTED',SYSDATE)
+       RETURNING JOB_ID INTO v_job_id;
+
+       COMMIT;
+
+       Maxdat_Statistics.TABLE_STATS('EMRS_D_EMAIL_ADDRESS');
+
+       MERGE /*+ Enable_Parallel_Dml Parallel */
+        INTO  EMRS_D_EMAIL_ADDRESS D
+       USING ( 
+                SELECT    email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            created_by record_name,
+                            creation_date record_date,
+                            TO_CHAR(creation_date, c_time_format) record_time,
+                            last_updated_by modified_name,
+                            last_update_date modified_date,
+                            TO_CHAR(last_update_date, c_time_format)  modified_time                
+                 FROM emrs_s_email_address_stg                
+              ) C ON (D.email_id = C.email_id)
+        WHEN MATCHED THEN UPDATE
+         SET            d.email_begin_date  =   c.email_begin_date
+                        , d.email_type_cd   =   c.email_type_cd
+                        , d.email_end_date  =   c.email_end_date
+                        , d.client_id       =   c.client_id
+                        , d.email_address   =   c.email_address
+                        , d.email_dolk_id   =   c.email_dolk_id
+                        , d.email_case_id   =   c.email_case_id
+                        , d.status_cd       =   c.status_cd
+                        , d.email_bad_date  =   c.email_bad_date
+                        , d.email_bad_date_satisfied  =   c.email_bad_date_satisfied
+                        , d.contact_method_ind  =   c.contact_method_ind
+                        , d.comparable_key  =   c.comparable_key
+                        , d.email_begin_ndt  =   c.email_begin_ndt
+                        , d.email_end_ndt  =   c.email_end_ndt
+                        , d.start_ndt  =   c.start_ndt
+                        , d.end_ndt =   c.end_ndt                       
+                        , d.modified_name =   c.modified_name
+                        , d.modified_date =   c.modified_date
+                        , d.modified_time =   c.modified_time
+         Log Errors INTO Errlog_Email_Address ('EMAIL_ADDRESS_UPD') Reject Limit Unlimited;
+
+        v_upd_cnt := SQL%RowCount;
+
+        UPDATE CORP_ETL_JOB_STATISTICS
+           SET Job_end_date = SYSDATE
+             , RECORD_COUNT = v_upd_cnt
+             , PROCESSED_COUNT = v_upd_cnt
+             , RECORD_UPDATED_COUNT = v_upd_cnt
+             , JOB_STATUS_CD = 'COMPLETED'
+         WHERE JOB_ID =  v_job_id;
+
+        COMMIT;
+
+        INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+        SELECT c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_UPD', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_EMAIL_ADDRESS', EMAIL_ID
+          FROM Errlog_Email_Address
+         WHERE Ora_Err_Tag$ = 'EMAIL_ADDRESS_UPD';
+
+        v_err_cnt := SQL%RowCount;
+
+        UPDATE CORP_ETL_JOB_STATISTICS
+           SET ERROR_COUNT = v_err_cnt
+             , RECORD_COUNT = v_upd_cnt + v_err_cnt
+             , PROCESSED_COUNT = v_upd_cnt + v_err_cnt
+         WHERE JOB_ID =  v_job_id;
+
+        COMMIT;
+
+    ELSE
+
+       FOR IDX In 0..9
+       LOOP
+           Maxdat_Statistics.TABLE_STATS('EMRS_D_EMAIL_ADDRESS');
+
+           INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+           VALUES (SEQ_JOB_ID.Nextval, 'EMAIL_ADDRESS_UPD THREAD'||IDX,'STARTED',SYSDATE)
+           RETURNING JOB_ID INTO v_job_id;
+
+           COMMIT;
+
+           MERGE /*+ Enable_Parallel_Dml Parallel */
+           INTO  EMRS_D_EMAIL_ADDRESS D
+           USING ( 
+                SELECT    email_id,
+                            email_begin_date,
+                            email_type_cd,
+                            email_end_date,
+                            client_id,
+                            email_address,
+                            email_dolk_id,
+                            email_case_id,
+                            status_cd,
+                            email_bad_date,
+                            email_bad_date_satisfied,
+                            contact_method_ind,
+                            comparable_key,
+                            email_begin_ndt,
+                            email_end_ndt,
+                            start_ndt,
+                            end_ndt,
+                            created_by record_name,
+                            creation_date record_date,
+                            TO_CHAR(creation_date, c_time_format) record_time,
+                            last_updated_by modified_name,
+                            last_update_date modified_date,
+                            TO_CHAR(last_update_date, c_time_format)  modified_time                
+                 FROM emrs_s_email_address_stg                
+              ) C ON (D.email_id = C.email_id)
+           WHEN MATCHED THEN UPDATE
+           SET            d.email_begin_date  =   c.email_begin_date
+                        , d.email_type_cd   =   c.email_type_cd
+                        , d.email_end_date  =   c.email_end_date
+                        , d.client_id       =   c.client_id
+                        , d.email_address   =   c.email_address
+                        , d.email_dolk_id   =   c.email_dolk_id
+                        , d.email_case_id   =   c.email_case_id
+                        , d.status_cd       =   c.status_cd
+                        , d.email_bad_date  =   c.email_bad_date
+                        , d.email_bad_date_satisfied  =   c.email_bad_date_satisfied
+                        , d.contact_method_ind  =   c.contact_method_ind
+                        , d.comparable_key  =   c.comparable_key
+                        , d.email_begin_ndt  =   c.email_begin_ndt
+                        , d.email_end_ndt  =   c.email_end_ndt
+                        , d.start_ndt  =   c.start_ndt
+                        , d.end_ndt =   c.end_ndt                       
+                        , d.modified_name =   c.modified_name
+                        , d.modified_date =   c.modified_date
+                        , d.modified_time =   c.modified_time
+           Log Errors INTO Errlog_Email_Address ('EMAIL_ADDRESS_UPD') Reject Limit Unlimited;
+
+            v_upd_cnt := SQL%RowCount;
+
+            UPDATE CORP_ETL_JOB_STATISTICS
+               SET Job_end_date = SYSDATE
+                 , RECORD_COUNT = v_upd_cnt
+                 , PROCESSED_COUNT = v_upd_cnt
+                 , RECORD_UPDATED_COUNT = v_upd_cnt
+                 , JOB_STATUS_CD = 'COMPLETED'
+             WHERE JOB_ID =  v_job_id;
+
+            COMMIT;
+
+            INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+            SELECT c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_UPD', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_EMAIL_ADDRESS', EMAIL_ID
+              FROM Errlog_Email_Address
+             WHERE Ora_Err_Tag$ = 'EMAIL_ADDRESS_UPD';
+
+            v_err_cnt := SQL%RowCount;
+
+            UPDATE CORP_ETL_JOB_STATISTICS
+               SET ERROR_COUNT = v_err_cnt
+                 , RECORD_COUNT = v_upd_cnt + v_err_cnt
+                 , PROCESSED_COUNT = v_upd_cnt + v_err_cnt
+             WHERE JOB_ID =  v_job_id;
+
+            DELETE FROM Errlog_Email_Address WHERE ora_err_tag$ = 'EMAIL_ADDRESS_UPD';
+
+            COMMIT;
+
+       END LOOP;
+
+    END IF;
+
+    Maxdat_Statistics.TABLE_STATS('EMRS_D_EMAIL_ADDRESS');
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, con_pkg || '.EMAIL_ADDRESS_UPD', 1, v_desc, v_code, 'EMRS_D_EMAIL_ADDRESS');
+
+      COMMIT;
+
+END EMAIL_ADDRESS_UPD;    
 
 
 END;
