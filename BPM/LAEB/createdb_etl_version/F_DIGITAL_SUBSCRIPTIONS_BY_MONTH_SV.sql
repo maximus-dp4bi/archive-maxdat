@@ -26,27 +26,27 @@ txt AS
  AND ph.sms_enabled_ind = 1
  AND ph.phon_type_cd='CM'),
  rslt AS(
-SELECT d_date.report_month,case_status,'Email' contact_type, COUNT(DISTINCT email.case_id)
+SELECT d_date.report_month,case_status,'Email Only' contact_type, COUNT(DISTINCT email.case_id)
 FROM d_date
  CROSS JOIN email   
 WHERE NOT EXISTS(SELECT 1 FROM txt WHERE txt.case_id = email.case_id)
 AND NOT EXISTS(SELECT 1 FROM evnt WHERE evnt.case_id = email.case_id AND evnt.d_month = d_date.d_month AND evnt.event_type_cd = 'OPT_IN_EMAIL')
-GROUP BY d_date.report_month,case_status,'Email'
+GROUP BY d_date.report_month,case_status,'Email Only'
 UNION ALL
-SELECT d_date.report_month,case_status,'SMS' contact_type, COUNT(DISTINCT txt.case_id)
+SELECT d_date.report_month,case_status,'SMS Only' contact_type, COUNT(DISTINCT txt.case_id)
 FROM  d_date
  CROSS JOIN txt   
 WHERE NOT EXISTS(SELECT 1 FROM email WHERE txt.case_id = email.case_id)
 AND NOT EXISTS(SELECT 1 FROM evnt WHERE evnt.case_id = txt.case_id AND evnt.d_month = d_date.d_month AND evnt.event_type_cd = 'OPT_IN_SMS')
-GROUP BY d_date.report_month,case_status,'SMS'
+GROUP BY d_date.report_month,case_status,'SMS Only'
 UNION ALL
-SELECT d_date.report_month,t.case_status,'Email_And_SMS' contact_type, COUNT(DISTINCT t.case_id)
+SELECT d_date.report_month,t.case_status,'Both SMS and Email' contact_type, COUNT(DISTINCT t.case_id)
 FROM  d_date
  CROSS JOIN (SELECT email.* FROM email
                 JOIN txt ON email.case_id = txt.case_id) t
 WHERE NOT EXISTS(SELECT 1 FROM evnt WHERE evnt.case_id = t.case_id AND evnt.d_month = d_date.d_month AND evnt.event_type_cd = 'OPT_IN_SMS')
 AND NOT EXISTS(SELECT 1 FROM evnt WHERE evnt.case_id = t.case_id AND evnt.d_month = d_date.d_month AND evnt.event_type_cd = 'OPT_IN_EMAIL')
-GROUP BY d_date.report_month,t.case_status,'Email_And_SMS'
+GROUP BY d_date.report_month,t.case_status,'Both SMS and Email'
 )
 SELECT * FROM rslt;
 

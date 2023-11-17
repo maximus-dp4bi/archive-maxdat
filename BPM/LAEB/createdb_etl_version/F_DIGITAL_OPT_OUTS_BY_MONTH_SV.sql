@@ -20,20 +20,20 @@ SELECT case_id,create_ts
 FROM d_digital_event ev
 WHERE ev.event_type_cd = 'CASE_PREFERRED_TO_POSTAL'     
 AND ev.created_by not in ('-11') )
-SELECT report_month_start, 'SMS' AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
+SELECT report_month_start, 'SMS Only' AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
 FROM d_date
  JOIN txt_evnt ev ON ev.create_ts >= report_month_start AND ev.create_ts < current_month
-GROUP BY report_month_start, 'SMS'
+GROUP BY report_month_start, 'SMS Only'
 UNION ALL
-SELECT report_month_start, 'EMAIL' AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
+SELECT report_month_start, 'Email Only' AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
 FROM d_date
  JOIN eml_evnt ev ON ev.create_ts >= report_month_start AND ev.create_ts < current_month
-GROUP BY report_month_start, 'EMAIL'
+GROUP BY report_month_start, 'Email Only'
 UNION ALL
-SELECT report_month_start, 'EMAIL AND SMS'  AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
+SELECT report_month_start, 'Both SMS and Email'  AS contact_type, COUNT(DISTINCT ev.case_id) AS total_opt_out_cases
 FROM d_date
  JOIN pstl_evnt ev ON ev.create_ts >= report_month_start AND ev.create_ts < current_month
-GROUP BY report_month_start, 'EMAIL AND SMS';
+GROUP BY report_month_start, 'Both SMS and Email';
 
 GRANT SELECT ON f_digital_opt_outs_by_month_sv to MAXDAT_LAEB_READ_ONLY;	
 
