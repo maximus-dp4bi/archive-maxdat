@@ -11,6 +11,7 @@ CREATE OR REPLACE package MAXDAT_LAEB.LAEB_SELECT_ETL_PKG as
   c_abort    CONSTANT  corp_etl_error_log.err_level%TYPE := 'ABORT';
   c_critical CONSTANT  corp_etl_error_log.err_level%TYPE := 'CRITICAL';
   c_log      CONSTANT  corp_etl_error_log.err_level%TYPE := 'LOG';
+  c_time_format CONSTANT VARCHAR2(6) := 'HH24MI';
 
   PROCEDURE SELECTION_TXN_UPD;
   
@@ -35,6 +36,9 @@ CREATE OR REPLACE package MAXDAT_LAEB.LAEB_SELECT_ETL_PKG as
   PROCEDURE SELECTION_TXN_STAT_HIST_UPD;
   
   PROCEDURE SELECTION_SEGMENT_SYNC;
+  
+  PROCEDURE AUTODISENR_REQ_INS;
+  PROCEDURE AUTODISENR_REQ_UPD;
     
 end;
 /
@@ -1807,6 +1811,269 @@ BEGIN
    
    
 END;
+
+PROCEDURE AUTODISENR_REQ_INS
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_ins_cnt number;
+    v_err_cnt number;
+
+BEGIN
+
+    DELETE FROM Errlog_AutoDisenroll_Req WHERE ora_err_tag$ = 'AUTODISENR_REQ_INS';
+
+    INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+    VALUES (SEQ_JOB_ID.Nextval, 'AUTODISENR_REQ_INS','STARTED',SYSDATE)
+    RETURNING JOB_ID INTO v_job_id;
+
+    INSERT /*+ Enable_Parallel_Dml Parallel */
+      INTO emrs_d_auto_disenrollment_request
+          (auto_disenrollment_request_id,
+            client_id,
+            requested_date,
+            auto_disenroll_requestor_cd,
+            auto_disenroll_rsn_cd,
+            auto_disenroll_src_cd,
+            current_mco_id,
+            requested_mco_id,
+            note_ref_id,
+            received_date,
+            effective_date,
+            disposition_cd,
+            end_date,
+            result_cd,
+            submitter_name,
+            submitter_number,
+            ad_incident_header_id,
+            auto_disenroll_status_cd,
+            ad_process_ts,
+            ad_request_notes_1,
+            ad_request_notes_2,
+            dcfs_info_flag,
+            plan_type_cd,
+            record_name,
+            record_date,
+            record_time,
+            modified_name,
+            modified_date,
+            modified_time)
+    SELECT
+           auto_disenrollment_request_id,
+            client_id,
+            requested_date,
+            auto_disenroll_requestor_cd,
+            auto_disenroll_rsn_cd,
+            auto_disenroll_src_cd,
+            current_mco_id,
+            requested_mco_id,
+            note_ref_id,
+            received_date,
+            effective_date,
+            disposition_cd,
+            end_date,
+            result_cd,
+            submitter_name,
+            submitter_number,
+            ad_incident_header_id,
+            auto_disenroll_status_cd,
+            ad_process_ts,
+            ad_request_notes_1,
+            ad_request_notes_2,
+            dcfs_info_flag,
+            plan_type_cd,       
+            created_by,
+            create_ts,
+            TO_CHAR(create_ts,c_time_format),
+            updated_by,
+            update_ts,
+            TO_CHAR(update_ts,c_time_format)
+    FROM s_auto_disenrollment_request_stg e     
+    WHERE NOT EXISTS(SELECT 1 FROM emrs_d_auto_disenrollment_request ce WHERE e.auto_disenrollment_request_id = ce.auto_disenrollment_request_id)
+     LOG Errors INTO Errlog_AutoDisenroll_Req ('AUTODISENR_REQ_INS') Reject Limit Unlimited;
+
+    v_ins_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET Job_end_date = SYSDATE
+         , RECORD_COUNT = v_ins_cnt
+         , PROCESSED_COUNT = v_ins_cnt
+         , RECORD_INSERTED_COUNT = v_ins_cnt
+         , JOB_STATUS_CD = 'COMPLETED'
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+    INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+    SELECT c_critical, con_pkg, 'LAEB_SELECT_ETL_PKG.AUTODISENR_REQ_INS', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_AUTO_DISENROLLMENT_REQUEST', AUTO_DISENROLLMENT_REQUEST_ID
+      FROM Errlog_AutoDisenroll_Req
+     WHERE Ora_Err_Tag$ = 'AUTODISENR_REQ_INS';
+
+    v_err_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET ERROR_COUNT = v_err_cnt
+         , RECORD_COUNT = v_ins_cnt + v_err_cnt
+         , PROCESSED_COUNT = v_ins_cnt + v_err_cnt
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, 'LAEB_SELECT_ETL_PKG.AUTODISENR_REQ_INS', 1, v_desc, v_code, 'EMRS_D_AUTO_DISENROLLMENT_REQUEST');
+
+      COMMIT;
+END AUTODISENR_REQ_INS;
+
+PROCEDURE AUTODISENR_REQ_UPD
+IS
+    v_job_id CORP_ETL_JOB_STATISTICS.Job_Id%Type;
+    v_upd_cnt number;
+    v_err_cnt number;
+BEGIN
+
+    DELETE FROM Errlog_AutoDisenroll_Req WHERE ora_err_tag$ = 'AUTODISENR_REQ_UPD';
+
+    INSERT INTO Corp_Etl_Job_Statistics (Job_id, Job_Name, Job_Status_CD, Job_Start_Date)
+    VALUES (SEQ_JOB_ID.Nextval, 'AUTODISENR_REQ_UPD','STARTED',SYSDATE)
+    RETURNING JOB_ID INTO v_job_id;
+
+   MERGE /*+ Enable_Parallel_Dml Parallel */
+    INTO  emrs_d_auto_disenrollment_request e
+   USING (SELECT tmp.*
+          FROM (SELECT  auto_disenrollment_request_id,
+                        client_id,
+                        requested_date,
+                        auto_disenroll_requestor_cd,
+                        auto_disenroll_rsn_cd,
+                        auto_disenroll_src_cd,
+                        current_mco_id,
+                        requested_mco_id,
+                        note_ref_id,
+                        received_date,
+                        effective_date,
+                        disposition_cd,
+                        end_date,
+                        result_cd,
+                        submitter_name,
+                        submitter_number,
+                        ad_incident_header_id,
+                        auto_disenroll_status_cd,
+                        ad_process_ts,
+                        ad_request_notes_1,
+                        ad_request_notes_2,
+                        dcfs_info_flag,
+                        plan_type_cd,       
+                        created_by record_name,
+                        create_ts record_date,            
+                        updated_by modified_name,
+                        update_ts modified_date,
+                        TO_CHAR(create_ts,c_time_format) record_time,   
+                        TO_CHAR(update_ts,c_time_format) modified_time
+                FROM s_auto_disenrollment_request_stg e                
+              ) tmp
+          JOIN emrs_d_auto_disenrollment_request t ON tmp.auto_disenrollment_request_id = t.auto_disenrollment_request_id
+          WHERE COALESCE(t.client_id,0) != COALESCE(tmp.client_id,0) 
+            OR COALESCE(t.requested_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.requested_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.auto_disenroll_requestor_cd,'*') != COALESCE(tmp.auto_disenroll_requestor_cd,'*')          
+            OR COALESCE(t.auto_disenroll_rsn_cd,'*') != COALESCE(tmp.auto_disenroll_rsn_cd,'*')                 
+            OR COALESCE(t.auto_disenroll_src_cd,'*') != COALESCE(tmp.auto_disenroll_src_cd,'*')     
+            OR COALESCE(t.current_mco_id,'*') != COALESCE(tmp.current_mco_id,'*')  
+            OR COALESCE(t.requested_mco_id,'*') != COALESCE(tmp.requested_mco_id,'*')  
+            OR COALESCE(t.note_ref_id,0) != COALESCE(tmp.note_ref_id,0)  
+            OR COALESCE(t.received_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.received_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.effective_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.effective_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.disposition_cd,'*') != COALESCE(tmp.disposition_cd,'*')   
+            OR COALESCE(t.end_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.end_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.result_cd,'*') != COALESCE(tmp.result_cd,'*')   
+            OR COALESCE(t.submitter_name,'*') != COALESCE(tmp.submitter_name,'*')  
+            OR COALESCE(t.ad_incident_header_id,0) != COALESCE(tmp.ad_incident_header_id,0) 
+            OR COALESCE(t.auto_disenroll_status_cd,'*') != COALESCE(tmp.auto_disenroll_status_cd,'*')     
+            OR COALESCE(t.ad_process_ts, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.ad_process_ts, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.ad_request_notes_1,'*') != COALESCE(tmp.ad_request_notes_1,'*')     
+            OR COALESCE(t.ad_request_notes_2,'*') != COALESCE(tmp.ad_request_notes_2,'*')     
+            OR COALESCE(t.dcfs_info_flag,'*') != COALESCE(tmp.dcfs_info_flag,'*')     
+            OR COALESCE(t.plan_type_cd,'*') != COALESCE(tmp.plan_type_cd,'*')                 
+            OR COALESCE(t.record_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.record_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.record_name,'*') != COALESCE(tmp.record_name,'*')
+            OR COALESCE(t.record_time,'*') != COALESCE(tmp.record_time,'*')
+            OR COALESCE(t.modified_date, TO_DATE('07/07/7777','mm/dd/yyyy')) != COALESCE(tmp.modified_date, TO_DATE('07/07/7777','mm/dd/yyyy'))
+            OR COALESCE(t.modified_name,'*') != COALESCE(tmp.modified_name,'*')
+            OR COALESCE(t.modified_time,'*') != COALESCE(tmp.modified_time,'*')
+          ) ce ON (e.auto_disenrollment_request_id = ce.auto_disenrollment_request_id)
+    WHEN MATCHED THEN UPDATE
+     SET e.client_id = ce.client_id        
+        ,e.requested_date = ce.requested_date
+        ,e.auto_disenroll_requestor_cd = ce.auto_disenroll_requestor_cd
+        ,e.auto_disenroll_rsn_cd = ce.auto_disenroll_rsn_cd
+        ,e.auto_disenroll_src_cd = ce.auto_disenroll_src_cd
+        ,e.current_mco_id = ce.current_mco_id
+        ,e.requested_mco_id = ce.requested_mco_id
+        ,e.note_ref_id = ce.note_ref_id
+        ,e.received_date = ce.received_date
+        ,e.effective_date = ce.effective_date
+        ,e.disposition_cd = ce.disposition_cd
+        ,e.end_date = ce.end_date
+        ,e.result_cd = ce.result_cd        
+        ,e.submitter_name = ce.submitter_name        
+        ,e.ad_incident_header_id = ce.ad_incident_header_id             
+        ,e.auto_disenroll_status_cd = ce.auto_disenroll_status_cd
+        ,e.ad_process_ts = ce.ad_process_ts
+        ,e.ad_request_notes_1 = ce.ad_request_notes_1
+        ,e.ad_request_notes_2 = ce.ad_request_notes_2
+        ,e.dcfs_info_flag = ce.dcfs_info_flag        
+        ,e.plan_type_cd = ce.plan_type_cd
+        ,e.record_date = ce.record_date        
+        ,e.record_name = ce.record_name
+        ,e.record_time = ce.record_time
+        ,e.modified_date = ce.modified_date
+        ,e.modified_name = ce.modified_name
+        ,e.modified_time = ce.modified_time        
+     Log Errors INTO Errlog_AutoDisenroll_Req ('AUTODISENR_REQ_UPD') Reject Limit Unlimited;
+
+    v_upd_cnt := SQL%RowCount;
+
+    UPDATE CORP_ETL_JOB_STATISTICS
+       SET Job_end_date = SYSDATE
+         , RECORD_COUNT = v_upd_cnt
+         , PROCESSED_COUNT = v_upd_cnt
+         , RECORD_UPDATED_COUNT = v_upd_cnt
+         , JOB_STATUS_CD = 'COMPLETED'
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+   
+    INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name,driver_key_number)
+    SELECT c_critical, con_pkg, 'LAEB_SELECT_ETL_PKG.AUTODISENR_REQ_UPD', 1, Ora_Err_Mesg$, ora_err_number$, 'EMRS_D_AUTO_DISENROLLMENT_REQUEST', AUTO_DISENROLLMENT_REQUEST_ID
+      FROM Errlog_AutoDisenroll_Req
+     WHERE Ora_Err_Tag$ = 'EVENT_UPD';
+
+    v_err_cnt := SQL%RowCount;
+
+   UPDATE CORP_ETL_JOB_STATISTICS
+       SET ERROR_COUNT = v_err_cnt
+         , RECORD_COUNT = v_upd_cnt + v_err_cnt
+         , PROCESSED_COUNT = v_upd_cnt + v_err_cnt
+     WHERE JOB_ID =  v_job_id;
+
+    COMMIT;
+
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK;
+      v_code := SQLCODE;
+      v_desc := SQLERRM;
+
+      INSERT INTO corp_etl_error_log( err_level, job_name, process_name, nr_of_error, error_desc , error_codes, driver_table_name)
+      VALUES( c_critical, con_pkg, 'LAEB_SELECT_ETL_PKG.AUTODISENR_REQ_UPD', 1, v_desc, v_code, 'EMRS_D_AUTO_DISENROLLMENT_REQUEST');
+
+      COMMIT;
+END AUTODISENR_REQ_UPD;
 
 
 END;

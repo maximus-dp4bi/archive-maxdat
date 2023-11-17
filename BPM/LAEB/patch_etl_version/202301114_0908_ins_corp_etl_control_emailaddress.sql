@@ -16,6 +16,14 @@ values ('MAX_DIGITAL_EVENT_CREATE_DATE','D','2019/01/01 00:00:00','Min Date to s
 insert into CORP_ETL_CONTROL
 values ('MAX_DIGITAL_EVENT_UPDATE_DATE','D','2019/01/01 00:00:00','Min Date to start getting updated records', sysdate, sysdate);
 
+insert into CORP_ETL_CONTROL
+values ('AUTODISENROLL_LOOKBACK_DAYS','N','3','This is the number of lookback days used to get the autodisenroll request records in each run', sysdate, sysdate);
+
+insert into CORP_ETL_CONTROL
+values ('MAX_AUTODISNRLREQ_CREATE_DATE','D','2018/01/01 00:00:00','Min Date to start getting new records', sysdate, sysdate);
+
+insert into CORP_ETL_CONTROL
+values ('MAX_AUTODISNRLREQ_UPDATE_DATE','D','2018/01/01 00:00:00','Min Date to start getting updated records', sysdate, sysdate);
 
 insert into corp_etl_list_lkup ( cell_id
      ,name

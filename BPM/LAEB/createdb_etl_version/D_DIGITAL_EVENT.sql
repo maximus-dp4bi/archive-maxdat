@@ -89,7 +89,20 @@ create index IDX4_DGTLEVENTCLIENTNUM on D_DIGITAL_EVENT (CLIENT_ID)
     maxextents unlimited
   );   
   
-create index IDX5_DGTLEVENTCALLRECNUM on D_DIGITAL_EVENT (CALL_RECORD_ID)
+create index IDX5_DGTLEVENTTYPE on D_DIGITAL_EVENT (EVENT_TYPE_CD)
+  tablespace MAXDAT_LAEB_DATA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );    
+
+create index IDX6_DGTLEVENTCTS on D_DIGITAL_EVENT (CREATE_TS)
   tablespace MAXDAT_LAEB_DATA
   pctfree 10
   initrans 2
