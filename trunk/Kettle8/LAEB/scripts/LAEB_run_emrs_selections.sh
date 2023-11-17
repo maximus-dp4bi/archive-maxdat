@@ -98,6 +98,8 @@ wait
 wait
          MODULE=${MODULE_EMRS}; RUN_FILE=ETL_Load_SELECTION_MISSING_INFO_DETAILS; LOG_NAME=${RUN_FILE}_$(date +%Y%m%d_%H%M%S).log; LOG_FILE="${MAXDAT_ETL_LOGS}/${MODULE}/${LOG_NAME}"; ${MAXDAT_ETL_PATH}/run_kjb.sh ${MAXDAT_ETL_PATH}/${MODULE}/${RUN_FILE}.kjb ${KJB_LOG_LEVEL} >> ${LOG_FILE} &
 wait
+         MODULE=${MODULE_EMRS}; RUN_FILE=EMRS_Load_AUTODISENROLL_REQUEST; LOG_NAME=${RUN_FILE}_$(date +%Y%m%d_%H%M%S).log; LOG_FILE="${MAXDAT_ETL_LOGS}/${MODULE}/${LOG_NAME}"; ${MAXDAT_ETL_PATH}/run_kjb.sh ${MAXDAT_ETL_PATH}/${MODULE}/${RUN_FILE}.kjb ${KJB_LOG_LEVEL} >> ${LOG_FILE} &
+wait
 		if [[ -e ${CHILD_FAIL} ]]
 		then
 			#a child process failed, abort mission
