@@ -126,6 +126,7 @@ WITH inv AS(SELECT da.tracking_number AS t_number
     ELSE CONCAT(EXTRACT(MONTH FROM nma_state_first_date),'/',EXTRACT (DAY FROM nma_state_first_date),'/', EXTRACT (YEAR FROM nma_state_first_date)) END AS nma_state_first_date_char
   ,CASE WHEN complete_state_first_date IS NULL THEN NULL 
     ELSE CONCAT(EXTRACT(MONTH FROM complete_state_first_date),'/',EXTRACT (DAY FROM complete_state_first_date),'/', EXTRACT (YEAR FROM complete_state_first_date)) END AS complete_state_first_date_char    
+  ,CASE WHEN UPPER(source) = 'SBE' THEN 1 ELSE 0 END sbe_application  
 FROM coverva_dmas.dmas_application_v3_current da
  JOIN coverva_dmas.dmas_file_log df ON da.file_id = df.file_id
  LEFT JOIN coverva_dmas.dmas_review_threshold_lkup rtl ON da.processing_unit = rtl.processing_unit AND da.application_type = rtl.application_type
@@ -301,8 +302,8 @@ SELECT  inv.t_number,
   CASE WHEN inv.auto_closure_date IS NULL THEN NULL 
    ELSE CONCAT(EXTRACT(MONTH FROM inv.auto_closure_date),'/',EXTRACT (DAY FROM inv.auto_closure_date),'/', EXTRACT (YEAR FROM inv.auto_closure_date)) END AS auto_closure_date_char,
  inv.due_date_in_calendar_days30,   
- CASE WHEN inv.case_type = 'Renewal' THEN CASE WHEN inv.current_state != 'Non Maximus Assigned' THEN CASE WHEN inv.due_date_in_calendar_days30 >= CAST(application_processing_end_date AS DATE) THEN 1 ELSE 0 END ELSE 0 END ELSE 0 END timely_30_caldays,
- CASE WHEN inv.case_type = 'Renewal' THEN CASE WHEN inv.current_state != 'Non Maximus Assigned' THEN CASE WHEN inv.due_date_in_calendar_days30 < CAST(application_processing_end_date AS DATE) THEN 1 ELSE 0 END ELSE 0 END ELSE 0 END untimely_30_caldays,
+ CASE WHEN inv.current_state != 'Non Maximus Assigned' THEN CASE WHEN inv.due_date_in_calendar_days30 >= CAST(application_processing_end_date AS DATE) THEN 1 ELSE 0 END ELSE 0 END timely_30_caldays,
+ CASE WHEN inv.current_state != 'Non Maximus Assigned' THEN CASE WHEN inv.due_date_in_calendar_days30 < CAST(application_processing_end_date AS DATE) THEN 1 ELSE 0 END ELSE 0 END untimely_30_caldays,
  inv.renewal_closure_date,
  CASE WHEN inv.renewal_closure_date IS NULL THEN NULL 
    ELSE CONCAT(EXTRACT(MONTH FROM inv.renewal_closure_date),'/',EXTRACT (DAY FROM inv.renewal_closure_date),'/', EXTRACT (YEAR FROM inv.renewal_closure_date)) END AS renewal_closure_date_char,
@@ -329,7 +330,8 @@ SELECT  inv.t_number,
  inv.denied_state_first_date_char,
  inv.ttldss_state_first_date_char,
  inv.nma_state_first_date_char,
- inv.complete_state_first_date_char
+ inv.complete_state_first_date_char,
+ inv.sbe_application
 FROM inv 
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edtfid4 ON CAST(inv.first_inventory_date AS DATE) = edtfid4.ini_date AND edtfid4.count_bd = 5 AND edtfid4.project_id = 117
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edtfid7 ON CAST(inv.first_inventory_date AS DATE) = edtfid7.ini_date AND edtfid7.count_bd = 8 AND edtfid7.project_id = 117 ;
