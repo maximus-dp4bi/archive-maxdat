@@ -1,8 +1,9 @@
+-- Update D_TASK_TYPES IAW FEATURE 36456
 update maxdat.d_task_types
 set sla_jeopardy_days = 25,
     sla_days = 30
 where task_name = 'Multiple Applications';
--- Update D_TASK_TYPES IAW FEATURE 36456
+
 update maxdat.d_task_types
 set sla_jeopardy_days = 2,
     sla_days = 5
