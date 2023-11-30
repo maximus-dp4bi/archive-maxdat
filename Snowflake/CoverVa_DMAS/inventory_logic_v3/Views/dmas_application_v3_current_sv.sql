@@ -127,6 +127,9 @@ WITH inv AS(SELECT da.tracking_number AS t_number
   ,CASE WHEN complete_state_first_date IS NULL THEN NULL 
     ELSE CONCAT(EXTRACT(MONTH FROM complete_state_first_date),'/',EXTRACT (DAY FROM complete_state_first_date),'/', EXTRACT (YEAR FROM complete_state_first_date)) END AS complete_state_first_date_char    
   ,CASE WHEN UPPER(source) = 'SBE' THEN 1 ELSE 0 END sbe_application  
+  ,CASE WHEN UPPER(source) = 'SBE C' THEN 1 ELSE 0 END sbec_application  
+  ,CASE WHEN UPPER(source) = 'SBE D' THEN 1 ELSE 0 END sbed_application  
+  ,CASE WHEN UPPER(source) = 'SBE R' THEN 1 ELSE 0 END sber_application  
 FROM coverva_dmas.dmas_application_v3_current da
  JOIN coverva_dmas.dmas_file_log df ON da.file_id = df.file_id
  LEFT JOIN coverva_dmas.dmas_review_threshold_lkup rtl ON da.processing_unit = rtl.processing_unit AND da.application_type = rtl.application_type
@@ -331,7 +334,10 @@ SELECT  inv.t_number,
  inv.ttldss_state_first_date_char,
  inv.nma_state_first_date_char,
  inv.complete_state_first_date_char,
- inv.sbe_application
+ inv.sbe_application,
+ inv.sbec_application,
+ inv.sbed_application,
+ inv.sber_application
 FROM inv 
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edtfid4 ON CAST(inv.first_inventory_date AS DATE) = edtfid4.ini_date AND edtfid4.count_bd = 5 AND edtfid4.project_id = 117
  LEFT JOIN marsdb.AUX_BUSINESS_DAYS_COUNT_VW edtfid7 ON CAST(inv.first_inventory_date AS DATE) = edtfid7.ini_date AND edtfid7.count_bd = 8 AND edtfid7.project_id = 117 ;
