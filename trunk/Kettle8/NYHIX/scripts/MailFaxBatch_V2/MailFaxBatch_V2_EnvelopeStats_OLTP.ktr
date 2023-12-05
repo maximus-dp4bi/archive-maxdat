@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>MailFaxBatch_V2_Set_Variables</name>
+    <name>MailFaxBatch_V2_RM_Document_Transaction_Summary_OLTP</name>
     <description/>
     <extended_description>---------------------------------
-SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Set_Variables.ktr $ 
+SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Stg_Remote_OLTP_STATSBATCH.ktr $ 
 SVN_REVISION        = $Revision: 28280 $ 
 SVN_REVISION_DATE   = $Date: 2019-11-01 18:43:23 -0400 (Fri, 01 Nov 2019) $
 SVN_REVISION_AUTHOR = $Author: aa24065 $
----------------------------------</extended_description>
+---------------------------------
+</extended_description>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
@@ -433,14 +434,69 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2013/04/08 09:31:22.150</created_date>
+    <created_date>2013/07/02 14:04:08.535</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2013/04/08 09:31:22.150</modified_date>
+    <modified_date>2013/07/02 14:04:08.535</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>DB_RM_DOC_TRANS_SUMM</name>
+    <server>${DB_RM_DOC_TRANS_SUMM_HOSTNAME}</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>${DB_RM_DOC_TRANS_SUMM_DB}</database>
+    <port>${DB_RM_DOC_TRANS_SUMM_PORT}</port>
+    <username>${DB_RM_DOC_TRANS_SUMM_USER}</username>
+    <password>${DB_RM_DOC_TRANS_SUMM_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${DB_RM_DOC_TRANS_SUMM_PORT}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>MAXDAT</name>
     <server>${DB_NYHIX_DEV_MAXDAT_HOSTNAME}</server>
@@ -498,14 +554,34 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
   </connection>
   <order>
     <hop>
-      <from>CORP_ETL_MFB_V2_CONTROLS</from>
-      <to>Set MFB V2 Controls</to>
+      <from>ENVELOPESTATS_OLTP</from>
+      <to>Get System Info</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get System Info</from>
+      <to>Add constants</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Add constants</from>
+      <to>Get transformation name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get transformation name</from>
+      <to>Table output-CORP_ETL_ERROR_LOG</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Kofax EnvelopeStats</from>
+      <to>ENVELOPESTATS_OLTP</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>CORP_ETL_MFB_V2_CONTROLS</name>
-    <type>TableInput</type>
+    <name>Add constants</name>
+    <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -514,109 +590,246 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <fields>
+      <field>
+        <name>ERR_LEVEL</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>CRITICAL</nullif>
+        <length>0</length>
+        <precision>0</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>PROCESS_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>PROCESSMAILFAXBATCHV2</nullif>
+        <length>0</length>
+        <precision>0</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>DRIVER_TABLE_NAME</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>ENVELOPESTATS</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>610</xloc>
+      <yloc>380</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ENVELOPESTATS_OLTP</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>MAXDAT</connection>
-    <sql>SELECT 
- to_date(RSDV2.VALUE)-RSLV2.VALUE 					MFB_V2_REMOTE_START_DATE,
- to_date(CSDV2.VALUE)-CSLV2.VALUE 					MFB_V2_CENTRAL_START_DATE,
- SCANMV2.VALUE 										MFB_V2_SCAN_MODULE_NAME,
- QCMV2.VALUE 										MFB_V2_QC_MODULE_NAME,
- CLASSMV2.VALUE 									MFB_V2_CLASSIFICATION_MODULE_NAME,
- RECMV2.VALUE 										MFB_V2_RECOGNITION_MODULE_NAME,
- VALMV2.VALUE 										MFB_V2_VALIDATION_MODULE_NAME,
- PDFMV2.VALUE 										MFB_V2_PDF_MODULE_NAME,
- REPMV2.VALUE 										MFB_V2_REPORT_MODULE_NAME,
- EXPMV2.VALUE 										MFB_V2_EXPORT_MODULE_NAME,
- CFV2.VALUE 										MFB_V2_CENTRAL_FLAG,
- RFV2.VALUE 										MFB_V2_REMOTE_FLAG,
- MDRV2_FLAG.VALUE 									MFB_V2_MAXDATREPORTING_FLAG,
- MDRV2_LASTDBRECNUM.VALUE-MDRV2_LKBK.VALUE 			MFB_V2_MAXDATREPORTING_START_NUM,
- to_date(RMITS.VALUE,'yyyy-mm-dd hh24:mi:ss')       						MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE,
- RMFLG.VALUE										MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG,
- to_date(ESBCD.VALUE,'yyyy-mm-dd hh24:mi:ss')       						MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE,
- ESFLG.VALUE										MFB_V2_ENVELOPESTATS_RUN_FLAG
-FROM 
- CORP_ETL_CONTROL 		RSDV2,
- CORP_ETL_CONTROL 		CSDV2,
- CORP_ETL_CONTROL 		RSLV2,
- CORP_ETL_CONTROL 		CSLV2,
- CORP_ETL_CONTROL 		SCANMV2,
- CORP_ETL_CONTROL 		QCMV2,
- CORP_ETL_CONTROL 		CLASSMV2,
- CORP_ETL_CONTROL 		RECMV2,
- CORP_ETL_CONTROL 		VALMV2,
- CORP_ETL_CONTROL 		PDFMV2,
- CORP_ETL_CONTROL 		REPMV2,
- CORP_ETL_CONTROL 		EXPMV2,
- CORP_ETL_CONTROL 		CFV2,
- CORP_ETL_CONTROL 		RFV2,
- CORP_ETL_CONTROL 		MDRV2_FLAG,
- CORP_ETL_CONTROL 		MDRV2_LKBK,
- CORP_ETL_CONTROL 		MDRV2_LASTDBRECNUM,
- CORP_ETL_CONTROL		RMITS,
- CORP_ETL_CONTROL		RMFLG,
- CORP_ETL_CONTROL		ESBCD,
- CORP_ETL_CONTROL		ESFLG
-
-WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
- AND CSDV2.NAME='MFB_V2_CENTRAL_LAST_UPDATE_DATE'
- AND RSLV2.NAME='MFB_V2_REMOTE_LOOKBACK_DAYS'
- AND CSLV2.NAME='MFB_V2_CENTRAL_LOOKBACK_DAYS'
- AND SCANMV2.NAME='MFB_V2_SCAN_MODULE_NAME'
- AND QCMV2.NAME='MFB_V2_QC_MODULE_NAME'
- AND CLASSMV2.NAME='MFB_V2_CLASSIFICATION_MODULE_NAME'
- AND RECMV2.NAME='MFB_V2_RECOGNITION_MODULE_NAME'
- AND VALMV2.NAME='MFB_V2_VALIDATION_MODULE_NAME'
- AND PDFMV2.NAME='MFB_V2_PDF_MODULE_NAME'
- AND REPMV2.NAME='MFB_V2_REPORT_MODULE_NAME'
- AND EXPMV2.NAME='MFB_V2_EXPORT_MODULE_NAME'
- AND CFV2.NAME='MFB_V2_CENTRAL_FLAG'
- AND RFV2.NAME='MFB_V2_REMOTE_FLAG'
- AND MDRV2_FLAG.NAME='MFB_V2_MAXDATREPORTING_FLAG'
- AND MDRV2_LKBK.NAME='MFB_V2_MAXDATREPORTING_LOOKBACK_DB_REC_NUM'
- AND MDRV2_LASTDBRECNUM.NAME='MFB_V2_MAXDATREPORTING_LAST_DB_REC_NUM'
- and RMITS.NAME='MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE'
- AND RMFLG.NAME='MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG'
- and ESBCD.NAME='MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE'
- AND ESFLG.NAME='MFB_V2_ENVELOPESTATS_RUN_FLAG'
+    <schema>MAXDAT</schema>
+    <table>ENVELOPESTATS_OLTP</table>
+    <commit>10</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>imagetrust_batch_name</column_name>
+        <stream_name>imagetrust_batch_name</stream_name>
+      </field>
+      <field>
+        <column_name>envlope_batch_name</column_name>
+        <stream_name>envlope_batch_name</stream_name>
+      </field>
+      <field>
+        <column_name>envelope_count</column_name>
+        <stream_name>envelope_count</stream_name>
+      </field>
+      <field>
+        <column_name>batch_create_dt</column_name>
+        <stream_name>batch_create_dt</stream_name>
+      </field>
+      <field>
+        <column_name>ecn</column_name>
+        <stream_name>ecn</stream_name>
+      </field>
+      <field>
+        <column_name>insert_dt</column_name>
+        <stream_name>insert_dt</stream_name>
+      </field>
+      <field>
+        <column_name>dcn</column_name>
+        <stream_name>dcn</stream_name>
+      </field>
+      <field>
+        <column_name>id</column_name>
+        <stream_name>id</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>error_date</name>
+        <type>system date (variable)</type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Get transformation name</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>JOB_NAME</name>
+        <variable>${Internal.Transformation.Name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>610</xloc>
+      <yloc>460</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Kofax EnvelopeStats</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>DB_RM_DOC_TRANS_SUMM</connection>
+    <sql>
+SELECT
+imagetrust_batch_name, 
+envlope_batch_name,    
+envelope_count,       
+substring(batch_create_dt,1,19) as batch_create_dt,       
+ecn,      			  
+insert_dt,			  
+batch_class          
+dcn,  				  
+id       			  
+ from ImageTrustDb.dbo.EnvelopeStats 
+WHERE convert(date,substring(batch_create_dt,1,19)) >= convert(date,'${MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE}')
+;
 </sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
     <cached_row_meta_active>N</cached_row_meta_active>
     <row-meta>
       <value-meta>
-        <type>Date</type>
+        <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_REMOTE_START_DATE</name>
-        <length>0</length>
+        <name>imagetrust_batch_name</name>
+        <length>100</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_REMOTE_START_DATE</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_CENTRAL_START_DATE</name>
-        <length>0</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_CENTRAL_START_DATE</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>imagetrust_batch_name</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -635,11 +848,57 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_SCAN_MODULE_NAME</name>
-        <length>100</length>
+        <name>envlope_batch_name</name>
+        <length>50</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_SCAN_MODULE_NAME</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>envlope_batch_name</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Los_Angeles</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>envelope_count</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>envelope_count</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Los_Angeles</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>batch_create_dt</name>
+        <length>19</length>
+        <precision>-1</precision>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>batch_create_dt</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -658,11 +917,11 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_QC_MODULE_NAME</name>
-        <length>100</length>
+        <name>ecn</name>
+        <length>50</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_QC_MODULE_NAME</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>ecn</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -681,11 +940,11 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_CLASSIFICATION_MODULE_NAME</name>
-        <length>100</length>
+        <name>insert_dt</name>
+        <length>50</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_CLASSIFICATION_MODULE_NAME</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>insert_dt</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -704,11 +963,11 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_RECOGNITION_MODULE_NAME</name>
-        <length>100</length>
+        <name>dcn</name>
+        <length>50</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_RECOGNITION_MODULE_NAME</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>dcn</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -727,264 +986,11 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>MFB_V2_VALIDATION_MODULE_NAME</name>
-        <length>100</length>
+        <name>id</name>
+        <length>10</length>
         <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_VALIDATION_MODULE_NAME</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_PDF_MODULE_NAME</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_PDF_MODULE_NAME</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_REPORT_MODULE_NAME</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_REPORT_MODULE_NAME</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_EXPORT_MODULE_NAME</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_EXPORT_MODULE_NAME</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_CENTRAL_FLAG</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_CENTRAL_FLAG</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_REMOTE_FLAG</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_REMOTE_FLAG</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_MAXDATREPORTING_FLAG</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_MAXDATREPORTING_FLAG</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>BigNumber</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_MAXDATREPORTING_START_NUM</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_MAXDATREPORTING_START_NUM</comments>
-        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</name>
-        <length>0</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE</name>
-        <length>0</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_US</date_format_locale>
-        <date_format_timezone>America/Los_Angeles</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>MFB_V2_ENVELOPESTATS_RUN_FLAG</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>CORP_ETL_MFB_V2_CONTROLS</origin>
-        <comments>MFB_V2_ENVELOPESTATS_RUN_FLAG</comments>
+        <origin>Kofax EnvelopeStats</origin>
+        <comments>id</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1010,14 +1016,14 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       </output>
     </remotesteps>
     <GUI>
-      <xloc>157</xloc>
-      <yloc>93</yloc>
+      <xloc>144</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Set MFB V2 Controls</name>
-    <type>SetVariable</type>
+    <name>Table output-CORP_ETL_ERROR_LOG</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1026,117 +1032,65 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>MAXDAT</connection>
+    <schema/>
+    <table>CORP_ETL_ERROR_LOG</table>
+    <commit>1</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
     <fields>
       <field>
-        <field_name>MFB_V2_REMOTE_START_DATE</field_name>
-        <variable_name>MFB_V2_REMOTE_START_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>NR_OF_ERROR</column_name>
+        <stream_name>ERR_NR</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_CENTRAL_START_DATE</field_name>
-        <variable_name>MFB_V2_CENTRAL_START_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>ERROR_DESC</column_name>
+        <stream_name>ERR_DESC</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_MAXDATREPORTING_START_NUM</field_name>
-        <variable_name>MFB_V2_MAXDATREPORTING_START_NUM</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>ERROR_FIELD</column_name>
+        <stream_name>ERR_FLD</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_SCAN_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_SCAN_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>ERROR_CODES</column_name>
+        <stream_name>ERR_CD</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_QC_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_QC_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>ERR_DATE</column_name>
+        <stream_name>error_date</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_CLASSIFICATION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_CLASSIFICATION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>ERR_LEVEL</column_name>
+        <stream_name>ERR_LEVEL</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_RECOGNITION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_RECOGNITION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>PROCESS_NAME</column_name>
+        <stream_name>PROCESS_NAME</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_VALIDATION_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_VALIDATION_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>JOB_NAME</column_name>
+        <stream_name>JOB_NAME</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_PDF_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_PDF_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>DRIVER_KEY_NUMBER</column_name>
+        <stream_name>id</stream_name>
       </field>
       <field>
-        <field_name>MFB_V2_REPORT_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_REPORT_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_EXPORT_MODULE_NAME</field_name>
-        <variable_name>MFB_V2_EXPORT_MODULE_NAME</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_MAXDATREPORTING_FLAG</field_name>
-        <variable_name>MFB_V2_MAXDATREPORTING_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_CENTRAL_FLAG</field_name>
-        <variable_name>MFB_V2_CENTRAL_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_REMOTE_FLAG</field_name>
-        <variable_name>MFB_V2_REMOTE_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</field_name>
-        <variable_name>MFB_V2_RM_DOC_TRANS_SUMMARY_LAST_UPDATE_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</field_name>
-        <variable_name>MFB_V2_RM_DOC_TRANS_SUMMARY_RUN_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE</field_name>
-        <variable_name>MFB_V2_ENVELOPESTATS_LAST_UPDATE_DATE</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
-      </field>
-      <field>
-        <field_name>MFB_V2_ENVELOPESTATS_RUN_FLAG</field_name>
-        <variable_name>MFB_V2_ENVELOPESTATS_RUN_FLAG</variable_name>
-        <variable_type>JVM</variable_type>
-        <default_value/>
+        <column_name>DRIVER_TABLE_NAME</column_name>
+        <stream_name>DRIVER_TABLE_NAME</stream_name>
       </field>
     </fields>
-    <use_formatting>Y</use_formatting>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1146,12 +1100,24 @@ WHERE RSDV2.NAME='MFB_V2_REMOTE_LAST_UPDATE_DATE'
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>96</yloc>
+      <xloc>610</xloc>
+      <yloc>550</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step_error_handling>
+    <error>
+      <source_step>ENVELOPESTATS_OLTP</source_step>
+      <target_step>Get System Info</target_step>
+      <is_enabled>Y</is_enabled>
+      <nr_valuename>ERR_NR</nr_valuename>
+      <descriptions_valuename>ERR_DESC</descriptions_valuename>
+      <fields_valuename>ERR_FLD</fields_valuename>
+      <codes_valuename>ERR_CD</codes_valuename>
+      <max_errors>99999</max_errors>
+      <max_pct_errors/>
+      <min_pct_rows/>
+    </error>
   </step_error_handling>
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>

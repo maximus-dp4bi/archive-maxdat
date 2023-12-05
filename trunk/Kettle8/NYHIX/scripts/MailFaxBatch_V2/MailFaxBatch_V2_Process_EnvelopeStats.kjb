@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>MailFaxBatch_V2_RUNALL</name>
+  <name>MailFaxBatch_V2_Process_EnvelopeStats</name>
   <description/>
   <extended_description>---------------------------------
-SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_RUNALL.kjb $ 
+SVN_FILE_URL        = $URL: svn://svn-staging.maximus.com/dev1d/maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch/MailFaxBatch_Stg_Remote_OLTP.kjb $ 
 SVN_REVISION        = $Revision: 28280 $ 
 SVN_REVISION_DATE   = $Date: 2019-11-01 18:43:23 -0400 (Fri, 01 Nov 2019) $
 SVN_REVISION_AUTHOR = $Author: aa24065 $
@@ -13,9 +13,9 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
   <job_status>0</job_status>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2013/08/06 15:06:31.813</created_date>
+  <created_date>2013/07/18 14:52:44.613</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2013/08/06 15:06:31.813</modified_date>
+  <modified_date>2013/07/18 14:52:44.613</modified_date>
   <parameters>
     </parameters>
   <slaveservers>
@@ -311,8 +311,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>48</xloc>
-      <yloc>32</yloc>
+      <xloc>32</xloc>
+      <yloc>48</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -323,18 +323,42 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>656</yloc>
+      <xloc>256</xloc>
+      <yloc>352</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>MailFaxBatch_V2_Set_Variables</name>
+      <name>Run EnvelopeStats?</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <attributes/>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>MFB_V2_ENVELOPESTATS_RUN_FLAG</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>256</xloc>
+      <yloc>48</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Truncate EnvelopeStats OLTP</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Set_Variables.ktr</filename>
+      <filename>C:/Users/83345/archive-maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch_V2/MailFaxBatch_V2_Truncate_EnvelopeStats_OLTP.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -362,55 +386,18 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>32</yloc>
+      <xloc>736</xloc>
+      <yloc>48</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>MailFaxBatch_V2_Check_DB_Connections_Central</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Check_DB_Connections_Central.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>560</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>MailFaxBatch_V2_Setup_Job_Log</name>
+      <name>MailFaxBatch_V2_Run_ENVELOPESTATS_PLSQL</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Setup_Job_Log.ktr</filename>
+      <filename>C:/Users/83345/archive-maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch_V2/MailFaxBatch_V2_Run_ENVELOPESTATS_PLSQL_Package.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -438,55 +425,18 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
-      <yloc>32</yloc>
+      <xloc>736</xloc>
+      <yloc>352</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>MailFaxBatch_V2_Process_Central</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Process_Central.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>1</nr>
-      <xloc>672</xloc>
-      <yloc>656</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Update Job Log</name>
+      <name>MailFaxBatch_V2_EnvelopeStats_OLTP</name>
       <description/>
       <type>TRANS</type>
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Update_Job_Log.ktr</filename>
+      <filename>C:/Users/83345/archive-maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch_V2/MailFaxBatch_V2_EnvelopeStats_OLTP.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -514,200 +464,24 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>656</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Process Image Trust</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Process_Image_Trust.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>192</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Check DB Connection Image Trust</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Check_DB_Connections_Image_Trust.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>112</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Check DB Connection RM Document Transaction Summary</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Check_DB_Connections_RM_Document_Transaction_Summary.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>384</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Process RM Document Transaction Summary</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>${Internal.Entry.Current.Directory}/MailFaxBatch_V2_Process_RM_Document_Transaction_Summary.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>464</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Process EnvelopeStats</name>
-      <description/>
-      <type>JOB</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>C:/Users/83345/archive-maxdat/trunk/Kettle8/NYHIX/scripts/MailFaxBatch_V2/MailFaxBatch_V2_Process_EnvelopeStats.kjb</filename>
-      <jobname/>
-      <directory/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>288</yloc>
+      <xloc>736</xloc>
+      <yloc>208</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
   <hops>
     <hop>
+      <from>Run EnvelopeStats?</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>START</from>
-      <to>MailFaxBatch_V2_Setup_Job_Log</to>
+      <to>Run EnvelopeStats?</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -715,8 +489,8 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>MailFaxBatch_V2_Setup_Job_Log</from>
-      <to>MailFaxBatch_V2_Set_Variables</to>
+      <from>Run EnvelopeStats?</from>
+      <to>Truncate EnvelopeStats OLTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -724,80 +498,26 @@ SVN_REVISION_AUTHOR = $Author: aa24065 $
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>MailFaxBatch_V2_Check_DB_Connections_Central</from>
-      <to>MailFaxBatch_V2_Process_Central</to>
+      <from>Truncate EnvelopeStats OLTP</from>
+      <to>MailFaxBatch_V2_EnvelopeStats_OLTP</to>
       <from_nr>0</from_nr>
-      <to_nr>1</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>MailFaxBatch_V2_Process_Central</from>
-      <to>Update Job Log</to>
-      <from_nr>1</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Update Job Log</from>
+      <from>MailFaxBatch_V2_EnvelopeStats_OLTP</from>
+      <to>MailFaxBatch_V2_Run_ENVELOPESTATS_PLSQL</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>MailFaxBatch_V2_Run_ENVELOPESTATS_PLSQL</from>
       <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>MailFaxBatch_V2_Set_Variables</from>
-      <to>Check DB Connection Image Trust</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Check DB Connection Image Trust</from>
-      <to>Process Image Trust</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process RM Document Transaction Summary</from>
-      <to>MailFaxBatch_V2_Check_DB_Connections_Central</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Check DB Connection RM Document Transaction Summary</from>
-      <to>Process RM Document Transaction Summary</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process Image Trust</from>
-      <to>Process EnvelopeStats</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Process EnvelopeStats</from>
-      <to>Check DB Connection RM Document Transaction Summary</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
