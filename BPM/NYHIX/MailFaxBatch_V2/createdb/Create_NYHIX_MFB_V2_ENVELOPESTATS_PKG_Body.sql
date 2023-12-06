@@ -206,7 +206,7 @@ PROCEDURE UPDATE_Load_ENVELOPESTATS IS
 		IF 1=2
             OR NVL(JOIN_REC.TARGET_imagetrust_batch_name, 	 '-?93333')	 	<>  	NVL(JOIN_REC.SRC_imagetrust_batch_name,'-?93333')	-- 5 	1	VARCHAR2
             OR NVL(JOIN_REC.TARGET_envlope_batch_name, 		 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_envlope_batch_name,   '-?93333')	-- 5 	2	VARCHAR2
-            OR NVL(JOIN_REC.TARGET_envelope_count, 			 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_envelope_count,       '-?93333')	-- 5 	3	VARCHAR2
+            OR NVL(JOIN_REC.TARGET_envelope_count, 			 -93333)	  	<>  	NVL(JOIN_REC.SRC_envelope_count,       -93333)	-- 5 	3	VARCHAR2
             OR NVL(JOIN_REC.TARGET_batch_create_dt,	 		 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_batch_create_dt,      '-?93333')	-- 5 	4	VARCHAR2
             OR NVL(JOIN_REC.TARGET_ecn,      			 	 '-?93333') 	<>  	NVL(JOIN_REC.SRC_ecn,      			   '-?93333')	-- 5 	5	VARCHAR2
             OR NVL(JOIN_REC.TARGET_insert_dt,			 	 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_insert_dt,			   '-?93333')	-- 5 	6	VARCHAR2
