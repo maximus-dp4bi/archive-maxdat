@@ -89,7 +89,7 @@ create or replace PACKAGE BODY NYHIX_MFB_V2_ENVELOPESTATS_PKG AS
                               TARGET_id        				 				-- 4 	9
 	FROM SRC
 	LEFT OUTER JOIN TARGET
-	ON SRC.SRC_id = TARGET.TARGET_id;
+	ON SRC.SRC_envlope_batch_name = TARGET.TARGET_envlope_batch_name;
 
 -----------------------------------------------------
 
@@ -206,7 +206,7 @@ PROCEDURE UPDATE_Load_ENVELOPESTATS IS
 		IF 1=2
             OR NVL(JOIN_REC.TARGET_imagetrust_batch_name, 	 '-?93333')	 	<>  	NVL(JOIN_REC.SRC_imagetrust_batch_name,'-?93333')	-- 5 	1	VARCHAR2
             OR NVL(JOIN_REC.TARGET_envlope_batch_name, 		 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_envlope_batch_name,   '-?93333')	-- 5 	2	VARCHAR2
-            OR NVL(JOIN_REC.TARGET_envelope_count, 			 -93333)	  	<>  	NVL(JOIN_REC.SRC_envelope_count,       -93333)	-- 5 	3	VARCHAR2
+            OR NVL(JOIN_REC.TARGET_envelope_count, 			 -93333)	  	<>  	NVL(JOIN_REC.SRC_envelope_count,       -93333)	-- 5 	3	Number
             OR NVL(JOIN_REC.TARGET_batch_create_dt,	 		 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_batch_create_dt,      '-?93333')	-- 5 	4	VARCHAR2
             OR NVL(JOIN_REC.TARGET_ecn,      			 	 '-?93333') 	<>  	NVL(JOIN_REC.SRC_ecn,      			   '-?93333')	-- 5 	5	VARCHAR2
             OR NVL(JOIN_REC.TARGET_insert_dt,			 	 '-?93333')	  	<>  	NVL(JOIN_REC.SRC_insert_dt,			   '-?93333')	-- 5 	6	VARCHAR2
@@ -242,7 +242,7 @@ PROCEDURE UPDATE_Load_ENVELOPESTATS IS
             --||JOIN_REC.SRC_rowid||' '
             ||JOIN_REC.target_rowid);
 
-	--	GV_DRIVER_KEY_NUMBER  	:= 'SRC_ECN : '||JOIN_REC.ECN;
+		GV_DRIVER_KEY_NUMBER  	:= 'SRC_envlope_batch_name : '||JOIN_REC.SRC_envlope_batch_name;
 		GV_DRIVER_TABLE_NAME  	:= 'MAXDAT.ENVELOPESTATS_OLTP';	
 		GV_ERR_LEVEL		  	:= 'Warning';
 		GV_PROCESS_NAME 		:= 'UPDATE_Load_ENVELOPESTATS';
@@ -295,7 +295,7 @@ PROCEDURE INSERT_Load_ENVELOPESTATS IS
 --            ||JOIN_REC.target_BATCH_name);
 
         -- '${MFB_V2_REMOTE_START_DATE}'
-		GV_DRIVER_KEY_NUMBER  	:= 'SRC id : '||JOIN_REC.SRC_id;
+		GV_DRIVER_KEY_NUMBER  	:= 'SRC envlope_batch_name : '||JOIN_REC.SRC_envlope_batch_name;
 		GV_DRIVER_TABLE_NAME  	:= 'MAXDAT.ENVELOPESTATS_OLTP';	
 		GV_ERR_LEVEL		  	:= 'Warning';
 		GV_PROCESS_NAME 		:= 'Load_ENVELOPESTATS';
