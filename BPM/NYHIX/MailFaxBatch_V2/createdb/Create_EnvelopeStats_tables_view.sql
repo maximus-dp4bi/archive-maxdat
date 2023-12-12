@@ -62,7 +62,7 @@ CREATE INDEX MAXDAT.IDX7_EnvelopeStats_OLTP_dcn ON MAXDAT.EnvelopeStats_OLTP (dc
 
 -------------------------------------------------------------------
 --Create db view EnvelopeStats_SV
-CREATE OR REPLACE FORCE EDITIONABLE VIEW "MAXDAT"."EnvelopeStats_SV" ("id",	"imagetrust_batch_name", "ecn",	"envlope_batch_name", "envelope_count", "batch_create_dt", "insert_dt", "batch_class", "dcn") AS
+CREATE OR REPLACE FORCE EDITIONABLE VIEW MAXDAT.EnvelopeStats_SV (id,	imagetrust_batch_name, ecn,	envlope_batch_name, envelope_count, batch_create_dt, insert_dt, batch_class, dcn) AS
 select
 	id,
 	imagetrust_batch_name,
@@ -75,7 +75,7 @@ select
 	dcn
 from maxdat.EnvelopeStats;
  
-  GRANT SELECT ON "MAXDAT"."EnvelopeStats_SV" TO "MAXDAT_READ_ONLY";
-  GRANT SELECT ON "MAXDAT"."EnvelopeStats_SV" TO "MAXDAT_OLTP_SIUD";
-  GRANT SELECT ON "MAXDAT"."EnvelopeStats_SV" TO "MAXDAT_OLTP_SIU";
+  GRANT SELECT ON MAXDAT.EnvelopeStats_SV TO MAXDAT_READ_ONLY;
+  GRANT SELECT ON MAXDAT.EnvelopeStats_SV TO MAXDAT_OLTP_SIUD;
+  GRANT SELECT ON MAXDAT.EnvelopeStats_SV TO MAXDAT_OLTP_SIU;
 
