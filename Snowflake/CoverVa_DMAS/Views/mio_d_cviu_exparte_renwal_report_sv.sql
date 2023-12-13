@@ -37,6 +37,45 @@ create or replace view PUBLIC.MIO_D_CVIU_EXPARTE_RENWAL_REPORT_SV(
     count_packet_not_sent_blank,
     reporting_month_date
 ) COPY GRANTS as
+WITH ex AS(
+SELECT county,
+filename,
+case_number,
+client_name,
+primary_worker_id,
+automated_ex_parte_renewal_attempted,
+renewal_successful,
+exception_reason,
+ex_parte_process,
+aid_category_prior_to_ex_parte,
+aid_category_post_ex_parte,
+automated_renewal_packet_generation,
+current_renewal_date,
+new_renewal_date
+FROM COVERVA_DMAS.EXPARTE_RUN_FULL_LOAD
+UNION ALL
+SELECT county,
+filename,
+case_number,
+client_name,
+primary_worker_id,
+CASE WHEN case_entered_exparte_flow = 'Entered Ex Parte Flow' THEN 'Y' 
+     WHEN case_entered_exparte_flow = 'Did not Enter Ex Parte Flow' THEN 'N'
+ ELSE NULL END automated_ex_parte_renewal_attempted,
+CASE WHEN renewal_successful_for_case = 'Successful' THEN 'Y'
+     WHEN renewal_successful_for_case = 'Unsuccessful' THEN 'N' 
+ ELSE NULL END renewal_successful,
+exception_reason_for_case exception_reason,
+ex_parte_process,
+aid_category_prior_to_ex_parte,
+aid_category_post_ex_parte,
+automated_renewal_packet_gen_for_case automated_renewal_packet_generation,
+current_renewal_date,
+new_renewal_date
+FROM COVERVA_DMAS.EXPARTE_DATA_FULL_LOAD
+QUALIFY ROW_NUMBER() OVER(PARTITION BY case_number ORDER BY exparte_data_id) = 1
+)
+
 SELECT DISTINCT TO_CHAR(CONCAT (MONTHNAME(FL.FILE_DATE),'-',YEAR(FL.FILE_DATE))) AS REPORTING_MONTH
 ,COUNTY AS COUNTY
 ,EX.FILENAME AS FILENAME
@@ -96,7 +135,7 @@ AND (RIVA.TASK_STATUS NOT IN ('Approved','Denied','ABD Approved', 'Cancelled Cov
 ,CASE WHEN renewal_successful = 'N' AND automated_renewal_packet_generation IS NULL THEN 1 ELSE 0 END count_packet_not_sent_unsuccessful
 ,CASE WHEN COALESCE(renewal_successful,' ') = ' ' AND automated_renewal_packet_generation IS NULL THEN 1 ELSE 0 END count_packet_not_sent_blank
 ,DATE_TRUNC('MONTH',FL.FILE_DATE) reporting_month_date
-FROM COVERVA_DMAS.EXPARTE_RUN_FULL_LOAD EX
+FROM EX
  JOIN COVERVA_DMAS.DMAS_FILE_LOG FL ON UPPER(EX.FILENAME) = UPPER(FL.FILENAME)
 --LEFT JOIN COVERVA_MIO.rpt_cviu_renewals RE ON EX.CASE_NUMBER = RE.CASE_NUMBER
 LEFT JOIN (

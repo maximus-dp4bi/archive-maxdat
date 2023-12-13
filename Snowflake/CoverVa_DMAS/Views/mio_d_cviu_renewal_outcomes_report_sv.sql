@@ -23,6 +23,44 @@ RENEWAL_SUCCESSFUL
 "SENT TO LDSS",
 "RESEARCH COMPLETE NO ACTION TAKEN"
 ) COPY GRANTS AS 
+WITH ex AS(
+SELECT county,
+filename,
+case_number,
+client_name,
+primary_worker_id,
+automated_ex_parte_renewal_attempted,
+renewal_successful,
+exception_reason,
+ex_parte_process,
+aid_category_prior_to_ex_parte,
+aid_category_post_ex_parte,
+automated_renewal_packet_generation,
+current_renewal_date,
+new_renewal_date
+FROM COVERVA_DMAS.EXPARTE_RUN_FULL_LOAD
+UNION ALL
+SELECT county,
+filename,
+case_number,
+client_name,
+primary_worker_id,
+CASE WHEN case_entered_exparte_flow = 'Entered Ex Parte Flow' THEN 'Y' 
+     WHEN case_entered_exparte_flow = 'Did not Enter Ex Parte Flow' THEN 'N'
+ ELSE NULL END automated_ex_parte_renewal_attempted,
+CASE WHEN renewal_successful_for_case = 'Successful' THEN 'Y'
+     WHEN renewal_successful_for_case = 'Unsuccessful' THEN 'N' 
+ ELSE NULL END renewal_successful,
+exception_reason_for_case exception_reason,
+ex_parte_process,
+aid_category_prior_to_ex_parte,
+aid_category_post_ex_parte,
+automated_renewal_packet_gen_for_case automated_renewal_packet_generation,
+current_renewal_date,
+new_renewal_date
+FROM COVERVA_DMAS.EXPARTE_DATA_FULL_LOAD
+QUALIFY ROW_NUMBER() OVER(PARTITION BY case_number ORDER BY exparte_data_id) = 1
+)
 SELECT DISTINCT RE.DISPOSITION_DATE_EST AS DISPOSITION_DATE
 ,EX.CURRENT_RENEWAL_DATE  AS RENEWAL_DATE
 ,EX.CASE_NUMBER AS CASE_NUMBER 
@@ -51,7 +89,7 @@ AND (AID_CATEGORY_PRIOR_TO_EX_PARTE IN (108,109,112,113) AND CONTAINS (PRIMARY_W
 ,CASE WHEN DISPOSITION IN ('Transferred to LDSS') AND (RENEWAL_SUCCESSFUL IN ('N') OR COALESCE(RENEWAL_SUCCESSFUL,' ') = ' ') AND (AID_CATEGORY_PRIOR_TO_EX_PARTE IN (108,109,112,113) AND CONTAINS (PRIMARY_WORKER_ID,'900')) THEN 1 ELSE 0 END "SENT TO LDSS"
 ,CASE WHEN DISPOSITION IN ('Research Complete No Action Taken') AND (RENEWAL_SUCCESSFUL IN ('N') OR COALESCE(RENEWAL_SUCCESSFUL,' ') = ' ') 
 AND (AID_CATEGORY_PRIOR_TO_EX_PARTE IN (108,109,112,113) AND CONTAINS (PRIMARY_WORKER_ID,'900')) THEN 1 ELSE 0 END "RESEARCH COMPLETE NO ACTION TAKEN"
-FROM COVERVA_DMAS.EXPARTE_RUN_FULL_LOAD EX
+FROM EX
 LEFT JOIN COVERVA_MIO.rpt_cviu_renewals RE ON EX.CASE_NUMBER = RE.CASE_NUMBER
 LEFT JOIN (
 SELECT ID
