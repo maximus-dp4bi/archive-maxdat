@@ -58,7 +58,8 @@ WITH inv AS(SELECT da.tracking_number AS t_number
   ,CASE WHEN UPPER(source) = 'RDE' THEN 1 ELSE 0 END rde_application
   ,CASE WHEN (UPPER(source) = 'COMMONHELP') OR (UPPER(source) = 'AR' AND da.case_type = 'Renewal') THEN 1 ELSE 0 END common_help_application
   ,CASE WHEN (UPPER(source) LIKE 'PAPER%') OR (UPPER(source) = 'AR' AND da.case_type != 'Renewal') THEN 1 ELSE 0 END paper_application
-  ,CASE WHEN COALESCE(UPPER(source),'X') NOT LIKE 'FFM%' AND COALESCE(UPPER(source),'X') NOT LIKE 'PAPER%' AND COALESCE(UPPER(source),'X') NOT IN('RDE','COMMONHELP','AR') THEN 1 ELSE 0 END other_application
+  ,CASE WHEN COALESCE(UPPER(source),'X') NOT LIKE 'FFM%' AND COALESCE(UPPER(source),'X') NOT LIKE 'PAPER%' AND COALESCE(UPPER(source),'X') NOT IN('RDE','COMMONHELP','AR')
+      AND COALESCE(UPPER(source),'X') NOT LIKE 'SBE%' THEN 1 ELSE 0 END other_application
   ,CASE WHEN UPPER(source) LIKE 'FFM%' THEN 1 ELSE 0 END all_ffm_application
   ,CASE WHEN UPPER(source) = 'FFM' THEN 1 ELSE 0 END ffm_application
   ,CASE WHEN UPPER(source) = 'FFM D' THEN 1 ELSE 0 END ffmd_application
