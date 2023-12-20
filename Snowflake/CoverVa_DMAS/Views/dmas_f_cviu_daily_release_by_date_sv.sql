@@ -12,7 +12,13 @@ SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_na
  COALESCE(scb_transfer_process_count,0) count_scb_transfer_process, 
  COALESCE(moved_outof_state_count,0) count_moved_outof_state,
  COALESCE(doc_moved_outof_state_count,0) count_doc_moved_outof_state,         
- COALESCE(scb_moved_outof_state_count,0) count_scb_moved_outof_state
+ COALESCE(scb_moved_outof_state_count,0) count_scb_moved_outof_state,
+ 0 count_release_process_112_113,
+ 0 count_doc_release_process_112_113,
+ 0 count_scb_release_process_112_113,
+ 0 count_transfer_process_112_113,         
+ 0 count_doc_transfer_process_112_113, 
+ 0 count_scb_transfer_process_112_113 
 FROM  (SELECT d_year,
         d_month,
         TRIM(CONCAT(d_month_name,'-',d_year)) d_month_year,
@@ -21,7 +27,7 @@ FROM  (SELECT d_year,
         CONCAT('WE - ',LAST_DAY(d_date,'week')) week_ending,
         CONCAT('Quarter',DATE_PART('quarter',d_date),'-',d_year) d_quarter,
         TO_NUMBER(CONCAT(d_year,LPAD(d_month_num,2,'0'))) d_yearmonth_num
-      FROM d_dates
+      FROM public.d_dates
       WHERE project_id = 117
       AND d_date >= CAST('01/01/2021' AS DATE) 
       AND d_date <= LAST_DAY(current_date(),'week')) dd
@@ -37,18 +43,20 @@ SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_na
          AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_doc_release_process,
  SUM(CASE WHEN  offender_location_type = 'SCB' AND medicaid_category IN('108','109') 
          AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_scb_release_process,
- SUM(CASE WHEN medicaid_category IS NOT NULL AND offender_release_person = '12' THEN 1 ELSE 0 END) count_transfer_process,         
- SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IS NOT NULL AND offender_release_person = '12' THEN 1 ELSE 0 END) count_doc_transfer_process, 
- SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IS NOT NULL AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process, 
+ SUM(CASE WHEN medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_transfer_process,         
+ SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_doc_transfer_process, 
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process, 
  SUM(CASE WHEN medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state,
  SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state,         
- SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state,
- 
-  SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_release_process_112_113,
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state, 
+ SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_release_process_112_113,
  SUM(CASE WHEN  offender_location_type = 'DOC' AND medicaid_category IN('112','113') 
          AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_doc_release_process_112_113,
  SUM(CASE WHEN  offender_location_type = 'SCB' AND medicaid_category IN('112','113') 
-         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_scb_release_process_112_113
+         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_scb_release_process_112_113,
+SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_transfer_process_112_113,         
+ SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_doc_transfer_process_112_113, 
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process_112_113          
 FROM (SELECT d_year,
         d_month,
         TRIM(CONCAT(d_month_name,'-',d_year)) d_month_year,
@@ -57,7 +65,7 @@ FROM (SELECT d_year,
         CONCAT('WE - ',LAST_DAY(d_date,'week')) week_ending,
         CONCAT('Quarter',DATE_PART('quarter',d_date),'-',d_year) d_quarter,
         TO_NUMBER(CONCAT(d_year,LPAD(d_month_num,2,'0'))) d_yearmonth_num
-      FROM d_dates
+      FROM public.d_dates
       WHERE project_id = 117
       AND d_date >= CAST('01/01/2022' AS DATE) 
       AND d_date <= LAST_DAY(current_date(),'week')) dd
