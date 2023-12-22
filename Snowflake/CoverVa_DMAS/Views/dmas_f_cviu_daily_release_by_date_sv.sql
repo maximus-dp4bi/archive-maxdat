@@ -1,5 +1,10 @@
-CREATE OR REPLACE VIEW dmas_f_cviu_daily_release_by_date_sv
+use role mars_dp4bi_prod_admin;
+drop view public.dmas_f_cviu_daily_release_by_date_sv;
+
+use role mars_dp4bi_prod_coverva_dmas_admin;
+CREATE OR REPLACE VIEW public.dmas_f_cviu_daily_release_by_date_sv
 AS
+WITH dr AS(
 SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_name,
  COALESCE(record_count,0) count_records,
  COALESCE(doc_record_count,0) count_doc_records,
@@ -18,7 +23,13 @@ SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_na
  0 count_scb_release_process_112_113,
  0 count_transfer_process_112_113,         
  0 count_doc_transfer_process_112_113, 
- 0 count_scb_transfer_process_112_113 
+ 0 count_scb_transfer_process_112_113, 
+ 0 count_moved_outof_state_108_109,
+ 0 count_doc_moved_outof_state_108_109,         
+ 0 count_scb_moved_outof_state_108_109,  
+ 0 count_moved_outof_state_112_113,
+ 0 count_doc_moved_outof_state_112_113,         
+ 0 count_scb_moved_outof_state_112_113 
 FROM  (SELECT d_year,
         d_month,
         TRIM(CONCAT(d_month_name,'-',d_year)) d_month_year,
@@ -38,25 +49,34 @@ SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_na
  COUNT(offender_id) count_records,
  SUM(CASE WHEN offender_location_type = 'DOC' THEN 1 ELSE 0 END) count_doc_records,
  SUM(CASE WHEN offender_location_type = 'SCB' THEN 1 ELSE 0 END) count_scb_records,
- SUM(CASE WHEN medicaid_category IN('108','109') AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_release_process,
+ SUM(CASE WHEN medicaid_category IN('108','109') AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_release_process,
  SUM(CASE WHEN  offender_location_type = 'DOC' AND medicaid_category IN('108','109') 
-         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_doc_release_process,
+         AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_doc_release_process,
  SUM(CASE WHEN  offender_location_type = 'SCB' AND medicaid_category IN('108','109') 
-         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_scb_release_process,
+         AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_scb_release_process,
  SUM(CASE WHEN medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_transfer_process,         
  SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_doc_transfer_process, 
  SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('108','109') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process, 
- SUM(CASE WHEN medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state,
- SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state,         
- SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IS NOT NULL AND COALESCE(offender_proposed_address_state,'VA') != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state, 
- SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_release_process_112_113,
+ --SUM(CASE WHEN medicaid_category IS NOT NULL AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state,
+ --SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IS NOT NULL AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state,         
+ --SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IS NOT NULL AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state,  
+ SUM(CASE WHEN medicaid_category IN('108','109','112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state,
+ SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('108','109','112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state,         
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('108','109','112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state,  
+ SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_release_process_112_113,
  SUM(CASE WHEN  offender_location_type = 'DOC' AND medicaid_category IN('112','113') 
-         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_doc_release_process_112_113,
+         AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_doc_release_process_112_113,
  SUM(CASE WHEN  offender_location_type = 'SCB' AND medicaid_category IN('112','113') 
-         AND offender_release_person != '12' AND COALESCE(offender_proposed_address_state,'VA') = 'VA' THEN 1 ELSE 0 END) count_scb_release_process_112_113,
+         AND offender_release_person != '12' AND UPPER(COALESCE(offender_proposed_address_state,'VA')) = 'VA' THEN 1 ELSE 0 END) count_scb_release_process_112_113,
 SUM(CASE WHEN medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_transfer_process_112_113,         
  SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_doc_transfer_process_112_113, 
- SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process_112_113          
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('112','113') AND offender_release_person = '12' THEN 1 ELSE 0 END) count_scb_transfer_process_112_113, 
+ SUM(CASE WHEN medicaid_category IN('108','109') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state_108_109,
+ SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('108','109') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state_108_109,         
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('108','109') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state_108_109,  
+ SUM(CASE WHEN medicaid_category IN('112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_moved_outof_state_112_113,
+ SUM(CASE WHEN offender_location_type = 'DOC' AND medicaid_category IN('112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_doc_moved_outof_state_112_113,         
+ SUM(CASE WHEN offender_location_type = 'SCB' AND medicaid_category IN('112','113') AND UPPER(COALESCE(offender_proposed_address_state,'VA')) != 'VA' THEN 1 ELSE 0 END) count_scb_moved_outof_state_112_113  
 FROM (SELECT d_year,
         d_month,
         TRIM(CONCAT(d_month_name,'-',d_year)) d_month_year,
@@ -71,4 +91,36 @@ FROM (SELECT d_year,
       AND d_date <= LAST_DAY(current_date(),'week')) dd
  JOIN coverva_dmas.dmas_file_log fl ON dd.d_date = CAST(fl.file_date AS DATE) AND fl.filename_prefix = 'CVIU_DAILY_RELEASE' 
  JOIN coverva_dmas.cviu_daily_release_full_load dr  ON fl.filename = UPPER(dr.filename)
-GROUP BY d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_name;
+GROUP BY d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_name)
+SELECT d_year,d_quarter,d_month_year,d_yearmonth_num,week_ending,d_date,d_day_name,
+ count_records,
+ count_doc_records,
+ count_scb_records,
+ count_release_process,
+ count_doc_release_process,
+ count_scb_release_process,
+ count_transfer_process,         
+ count_doc_transfer_process, 
+ count_scb_transfer_process, 
+ count_moved_outof_state,
+ count_doc_moved_outof_state,         
+ count_scb_moved_outof_state,
+ count_release_process_112_113,
+ count_doc_release_process_112_113,
+ count_scb_release_process_112_113,
+ count_transfer_process_112_113,         
+ count_doc_transfer_process_112_113, 
+ count_scb_transfer_process_112_113, 
+ count_moved_outof_state_108_109,
+ count_doc_moved_outof_state_108_109,         
+ count_scb_moved_outof_state_108_109,  
+ count_moved_outof_state_112_113,
+ count_doc_moved_outof_state_112_113,         
+ count_scb_moved_outof_state_112_113,
+ CASE WHEN count_release_process > 0 THEN count_release_process - count_moved_outof_state_108_109 ELSE 0 END medicaid_community_coverage_108_109,
+ CASE WHEN count_doc_release_process > 0 THEN count_doc_release_process - count_doc_moved_outof_state_108_109 ELSE 0 END doc_medicaid_community_coverage_108_109,
+ CASE WHEN count_scb_release_process > 0 THEN count_scb_release_process - count_scb_moved_outof_state_108_109 ELSE 0 END scb_medicaid_community_coverage_108_109, 
+ CASE WHEN count_release_process_112_113 > 0 THEN count_release_process_112_113 - count_moved_outof_state_112_113 ELSE 0 END medicaid_community_coverage_112_113,
+ CASE WHEN count_doc_release_process_112_113 > 0 THEN count_doc_release_process_112_113 - count_doc_moved_outof_state_112_113 ELSE 0 END doc_medicaid_community_coverage_112_113,
+ CASE WHEN count_scb_release_process_112_113 > 0 THEN count_scb_release_process_112_113 - count_scb_moved_outof_state_112_113 ELSE 0 END scb_medicaid_community_coverage_112_113 
+FROM dr;
