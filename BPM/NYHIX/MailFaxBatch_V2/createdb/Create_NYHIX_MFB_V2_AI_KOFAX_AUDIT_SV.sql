@@ -1,4 +1,5 @@
-CREATE OR REPLACE VIEW MAXDAT.NYHIX_MFB_V2_AI_KOFAX_AUDIT_SV  AS 
+
+  CREATE OR REPLACE VIEW MAXDAT.NYHIX_MFB_V2_AI_KOFAX_AUDIT_SV  AS 
   WITH  RM_LAST_MODULE AS (
             SELECT RMDTS.function_name function_name,
                 to_date(substr(RMDTS.mailroom_received_dt,1,10),'yyyy-mm-dd') mailroom_received_dt,
