@@ -35,6 +35,7 @@ WITH inv AS(SELECT da.tracking_number AS t_number
      ELSE COALESCE(MIN(application_processing_end_date) OVER(PARTITION BY da.tracking_number),application_processing_end_date,max_file_inv_date) END AS first_complete_date
   ,file_inventory_date
   ,ROW_NUMBER() OVER (PARTITION BY da.tracking_number ORDER BY da.file_inventory_date DESC,da.dmas_application_id DESC) record_sequence 
+  ,ROW_NUMBER() OVER (PARTITION BY da.tracking_number ORDER BY da.file_inventory_date,da.dmas_application_id) record_sequence_ascending 
   ,CASE WHEN initial_review_complete_date IS NULL THEN NULL 
     ELSE CONCAT(EXTRACT(MONTH FROM initial_review_complete_date),'/',EXTRACT (DAY FROM initial_review_complete_date),'/', EXTRACT (YEAR FROM initial_review_complete_date)) END AS initial_review_date_char
   ,--CASE WHEN current_state = 'Complete - Needs Research' THEN 'Research' 
@@ -229,5 +230,6 @@ SELECT inv.t_number,
   inv.denied_state_first_date_char,
   inv.ttldss_state_first_date_char,
   inv.nma_state_first_date_char,
-  inv.complete_state_first_date_char
+  inv.complete_state_first_date_char,
+  inv.record_sequence_ascending
 FROM  inv;            
