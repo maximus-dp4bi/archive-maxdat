@@ -73,7 +73,7 @@ SELECT case_number,id,case_type,unit,date_dispositioned disposition_date,
         LAG(task_status) OVER(PARTITION BY case_number ORDER BY date_dispositioned,id) prior_task_status,
         LAG(why) OVER(PARTITION BY case_number ORDER BY date_dispositioned,id) prior_why
        FROM coverva_mio.rpt_riva
-      WHERE case_type NOT LIKE 'QA%'
+      WHERE UPPER(case_type) NOT LIKE 'QA%'
 QUALIFY ROW_NUMBER() OVER (PARTITION BY date_dispositioned,case_number ORDER BY id DESC) = 1 )
 SELECT DISTINCT RE.DISPOSITION_DATE
 ,EX.CURRENT_RENEWAL_DATE  AS RENEWAL_DATE

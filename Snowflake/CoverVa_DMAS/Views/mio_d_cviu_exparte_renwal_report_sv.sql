@@ -145,9 +145,10 @@ SELECT CASE_NUMBER
 ,UNIT
 ,DATE_DISPOSITIONED
 FROM (SELECT case_number,id,case_type,unit,date_dispositioned,
-        CASE WHEN regexp_instr(disposition,'--',1,1) = 0 THEN disposition ELSE SUBSTR(disposition,1,regexp_instr(disposition,'--',1,1)-1)  END task_status
+       -- CASE WHEN regexp_instr(disposition,'--',1,1) = 0 THEN disposition ELSE SUBSTR(disposition,1,regexp_instr(disposition,'--',1,1)-1)  END task_status
+       task_status
        FROM coverva_mio.rpt_riva
-      WHERE case_type != 'QA'
+      WHERE UPPER(case_type) NOT LIKE 'QA%'
      AND TASK_STATUS IN ('ABD Approved', 'Cancelled Coverage', 'Coverage Reinstated', 'Ex Parte', 'Manual Ex Parte','Non Ex Parte Approval', 'Transferred to LDSS',
               'ABD Mailed','Other','Other Transfer','Pending','Pending Closure','Sent Manual Renewal Packet','Approved','Denied','Research Completed No Action Taken',
               'Research Complete No Action Taken','Changes Completed')  ) cp
